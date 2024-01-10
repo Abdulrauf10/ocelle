@@ -23,7 +23,7 @@ export default function HowWorks() {
               ensure your dog gets nothing less than the quality nutrition they deserve.
             </p>
             <div className="mt-[20px]">
-              <Button>Get Started</Button>
+              <Button href="/get-started">Get Started</Button>
             </div>
           </div>
           <div className="w-3/5 self-start pb-[2vw] max-lg:w-full">
@@ -42,7 +42,7 @@ export default function HowWorks() {
           maximum benefits from their diet.
         </p>
         <div className="mt-[20px]">
-          <Button>Get Started</Button>
+          <Button href="/get-started">Get Started</Button>
         </div>
       </Section>
       <Section
@@ -61,7 +61,7 @@ export default function HowWorks() {
           dog&apos;s needs, as desired. After all, you know your dog best of all!
         </p>
         <div className="mt-[20px]">
-          <Button>Get Started</Button>
+          <Button href="/get-started">Get Started</Button>
         </div>
       </Section>
       <Block className="bg-[#F8F3EB]">
@@ -78,9 +78,7 @@ export default function HowWorks() {
                 <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
                   <Image alt="Full Plan Meal" src="/meal-plan/full-plan.jpg" fill />
                 </div>
-                <p className="mt-[30px] text-[24px] text-[#269D9E]">
-                  <strong>FRESH FULL PLAN</strong>
-                </p>
+                <h3 className="mt-[30px] text-[24px] font-bold text-[#269D9E]">FRESH FULL PLAN</h3>
                 <p className="mt-[10px]">
                   Everything needed in one simple serving. Reap the full benefits of fresh,
                   nutritious meals for your dog, meticulously crafted and portioned by experts.
@@ -92,9 +90,7 @@ export default function HowWorks() {
                 <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
                   <Image alt="Full Plan Meal" src="/meal-plan/half-plan.jpg" fill />
                 </div>
-                <p className="mt-[30px] text-[24px] text-[#269D9E]">
-                  <strong>FRESH HALF PLAN</strong>
-                </p>
+                <h3 className="mt-[30px] text-[24px] font-bold text-[#269D9E]">FRESH HALF PLAN</h3>
                 <p className="mt-[10px]">
                   Everything needed to supplement your dog’s current diet! Reinvigorate your
                   dog&apos;s current meals with a fresh, nutrient-packed addition.
@@ -103,7 +99,7 @@ export default function HowWorks() {
             </div>
           </div>
           <div className="mt-[20px] text-center">
-            <Button>Get Started</Button>
+            <Button href="/get-started">Get Started</Button>
           </div>
         </Container>
       </Block>

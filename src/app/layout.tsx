@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
 import { Jost, Open_Sans } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
-import Notice from '@/components/Notice';
 import clsx from 'clsx';
 
 const jost = Jost({ subsets: ['latin'] });
@@ -20,12 +17,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={clsx(jost.className, openSans.variable)}>
-        <Notice />
-        <Header />
-        {children}
-        <Footer />
-      </body>
+      <body className={clsx(jost.className, openSans.variable)}>{children}</body>
     </html>
   );
 }

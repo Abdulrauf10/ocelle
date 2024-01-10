@@ -4,6 +4,10 @@ import Link from 'next/link';
 import React from 'react';
 import Container from './Container';
 
+interface FooterProps {
+  hideNav?: boolean;
+}
+
 function FooterLink({ href, children }: React.PropsWithChildren<{ href: string }>) {
   return (
     <Link href={href} className="mt-[20px] block">
@@ -12,60 +16,62 @@ function FooterLink({ href, children }: React.PropsWithChildren<{ href: string }
   );
 }
 
-export default function Footer() {
+export default function Footer({ hideNav }: FooterProps) {
   return (
     <footer className="bg-primary pb-[60px] pt-[30px] text-white">
       <Container>
-        <div className="flex flex-wrap items-start justify-between gap-[30px]">
-          <div className="py-[20px] [&_a:hover]:underline">
-            <div className="font-bold uppercase">Product</div>
-            <FooterLink href="/how-works">How It Works</FooterLink>
-            <FooterLink href="#">Recipes</FooterLink>
-            <FooterLink href="/faq">FAQ</FooterLink>
-            <FooterLink href="#">Shipping & Deliveries</FooterLink>
-            <FooterLink href="#">Reviews</FooterLink>
-          </div>
-          <div className="py-[20px] [&_a:hover]:underline">
-            <div className="font-bold uppercase">About</div>
-            <FooterLink href="/why-fresh">Why Fresh?</FooterLink>
-            <FooterLink href="/our-story">Our Story</FooterLink>
-            <FooterLink href="#">My Account</FooterLink>
-            <FooterLink href="/careers">Careers</FooterLink>
-            <FooterLink href="/affiliate-program">Affiliate Program</FooterLink>
-          </div>
-          <div className="py-[20px] [&_a:hover]:underline">
-            <div className="font-bold uppercase">Contact</div>
-            <Link
-              href="#"
-              className="bg-email-contact mt-[20px] block bg-[length:18px_auto] bg-[left_center] bg-no-repeat pl-[26px]"
-            >
-              info@ocelle.dog
-            </Link>
-            <Link
-              href="#"
-              className="bg-phone-contact mt-[10px] block bg-[length:18px_auto] bg-[left_center] bg-no-repeat pl-[26px]"
-            >
-              Phone Number
-            </Link>
-            <Link
-              href="#"
-              className="bg-wts-contact mt-[10px] block bg-[length:18px_auto] bg-[left_center] bg-no-repeat pl-[26px]"
-            >
-              Whatsapp Number
-            </Link>
-          </div>
-          <div className="py-[20px]">
-            <div className="font-bold uppercase">Follow Us On</div>
-            <div className="mt-[20px]">
-              <Link href="#" className="mr-[20px] inline-block">
-                <Image alt="Instagram" src="/share-icon_ig.png" width={25} height={25} />
+        {!hideNav && (
+          <div className="flex flex-wrap items-start justify-between gap-[30px]">
+            <div className="py-[20px] [&_a:hover]:underline">
+              <div className="font-bold uppercase">Product</div>
+              <FooterLink href="/how-works">How It Works</FooterLink>
+              <FooterLink href="#">Recipes</FooterLink>
+              <FooterLink href="/faq">FAQ</FooterLink>
+              <FooterLink href="#">Shipping & Deliveries</FooterLink>
+              <FooterLink href="#">Reviews</FooterLink>
+            </div>
+            <div className="py-[20px] [&_a:hover]:underline">
+              <div className="font-bold uppercase">About</div>
+              <FooterLink href="/why-fresh">Why Fresh?</FooterLink>
+              <FooterLink href="/our-story">Our Story</FooterLink>
+              <FooterLink href="#">My Account</FooterLink>
+              <FooterLink href="/careers">Careers</FooterLink>
+              <FooterLink href="/affiliate-program">Affiliate Program</FooterLink>
+            </div>
+            <div className="py-[20px] [&_a:hover]:underline">
+              <div className="font-bold uppercase">Contact</div>
+              <Link
+                href="#"
+                className="mt-[20px] block bg-email-contact bg-[length:18px_auto] bg-[left_center] bg-no-repeat pl-[26px]"
+              >
+                info@ocelle.dog
               </Link>
-              <Link href="#" className="mr-[20px] inline-block">
-                <Image alt="Facebook" src="/share-icon_fb.png" width={25} height={25} />
+              <Link
+                href="#"
+                className="mt-[10px] block bg-phone-contact bg-[length:18px_auto] bg-[left_center] bg-no-repeat pl-[26px]"
+              >
+                Phone Number
+              </Link>
+              <Link
+                href="#"
+                className="mt-[10px] block bg-wts-contact bg-[length:18px_auto] bg-[left_center] bg-no-repeat pl-[26px]"
+              >
+                Whatsapp Number
               </Link>
             </div>
+            <div className="py-[20px]">
+              <div className="font-bold uppercase">Follow Us On</div>
+              <div className="mt-[20px]">
+                <Link href="#" className="mr-[20px] inline-block">
+                  <Image alt="Instagram" src="/share-icon_ig.png" width={25} height={25} />
+                </Link>
+                <Link href="#" className="mr-[20px] inline-block">
+                  <Image alt="Facebook" src="/share-icon_fb.png" width={25} height={25} />
+                </Link>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
         <div className="mt-[40px] text-center text-[20px] font-bold">
           Science in Every Recipe. <span className="whitespace-nowrap">Love in Every Bite.</span>
         </div>

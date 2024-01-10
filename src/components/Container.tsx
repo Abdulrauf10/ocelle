@@ -1,5 +1,13 @@
+import clsx from 'clsx';
 import React from 'react';
 
-export default function Container({ children }: React.PropsWithChildren<{}>) {
-  return <div className="max-w-8xl mx-auto px-[15px]">{children}</div>;
+interface ContainerProps {
+  className?: string;
+}
+
+export default function Container({
+  children,
+  className,
+}: React.PropsWithChildren<ContainerProps>) {
+  return <div className={clsx('mx-auto max-w-8xl px-[15px]', className)}>{children}</div>;
 }

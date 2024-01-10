@@ -22,7 +22,7 @@ export default function Home() {
               Fresh, deliciously good food. Approved by our Vet Nutritionist. Delivered to your
               door.
             </p>
-            <Button>Get Started</Button>
+            <Button href="/get-started">Get Started</Button>
           </div>
           <div className="w-2/5 max-md:w-full">
             <div className="w-3/4 max-md:m-auto">

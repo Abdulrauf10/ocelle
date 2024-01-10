@@ -91,7 +91,7 @@ export default function Header() {
               <Link href="#">中文</Link>
             </div>
             <Link
-              href="#"
+              href="/get-started"
               className="m-[10px] rounded-[15px] bg-secondary px-[15px] py-[2px] text-white"
             >
               Get Started

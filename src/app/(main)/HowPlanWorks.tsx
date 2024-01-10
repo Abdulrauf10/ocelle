@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import Container from '../components/Container';
-import Button from '../components/Button';
+import Container from '../../components/Container';
+import Button from '../../components/Button';
 import H2 from '@/components/Heading/H2';
 import Block from '@/components/Block';
 
