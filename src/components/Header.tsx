@@ -6,10 +6,31 @@ import Link from 'next/link';
 import React from 'react';
 
 export default function Header() {
+  const headerRef = React.useRef<HTMLElement>(null);
   const [isOpened, setIsOpened] = React.useState(false);
+  const [isSticky, setIsSticky] = React.useState(false);
+
+  React.useEffect(() => {
+    function handler() {
+      if (headerRef.current) {
+        const { top } = headerRef.current.getBoundingClientRect();
+        setIsSticky(top <= 0);
+      }
+    }
+    window.addEventListener('scroll', handler);
+    return () => {
+      window.removeEventListener('scroll', handler);
+    };
+  }, []);
 
   return (
-    <header className="relative z-30 bg-white px-[15px] py-[10px]">
+    <header
+      ref={headerRef}
+      className={clsx(
+        'sticky top-0 z-30 bg-white px-[15px] py-[10px]',
+        isSticky && 'shadow-[0_5px_10px_#ccc]'
+      )}
+    >
       <div className="flex flex-row items-center justify-between">
         <button className="mr-[26px] hidden max-xl:block" onClick={() => setIsOpened((v) => !v)}>
           <svg viewBox="0 0 26 20" width={26}>
@@ -29,7 +50,7 @@ export default function Header() {
           )}
         >
           <div className="h-full">
-            <ul className="[&_a:hover]:text-primary mx-[10px] flex w-full flex-row max-xl:mx-0 max-xl:flex-col max-xl:text-center [&_a:hover]:underline [&_li]:list-none">
+            <ul className="mx-[10px] flex w-full flex-row max-xl:mx-0 max-xl:flex-col max-xl:text-center [&_a:hover]:text-primary [&_a:hover]:underline [&_li]:list-none">
               <li>
                 <Link href="/how-works" className="block px-[20px] py-[10px]">
                   How It Works
@@ -63,15 +84,15 @@ export default function Header() {
             </ul>
           </div>
           <div className="flex flex-nowrap items-center max-xl:flex-col">
-            <div className="[&_a:hover]:text-primary m-[10px] max-xl:flex-col [&_a:hover]:underline [&_a]:px-[10px]">
-              <Link href="#" className="text-primary border-r border-[#ccc] underline">
+            <div className="m-[10px] max-xl:flex-col [&_a:hover]:text-primary [&_a:hover]:underline [&_a]:px-[10px]">
+              <Link href="#" className="border-r border-[#ccc] text-primary underline">
                 EN
               </Link>
               <Link href="#">中文</Link>
             </div>
             <Link
               href="#"
-              className="bg-secondary m-[10px] rounded-[15px] px-[15px] py-[2px] text-white"
+              className="m-[10px] rounded-[15px] bg-secondary px-[15px] py-[2px] text-white"
             >
               Get Started
             </Link>
