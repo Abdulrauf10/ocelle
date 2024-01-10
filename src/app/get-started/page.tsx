@@ -41,10 +41,10 @@ export default function GetStarted() {
           <div className="hidden max-lg:block">
             <Back onClick={back} />
           </div>
-          <Link href="/" className="px-[10px]">
+          <Link href="/" className="relative z-10 px-[10px]">
             <Image alt="Ocelle" src="/ocelle-logo.png" width={160} height={48} />
           </Link>
-          <Link href="#" className="mx-[10px] whitespace-nowrap hover:underline">
+          <Link href="#" className="relative z-10 mx-[10px] whitespace-nowrap hover:underline">
             Log In
           </Link>
           <div className="absolute bottom-0 flex w-full justify-center px-[280px] max-lg:static max-lg:mt-[30px] max-lg:px-0">
