@@ -18,7 +18,7 @@ export default function HowPlanWorks() {
               height={110}
               className="inline-block"
             />
-            <div className="mx-auto mt-[20px] h-9 w-9 rounded-[18px] bg-[#9a9486] text-center font-['Open_Sans'] text-[26px] font-bold leading-9 text-white">
+            <div className="font-open-sans mx-auto mt-[20px] h-9 w-9 rounded-[18px] bg-[#9a9486] text-center text-[26px] font-bold leading-9 text-white">
               1
             </div>
             <div className="mt-[10px] text-[24px] text-[#9a9486]">Tell us about your dog</div>
@@ -35,7 +35,7 @@ export default function HowPlanWorks() {
               height={110}
               className="inline-block"
             />
-            <div className="mx-auto mt-[20px] h-9 w-9 rounded-[18px] bg-[#9a9486] text-center font-['Open_Sans'] text-[26px] font-bold leading-9 text-white">
+            <div className="font-open-sans mx-auto mt-[20px] h-9 w-9 rounded-[18px] bg-[#9a9486] text-center text-[26px] font-bold leading-9 text-white">
               2
             </div>
             <div className="mt-[10px] text-[24px] text-[#9a9486]">Get your starter box</div>
@@ -52,7 +52,7 @@ export default function HowPlanWorks() {
               height={110}
               className="inline-block"
             />
-            <div className="mx-auto mt-[20px] h-9 w-9 rounded-[18px] bg-[#9a9486] text-center font-['Open_Sans'] text-[26px] font-bold leading-9 text-white">
+            <div className="font-open-sans mx-auto mt-[20px] h-9 w-9 rounded-[18px] bg-[#9a9486] text-center text-[26px] font-bold leading-9 text-white">
               3
             </div>
             <div className="mt-[10px] text-[24px] text-[#9a9486]">

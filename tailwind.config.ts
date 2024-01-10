@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss';
+import defaultTheme from 'tailwindcss/defaultTheme';
 
 const config: Config = {
   content: [
@@ -33,6 +34,9 @@ const config: Config = {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
         },
+      },
+      fontFamily: {
+        'open-sans': ['--font-open-sans', ...defaultTheme.fontFamily.sans],
       },
     },
   },
