@@ -3,8 +3,9 @@ import Container from '@/components/Container';
 import H2 from '@/components/Heading/H2';
 import Image from 'next/image';
 import Benefits from '../Benefits';
+import FragmentProps from '../FragmentProps';
 
-export default function WelcomeFragment() {
+export default function WelcomeFragment({ forward }: FragmentProps) {
   return (
     <Container className="text-center">
       <H2 className="text-primary">
@@ -25,7 +26,9 @@ export default function WelcomeFragment() {
         />
         This should only take about 2 minutes per dog.
       </p>
-      <Button className="mt-[30px]">Let’s Get Started</Button>
+      <Button className="mt-[30px]" onClick={() => forward()}>
+        Let’s Get Started
+      </Button>
       <Benefits />
     </Container>
   );

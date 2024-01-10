@@ -4,16 +4,20 @@ import React from 'react';
 
 interface ButtonProps {
   className?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 }
 
-interface LinkbuttonProps extends ButtonProps {
+interface LinkbuttonProps {
   href: string;
+  className?: string;
   target?: React.HTMLAttributeAnchorTarget;
+  onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
 export default function Button({
   children,
   className,
+  onClick,
   ...props
 }: React.PropsWithChildren<ButtonProps | LinkbuttonProps>) {
   const linkProps = props as LinkbuttonProps;
@@ -24,11 +28,20 @@ export default function Button({
 
   if (linkProps.href) {
     return (
-      <Link href={linkProps.href} className={classes} target={linkProps.target}>
+      <Link
+        href={linkProps.href}
+        className={classes}
+        target={linkProps.target}
+        onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
+      >
         {children}
       </Link>
     );
   }
 
-  return <button className={classes}>{children}</button>;
+  return (
+    <button className={classes} onClick={onClick as React.MouseEventHandler<HTMLButtonElement>}>
+      {children}
+    </button>
+  );
 }

@@ -26,6 +26,14 @@ export default function GetStarted() {
 
   const back = React.useCallback(() => setStage(stageHistories.pop() || Stage.Welcome), []);
 
+  const forward = React.useCallback(() => {
+    setStage((stage) => {
+      stageHistories.push(stage);
+      const nextStage = (stage as number) + 1;
+      return nextStage as Stage;
+    });
+  }, []);
+
   return (
     <div>
       <header className="px-[15px] py-[15px]">
@@ -50,7 +58,7 @@ export default function GetStarted() {
         </div>
       </header>
       <main className="py-[3vw] max-sm:py-[30px]">
-        {stage === Stage.Welcome && <WelcomeFragment />}
+        {stage === Stage.Welcome && <WelcomeFragment forward={forward} />}
         {stage === Stage.Dog && <DogFragment />}
         {stage === Stage.DogBasic && <DogBasicFragment />}
         {stage === Stage.DogAge && <DogAgeFragment />}
