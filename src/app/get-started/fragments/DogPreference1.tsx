@@ -130,7 +130,7 @@ export default function DogPreference1Fragment({ forward }: FragmentProps) {
         <Section title="How active is [Charlie]?">
           <div className="mx-auto mt-[40px] max-w-[640px]">
             <LineRadioGroup
-              name="bodyCondition"
+              name="active"
               rules={{ required: true }}
               control={control}
               radios={[
