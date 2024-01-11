@@ -72,7 +72,9 @@ export default function Footer({ hideNav }: FooterProps) {
             </div>
           </div>
         )}
-        <div className="mt-[40px] text-center text-[20px] font-bold">
+        <div
+          className={clsx('mt-[40px] text-center text-[20px] font-bold', hideNav && 'max-sm:mt-3')}
+        >
           Science in Every Recipe. <span className="whitespace-nowrap">Love in Every Bite.</span>
         </div>
         <div
@@ -81,7 +83,7 @@ export default function Footer({ hideNav }: FooterProps) {
             'my-[20px] h-[2px] w-full bg-[length:10px_2px] bg-repeat-x'
           )}
         ></div>
-        <div className="flex flex-wrap items-start justify-between gap-[30px]">
+        <div className="flex flex-wrap items-start justify-between gap-x-[30px] gap-y-[10px] max-sm:justify-center">
           <div>&copy; {new Date().getFullYear()} Ocelle Company Limited</div>
           <div className="[&_a:hover]:underline">
             <div className="mr-[20px] inline-block whitespace-nowrap">
