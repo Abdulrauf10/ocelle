@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion, type Variants } from 'framer-motion';
 import ProgressBar from './ProgressBar';
 import React from 'react';
 import Stage from './Stage';
@@ -82,6 +83,11 @@ const theme = createTheme({
   },
 });
 
+const backVariants: Variants = {
+  show: { opacity: 1, pointerEvents: 'all' },
+  hide: { opacity: 0, pointerEvents: 'none' },
+};
+
 const stageHistories: Stage[] = [];
 
 export default function GetStarted() {
@@ -113,9 +119,15 @@ export default function GetStarted() {
           {!(stage === Stage.Calculating || stage === Stage.ThankYou) && (
             <div className="absolute bottom-0 flex w-full justify-center px-[280px] max-lg:static max-lg:mt-[30px] max-lg:px-0">
               <div className="relative w-full max-w-[460px]">
-                <div className="absolute -left-[80px] max-lg:hidden">
+                <motion.div
+                  variants={backVariants}
+                  initial={stage === Stage.Welcome ? 'hide' : 'show'}
+                  animate={stage === Stage.Welcome ? 'hide' : 'show'}
+                  transition={{ duration: 0.1 }}
+                  className="absolute -left-[80px] select-none max-lg:hidden"
+                >
                   <Back onClick={back} />
-                </div>
+                </motion.div>
                 <ProgressBar stage={stage} />
               </div>
             </div>
