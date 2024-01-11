@@ -50,9 +50,9 @@ export default function ProgressBar({ stage }: ProgressBarProps) {
       <div className="w-1/4">
         <div className="px-1">
           <div className="text-center text-[18px] text-[#9A9486]">Dogs</div>
-          <div className="relative mx-auto h-[13px] w-[13px] rounded-full border-[1.2px] border-primary bg-white">
+          <div className="relative mx-auto h-[14px] w-[14px] rounded-full border-[1px] border-primary bg-white">
             {isDogStage(stage) && (
-              <div className="ml-[1.5px] mt-[1.5px] h-[8px] w-[8px] rounded-full bg-primary"></div>
+              <div className="ml-[2px] mt-[2px] h-[8px] w-[8px] rounded-full bg-primary"></div>
             )}
           </div>
         </div>
@@ -60,9 +60,9 @@ export default function ProgressBar({ stage }: ProgressBarProps) {
       <div className="w-1/4">
         <div className="px-1">
           <div className="text-center text-[18px] text-[#9A9486]">You</div>
-          <div className="relative mx-auto h-[13px] w-[13px] rounded-full border-[1.2px] border-primary bg-white">
+          <div className="relative mx-auto h-[14px] w-[14px] rounded-full border-[1px] border-primary bg-white">
             {isYouStage(stage) && (
-              <div className="ml-[1.5px] mt-[1.5px] h-[8px] w-[8px] rounded-full bg-primary"></div>
+              <div className="ml-[2px] mt-[2px] h-[8px] w-[8px] rounded-full bg-primary"></div>
             )}
           </div>
         </div>
@@ -70,9 +70,9 @@ export default function ProgressBar({ stage }: ProgressBarProps) {
       <div className="w-1/4">
         <div className="px-1">
           <div className="text-center text-[18px] text-[#9A9486]">Your Plan</div>
-          <div className="relative mx-auto h-[13px] w-[13px] rounded-full border-[1.2px] border-primary bg-white">
+          <div className="relative mx-auto h-[14px] w-[14px] rounded-full border-[1px] border-primary bg-white">
             {isYourPlanStage(stage) && (
-              <div className="ml-[1.5px] mt-[1.5px] h-[8px] w-[8px] rounded-full bg-primary"></div>
+              <div className="ml-[2px] mt-[2px] h-[8px] w-[8px] rounded-full bg-primary"></div>
             )}
           </div>
         </div>
@@ -80,9 +80,9 @@ export default function ProgressBar({ stage }: ProgressBarProps) {
       <div className="w-1/4">
         <div className="px-1">
           <div className="text-center text-[18px] text-[#9A9486]">Checkout</div>
-          <div className="relative mx-auto h-[13px] w-[13px] rounded-full border-[1.2px] border-primary bg-white">
+          <div className="relative mx-auto h-[14px] w-[14px] rounded-full border-[1px] border-primary bg-white">
             {isCheckoutStage(stage) && (
-              <div className="ml-[1.5px] mt-[1.5px] h-[8px] w-[8px] rounded-full bg-primary"></div>
+              <div className="ml-[2px] mt-[2px] h-[8px] w-[8px] rounded-full bg-primary"></div>
             )}
           </div>
         </div>
