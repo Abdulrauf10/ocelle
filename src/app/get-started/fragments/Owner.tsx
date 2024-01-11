@@ -59,7 +59,8 @@ export default function OwnerFragment({ forward }: FragmentProps) {
               rules={{
                 required: true,
                 pattern: {
-                  value: /\S+@\S+\.\S+/,
+                  value:
+                    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
                   message: '[This email doesn’t look correct, please update it.]',
                 },
               }}
