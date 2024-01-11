@@ -51,6 +51,15 @@ const theme = createTheme({
           paddingTop: 3,
           paddingBottom: 3,
         },
+        paper: {
+          marginTop: 8,
+        },
+        listbox: {
+          padding: 8,
+        },
+        option: {
+          borderRadius: 8,
+        },
       },
     },
     MuiOutlinedInput: {
