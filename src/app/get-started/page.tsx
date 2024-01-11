@@ -141,7 +141,7 @@ export default function GetStarted() {
         {stage === Stage.DogAge && <DogAgeFragment forward={forward} />}
         {stage === Stage.DogPreference1 && <DogPreference1Fragment />}
         {stage === Stage.DogPreference2 && <DogPreference2Fragment />}
-        {stage === Stage.Owner && <OwnerFragment />}
+        {stage === Stage.Owner && <OwnerFragment forward={forward} />}
         {stage === Stage.Calculating && <CalculatingFragment />}
         {stage === Stage.ChoosePlan && <ChoosePlanFragment />}
         {stage === Stage.RecommendedPlan && <RecommendedPlanFragment />}
