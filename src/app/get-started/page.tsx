@@ -63,13 +63,20 @@ const theme = createTheme({
         },
       },
     },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: '8px',
+        },
+      },
+    },
   },
 });
 
 const stageHistories: Stage[] = [];
 
 export default function GetStarted() {
-  const [stage, setStage] = React.useState<Stage>(Stage.DogBasic);
+  const [stage, setStage] = React.useState<Stage>(Stage.DogAge);
 
   const back = React.useCallback(() => setStage(stageHistories.pop() || Stage.Welcome), []);
 
@@ -110,7 +117,7 @@ export default function GetStarted() {
         {stage === Stage.Welcome && <WelcomeFragment forward={forward} />}
         {stage === Stage.Dog && <DogFragment forward={forward} />}
         {stage === Stage.DogBasic && <DogBasicFragment forward={forward} />}
-        {stage === Stage.DogAge && <DogAgeFragment />}
+        {stage === Stage.DogAge && <DogAgeFragment forward={forward} />}
         {stage === Stage.DogPreference1 && <DogPreference1Fragment />}
         {stage === Stage.DogPreference2 && <DogPreference2Fragment />}
         {stage === Stage.Owner && <OwnerFragment />}

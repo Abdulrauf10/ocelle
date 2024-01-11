@@ -5,6 +5,7 @@ import { TextField } from '@mui/material';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import FragmentProps from '../FragmentProps';
+import UnderlineButton from '../UnderlineButton';
 
 export default function DogFragment({ forward }: FragmentProps) {
   const { handleSubmit, control } = useForm();
@@ -28,12 +29,9 @@ export default function DogFragment({ forward }: FragmentProps) {
         />
         <Button className="mt-[40px]">Continue</Button>
       </form>
-      <button
-        className="mt-[40px] text-[18px] text-secondary underline"
-        onClick={() => setShowMoreDogs(true)}
-      >
+      <UnderlineButton className="mt-[40px]" onClick={() => setShowMoreDogs(true)}>
         I Have More Dogs
-      </button>
+      </UnderlineButton>
       {showMoreDogs && (
         <p className="mt-[20px] italic text-primary">
           [Great! After you have finalised the order details for your first dog,
