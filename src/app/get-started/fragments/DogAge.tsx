@@ -2,7 +2,6 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import FragmentProps from '../FragmentProps';
 import Container from '@/components/Container';
-import H2 from '@/components/Heading/H2';
 import Button from '@/components/Button';
 import { TextField } from '@mui/material';
 import UnderlineButton from '../UnderlineButton';

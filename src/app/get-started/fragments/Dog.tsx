@@ -1,6 +1,5 @@
 import Button from '@/components/Button';
 import Container from '@/components/Container';
-import H2 from '@/components/Heading/H2';
 import { TextField } from '@mui/material';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
