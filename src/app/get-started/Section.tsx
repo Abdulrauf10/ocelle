@@ -13,7 +13,9 @@ export default function Section({
 }: React.PropsWithChildren<SectionProps>) {
   return (
     <>
-      <H2 className="text-primary">{title}</H2>
+      <H2 className="text-primary" inline>
+        {title}
+      </H2>
       {description && <p className="mt-[20px] italic text-primary">{description}</p>}
       <div className="mt-[30px]">{children}</div>
     </>

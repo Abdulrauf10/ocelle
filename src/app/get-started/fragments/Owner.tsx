@@ -22,7 +22,9 @@ export default function OwnerFragment({ forward }: FragmentProps) {
 
   return (
     <Container className="text-center">
-      <H2 className="font-bold text-primary">Now, tell us a bit about you!</H2>
+      <H2 className="font-bold text-primary" inline>
+        Now, tell us a bit about you!
+      </H2>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-[50px]">
         <Section title="What’s your name?">
           <div className="mx-auto max-w-[320px]">
