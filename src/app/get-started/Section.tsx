@@ -2,8 +2,8 @@ import H2 from '@/components/Heading/H2';
 import React from 'react';
 
 interface SectionProps {
-  title: string;
-  description?: string;
+  title: React.ReactNode;
+  description?: React.ReactNode;
 }
 
 export default function Section({
