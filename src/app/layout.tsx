@@ -3,7 +3,7 @@ import { Jost, Open_Sans } from 'next/font/google';
 import './globals.css';
 import clsx from 'clsx';
 
-const jost = Jost({ subsets: ['latin'] });
+const jost = Jost({ subsets: ['latin'], variable: '--font-jost' });
 const openSans = Open_Sans({
   subsets: ['latin'],
   variable: '--font-open-sans',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={clsx(jost.className, openSans.variable)}>{children}</body>
+      <body className={clsx(jost.className, jost.variable, openSans.variable)}>{children}</body>
     </html>
   );
 }

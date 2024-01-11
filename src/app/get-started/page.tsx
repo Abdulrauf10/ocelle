@@ -18,11 +18,58 @@ import RecommendedPlanFragment from './fragments/RecommendedPlan';
 import CheckoutFragment from './fragments/Checkout';
 import ThankYouFragment from './fragments/ThankYou';
 import Back from './Back';
+import { ThemeProvider, createTheme } from '@mui/material';
+
+function PopupIcon() {
+  return (
+    <svg viewBox="0 0 13 7" width={20} className="px-0.5">
+      <polyline
+        className="fill-none stroke-[#a98d72]"
+        style={{ strokeLinecap: 'round', strokeLinejoin: 'round' }}
+        points="12.5 .5 6.5 6.5 .5 .5"
+      />
+    </svg>
+  );
+}
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'var(--font-jost)',
+  },
+  palette: {
+    primary: {
+      main: '#A98D72',
+    },
+  },
+  components: {
+    MuiAutocomplete: {
+      defaultProps: {
+        popupIcon: <PopupIcon />,
+      },
+      styleOverrides: {
+        inputRoot: {
+          paddingTop: 3,
+          paddingBottom: 3,
+        },
+      },
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: '8px',
+        },
+        input: {
+          padding: '14px 16.5px',
+        },
+      },
+    },
+  },
+});
 
 const stageHistories: Stage[] = [];
 
 export default function GetStarted() {
-  const [stage, setStage] = React.useState<Stage>(Stage.Welcome);
+  const [stage, setStage] = React.useState<Stage>(Stage.DogBasic);
 
   const back = React.useCallback(() => setStage(stageHistories.pop() || Stage.Welcome), []);
 
@@ -35,7 +82,7 @@ export default function GetStarted() {
   }, []);
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
       <header className="px-[15px] py-[15px]">
         <div className="relative flex flex-wrap items-center justify-between">
           <div className="hidden max-lg:block">
@@ -47,20 +94,22 @@ export default function GetStarted() {
           <Link href="#" className="relative z-10 mx-[10px] whitespace-nowrap hover:underline">
             Log In
           </Link>
-          <div className="absolute bottom-0 flex w-full justify-center px-[280px] max-lg:static max-lg:mt-[30px] max-lg:px-0">
-            <div className="relative w-full max-w-[460px]">
-              <div className="absolute -left-[80px] max-lg:hidden">
-                <Back onClick={back} />
+          {!(stage === Stage.Calculating || stage === Stage.ThankYou) && (
+            <div className="absolute bottom-0 flex w-full justify-center px-[280px] max-lg:static max-lg:mt-[30px] max-lg:px-0">
+              <div className="relative w-full max-w-[460px]">
+                <div className="absolute -left-[80px] max-lg:hidden">
+                  <Back onClick={back} />
+                </div>
+                <ProgressBar stage={stage} />
               </div>
-              <ProgressBar stage={stage} />
             </div>
-          </div>
+          )}
         </div>
       </header>
       <main className="py-[3vw] max-sm:py-[30px]">
         {stage === Stage.Welcome && <WelcomeFragment forward={forward} />}
-        {stage === Stage.Dog && <DogFragment />}
-        {stage === Stage.DogBasic && <DogBasicFragment />}
+        {stage === Stage.Dog && <DogFragment forward={forward} />}
+        {stage === Stage.DogBasic && <DogBasicFragment forward={forward} />}
         {stage === Stage.DogAge && <DogAgeFragment />}
         {stage === Stage.DogPreference1 && <DogPreference1Fragment />}
         {stage === Stage.DogPreference2 && <DogPreference2Fragment />}
@@ -71,6 +120,6 @@ export default function GetStarted() {
         {stage === Stage.Checkout && <CheckoutFragment />}
         {stage === Stage.ThankYou && <ThankYouFragment />}
       </main>
-    </div>
+    </ThemeProvider>
   );
 }
