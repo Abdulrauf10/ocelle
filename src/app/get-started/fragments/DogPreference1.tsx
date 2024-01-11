@@ -47,7 +47,7 @@ export default function DogPreference1Fragment({ forward }: FragmentProps) {
                 <TextField
                   type="number"
                   className="mr-2 w-20"
-                  inputProps={{ step: 0.1 }}
+                  inputProps={{ min: 0, step: 0.1 }}
                   {...field}
                   error={!!error}
                 />
