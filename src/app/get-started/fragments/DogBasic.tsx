@@ -7,6 +7,7 @@ import Button from '@/components/Button';
 import { Autocomplete, TextField } from '@mui/material';
 import RadioControl from '../controls/Radio';
 import Section from '../Section';
+import SectionBreak from '../SectionBreak';
 
 const breeds: string[] = [];
 
@@ -50,7 +51,7 @@ export default function DogBasicFragment({ forward }: FragmentProps) {
             </div>
           </div>
         </Section>
-        <div className="mt-[70px]"></div>
+        <SectionBreak />
         <Section title="[Charlie] is a ...">
           <div className="flex justify-center">
             <div className="px-3">
@@ -61,7 +62,7 @@ export default function DogBasicFragment({ forward }: FragmentProps) {
             </div>
           </div>
         </Section>
-        <div className="mt-[70px]"></div>
+        <SectionBreak />
         <Section title="Is [Charlie] ...">
           <div className="flex justify-center">
             <div className="px-3">
