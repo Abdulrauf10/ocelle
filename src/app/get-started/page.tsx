@@ -116,15 +116,20 @@ function AnimatePresenceDiv({ key, children }: React.PropsWithChildren<{ key: st
 export default function GetStarted() {
   const [stage, setStage] = React.useState<Stage>(Stage.Welcome);
 
-  const back = React.useCallback(() => setStage(stageHistories.pop() || Stage.Welcome), []);
+  const back = React.useCallback(() => {
+    console.log(stageHistories);
+    setStage(stageHistories.pop() || Stage.Welcome);
+  }, []);
 
   const forward = React.useCallback(() => {
-    setStage((stage) => {
+    if (stage !== Stage.Welcome) {
       stageHistories.push(stage);
+    }
+    setStage(() => {
       const nextStage = (stage as number) + 1;
       return nextStage as Stage;
     });
-  }, []);
+  }, [stage]);
 
   return (
     <ThemeProvider theme={theme}>
