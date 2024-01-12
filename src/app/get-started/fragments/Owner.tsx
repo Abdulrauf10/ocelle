@@ -36,18 +36,13 @@ export default function OwnerFragment({ forward }: FragmentProps) {
                 <TextField error={!!error} placeholder="First Name" fullWidth {...field} />
               )}
             />
+            <div className="mt-[20px]"></div>
             <Controller
               name="lastname"
               control={control}
               rules={{ required: true }}
               render={({ field, fieldState: { error } }) => (
-                <TextField
-                  error={!!error}
-                  placeholder="Last Name"
-                  fullWidth
-                  {...field}
-                  className="mt-[20px]"
-                />
+                <TextField error={!!error} placeholder="Last Name" fullWidth {...field} />
               )}
             />
           </div>
