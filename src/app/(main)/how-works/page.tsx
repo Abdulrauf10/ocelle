@@ -71,7 +71,7 @@ export default function HowWorks() {
             <div className="w-[45%] max-w-[520px] self-stretch p-[30px] max-lg:w-full">
               <div className="relative h-full w-full rounded-[40px] border border-[#269D9E] bg-white px-10 pb-10 pt-[70px] text-center">
                 <div className="absolute left-0 top-5 w-full text-center">
-                  <div className="font-open-sans inline-block rounded-[30px] bg-[#F2892A] px-[25px] py-[3px] text-center text-xl italic text-white">
+                  <div className="font-open-sans inline-block rounded-[30px] bg-secondary px-[25px] py-[3px] text-center text-xl italic text-white">
                     RECOMMENDED
                   </div>
                 </div>
