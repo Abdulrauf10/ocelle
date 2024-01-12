@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { motion, type Variants } from 'framer-motion';
+import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import ProgressBar from './ProgressBar';
 import React from 'react';
 import Stage from './Stage';
@@ -88,10 +88,33 @@ const backVariants: Variants = {
   hide: { opacity: 0, pointerEvents: 'none' },
 };
 
+const fragmentVariants: Variants = {
+  outside: {
+    opacity: 0,
+    x: 50,
+  },
+  enter: {
+    opacity: 1,
+    x: 0,
+  },
+  exit: {
+    opacity: 0,
+    x: -50,
+  },
+};
+
 const stageHistories: Stage[] = [];
 
+function AnimatePresenceDiv({ key, children }: React.PropsWithChildren<{ key: string }>) {
+  return (
+    <motion.div key={key} variants={fragmentVariants} initial="outside" animate="enter" exit="exit">
+      {children}
+    </motion.div>
+  );
+}
+
 export default function GetStarted() {
-  const [stage, setStage] = React.useState<Stage>(Stage.DogAge);
+  const [stage, setStage] = React.useState<Stage>(Stage.Welcome);
 
   const back = React.useCallback(() => setStage(stageHistories.pop() || Stage.Welcome), []);
 
@@ -135,18 +158,68 @@ export default function GetStarted() {
         </div>
       </header>
       <main className="py-[3vw] max-sm:py-[30px]">
-        {stage === Stage.Welcome && <WelcomeFragment forward={forward} />}
-        {stage === Stage.Dog && <DogFragment forward={forward} />}
-        {stage === Stage.DogBasic && <DogBasicFragment forward={forward} />}
-        {stage === Stage.DogAge && <DogAgeFragment forward={forward} />}
-        {stage === Stage.DogPreference1 && <DogPreference1Fragment forward={forward} />}
-        {stage === Stage.DogPreference2 && <DogPreference2Fragment forward={forward} />}
-        {stage === Stage.Owner && <OwnerFragment forward={forward} />}
-        {stage === Stage.Calculating && <CalculatingFragment />}
-        {stage === Stage.ChoosePlan && <ChoosePlanFragment />}
-        {stage === Stage.RecommendedPlan && <RecommendedPlanFragment />}
-        {stage === Stage.Checkout && <CheckoutFragment />}
-        {stage === Stage.ThankYou && <ThankYouFragment />}
+        <AnimatePresence mode="wait" initial={false}>
+          {stage === Stage.Welcome && (
+            <AnimatePresenceDiv key="welcome">
+              <WelcomeFragment forward={forward} />
+            </AnimatePresenceDiv>
+          )}
+          {stage === Stage.Dog && (
+            <AnimatePresenceDiv key="dog">
+              <DogFragment forward={forward} />
+            </AnimatePresenceDiv>
+          )}
+          {stage === Stage.DogBasic && (
+            <AnimatePresenceDiv key="dog-basic">
+              <DogBasicFragment forward={forward} />
+            </AnimatePresenceDiv>
+          )}
+          {stage === Stage.DogAge && (
+            <AnimatePresenceDiv key="dog-age">
+              <DogAgeFragment forward={forward} />
+            </AnimatePresenceDiv>
+          )}
+          {stage === Stage.DogPreference1 && (
+            <AnimatePresenceDiv key="dog-pref-1">
+              <DogPreference1Fragment forward={forward} />
+            </AnimatePresenceDiv>
+          )}
+          {stage === Stage.DogPreference2 && (
+            <AnimatePresenceDiv key="dog-pref-2">
+              <DogPreference2Fragment forward={forward} />
+            </AnimatePresenceDiv>
+          )}
+          {stage === Stage.Owner && (
+            <AnimatePresenceDiv key="owner">
+              <OwnerFragment forward={forward} />
+            </AnimatePresenceDiv>
+          )}
+          {stage === Stage.Calculating && (
+            <AnimatePresenceDiv key="calcuating">
+              <CalculatingFragment />
+            </AnimatePresenceDiv>
+          )}
+          {stage === Stage.ChoosePlan && (
+            <AnimatePresenceDiv key="choose-plan">
+              <ChoosePlanFragment />
+            </AnimatePresenceDiv>
+          )}
+          {stage === Stage.RecommendedPlan && (
+            <AnimatePresenceDiv key="recomm-plan">
+              <RecommendedPlanFragment />
+            </AnimatePresenceDiv>
+          )}
+          {stage === Stage.Checkout && (
+            <AnimatePresenceDiv key="checkout">
+              <CheckoutFragment />
+            </AnimatePresenceDiv>
+          )}
+          {stage === Stage.ThankYou && (
+            <AnimatePresenceDiv key="thank-you">
+              <ThankYouFragment />
+            </AnimatePresenceDiv>
+          )}
+        </AnimatePresence>
       </main>
     </ThemeProvider>
   );
