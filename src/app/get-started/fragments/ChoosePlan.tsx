@@ -14,6 +14,7 @@ interface PlanProps {
   pricePerDay: number;
   discountedPricePerDay?: number;
   recommended?: boolean;
+  error: boolean;
   selected: boolean;
   onSelect(): void;
 }
@@ -24,6 +25,7 @@ function Plan({
   pricePerDay,
   discountedPricePerDay,
   recommended,
+  error,
   selected,
   onSelect,
   children,
@@ -32,7 +34,7 @@ function Plan({
     <div
       className={clsx(
         'mx-auto max-w-[405px] cursor-pointer rounded-[30px] border p-[24px] text-left shadow-[0_0_5px_rgba(0,0,0,0.4)]',
-        selected ? 'border-primary' : 'border-transparent'
+        error ? 'border-[#f00]' : selected ? 'border-primary' : 'border-transparent'
       )}
       tabIndex={0}
       onClick={onSelect}
@@ -131,6 +133,7 @@ export default function ChoosePlanFragment({ forward }: FragmentProps) {
               picture="/meal-plan/full-plan.jpg"
               pricePerDay={36}
               discountedPricePerDay={18}
+              error={!!error}
               recommended
               selected={selected === 0}
               onSelect={() => setSelected(0)}
@@ -145,6 +148,7 @@ export default function ChoosePlanFragment({ forward }: FragmentProps) {
               picture="/meal-plan/half-plan.jpg"
               pricePerDay={25}
               discountedPricePerDay={12.5}
+              error={!!error}
               selected={selected === 1}
               onSelect={() => setSelected(1)}
             >
