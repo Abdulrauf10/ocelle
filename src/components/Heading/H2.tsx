@@ -12,7 +12,7 @@ export default function H2({ children, inline, className }: React.PropsWithChild
       className={clsx(
         'font-bold',
         inline
-          ? 'text-[2vw] leading-[2.25vw] max-lg:text-[28px] max-lg:leading-[34px]'
+          ? 'text-[34px] leading-[40px] max-lg:text-[28px] max-lg:leading-[34px]'
           : 'text-[3vw] leading-[3.25vw] max-md:text-[32px] max-md:leading-[38px]',
         className
       )}
