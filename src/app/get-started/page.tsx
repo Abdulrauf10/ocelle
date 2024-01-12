@@ -114,7 +114,7 @@ function AnimatePresenceDiv({ key, children }: React.PropsWithChildren<{ key: st
 }
 
 export default function GetStarted() {
-  const [stage, setStage] = React.useState<Stage>(Stage.Welcome);
+  const [stage, setStage] = React.useState<Stage>(Stage.ChoosePlan);
 
   const back = React.useCallback(() => {
     console.log(stageHistories);
@@ -206,7 +206,7 @@ export default function GetStarted() {
           )}
           {stage === Stage.ChoosePlan && (
             <AnimatePresenceDiv key="choose-plan">
-              <ChoosePlanFragment />
+              <ChoosePlanFragment forward={forward} />
             </AnimatePresenceDiv>
           )}
           {stage === Stage.RecommendedPlan && (
