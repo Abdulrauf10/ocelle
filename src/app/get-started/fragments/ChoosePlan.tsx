@@ -6,6 +6,7 @@ import clsx from 'clsx';
 import Tick from '@/app/tick.svg';
 import Button from '@/components/Button';
 import FragmentProps from '../FragmentProps';
+import Price from '../Price';
 
 interface PlanProps {
   title: string;
@@ -69,8 +70,8 @@ function Plan({
           </div>
           <p className="mt-[8px]">
             Starting at:
-            <br />[<span className="text-[#f00] line-through">${pricePerDay}</span>{' '}
-            <span className="font-bold text-[#269D9E]">${discountedPricePerDay}</span>]
+            <br />
+            <Price price={pricePerDay} discountedPrice={discountedPricePerDay} />
             <span className="font-bold text-[#269D9E]">/day</span>.
           </p>
           <p className="mt-[8px]">
@@ -105,7 +106,7 @@ export default function ChoosePlanFragment({ forward }: FragmentProps) {
 
   React.useEffect(() => {
     if (firstUpdate.current && selected == null) {
-      setError('[You must select either one of plan]');
+      setError('[You must select either one of the plan]');
       firstUpdate.current = false;
     } else {
       setError(undefined);
@@ -114,7 +115,7 @@ export default function ChoosePlanFragment({ forward }: FragmentProps) {
 
   const onSubmit = React.useCallback(() => {
     if (selected == null) {
-      setError('[You must select either one of plan]');
+      setError('[You must select either one of the plan]');
     } else {
       forward();
     }
