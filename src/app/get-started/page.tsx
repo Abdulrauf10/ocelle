@@ -168,7 +168,7 @@ export default function GetStarted() {
           )}
         </div>
       </header>
-      <main className="py-[3vw] max-sm:py-[30px]">
+      <main className="overflow-hidden py-[3vw] max-sm:py-[30px]">
         <AnimatePresence mode="wait" initial={false}>
           {stage === Stage.Welcome && (
             <AnimatePresenceDiv name="welcome">
