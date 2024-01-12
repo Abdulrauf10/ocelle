@@ -33,7 +33,7 @@ function Plan({
   return (
     <div
       className={clsx(
-        'mx-auto max-w-[405px] cursor-pointer rounded-[30px] border p-[24px] text-left shadow-[0_0_5px_rgba(0,0,0,0.4)]',
+        'mx-auto flex h-full max-w-[405px] cursor-pointer flex-col rounded-[30px] border p-[24px] text-left shadow-[0_0_5px_rgba(0,0,0,0.4)]',
         error ? 'border-[#f00]' : selected ? 'border-primary' : 'border-transparent'
       )}
       tabIndex={0}
@@ -83,7 +83,7 @@ function Plan({
           </p>
         </div>
       </div>
-      <p className="mt-[20px]">{children}</p>
+      <p className="mt-[20px] h-full">{children}</p>
       <div className="font-open-sans mt-[20px] flex justify-end text-center text-white">
         <div
           className={clsx(
