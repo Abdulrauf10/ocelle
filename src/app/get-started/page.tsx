@@ -105,16 +105,22 @@ const fragmentVariants: Variants = {
 
 const stageHistories: Stage[] = [];
 
-function AnimatePresenceDiv({ key, children }: React.PropsWithChildren<{ key: string }>) {
+function AnimatePresenceDiv({ name, children }: React.PropsWithChildren<{ name: string }>) {
   return (
-    <motion.div key={key} variants={fragmentVariants} initial="outside" animate="enter" exit="exit">
+    <motion.div
+      key={name}
+      variants={fragmentVariants}
+      initial="outside"
+      animate="enter"
+      exit="exit"
+    >
       {children}
     </motion.div>
   );
 }
 
 export default function GetStarted() {
-  const [stage, setStage] = React.useState<Stage>(Stage.ChoosePlan);
+  const [stage, setStage] = React.useState<Stage>(Stage.Welcome);
 
   const back = React.useCallback(() => {
     console.log(stageHistories);
@@ -165,62 +171,62 @@ export default function GetStarted() {
       <main className="py-[3vw] max-sm:py-[30px]">
         <AnimatePresence mode="wait" initial={false}>
           {stage === Stage.Welcome && (
-            <AnimatePresenceDiv key="welcome">
+            <AnimatePresenceDiv name="welcome">
               <WelcomeFragment forward={forward} />
             </AnimatePresenceDiv>
           )}
           {stage === Stage.Dog && (
-            <AnimatePresenceDiv key="dog">
+            <AnimatePresenceDiv name="dog">
               <DogFragment forward={forward} />
             </AnimatePresenceDiv>
           )}
           {stage === Stage.DogBasic && (
-            <AnimatePresenceDiv key="dog-basic">
+            <AnimatePresenceDiv name="dog-basic">
               <DogBasicFragment forward={forward} />
             </AnimatePresenceDiv>
           )}
           {stage === Stage.DogAge && (
-            <AnimatePresenceDiv key="dog-age">
+            <AnimatePresenceDiv name="dog-age">
               <DogAgeFragment forward={forward} />
             </AnimatePresenceDiv>
           )}
           {stage === Stage.DogPreference1 && (
-            <AnimatePresenceDiv key="dog-pref-1">
+            <AnimatePresenceDiv name="dog-pref-1">
               <DogPreference1Fragment forward={forward} />
             </AnimatePresenceDiv>
           )}
           {stage === Stage.DogPreference2 && (
-            <AnimatePresenceDiv key="dog-pref-2">
+            <AnimatePresenceDiv name="dog-pref-2">
               <DogPreference2Fragment forward={forward} />
             </AnimatePresenceDiv>
           )}
           {stage === Stage.Owner && (
-            <AnimatePresenceDiv key="owner">
+            <AnimatePresenceDiv name="owner">
               <OwnerFragment forward={forward} />
             </AnimatePresenceDiv>
           )}
           {stage === Stage.Calculating && (
-            <AnimatePresenceDiv key="calcuating">
+            <AnimatePresenceDiv name="calcuating">
               <CalculatingFragment />
             </AnimatePresenceDiv>
           )}
           {stage === Stage.ChoosePlan && (
-            <AnimatePresenceDiv key="choose-plan">
+            <AnimatePresenceDiv name="choose-plan">
               <ChoosePlanFragment forward={forward} />
             </AnimatePresenceDiv>
           )}
           {stage === Stage.RecommendedPlan && (
-            <AnimatePresenceDiv key="recomm-plan">
+            <AnimatePresenceDiv name="recomm-plan">
               <RecommendedPlanFragment />
             </AnimatePresenceDiv>
           )}
           {stage === Stage.Checkout && (
-            <AnimatePresenceDiv key="checkout">
+            <AnimatePresenceDiv name="checkout">
               <CheckoutFragment />
             </AnimatePresenceDiv>
           )}
           {stage === Stage.ThankYou && (
-            <AnimatePresenceDiv key="thank-you">
+            <AnimatePresenceDiv name="thank-you">
               <ThankYouFragment />
             </AnimatePresenceDiv>
           )}
