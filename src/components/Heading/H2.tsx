@@ -2,13 +2,15 @@ import clsx from 'clsx';
 import React from 'react';
 
 interface H2Props {
+  id?: string;
   className?: string;
   inline?: boolean;
 }
 
-export default function H2({ children, inline, className }: React.PropsWithChildren<H2Props>) {
+export default function H2({ id, children, inline, className }: React.PropsWithChildren<H2Props>) {
   return (
     <h2
+      id={id}
       className={clsx(
         'font-bold',
         inline

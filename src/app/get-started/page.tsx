@@ -217,7 +217,7 @@ export default function GetStarted() {
           )}
           {stage === Stage.RecommendedPlan && (
             <AnimatePresenceDiv name="recomm-plan">
-              <RecommendedPlanFragment />
+              <RecommendedPlanFragment forward={forward} />
             </AnimatePresenceDiv>
           )}
           {stage === Stage.Checkout && (

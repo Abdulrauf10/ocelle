@@ -23,6 +23,10 @@ const config: Config = {
         'newsletter-icon': 'url("./newsletter-icon.png")',
         'newsletter-btn': 'url("./newsletter-btn.png")',
       },
+      content: {
+        dotted:
+          '".........................................................................................................."',
+      },
       screens: {
         xs: '480px',
       },

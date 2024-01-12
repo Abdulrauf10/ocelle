@@ -16,6 +16,8 @@ interface RadioControl {
   >;
   value: string | number;
   isBlock?: boolean;
+  error?: boolean;
+  className?: string;
 }
 
 export default function RadioControl({
@@ -25,6 +27,8 @@ export default function RadioControl({
   rules,
   value,
   isBlock,
+  error,
+  className,
 }: RadioControl) {
   const { field } = useController({ name, control, rules });
   const isSelected = field.value == value;
@@ -32,13 +36,16 @@ export default function RadioControl({
   return (
     <label
       className={clsx(
-        'flex items-center',
+        'flex cursor-pointer items-center',
         isBlock && 'min-w-[140px] rounded-full border px-[15px] py-[5px]',
         isBlock
-          ? isSelected
-            ? 'border-primary bg-primary text-white'
-            : 'border-[#A98D72] bg-[#F6F4F1] text-[#A98D72]'
-          : 'text-[#A98D72]'
+          ? error
+            ? 'border-[#f00] bg-white text-[#f00]'
+            : isSelected
+              ? 'border-primary bg-primary text-white'
+              : 'border-[#A98D72] bg-[#F6F4F1] text-[#A98D72]'
+          : 'text-[#A98D72]',
+        className
       )}
     >
       <div
