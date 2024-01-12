@@ -23,6 +23,9 @@ const config: Config = {
         'newsletter-icon': 'url("./newsletter-icon.png")',
         'newsletter-btn': 'url("./newsletter-btn.png")',
       },
+      screens: {
+        xs: '480px',
+      },
       maxWidth: {
         '8xl': '1440px',
       },
