@@ -46,13 +46,13 @@ function isCheckoutStage(stage: Stage) {
 export default function ProgressBar({ stage }: ProgressBarProps) {
   return (
     <div className="relative flex w-full flex-1 whitespace-nowrap">
-      <div className="absolute bottom-[5.5px] h-[2px] w-full bg-primary"></div>
+      <div className="absolute bottom-[5.5px] h-0.5 w-full bg-primary"></div>
       <div className="w-1/4">
         <div className="px-1">
           <div className="text-center text-lg text-[#9A9486]">Dogs</div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isDogStage(stage) && (
-              <div className="ml-[2px] mt-[2px] h-[8px] w-[8px] rounded-full bg-primary"></div>
+              <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>
             )}
           </div>
         </div>
@@ -62,7 +62,7 @@ export default function ProgressBar({ stage }: ProgressBarProps) {
           <div className="text-center text-lg text-[#9A9486]">You</div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isYouStage(stage) && (
-              <div className="ml-[2px] mt-[2px] h-[8px] w-[8px] rounded-full bg-primary"></div>
+              <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>
             )}
           </div>
         </div>
@@ -72,7 +72,7 @@ export default function ProgressBar({ stage }: ProgressBarProps) {
           <div className="text-center text-lg text-[#9A9486]">Your Plan</div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isYourPlanStage(stage) && (
-              <div className="ml-[2px] mt-[2px] h-[8px] w-[8px] rounded-full bg-primary"></div>
+              <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>
             )}
           </div>
         </div>
@@ -82,7 +82,7 @@ export default function ProgressBar({ stage }: ProgressBarProps) {
           <div className="text-center text-lg text-[#9A9486]">Checkout</div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isCheckoutStage(stage) && (
-              <div className="ml-[2px] mt-[2px] h-[8px] w-[8px] rounded-full bg-primary"></div>
+              <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>
             )}
           </div>
         </div>

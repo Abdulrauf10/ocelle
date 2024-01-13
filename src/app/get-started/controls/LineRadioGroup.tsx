@@ -35,11 +35,11 @@ function LineRadio({
   return (
     <label className="flex flex-1 flex-col">
       <div className="flex h-full justify-center px-1">{children}</div>
-      <div className="relative mt-[30px] flex items-center justify-center">
-        <div className="absolute h-[2px] w-full bg-primary"></div>
+      <div className="relative mt-6 flex items-center justify-center">
+        <div className="absolute h-0.5 w-full bg-primary"></div>
         <div
           className={clsx(
-            'relative mx-auto h-[18px] w-[18px] rounded-full border-[2px] border-primary',
+            'relative mx-auto h-4 w-4 rounded-full border border-primary',
             isSelected ? 'bg-secondary' : 'bg-white'
           )}
         >
@@ -51,7 +51,7 @@ function LineRadio({
           />
         </div>
       </div>
-      <div className="mt-[5px] whitespace-nowrap px-1">{label}</div>
+      <div className="mt-1 whitespace-nowrap px-1">{label}</div>
     </label>
   );
 }

@@ -76,7 +76,7 @@ export default function Footer({ hideNav }: FooterProps) {
             </div>
           </div>
         )}
-        <div className={clsx('mt-[40px] text-center text-xl font-bold', hideNav && 'max-sm:mt-3')}>
+        <div className={clsx('mt-10 text-center text-xl font-bold', hideNav && 'max-sm:mt-3')}>
           Science in Every Recipe. <span className="whitespace-nowrap">Love in Every Bite.</span>
         </div>
         <div className="my-5">

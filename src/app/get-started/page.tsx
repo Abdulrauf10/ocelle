@@ -151,7 +151,7 @@ export default function GetStarted() {
             Log In
           </Link>
           {!(stage === Stage.Calculating || stage === Stage.ThankYou) && (
-            <div className="absolute bottom-0 flex w-full justify-center px-[280px] max-lg:static max-lg:mt-[30px] max-lg:px-0">
+            <div className="absolute bottom-0 flex w-full justify-center px-[280px] max-lg:static max-lg:mt-8 max-lg:px-0">
               <div className="relative w-full max-w-[460px]">
                 <motion.div
                   variants={backVariants}

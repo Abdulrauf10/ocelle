@@ -12,8 +12,8 @@ export default function CalculatingFragment() {
         height={200}
         className="inline-block"
       />
-      <H2 className="mt-[30px] font-bold text-primary">Calculating...</H2>
-      <p className="mt-[30px] text-primary">
+      <H2 className="mt-8 font-bold text-primary">Calculating...</H2>
+      <p className="mt-8 text-primary">
         We’re crunching some numbers to formulate [Charlie]’s meal plan.
       </p>
     </Container>
