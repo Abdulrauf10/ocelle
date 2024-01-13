@@ -123,7 +123,6 @@ export default function GetStarted() {
   const [stage, setStage] = React.useState<Stage>(Stage.Welcome);
 
   const back = React.useCallback(() => {
-    console.log(stageHistories);
     setStage(stageHistories.pop() || Stage.Welcome);
   }, []);
 
@@ -139,7 +138,7 @@ export default function GetStarted() {
 
   return (
     <ThemeProvider theme={theme}>
-      <header className="px-4 py-4">
+      <header className="px-4 py-3">
         <div className="relative flex flex-wrap items-center justify-between">
           <div className="hidden max-lg:block">
             <Back onClick={back} />
