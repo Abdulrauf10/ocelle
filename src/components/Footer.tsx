@@ -77,12 +77,9 @@ export default function Footer({ hideNav }: FooterProps) {
         >
           Science in Every Recipe. <span className="whitespace-nowrap">Love in Every Bite.</span>
         </div>
-        <div
-          className={clsx(
-            `bg-[url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAECAYAAACOXx+WAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAC5JREFUeNpiYCAA/v//3/AfARoIqWckwsD/KBqAAJ96JgYqA2IMbMTBxgoAAgwA/MQT+iTOXfMAAAAASUVORK5CYII=')]`,
-            'my-[20px] h-[2px] w-full bg-[length:10px_2px] bg-repeat-x'
-          )}
-        ></div>
+        <div className="my-[20px]">
+          <div className="after:content-dotted after:text-md relative h-0.5 w-full overflow-hidden whitespace-nowrap font-sans after:absolute after:-top-4 after:left-1 after:inline-block after:align-[3px] after:tracking-[6px] after:text-white"></div>
+        </div>
         <div className="flex flex-wrap items-start justify-between gap-x-[30px] gap-y-[10px] max-sm:justify-center">
           <div>&copy; {new Date().getFullYear()} Ocelle Company Limited</div>
           <div className="[&_a:hover]:underline">
