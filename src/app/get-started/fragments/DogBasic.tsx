@@ -40,7 +40,7 @@ export default function DogBasicFragment({ forward }: FragmentProps) {
                 />
               )}
             />
-            <div className="mt-[10px] px-3">
+            <div className="mt-3 px-3">
               <RadioControl
                 control={control}
                 name="isUnknownBreed"
@@ -77,11 +77,11 @@ export default function DogBasicFragment({ forward }: FragmentProps) {
               />
             </div>
           </div>
-          <p className="mt-[40px] italic text-primary">
+          <p className="mt-10 italic text-primary">
             Spayed and neutered dogs require fewer calories.
           </p>
         </Section>
-        <Button className="mt-[40px]">Continue</Button>
+        <Button className="mt-10">Continue</Button>
       </form>
     </Container>
   );

@@ -18,7 +18,7 @@ export default function WelcomeFragment({ forward }: FragmentProps) {
         }
       >
         <p className="text-primary">Let’s determine your recommended meal plan and price!</p>
-        <p className="mt-[20px] flex items-center justify-center text-left text-primary">
+        <p className="mt-5 flex items-center justify-center text-left text-primary">
           <Image
             src="/question/timer.svg"
             alt="Timer"
@@ -28,7 +28,7 @@ export default function WelcomeFragment({ forward }: FragmentProps) {
           />
           This should only take about 2 minutes per dog.
         </p>
-        <Button className="mt-[30px]" onClick={() => forward()}>
+        <Button className="mt-8" onClick={() => forward()}>
           Let’s Get Started
         </Button>
       </Section>

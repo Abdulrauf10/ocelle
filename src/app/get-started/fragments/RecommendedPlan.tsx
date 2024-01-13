@@ -98,7 +98,7 @@ function Plan({
         {recommended && (
           <div
             className={clsx(
-              'absolute -left-1/2 inline-block select-none rounded-[20px] border border-white bg-secondary px-[12px] py-[1px] text-center text-sm italic text-white'
+              'absolute -left-1/2 inline-block select-none rounded-3xl border border-white bg-secondary px-3 py-px text-center text-sm italic text-white'
             )}
           >
             RECOMMENDED
@@ -109,7 +109,7 @@ function Plan({
           alt={title}
           width={140}
           height={140}
-          className="min-w-[140px] rounded-[20px] shadow-[3px_3px_10px_rgba(0,0,0,.2)]"
+          className="min-w-[140px] rounded-2xl shadow-[3px_3px_10px_rgba(0,0,0,.2)]"
         />
       </div>
       <div className="h-[70px]"></div>
@@ -136,22 +136,19 @@ function Plan({
               >
                 <FloatingFocusManager context={context}>
                   <div
-                    className="relative m-3 flex max-w-[840px] items-start rounded-[20px] bg-white px-5 py-4 max-md:flex-wrap max-md:pt-9"
+                    className="relative m-3 flex max-w-[1024px] items-start rounded-3xl border-2 border-primary bg-white px-5 py-4 max-md:flex-wrap max-md:pt-9"
                     ref={refs.setFloating}
                     aria-labelledby={labelId}
                     aria-describedby={descriptionId}
                     {...getFloatingProps()}
                   >
-                    <div className="max-xs:w-full w-[300px] min-w-[300px]">
-                      <div className="relative overflow-hidden rounded-[20px] pt-[100%]">
+                    <div className="max-xs:w-full max-xs:min-w-full w-[400px] min-w-[400px] max-lg:min-w-[320px]">
+                      <div className="relative overflow-hidden rounded-2xl pt-[100%]">
                         <Image src="/meal-plan/chicken-recipe.jpg" alt="Chicken Recipe" fill />
                       </div>
                     </div>
                     <div className="ml-6 py-1 max-md:mx-3 max-md:mt-4">
-                      <h2
-                        id={labelId}
-                        className="text-[22px] font-bold leading-[28px] text-primary max-lg:text-[18px] max-lg:leading-[24px]"
-                      >
+                      <h2 id={labelId} className="text-xl font-bold text-primary max-lg:text-lg">
                         {title}
                       </h2>
                       <p id={descriptionId} className="mt-2 leading-tight">
@@ -161,7 +158,7 @@ function Plan({
                       <div className="-mx-4 flex">
                         <button
                           className={clsx(
-                            'mx-4 text-[18px]',
+                            'mx-4 text-lg',
                             tab === 'Ingredients'
                               ? 'text-primary underline'
                               : 'text-[#7B8D97] hover:underline'
@@ -173,7 +170,7 @@ function Plan({
                         </button>
                         <button
                           className={clsx(
-                            'mx-4 text-[18px]',
+                            'mx-4 text-lg',
                             tab === 'Nutrition'
                               ? 'text-primary underline'
                               : 'text-[#7B8D97] hover:underline'
@@ -272,7 +269,7 @@ export default function RecommendedPlanFragment({ forward }: FragmentProps) {
   return (
     <form className="text-center" onSubmit={handleSubmit(onSubmit)}>
       <Section
-        className="px-[15px]"
+        className="px-4"
         title={
           <>
             [Charlie]’s <span className="whitespace-nowrap">Recommended Plan</span>
@@ -286,7 +283,7 @@ export default function RecommendedPlanFragment({ forward }: FragmentProps) {
           </span>
         }
       >
-        <div className="-mb-[3vw] bg-[#F8F3EB] py-[2vw] max-md:py-[20px] max-sm:-mb-[30px]">
+        <div className="-mb-[3vw] bg-[#F8F3EB] py-[2vw] max-md:py-5 max-sm:-mb-8">
           <Container>
             <div className="flex justify-center">
               <div className="">
@@ -294,7 +291,7 @@ export default function RecommendedPlanFragment({ forward }: FragmentProps) {
                   Feel free to adjust [Charlie]’s meal plan by selecting from up to 2 suitable
                   recipes below.
                 </p>
-                <div className="mt-[20px] flex max-w-[820px] flex-wrap justify-center">
+                <div className="mt-5 flex max-w-[820px] flex-wrap justify-center">
                   <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
                     <Plan
                       title="Fresh Chicken Recipe"
@@ -396,9 +393,9 @@ export default function RecommendedPlanFragment({ forward }: FragmentProps) {
                 </div>
               </div>
             </div>
-            <div className="mx-auto mt-[40px] max-w-[840px] rounded-[20px] border border-primary bg-white p-[28px] text-primary shadow-[3px_3px_10px_rgba(0,0,0,.2)]">
+            <div className="mx-auto mt-10 max-w-[840px] rounded-[20px] border border-primary bg-white p-7 text-primary shadow-[3px_3px_10px_rgba(0,0,0,.2)]">
               <H2 inline>Use A Transition Period In Starter Box?</H2>
-              <p className="mt-[20px]">
+              <p className="mt-5">
                 Vets recommend for dogs to undergo a transition period when changing to a new diet –
                 especially if there has been little or no change over the years to the previous
                 diet. In the early stages of a new diet, your dog may experience some watery poops
@@ -407,8 +404,8 @@ export default function RecommendedPlanFragment({ forward }: FragmentProps) {
                 transitioning your dog on to the new diet with smaller portions over a 7-day period,
                 to enable time to adjust to the OCELLE goodness!
               </p>
-              <div className="mb-[10px] mt-[10px] flex flex-wrap justify-center">
-                <div className="mt-[15px] px-2">
+              <div className="my-3 flex flex-wrap justify-center">
+                <div className="mt-4 px-2">
                   <RadioControl
                     value={0}
                     isBlock
@@ -425,7 +422,7 @@ export default function RecommendedPlanFragment({ forward }: FragmentProps) {
                     className="w-[190px]"
                   />
                 </div>
-                <div className="mt-[15px] px-2">
+                <div className="mt-4 px-2">
                   <RadioControl
                     value={1}
                     isBlock
@@ -444,10 +441,10 @@ export default function RecommendedPlanFragment({ forward }: FragmentProps) {
                 </div>
               </div>
               {errors?.transition?.message && (
-                <p className="mt-[20px] text-[#f00]">{String(errors?.transition?.message)}</p>
+                <p className="mt-5 text-[#f00]">{String(errors?.transition?.message)}</p>
               )}
             </div>
-            <div className="mt-[50px] flex flex-wrap items-center justify-center">
+            <div className="mt-12 flex flex-wrap items-center justify-center">
               <Image src="/question/eat-anything.svg" alt="Eating Dog" width={60} height={70} />
               <p className="my-2 ml-3 text-primary">
                 Starter Box: <Price price={504} discountedPrice={252} /> (
@@ -458,7 +455,7 @@ export default function RecommendedPlanFragment({ forward }: FragmentProps) {
             </div>
             <div className="mb-[1vw]">
               <Button
-                className="mx-2 mt-4 !bg-primary !bg-none !px-[42px] hover:!bg-[#47789c]"
+                className="mx-2 mt-4 !bg-primary !bg-none !px-11 hover:!bg-[#47789c]"
                 type="button"
               >
                 + Add Another Dog

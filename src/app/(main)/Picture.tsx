@@ -17,7 +17,7 @@ export default function Picture() {
             Good Health Begins <br className="max-md:hidden" />
             With Healthy Food.
           </h1>
-          <p className="my-[20px] text-[20px]">
+          <p className="my-5 text-xl">
             Fresh, deliciously good food. Approved by our Vet Nutritionist. Delivered to your door.
           </p>
           <Button href="/get-started">Get Started</Button>

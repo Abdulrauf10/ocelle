@@ -28,7 +28,7 @@ export default function DogAgeFragment({ forward }: FragmentProps) {
             Select Birthday
           </UnderlineButton>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-[30px] max-w-[480px]">
+        <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-8 max-w-[480px]">
           <div className="flex justify-center">
             <div className="flex items-center px-4">
               <Controller
@@ -65,7 +65,7 @@ export default function DogAgeFragment({ forward }: FragmentProps) {
               <span className="ml-2">Month(s)</span>
             </div>
           </div>
-          <Button className="mt-[30px]">Continue</Button>
+          <Button className="mt-8">Continue</Button>
         </form>
       </Section>
     </Container>

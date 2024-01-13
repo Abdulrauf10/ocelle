@@ -6,5 +6,5 @@ interface BlockProps {
 }
 
 export default function Block({ className, children }: React.PropsWithChildren<BlockProps>) {
-  return <div className={clsx('py-[3.5vw] max-sm:py-[40px]', className)}>{children}</div>;
+  return <div className={clsx('py-[3.5vw] max-sm:py-10', className)}>{children}</div>;
 }

@@ -1,7 +1,7 @@
 import Container from '@/components/Container';
 import Section from '../Section';
 import Image from 'next/image';
-import React, { useEffect } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import Tick from '@/app/tick.svg';
 import Button from '@/components/Button';
@@ -33,7 +33,7 @@ function Plan({
   return (
     <div
       className={clsx(
-        'mx-auto flex h-full max-w-[405px] cursor-pointer flex-col rounded-[30px] border p-[24px] text-left shadow-[0_0_5px_rgba(0,0,0,0.4)]',
+        'mx-auto flex h-full max-w-[400px] cursor-pointer flex-col rounded-[30px] border p-6 text-left shadow-[0_0_15px_rgba(0,0,0,0.2)]',
         error ? 'border-[#f00]' : selected ? 'border-primary' : 'border-transparent'
       )}
       tabIndex={0}
@@ -49,14 +49,14 @@ function Plan({
         <Image
           src={picture}
           alt={title}
-          width={150}
-          height={150}
-          className="min-w-[160] rounded-[20px]"
+          width={160}
+          height={160}
+          className="min-w-[160px] rounded-2xl"
         />
-        <div className="max-xs:ml-0 max-xs:mt-2 ml-[18px]">
+        <div className="max-xs:ml-0 max-xs:mt-2 ml-4">
           <h3
             className={clsx(
-              'text-[20px] font-bold uppercase',
+              'text-lg font-bold uppercase',
               selected ? 'text-primary' : 'text-[#A98D72]'
             )}
           >
@@ -64,30 +64,30 @@ function Plan({
           </h3>
           <div
             className={clsx(
-              'font-open-sans inline-block rounded-[20px] bg-secondary px-[12px] py-[3px] text-center text-sm italic text-white',
+              'font-open-sans mt-0.5 inline-block rounded-3xl bg-secondary px-3 py-0.5 text-center text-sm italic text-white',
               !recommended && 'opacity-0'
             )}
           >
             Recommended
           </div>
-          <p className="mt-[8px]">
+          <p className="mt-2">
             Starting at:
             <br />
             <Price price={pricePerDay} discountedPrice={discountedPricePerDay} />
             <span className="font-bold text-[#269D9E]">/day</span>.
           </p>
-          <p className="mt-[8px]">
+          <p className="mt-2">
             Enjoy <span className="font-bold text-[#269D9E]">50%</span> off for{' '}
             <br className="max-lg:hidden" />
             your starter box.
           </p>
         </div>
       </div>
-      <p className="mt-[20px] h-full">{children}</p>
-      <div className="font-open-sans mt-[20px] flex justify-end text-center text-white">
+      <p className="mt-5 h-full">{children}</p>
+      <div className="font-open-sans mt-5 flex justify-end text-center text-white">
         <div
           className={clsx(
-            'inline-flex min-w-[120px] items-center justify-center rounded-[20px] px-[8px] py-[5px]',
+            'inline-flex min-w-[120px] items-center justify-center rounded-3xl px-2 py-1',
             selected ? 'bg-primary' : 'bg-[#A98D72]'
           )}
         >
@@ -126,7 +126,7 @@ export default function ChoosePlanFragment({ forward }: FragmentProps) {
   return (
     <Container className="text-center">
       <Section title="Choose The Best Plan For You And [Charlie]">
-        <div className="mx-auto flex max-w-[920px] flex-wrap">
+        <div className="mx-auto flex max-w-[900px] flex-wrap">
           <div className="w-1/2 px-2 max-lg:w-full">
             <Plan
               title="Fresh Full Plan"
@@ -142,7 +142,7 @@ export default function ChoosePlanFragment({ forward }: FragmentProps) {
               meals for your dog, meticulously crafted and portioned by experts.
             </Plan>
           </div>
-          <div className="w-1/2 px-2 max-lg:mt-[30px] max-lg:w-full">
+          <div className="w-1/2 px-2 max-lg:mt-8 max-lg:w-full">
             <Plan
               title="Fresh Half Plan"
               picture="/meal-plan/half-plan.jpg"
@@ -157,9 +157,9 @@ export default function ChoosePlanFragment({ forward }: FragmentProps) {
             </Plan>
           </div>
         </div>
-        {error && <p className="mt-[20px] text-[#f00]">{error}</p>}
+        {error && <p className="mt-5 text-[#f00]">{error}</p>}
       </Section>
-      <Button className="mt-[40px]" onClick={onSubmit}>
+      <Button className="mt-10" onClick={onSubmit}>
         Continue
       </Button>
     </Container>

@@ -25,7 +25,7 @@ export default function OwnerFragment({ forward }: FragmentProps) {
       <H2 className="font-bold text-primary" inline>
         Now, tell us a bit about you!
       </H2>
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-[50px]">
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-12">
         <Section title="What’s your name?">
           <div className="mx-auto max-w-[320px]">
             <Controller
@@ -36,7 +36,7 @@ export default function OwnerFragment({ forward }: FragmentProps) {
                 <TextField error={!!error} placeholder="First Name" fullWidth {...field} />
               )}
             />
-            <div className="mt-[20px]"></div>
+            <div className="mt-5"></div>
             <Controller
               name="lastname"
               control={control}
@@ -67,13 +67,13 @@ export default function OwnerFragment({ forward }: FragmentProps) {
             />
           </div>
           {errors?.email?.message && (
-            <p className="mt-[10px] w-full text-[#f00]">{String(errors?.email?.message)}</p>
+            <p className="mt-3 w-full text-[#f00]">{String(errors?.email?.message)}</p>
           )}
         </Section>
-        <div className="mt-[40px]">
+        <div className="mt-10">
           <UnderlineButton onClick={() => {}}>ALREADY HAVE AN ACCOUNT? LOG IN HERE</UnderlineButton>
         </div>
-        <Button className="mt-[40px]">Continue</Button>
+        <Button className="mt-10">Continue</Button>
       </form>
     </Container>
   );

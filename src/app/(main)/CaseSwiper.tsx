@@ -23,21 +23,21 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
 
   return (
     <div ref={ref} className="flex w-full justify-center">
-      <div className="flex flex-wrap items-start justify-center pb-[60px] max-lg:flex-col-reverse max-lg:justify-start">
+      <div className="flex flex-wrap items-start justify-center pb-14 max-lg:flex-col-reverse max-lg:justify-start">
         <motion.div
           initial={{ opacity: 0, y: 80 }}
           animate={isInView ? { opacity: 1, y: 0 } : undefined}
           transition={{ duration: 1.5 }}
-          className="max-w-[560px] rounded-[30px] bg-white py-[50px] pl-[50px] pr-[90px] text-left text-xl shadow-[7px_7px_5px_rgba(185,130,59,0.3)] max-lg:-mt-5 max-lg:ml-[30px] max-lg:px-[50px] max-lg:py-10 max-lg:shadow-[-7px_7px_5px_rgba(185,130,59,0.3)]"
+          className="max-w-[560px] rounded-[30px] bg-white py-12 pl-12 pr-24 text-left text-xl shadow-[7px_7px_5px_rgba(185,130,59,0.3)] max-lg:-mt-5 max-lg:ml-8 max-lg:px-12 max-lg:py-10 max-lg:shadow-[-7px_7px_5px_rgba(185,130,59,0.3)]"
         >
           <h3 className="text-3xl font-bold text-[#be873b]">{dog} Plan</h3>
-          <div className="my-[10px]">
-            <div className="my-2.5 ml-0 mr-[5px] inline-block rounded-[20px] border border-[#be873b] px-[45px] py-[3px] text-xl uppercase text-[#be873b]">
+          <div className="my-1">
+            <div className="my-2.5 inline-block rounded-3xl border border-[#be873b] px-11 py-1 text-xl uppercase text-[#be873b]">
               {plan}
             </div>
           </div>
-          <p>{children}</p>
-          <div className="mt-[20px]">
+          <p className="mt-3">{children}</p>
+          <div className="mt-5">
             <TickList items={listItems} />
           </div>
         </motion.div>
@@ -45,7 +45,7 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
           initial={{ opacity: 0, y: 80 }}
           animate={isInView ? { opacity: 1, y: 0 } : undefined}
           transition={{ duration: 1.5, delay: 0.3 }}
-          className="relative z-[5] ml-[-50px] mt-[250px] text-left max-lg:m-0"
+          className="relative z-10 -ml-12 mt-48 text-left max-lg:m-0"
         >
           <div className="relative w-[420px] overflow-hidden rounded-[30px] pt-[89.2%] shadow-[-7px_7px_5px_rgba(185,130,59,0.3)] max-lg:w-[280px] max-lg:shadow-[7px_7px_5px_rgba(185,130,59,0.3)] max-sm:w-[240px]">
             <Image alt={dog} src={picture} fill />
@@ -62,7 +62,7 @@ export default function CaseSwiper() {
       spaceBetween={50}
       modules={[Pagination, Autoplay]}
       pagination={{ dynamicBullets: true }}
-      className="mt-[40px]"
+      className="mt-10"
       autoplay={{ delay: 10000 }}
     >
       <SwiperSlide>

@@ -18,7 +18,7 @@ export default function DogFragment({ forward }: FragmentProps) {
   return (
     <Container className="text-center">
       <Section title="What’s your dog’s name?">
-        <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-[30px] max-w-[320px]">
+        <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-8 max-w-[320px]">
           <Controller
             name="dogName"
             control={control}
@@ -27,13 +27,13 @@ export default function DogFragment({ forward }: FragmentProps) {
               <TextField error={!!error} placeholder="Your Dog’s Name" fullWidth {...field} />
             )}
           />
-          <Button className="mt-[40px]">Continue</Button>
+          <Button className="mt-10">Continue</Button>
         </form>
-        <UnderlineButton className="mt-[40px]" onClick={() => setShowMoreDogs(true)}>
+        <UnderlineButton className="mt-10" onClick={() => setShowMoreDogs(true)}>
           I Have More Dogs
         </UnderlineButton>
         {showMoreDogs && (
-          <p className="mt-[20px] italic text-primary">
+          <p className="mt-5 italic text-primary">
             [Great! After you have finalised the order details for your first dog,
             <br />
             you can click ‘<strong>+ Add Another Dog</strong>’ later in this quiz or in your

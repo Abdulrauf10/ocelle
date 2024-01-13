@@ -24,7 +24,7 @@ export default function CheckboxControl({ control, label, name, rules, value }: 
   return (
     <label
       className={clsx(
-        'flex min-w-[140px] items-center rounded-full border px-[15px] py-[5px]',
+        'flex min-w-[140px] items-center rounded-full border px-4 py-1.5',
         isSelected
           ? 'border-primary bg-primary text-white'
           : 'border-[#A98D72] bg-[#F6F4F1] text-[#A98D72]'

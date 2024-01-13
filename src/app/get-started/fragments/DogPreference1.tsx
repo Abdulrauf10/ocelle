@@ -2,7 +2,6 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import FragmentProps from '../FragmentProps';
 import Container from '@/components/Container';
-import H2 from '@/components/Heading/H2';
 import Button from '@/components/Button';
 import { TextField } from '@mui/material';
 import Section from '../Section';
@@ -55,13 +54,13 @@ export default function DogPreference1Fragment({ forward }: FragmentProps) {
             />
             <span className="ml-2">kg</span>
             {errors?.kgs?.message && (
-              <p className="mt-[10px] w-full text-[#f00]">{String(errors?.kgs?.message)}</p>
+              <p className="mt-3 w-full text-[#f00]">{String(errors?.kgs?.message)}</p>
             )}
           </div>
         </Section>
         <SectionBreak />
         <Section title="What best represents their current body condition?">
-          <div className="mx-auto mt-[40px] max-w-[840px]">
+          <div className="mx-auto mt-10 max-w-[840px]">
             <LineRadioGroup
               name="bodyCondition"
               rules={{ required: true }}
@@ -118,17 +117,17 @@ export default function DogPreference1Fragment({ forward }: FragmentProps) {
               ]}
             />
           </div>
-          <p className="mt-[20px] text-primary">
+          <p className="mt-5 text-primary">
             [Visible rib cage and / or spine. Noticeable loss of muscle mass.]
           </p>
-          <p className="mt-[20px] italic text-primary">
+          <p className="mt-5 italic text-primary">
             [We’ll adjust their calories and help to manage their weight, so that it’s just right
             for optimum health and wellbeing!]
           </p>
         </Section>
         <SectionBreak />
         <Section title="How active is [Charlie]?">
-          <div className="mx-auto mt-[40px] max-w-[640px]">
+          <div className="mx-auto mt-10 max-w-[640px]">
             <LineRadioGroup
               name="active"
               rules={{ required: true }}
@@ -163,11 +162,9 @@ export default function DogPreference1Fragment({ forward }: FragmentProps) {
               ]}
             />
           </div>
-          <p className="mt-[20px] text-primary">
-            [Less than 30 minutes of outdoor daily activity.]
-          </p>
+          <p className="mt-5 text-primary">[Less than 30 minutes of outdoor daily activity.]</p>
         </Section>
-        <Button className="mt-[30px]">Continue</Button>
+        <Button className="mt-8">Continue</Button>
       </form>
     </Container>
   );

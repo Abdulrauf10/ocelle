@@ -15,7 +15,7 @@ export default function UnderlineButton({
 }: React.PropsWithChildren<UnderlineButtonProps>) {
   return (
     <button
-      className={clsx('text-[18px] text-secondary', className, active && 'underline')}
+      className={clsx('text-lg text-secondary', className, active && 'underline')}
       onClick={onClick}
     >
       {children}

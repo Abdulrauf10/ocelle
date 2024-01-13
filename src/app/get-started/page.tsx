@@ -139,15 +139,15 @@ export default function GetStarted() {
 
   return (
     <ThemeProvider theme={theme}>
-      <header className="px-[15px] py-[15px]">
+      <header className="px-4 py-4">
         <div className="relative flex flex-wrap items-center justify-between">
           <div className="hidden max-lg:block">
             <Back onClick={back} />
           </div>
-          <Link href="/" className="relative z-10 px-[10px]">
+          <Link href="/" className="relative z-10 px-2">
             <Image alt="Ocelle" src="/ocelle-logo.png" width={160} height={48} />
           </Link>
-          <Link href="#" className="relative z-10 mx-[10px] whitespace-nowrap hover:underline">
+          <Link href="#" className="relative z-10 mx-2 whitespace-nowrap hover:underline">
             Log In
           </Link>
           {!(stage === Stage.Calculating || stage === Stage.ThankYou) && (
@@ -168,7 +168,7 @@ export default function GetStarted() {
           )}
         </div>
       </header>
-      <main className="overflow-hidden py-[3vw] max-sm:py-[30px]">
+      <main className="overflow-hidden py-[3vw] max-sm:py-8">
         <AnimatePresence mode="wait" initial={false}>
           {stage === Stage.Welcome && (
             <AnimatePresenceDiv name="welcome">

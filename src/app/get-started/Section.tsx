@@ -19,9 +19,9 @@ export default function Section({
         <H2 className="text-primary" inline>
           {title}
         </H2>
-        {description && <p className="mt-[20px] italic text-primary">{description}</p>}
+        {description && <p className="mt-5 italic text-primary">{description}</p>}
       </div>
-      <div className="mt-[30px]">{children}</div>
+      <div className="mt-8">{children}</div>
     </>
   );
 }

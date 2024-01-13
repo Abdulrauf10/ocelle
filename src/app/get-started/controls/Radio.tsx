@@ -37,7 +37,7 @@ export default function RadioControl({
     <label
       className={clsx(
         'flex cursor-pointer items-center',
-        isBlock && 'min-w-[140px] rounded-full border px-[15px] py-[5px]',
+        isBlock && 'min-w-[140px] rounded-full border px-4 py-1.5',
         isBlock
           ? error
             ? 'border-[#f00] bg-white text-[#f00]'

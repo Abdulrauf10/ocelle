@@ -3,7 +3,7 @@ import Container from './Container';
 
 export default function Notice() {
   return (
-    <div className="bg-primary py-[10px] text-center text-[1.25rem] text-white max-xl:text-[1rem]">
+    <div className="bg-primary py-2 text-center text-xl text-white max-xl:text-base">
       <Container>
         Get 50% off your starter box!{' '}
         <Link href="#" className="font-bold hover:underline" target="_blank">

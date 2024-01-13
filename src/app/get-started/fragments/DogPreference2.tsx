@@ -115,7 +115,7 @@ export default function DogPreference2Fragment({ forward }: FragmentProps) {
         </Section>
         <SectionBreak />
         <Section title=" How picky is [Charlie] at mealtimes?">
-          <div className="mx-auto mt-[40px] max-w-[640px]">
+          <div className="mx-auto mt-10 max-w-[640px]">
             <LineRadioGroup
               name="active"
               rules={{ required: true }}
@@ -160,7 +160,7 @@ export default function DogPreference2Fragment({ forward }: FragmentProps) {
             />
           </div>
         </Section>
-        <Button className="mt-[40px]">Continue</Button>
+        <Button className="mt-10">Continue</Button>
       </form>
     </Container>
   );

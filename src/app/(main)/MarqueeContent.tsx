@@ -15,8 +15,8 @@ export default function MarqueeContent({
   children,
 }: React.PropsWithChildren<MarqueeContentProps>) {
   return (
-    <div className="flex flex-nowrap items-center px-[25px] text-[20px] text-white">
-      <div className="mr-[10px]">
+    <div className="flex flex-nowrap items-center px-6 text-xl text-white">
+      <div className="mr-3">
         <Image src={`/feature/${icon}`} alt={alt} width={width} height={height} />
       </div>
       <div className="whitespace-nowrap">{children}</div>
