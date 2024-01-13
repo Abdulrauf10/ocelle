@@ -23,7 +23,7 @@ export default function Home() {
       </div>
       <div className="flex flex-wrap">
         <div className="min-h-[300px] w-1/2 bg-[url('./gofresh-img.jpg')] bg-cover bg-[center_right] max-md:w-full"></div>
-        <div className="w-1/2 px-[4vw] py-[6vw] text-2xl max-md:w-full">
+        <div className="w-1/2 px-[4vw] py-[6vw] text-xl max-md:w-full">
           <H2 className="text-primary">It’s Time To Go Fresh.</H2>
           <div className="mt-[2vw] w-3/4 max-md:w-full">
             At Ocelle, your pet&apos;s health is our priority. That&apos;s why we deliver meals that

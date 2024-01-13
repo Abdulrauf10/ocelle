@@ -49,7 +49,7 @@ export default function Header() {
               'max-xl:absolute max-xl:left-0 max-xl:top-[68px] max-xl:z-30 max-xl:!flex max-xl:h-screen max-xl:flex-col-reverse max-xl:bg-[#EEF3F7] max-xl:pb-3 max-xl:pt-5'
           )}
         >
-          <div className="h-full">
+          <div className="h-full max-xl:pt-4">
             <ul className="mx-2 flex w-full flex-row max-xl:mx-0 max-xl:flex-col max-xl:text-center [&_a:hover]:text-primary [&_a:hover]:underline [&_li]:list-none">
               <li>
                 <Link href="/how-works" className="block px-5 py-3">
@@ -84,7 +84,7 @@ export default function Header() {
             </ul>
           </div>
           <div className="-m-2 flex flex-nowrap items-center max-xl:flex-col">
-            <div className="px-2">
+            <div className="p-2">
               <div className="-mx-3 max-xl:flex-col [&_a:hover]:text-primary [&_a:hover]:underline">
                 <Link className="border-r border-[#ccc] px-3 text-primary underline" href="#">
                   EN
@@ -94,7 +94,7 @@ export default function Header() {
                 </Link>
               </div>
             </div>
-            <div className="px-2">
+            <div className="p-2">
               <Link href="/get-started" className="rounded-2xl bg-secondary px-4 py-0.5 text-white">
                 Get Started
               </Link>
