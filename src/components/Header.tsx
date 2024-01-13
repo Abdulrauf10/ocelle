@@ -40,7 +40,13 @@ export default function Header() {
           </svg>
         </button>
         <Link href="/" className="px-2">
-          <Image alt="Ocelle" src="/ocelle-logo.png" width={160} height={48} />
+          <Image
+            alt="Ocelle"
+            src="/ocelle-logo.png"
+            width={160}
+            height={48}
+            className="min-w-[160px]"
+          />
         </Link>
         <div
           className={clsx(
@@ -52,32 +58,32 @@ export default function Header() {
           <div className="h-full max-xl:pt-4">
             <ul className="mx-2 flex w-full flex-row max-xl:mx-0 max-xl:flex-col max-xl:text-center [&_a:hover]:text-primary [&_a:hover]:underline [&_li]:list-none">
               <li>
-                <Link href="/how-works" className="block px-5 py-3">
+                <Link href="/how-works" className="block px-5 py-2">
                   How It Works
                 </Link>
               </li>
               <li>
-                <Link href="#" className="block px-5 py-3">
+                <Link href="#" className="block px-5 py-2">
                   Recipes
                 </Link>
               </li>
               <li>
-                <Link href="/why-fresh" className="block px-5 py-3">
+                <Link href="/why-fresh" className="block px-5 py-2">
                   Why Fresh?
                 </Link>
               </li>
               <li>
-                <Link href="/faq" className="block px-5 py-3">
+                <Link href="/faq" className="block px-5 py-2">
                   FAQ
                 </Link>
               </li>
               <li>
-                <Link href="#" className="block px-5 py-3">
+                <Link href="#" className="block px-5 py-2">
                   Reviews
                 </Link>
               </li>
               <li>
-                <Link href="/our-story" className="block px-5 py-3">
+                <Link href="/our-story" className="block px-5 py-2">
                   About Us
                 </Link>
               </li>
