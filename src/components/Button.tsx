@@ -17,11 +17,7 @@ interface LinkbuttonProps {
 }
 
 function ButtonIcon() {
-  return (
-    <div className="absolute right-[15px] top-1/2 -translate-y-1/2">
-      <DogFoot className="w-[25px] fill-white" />
-    </div>
-  );
+  return <DogFoot className="ml-2 w-6 fill-white" />;
 }
 
 export default function Button({
@@ -33,7 +29,8 @@ export default function Button({
   const buttonProps = props as ButtonProps;
   const linkProps = props as LinkbuttonProps;
   const classes = clsx(
-    'relative inline-block cursor-pointer rounded-[30px] bg-secondary py-[10px] pl-[25px] pr-[50px] text-center text-lg font-bold text-white transition-all duration-300 ease-in-out hover:bg-[#EA6A00]',
+    'inline-flex items-center cursor-pointer rounded-[30px] bg-secondary py-2 px-6 text-center text-lg font-bold text-white',
+    'transition-all duration-300 ease-in-out hover:bg-[#EA6A00]',
     className
   );
 
@@ -45,8 +42,8 @@ export default function Button({
         target={linkProps.target}
         onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
       >
-        <ButtonIcon />
         {children}
+        <ButtonIcon />
       </Link>
     );
   }
@@ -57,8 +54,8 @@ export default function Button({
       type={buttonProps.type}
       onClick={onClick as React.MouseEventHandler<HTMLButtonElement>}
     >
-      <ButtonIcon />
       {children}
+      <ButtonIcon />
     </button>
   );
 }
