@@ -19,6 +19,7 @@ import {
   useInteractions,
   useRole,
 } from '@floating-ui/react';
+import Close from '@/components/Icon/Close';
 
 interface PlanProps {
   title: string;
@@ -241,7 +242,7 @@ function Plan({
                         className="absolute right-4 top-3 cursor-pointer"
                         onClick={() => setIsOpen(false)}
                       >
-                        <Image src="/close-btn.svg" alt="close" width={20} height={20} />
+                        <Close className="h-[20px] w-[20px]" />
                       </button>
                     </div>
                   </div>

@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import Link from 'next/link';
 import React from 'react';
-import DogFoot from './DogFoot';
+import DogFoot from './Icon/DogFoot';
 
 interface ButtonProps {
   className?: string;
