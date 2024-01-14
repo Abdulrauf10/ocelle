@@ -3,7 +3,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
 import Image from 'next/image';
-import TickList from '@/components/List/TickList';
+import List from '@/components/List';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -38,7 +38,18 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
           </div>
           <p className="mt-3">{children}</p>
           <div className="mt-5">
-            <TickList items={listItems} />
+            <List
+              picture={
+                <Image
+                  src="/brown-tick.png"
+                  className={'mr-3 h-6 w-6'}
+                  width={24}
+                  height={24}
+                  alt="brown tick"
+                />
+              }
+              items={listItems}
+            />
           </div>
         </motion.div>
         <motion.div
