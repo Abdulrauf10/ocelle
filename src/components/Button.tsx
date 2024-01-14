@@ -19,7 +19,7 @@ interface LinkbuttonProps {
 function ButtonIcon() {
   return (
     <div className="absolute right-[15px] top-1/2 -translate-y-1/2">
-      <DogFoot className="w-[25px]" />
+      <DogFoot className="w-[25px] fill-white" />
     </div>
   );
 }

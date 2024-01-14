@@ -48,6 +48,9 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
                   alt="brown tick"
                 />
               }
+              className={{
+                listItem: 'text-[#be873b]',
+              }}
               items={listItems}
             />
           </div>

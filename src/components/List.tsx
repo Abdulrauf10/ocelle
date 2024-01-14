@@ -16,10 +16,7 @@ export default function List({ className, picture, items }: ListProps) {
     <ul className={clsx('list-none', className?.list)}>
       {items.map((item, idx) => {
         return (
-          <li
-            key={idx}
-            className={clsx('mx-0 my-2.5 flex items-center text-[#be873b]', className?.listItem)}
-          >
+          <li key={idx} className={clsx('mx-0 my-2.5 flex items-center', className?.listItem)}>
             {picture}
             <div>{item}</div>
           </li>
