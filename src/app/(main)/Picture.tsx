@@ -1,6 +1,8 @@
 'use client';
 
 import Button from '@/components/Button';
+import DogFoot from '@/components/Icon/DogFoot';
+import List from '@/components/List';
 import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
 import React from 'react';
@@ -14,13 +16,24 @@ export default function Picture() {
       <div className="flex flex-wrap items-center max-md:flex-col-reverse">
         <div className="relative w-3/5 p-[2vw] pr-0 text-primary max-md:w-full max-md:border-t-[10px] max-md:border-primary max-md:p-[30px]">
           <h1 className="text-[5vw] font-bold leading-[6.2vw] max-sm:text-[40px] max-sm:leading-[46px]">
-            Good Health Begins <br className="max-md:hidden" />
-            With Healthy Food.
+            Nutrition They Need. <br />
+            Food They Want.
           </h1>
-          <p className="my-5 text-xl">
-            Fresh, deliciously good food. Approved by our Vet Nutritionist. Delivered to your door.
-          </p>
-          <Button href="/get-started">Get Started</Button>
+          <div className="my-5 text-xl">
+            <List
+              picture={<DogFoot className="mr-5 h-6 w-6 fill-primary" />}
+              className={{ listItem: 'py-1' }}
+              items={[
+                'Tasty fresh food delivered to your door',
+                'Meals customised to your dog’s specific nutritional needs',
+                'Vet developed formula',
+                'Easier for you, better for them!',
+              ]}
+            />
+          </div>
+          <Button className="mt-4" href="/get-started">
+            Get Started
+          </Button>
         </div>
         <div className="w-2/5 max-md:w-full">
           <div className="w-3/4 overflow-hidden max-md:m-auto">

@@ -8,44 +8,54 @@ import HowPlanWorks from './HowPlanWorks';
 import H2 from '@/components/Heading/H2';
 import Block from '@/components/Block';
 import Picture from './Picture';
+import List from '@/components/List';
+import Tickbox from '@/components/Icon/Tickbox';
+import Link from 'next/link';
 
 export default function Home() {
   return (
     <main>
       <Picture />
-      <div className="bg-[#51B1B1] py-5">
-        <Container>
-          <div className="flex flex-nowrap items-center justify-center text-2xl italic text-white max-sm:text-xl">
-            <Image alt="solid dog" src="/dog-icon.png" width={50} height={50} />
-            <div className="ml-3">“I’m loving that @Ocelle has real, human-grade dog food.”</div>
-          </div>
+      <div className="bg-[#269D9E] py-[2vw] max-lg:py-8">
+        <Container className="text-center text-white">
+          <H2>They’re My Dogs. They’re My Family.</H2>
+          <p className="mt-8 text-xl">
+            Trade guesswork for peace of mind. Relax, knowing that your dog is getting the highest
+            quality <br className="max-lg:hidden" />
+            nutrition for a longer and more vibrant life! It’s science... and it’s delicious.
+          </p>
         </Container>
       </div>
       <div className="flex flex-wrap">
         <div className="min-h-[300px] w-1/2 bg-[url('./gofresh-img.jpg')] bg-cover bg-[center_right] max-md:w-full"></div>
         <div className="w-1/2 px-[4vw] py-[6vw] text-xl max-md:w-full">
-          <H2 className="text-primary">It’s Time To Go Fresh.</H2>
+          <H2 className="text-primary">
+            More Years, <br />
+            Happier Years. <br />
+            It’s Time To Go Fresh.
+          </H2>
           <div className="mt-[2vw] w-3/4 max-md:w-full">
-            At Ocelle, your pet&apos;s health is our priority. That&apos;s why we deliver meals that
-            are not only fresh and balanced, but also custom-made to suit your furry friend&apos;s
-            unique needs. No heat-blasted ingredients. No preservatives. No fillers. No non sense.
-          </div>
-          <div className="mt-2 w-3/4 max-md:w-full">
-            Just wholesome food that&apos;s as appetizing as it looks.
+            <List
+              picture={<Tickbox className="mr-4 h-5 w-5" />}
+              className={{ listItem: 'py-0.5' }}
+              items={[
+                'Increased Lifespan',
+                'Delayed Onset of Chronic Disease',
+                'Reduced Likelihood of Obesity',
+                'Increased Bio-Health and Food Safety',
+                'Increased Vitality and Happiness',
+              ]}
+            />
           </div>
           <div className="mb-5 mt-[2vw]"></div>
-          <Button>
-            Learn More About
-            <br />
-            The Importance Of Fresh Food
-          </Button>
+          <Button>Learn More</Button>
         </div>
       </div>
       <Block className="bg-[#E5EDF3]">
         <Container>
           <H2 className="text-center text-primary">
-            Customised Meal Plans Tailored <br className="max-md:hidden" />
-            For Your Dog – <span className="whitespace-nowrap">Powered By Science</span>
+            We’re Powered By Science <br className="max-md:hidden" />
+            Customised Meal Plans For Your Dogs.
           </H2>
           <div className="relative mt-10 flex-col-reverse items-center max-xl:flex">
             <div className="pb-0 max-xl:flex max-xl:flex-wrap [&>*]:max-xl:m-0 [&>*]:max-xl:mt-3 [&>*]:max-xl:w-1/2 [&>*]:max-xl:max-w-none [&>*]:max-xl:px-4 [&>*]:max-xl:py-3 [&>*]:max-xl:text-center [&>*]:max-sm:w-full [&_img]:max-xl:inline">
@@ -144,7 +154,26 @@ export default function Home() {
           </MarqueeContent>
         </div>
       </div>
-      <HowPlanWorks />
+      <Block className="bg-[#ebeae7]">
+        <Container>
+          <H2 className="text-center text-[#9a9486]">How Your Plan Works</H2>
+          <div className="mt-6">
+            <HowPlanWorks />
+          </div>
+          <div className="mt-2 text-center">
+            <Button>Build My Plan</Button>
+          </div>
+          <p className="mt-[2.5vw] text-center text-2xl font-bold text-[#9a9486] max-md:text-xl max-sm:mt-8">
+            Not ready for a subscription? No problem! Try our{' '}
+            <span className="whitespace-nowrap">
+              <Link href="#" className="text-secondary hover:underline">
+                individual packs first
+              </Link>
+              .
+            </span>
+          </p>
+        </Container>
+      </Block>
       <Block className="bg-[#f8f3eb]">
         <Container>
           <H2 className="text-center text-[#be873b]">Proof Is In The Eating</H2>

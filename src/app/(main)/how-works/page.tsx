@@ -13,14 +13,10 @@ export default function HowWorks() {
         <div className="flex flex-wrap items-center max-lg:flex-col-reverse">
           <div className="w-2/5 py-[4vw] pl-[2vw] text-xl text-primary max-lg:w-full">
             <h1 className="text-[5vw] font-bold leading-[6.2vw]">Get Personal With An Expert</h1>
-            <p className="mt-5">
-              Nutrition is not a one-size-fits-all affair! At OCELLE, we&apos;ll tailor a meal plan
-              centred on your dog&apos;s health goals and fine-tune it according to your dog&apos;s
-              ongoing needs!
-            </p>
+            <p className="mt-5 font-bold italic">Nutrition is not a one-size-fits-all affair!</p>
             <p className="mt-3">
-              Our unique, customised recipes are crafted with input from our Vet Nutritionist, to
-              ensure your dog gets nothing less than the quality nutrition they deserve.
+              Our unique, customised recipes are crafted by our Vet Nutritionist and tailored to
+              your dog&apos;s health goals and ongoing needs.
             </p>
             <div className="mt-5">
               <Button href="/get-started">Get Started</Button>
@@ -33,40 +29,23 @@ export default function HowWorks() {
           </div>
         </div>
       </div>
-      <HowPlanWorks />
-      <Section image="/dogs/three-dogs.jpeg" alt="three of dogs">
-        <H2 className="text-primary">A Lifetime Of Tailored Nutrition!</H2>
-        <p className="mt-5 text-xl">
-          From puppy food to senior dog food – we’re with you every step of the way! Regardless of
-          what life stage they’re in, we’ll help you keep their meal plan relevant, so they get the
-          maximum benefits from their diet.
-        </p>
-        <div className="mt-5">
-          <Button href="/get-started">Get Started</Button>
-        </div>
-      </Section>
-      <Section
-        image="/dogs/favourite-dog.jpeg"
-        alt="three of dogs"
-        reverse
-        className="bg-[#E5EDF3]"
-      >
-        <H2 className="text-[#be873b]">All The Goodness They Need, All The Flavour They Desire!</H2>
-        <p className="mt-5 text-xl">
-          Choose from five protein-rich fresh recipes, meticulously crafted with whole foods,
-          slow-cooked to enhance both nutrition and taste.
-        </p>
-        <p className="mt-5 text-xl">
-          With an array of mouth-watering options, you can mix-and-match according to your
-          dog&apos;s needs, as desired. After all, you know your dog best of all!
-        </p>
-        <div className="mt-5">
-          <Button href="/get-started">Get Started</Button>
-        </div>
-      </Section>
+      <Block className="bg-[#EEEEEE]">
+        <Container>
+          <H2 className="text-center text-[#9a9486]">How Your Plan Works</H2>
+          <div className="mt-6">
+            <HowPlanWorks />
+          </div>
+          <div className="mt-2 text-center">
+            <Button>Build My Plan</Button>
+          </div>
+        </Container>
+      </Block>
       <Block className="bg-[#F8F3EB]">
         <Container>
-          <H2 className="text-center text-[#269D9E]">A Customised Plan To Suit Your Dog And You</H2>
+          <H2 className="text-center text-[#269D9E]">
+            A Customised Plan To Suit <br className="max-sm:hidden" />
+            Your Dog And You
+          </H2>
           <div className="mt-3 flex flex-wrap justify-center">
             <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full">
               <div className="relative h-full w-full rounded-[40px] border border-[#269D9E] bg-white p-10 pt-16 text-center">
@@ -104,9 +83,40 @@ export default function HowWorks() {
         </Container>
       </Block>
       <Section
+        image="/dogs/favourite-dog.jpeg"
+        alt="three of dogs"
+        reverse
+        className="bg-[#EEF3F7]"
+      >
+        <H2 className="text-[#be873b]">
+          All The Flavour <br />
+          They Desire!
+        </H2>
+        <p className="mt-5 text-xl">
+          Choose from five protein-rich fresh recipes, meticulously crafted with whole foods,
+          slow-cooked to enhance both nutrition and taste. Mix-and-match according to your dog’s
+          needs. After all, you know your dog best of all!
+        </p>
+        <div className="mt-5">
+          <Button href="/get-started">Get Started</Button>
+        </div>
+      </Section>
+      <Section image="/dogs/three-dogs.jpeg" alt="three of dogs">
+        <H2 className="text-primary">A Lifetime Of Tailored Nutrition!</H2>
+        <p className="mt-5 text-xl">
+          From puppy food to senior dog food – we’re with you every step of the way. Our meals
+          evolve with your dog, delivering maximum benefits at every bowl.
+        </p>
+        <div className="mt-5">
+          <Button href="/get-started">Build My Plan</Button>
+        </div>
+      </Section>
+      <Section
         image="/dogs/eating-dog.jpeg"
         alt="eating dog"
         heading={<H2 className="mb-10 text-center text-primary">When OCELLE Arrives</H2>}
+        className="bg-[#EEF3F7]"
+        reverse
       >
         <Image
           src="/ocelle-truck.png"
@@ -121,21 +131,44 @@ export default function HowWorks() {
           Dinner is served!
         </p>
         <div className="mt-5">
-          <Button>See My Recipes</Button>
+          <Button>Get Started</Button>
         </div>
       </Section>
       <Block className="bg-[#F8F3EB]">
         <Container>
           <H2 className="mb-10 text-center font-bold text-[#be873b]">
-            A Paws-itively Simple Subscription
+            Your Dog. Your Plan. Your Schedule.
           </H2>
-          <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-12 text-center">
-            <p className="text-xl">
-              Fancy a change? You can easily tweak your delivery timings or choose new recipes based
-              on what&apos;s perfect for you and your dog. More dogs? No problem! Add them to your
-              account for easy fresh meal management.
-            </p>
-            <Button className="mt-8">Create Your Plan</Button>
+          <div className="mx-auto max-w-[680px] rounded-[30px] bg-white p-12 max-sm:p-8">
+            <div className="flex items-center max-sm:block">
+              <div className="w-[150px] min-w-[150px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">
+                Fancy A Change?
+              </div>
+              <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
+              <div className="py-px">
+                Easily tweak your delivery timings or choose new recipes based on what's perfect for
+                you and your dog.
+              </div>
+            </div>
+            <div className="mt-6 flex items-center max-sm:block">
+              <div className="w-[150px] min-w-[150px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">
+                More Dogs?
+              </div>
+              <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
+              <div className="py-px">
+                No problem! Add them to your account for easy fresh meal management.
+              </div>
+            </div>
+            <div className="mt-6 flex items-center max-sm:block">
+              <div className="w-[150px] min-w-[150px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">
+                A Paws-itively Simple Subscription
+              </div>
+              <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
+              <div className="py-px">Skip deliveries, cancel, and come back any time!</div>
+            </div>
+            <div className="text-center">
+              <Button className="mt-8">Try It Today</Button>
+            </div>
           </div>
         </Container>
       </Block>
