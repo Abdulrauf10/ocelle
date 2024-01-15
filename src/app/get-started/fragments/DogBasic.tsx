@@ -3,15 +3,24 @@ import { Controller, useForm } from 'react-hook-form';
 import FragmentProps from '../FragmentProps';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, Chip, TextField } from '@mui/material';
 import RadioControl from '../controls/Radio';
 import Section from '../Section';
 import SectionBreak from '../SectionBreak';
-
-const breeds: string[] = [];
+import { Breed } from '@/entities';
 
 export default function DogBasicFragment({ forward }: FragmentProps) {
   const { handleSubmit, control } = useForm();
+  const [loading, setLoading] = React.useState(true);
+  const [options, setOptions] = React.useState<Breed[] | undefined>(undefined);
+
+  const fetchBreeds = React.useCallback(async () => {
+    if (options === undefined) {
+      const res = await fetch('/breed');
+      setOptions((await res.json()) as Breed[]);
+      setLoading(false);
+    }
+  }, [options]);
 
   const onSubmit = React.useCallback(() => {
     forward();
@@ -29,14 +38,30 @@ export default function DogBasicFragment({ forward }: FragmentProps) {
               name="breed"
               control={control}
               rules={{ required: true }}
-              render={({ field }) => (
+              defaultValue={[]}
+              render={({ field: { onChange, ...field } }) => (
                 <Autocomplete
                   multiple
                   fullWidth
-                  options={breeds}
+                  options={options || []}
+                  loading={loading}
+                  onOpen={fetchBreeds}
+                  getOptionLabel={(option) => option.enName}
+                  isOptionEqualToValue={(option, value) => option.id === value.id}
                   renderInput={(params) => (
-                    <TextField placeholder="Start Typing The Breed" {...params} {...field} />
+                    <TextField placeholder="Start Typing The Breed" {...params} />
                   )}
+                  renderTags={(tagValue, getTagProps, state) =>
+                    tagValue.map((option, index) => (
+                      <Chip
+                        {...getTagProps({ index })}
+                        key={option.id}
+                        label={state.getOptionLabel(option)}
+                      />
+                    ))
+                  }
+                  onChange={(e, data) => onChange(data)}
+                  {...field}
                 />
               )}
             />

@@ -6,7 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "ts-node": "ts-node -O '{\"module\":\"commonjs\"}' -r tsconfig-paths/register",
+    "setup": "npm run ts-node -- src/setup.ts",
+    "typeorm": "npm run ts-node -- node_modules/typeorm/cli.js -d src/AppDataSource/MySQL.ts",
+    "migration:create": "npm run typeorm -- migration:create src/migrations/${npm_config_name}",
+    "migration:generate": "npm run typeorm -- migration:generate src/migrations/${npm_config_name}",
+    "migration:run": "npm run typeorm -- migration:run",
+    "migration:show": "npm run typeorm -- migration:show",
+    "migration:revert": "npm run typeorm -- migration:revert"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
@@ -15,11 +23,14 @@
     "@mui/material": "^5.15.4",
     "clsx": "^2.1.0",
     "framer-motion": "^10.18.0",
+    "mysql2": "^3.7.0",
     "next": "14.0.4",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.49.3",
-    "swiper": "^11.0.5"
+    "swiper": "^11.0.5",
+    "typeorm": "^0.3.19",
+    "typeorm-naming-strategies": "^4.1.0"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -32,6 +43,7 @@
     "prettier": "^3.1.1",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.3.0",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5"
   }
 }
