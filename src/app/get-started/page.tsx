@@ -23,11 +23,12 @@ import { ThemeProvider, createTheme } from '@mui/material';
 
 function PopupIcon() {
   return (
-    <svg viewBox="0 0 13 7" width={20} className="px-0.5">
+    <svg viewBox="0 0 13 7" className="h-6 min-h-6 w-6 min-w-6 p-1">
       <polyline
         className="fill-none stroke-[#a98d72]"
-        style={{ strokeLinecap: 'round', strokeLinejoin: 'round' }}
         points="12.5 .5 6.5 6.5 .5 .5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
