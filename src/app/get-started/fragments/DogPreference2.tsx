@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form';
 import FragmentProps from '../FragmentProps';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
-import RadioControl from '../controls/Radio';
+import BlockRadio from '../controls/block/Radio';
 import Section from '../Section';
 import SectionBreak from '../SectionBreak';
-import CheckboxControl from '../controls/Checkbox';
+import BlockCheckbox from '../controls/block/Checkbox';
 import Image from 'next/image';
 import LineRadioGroup from '../controls/LineRadioGroup';
 
@@ -30,10 +30,10 @@ export default function DogPreference2Fragment({ forward }: FragmentProps) {
         >
           <div className="mx-auto -mt-4 flex max-w-[380px] flex-wrap justify-center">
             <div className="mt-4 px-3">
-              <CheckboxControl value="none" control={control} name="allergies.[0]" label="None" />
+              <BlockCheckbox value="none" control={control} name="allergies.[0]" label="None" />
             </div>
             <div className="mt-4 px-3">
-              <CheckboxControl
+              <BlockCheckbox
                 value="chicken"
                 control={control}
                 name="allergies.[1]"
@@ -41,16 +41,16 @@ export default function DogPreference2Fragment({ forward }: FragmentProps) {
               />
             </div>
             <div className="mt-4 px-3">
-              <CheckboxControl value="beef" control={control} name="allergies.[2]" label="Beef" />
+              <BlockCheckbox value="beef" control={control} name="allergies.[2]" label="Beef" />
             </div>
             <div className="mt-4 px-3">
-              <CheckboxControl value="pork" control={control} name="allergies.[3]" label="Pork" />
+              <BlockCheckbox value="pork" control={control} name="allergies.[3]" label="Pork" />
             </div>
             <div className="mt-4 px-3">
-              <CheckboxControl value="lamb" control={control} name="allergies.[4]" label="Lamb" />
+              <BlockCheckbox value="lamb" control={control} name="allergies.[4]" label="Lamb" />
             </div>
             <div className="mt-4 px-3">
-              <CheckboxControl value="duck" control={control} name="allergies.[5]" label="Duck" />
+              <BlockCheckbox value="duck" control={control} name="allergies.[5]" label="Duck" />
             </div>
           </div>
         </Section>
@@ -58,37 +58,25 @@ export default function DogPreference2Fragment({ forward }: FragmentProps) {
         <Section title="What is [Charlie] currently eating?">
           <div className="mx-auto -mt-4 flex max-w-[530px] flex-wrap justify-between">
             <div className="mt-4 px-3">
-              <RadioControl value="dry" isBlock control={control} name="eating" label="Dry" />
+              <BlockRadio value="dry" control={control} name="eating" label="Dry" />
             </div>
             <div className="mt-4 px-3">
-              <RadioControl value="wet" isBlock control={control} name="eating" label="Wet" />
+              <BlockRadio value="wet" control={control} name="eating" label="Wet" />
             </div>
             <div className="mt-4 px-3">
-              <RadioControl value="raw" isBlock control={control} name="eating" label="Raw" />
+              <BlockRadio value="raw" control={control} name="eating" label="Raw" />
             </div>
             <div className="mt-4 px-3">
-              <RadioControl
-                value="dehydrated"
-                isBlock
-                control={control}
-                name="eating"
-                label="Dehydrated"
-              />
+              <BlockRadio value="dehydrated" control={control} name="eating" label="Dehydrated" />
             </div>
             <div className="mt-4 px-3">
-              <RadioControl value="fresh" isBlock control={control} name="eating" label="Fresh" />
+              <BlockRadio value="fresh" control={control} name="eating" label="Fresh" />
             </div>
             <div className="mt-4 px-3">
-              <RadioControl
-                value="homemade"
-                isBlock
-                control={control}
-                name="eating"
-                label="Homemade"
-              />
+              <BlockRadio value="homemade" control={control} name="eating" label="Homemade" />
             </div>
             <div className="mt-4 px-3">
-              <RadioControl value="other" isBlock control={control} name="eating" label="Other" />
+              <BlockRadio value="other" control={control} name="eating" label="Other" />
             </div>
           </div>
         </Section>
@@ -103,13 +91,13 @@ export default function DogPreference2Fragment({ forward }: FragmentProps) {
         >
           <div className="mx-auto -mt-4 flex max-w-[520px] flex-wrap justify-center">
             <div className="mt-4 px-3">
-              <RadioControl value="none" isBlock control={control} name="treats" label="None" />
+              <BlockRadio value="none" control={control} name="treats" label="None" />
             </div>
             <div className="mt-4 px-3">
-              <RadioControl value="some" isBlock control={control} name="treats" label="Some" />
+              <BlockRadio value="some" control={control} name="treats" label="Some" />
             </div>
             <div className="mt-4 px-3">
-              <RadioControl value="lots" isBlock control={control} name="treats" label="Lots" />
+              <BlockRadio value="lots" control={control} name="treats" label="Lots" />
             </div>
           </div>
         </Section>

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { Control, FieldValues, RegisterOptions, useController, useForm } from 'react-hook-form';
 import clsx from 'clsx';
 import H2 from '@/components/Heading/H2';
-import RadioControl from '../controls/Radio';
+import BlockRadio from '../controls/block/Radio';
 import Price from '../Price';
 import Button from '@/components/Button';
 import React from 'react';
@@ -44,7 +44,7 @@ interface PlanProps {
 
 function Dotted() {
   return (
-    <div className="after:content-dotted after:text-md relative h-0.5 w-full overflow-hidden whitespace-nowrap font-sans after:absolute after:-top-4 after:left-0 after:inline-block after:align-[3px] after:tracking-[6px] after:text-black"></div>
+    <div className="after:text-md relative h-0.5 w-full overflow-hidden whitespace-nowrap font-sans after:absolute after:-top-4 after:left-0 after:inline-block after:align-[3px] after:tracking-[6px] after:text-black after:content-dotted"></div>
   );
 }
 
@@ -143,7 +143,7 @@ function Plan({
                     aria-describedby={descriptionId}
                     {...getFloatingProps()}
                   >
-                    <div className="max-xs:w-full max-xs:min-w-full w-[400px] min-w-[400px] max-lg:min-w-[320px]">
+                    <div className="w-[400px] min-w-[400px] max-lg:min-w-[320px] max-xs:w-full max-xs:min-w-full">
                       <div className="relative overflow-hidden rounded-2xl pt-[100%]">
                         <Image src="/meal-plan/chicken-recipe.jpg" alt="Chicken Recipe" fill />
                       </div>
@@ -407,9 +407,8 @@ export default function RecommendedPlanFragment({ forward }: FragmentProps) {
               </p>
               <div className="my-3 flex flex-wrap justify-center">
                 <div className="mt-4 px-2">
-                  <RadioControl
+                  <BlockRadio
                     value={0}
-                    isBlock
                     control={control}
                     name="transition"
                     label="Don’t Use Transition"
@@ -424,9 +423,8 @@ export default function RecommendedPlanFragment({ forward }: FragmentProps) {
                   />
                 </div>
                 <div className="mt-4 px-2">
-                  <RadioControl
+                  <BlockRadio
                     value={1}
-                    isBlock
                     control={control}
                     name="transition"
                     label="Use Transition"

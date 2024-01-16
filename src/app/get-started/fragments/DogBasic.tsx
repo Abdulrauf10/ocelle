@@ -4,13 +4,15 @@ import FragmentProps from '../FragmentProps';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
 import { Autocomplete, Chip, TextField } from '@mui/material';
-import RadioControl from '../controls/Radio';
 import Section from '../Section';
 import SectionBreak from '../SectionBreak';
 import { Breed } from '@/entities';
+import BlockRadio from '../controls/block/Radio';
+import InlineCheckbox from '../controls/inline/Checkbox';
 
 export default function DogBasicFragment({ forward }: FragmentProps) {
-  const { handleSubmit, control } = useForm();
+  const { handleSubmit, control, watch } = useForm();
+  const isUnknownBreed = watch('isUnknownBreed', false);
   const [loading, setLoading] = React.useState(true);
   const [options, setOptions] = React.useState<Breed[] | undefined>(undefined);
 
@@ -37,7 +39,7 @@ export default function DogBasicFragment({ forward }: FragmentProps) {
             <Controller
               name="breed"
               control={control}
-              rules={{ required: true }}
+              rules={{ required: !isUnknownBreed }}
               defaultValue={[]}
               render={({ field: { onChange, ...field } }) => (
                 <Autocomplete
@@ -51,6 +53,7 @@ export default function DogBasicFragment({ forward }: FragmentProps) {
                   renderInput={(params) => (
                     <TextField placeholder="Start Typing The Breed" {...params} />
                   )}
+                  disabled={isUnknownBreed}
                   renderTags={(tagValue, getTagProps, state) =>
                     tagValue.map((option, index) => (
                       <Chip
@@ -66,7 +69,7 @@ export default function DogBasicFragment({ forward }: FragmentProps) {
               )}
             />
             <div className="mt-3 px-3">
-              <RadioControl
+              <InlineCheckbox
                 control={control}
                 name="isUnknownBreed"
                 label="Don’t Know The Breed"
@@ -79,10 +82,10 @@ export default function DogBasicFragment({ forward }: FragmentProps) {
         <Section title="[Charlie] is a ...">
           <div className="flex justify-center">
             <div className="px-3">
-              <RadioControl value={0} isBlock control={control} name="gender" label="Boy" />
+              <BlockRadio value={0} control={control} name="gender" label="Boy" />
             </div>
             <div className="px-3">
-              <RadioControl value={1} isBlock control={control} name="gender" label="Girl" />
+              <BlockRadio value={1} control={control} name="gender" label="Girl" />
             </div>
           </div>
         </Section>
@@ -90,16 +93,10 @@ export default function DogBasicFragment({ forward }: FragmentProps) {
         <Section title="Is [Charlie] ...">
           <div className="flex justify-center">
             <div className="px-3">
-              <RadioControl value={0} isBlock control={control} name="neuter" label="[Neutered]" />
+              <BlockRadio value={0} control={control} name="neuter" label="[Neutered]" />
             </div>
             <div className="px-3">
-              <RadioControl
-                value={1}
-                isBlock
-                control={control}
-                name="neuter"
-                label="[Not Neutered]"
-              />
+              <BlockRadio value={1} control={control} name="neuter" label="[Not Neutered]" />
             </div>
           </div>
           <p className="mt-10 italic text-primary">

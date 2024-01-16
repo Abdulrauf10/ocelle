@@ -6,7 +6,7 @@ import {
   useController,
 } from 'react-hook-form';
 
-interface RadioControl {
+interface InlineRadioProps {
   control: Control<FieldValues, any>;
   label: string;
   name: string;
@@ -15,47 +15,33 @@ interface RadioControl {
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
   >;
   value: string | number;
-  isBlock?: boolean;
   error?: boolean;
   className?: string;
 }
 
-export default function RadioControl({
+export default function InlineRadio({
   control,
   label,
   name,
   rules,
   value,
-  isBlock,
   error,
   className,
-}: RadioControl) {
+}: InlineRadioProps) {
   const { field } = useController({ name, control, rules });
-  const isSelected = field.value == value;
 
   return (
     <label
       className={clsx(
         'flex cursor-pointer items-center',
-        isBlock && 'min-w-[140px] rounded-full border px-4 py-1.5',
-        isBlock
-          ? error
-            ? 'border-[#f00] bg-white text-[#f00]'
-            : isSelected
-              ? 'border-primary bg-primary text-white'
-              : 'border-[#A98D72] bg-[#F6F4F1] text-[#A98D72]'
-          : 'text-[#A98D72]',
+        error ? 'text-[#f00]' : 'text-[#A98D72]',
         className
       )}
     >
       <div
         className={clsx(
           'relative mr-2 h-[13px] w-[13px] rounded-full border-[1.5px]',
-          isBlock
-            ? isSelected
-              ? 'border-white bg-secondary'
-              : 'border-[#A98D72] bg-white'
-            : 'border-[#A98D72]'
+          error ? 'border-[#f00]' : 'border-[#A98D72]'
         )}
       >
         <input
@@ -64,9 +50,7 @@ export default function RadioControl({
           className="absolute bottom-0 left-0 right-0 top-0 opacity-0 [&:checked+*]:block"
           value={value}
         />
-        {!isBlock && (
-          <div className="ml-[1.5px] mt-[1.5px] hidden h-[7px] w-[7px] rounded-full bg-[#A98D72]"></div>
-        )}
+        <div className="ml-[1.5px] mt-[1.5px] hidden h-[7px] w-[7px] rounded-full bg-[#A98D72]"></div>
       </div>
       <span>{label}</span>
     </label>
