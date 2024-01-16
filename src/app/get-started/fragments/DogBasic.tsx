@@ -11,7 +11,12 @@ import BlockRadio from '../controls/block/Radio';
 import InlineCheckbox from '../controls/inline/Checkbox';
 
 export default function DogBasicFragment({ forward }: FragmentProps) {
-  const { handleSubmit, control, watch } = useForm();
+  const {
+    handleSubmit,
+    control,
+    watch,
+    formState: { errors },
+  } = useForm();
   const isUnknownBreed = watch('isUnknownBreed', false);
   const [loading, setLoading] = React.useState(true);
   const [options, setOptions] = React.useState<Breed[] | undefined>(undefined);
@@ -51,7 +56,11 @@ export default function DogBasicFragment({ forward }: FragmentProps) {
                   getOptionLabel={(option) => option.enName}
                   isOptionEqualToValue={(option, value) => option.id === value.id}
                   renderInput={(params) => (
-                    <TextField placeholder="Start Typing The Breed" {...params} />
+                    <TextField
+                      {...params}
+                      placeholder="Start Typing The Breed"
+                      error={!!errors.breed}
+                    />
                   )}
                   disabled={isUnknownBreed}
                   renderTags={(tagValue, getTagProps, state) =>
@@ -82,10 +91,24 @@ export default function DogBasicFragment({ forward }: FragmentProps) {
         <Section title="[Charlie] is a ...">
           <div className="flex justify-center">
             <div className="px-3">
-              <BlockRadio value={0} control={control} name="gender" label="Boy" />
+              <BlockRadio
+                value={0}
+                error={!!errors.gender}
+                control={control}
+                name="gender"
+                label="Boy"
+                rules={{ required: true }}
+              />
             </div>
             <div className="px-3">
-              <BlockRadio value={1} control={control} name="gender" label="Girl" />
+              <BlockRadio
+                value={1}
+                error={!!errors.gender}
+                control={control}
+                name="gender"
+                label="Girl"
+                rules={{ required: true }}
+              />
             </div>
           </div>
         </Section>
@@ -93,10 +116,24 @@ export default function DogBasicFragment({ forward }: FragmentProps) {
         <Section title="Is [Charlie] ...">
           <div className="flex justify-center">
             <div className="px-3">
-              <BlockRadio value={0} control={control} name="neuter" label="[Neutered]" />
+              <BlockRadio
+                value={0}
+                error={!!errors.neuter}
+                control={control}
+                name="neuter"
+                label="[Neutered]"
+                rules={{ required: true }}
+              />
             </div>
             <div className="px-3">
-              <BlockRadio value={1} control={control} name="neuter" label="[Not Neutered]" />
+              <BlockRadio
+                value={1}
+                error={!!errors.neuter}
+                control={control}
+                name="neuter"
+                label="[Not Neutered]"
+                rules={{ required: true }}
+              />
             </div>
           </div>
           <p className="mt-10 italic text-primary">

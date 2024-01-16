@@ -24,7 +24,7 @@ export default function BlockCheckbox({ control, label, name, rules, value }: Bl
   return (
     <label
       className={clsx(
-        'flex min-w-[140px] select-none select-none items-center rounded-full border px-4 py-1.5',
+        'flex min-w-[140px] select-none items-center rounded-full border px-4 py-1.5',
         isSelected
           ? 'border-primary bg-primary text-white'
           : 'border-[#A98D72] bg-[#F6F4F1] text-[#A98D72]'
