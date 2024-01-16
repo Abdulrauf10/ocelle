@@ -65,6 +65,7 @@ export default function DogPreference1Fragment({ forward }: FragmentProps) {
               name="bodyCondition"
               rules={{ required: true }}
               control={control}
+              error={!!errors.bodyCondition}
               radios={[
                 {
                   label: 'Too Skinny',
@@ -132,6 +133,7 @@ export default function DogPreference1Fragment({ forward }: FragmentProps) {
               name="active"
               rules={{ required: true }}
               control={control}
+              error={!!errors.active}
               radios={[
                 {
                   label: 'Mellow',

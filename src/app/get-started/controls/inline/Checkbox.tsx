@@ -7,7 +7,7 @@ import {
 } from 'react-hook-form';
 
 interface InlineCheckboxProps {
-  control: Control<FieldValues, any>;
+  control: Control<FieldValues>;
   label: string;
   name: string;
   rules?: Omit<

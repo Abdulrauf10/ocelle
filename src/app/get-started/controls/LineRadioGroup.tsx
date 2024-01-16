@@ -9,11 +9,12 @@ import {
 
 interface CommonProps {
   name: string;
-  control: Control<FieldValues, any>;
+  control: Control<FieldValues>;
   rules?: Omit<
     RegisterOptions<FieldValues, string>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
   >;
+  error?: boolean;
 }
 
 interface LineRadioProps extends CommonProps {
@@ -28,6 +29,7 @@ function LineRadio({
   control,
   children,
   rules,
+  error,
 }: React.PropsWithChildren<LineRadioProps>) {
   const { field } = useController({ name, control, rules });
   const isSelected = field.value == value;
@@ -36,11 +38,12 @@ function LineRadio({
     <label className="flex flex-1 flex-col">
       <div className="flex h-full justify-center px-1">{children}</div>
       <div className="relative mt-6 flex items-center justify-center">
-        <div className="absolute h-0.5 w-full bg-primary"></div>
+        <div className={clsx('absolute h-0.5 w-full', error ? 'bg-[#f00]' : 'bg-primary')}></div>
         <div
           className={clsx(
-            'relative mx-auto h-4 w-4 rounded-full border border-primary',
-            isSelected ? 'bg-secondary' : 'bg-white'
+            'relative mx-auto h-4 w-4 rounded-full border ',
+            isSelected ? 'bg-secondary' : 'bg-white',
+            error ? 'border-[#f00]' : 'border-primary'
           )}
         >
           <input
@@ -65,7 +68,13 @@ interface LineRadioGroupProps extends CommonProps {
   >;
 }
 
-export default function LineRadioGroup({ name, control, rules, radios }: LineRadioGroupProps) {
+export default function LineRadioGroup({
+  name,
+  control,
+  rules,
+  radios,
+  error,
+}: LineRadioGroupProps) {
   return (
     <div className="flex">
       {radios.map((radio, idx) => (
@@ -76,6 +85,7 @@ export default function LineRadioGroup({ name, control, rules, radios }: LineRad
           rules={rules}
           value={radio.value}
           label={radio.label}
+          error={error}
         >
           {radio.children}
         </LineRadio>

@@ -7,7 +7,7 @@ import {
 } from 'react-hook-form';
 
 interface BlockCheckboxProps {
-  control: Control<FieldValues, any>;
+  control: Control<FieldValues>;
   label: string;
   name: string;
   rules?: Omit<
@@ -15,19 +15,36 @@ interface BlockCheckboxProps {
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
   >;
   value: string | number;
+  error?: boolean;
+  className?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export default function BlockCheckbox({ control, label, name, rules, value }: BlockCheckboxProps) {
-  const { field } = useController({ name, control, rules });
+export default function BlockCheckbox({
+  control,
+  label,
+  name,
+  rules,
+  value,
+  error,
+  className,
+  onChange: parentOnChange,
+}: BlockCheckboxProps) {
+  const {
+    field: { onChange, ...field },
+  } = useController({ name, control, rules });
   const isSelected = field.value === true;
 
   return (
     <label
       className={clsx(
         'flex min-w-[140px] select-none items-center rounded-full border px-4 py-1.5',
-        isSelected
-          ? 'border-primary bg-primary text-white'
-          : 'border-[#A98D72] bg-[#F6F4F1] text-[#A98D72]'
+        error
+          ? 'border-[#f00] bg-white text-[#f00]'
+          : isSelected
+            ? 'border-primary bg-primary text-white'
+            : 'border-[#A98D72] bg-[#F6F4F1] text-[#A98D72]',
+        className
       )}
     >
       <div
@@ -40,6 +57,12 @@ export default function BlockCheckbox({ control, label, name, rules, value }: Bl
           {...field}
           type="checkbox"
           className="absolute bottom-0 left-0 right-0 top-0 opacity-0"
+          onChange={(e) => {
+            onChange(e);
+            if (parentOnChange && typeof parentOnChange === 'function') {
+              parentOnChange(e);
+            }
+          }}
           value={value}
         />
       </div>

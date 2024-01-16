@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldError, Merge, useForm } from 'react-hook-form';
 import FragmentProps from '../FragmentProps';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
@@ -11,7 +11,23 @@ import Image from 'next/image';
 import LineRadioGroup from '../controls/LineRadioGroup';
 
 export default function DogPreference2Fragment({ forward }: FragmentProps) {
-  const { handleSubmit, control } = useForm();
+  const {
+    handleSubmit,
+    control,
+    formState: { errors },
+    getValues,
+    trigger,
+  } = useForm();
+  const options = React.useMemo(() => {
+    return [
+      { label: 'None', value: 'none' },
+      { label: 'Chicken', value: 'chicken' },
+      { label: 'Beef', value: 'beef' },
+      { label: 'Pork', value: 'pork' },
+      { label: 'Lamb', value: 'lamb' },
+      { label: 'Duck', value: 'duck' },
+    ];
+  }, []);
 
   const onSubmit = React.useCallback(() => {
     forward();
@@ -30,53 +46,135 @@ export default function DogPreference2Fragment({ forward }: FragmentProps) {
         >
           <div className="mx-auto -mt-4 flex max-w-[380px] flex-wrap justify-center">
             <div className="mt-4 px-3">
-              <BlockCheckbox value="none" control={control} name="allergies.[0]" label="None" />
-            </div>
-            <div className="mt-4 px-3">
               <BlockCheckbox
-                value="chicken"
+                label={options[0].label}
+                value={options[0].value}
                 control={control}
-                name="allergies.[1]"
-                label="Chicken"
+                name="allergies[0]"
+                error={Array.isArray(errors.allergies) && !!errors.allergies[0]}
+                rules={{
+                  validate: {
+                    required: (value, formValues) =>
+                      formValues.allergies.some((value: unknown) => !!value),
+                    conflict: (value, formValues) =>
+                      value &&
+                      !formValues.allergies.some(
+                        (value: unknown, idx: number) => idx > 0 && !!value
+                      ),
+                  },
+                }}
+                onChange={() => trigger('allergies')}
               />
             </div>
-            <div className="mt-4 px-3">
-              <BlockCheckbox value="beef" control={control} name="allergies.[2]" label="Beef" />
-            </div>
-            <div className="mt-4 px-3">
-              <BlockCheckbox value="pork" control={control} name="allergies.[3]" label="Pork" />
-            </div>
-            <div className="mt-4 px-3">
-              <BlockCheckbox value="lamb" control={control} name="allergies.[4]" label="Lamb" />
-            </div>
-            <div className="mt-4 px-3">
-              <BlockCheckbox value="duck" control={control} name="allergies.[5]" label="Duck" />
-            </div>
+            {options.map((option, idx) => {
+              if (idx === 0) {
+                return;
+              }
+              return (
+                <div className="mt-4 px-3" key={option.value}>
+                  <BlockCheckbox
+                    label={options[idx].label}
+                    value={options[idx].value}
+                    control={control}
+                    name={`allergies[${idx}]`}
+                    error={Array.isArray(errors.allergies) && !!errors.allergies[idx]}
+                    rules={{
+                      validate: {
+                        required: (value, formValues) =>
+                          formValues.allergies.some((value: unknown) => !!value),
+                        conflict: (value, formValues) => !(value && formValues.allergies[0]),
+                      },
+                    }}
+                    onChange={() => trigger('allergies')}
+                  />
+                </div>
+              );
+            })}
           </div>
+          {Array.isArray(errors.allergies) &&
+            errors.allergies.some((x) => x.type === 'conflict') && (
+              <p className="mx-auto mt-3 max-w-[360px] text-sm text-[#f00]">
+                You’ve indicated that [Charlie] has no allergies (“None!”) as well as allergies to [
+                {getValues('allergies')
+                  .map((v: unknown, i: number) => (v ? options[i].label : v))
+                  .filter((v: unknown, i: number) => !!v && i !== 0)
+                  .join(', ')}
+                ]. Please recheck and re-enter your selection.
+              </p>
+            )}
         </Section>
         <SectionBreak />
         <Section title="What is [Charlie] currently eating?">
           <div className="mx-auto -mt-4 flex max-w-[530px] flex-wrap justify-between">
             <div className="mt-4 px-3">
-              <BlockRadio value="dry" control={control} name="eating" label="Dry" />
+              <BlockRadio
+                value="dry"
+                control={control}
+                name="eating"
+                label="Dry"
+                error={!!errors.eating}
+                rules={{ required: true }}
+              />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio value="wet" control={control} name="eating" label="Wet" />
+              <BlockRadio
+                value="wet"
+                control={control}
+                name="eating"
+                label="Wet"
+                error={!!errors.eating}
+                rules={{ required: true }}
+              />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio value="raw" control={control} name="eating" label="Raw" />
+              <BlockRadio
+                value="raw"
+                control={control}
+                name="eating"
+                label="Raw"
+                error={!!errors.eating}
+                rules={{ required: true }}
+              />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio value="dehydrated" control={control} name="eating" label="Dehydrated" />
+              <BlockRadio
+                value="dehydrated"
+                control={control}
+                name="eating"
+                label="Dehydrated"
+                error={!!errors.eating}
+                rules={{ required: true }}
+              />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio value="fresh" control={control} name="eating" label="Fresh" />
+              <BlockRadio
+                value="fresh"
+                control={control}
+                name="eating"
+                label="Fresh"
+                error={!!errors.eating}
+                rules={{ required: true }}
+              />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio value="homemade" control={control} name="eating" label="Homemade" />
+              <BlockRadio
+                value="homemade"
+                control={control}
+                name="eating"
+                label="Homemade"
+                error={!!errors.eating}
+                rules={{ required: true }}
+              />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio value="other" control={control} name="eating" label="Other" />
+              <BlockRadio
+                value="other"
+                control={control}
+                name="eating"
+                label="Other"
+                error={!!errors.eating}
+                rules={{ required: true }}
+              />
             </div>
           </div>
         </Section>
@@ -91,13 +189,34 @@ export default function DogPreference2Fragment({ forward }: FragmentProps) {
         >
           <div className="mx-auto -mt-4 flex max-w-[520px] flex-wrap justify-center">
             <div className="mt-4 px-3">
-              <BlockRadio value="none" control={control} name="treats" label="None" />
+              <BlockRadio
+                value="none"
+                control={control}
+                name="treats"
+                label="None"
+                error={!!errors.treats}
+                rules={{ required: true }}
+              />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio value="some" control={control} name="treats" label="Some" />
+              <BlockRadio
+                value="some"
+                control={control}
+                name="treats"
+                label="Some"
+                error={!!errors.treats}
+                rules={{ required: true }}
+              />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio value="lots" control={control} name="treats" label="Lots" />
+              <BlockRadio
+                value="lots"
+                control={control}
+                name="treats"
+                label="Lots"
+                error={!!errors.treats}
+                rules={{ required: true }}
+              />
             </div>
           </div>
         </Section>
@@ -105,16 +224,17 @@ export default function DogPreference2Fragment({ forward }: FragmentProps) {
         <Section title=" How picky is [Charlie] at mealtimes?">
           <div className="mx-auto mt-10 max-w-[640px]">
             <LineRadioGroup
-              name="active"
+              name="picky"
               rules={{ required: true }}
               control={control}
+              error={!!errors.picky}
               radios={[
                 {
                   label: 'Can Be Picky',
                   value: 'picky',
                   children: (
                     <div className="flex items-end">
-                      <Image src="/question/picky.svg" alt="Picky dog" width={130} height={130} />
+                      <Image src="/question/picky.svg" alt="Picky dog" width={130} height={50} />
                     </div>
                   ),
                 },
@@ -127,7 +247,7 @@ export default function DogPreference2Fragment({ forward }: FragmentProps) {
                         src="/question/good-eater.svg"
                         alt="Eater dog"
                         width={80}
-                        height={80}
+                        height={73}
                       />
                     </div>
                   ),
@@ -140,7 +260,7 @@ export default function DogPreference2Fragment({ forward }: FragmentProps) {
                       src="/question/eat-anything.svg"
                       alt="Eat anything dog"
                       width={70}
-                      height={70}
+                      height={81}
                     />
                   ),
                 },
