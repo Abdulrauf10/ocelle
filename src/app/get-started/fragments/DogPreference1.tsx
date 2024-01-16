@@ -74,7 +74,7 @@ export default function DogPreference1Fragment({ forward }: FragmentProps) {
                       src="/question/body-skinny.svg"
                       alt="dog skinny"
                       width={120}
-                      height={120}
+                      height={99}
                     />
                   ),
                 },
@@ -86,7 +86,7 @@ export default function DogPreference1Fragment({ forward }: FragmentProps) {
                       src="/question/body-just-right.svg"
                       alt="dog just right"
                       width={120}
-                      height={120}
+                      height={99}
                     />
                   ),
                 },
@@ -98,7 +98,7 @@ export default function DogPreference1Fragment({ forward }: FragmentProps) {
                       src="/question/body-rounded.svg"
                       alt="dog rounded"
                       width={120}
-                      height={120}
+                      height={99}
                     />
                   ),
                 },
@@ -110,7 +110,7 @@ export default function DogPreference1Fragment({ forward }: FragmentProps) {
                       src="/question/body-chunky.svg"
                       alt="dog chunky"
                       width={120}
-                      height={50}
+                      height={99}
                     />
                   ),
                 },
@@ -137,14 +137,14 @@ export default function DogPreference1Fragment({ forward }: FragmentProps) {
                   label: 'Mellow',
                   value: 'mellow',
                   children: (
-                    <Image src="/question/mellow.svg" alt="Mellow dog" width={100} height={100} />
+                    <Image src="/question/mellow.svg" alt="Mellow dog" width={100} height={95} />
                   ),
                 },
                 {
                   label: 'Active',
                   value: 'active',
                   children: (
-                    <Image src="/question/active.svg" alt="Active dog" width={80} height={80} />
+                    <Image src="/question/active.svg" alt="Active dog" width={80} height={95} />
                   ),
                 },
                 {
@@ -155,7 +155,7 @@ export default function DogPreference1Fragment({ forward }: FragmentProps) {
                       src="/question/very-active.svg"
                       alt="Very Active dog"
                       width={110}
-                      height={100}
+                      height={95}
                     />
                   ),
                 },
