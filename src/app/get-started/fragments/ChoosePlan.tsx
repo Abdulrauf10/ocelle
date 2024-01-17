@@ -3,10 +3,10 @@ import Section from '../Section';
 import Image from 'next/image';
 import React from 'react';
 import clsx from 'clsx';
-import Tick from '@/app/tick.svg';
 import Button from '@/components/Button';
 import FragmentProps from '../FragmentProps';
 import Price from '../Price';
+import CircleTick from '@/components/Icon/CircleTick';
 
 interface PlanProps {
   title: string;
@@ -45,7 +45,7 @@ function Plan({
         }
       }}
     >
-      <div className="max-xs:flex-wrap flex items-start">
+      <div className="flex items-start max-xs:flex-wrap">
         <Image
           src={picture}
           alt={title}
@@ -53,7 +53,7 @@ function Plan({
           height={160}
           className="min-w-[160px] rounded-2xl"
         />
-        <div className="max-xs:ml-0 max-xs:mt-2 ml-4">
+        <div className="ml-4 max-xs:ml-0 max-xs:mt-2">
           <h3
             className={clsx(
               'text-lg font-bold uppercase',
@@ -64,7 +64,7 @@ function Plan({
           </h3>
           <div
             className={clsx(
-              'font-open-sans mt-0.5 inline-block rounded-3xl bg-secondary px-3 py-0.5 text-center text-sm italic text-white',
+              'mt-0.5 inline-block rounded-3xl bg-secondary px-3 py-0.5 text-center font-open-sans text-sm italic text-white',
               !recommended && 'opacity-0'
             )}
           >
@@ -84,16 +84,14 @@ function Plan({
         </div>
       </div>
       <p className="mt-5 h-full">{children}</p>
-      <div className="font-open-sans mt-5 flex justify-end text-center text-white">
+      <div className="mt-5 flex justify-end text-center font-open-sans text-white">
         <div
           className={clsx(
             'inline-flex min-w-[120px] items-center justify-center rounded-3xl px-2 py-1',
             selected ? 'bg-primary' : 'bg-[#A98D72]'
           )}
         >
-          {selected && (
-            <Image src={Tick} alt="Tick" width={20} height={20} className="mr-2 inline-block" />
-          )}
+          {selected && <CircleTick className="mr-2 inline-block h-5 w-5" />}
           {selected ? 'Selected' : 'Select'}
         </div>
       </div>
