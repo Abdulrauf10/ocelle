@@ -6,7 +6,7 @@ import { Control, FieldValues, RegisterOptions, useController, useForm } from 'r
 import clsx from 'clsx';
 import H2 from '@/components/Heading/H2';
 import BlockRadio from '../controls/block/Radio';
-import Price from '../Price';
+import Price from '@/components/Price';
 import Button from '@/components/Button';
 import React from 'react';
 import {
@@ -445,12 +445,17 @@ export default function RecommendedPlanFragment({ forward }: FragmentProps) {
             </div>
             <div className="mt-12 flex flex-wrap items-center justify-center">
               <Image src="/question/eat-anything.svg" alt="Eating Dog" width={60} height={70} />
-              <p className="my-2 ml-3 text-primary">
-                Starter Box: <Price price={504} discountedPrice={252} /> (
-                <Price price={36} discountedPrice={18} />
-                <span className="font-bold text-[#269D9E]">/day</span>){' '}
-                <span className="whitespace-nowrap">with your starter discount.</span>
-              </p>
+              <div className="my-2 ml-3 inline-flex flex-wrap items-center justify-center text-primary">
+                <div>Starter Box:&nbsp;</div>
+                <div>
+                  <Price value={504} discount />
+                  <Price className="ml-1 font-bold" value={252} /> (
+                  <Price value={36} discount />
+                  <Price className="ml-1 font-bold" value={18} />
+                  <span className="font-bold text-[#269D9E]">/day</span>)&nbsp;
+                  <span className="whitespace-nowrap">with your starter discount.</span>
+                </div>
+              </div>
             </div>
             <div className="mb-[1vw]">
               <Button

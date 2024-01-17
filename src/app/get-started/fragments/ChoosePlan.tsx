@@ -5,7 +5,7 @@ import React from 'react';
 import clsx from 'clsx';
 import Button from '@/components/Button';
 import FragmentProps from '../FragmentProps';
-import Price from '../Price';
+import Price from '@/components/Price';
 import CircleTick from '@/components/Icon/CircleTick';
 
 interface PlanProps {
@@ -73,7 +73,10 @@ function Plan({
           <p className="mt-2">
             Starting at:
             <br />
-            <Price price={pricePerDay} discountedPrice={discountedPricePerDay} />
+            <Price value={pricePerDay} discount={!!discountedPricePerDay} />
+            {discountedPricePerDay && (
+              <Price className="ml-1 font-bold" value={discountedPricePerDay} />
+            )}
             <span className="font-bold text-[#269D9E]">/day</span>.
           </p>
           <p className="mt-2">
