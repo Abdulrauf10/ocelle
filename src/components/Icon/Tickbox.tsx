@@ -1,8 +1,6 @@
-interface TickboxProps {
-  className?: string;
-}
+import IconProps from './Icon';
 
-export default function Tickbox({ className }: TickboxProps) {
+export default function Tickbox({ className }: IconProps) {
   return (
     <svg viewBox="0 0 21.31 21.31" className={className}>
       <rect className="fill-[#be873b] stroke-0" width="21.31" height="21.31" rx="2" ry="2" />

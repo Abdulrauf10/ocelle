@@ -1,8 +1,6 @@
-interface CloseProps {
-  className?: string;
-}
+import IconProps from './Icon';
 
-export default function Close({ className }: CloseProps) {
+export default function Close({ className }: IconProps) {
   return (
     <svg viewBox="0 0 14 14" className={className}>
       <circle className="fill-primary stroke-0" cx="7" cy="7" r="7" />

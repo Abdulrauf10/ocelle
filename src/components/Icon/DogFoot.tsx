@@ -1,9 +1,6 @@
-interface DogFootProps {
-  fillColor?: string;
-  className?: string;
-}
+import IconProps from './Icon';
 
-export default function DogFoot({ className }: DogFootProps) {
+export default function DogFoot({ className }: IconProps) {
   return (
     <svg viewBox="0 0 25.16 21.88" className={className}>
       <path
