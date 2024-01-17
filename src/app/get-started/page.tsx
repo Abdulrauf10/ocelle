@@ -34,6 +34,14 @@ function PopupIcon() {
   );
 }
 
+function DropdownIcon() {
+  return (
+    <div className="mr-2 [&_polyline]:stroke-slate-500">
+      <PopupIcon />
+    </div>
+  );
+}
+
 const theme = createTheme({
   typography: {
     fontFamily: 'var(--font-jost)',
@@ -64,13 +72,29 @@ const theme = createTheme({
         },
       },
     },
+    MuiSelect: {
+      defaultProps: {
+        IconComponent: DropdownIcon,
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {
           borderRadius: '8px',
         },
         input: {
+          borderRadius: '8px',
           padding: '14px 16.5px',
+        },
+      },
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          transform: 'translate(16px, 14px) scale(1)',
+          ['&.Mui-focused, &.MuiFormLabel-filled']: {
+            transform: 'translate(16px, -9px) scale(.75)',
+          },
         },
       },
     },
@@ -222,7 +246,7 @@ export default function GetStarted() {
           )}
           {stage === Stage.Checkout && (
             <AnimatePresenceDiv name="checkout">
-              <CheckoutFragment />
+              <CheckoutFragment forward={forward} />
             </AnimatePresenceDiv>
           )}
           {stage === Stage.ThankYou && (

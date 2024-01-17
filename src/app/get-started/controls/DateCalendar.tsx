@@ -21,20 +21,29 @@ interface DateCalendarProps {
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
   >;
   error?: boolean;
+  defaultValue?: Date;
+  minDate?: Date;
+  maxDate?: Date;
 }
 
-export default function DateCalendar({ error, control, name, rules }: DateCalendarProps) {
+export default function DateCalendar({
+  error,
+  control,
+  name,
+  rules,
+  defaultValue,
+  minDate,
+  maxDate,
+}: DateCalendarProps) {
   const theme = useTheme();
   const {
     field: { onChange, ...field },
-  } = useController({ name, control, rules, defaultValue: null });
+  } = useController({ name, control, rules, defaultValue: defaultValue || null });
 
   return (
     <ThemeProvider
-      theme={createTheme({
-        ...theme,
+      theme={createTheme(theme, {
         palette: {
-          ...theme.palette,
           primary: {
             main: '#F2892A',
           },
@@ -44,6 +53,8 @@ export default function DateCalendar({ error, control, name, rules }: DateCalend
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <MuiDateCalendar
           {...field}
+          minDate={minDate}
+          maxDate={maxDate}
           onChange={(value) => onChange(value)}
           disableHighlightToday
           sx={{
@@ -51,7 +62,6 @@ export default function DateCalendar({ error, control, name, rules }: DateCalend
             borderRadius: '20px',
             padding: 0.5,
             height: '326px',
-
             [`& .${dateCalendarClasses.viewTransitionContainer}`]: {
               backgroundColor: '#fff',
               borderRadius: 4,

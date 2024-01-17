@@ -5,12 +5,14 @@ interface SectionProps {
   title: React.ReactNode;
   description?: React.ReactNode;
   className?: string;
+  dense?: boolean;
 }
 
 export default function Section({
   title,
   description,
   className,
+  dense,
   children,
 }: React.PropsWithChildren<SectionProps>) {
   return (
@@ -21,7 +23,7 @@ export default function Section({
         </H2>
         {description && <p className="mt-5 italic text-primary">{description}</p>}
       </div>
-      <div className="mt-8">{children}</div>
+      <div className={dense ? 'mt-4' : 'mt-8'}>{children}</div>
     </>
   );
 }
