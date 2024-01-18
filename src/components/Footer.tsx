@@ -37,7 +37,7 @@ export default function Footer({ hideNav }: FooterProps) {
             <div className="py-5 [&_a:hover]:underline">
               <FooterHead>About</FooterHead>
               <FooterLink href="/why-fresh">Why Fresh?</FooterLink>
-              <FooterLink href="/our-story">Our Story</FooterLink>
+              <FooterLink href="/about-us">Our Story</FooterLink>
               <FooterLink href="#">My Account</FooterLink>
               <FooterLink href="/careers">Careers</FooterLink>
               <FooterLink href="/affiliate-program">Affiliate Program</FooterLink>
@@ -80,7 +80,7 @@ export default function Footer({ hideNav }: FooterProps) {
           Science in Every Recipe. <span className="whitespace-nowrap">Love in Every Bite.</span>
         </div>
         <div className="my-5">
-          <div className="after:content-dotted after:text-md relative h-0.5 w-full overflow-hidden whitespace-nowrap font-sans after:absolute after:-top-4 after:left-1 after:inline-block after:align-[3px] after:tracking-[6px] after:text-white"></div>
+          <div className="after:text-md relative h-0.5 w-full overflow-hidden whitespace-nowrap font-sans after:absolute after:-top-4 after:left-1 after:inline-block after:align-[3px] after:tracking-[6px] after:text-white after:content-dotted"></div>
         </div>
         <div className="flex flex-wrap items-start justify-between gap-x-[30px] gap-y-[10px] max-sm:justify-center">
           <div>&copy; {new Date().getFullYear()} Ocelle Company Limited</div>

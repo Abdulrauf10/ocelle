@@ -3,11 +3,17 @@ import React from 'react';
 
 interface ContainerProps {
   className?: string;
+  screen?: boolean;
 }
 
 export default function Container({
   children,
   className,
+  screen,
 }: React.PropsWithChildren<ContainerProps>) {
-  return <div className={clsx('mx-auto max-w-8xl px-4', className)}>{children}</div>;
+  return (
+    <div className={clsx('mx-auto px-4', screen ? 'max-w-full' : 'max-w-8xl', className)}>
+      {children}
+    </div>
+  );
 }

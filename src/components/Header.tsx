@@ -83,7 +83,7 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <Link href="/our-story" className="block px-5 py-2">
+                <Link href="/about-us" className="block px-5 py-2">
                   About Us
                 </Link>
               </li>

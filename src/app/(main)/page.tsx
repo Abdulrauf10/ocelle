@@ -34,7 +34,7 @@ export default function Home() {
             Happier Years. <br />
             It’s Time To Go Fresh.
           </H2>
-          <div className="mt-[2vw] w-3/4 max-md:w-full">
+          <div className="mt-[2vw]">
             <List
               picture={<Tickbox className="mr-4 h-5 w-5" />}
               className={{ listItem: 'py-0.5' }}
