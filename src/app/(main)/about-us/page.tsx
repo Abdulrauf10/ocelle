@@ -65,7 +65,7 @@ export default function OurStory() {
         </div>
         <div className="min-h-[380px] w-1/2 bg-[url('./charlie.jpg')] bg-cover bg-[center_left] max-md:w-full"></div>
       </div>
-      <div className="flex items-center bg-primary bg-[url('./about-us-bg.svg')] bg-cover bg-[center] bg-repeat-x max-md:flex-col-reverse">
+      <div className="flex items-center bg-primary bg-[url('./about-us-bg.svg')] bg-cover bg-center bg-repeat-x max-md:flex-col-reverse">
         <div className="flex w-1/2 justify-end max-md:w-full max-md:justify-center">
           <div className="mr-5 w-full max-w-[380px] pt-10 max-md:mx-4">
             <div className="relative pt-[172%]">
@@ -74,8 +74,14 @@ export default function OurStory() {
           </div>
         </div>
         <div className="relative -left-8 w-1/2 text-white max-md:left-0 max-md:w-full max-md:px-4">
-          <div className="absolute left-16 -translate-y-full max-md:static max-md:ml-8 max-md:mt-8 max-md:translate-y-0">
-            <Image src="/inspire.svg" alt="Inspire" width={150} height={161} />
+          <div className="absolute left-16 -translate-y-full max-md:static max-md:mt-8 max-md:translate-y-0">
+            <Image
+              src="/inspire.svg"
+              alt="Inspire"
+              width={130}
+              height={140}
+              className="max-md:mx-auto"
+            />
           </div>
           <H2 className="pt-6">A Fresh Perspective</H2>
           <p className="mt-4 w-2/3 text-xl max-xl:w-full">
@@ -85,8 +91,8 @@ export default function OurStory() {
           </p>
         </div>
       </div>
-      <div className="flex flex-wrap">
-        <div className="w-1/2 bg-[#FCE7D4] py-[4vw] pl-[8vw] pr-[4vw] text-xl max-md:w-full max-md:px-4">
+      <div className="flex flex-wrap max-lg:flex-col-reverse">
+        <div className="w-1/2 bg-[#FCE7D4] py-[4vw] pl-[8vw] pr-[4vw] text-xl max-lg:w-full max-lg:px-4">
           <H2 className="text-secondary">
             Healthier. Happier.
             <br />
@@ -118,7 +124,13 @@ export default function OurStory() {
             our heartfelt commitment.
           </p>
         </div>
-        <div className="min-h-[380px] w-1/2 bg-[url('./about-us-food.jpg')] bg-cover bg-[center_left] max-md:w-full"></div>
+        <div className="flex min-h-[380px] w-1/2 items-end bg-[#F5A155] max-lg:w-full">
+          <div className="ml-[12%] w-full max-w-[620px] max-lg:mx-auto max-lg:px-4">
+            <div className="relative pt-[117.2%]">
+              <Image src="/about-us-food.png" alt="foods" fill className="select-none" />
+            </div>
+          </div>
+        </div>
       </div>
       <div className="bg-[#269D9E] py-[2vw] max-lg:py-8">
         <Container className="text-center text-white" screen>
