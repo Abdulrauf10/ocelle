@@ -30,9 +30,9 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
           transition={{ duration: 1.5 }}
           className="max-w-[560px] rounded-[30px] bg-white py-12 pl-12 pr-24 text-left text-xl shadow-[7px_7px_5px_rgba(185,130,59,0.3)] max-lg:-mt-5 max-lg:ml-8 max-lg:px-12 max-lg:py-10 max-lg:shadow-[-7px_7px_5px_rgba(185,130,59,0.3)]"
         >
-          <h3 className="text-3xl font-bold text-[#be873b]">{dog} Plan</h3>
+          <h3 className="text-gold text-3xl font-bold">{dog} Plan</h3>
           <div className="my-1">
-            <div className="my-2.5 inline-block rounded-3xl border border-[#be873b] px-11 py-1 text-xl uppercase text-[#be873b]">
+            <div className="text-gold my-2.5 inline-block rounded-3xl border border-current px-11 py-1 text-xl uppercase">
               {plan}
             </div>
           </div>
@@ -49,7 +49,7 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
                 />
               }
               className={{
-                listItem: 'text-[#be873b]',
+                listItem: 'text-gold',
               }}
               items={listItems}
             />

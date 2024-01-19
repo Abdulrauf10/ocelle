@@ -92,7 +92,7 @@ function Plan({
         'relative mx-auto mt-[70px] min-w-[230px] max-w-[280px] rounded-[20px] border p-[10px] shadow-[3px_3px_10px_rgba(0,0,0,.2)]',
         disabled
           ? 'pointer-events-none select-none border-[#7B8D97] bg-[#F2F4F5]'
-          : 'border-[#BE873B] bg-white'
+          : 'border-gold bg-white'
       )}
     >
       <div className="absolute -top-[70px] left-1/2 -translate-x-1/2">
@@ -114,7 +114,7 @@ function Plan({
         />
       </div>
       <div className="h-[70px]"></div>
-      <div className={clsx('mt-2', disabled ? 'text-[#BDC6CB]' : 'text-[#BE873B]')}>
+      <div className={clsx('mt-2', disabled ? 'text-[#BDC6CB]' : 'text-gold')}>
         <label>
           <input type="checkbox" {...field} disabled={disabled} />
           <span className="ml-2 font-bold">{title}</span>
@@ -452,7 +452,7 @@ export default function RecommendedPlanFragment({ forward }: FragmentProps) {
                   <Price className="ml-1 font-bold" value={252} /> (
                   <Price value={36} discount />
                   <Price className="ml-1 font-bold" value={18} />
-                  <span className="font-bold text-[#269D9E]">/day</span>)&nbsp;
+                  <span className="text-dark-green font-bold">/day</span>)&nbsp;
                   <span className="whitespace-nowrap">with your starter discount.</span>
                 </div>
               </div>

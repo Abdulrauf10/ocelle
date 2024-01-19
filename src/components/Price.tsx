@@ -17,7 +17,7 @@ export default function Price({ value, discount, className, dollorSign = true }:
     );
   }
   return (
-    <span className={clsx('text-[#269D9E]', className)}>
+    <span className={clsx('text-dark-green', className)}>
       {dollorSign && '$'}
       {value}
     </span>

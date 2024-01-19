@@ -16,7 +16,7 @@ export default function Home() {
   return (
     <main>
       <Picture />
-      <div className="bg-[#269D9E] py-[2vw] max-lg:py-8">
+      <div className="bg-dark-green py-[2vw] max-lg:py-8">
         <Container className="text-center text-white">
           <H2>They’re My Dogs. They’re My Family.</H2>
           <p className="mt-8 text-xl">
@@ -51,7 +51,7 @@ export default function Home() {
           <Button>Learn More</Button>
         </div>
       </div>
-      <Block className="bg-[#E5EDF3]">
+      <Block className="bg-primary bg-opacity-15">
         <Container>
           <H2 className="text-center text-primary">
             We’re Powered By Science <br className="max-md:hidden" />
@@ -156,14 +156,14 @@ export default function Home() {
       </div>
       <Block className="bg-[#ebeae7]">
         <Container>
-          <H2 className="text-center text-[#9a9486]">How Your Plan Works</H2>
+          <H2 className="text-gray text-center">How Your Plan Works</H2>
           <div className="mt-6">
             <HowPlanWorks />
           </div>
           <div className="mt-2 text-center">
             <Button>Build My Plan</Button>
           </div>
-          <p className="mt-[2.5vw] text-center text-2xl font-bold text-[#9a9486] max-md:text-xl max-sm:mt-8">
+          <p className="text-gray mt-[2.5vw] text-center text-2xl font-bold max-md:text-xl max-sm:mt-8">
             Not ready for a subscription? No problem! Try our{' '}
             <span className="whitespace-nowrap">
               <Link href="#" className="text-secondary hover:underline">
@@ -174,10 +174,10 @@ export default function Home() {
           </p>
         </Container>
       </Block>
-      <Block className="bg-[#f8f3eb]">
+      <Block className="bg-gold bg-opacity-10">
         <Container>
-          <H2 className="text-center text-[#be873b]">Proof Is In The Eating</H2>
-          <p className="mx-auto mt-5 max-w-screen-md text-center text-xl text-[#be873b]">
+          <H2 className="text-gold text-center">Proof Is In The Eating</H2>
+          <p className="text-gold mx-auto mt-5 max-w-screen-md text-center text-xl">
             Choose Ocelle and watch your dog thrive – from better gut health (cleaner poops!) and
             luxurious fur, to optimised energy for life. But you don&apos;t have to take our word
             for it:

@@ -11,10 +11,10 @@ export default function HowPlanWorks() {
           height={110}
           className="inline-block"
         />
-        <div className="font-open-sans mx-auto mt-5 h-9 w-9 rounded-full bg-[#9a9486] text-center text-2xl font-bold leading-9 text-white">
+        <div className="bg-gray mx-auto mt-5 h-9 w-9 rounded-full text-center font-open-sans text-2xl font-bold leading-9 text-white">
           1
         </div>
-        <div className="mt-2 text-2xl text-[#9a9486]">Tell us about your dog</div>
+        <div className="text-gray mt-2 text-2xl">Tell us about your dog</div>
         <p className="mt-2">
           Take our quick quiz to help us understand your furry friend. Based on their preferences
           and needs, we&apos;ll formulate a personalised meal plan just for them.
@@ -28,10 +28,10 @@ export default function HowPlanWorks() {
           height={110}
           className="inline-block"
         />
-        <div className="font-open-sans mx-auto mt-5 h-9 w-9 rounded-full bg-[#9a9486] text-center text-2xl font-bold leading-9 text-white">
+        <div className="bg-gray mx-auto mt-5 h-9 w-9 rounded-full text-center font-open-sans text-2xl font-bold leading-9 text-white">
           2
         </div>
-        <div className="mt-2 text-2xl text-[#9a9486]">Get your starter box</div>
+        <div className="text-gray mt-2 text-2xl">Get your starter box</div>
         <p className="mt-2">
           We’ll send you two weeks’ worth of freshly crafted meals. It’s the ideal intro for your
           dog’s discerning palate!
@@ -45,10 +45,10 @@ export default function HowPlanWorks() {
           height={110}
           className="inline-block"
         />
-        <div className="font-open-sans mx-auto mt-5 h-9 w-9 rounded-full bg-[#9a9486] text-center text-2xl font-bold leading-9 text-white">
+        <div className="bg-gray mx-auto mt-5 h-9 w-9 rounded-full text-center font-open-sans text-2xl font-bold leading-9 text-white">
           3
         </div>
-        <div className="mt-2 text-2xl text-[#9a9486]">Real, good food, regularly delivered</div>
+        <div className="text-gray mt-2 text-2xl">Real, good food, regularly delivered</div>
         <p className="mt-2">
           If our meals win your hearts, sit back and relax. Your dog&apos;s food will arrive at your
           door like clockwork. If you need to make changes, simply adjust your subscription at any

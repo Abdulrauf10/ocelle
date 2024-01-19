@@ -30,8 +30,8 @@ interface CheckoutBlockProps {
 
 function CheckoutBlock({ title, children }: React.PropsWithChildren<CheckoutBlockProps>) {
   return (
-    <div className="mt-4 border-t border-[#BE873B] pt-4">
-      {title && <h3 className="text-xl font-bold text-[#BE873B]">{title}</h3>}
+    <div className="border-gold mt-4 border-t pt-4">
+      {title && <h3 className="text-gold text-xl font-bold">{title}</h3>}
       {children}
     </div>
   );
@@ -478,7 +478,7 @@ export default function CheckoutFragment({ forward }: FragmentProps) {
             </div>
             <div className="w-1/3 px-6 max-lg:w-2/5 max-lg:px-3 max-md:mt-8 max-md:w-full">
               <div className="rounded-3xl bg-[#F8F3EB] px-6 py-10">
-                <h2 className="text-3xl font-bold text-[#BE873B]">Order Summary</h2>
+                <h2 className="text-gold text-3xl font-bold">Order Summary</h2>
                 <CheckoutBlock title="Your Plan:">
                   <p className="mt-1">
                     Fresh full plan for [Charlie]’s diet, at a total of [$18] per day.
@@ -584,8 +584,8 @@ export default function CheckoutFragment({ forward }: FragmentProps) {
                 </CheckoutBlock>
               </div>
               <div className="mt-10 rounded-3xl bg-[#F8F3EB] px-6 py-10">
-                <h2 className="text-3xl font-bold text-[#BE873B]">Subscription</h2>
-                <div className="mt-4 text-[#BE873B]">
+                <h2 className="text-gold text-3xl font-bold">Subscription</h2>
+                <div className="text-gold mt-4">
                   <p>Next Order: [8th of January 2024]</p>
                   <p className="mt-3">Delivery Cycle: Every [2 Weeks]</p>
                 </div>

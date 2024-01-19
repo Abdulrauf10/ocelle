@@ -31,7 +31,7 @@ export default function HowWorks() {
       </div>
       <Block className="bg-[#EEEEEE]">
         <Container>
-          <H2 className="text-center text-[#9a9486]">How Your Plan Works</H2>
+          <H2 className="text-gray text-center">How Your Plan Works</H2>
           <div className="mt-6">
             <HowPlanWorks />
           </div>
@@ -42,22 +42,22 @@ export default function HowWorks() {
       </Block>
       <Block className="bg-[#F8F3EB]">
         <Container>
-          <H2 className="text-center text-[#269D9E]">
+          <H2 className="text-dark-green text-center">
             A Customised Plan To Suit <br className="max-sm:hidden" />
             Your Dog And You
           </H2>
           <div className="mt-3 flex flex-wrap justify-center">
             <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full">
-              <div className="relative h-full w-full rounded-[40px] border border-[#269D9E] bg-white p-10 pt-16 text-center">
+              <div className="border-dark-green relative h-full w-full rounded-[40px] border bg-white p-10 pt-16 text-center">
                 <div className="absolute left-0 top-4 w-full text-center">
-                  <div className="font-open-sans inline-block rounded-[30px] bg-secondary px-7 py-0.5 text-center text-xl italic text-white">
+                  <div className="inline-block rounded-[30px] bg-secondary px-7 py-0.5 text-center font-open-sans text-xl italic text-white">
                     RECOMMENDED
                   </div>
                 </div>
                 <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
                   <Image alt="Full Plan Meal" src="/meal-plan/full-plan.jpg" fill />
                 </div>
-                <h3 className="mt-6 text-2xl font-bold text-[#269D9E]">FRESH FULL PLAN</h3>
+                <h3 className="text-dark-green mt-6 text-2xl font-bold">FRESH FULL PLAN</h3>
                 <p className="mt-2">
                   Everything needed in one simple serving. Reap the full benefits of fresh,
                   nutritious meals for your dog, meticulously crafted and portioned by experts.
@@ -65,11 +65,11 @@ export default function HowWorks() {
               </div>
             </div>
             <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full">
-              <div className="relative h-full w-full rounded-[40px] border border-[#269D9E] bg-white p-10 pt-16 text-center">
+              <div className="border-dark-green relative h-full w-full rounded-[40px] border bg-white p-10 pt-16 text-center">
                 <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
                   <Image alt="Full Plan Meal" src="/meal-plan/half-plan.jpg" fill />
                 </div>
-                <h3 className="mt-6 text-2xl font-bold text-[#269D9E]">FRESH HALF PLAN</h3>
+                <h3 className="text-dark-green mt-6 text-2xl font-bold">FRESH HALF PLAN</h3>
                 <p className="mt-2">
                   Everything needed to supplement your dog’s current diet! Reinvigorate your
                   dog&apos;s current meals with a fresh, nutrient-packed addition.
@@ -88,7 +88,7 @@ export default function HowWorks() {
         reverse
         className="bg-[#EEF3F7]"
       >
-        <H2 className="text-[#be873b]">
+        <H2 className="text-gold">
           All The Flavour <br />
           They Desire!
         </H2>
@@ -134,9 +134,9 @@ export default function HowWorks() {
           <Button>Get Started</Button>
         </div>
       </Section>
-      <Block className="bg-[#F8F3EB]">
+      <Block className="bg-gold bg-opacity-10">
         <Container>
-          <H2 className="mb-10 text-center font-bold text-[#be873b]">
+          <H2 className="text-gold mb-10 text-center font-bold">
             Your Dog. Your Plan. Your Schedule.
           </H2>
           <div className="mx-auto max-w-[680px] rounded-[30px] bg-white p-12 max-sm:p-8">
@@ -146,8 +146,8 @@ export default function HowWorks() {
               </div>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
               <div className="py-px">
-                Easily tweak your delivery timings or choose new recipes based on what's perfect for
-                you and your dog.
+                Easily tweak your delivery timings or choose new recipes based on what&apos;s
+                perfect for you and your dog.
               </div>
             </div>
             <div className="mt-6 flex items-center max-sm:block">

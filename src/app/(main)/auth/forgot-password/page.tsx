@@ -18,7 +18,7 @@ export default function ForgotPassword() {
 
   return (
     <ThemeProvider theme={theme}>
-      <main className="bg-[#FCF9F5] py-10 text-center text-primary">
+      <main className="bg-beige py-10 text-center text-primary">
         <Container>
           <H2 inline>Set New Password</H2>
           <p className="mt-4 text-xl">

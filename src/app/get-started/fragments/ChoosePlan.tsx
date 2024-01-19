@@ -77,10 +77,10 @@ function Plan({
             {discountedPricePerDay && (
               <Price className="ml-1 font-bold" value={discountedPricePerDay} />
             )}
-            <span className="font-bold text-[#269D9E]">/day</span>.
+            <span className="text-dark-green font-bold">/day</span>.
           </p>
           <p className="mt-2">
-            Enjoy <span className="font-bold text-[#269D9E]">50%</span> off for{' '}
+            Enjoy <span className="text-dark-green font-bold">50%</span> off for{' '}
             <br className="max-lg:hidden" />
             your starter box.
           </p>

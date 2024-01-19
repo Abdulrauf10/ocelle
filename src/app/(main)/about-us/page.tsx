@@ -132,7 +132,7 @@ export default function OurStory() {
           </div>
         </div>
       </div>
-      <div className="bg-[#269D9E] py-[2vw] max-lg:py-8">
+      <div className="bg-dark-green py-[2vw] max-lg:py-8">
         <Container className="text-center text-white" screen>
           <H2>
             Powered By Science, <br />

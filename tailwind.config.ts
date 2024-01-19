@@ -12,6 +12,10 @@ const config: Config = {
       colors: {
         primary: '#5289B1',
         secondary: '#F2892A',
+        'dark-green': '#269D9E',
+        gold: '#be873b',
+        gray: '#9a9486',
+        beige: '#FCF9F5',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
