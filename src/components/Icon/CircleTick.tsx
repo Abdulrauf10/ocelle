@@ -3,6 +3,7 @@ import IconProps from './Icon';
 export default function CircleTick({ className }: IconProps) {
   return (
     <svg viewBox="0 0 16 15.11" className={className}>
+      <title>Circle Tick</title>
       <path
         className="fill-white stroke-0"
         d="M15.83,1.08c-.2-.31-.54-.49-.91-.49-.21,0-.41.06-.58.17-3.81,2.46-6.23,6.07-7.37,8.1l-1.93-2.52c-.21-.27-.52-.42-.86-.42-.24,0-.46.08-.65.22-.23.17-.38.43-.41.71-.04.29.04.57.21.8l2.97,3.88c.2.26.52.42.86.42.04,0,.09,0,.13,0,.38-.05.71-.29.86-.64.02-.06,2.45-5.55,7.37-8.73.24-.16.41-.4.47-.68.06-.28,0-.57-.15-.81Z"

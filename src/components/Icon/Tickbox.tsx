@@ -3,6 +3,7 @@ import IconProps from './Icon';
 export default function Tickbox({ className }: IconProps) {
   return (
     <svg viewBox="0 0 21.31 21.31" className={className}>
+      <title>Tickbox</title>
       <rect className="fill-gold stroke-0" width="21.31" height="21.31" rx="2" ry="2" />
       <path
         className="fill-white stroke-0"

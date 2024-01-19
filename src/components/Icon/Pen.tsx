@@ -3,6 +3,7 @@ import IconProps from './Icon';
 export default function Pen({ className }: IconProps) {
   return (
     <svg viewBox="0 0 10.51 10.51" className={className}>
+      <title>Pen</title>
       <path
         fillRule="evenodd"
         className="fill-primary stroke-0"

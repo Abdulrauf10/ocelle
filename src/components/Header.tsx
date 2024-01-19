@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import HamburgerMenu from './Icon/HamburgerMenu';
 
 export default function Header() {
   const headerRef = React.useRef<HTMLElement>(null);
@@ -33,11 +34,7 @@ export default function Header() {
     >
       <div className="flex flex-row items-center justify-between">
         <button className="mr-6 hidden max-xl:block" onClick={() => setIsOpened((v) => !v)}>
-          <svg viewBox="0 0 26 20" width={26}>
-            <line stroke="#333333" strokeWidth="2" x1={0} x2={26} y1={1} y2={1} />
-            <line stroke="#333333" strokeWidth="2" x1={0} x2={26} y1={10} y2={10} />
-            <line stroke="#333333" strokeWidth="2" x1={0} x2={26} y1={19} y2={19} />
-          </svg>
+          <HamburgerMenu className="w-[26px]" />
         </button>
         <Link href="/" className="px-2">
           <Image
