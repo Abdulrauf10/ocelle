@@ -440,7 +440,7 @@ export default function RecommendedPlanFragment({ forward }: FragmentProps) {
                 </div>
               </div>
               {errors?.transition?.message && (
-                <p className="mt-5 text-[#f00]">{String(errors?.transition?.message)}</p>
+                <p className="text-error mt-5">{String(errors?.transition?.message)}</p>
               )}
             </div>
             <div className="mt-12 flex flex-wrap items-center justify-center">

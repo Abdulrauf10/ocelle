@@ -11,7 +11,7 @@ import Link from 'next/link';
 export default function OurStory() {
   return (
     <main>
-      <Block className="bg-[#F8F3EB]">
+      <Block className="bg-gold bg-opacity-10">
         <Container>
           <H2 className="text-center text-primary">We Do It For Them</H2>
           <div className="mx-auto mt-10 rounded-[30px] border border-primary bg-white p-12 text-[1.6vw] leading-[1.2] max-3xl:text-[2.4vw] max-2xl:text-[2.8vw] max-xl:p-10 max-xl:text-[3.4vw] max-lg:text-[3.8vw] max-md:p-8 max-md:text-[4.8vw] max-sm:text-[36px] max-xs:p-6 max-xs:text-[32px]">
@@ -40,7 +40,7 @@ export default function OurStory() {
         </Container>
       </Block>
       <div className="flex flex-wrap">
-        <div className="w-1/2 bg-[#A98D72] py-[4vw] pl-[8vw] pr-[4vw] text-xl text-white max-md:w-full max-md:px-4">
+        <div className="bg-brown w-1/2 py-[4vw] pl-[8vw] pr-[4vw] text-xl text-white max-md:w-full max-md:px-4">
           <H2>
             A <i>Tail</i> Of&nbsp;
             <br className="max-md:hidden" />
@@ -92,7 +92,7 @@ export default function OurStory() {
         </div>
       </div>
       <div className="flex flex-wrap max-lg:flex-col-reverse">
-        <div className="w-1/2 bg-[#FCE7D4] py-[4vw] pl-[8vw] pr-[4vw] text-xl max-lg:w-full max-lg:px-4">
+        <div className="w-1/2 bg-secondary bg-opacity-20 py-[4vw] pl-[8vw] pr-[4vw] text-xl max-lg:w-full max-lg:px-4">
           <H2 className="text-secondary">
             Healthier. Happier.
             <br />
@@ -124,7 +124,7 @@ export default function OurStory() {
             our heartfelt commitment.
           </p>
         </div>
-        <div className="flex min-h-[380px] w-1/2 items-end bg-[#F5A155] max-lg:w-full">
+        <div className="flex min-h-[380px] w-1/2 items-end bg-secondary bg-opacity-80 max-lg:w-full">
           <div className="ml-[12%] w-full max-w-[620px] max-lg:mx-auto max-lg:px-4">
             <div className="relative pt-[117.2%]">
               <Image src="/about-us-food.png" alt="foods" fill className="select-none" />

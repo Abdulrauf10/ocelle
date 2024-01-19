@@ -54,7 +54,7 @@ export default function DogPreference1Fragment({ forward }: FragmentProps) {
             />
             <span className="ml-2">kg</span>
             {errors?.kgs?.message && (
-              <p className="mt-3 w-full text-[#f00]">{String(errors?.kgs?.message)}</p>
+              <p className="text-error mt-3 w-full">{String(errors?.kgs?.message)}</p>
             )}
           </div>
         </Section>

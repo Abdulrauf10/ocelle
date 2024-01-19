@@ -35,12 +35,12 @@ export default function Button({
   const buttonProps = props as ButtonProps;
   const linkProps = props as LinkbuttonProps;
   const classes = clsx(
-    'items-center justify-center cursor-pointer rounded-[30px] py-1.5 px-6 text-center text-lg font-bold border',
+    'items-center justify-center cursor-pointer rounded-[30px] py-1.5 px-6 text-center text-lg font-bold border border-secondary',
     'transition-all duration-300 ease-in-out',
     fullWidth ? 'flex w-full' : 'inline-flex',
     reverse
-      ? 'bg-white text-secondary hover:bg-[#f1f1f1] hover:border-[#d9d9d9] border-secondary'
-      : 'bg-secondary text-white hover:bg-[#EA6A00] hover:border-[#EA6A00] border-secondary',
+      ? 'bg-white text-secondary hover:bg-gray hover:bg-opacity-5 hover:border-gray'
+      : 'bg-secondary text-white hover:bg-[#EA6A00] hover:border-[#EA6A00]',
     className
   );
 

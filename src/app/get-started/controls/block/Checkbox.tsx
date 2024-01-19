@@ -38,19 +38,19 @@ export default function BlockCheckbox({
   return (
     <label
       className={clsx(
-        'flex min-w-[140px] select-none items-center rounded-full border px-4 py-1.5',
+        'flex min-w-[140px] select-none items-center rounded-full border border-current px-4 py-1.5',
         error
-          ? 'border-[#f00] bg-white text-[#f00]'
+          ? 'text-error bg-white'
           : isSelected
             ? 'border-primary bg-primary text-white'
-            : 'border-[#A98D72] bg-[#F6F4F1] text-[#A98D72]',
+            : 'text-brown bg-brown bg-opacity-10',
         className
       )}
     >
       <div
         className={clsx(
-          'relative mr-2 h-[13px] w-[13px] rounded-full border-[1.5px]',
-          isSelected ? 'border-white bg-secondary' : 'border-[#A98D72] bg-white'
+          'relative mr-2 h-[13px] w-[13px] rounded-full border-2',
+          isSelected ? 'border-white bg-secondary' : 'border-brown bg-white'
         )}
       >
         <input

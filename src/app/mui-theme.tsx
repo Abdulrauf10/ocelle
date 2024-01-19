@@ -4,7 +4,7 @@ function PopupIcon() {
   return (
     <svg viewBox="0 0 13 7" className="h-6 min-h-6 w-6 min-w-6 p-1">
       <polyline
-        className="fill-none stroke-[#a98d72]"
+        className="stroke-brown fill-none"
         points="12.5 .5 6.5 6.5 .5 .5"
         strokeLinecap="round"
         strokeLinejoin="round"

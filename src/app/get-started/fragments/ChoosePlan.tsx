@@ -34,7 +34,7 @@ function Plan({
     <div
       className={clsx(
         'mx-auto flex h-full max-w-[400px] cursor-pointer flex-col rounded-[30px] border p-6 text-left shadow-[0_0_15px_rgba(0,0,0,0.2)]',
-        error ? 'border-[#f00]' : selected ? 'border-primary' : 'border-transparent'
+        error ? 'border-error' : selected ? 'border-primary' : 'border-transparent'
       )}
       tabIndex={0}
       onClick={onSelect}
@@ -57,7 +57,7 @@ function Plan({
           <h3
             className={clsx(
               'text-lg font-bold uppercase',
-              selected ? 'text-primary' : 'text-[#A98D72]'
+              selected ? 'text-primary' : 'text-brown'
             )}
           >
             {title}
@@ -91,7 +91,7 @@ function Plan({
         <div
           className={clsx(
             'inline-flex min-w-[120px] items-center justify-center rounded-3xl px-2 py-1',
-            selected ? 'bg-primary' : 'bg-[#A98D72]'
+            selected ? 'bg-primary' : 'bg-brown'
           )}
         >
           {selected && <CircleTick className="mr-2 inline-block h-5 w-5" />}
@@ -158,7 +158,7 @@ export default function ChoosePlanFragment({ forward }: FragmentProps) {
             </Plan>
           </div>
         </div>
-        {error && <p className="mt-5 text-[#f00]">{error}</p>}
+        {error && <p className="text-error mt-5">{error}</p>}
       </Section>
       <Button className="mt-10" onClick={onSubmit}>
         Continue

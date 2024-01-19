@@ -16,6 +16,8 @@ const config: Config = {
         gold: '#be873b',
         gray: '#9a9486',
         beige: '#FCF9F5',
+        error: '#f00',
+        brown: '#A98D72',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

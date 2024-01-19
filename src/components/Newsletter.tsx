@@ -2,14 +2,14 @@ import Container from './Container';
 
 export default function Newsletter() {
   return (
-    <div className="bg-[#dce7ef] py-8">
+    <div className="bg-primary bg-opacity-20 py-8">
       <Container>
         <div className="-m-3 flex flex-nowrap items-center justify-center text-xl max-md:block">
           <div className="w-full p-3">
             <div className="flex min-h-[38px] items-center bg-newsletter-icon bg-[length:60px_auto] bg-[left_center] bg-no-repeat pl-20">
               <span>
                 Exclusive insights, special offers, and helpful nutrition information from the
-                Ocelle Dog Pack.{' '}
+                Ocelle Dog Pack.&nbsp;
                 <strong className="text-primary">
                   Join Now! <i>Woof!</i>
                 </strong>

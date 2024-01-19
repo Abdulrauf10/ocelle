@@ -40,7 +40,7 @@ export default function HowWorks() {
           </div>
         </Container>
       </Block>
-      <Block className="bg-[#F8F3EB]">
+      <Block className="bg-gold bg-opacity-10">
         <Container>
           <H2 className="text-dark-green text-center">
             A Customised Plan To Suit <br className="max-sm:hidden" />
@@ -86,7 +86,7 @@ export default function HowWorks() {
         image="/dogs/favourite-dog.jpeg"
         alt="three of dogs"
         reverse
-        className="bg-[#EEF3F7]"
+        className="bg-primary bg-opacity-10"
       >
         <H2 className="text-gold">
           All The Flavour <br />
@@ -115,7 +115,7 @@ export default function HowWorks() {
         image="/dogs/eating-dog.jpeg"
         alt="eating dog"
         heading={<H2 className="mb-10 text-center text-primary">When OCELLE Arrives</H2>}
-        className="bg-[#EEF3F7]"
+        className="bg-primary bg-opacity-10"
         reverse
       >
         <Image

@@ -67,7 +67,7 @@ export default function OwnerFragment({ forward }: FragmentProps) {
             />
           </div>
           {errors?.email?.message && (
-            <p className="mt-3 w-full text-[#f00]">{String(errors?.email?.message)}</p>
+            <p className="text-error mt-3 w-full">{String(errors?.email?.message)}</p>
           )}
         </Section>
         <div className="mt-10">

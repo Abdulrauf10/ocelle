@@ -154,7 +154,7 @@ export default function Home() {
           </MarqueeContent>
         </div>
       </div>
-      <Block className="bg-[#ebeae7]">
+      <Block className="bg-gray bg-opacity-20">
         <Container>
           <H2 className="text-gray text-center">How Your Plan Works</H2>
           <div className="mt-6">

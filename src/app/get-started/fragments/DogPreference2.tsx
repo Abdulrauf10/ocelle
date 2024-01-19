@@ -93,7 +93,7 @@ export default function DogPreference2Fragment({ forward }: FragmentProps) {
           </div>
           {Array.isArray(errors.allergies) &&
             errors.allergies.some((x) => x.type === 'conflict') && (
-              <p className="mx-auto mt-3 max-w-[360px] text-sm text-[#f00]">
+              <p className="text-error mx-auto mt-3 max-w-[360px] text-sm">
                 You’ve indicated that [Charlie] has no allergies (“None!”) as well as allergies to [
                 {getValues('allergies')
                   .map((v: unknown, i: number) => (v ? options[i].label : v))

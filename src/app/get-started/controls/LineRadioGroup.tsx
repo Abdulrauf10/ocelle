@@ -38,12 +38,12 @@ function LineRadio({
     <label className="flex flex-1 flex-col">
       <div className="flex h-full justify-center px-1">{children}</div>
       <div className="relative mt-6 flex items-center justify-center">
-        <div className={clsx('absolute h-0.5 w-full', error ? 'bg-[#f00]' : 'bg-primary')}></div>
+        <div className={clsx('absolute h-0.5 w-full', error ? 'bg-error' : 'bg-primary')}></div>
         <div
           className={clsx(
             'relative mx-auto h-4 w-4 rounded-full border ',
             isSelected ? 'bg-secondary' : 'bg-white',
-            error ? 'border-[#f00]' : 'border-primary'
+            error ? 'border-error' : 'border-primary'
           )}
         >
           <input

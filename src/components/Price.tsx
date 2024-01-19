@@ -10,7 +10,7 @@ interface PriceProps {
 export default function Price({ value, discount, className, dollorSign = true }: PriceProps) {
   if (discount) {
     return (
-      <span className={clsx('text-[#f00] line-through', className)}>
+      <span className={clsx('text-error line-through', className)}>
         {dollorSign && '$'}
         {value}
       </span>

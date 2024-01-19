@@ -477,7 +477,7 @@ export default function CheckoutFragment({ forward }: FragmentProps) {
               </Section>
             </div>
             <div className="w-1/3 px-6 max-lg:w-2/5 max-lg:px-3 max-md:mt-8 max-md:w-full">
-              <div className="rounded-3xl bg-[#F8F3EB] px-6 py-10">
+              <div className="bg-gold rounded-3xl bg-opacity-10 px-6 py-10">
                 <h2 className="text-gold text-3xl font-bold">Order Summary</h2>
                 <CheckoutBlock title="Your Plan:">
                   <p className="mt-1">
@@ -583,7 +583,7 @@ export default function CheckoutFragment({ forward }: FragmentProps) {
                   </div>
                 </CheckoutBlock>
               </div>
-              <div className="mt-10 rounded-3xl bg-[#F8F3EB] px-6 py-10">
+              <div className="bg-gold mt-10 rounded-3xl bg-opacity-10 px-6 py-10">
                 <h2 className="text-gold text-3xl font-bold">Subscription</h2>
                 <div className="text-gold mt-4">
                   <p>Next Order: [8th of January 2024]</p>
