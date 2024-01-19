@@ -107,7 +107,7 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <Link href="#" className="mx-3 whitespace-nowrap hover:underline max-xl:mr-0">
+        <Link href="/auth/login" className="mx-3 whitespace-nowrap hover:underline max-xl:mr-0">
           Log In
         </Link>
       </div>

@@ -4,9 +4,10 @@ import FragmentProps from '../FragmentProps';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
 import { TextField } from '@mui/material';
-import UnderlineButton from '../UnderlineButton';
+import UnderlineButton from '@/components/UnderlineButton';
 import Section from '../Section';
 import DateCalendar from '../controls/DateCalendar';
+import clsx from 'clsx';
 
 export default function DogAgeFragment({ forward }: FragmentProps) {
   const {
@@ -28,19 +29,17 @@ export default function DogAgeFragment({ forward }: FragmentProps) {
       >
         <div className="mx-auto flex max-w-[260px] justify-between">
           <UnderlineButton
-            active={tab === 'Age'}
-            className={tab === 'Age' ? 'font-bold' : ''}
+            underline={tab === 'Age'}
+            className={clsx('text-lg', tab === 'Age' ? 'font-bold' : '')}
             onClick={() => setTab('Age')}
-          >
-            Enter Age
-          </UnderlineButton>
+            label="Enter Age"
+          />
           <UnderlineButton
-            active={tab === 'Birthday'}
-            className={tab === 'Birthday' ? 'font-bold' : ''}
+            underline={tab === 'Birthday'}
+            className={clsx('text-lg', tab === 'Birthday' ? 'font-bold' : '')}
             onClick={() => setTab('Birthday')}
-          >
-            Select Birthday
-          </UnderlineButton>
+            label="Select Birthday"
+          />
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-8 max-w-[480px]">
           {tab === 'Age' && (

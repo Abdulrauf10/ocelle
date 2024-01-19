@@ -4,7 +4,7 @@ import { TextField } from '@mui/material';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import FragmentProps from '../FragmentProps';
-import UnderlineButton from '../UnderlineButton';
+import UnderlineButton from '@/components/UnderlineButton';
 import Section from '../Section';
 import H2 from '@/components/Heading/H2';
 import SectionBreak from '../SectionBreak';
@@ -71,7 +71,11 @@ export default function OwnerFragment({ forward }: FragmentProps) {
           )}
         </Section>
         <div className="mt-10">
-          <UnderlineButton onClick={() => {}}>ALREADY HAVE AN ACCOUNT? LOG IN HERE</UnderlineButton>
+          <UnderlineButton
+            className="text-lg"
+            href="/auth/login"
+            label="ALREADY HAVE AN ACCOUNT? LOG IN HERE"
+          />
         </div>
         <Button className="mt-10">Continue</Button>
       </form>

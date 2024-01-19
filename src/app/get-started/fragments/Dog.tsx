@@ -4,7 +4,7 @@ import { TextField } from '@mui/material';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import FragmentProps from '../FragmentProps';
-import UnderlineButton from '../UnderlineButton';
+import UnderlineButton from '@/components/UnderlineButton';
 import Section from '../Section';
 
 export default function DogFragment({ forward }: FragmentProps) {
@@ -29,9 +29,11 @@ export default function DogFragment({ forward }: FragmentProps) {
           />
           <Button className="mt-10">Continue</Button>
         </form>
-        <UnderlineButton className="mt-10" onClick={() => setShowMoreDogs(true)}>
-          I Have More Dogs
-        </UnderlineButton>
+        <UnderlineButton
+          className="mt-10 text-lg"
+          onClick={() => setShowMoreDogs(true)}
+          label="I Have More Dogs"
+        />
         {showMoreDogs && (
           <p className="mt-5 italic text-primary">
             [Great! After you have finalised the order details for your first dog,

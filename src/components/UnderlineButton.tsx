@@ -1,46 +1,36 @@
 import clsx from 'clsx';
 import Link from 'next/link';
 import React from 'react';
-import DogFoot from './Icon/DogFoot';
 
-interface ButtonBaseProps {
+interface UnderlineButtonBaseProps {
+  label: string;
+  underline?: boolean;
   className?: string;
-  reverse?: boolean;
-  fullWidth?: boolean;
 }
 
-interface ButtonProps extends ButtonBaseProps {
+interface ButtonProps extends UnderlineButtonBaseProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   type?: 'submit' | 'reset' | 'button';
 }
 
-interface LinkbuttonProps extends ButtonBaseProps {
+interface LinkbuttonProps extends UnderlineButtonBaseProps {
   href: string;
   target?: React.HTMLAttributeAnchorTarget;
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
 }
 
-function ButtonIcon() {
-  return <DogFoot className="ml-2 w-6 fill-current" />;
-}
-
-export default function Button({
-  children,
+export default function UnderlineButton({
   className,
+  underline,
+  label,
   onClick,
-  reverse,
-  fullWidth,
   ...props
-}: React.PropsWithChildren<ButtonProps | LinkbuttonProps>) {
+}: ButtonProps | LinkbuttonProps) {
   const buttonProps = props as ButtonProps;
   const linkProps = props as LinkbuttonProps;
   const classes = clsx(
-    'items-center justify-center cursor-pointer rounded-[30px] py-1.5 px-6 text-center text-lg font-bold border',
-    'transition-all duration-300 ease-in-out',
-    fullWidth ? 'flex w-full' : 'inline-flex',
-    reverse
-      ? 'bg-white text-secondary hover:bg-[#f1f1f1] hover:border-[#d9d9d9] border-secondary'
-      : 'bg-secondary text-white hover:bg-[#EA6A00] hover:border-[#EA6A00] border-secondary',
+    'inline-block text-secondary',
+    underline ? 'underline' : 'hover:underline',
     className
   );
 
@@ -52,8 +42,7 @@ export default function Button({
         target={linkProps.target}
         onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
       >
-        {children}
-        <ButtonIcon />
+        {label}
       </Link>
     );
   }
@@ -64,8 +53,7 @@ export default function Button({
       type={buttonProps.type}
       onClick={onClick as React.MouseEventHandler<HTMLButtonElement>}
     >
-      {children}
-      <ButtonIcon />
+      {label}
     </button>
   );
 }
