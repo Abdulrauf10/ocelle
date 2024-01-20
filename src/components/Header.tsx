@@ -6,7 +6,25 @@ import Link from 'next/link';
 import React from 'react';
 import HamburgerMenu from './Icon/HamburgerMenu';
 
-export default function Header() {
+interface HeaderProps {
+  sticky?: boolean;
+  nav?: React.ReactNode;
+  menu?: boolean;
+  languageSwitch?: boolean;
+  getStarted?: boolean;
+  startAdornment?: React.ReactNode;
+  endAdornment?: React.ReactNode;
+}
+
+export default function Header({
+  sticky = true,
+  nav,
+  menu = true,
+  languageSwitch = true,
+  getStarted = true,
+  startAdornment,
+  endAdornment,
+}: HeaderProps) {
   const headerRef = React.useRef<HTMLElement>(null);
   const [isOpened, setIsOpened] = React.useState(false);
   const [isSticky, setIsSticky] = React.useState(false);
@@ -28,15 +46,21 @@ export default function Header() {
     <header
       ref={headerRef}
       className={clsx(
-        'sticky top-0 z-30 bg-white px-4 py-3',
-        isSticky && 'shadow-[0_5px_10px_#ccc]'
+        'bg-white px-[2vw] py-3 max-xl:px-4',
+        sticky && 'sticky top-0 z-30',
+        sticky && isSticky && 'shadow-[0_5px_10px_#ccc]'
       )}
     >
-      <div className="flex flex-row items-center justify-between">
-        <button className="mr-6 hidden max-xl:block" onClick={() => setIsOpened((v) => !v)}>
-          <HamburgerMenu className="w-[26px]" />
-        </button>
-        <Link href="/" className="px-2">
+      <div className="relative -mx-2 flex flex-row flex-wrap items-center justify-between">
+        {startAdornment}
+        {menu && (
+          <div className="hidden px-2 max-xl:flex">
+            <button onClick={() => setIsOpened((v) => !v)}>
+              <HamburgerMenu className="w-[26px]" />
+            </button>
+          </div>
+        )}
+        <Link href="/" className="relative z-10 px-2">
           <Image
             alt="Ocelle"
             src="/ocelle-logo.png"
@@ -47,66 +71,55 @@ export default function Header() {
         </Link>
         <div
           className={clsx(
-            'flex w-full flex-row items-center justify-between max-xl:hidden',
-            isOpened &&
-              'max-xl:absolute max-xl:left-0 max-xl:top-[68px] max-xl:z-30 max-xl:!flex max-xl:h-screen max-xl:flex-col-reverse max-xl:bg-[#EEF3F7] max-xl:pb-3 max-xl:pt-5'
+            'w-full flex-1 px-2 max-xl:absolute max-xl:left-0 max-xl:top-[68px] max-xl:z-30 max-xl:bg-[#EEF3F7] max-xl:px-4',
+            !isOpened && 'max-xl:hidden'
           )}
         >
-          <div className="h-full max-xl:pt-4">
-            <ul className="mx-2 flex w-full flex-row max-xl:mx-0 max-xl:flex-col max-xl:text-center [&_a:hover]:text-primary [&_a:hover]:underline [&_li]:list-none">
-              <li>
-                <Link href="/how-works" className="block px-5 py-2">
-                  How It Works
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="block px-5 py-2">
-                  Recipes
-                </Link>
-              </li>
-              <li>
-                <Link href="/why-fresh" className="block px-5 py-2">
-                  Why Fresh?
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="block px-5 py-2">
-                  FAQ
-                </Link>
-              </li>
-              <li>
-                <Link href="#" className="block px-5 py-2">
-                  Reviews
-                </Link>
-              </li>
-              <li>
-                <Link href="/about-us" className="block px-5 py-2">
-                  About Us
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div className="-m-2 flex flex-nowrap items-center max-xl:flex-col">
-            <div className="p-2">
-              <div className="-mx-3 max-xl:flex-col [&_a:hover]:text-primary [&_a:hover]:underline">
-                <Link className="border-r border-[#ccc] px-3 text-primary underline" href="#">
-                  EN
-                </Link>
-                <Link className="px-3" href="#">
-                  中文
-                </Link>
+          <div
+            className={clsx(
+              '-mx-2 flex flex-1 flex-row items-center justify-between max-xl:h-screen max-xl:flex-col-reverse max-xl:pb-3 max-xl:pt-5'
+            )}
+          >
+            <div className="flex-1 px-2">{nav && <div className="max-xl:pt-4">{nav}</div>}</div>
+            {(languageSwitch || getStarted) && (
+              <div className="relative z-10 px-2">
+                <div className="-m-2 flex flex-nowrap items-center whitespace-nowrap max-xl:flex-col">
+                  {languageSwitch && (
+                    <div className="p-2">
+                      <div className="-mx-3 max-xl:flex-col [&_a:hover]:text-primary [&_a:hover]:underline">
+                        <Link
+                          className="border-r border-[#ccc] px-3 text-primary underline"
+                          href="#"
+                        >
+                          EN
+                        </Link>
+                        <Link className="px-3" href="#">
+                          中文
+                        </Link>
+                      </div>
+                    </div>
+                  )}
+                  {getStarted && (
+                    <div className="p-2">
+                      <Link
+                        href="/get-started"
+                        className="rounded-2xl bg-secondary px-4 py-0.5 text-white"
+                      >
+                        Get Started
+                      </Link>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-            <div className="p-2">
-              <Link href="/get-started" className="rounded-2xl bg-secondary px-4 py-0.5 text-white">
-                Get Started
-              </Link>
-            </div>
+            )}
           </div>
         </div>
-        <Link href="/auth/login" className="mx-3 whitespace-nowrap hover:underline max-xl:mr-0">
-          Log In
-        </Link>
+        <div className="relative z-10 px-2">
+          <Link href="/auth/login" className="whitespace-nowrap hover:underline max-xl:mr-0">
+            Log In
+          </Link>
+        </div>
+        {endAdornment}
       </div>
     </header>
   );

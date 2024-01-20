@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-import Link from 'next/link';
 import { AnimatePresence, motion, type Variants } from 'framer-motion';
 import ProgressBar from './ProgressBar';
 import React from 'react';
@@ -21,26 +19,7 @@ import ThankYouFragment from './fragments/ThankYou';
 import Back from './Back';
 import { ThemeProvider } from '@mui/material';
 import theme from '../mui-theme';
-
-const backVariants: Variants = {
-  show: { opacity: 1, pointerEvents: 'all' },
-  hide: { opacity: 0, pointerEvents: 'none' },
-};
-
-const fragmentVariants: Variants = {
-  outside: {
-    opacity: 0,
-    x: 50,
-  },
-  enter: {
-    opacity: 1,
-    x: 0,
-  },
-  exit: {
-    opacity: 0,
-    x: -50,
-  },
-};
+import Header from '@/components/Header';
 
 const stageHistories: Stage[] = [];
 
@@ -48,12 +27,48 @@ function AnimatePresenceDiv({ name, children }: React.PropsWithChildren<{ name: 
   return (
     <motion.div
       key={name}
-      variants={fragmentVariants}
+      variants={{
+        outside: {
+          opacity: 0,
+          x: 50,
+        },
+        enter: {
+          opacity: 1,
+          x: 0,
+        },
+        exit: {
+          opacity: 0,
+          x: -50,
+        },
+      }}
       initial="outside"
       animate="enter"
       exit="exit"
     >
       {children}
+    </motion.div>
+  );
+}
+
+interface BackButtonProps {
+  show: boolean;
+  className?: string;
+  onClick(): void;
+}
+
+function BackButton({ show, className, onClick }: BackButtonProps) {
+  return (
+    <motion.div
+      variants={{
+        show: { opacity: 1, pointerEvents: 'all' },
+        hide: { opacity: 0, pointerEvents: 'none' },
+      }}
+      initial={!show ? 'hide' : 'show'}
+      animate={!show ? 'hide' : 'show'}
+      transition={{ duration: 0.1 }}
+      className={className}
+    >
+      <Back onClick={onClick} />
     </motion.div>
   );
 }
@@ -77,35 +92,35 @@ export default function GetStarted() {
 
   return (
     <ThemeProvider theme={theme}>
-      <header className="px-4 py-3">
-        <div className="relative flex flex-wrap items-center justify-between">
-          <div className="hidden max-lg:block">
-            <Back onClick={back} />
+      <Header
+        sticky={false}
+        menu={false}
+        languageSwitch={false}
+        getStarted={false}
+        startAdornment={
+          <div className="hidden px-2 max-xl:block">
+            {!(stage === Stage.Calculating || stage === Stage.ThankYou) && (
+              <BackButton show={stage !== Stage.Welcome} onClick={back} />
+            )}
           </div>
-          <Link href="/" className="relative z-10 px-2">
-            <Image alt="Ocelle" src="/ocelle-logo.png" width={160} height={48} />
-          </Link>
-          <Link href="/auth/login" className="relative z-10 mx-2 whitespace-nowrap hover:underline">
-            Log In
-          </Link>
-          {!(stage === Stage.Calculating || stage === Stage.ThankYou) && (
-            <div className="absolute bottom-0 flex w-full justify-center px-[280px] max-lg:static max-lg:mt-8 max-lg:px-0">
-              <div className="relative w-full max-w-[460px]">
-                <motion.div
-                  variants={backVariants}
-                  initial={stage === Stage.Welcome ? 'hide' : 'show'}
-                  animate={stage === Stage.Welcome ? 'hide' : 'show'}
-                  transition={{ duration: 0.1 }}
-                  className="absolute -left-[80px] select-none max-lg:hidden"
-                >
-                  <Back onClick={back} />
-                </motion.div>
-                <ProgressBar stage={stage} />
+        }
+        endAdornment={
+          !(stage === Stage.Calculating || stage === Stage.ThankYou) && (
+            <div className="w-full max-xl:px-2">
+              <div className="flex w-full justify-center max-xl:mt-8 xl:absolute xl:bottom-0 xl:left-1/2 xl:-translate-x-1/2 xl:px-[280px]">
+                <div className="relative w-full max-w-[460px]">
+                  <BackButton
+                    className="absolute -left-[80px] select-none max-xl:hidden"
+                    show={stage !== Stage.Welcome}
+                    onClick={back}
+                  />
+                  <ProgressBar stage={stage} />
+                </div>
               </div>
             </div>
-          )}
-        </div>
-      </header>
+          )
+        }
+      />
       <main className="overflow-hidden py-[3vw] max-sm:py-8">
         <AnimatePresence mode="wait" initial={false}>
           {stage === Stage.Welcome && (
