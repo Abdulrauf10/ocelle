@@ -23,7 +23,7 @@ export default function WelcomeFragment({ forward }: FragmentProps) {
             src="/question/timer.svg"
             alt="Timer"
             width={30}
-            height={30}
+            height={26}
             className="mr-2 inline-block"
           />
           This should only take about 2 minutes per dog.

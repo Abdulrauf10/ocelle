@@ -25,7 +25,7 @@ export default function Benefits() {
               src="/question/icon-2.svg"
               alt="hot food"
               width={60}
-              height={60}
+              height={63}
               className="min-h-[60px]"
             />
           </div>
@@ -41,7 +41,7 @@ export default function Benefits() {
               alt="hot food"
               width={110}
               height={60}
-              className="min-h-[60px]"
+              className="min-h-[60px] min-w-[110px]"
             />
           </div>
           <h3 className="text-gray mt-3 text-lg font-bold">Convenient Deliveries</h3>
