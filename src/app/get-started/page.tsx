@@ -49,8 +49,6 @@ export default function GetStarted() {
   const viewerRef = React.useRef<FragmentViewerRef<Stage>>();
   const route = viewerRef.current?.route;
 
-  console.log(viewerRef.current);
-
   return (
     <ThemeProvider theme={theme}>
       <Header

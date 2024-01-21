@@ -1,27 +1,18 @@
 import Container from '@/components/Container';
 import Section from '../Section';
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  ThemeProvider,
-  createTheme,
-  useTheme,
-} from '@mui/material';
+import { TextField, ThemeProvider, createTheme, useTheme } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import React from 'react';
 import SectionBreak from '../SectionBreak';
 import Pen from '@/components/Icon/Pen';
 import DateCalendar from '../controls/DateCalendar';
-import Lock from '@/components/Icon/Lock';
-import Stripe from '@/components/Icon/Stripe';
 import CircleTick from '@/components/Icon/CircleTick';
 import Price from '@/components/Price';
 import Button from '@/components/Button';
 import Stage from '../Stage';
 import { FragmentProps } from '@/components/FragmentViewer';
+import CardForm from '@/components/Form/Card';
+import AddressForm from '@/components/Form/Address';
 
 interface CheckoutBlockProps {
   title?: string;
@@ -175,288 +166,15 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
               </Section>
               <SectionBreak half />
               <Section dense title="Delivery Address">
-                <div className="-m-2 flex flex-wrap">
-                  <div className="w-1/2 p-2">
-                    <Controller
-                      name="deliveryFirstname"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField {...field} label="First Name" fullWidth error={!!error} />
-                      )}
-                    />
-                  </div>
-                  <div className="w-1/2 p-2">
-                    <Controller
-                      name="deliveryLastname"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField {...field} label="Last Name" fullWidth error={!!error} />
-                      )}
-                    />
-                  </div>
-                  <div className="w-full p-2">
-                    <Controller
-                      name="deliveryAddress1"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField {...field} label="Address Line 1" fullWidth error={!!error} />
-                      )}
-                    />
-                  </div>
-                  <div className="w-full p-2">
-                    <Controller
-                      name="deliveryAddress2"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField {...field} label="Address Line 2" fullWidth error={!!error} />
-                      )}
-                    />
-                  </div>
-                  <div className="w-1/3 p-2">
-                    <Controller
-                      name="deliveryDistrict"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <FormControl fullWidth>
-                          <InputLabel id="delivery-district-label">District</InputLabel>
-                          <Select
-                            {...field}
-                            labelId="delivery-district-label"
-                            label="District"
-                            fullWidth
-                            error={!!error}
-                          >
-                            <MenuItem value="11">Testing</MenuItem>
-                            <MenuItem value="12">Testing</MenuItem>
-                            <MenuItem value="13">Testing</MenuItem>
-                            <MenuItem value="14">Testing</MenuItem>
-                          </Select>
-                        </FormControl>
-                      )}
-                    />
-                  </div>
-                  <div className="w-1/3 p-2">
-                    <Controller
-                      name="deliveryRegion"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <FormControl fullWidth>
-                          <InputLabel id="delivery-region-label">Region</InputLabel>
-                          <Select
-                            {...field}
-                            labelId="delivery-region-label"
-                            label="Region"
-                            fullWidth
-                            error={!!error}
-                          >
-                            <MenuItem value="kl">Kowloon</MenuItem>
-                            <MenuItem value="nt">New Territories</MenuItem>
-                            <MenuItem value="hki">Hong Kong Island</MenuItem>
-                          </Select>
-                        </FormControl>
-                      )}
-                    />
-                  </div>
-                  <div className="w-1/3 p-2">
-                    <Controller
-                      name="deliveryCountry"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <FormControl fullWidth>
-                          <InputLabel id="delivery-country-label">Country</InputLabel>
-                          <Select
-                            {...field}
-                            labelId="delivery-country-label"
-                            label="Country"
-                            fullWidth
-                            error={!!error}
-                          >
-                            <MenuItem value="hk">Hong Kong</MenuItem>
-                          </Select>
-                        </FormControl>
-                      )}
-                    />
-                  </div>
-                </div>
+                <AddressForm control={control} prefix="delivery" />
               </Section>
               <SectionBreak half />
               <Section dense title="Billing Address">
-                <div className="-m-2 flex flex-wrap">
-                  <div className="w-1/2 p-2">
-                    <Controller
-                      name="billingFirstname"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField {...field} label="First Name" fullWidth error={!!error} />
-                      )}
-                    />
-                  </div>
-                  <div className="w-1/2 p-2">
-                    <Controller
-                      name="billingLastname"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField {...field} label="Last Name" fullWidth error={!!error} />
-                      )}
-                    />
-                  </div>
-                  <div className="w-full p-2">
-                    <Controller
-                      name="billingAddress1"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField {...field} label="Address Line 1" fullWidth error={!!error} />
-                      )}
-                    />
-                  </div>
-                  <div className="w-full p-2">
-                    <Controller
-                      name="billingAddress2"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField {...field} label="Address Line 2" fullWidth error={!!error} />
-                      )}
-                    />
-                  </div>
-                  <div className="w-1/3 p-2">
-                    <Controller
-                      name="billingDistrict"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <FormControl fullWidth>
-                          <InputLabel id="billing-district-label">District</InputLabel>
-                          <Select
-                            {...field}
-                            labelId="billing-district-label"
-                            label="District"
-                            fullWidth
-                            error={!!error}
-                          >
-                            <MenuItem value="11">Testing</MenuItem>
-                            <MenuItem value="12">Testing</MenuItem>
-                            <MenuItem value="13">Testing</MenuItem>
-                            <MenuItem value="14">Testing</MenuItem>
-                          </Select>
-                        </FormControl>
-                      )}
-                    />
-                  </div>
-                  <div className="w-1/3 p-2">
-                    <Controller
-                      name="billingRegion"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <FormControl fullWidth>
-                          <InputLabel id="billing-region-label">Region</InputLabel>
-                          <Select
-                            {...field}
-                            labelId="billing-region-label"
-                            label="Region"
-                            fullWidth
-                            error={!!error}
-                          >
-                            <MenuItem value="kl">Kowloon</MenuItem>
-                            <MenuItem value="nt">New Territories</MenuItem>
-                            <MenuItem value="hki">Hong Kong Island</MenuItem>
-                          </Select>
-                        </FormControl>
-                      )}
-                    />
-                  </div>
-                  <div className="w-1/3 p-2">
-                    <Controller
-                      name="billingCountry"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <FormControl fullWidth>
-                          <InputLabel id="billing-country-label">Country</InputLabel>
-                          <Select
-                            {...field}
-                            labelId="billing-country-label"
-                            label="Country"
-                            fullWidth
-                            error={!!error}
-                          >
-                            <MenuItem value="hk">Hong Kong</MenuItem>
-                          </Select>
-                        </FormControl>
-                      )}
-                    />
-                  </div>
-                </div>
+                <AddressForm control={control} prefix="billing" />
               </Section>
               <SectionBreak half />
               <Section dense title="Payment Information">
-                <div className="-mx-3 my-3 flex flex-wrap items-center">
-                  <Stripe className="mx-3 my-2 w-24" />
-                  <div className="mx-3 my-2 flex items-center">
-                    <Lock className="relative -top-0.5 w-6" />
-                    <span className="ml-4 text-lg text-[#7B8D97]">
-                      All transactions are secure and encrypted.
-                    </span>
-                  </div>
-                </div>
-                <div className="-m-2 flex flex-wrap">
-                  <div className="w-full p-2">
-                    <Controller
-                      name="cardName"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField {...field} label="Name On Card" fullWidth error={!!error} />
-                      )}
-                    />
-                  </div>
-                  <div className="w-full p-2">
-                    <Controller
-                      name="cardNo"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField {...field} label="Card Number" fullWidth error={!!error} />
-                      )}
-                    />
-                  </div>
-                  <div className="w-1/2 p-2">
-                    <Controller
-                      name="cardExp"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField
-                          {...field}
-                          label="Card Expiration Date"
-                          fullWidth
-                          error={!!error}
-                        />
-                      )}
-                    />
-                  </div>
-                  <div className="w-1/2 p-2">
-                    <Controller
-                      name="cardCvc"
-                      control={control}
-                      rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField {...field} label="CVC" fullWidth error={!!error} />
-                      )}
-                    />
-                  </div>
-                </div>
+                <CardForm control={control} />
               </Section>
               <SectionBreak half />
               <Section dense title="Delivery Date">
