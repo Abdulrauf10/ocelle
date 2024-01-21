@@ -1,6 +1,5 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import FragmentProps from '../FragmentProps';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
 import { Autocomplete, Chip, TextField } from '@mui/material';
@@ -9,8 +8,10 @@ import SectionBreak from '../SectionBreak';
 import { Breed } from '@/entities';
 import BlockRadio from '../controls/block/Radio';
 import InlineCheckbox from '../controls/inline/Checkbox';
+import { FragmentProps } from '@/components/FragmentViewer';
+import Stage from '../Stage';
 
-export default function DogBasicFragment({ forward }: FragmentProps) {
+export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
   const {
     handleSubmit,
     control,
@@ -30,8 +31,8 @@ export default function DogBasicFragment({ forward }: FragmentProps) {
   }, [options]);
 
   const onSubmit = React.useCallback(() => {
-    forward();
-  }, [forward]);
+    navigate(Stage.DogAge);
+  }, [navigate]);
 
   return (
     <Container className="text-center">

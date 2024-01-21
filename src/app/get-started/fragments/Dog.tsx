@@ -3,17 +3,18 @@ import Container from '@/components/Container';
 import { TextField } from '@mui/material';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import FragmentProps from '../FragmentProps';
 import UnderlineButton from '@/components/UnderlineButton';
 import Section from '../Section';
+import { FragmentProps } from '@/components/FragmentViewer';
+import Stage from '../Stage';
 
-export default function DogFragment({ forward }: FragmentProps) {
+export default function DogFragment({ navigate }: FragmentProps<Stage>) {
   const { handleSubmit, control } = useForm();
   const [showMoreDogs, setShowMoreDogs] = React.useState(false);
 
   const onSubmit = React.useCallback(() => {
-    forward();
-  }, [forward]);
+    navigate(Stage.DogBasic);
+  }, [navigate]);
 
   return (
     <Container className="text-center">

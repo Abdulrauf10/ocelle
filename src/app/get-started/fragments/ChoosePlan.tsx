@@ -4,9 +4,10 @@ import Image from 'next/image';
 import React from 'react';
 import clsx from 'clsx';
 import Button from '@/components/Button';
-import FragmentProps from '../FragmentProps';
 import Price from '@/components/Price';
 import CircleTick from '@/components/Icon/CircleTick';
+import { FragmentProps } from '@/components/FragmentViewer';
+import Stage from '../Stage';
 
 interface PlanProps {
   title: string;
@@ -102,7 +103,7 @@ function Plan({
   );
 }
 
-export default function ChoosePlanFragment({ forward }: FragmentProps) {
+export default function ChoosePlanFragment({ navigate }: FragmentProps<Stage>) {
   const firstUpdate = React.useRef(true);
   const [selected, setSelected] = React.useState<number>();
   const [error, setError] = React.useState<string>();
@@ -120,9 +121,9 @@ export default function ChoosePlanFragment({ forward }: FragmentProps) {
     if (selected == null) {
       setError('[You must select either one of the plan]');
     } else {
-      forward();
+      navigate(Stage.RecommendedPlan);
     }
-  }, [selected, forward]);
+  }, [selected, navigate]);
 
   return (
     <Container className="text-center">

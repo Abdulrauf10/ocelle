@@ -1,5 +1,4 @@
 import Container from '@/components/Container';
-import FragmentProps from '../FragmentProps';
 import Section from '../Section';
 import Image from 'next/image';
 import { Control, FieldValues, RegisterOptions, useController, useForm } from 'react-hook-form';
@@ -20,6 +19,8 @@ import {
   useRole,
 } from '@floating-ui/react';
 import Close from '@/components/Icon/Close';
+import { FragmentProps } from '@/components/FragmentViewer';
+import Stage from '../Stage';
 
 interface PlanProps {
   title: string;
@@ -256,7 +257,7 @@ function Plan({
   );
 }
 
-export default function RecommendedPlanFragment({ forward }: FragmentProps) {
+export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stage>) {
   const {
     control,
     handleSubmit,
@@ -264,8 +265,8 @@ export default function RecommendedPlanFragment({ forward }: FragmentProps) {
   } = useForm();
 
   const onSubmit = React.useCallback(() => {
-    forward();
-  }, [forward]);
+    navigate(Stage.Checkout);
+  }, [navigate]);
 
   return (
     <form className="text-center" onSubmit={handleSubmit(onSubmit)}>

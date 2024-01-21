@@ -3,13 +3,14 @@ import Container from '@/components/Container';
 import { TextField } from '@mui/material';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import FragmentProps from '../FragmentProps';
 import UnderlineButton from '@/components/UnderlineButton';
 import Section from '../Section';
 import H2 from '@/components/Heading/H2';
 import SectionBreak from '../SectionBreak';
+import { FragmentProps } from '@/components/FragmentViewer';
+import Stage from '../Stage';
 
-export default function OwnerFragment({ forward }: FragmentProps) {
+export default function OwnerFragment({ navigate }: FragmentProps<Stage>) {
   const {
     handleSubmit,
     control,
@@ -17,8 +18,8 @@ export default function OwnerFragment({ forward }: FragmentProps) {
   } = useForm();
 
   const onSubmit = React.useCallback(() => {
-    forward();
-  }, [forward]);
+    navigate(Stage.Calculating);
+  }, [navigate]);
 
   return (
     <Container className="text-center">

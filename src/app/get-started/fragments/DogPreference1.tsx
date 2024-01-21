@@ -1,6 +1,5 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import FragmentProps from '../FragmentProps';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
 import { TextField } from '@mui/material';
@@ -8,8 +7,10 @@ import Section from '../Section';
 import SectionBreak from '../SectionBreak';
 import LineRadioGroup from '../controls/LineRadioGroup';
 import Image from 'next/image';
+import { FragmentProps } from '@/components/FragmentViewer';
+import Stage from '../Stage';
 
-export default function DogPreference1Fragment({ forward }: FragmentProps) {
+export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage>) {
   const {
     handleSubmit,
     control,
@@ -17,8 +18,8 @@ export default function DogPreference1Fragment({ forward }: FragmentProps) {
   } = useForm();
 
   const onSubmit = React.useCallback(() => {
-    forward();
-  }, [forward]);
+    navigate(Stage.DogPreference2);
+  }, [navigate]);
 
   return (
     <Container className="text-center">

@@ -2,10 +2,11 @@ import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Image from 'next/image';
 import Benefits from '../Benefits';
-import FragmentProps from '../FragmentProps';
 import Section from '../Section';
+import { FragmentProps } from '@/components/FragmentViewer';
+import Stage from '../Stage';
 
-export default function WelcomeFragment({ forward }: FragmentProps) {
+export default function WelcomeFragment({ navigate }: FragmentProps<Stage>) {
   return (
     <Container className="text-center">
       <Section
@@ -28,7 +29,7 @@ export default function WelcomeFragment({ forward }: FragmentProps) {
           />
           This should only take about 2 minutes per dog.
         </p>
-        <Button className="mt-8" onClick={() => forward()}>
+        <Button className="mt-8" onClick={() => navigate(Stage.Dog)}>
           Let’s Get Started
         </Button>
       </Section>

@@ -11,18 +11,17 @@ import {
   useTheme,
 } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
-import H2 from '@/components/Heading/H2';
 import React from 'react';
 import SectionBreak from '../SectionBreak';
 import Pen from '@/components/Icon/Pen';
 import DateCalendar from '../controls/DateCalendar';
-import Image from 'next/image';
 import Lock from '@/components/Icon/Lock';
 import Stripe from '@/components/Icon/Stripe';
 import CircleTick from '@/components/Icon/CircleTick';
 import Price from '@/components/Price';
 import Button from '@/components/Button';
-import FragmentProps from '../FragmentProps';
+import Stage from '../Stage';
+import { FragmentProps } from '@/components/FragmentViewer';
 
 interface CheckoutBlockProps {
   title?: string;
@@ -54,7 +53,7 @@ function EditButton({ onClick }: EditButtonProps) {
   );
 }
 
-export default function CheckoutFragment({ forward }: FragmentProps) {
+export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
   const theme = useTheme();
   const {
     control,
@@ -65,9 +64,9 @@ export default function CheckoutFragment({ forward }: FragmentProps) {
   const onSubmit = React.useCallback(
     (values: unknown) => {
       console.log(values);
-      forward();
+      navigate(Stage.ThankYou);
     },
-    [forward]
+    [navigate]
   );
 
   return (

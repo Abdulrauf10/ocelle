@@ -1,6 +1,5 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import FragmentProps from '../FragmentProps';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
 import { TextField } from '@mui/material';
@@ -8,8 +7,10 @@ import UnderlineButton from '@/components/UnderlineButton';
 import Section from '../Section';
 import DateCalendar from '../controls/DateCalendar';
 import clsx from 'clsx';
+import { FragmentProps } from '@/components/FragmentViewer';
+import Stage from '../Stage';
 
-export default function DogAgeFragment({ forward }: FragmentProps) {
+export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
   const {
     handleSubmit,
     control,
@@ -18,8 +19,8 @@ export default function DogAgeFragment({ forward }: FragmentProps) {
   const [tab, setTab] = React.useState<'Age' | 'Birthday'>('Age');
 
   const onSubmit = React.useCallback(() => {
-    forward();
-  }, [forward]);
+    navigate(Stage.DogPreference1);
+  }, [navigate]);
 
   return (
     <Container className="text-center">

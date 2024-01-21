@@ -1,8 +1,10 @@
 import Container from '@/components/Container';
+import { FragmentProps } from '@/components/FragmentViewer';
 import H2 from '@/components/Heading/H2';
 import Image from 'next/image';
+import Stage from '../Stage';
 
-export default function CalculatingFragment() {
+export default function CalculatingFragment({ navigate }: FragmentProps<Stage>) {
   return (
     <Container className="text-center">
       <Image
