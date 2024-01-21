@@ -33,7 +33,7 @@ export default function Header({
     function handler() {
       if (headerRef.current) {
         const { top } = headerRef.current.getBoundingClientRect();
-        setIsSticky(top <= 0);
+        setIsSticky(top <= 0 && window.scrollY > 0);
       }
     }
     window.addEventListener('scroll', handler);
@@ -47,11 +47,11 @@ export default function Header({
       ref={headerRef}
       className={clsx(
         'bg-white px-[2vw] py-3 max-xl:px-4',
-        sticky && 'sticky top-0 z-30',
+        sticky ? 'sticky top-0 z-30' : 'relative',
         sticky && isSticky && 'shadow-[0_5px_10px_#ccc]'
       )}
     >
-      <div className="relative -mx-2 flex flex-row flex-wrap items-center justify-between">
+      <div className="-mx-2 flex flex-row flex-wrap items-center justify-between">
         {startAdornment}
         {menu && (
           <div className="hidden px-2 max-xl:flex">

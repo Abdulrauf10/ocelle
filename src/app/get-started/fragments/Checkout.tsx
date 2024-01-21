@@ -256,10 +256,9 @@ export default function CheckoutFragment({ forward }: FragmentProps) {
                             fullWidth
                             error={!!error}
                           >
-                            <MenuItem value="11">Testing</MenuItem>
-                            <MenuItem value="12">Testing</MenuItem>
-                            <MenuItem value="13">Testing</MenuItem>
-                            <MenuItem value="14">Testing</MenuItem>
+                            <MenuItem value="kl">Kowloon</MenuItem>
+                            <MenuItem value="nt">New Territories</MenuItem>
+                            <MenuItem value="hki">Hong Kong Island</MenuItem>
                           </Select>
                         </FormControl>
                       )}
@@ -370,10 +369,9 @@ export default function CheckoutFragment({ forward }: FragmentProps) {
                             fullWidth
                             error={!!error}
                           >
-                            <MenuItem value="11">Testing</MenuItem>
-                            <MenuItem value="12">Testing</MenuItem>
-                            <MenuItem value="13">Testing</MenuItem>
-                            <MenuItem value="14">Testing</MenuItem>
+                            <MenuItem value="kl">Kowloon</MenuItem>
+                            <MenuItem value="nt">New Territories</MenuItem>
+                            <MenuItem value="hki">Hong Kong Island</MenuItem>
                           </Select>
                         </FormControl>
                       )}
