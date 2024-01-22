@@ -5,7 +5,7 @@ export interface FragmentProps<T> {
   navigate(name: T | -1): void;
 }
 
-interface FragmentViewerProps<T> {
+interface useFragmentRouterControllerProps<T> {
   defaultRoute?: T;
   routes: Array<{
     name: T;
@@ -13,15 +13,19 @@ interface FragmentViewerProps<T> {
   }>;
 }
 
-export interface FragmentViewerRef<T> {
+interface useFragmentRouterControllerReturn<T> {
+  routes: Array<{
+    name: T;
+    component: React.FunctionComponent<FragmentProps<T>>;
+  }>;
   route?: T;
   navigate(name: T | -1): void;
 }
 
-export default React.forwardRef(function FragmentViewer<T>(
-  { routes, defaultRoute }: FragmentViewerProps<T>,
-  ref: React.ForwardedRef<FragmentViewerRef<T>>
-) {
+export function useFragmentRouterController<T>({
+  routes,
+  defaultRoute,
+}: useFragmentRouterControllerProps<T>): useFragmentRouterControllerReturn<T> {
   const stackRef = React.useRef<T[]>([]);
   const [currentRoute, setCurrentRoute] = React.useState<T | undefined>(
     defaultRoute || routes[0]?.name
@@ -30,33 +34,37 @@ export default React.forwardRef(function FragmentViewer<T>(
   const navigate = React.useCallback(
     (name: T | -1) => {
       if (name === -1) {
-        const nextRoute = stackRef.current.pop() || routes[0]?.name;
-        setCurrentRoute(nextRoute);
+        const nextRoute = stackRef.current.pop();
+        if (nextRoute != null) {
+          setCurrentRoute(nextRoute);
+        }
       } else {
         setCurrentRoute(name);
-        if (currentRoute) {
+        if (currentRoute != null) {
           stackRef.current.push(currentRoute);
         }
       }
     },
-    [routes, currentRoute]
+    [currentRoute]
   );
 
-  React.useEffect(() => {
-    if (ref) {
-      if (typeof ref === 'function') {
-        ref({ navigate, route: currentRoute });
-      } else {
-        ref.current = { navigate, route: currentRoute };
-      }
-    }
-  }, [navigate, currentRoute, ref]);
+  return {
+    navigate,
+    routes,
+    route: currentRoute,
+  };
+}
 
+interface FragmentRouterProps<T> {
+  controller: useFragmentRouterControllerReturn<T>;
+}
+
+export default function FragmentRouter<T>({ controller }: FragmentRouterProps<T>) {
   return (
     <div className="overflow-hidden">
       <AnimatePresence mode="wait" initial={false}>
-        {routes
-          .filter((route) => route.name === currentRoute)
+        {controller.routes
+          .filter((route) => route.name === controller.route)
           .map((route) => {
             return (
               <motion.div
@@ -79,11 +87,11 @@ export default React.forwardRef(function FragmentViewer<T>(
                 animate="enter"
                 exit="exit"
               >
-                <route.component navigate={navigate} />
+                <route.component navigate={controller.navigate} />
               </motion.div>
             );
           })}
       </AnimatePresence>
     </div>
   );
-});
+}

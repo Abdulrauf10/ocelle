@@ -8,7 +8,7 @@ import SectionBreak from '../SectionBreak';
 import { Breed } from '@/entities';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import CircleCheckbox from '@/components/controls/CircleCheckbox';
-import { FragmentProps } from '@/components/FragmentViewer';
+import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 
 export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {

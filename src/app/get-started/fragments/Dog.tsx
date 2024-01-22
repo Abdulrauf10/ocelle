@@ -5,7 +5,7 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import UnderlineButton from '@/components/UnderlineButton';
 import Section from '../Section';
-import { FragmentProps } from '@/components/FragmentViewer';
+import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 
 export default function DogFragment({ navigate }: FragmentProps<Stage>) {

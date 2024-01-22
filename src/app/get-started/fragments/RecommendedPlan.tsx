@@ -19,7 +19,7 @@ import {
   useRole,
 } from '@floating-ui/react';
 import Close from '@/components/Icon/Close';
-import { FragmentProps } from '@/components/FragmentViewer';
+import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 
 interface PlanProps {

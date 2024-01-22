@@ -10,7 +10,7 @@ import CircleTick from '@/components/Icon/CircleTick';
 import Price from '@/components/Price';
 import Button from '@/components/Button';
 import Stage from '../Stage';
-import { FragmentProps } from '@/components/FragmentViewer';
+import { FragmentProps } from '@/components/FragmentRouter';
 import CardForm from '@/components/Form/Card';
 import AddressForm from '@/components/Form/Address';
 

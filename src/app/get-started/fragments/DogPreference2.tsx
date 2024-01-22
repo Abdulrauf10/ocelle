@@ -7,7 +7,7 @@ import SectionBreak from '../SectionBreak';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import Image from 'next/image';
 import PictureRadio from '@/components/controls/PictureRadio';
-import { FragmentProps } from '@/components/FragmentViewer';
+import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 
 export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage>) {
