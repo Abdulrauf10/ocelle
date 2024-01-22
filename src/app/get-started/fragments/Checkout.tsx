@@ -13,6 +13,7 @@ import Stage from '../Stage';
 import { FragmentProps } from '@/components/FragmentRouter';
 import CardForm from '@/components/Form/Card';
 import AddressForm from '@/components/Form/Address';
+import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 
 interface CheckoutBlockProps {
   title?: string;
@@ -167,6 +168,14 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
               <SectionBreak half />
               <Section dense title="Delivery Address">
                 <AddressForm control={control} prefix="delivery" />
+                <div className="mt-3">
+                  <RoundedCheckbox
+                    name="isSameBillingAddress"
+                    value={1}
+                    control={control}
+                    label="Use as Billing Address"
+                  />
+                </div>
               </Section>
               <SectionBreak half />
               <Section dense title="Billing Address">

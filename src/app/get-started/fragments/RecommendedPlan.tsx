@@ -21,6 +21,7 @@ import {
 import Close from '@/components/Icon/Close';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
+import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 
 interface PlanProps {
   title: string;
@@ -115,12 +116,16 @@ function Plan({
         />
       </div>
       <div className="h-[70px]"></div>
-      <div className={clsx('mt-2', disabled ? 'text-[#BDC6CB]' : 'text-gold')}>
-        <label>
-          <input type="checkbox" {...field} disabled={disabled} />
-          <span className="ml-2 font-bold">{title}</span>
-        </label>
-        <div className="mt-0.5">$$</div>
+      <div className={clsx('mt-2 text-center', disabled ? 'text-[#BDC6CB]' : 'text-gold')}>
+        <RoundedCheckbox
+          name="w"
+          control={control}
+          label={title}
+          value={11}
+          className="text-gold font-bold"
+          disabled={disabled}
+        />
+        <div className={clsx('mt-0.5 text-[#7B8D97]', disabled && 'text-opacity-50')}>$$</div>
         <div className="mt-0.5">
           <button
             type="button"
