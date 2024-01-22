@@ -6,8 +6,8 @@ import { Autocomplete, Chip, TextField } from '@mui/material';
 import Section from '../Section';
 import SectionBreak from '../SectionBreak';
 import { Breed } from '@/entities';
-import BlockRadio from '../controls/block/Radio';
-import InlineCheckbox from '../controls/inline/Checkbox';
+import InteractiveBlock from '@/components/controls/InteractiveBlock';
+import CircleCheckbox from '@/components/controls/CircleCheckbox';
 import { FragmentProps } from '@/components/FragmentViewer';
 import Stage from '../Stage';
 
@@ -79,7 +79,7 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
               )}
             />
             <div className="mt-3 px-3">
-              <InlineCheckbox
+              <CircleCheckbox
                 control={control}
                 name="isUnknownBreed"
                 label="Don’t Know The Breed"
@@ -92,7 +92,8 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
         <Section title="[Charlie] is a ...">
           <div className="flex justify-center">
             <div className="px-3">
-              <BlockRadio
+              <InteractiveBlock
+                type="radio"
                 value={0}
                 error={!!errors.gender}
                 control={control}
@@ -102,7 +103,8 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
               />
             </div>
             <div className="px-3">
-              <BlockRadio
+              <InteractiveBlock
+                type="radio"
                 value={1}
                 error={!!errors.gender}
                 control={control}
@@ -117,7 +119,8 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
         <Section title="Is [Charlie] ...">
           <div className="flex justify-center">
             <div className="px-3">
-              <BlockRadio
+              <InteractiveBlock
+                type="radio"
                 value={0}
                 error={!!errors.neuter}
                 control={control}
@@ -127,7 +130,8 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
               />
             </div>
             <div className="px-3">
-              <BlockRadio
+              <InteractiveBlock
+                type="radio"
                 value={1}
                 error={!!errors.neuter}
                 control={control}

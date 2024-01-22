@@ -6,7 +6,7 @@ import {
   useController,
 } from 'react-hook-form';
 
-interface BlockCheckboxProps {
+interface InteractiveBlockProps {
   control: Control<FieldValues>;
   label: string;
   name: string;
@@ -17,10 +17,11 @@ interface BlockCheckboxProps {
   value: string | number;
   error?: boolean;
   className?: string;
+  type: 'checkbox' | 'radio';
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export default function BlockCheckbox({
+export default function InteractiveBlock({
   control,
   label,
   name,
@@ -28,8 +29,9 @@ export default function BlockCheckbox({
   value,
   error,
   className,
+  type,
   onChange: parentOnChange,
-}: BlockCheckboxProps) {
+}: InteractiveBlockProps) {
   const {
     field: { onChange, ...field },
   } = useController({ name, control, rules });
@@ -55,7 +57,7 @@ export default function BlockCheckbox({
       >
         <input
           {...field}
-          type="checkbox"
+          type={type}
           className="absolute bottom-0 left-0 right-0 top-0 opacity-0"
           onChange={(e) => {
             onChange(e);

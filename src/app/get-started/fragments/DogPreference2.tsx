@@ -2,12 +2,11 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
-import BlockRadio from '../controls/block/Radio';
 import Section from '../Section';
 import SectionBreak from '../SectionBreak';
-import BlockCheckbox from '../controls/block/Checkbox';
+import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import Image from 'next/image';
-import LineRadioGroup from '../controls/LineRadioGroup';
+import PictureRadio from '@/components/controls/PictureRadio';
 import { FragmentProps } from '@/components/FragmentViewer';
 import Stage from '../Stage';
 
@@ -47,7 +46,8 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
         >
           <div className="mx-auto -mt-4 flex max-w-[380px] flex-wrap justify-center">
             <div className="mt-4 px-3">
-              <BlockCheckbox
+              <InteractiveBlock
+                type="checkbox"
                 label={options[0].label}
                 value={options[0].value}
                 control={control}
@@ -73,7 +73,8 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
               }
               return (
                 <div className="mt-4 px-3" key={option.value}>
-                  <BlockCheckbox
+                  <InteractiveBlock
+                    type="checkbox"
                     label={options[idx].label}
                     value={options[idx].value}
                     control={control}
@@ -108,7 +109,8 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
         <Section title="What is [Charlie] currently eating?">
           <div className="mx-auto -mt-4 flex max-w-[530px] flex-wrap justify-between">
             <div className="mt-4 px-3">
-              <BlockRadio
+              <InteractiveBlock
+                type="radio"
                 value="dry"
                 control={control}
                 name="eating"
@@ -118,7 +120,8 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
               />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio
+              <InteractiveBlock
+                type="radio"
                 value="wet"
                 control={control}
                 name="eating"
@@ -128,7 +131,8 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
               />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio
+              <InteractiveBlock
+                type="radio"
                 value="raw"
                 control={control}
                 name="eating"
@@ -138,7 +142,8 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
               />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio
+              <InteractiveBlock
+                type="radio"
                 value="dehydrated"
                 control={control}
                 name="eating"
@@ -148,7 +153,8 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
               />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio
+              <InteractiveBlock
+                type="radio"
                 value="fresh"
                 control={control}
                 name="eating"
@@ -158,7 +164,8 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
               />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio
+              <InteractiveBlock
+                type="radio"
                 value="homemade"
                 control={control}
                 name="eating"
@@ -168,7 +175,8 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
               />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio
+              <InteractiveBlock
+                type="radio"
                 value="other"
                 control={control}
                 name="eating"
@@ -190,7 +198,8 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
         >
           <div className="mx-auto -mt-4 flex max-w-[520px] flex-wrap justify-center">
             <div className="mt-4 px-3">
-              <BlockRadio
+              <InteractiveBlock
+                type="radio"
                 value="none"
                 control={control}
                 name="treats"
@@ -200,7 +209,8 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
               />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio
+              <InteractiveBlock
+                type="radio"
                 value="some"
                 control={control}
                 name="treats"
@@ -210,7 +220,8 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
               />
             </div>
             <div className="mt-4 px-3">
-              <BlockRadio
+              <InteractiveBlock
+                type="radio"
                 value="lots"
                 control={control}
                 name="treats"
@@ -224,7 +235,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
         <SectionBreak />
         <Section title=" How picky is [Charlie] at mealtimes?">
           <div className="mx-auto mt-10 max-w-[640px]">
-            <LineRadioGroup
+            <PictureRadio
               name="picky"
               rules={{ required: true }}
               control={control}

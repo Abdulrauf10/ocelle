@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { Control, FieldValues, RegisterOptions, useController, useForm } from 'react-hook-form';
 import clsx from 'clsx';
 import H2 from '@/components/Heading/H2';
-import BlockRadio from '../controls/block/Radio';
+import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import Price from '@/components/Price';
 import Button from '@/components/Button';
 import React from 'react';
@@ -408,7 +408,8 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
               </p>
               <div className="my-3 flex flex-wrap justify-center">
                 <div className="mt-4 px-2">
-                  <BlockRadio
+                  <InteractiveBlock
+                    type="radio"
                     value={0}
                     control={control}
                     name="transition"
@@ -424,7 +425,8 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                   />
                 </div>
                 <div className="mt-4 px-2">
-                  <BlockRadio
+                  <InteractiveBlock
+                    type="radio"
                     value={1}
                     control={control}
                     name="transition"

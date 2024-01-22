@@ -5,7 +5,7 @@ import Button from '@/components/Button';
 import { TextField } from '@mui/material';
 import Section from '../Section';
 import SectionBreak from '../SectionBreak';
-import LineRadioGroup from '../controls/LineRadioGroup';
+import PictureRadio from '@/components/controls/PictureRadio';
 import Image from 'next/image';
 import { FragmentProps } from '@/components/FragmentViewer';
 import Stage from '../Stage';
@@ -62,7 +62,7 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
         <SectionBreak />
         <Section title="What best represents their current body condition?">
           <div className="mx-auto mt-10 max-w-[840px]">
-            <LineRadioGroup
+            <PictureRadio
               name="bodyCondition"
               rules={{ required: true }}
               control={control}
@@ -130,7 +130,7 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
         <SectionBreak />
         <Section title="How active is [Charlie]?">
           <div className="mx-auto mt-10 max-w-[640px]">
-            <LineRadioGroup
+            <PictureRadio
               name="active"
               rules={{ required: true }}
               control={control}

@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form';
 import React from 'react';
 import SectionBreak from '../SectionBreak';
 import Pen from '@/components/Icon/Pen';
-import DateCalendar from '../controls/DateCalendar';
+import DateCalendar from '@/components/controls/DateCalendar';
 import CircleTick from '@/components/Icon/CircleTick';
 import Price from '@/components/Price';
 import Button from '@/components/Button';

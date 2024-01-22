@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import React, { lazy } from 'react';
+import React from 'react';
 import {
   type Control,
   type FieldValues,
@@ -17,12 +17,12 @@ interface CommonProps {
   error?: boolean;
 }
 
-interface LineRadioProps extends CommonProps {
+interface RadioProps extends CommonProps {
   label: React.ReactNode;
   value: string | number;
 }
 
-function LineRadio({
+function Radio({
   name,
   label,
   value,
@@ -30,7 +30,7 @@ function LineRadio({
   children,
   rules,
   error,
-}: React.PropsWithChildren<LineRadioProps>) {
+}: React.PropsWithChildren<RadioProps>) {
   const { field } = useController({ name, control, rules });
   const isSelected = field.value == value;
 
@@ -59,7 +59,7 @@ function LineRadio({
   );
 }
 
-interface LineRadioGroupProps extends CommonProps {
+interface PictureRadioProps extends CommonProps {
   radios: Array<
     React.PropsWithChildren<{
       label: string;
@@ -68,17 +68,11 @@ interface LineRadioGroupProps extends CommonProps {
   >;
 }
 
-export default function LineRadioGroup({
-  name,
-  control,
-  rules,
-  radios,
-  error,
-}: LineRadioGroupProps) {
+export default function PictureRadio({ name, control, rules, radios, error }: PictureRadioProps) {
   return (
     <div className="flex">
       {radios.map((radio, idx) => (
-        <LineRadio
+        <Radio
           key={idx}
           name={name}
           control={control}
@@ -88,7 +82,7 @@ export default function LineRadioGroup({
           error={error}
         >
           {radio.children}
-        </LineRadio>
+        </Radio>
       ))}
     </div>
   );
