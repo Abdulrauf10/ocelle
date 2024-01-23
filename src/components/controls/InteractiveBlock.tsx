@@ -35,7 +35,8 @@ export default function InteractiveBlock({
   const {
     field: { onChange, ...field },
   } = useController({ name, control, rules });
-  const isSelected = field.value === true;
+  const isSelected =
+    type === 'checkbox' ? field.value === true : String(field.value) === String(value);
 
   return (
     <label
