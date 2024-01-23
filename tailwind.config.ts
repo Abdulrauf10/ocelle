@@ -49,6 +49,7 @@ const config: Config = {
         },
       },
       fontFamily: {
+        jost: ['--font-jost', ...defaultTheme.fontFamily.sans],
         'open-sans': ['--font-open-sans', ...defaultTheme.fontFamily.sans],
       },
     },
