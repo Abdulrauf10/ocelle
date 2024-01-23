@@ -3,8 +3,16 @@ import { FragmentProps } from '@/components/FragmentRouter';
 import H2 from '@/components/headings/H2';
 import Image from 'next/image';
 import Stage from '../Stage';
+import React from 'react';
 
 export default function CalculatingFragment({ navigate }: FragmentProps<Stage>) {
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      navigate(Stage.ChoosePlan);
+    }, 3000);
+    return () => clearTimeout(timeout);
+  }, [navigate]);
+
   return (
     <Container className="text-center">
       <Image
