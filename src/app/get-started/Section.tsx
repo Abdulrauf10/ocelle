@@ -1,4 +1,4 @@
-import H2 from '@/components/Heading/H2';
+import H2 from '@/components/headings/H2';
 import React from 'react';
 
 interface SectionProps {

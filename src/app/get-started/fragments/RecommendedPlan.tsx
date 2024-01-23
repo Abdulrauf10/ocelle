@@ -3,7 +3,7 @@ import Section from '../Section';
 import Image from 'next/image';
 import { Control, FieldValues, RegisterOptions, useController, useForm } from 'react-hook-form';
 import clsx from 'clsx';
-import H2 from '@/components/Heading/H2';
+import H2 from '@/components/headings/H2';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import Price from '@/components/Price';
 import Button from '@/components/Button';
@@ -18,7 +18,7 @@ import {
   useInteractions,
   useRole,
 } from '@floating-ui/react';
-import Close from '@/components/Icon/Close';
+import Close from '@/components/icons/Close';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';

@@ -5,7 +5,7 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import UnderlineButton from '@/components/UnderlineButton';
 import Section from '../Section';
-import H2 from '@/components/Heading/H2';
+import H2 from '@/components/headings/H2';
 import SectionBreak from '../SectionBreak';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';

@@ -5,11 +5,11 @@ import Image from 'next/image';
 import CaseSwiper from './CaseSwiper';
 import MarqueeContent from './MarqueeContent';
 import HowPlanWorks from './HowPlanWorks';
-import H2 from '@/components/Heading/H2';
+import H2 from '@/components/headings/H2';
 import Block from '@/components/Block';
 import Picture from './Picture';
 import List from '@/components/List';
-import Tickbox from '@/components/Icon/Tickbox';
+import Tickbox from '@/components/icons/Tickbox';
 import Link from 'next/link';
 
 export default function Home() {

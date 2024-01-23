@@ -1,6 +1,6 @@
 import { Controller, type Control, type FieldValues } from 'react-hook-form';
-import Stripe from '../Icon/Stripe';
-import Lock from '../Icon/Lock';
+import Stripe from '../icons/Stripe';
+import Lock from '../icons/Lock';
 import { TextField } from '@mui/material';
 import Image from 'next/image';
 

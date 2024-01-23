@@ -5,7 +5,7 @@ import React from 'react';
 import clsx from 'clsx';
 import Button from '@/components/Button';
 import Price from '@/components/Price';
-import CircleTick from '@/components/Icon/CircleTick';
+import CircleTick from '@/components/icons/CircleTick';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 

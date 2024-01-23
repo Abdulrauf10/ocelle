@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/components/Button';
-import DogFoot from '@/components/Icon/DogFoot';
+import DogFoot from '@/components/icons/DogFoot';
 import List from '@/components/List';
 import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';

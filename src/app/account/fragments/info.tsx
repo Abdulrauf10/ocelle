@@ -1,14 +1,14 @@
 import Container from '@/components/Container';
 import { FragmentProps } from '@/components/FragmentRouter';
-import H2 from '@/components/Heading/H2';
-import Unbox from '@/components/Icon/Unbox';
-import User from '@/components/Icon/User';
+import H2 from '@/components/headings/H2';
+import Unbox from '@/components/icons/Unbox';
+import User from '@/components/icons/User';
 import clsx from 'clsx';
 import { Route } from '../types';
-import HomeAddress from '@/components/Icon/HomeAddress';
-import Billing from '@/components/Icon/Billing';
+import HomeAddress from '@/components/icons/HomeAddress';
+import Billing from '@/components/icons/Billing';
 import Image from 'next/image';
-import Bell from '@/components/Icon/Bell';
+import Bell from '@/components/icons/Bell';
 
 interface BlockProps {
   className?: string;

@@ -3,7 +3,7 @@ import { FragmentProps } from '@/components/FragmentRouter';
 import { Route } from '../types';
 import { useForm } from 'react-hook-form';
 import Container from '@/components/Container';
-import H2 from '@/components/Heading/H2';
+import H2 from '@/components/headings/H2';
 import DateCalendar from '@/components/controls/DateCalendar';
 import UnderlineButton from '@/components/UnderlineButton';
 

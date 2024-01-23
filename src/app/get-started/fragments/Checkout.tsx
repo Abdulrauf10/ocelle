@@ -4,15 +4,15 @@ import { TextField, ThemeProvider, createTheme, useTheme } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import React from 'react';
 import SectionBreak from '../SectionBreak';
-import Pen from '@/components/Icon/Pen';
+import Pen from '@/components/icons/Pen';
 import DateCalendar from '@/components/controls/DateCalendar';
-import CircleTick from '@/components/Icon/CircleTick';
+import CircleTick from '@/components/icons/CircleTick';
 import Price from '@/components/Price';
 import Button from '@/components/Button';
 import Stage from '../Stage';
 import { FragmentProps } from '@/components/FragmentRouter';
-import CardForm from '@/components/Form/Card';
-import AddressForm from '@/components/Form/Address';
+import CardForm from '@/components/forms/Card';
+import AddressForm from '@/components/forms/Address';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 
 interface CheckoutBlockProps {

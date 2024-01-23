@@ -1,12 +1,12 @@
 import Container from '@/components/Container';
 import { FragmentProps } from '@/components/FragmentRouter';
-import H2 from '@/components/Heading/H2';
+import H2 from '@/components/headings/H2';
 import { Route } from '../types';
 import { useForm } from 'react-hook-form';
 import React from 'react';
 import Button from '@/components/Button';
 import UnderlineButton from '@/components/UnderlineButton';
-import AddressForm from '@/components/Form/Address';
+import AddressForm from '@/components/forms/Address';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 
 interface AddressBlockProps {

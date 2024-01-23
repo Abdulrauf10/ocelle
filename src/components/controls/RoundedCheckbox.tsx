@@ -5,7 +5,7 @@ import {
   type RegisterOptions,
   useController,
 } from 'react-hook-form';
-import Tick from '../Icon/Tick';
+import Tick from '../icons/Tick';
 
 interface RoundedCheckboxProps {
   control: Control<FieldValues>;

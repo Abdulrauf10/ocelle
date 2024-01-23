@@ -1,8 +1,8 @@
 import Container from '@/components/Container';
 import { FragmentProps } from '@/components/FragmentRouter';
-import H2 from '@/components/Heading/H2';
+import H2 from '@/components/headings/H2';
 import { Route } from '../types';
-import CircleTick from '@/components/Icon/CircleTick';
+import CircleTick from '@/components/icons/CircleTick';
 import UnderlineButton from '@/components/UnderlineButton';
 
 export default function PauseDoneFragment({ navigate }: FragmentProps<Route>) {

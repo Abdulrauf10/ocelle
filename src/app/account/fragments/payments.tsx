@@ -1,12 +1,12 @@
 import Container from '@/components/Container';
 import { FragmentProps } from '@/components/FragmentRouter';
-import H2 from '@/components/Heading/H2';
+import H2 from '@/components/headings/H2';
 import { Route } from '../types';
 import { useForm } from 'react-hook-form';
 import React from 'react';
 import Button from '@/components/Button';
 import UnderlineButton from '@/components/UnderlineButton';
-import CardForm from '@/components/Form/Card';
+import CardForm from '@/components/forms/Card';
 
 export default function PaymentsFragment({ navigate }: FragmentProps<Route>) {
   const {

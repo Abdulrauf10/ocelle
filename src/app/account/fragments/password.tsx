@@ -1,6 +1,6 @@
 import Container from '@/components/Container';
 import { FragmentProps } from '@/components/FragmentRouter';
-import H2 from '@/components/Heading/H2';
+import H2 from '@/components/headings/H2';
 import { Route } from '../types';
 import { Controller, useForm } from 'react-hook-form';
 import { TextField } from '@mui/material';
