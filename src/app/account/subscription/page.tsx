@@ -110,7 +110,11 @@ export default function Subscriptions() {
               href="/account/pause-delivery"
             />
             <br />
-            <UnderlineButton theme="primary" label="Cancel My OCELLE Subscriptions" />
+            <UnderlineButton
+              theme="primary"
+              label="Cancel My OCELLE Subscriptions"
+              href="/account/subscription/cancel"
+            />
           </div>
           <div className="mt-6 text-center">
             <UnderlineButton type="button" onClick={() => router.back()} label="Go Back" />
