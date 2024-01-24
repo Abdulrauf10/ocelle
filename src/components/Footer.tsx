@@ -3,6 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import Container from './Container';
+import Whatsapp from './icons/Whatsapp';
+import Email from './icons/Email';
+import Phone from './icons/Phone';
 
 function FooterHead({ children }: React.PropsWithChildren) {
   return <div className="font-bold uppercase">{children}</div>;
@@ -45,21 +48,15 @@ export default function Footer({ hideNav }: FooterProps) {
             <div className="py-5 [&_a:hover]:underline">
               <FooterHead>Contact</FooterHead>
               <Link href="#" className="mt-5 flex items-center">
-                <Image src="/contact-email.svg" alt="email icon" width={20} height={14} />
+                <Email className="w-5" />
                 <span className="pl-2">info@ocelle.dog</span>
               </Link>
               <Link href="#" className="mt-3 flex items-center">
-                <Image
-                  src="/contact-phone.svg"
-                  alt="phone icon"
-                  width={12}
-                  height={21}
-                  className="mx-1"
-                />
+                <Phone className="mx-1 w-3" />
                 <span className="pl-2">Phone Number</span>
               </Link>
               <Link href="#" className="mt-3 flex items-center">
-                <Image src="/contact-wts.svg" alt="whatsapp icon" width={20} height={20} />
+                <Whatsapp className="w-5" />
                 <span className="pl-2">Whatsapp Number</span>
               </Link>
             </div>
