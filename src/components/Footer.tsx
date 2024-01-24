@@ -44,23 +44,23 @@ export default function Footer({ hideNav }: FooterProps) {
             </div>
             <div className="py-5 [&_a:hover]:underline">
               <FooterHead>Contact</FooterHead>
-              <Link
-                href="#"
-                className="mt-5 block bg-email-contact bg-[length:18px_auto] bg-[left_center] bg-no-repeat pl-7"
-              >
-                info@ocelle.dog
+              <Link href="#" className="mt-5 flex items-center">
+                <Image src="/contact-email.svg" alt="email icon" width={20} height={14} />
+                <span className="pl-2">info@ocelle.dog</span>
               </Link>
-              <Link
-                href="#"
-                className="mt-3 block bg-phone-contact bg-[length:20px_auto] bg-[left_center] bg-no-repeat pl-7"
-              >
-                Phone Number
+              <Link href="#" className="mt-3 flex items-center">
+                <Image
+                  src="/contact-phone.svg"
+                  alt="phone icon"
+                  width={12}
+                  height={21}
+                  className="mx-1"
+                />
+                <span className="pl-2">Phone Number</span>
               </Link>
-              <Link
-                href="#"
-                className="mt-3 block bg-wts-contact bg-[length:18px_auto] bg-[left_center] bg-no-repeat pl-7"
-              >
-                Whatsapp Number
+              <Link href="#" className="mt-3 flex items-center">
+                <Image src="/contact-wts.svg" alt="whatsapp icon" width={20} height={20} />
+                <span className="pl-2">Whatsapp Number</span>
               </Link>
             </div>
             <div className="py-5">

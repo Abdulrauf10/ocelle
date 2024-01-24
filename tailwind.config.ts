@@ -22,9 +22,6 @@ const config: Config = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'email-contact': 'url("./contact-icon_mail.png")',
-        'phone-contact': 'url("./contact-icon_phone.png")',
-        'wts-contact': 'url("./contact-icon_whatsapp.png")',
         'newsletter-icon': 'url("./newsletter-icon.png")',
         'newsletter-btn': 'url("./newsletter-btn.png")',
       },
