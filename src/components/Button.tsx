@@ -4,6 +4,7 @@ import React from 'react';
 import DogFoot from './icons/DogFoot';
 
 interface ButtonBaseProps {
+  theme?: 'primary' | 'secondary';
   className?: string;
   reverse?: boolean;
   fullWidth?: boolean;
@@ -25,6 +26,7 @@ function ButtonIcon() {
 }
 
 export default function Button({
+  theme,
   children,
   className,
   onClick,
@@ -34,13 +36,23 @@ export default function Button({
 }: React.PropsWithChildren<ButtonProps | LinkbuttonProps>) {
   const buttonProps = props as ButtonProps;
   const linkProps = props as LinkbuttonProps;
-  const classes = clsx(
-    'items-center justify-center cursor-pointer rounded-[30px] py-1.5 px-6 text-center text-lg font-bold border border-secondary',
-    'transition-all duration-300 ease-in-out',
-    fullWidth ? 'flex w-full' : 'inline-flex',
+  const primaryClasses = clsx(
+    'border-primary',
+    reverse
+      ? 'bg-white text-primary hover:bg-gray hover:bg-opacity-5 hover:border-gray'
+      : 'bg-primary text-white hover:opacity-85'
+  );
+  const secondaryClasses = clsx(
+    'border-secondary',
     reverse
       ? 'bg-white text-secondary hover:bg-gray hover:bg-opacity-5 hover:border-gray'
-      : 'bg-secondary text-white hover:bg-[#EA6A00] hover:border-[#EA6A00]',
+      : 'bg-secondary text-white hover:opacity-85'
+  );
+  const classes = clsx(
+    'items-center justify-center cursor-pointer rounded-[30px] py-1.5 px-6 text-center text-lg font-bold border',
+    'transition-all duration-300 ease-in-out',
+    fullWidth ? 'flex w-full' : 'inline-flex',
+    theme === 'primary' ? primaryClasses : secondaryClasses,
     className
   );
 

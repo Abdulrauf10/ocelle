@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 
 interface UnderlineButtonBaseProps {
+  theme?: 'primary' | 'secondary';
   label: string;
   underline?: boolean;
   className?: string;
@@ -20,6 +21,7 @@ interface LinkbuttonProps extends UnderlineButtonBaseProps {
 }
 
 export default function UnderlineButton({
+  theme,
   className,
   underline,
   label,
@@ -29,7 +31,8 @@ export default function UnderlineButton({
   const buttonProps = props as ButtonProps;
   const linkProps = props as LinkbuttonProps;
   const classes = clsx(
-    'inline-block text-secondary',
+    'inline-block',
+    theme === 'primary' ? 'text-primary' : 'text-secondary',
     underline ? 'underline' : 'hover:underline',
     className
   );
