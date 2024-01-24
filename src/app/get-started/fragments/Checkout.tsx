@@ -4,7 +4,6 @@ import { TextField, ThemeProvider, createTheme, useTheme } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import React from 'react';
 import SectionBreak from '../SectionBreak';
-import Pen from '@/components/icons/Pen';
 import DateCalendar from '@/components/controls/DateCalendar';
 import CircleTick from '@/components/icons/CircleTick';
 import Price from '@/components/Price';
@@ -14,6 +13,7 @@ import { FragmentProps } from '@/components/FragmentRouter';
 import CardForm from '@/components/forms/Card';
 import AddressForm from '@/components/forms/Address';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
+import EditButton from '@/components/EditButton';
 
 interface CheckoutBlockProps {
   title?: string;
@@ -25,23 +25,6 @@ function CheckoutBlock({ title, children }: React.PropsWithChildren<CheckoutBloc
       {title && <h3 className="text-gold text-xl font-bold">{title}</h3>}
       {children}
     </div>
-  );
-}
-
-interface EditButtonProps {
-  onClick(): void;
-}
-
-function EditButton({ onClick }: EditButtonProps) {
-  return (
-    <button
-      type="button"
-      className="inline-flex items-center text-primary [&:hover_span]:underline"
-      onClick={onClick}
-    >
-      <span className="font-bold uppercase">Edit</span>
-      <Pen className="ml-1.5 w-4" />
-    </button>
   );
 }
 
