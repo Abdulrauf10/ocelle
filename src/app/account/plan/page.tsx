@@ -64,7 +64,9 @@ export default function Plan() {
                 </div>
               </div>
               <div className="px-3 py-3 max-md:w-full">
-                <Button theme="primary">Edit Dog’s Details</Button>
+                <Button theme="primary" href="/account/dog/1">
+                  Edit Dog’s Details
+                </Button>
               </div>
             </div>
           </div>
@@ -96,7 +98,11 @@ export default function Plan() {
                       </span>
                     </p>
                     <div className="mt-3">
-                      <UnderlineButton theme="primary" label="Manage Delivery Date" />
+                      <UnderlineButton
+                        theme="primary"
+                        label="Manage Delivery Date"
+                        href="/account/plan/delivery-date"
+                      />
                     </div>
                     <p className="mt-3">
                       You can make changes until the{' '}
@@ -123,7 +129,11 @@ export default function Plan() {
                       [2 weeks] supply of fresh, healthy food.
                     </span>
                     <div className="whitespace-nowrap px-1 py-2 max-sm:w-full">
-                      <UnderlineButton theme="primary" label="Manage Order Size" />
+                      <UnderlineButton
+                        theme="primary"
+                        label="Manage Order Size"
+                        href="/account/plan/often"
+                      />
                     </div>
                   </div>
                   <hr className="border-gray my-3 max-sm:my-6" />
