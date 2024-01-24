@@ -71,10 +71,10 @@ export default function FaQ() {
     <main>
       <div className="bg-[url('/faq.jpg')] bg-[length:auto_100%] bg-center bg-repeat-x py-24">
         <Container>
-          <h2 className="-ml-3 text-[215px] font-bold text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] max-lg:text-[130px]">
+          <h2 className="-ml-3 select-none text-[215px] font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] max-lg:text-[130px]">
             FAQ
           </h2>
-          <p className="-mt-12 text-white max-lg:-mt-8">
+          <p className="text-white">
             If you can’t find what you’re looking for, please contact us!{' '}
           </p>
           <div className="mt-6">
