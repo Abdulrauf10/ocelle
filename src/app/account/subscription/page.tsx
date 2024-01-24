@@ -1,12 +1,15 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
 import { Switch, ThemeProvider, createTheme } from '@mui/material';
 import Container from '@/components/Container';
-import { FragmentProps } from '@/components/FragmentRouter';
 import H2 from '@/components/headings/H2';
 import UnderlineButton from '@/components/UnderlineButton';
-import { Route } from '../types';
 import Button from '@/components/Button';
 
-export default function SubscriptionsFragment({ navigate }: FragmentProps<Route>) {
+export default function Subscriptions() {
+  const router = useRouter();
+
   return (
     <ThemeProvider
       theme={createTheme({
@@ -66,7 +69,7 @@ export default function SubscriptionsFragment({ navigate }: FragmentProps<Route>
         },
       })}
     >
-      <div className="py-10">
+      <main className="bg-gold bg-opacity-10 py-10">
         <Container>
           <H2 inline className="text-center text-primary">
             Your Subscriptions
@@ -102,18 +105,18 @@ export default function SubscriptionsFragment({ navigate }: FragmentProps<Route>
           </div>
           <div className="mt-6 text-center">
             <UnderlineButton
-              className="!text-primary"
+              theme="primary"
               label="Pause All Deliveries"
-              onClick={() => navigate('pause')}
+              href="/account/pause-delivery"
             />
             <br />
-            <UnderlineButton className="!text-primary" label="Cancel My OCELLE Subscriptions" />
+            <UnderlineButton theme="primary" label="Cancel My OCELLE Subscriptions" />
           </div>
           <div className="mt-6 text-center">
-            <UnderlineButton type="button" onClick={() => navigate(-1)} label="Go Back" />
+            <UnderlineButton type="button" onClick={() => router.back()} label="Go Back" />
           </div>
         </Container>
-      </div>
+      </main>
     </ThemeProvider>
   );
 }

@@ -1,68 +1,152 @@
 'use client';
 
 import React from 'react';
-import { ThemeProvider } from '@mui/material';
-import theme from '../mui-theme';
-import { Route } from './types';
-import FragmentRouter, { useFragmentRouterController } from '@/components/FragmentRouter';
-import InfoFragment from './fragments/info';
-import OrdersFragment from './fragments/orders';
-import AddressFragment from './fragments/address';
-import AccountFragment from './fragments/account';
-import PasswordFragment from './fragments/password';
-import PaymentsFragment from './fragments/payments';
-import SubscriptionsFragment from './fragments/subscriptions';
-import PauseFragment from './fragments/pause';
-import PauseDoneFragment from './fragments/pauseDone';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import clsx from 'clsx';
+import Container from '@/components/Container';
+import H2 from '@/components/headings/H2';
+import Unbox from '@/components/icons/Unbox';
+import User from '@/components/icons/User';
+import HomeAddress from '@/components/icons/HomeAddress';
+import Billing from '@/components/icons/Billing';
+import Bell from '@/components/icons/Bell';
+
+interface BlockProps {
+  className?: string;
+  icon: React.ReactNode;
+  title: string;
+  description?: React.ReactNode;
+  onClick(): void;
+}
+
+function Block({
+  className,
+  icon,
+  title,
+  description,
+  onClick,
+  children,
+}: React.PropsWithChildren<BlockProps>) {
+  return (
+    <div
+      className={clsx(
+        'border-gray -mx-2 flex cursor-pointer items-center rounded-2xl border bg-white px-4 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)]',
+        className
+      )}
+      onClick={onClick}
+    >
+      <div className="flex-1 px-2">
+        <div className="-mx-2 flex items-center">
+          <div className="px-2">{icon}</div>
+          <div className="px-2">
+            <div className="text-brown text-xl">{title}</div>
+            {description && <div>{description}</div>}
+          </div>
+        </div>
+        {children}
+      </div>
+      <div className="px-2">
+        <button>
+          <svg viewBox="0 0 7 13" className="w-2">
+            <polyline
+              className="stroke-brown fill-none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              points=".5 .5 6.5 6.5 .5 12.5"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export default function Account() {
-  const controller = useFragmentRouterController<Route>({
-    defaultRoute: 'pause-done',
-    routes: [
-      {
-        name: 'info',
-        component: InfoFragment,
-      },
-      {
-        name: 'account',
-        component: AccountFragment,
-      },
-      {
-        name: 'password',
-        component: PasswordFragment,
-      },
-      {
-        name: 'orders',
-        component: OrdersFragment,
-      },
-      {
-        name: 'address',
-        component: AddressFragment,
-      },
-      {
-        name: 'payments',
-        component: PaymentsFragment,
-      },
-      {
-        name: 'subscriptions',
-        component: SubscriptionsFragment,
-      },
-      {
-        name: 'pause',
-        component: PauseFragment,
-      },
-      {
-        name: 'pause-done',
-        component: PauseDoneFragment,
-      },
-    ],
-  });
+  const router = useRouter();
 
   return (
-    <ThemeProvider theme={theme}>
-      <main className="bg-gold bg-opacity-10">
-        <FragmentRouter controller={controller} />
-      </main>
-    </ThemeProvider>
+    <main className="bg-gold bg-opacity-10 py-10">
+      <Container>
+        <H2 inline className="text-center text-primary">
+          My Info
+        </H2>
+        <p className="mt-4 text-center">Manage your account information</p>
+        <div className="py-4"></div>
+        <div className="mx-auto max-w-[480px]">
+          <Block
+            icon={<Unbox className="w-16" />}
+            title="Orders"
+            description="Current Order ID# [xxxxxx]"
+            onClick={() => router.push('/account/order')}
+          />
+          <Block
+            className="mt-8"
+            icon={<User className="mx-2 w-12" />}
+            title="Account Info"
+            description="ksaunders@ocelle.dog"
+            onClick={() => router.push('/account/basic')}
+          />
+          <Block
+            className="mt-8"
+            icon={<HomeAddress className="w-16" />}
+            title="Address"
+            onClick={() => router.push('/account/address')}
+          >
+            <div className="mt-4 flex max-xs:flex-wrap">
+              <strong className="text-gold min-w-[82px]">Devlivery:</strong>
+              <span className="w-full">
+                [20/F, Golden Star Building, 20-24 Lockhart Road, Wanchai, Hong Kong]
+              </span>
+            </div>
+            <div className="mt-3 flex max-xs:flex-wrap">
+              <strong className="text-gold min-w-[82px]">Billing:</strong>
+              <span className="w-full">
+                [20/F, Golden Star Building, 20-24 Lockhart Road, Wanchai, Hong Kong]
+              </span>
+            </div>
+          </Block>
+          <Block
+            className="mt-8"
+            icon={<Billing className="w-14 px-1" />}
+            title="Payment Info"
+            onClick={() => router.push('/account/payment')}
+          >
+            <div className="mt-4 flex items-center">
+              [
+              <Image
+                src="/payments/mc.svg"
+                alt="Master Card Icon"
+                className="inline-block"
+                width={28}
+                height={18}
+              />
+              &nbsp;
+              <span className="relative top-0.5">**** **** ****</span>&nbsp;1234]
+            </div>
+          </Block>
+          <Block
+            className="mt-8"
+            icon={<Bell className="mx-3 w-10" />}
+            title="Subscriptions"
+            description={
+              <div>
+                <div className="mt-1 flex items-center">
+                  <div className="h-3 w-3 rounded-full bg-[#1EA939]"></div>
+                  <div className="ml-3 min-w-[80px]">[Charlie]</div>
+                  <div className="pl-1">Plan [Active]</div>
+                </div>
+                <div className="mt-1 flex items-center">
+                  <div className="bg-error h-3 w-3 rounded-full"></div>
+                  <div className="ml-3 min-w-[80px]">[Muffin]</div>
+                  <div className="pl-1">Plan [Inactive]</div>
+                </div>
+              </div>
+            }
+            onClick={() => router.push('/account/subscription')}
+          />
+        </div>
+      </Container>
+    </main>
   );
 }

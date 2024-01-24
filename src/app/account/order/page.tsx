@@ -1,12 +1,15 @@
+'use client';
+
+import { useRouter } from 'next/navigation';
 import Container from '@/components/Container';
-import { FragmentProps } from '@/components/FragmentRouter';
 import H2 from '@/components/headings/H2';
-import { Route } from '../types';
 import UnderlineButton from '@/components/UnderlineButton';
 
-export default function OrdersFragment({ navigate }: FragmentProps<Route>) {
+export default function Orders() {
+  const router = useRouter();
+
   return (
-    <div className="py-10">
+    <main className="bg-gold bg-opacity-10 py-10">
       <Container>
         <H2 inline className="text-center text-primary">
           Orders
@@ -59,9 +62,9 @@ export default function OrdersFragment({ navigate }: FragmentProps<Route>) {
           </table>
         </div>
         <div className="mt-8 text-center">
-          <UnderlineButton type="button" onClick={() => navigate(-1)} label="Go Back" />
+          <UnderlineButton type="button" onClick={() => router.back()} label="Go Back" />
         </div>
       </Container>
-    </div>
+    </main>
   );
 }
