@@ -136,7 +136,7 @@ export default function Plan() {
                       />
                     </div>
                   </div>
-                  <div className="mb-4 mt-2">
+                  <div className="mb-4 mt-2 max-sm:mx-auto">
                     <div className="-mx-2 -my-4 flex justify-between max-sm:flex-col">
                       <div className="px-2 py-4">
                         <Image
