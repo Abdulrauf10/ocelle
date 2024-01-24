@@ -54,7 +54,7 @@ function Radio({
           />
         </div>
       </div>
-      <div className="mt-1 whitespace-nowrap px-1">{label}</div>
+      <div className="mt-1 whitespace-nowrap px-1 text-center">{label}</div>
     </label>
   );
 }
