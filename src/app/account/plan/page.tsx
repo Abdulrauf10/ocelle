@@ -136,14 +136,14 @@ export default function Plan() {
                       />
                     </div>
                   </div>
-                  <div className="mx-auto mb-4 mt-2">
+                  <div className="mb-4 mt-2">
                     <div className="-mx-2 -my-4 flex justify-between max-sm:flex-col">
                       <div className="px-2 py-4">
                         <Image
                           src="/meal-plan/chicken.jpg"
                           alt="Chicken Recipe"
-                          width={180}
-                          height={180}
+                          width={195}
+                          height={195}
                           className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                         />
                         <p className="mt-2 text-center">Fresh Chicken Recipe</p>
@@ -155,8 +155,8 @@ export default function Plan() {
                         <Image
                           src="/meal-plan/lamb.jpg"
                           alt="Lamb Recipe"
-                          width={180}
-                          height={180}
+                          width={195}
+                          height={195}
                           className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                         />
                         <p className="mt-2 text-center">Fresh Lamb Recipe</p>
