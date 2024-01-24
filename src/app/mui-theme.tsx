@@ -56,6 +56,20 @@ const theme = createTheme({
         IconComponent: DropdownIcon,
       },
     },
+    MuiMenu: {
+      styleOverrides: {
+        list: {
+          padding: 8,
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+        },
+      },
+    },
     MuiOutlinedInput: {
       styleOverrides: {
         root: {

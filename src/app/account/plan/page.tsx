@@ -6,13 +6,12 @@ import { ThemeProvider } from '@mui/material';
 import theme from '@/app/mui-theme';
 import Container from '@/components/Container';
 import H2 from '@/components/headings/H2';
-import { FormControl, MenuItem, Select } from '@mui/material';
 import Button from '@/components/Button';
 import UnderlineButton from '@/components/UnderlineButton';
 import Image from 'next/image';
+import DogSwitch from '../DogSwitch';
 
 export default function Plan() {
-  const handleDogChange = React.useCallback(() => {}, []);
   const mbBoxClassName = clsx(
     'max-md:border-brown max-md:rounded-[30px] max-md:border max-md:bg-white max-md:p-6 max-md:shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] mx-auto'
   );
@@ -30,20 +29,8 @@ export default function Plan() {
                 Keep tabs on your subscription and edit [Charlie]’s information.
               </p>
             </div>
-            <div className="w-[200px] px-4 py-3 max-sm:flex max-sm:w-full max-sm:items-center">
-              <div className="mb-2 whitespace-nowrap max-sm:mr-3">View info for</div>
-              <FormControl fullWidth>
-                <Select
-                  onChange={handleDogChange}
-                  size="small"
-                  sx={{
-                    backgroundColor: 'white',
-                  }}
-                >
-                  <MenuItem value={10}>Charile</MenuItem>
-                  <MenuItem value={20}>Muffin</MenuItem>
-                </Select>
-              </FormControl>
+            <div className="px-4 py-3">
+              <DogSwitch />
             </div>
           </div>
           <div className="py-6"></div>
