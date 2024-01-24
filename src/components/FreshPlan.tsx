@@ -9,7 +9,8 @@ interface FreshPlanProps {
   pricePerDay: number;
   discountedPricePerDay?: number;
   recommended?: boolean;
-  error: boolean;
+  firstDiscount?: boolean;
+  error?: boolean;
   selected: boolean;
   onSelect(): void;
 }
@@ -20,6 +21,7 @@ export default function FreshPlan({
   pricePerDay,
   discountedPricePerDay,
   recommended,
+  firstDiscount,
   error,
   selected,
   onSelect,
@@ -28,7 +30,7 @@ export default function FreshPlan({
   return (
     <div
       className={clsx(
-        'mx-auto flex h-full max-w-[400px] cursor-pointer flex-col rounded-[30px] border p-6 text-left shadow-[0_0_15px_rgba(0,0,0,0.2)]',
+        'mx-auto flex h-full max-w-[400px] cursor-pointer flex-col rounded-[30px] border bg-white p-6 text-left shadow-[0_0_15px_rgba(0,0,0,0.2)]',
         error ? 'border-error' : selected ? 'border-primary' : 'border-transparent'
       )}
       tabIndex={0}
@@ -74,11 +76,13 @@ export default function FreshPlan({
             )}
             <span className="text-dark-green font-bold">/day</span>.
           </p>
-          <p className="mt-2">
-            Enjoy <span className="text-dark-green font-bold">50%</span> off for{' '}
-            <br className="max-lg:hidden" />
-            your starter box.
-          </p>
+          {firstDiscount && (
+            <p className="mt-2">
+              Enjoy <span className="text-dark-green font-bold">50%</span> off for{' '}
+              <br className="max-lg:hidden" />
+              your starter box.
+            </p>
+          )}
         </div>
       </div>
       <p className="mt-5 h-full">{children}</p>

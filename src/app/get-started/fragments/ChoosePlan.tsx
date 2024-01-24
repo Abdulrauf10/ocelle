@@ -38,6 +38,7 @@ export default function ChoosePlanFragment({ navigate }: FragmentProps<Stage>) {
               picture="/meal-plan/full-plan.jpg"
               pricePerDay={36}
               discountedPricePerDay={18}
+              firstDiscount
               error={!!error}
               recommended
               selected={selected === 0}
@@ -53,6 +54,7 @@ export default function ChoosePlanFragment({ navigate }: FragmentProps<Stage>) {
               picture="/meal-plan/half-plan.jpg"
               pricePerDay={25}
               discountedPricePerDay={12.5}
+              firstDiscount
               error={!!error}
               selected={selected === 1}
               onSelect={() => setSelected(1)}

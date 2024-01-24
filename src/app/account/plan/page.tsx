@@ -129,7 +129,11 @@ export default function Plan() {
                       [2] Fresh Recipes
                     </div>
                     <div className="whitespace-nowrap px-1 py-2 max-sm:w-full">
-                      <UnderlineButton theme="primary" label="Manage Recipes" />
+                      <UnderlineButton
+                        theme="primary"
+                        label="Manage Recipes"
+                        href="/account/plan/recipe"
+                      />
                     </div>
                   </div>
                   <div className="mx-auto mb-4 mt-2">
@@ -165,7 +169,11 @@ export default function Plan() {
                       Fresh [Full/Half] Plan
                     </div>
                     <div className="whitespace-nowrap px-1 py-2 max-sm:w-full">
-                      <UnderlineButton theme="primary" label="Manage Meal Plan" />
+                      <UnderlineButton
+                        theme="primary"
+                        label="Manage Meal Plan"
+                        href="/account/plan/meal"
+                      />
                     </div>
                   </div>
                 </div>
