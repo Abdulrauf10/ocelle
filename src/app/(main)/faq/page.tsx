@@ -14,6 +14,7 @@ interface FAQ {
 }
 
 interface BlockProps {
+  id: string;
   title: string;
   faqs: FAQ[];
 }
@@ -53,9 +54,10 @@ function ToggleBlock({ question, answer }: FAQ) {
   );
 }
 
-function Block({ title, faqs }: BlockProps) {
+function Block({ id, title, faqs }: BlockProps) {
   return (
     <div className="py-10">
+      <div id={id} className="relative -top-[90px]"></div>
       <h2 className="text-5xl font-bold text-primary max-sm:text-3xl">{title}</h2>
       {faqs.map((faq, idx) => (
         <div key={idx} className="mt-5">
@@ -99,7 +101,7 @@ export default function FaQ() {
             <div className="p-2">
               <Link
                 href="#our-food"
-                className="block whitespace-nowrap rounded-2xl bg-primary px-10 py-0.5 text-center text-lg text-white max-sm:w-[180px]"
+                className="block whitespace-nowrap rounded-2xl bg-primary px-10 py-0.5 text-center text-lg text-white hover:opacity-90 max-sm:w-[180px]"
               >
                 Our Food
               </Link>
@@ -107,7 +109,7 @@ export default function FaQ() {
             <div className="p-2">
               <Link
                 href="#our-quiz"
-                className="block whitespace-nowrap rounded-2xl bg-primary px-10 py-0.5 text-center text-lg text-white max-sm:w-[180px]"
+                className="block whitespace-nowrap rounded-2xl bg-primary px-10 py-0.5 text-center text-lg text-white hover:opacity-90 max-sm:w-[180px]"
               >
                 Our Quiz
               </Link>
@@ -115,7 +117,7 @@ export default function FaQ() {
             <div className="p-2">
               <Link
                 href="#subscription"
-                className="block whitespace-nowrap rounded-2xl bg-primary px-10 py-0.5 text-center text-lg text-white max-sm:w-[180px]"
+                className="block whitespace-nowrap rounded-2xl bg-primary px-10 py-0.5 text-center text-lg text-white hover:opacity-90 max-sm:w-[180px]"
               >
                 Subscription
               </Link>
@@ -123,7 +125,7 @@ export default function FaQ() {
             <div className="p-2">
               <Link
                 href="#deliveries"
-                className="block whitespace-nowrap rounded-2xl bg-primary px-10 py-0.5 text-center text-lg text-white max-sm:w-[180px]"
+                className="block whitespace-nowrap rounded-2xl bg-primary px-10 py-0.5 text-center text-lg text-white hover:opacity-90 max-sm:w-[180px]"
               >
                 Deliveries
               </Link>
@@ -131,7 +133,7 @@ export default function FaQ() {
             <div className="p-2">
               <Link
                 href="#payment"
-                className="block whitespace-nowrap rounded-2xl bg-primary px-10 py-0.5 text-center text-lg text-white max-sm:w-[180px]"
+                className="block whitespace-nowrap rounded-2xl bg-primary px-10 py-0.5 text-center text-lg text-white hover:opacity-90 max-sm:w-[180px]"
               >
                 Payment
               </Link>
@@ -142,6 +144,7 @@ export default function FaQ() {
       <div className="bg-brown bg-opacity-10 py-16">
         <Container className="-my-8">
           <Block
+            id="our-food"
             title="OUR FOOD"
             faqs={[
               {
@@ -165,6 +168,7 @@ export default function FaQ() {
             ]}
           />
           <Block
+            id="our-quiz"
             title="OUR QUIZ"
             faqs={[
               {
@@ -188,6 +192,7 @@ export default function FaQ() {
             ]}
           />
           <Block
+            id="subscription"
             title="SUBSCRIPTION"
             faqs={[
               {
@@ -211,6 +216,7 @@ export default function FaQ() {
             ]}
           />
           <Block
+            id="deliveries"
             title="DELIVERIES"
             faqs={[
               {
@@ -234,6 +240,7 @@ export default function FaQ() {
             ]}
           />
           <Block
+            id="payment"
             title="PAYMENT"
             faqs={[
               {
