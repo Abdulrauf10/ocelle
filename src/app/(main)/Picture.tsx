@@ -12,9 +12,9 @@ export default function Picture() {
   const isInView = useInView(dogRef, { once: true });
 
   return (
-    <div className="bg-[url('./banner-bg.jpg')] bg-[length:auto_100%] bg-center bg-repeat-x">
+    <div className="bg-[#e6e6e6] bg-[url('./banner-bg.svg')] bg-[length:auto_100%] bg-center bg-repeat-x">
       <div className="flex flex-wrap items-center max-md:flex-col-reverse">
-        <div className="relative w-3/5 p-[2vw] pr-0 text-primary max-md:w-full max-md:border-t-[10px] max-md:border-primary max-md:p-[30px]">
+        <div className="relative w-3/5 px-[2vw] py-[5vw] pr-0 text-primary max-md:w-full max-md:border-t-[10px] max-md:border-primary max-md:p-[30px]">
           <h1 className="text-[5vw] font-bold leading-[6.2vw] max-sm:text-[40px] max-sm:leading-[46px]">
             Nutrition They Need. <br />
             Food They Want.
@@ -35,7 +35,7 @@ export default function Picture() {
             Get Started
           </Button>
         </div>
-        <div className="w-2/5 max-md:w-full">
+        <div className="w-2/5 self-end max-md:w-full">
           <div className="w-3/4 overflow-hidden max-md:m-auto">
             <motion.div
               ref={dogRef}
