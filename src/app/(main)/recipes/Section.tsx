@@ -141,7 +141,7 @@ export default function Section({
                               <div className="mx-auto flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-2 border-primary">
                                 <Image
                                   src={ingredient.picture}
-                                  alt={title}
+                                  alt={ingredient.title}
                                   width={130}
                                   height={130}
                                 />
