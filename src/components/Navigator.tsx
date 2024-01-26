@@ -9,7 +9,7 @@ export default function Navigator() {
         </Link>
       </li>
       <li>
-        <Link href="#" className="block px-4 py-2">
+        <Link href="/recipes" className="block px-4 py-2">
           Recipes
         </Link>
       </li>

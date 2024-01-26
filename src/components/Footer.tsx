@@ -32,7 +32,7 @@ export default function Footer({ hideNav }: FooterProps) {
             <div className="py-5 [&_a:hover]:underline">
               <FooterHead>Product</FooterHead>
               <FooterLink href="/how-works">How It Works</FooterLink>
-              <FooterLink href="#">Recipes</FooterLink>
+              <FooterLink href="/recipes">Recipes</FooterLink>
               <FooterLink href="/faq">FAQ</FooterLink>
               <FooterLink href="#">Shipping & Deliveries</FooterLink>
               <FooterLink href="#">Reviews</FooterLink>
@@ -41,13 +41,13 @@ export default function Footer({ hideNav }: FooterProps) {
               <FooterHead>About</FooterHead>
               <FooterLink href="/why-fresh">Why Fresh?</FooterLink>
               <FooterLink href="/about-us">Our Story</FooterLink>
-              <FooterLink href="#">My Account</FooterLink>
+              <FooterLink href="/account/plan">My Account</FooterLink>
               <FooterLink href="/careers">Careers</FooterLink>
               <FooterLink href="/affiliate-program">Affiliate Program</FooterLink>
             </div>
             <div className="py-5 [&_a:hover]:underline">
               <FooterHead>Contact</FooterHead>
-              <Link href="#" className="mt-5 flex items-center">
+              <Link href="mailto:info@ocelle.dog" className="mt-5 flex items-center">
                 <Email className="w-5" />
                 <span className="pl-2">info@ocelle.dog</span>
               </Link>
@@ -63,10 +63,10 @@ export default function Footer({ hideNav }: FooterProps) {
             <div className="py-5">
               <FooterHead>Follow Us On</FooterHead>
               <div className="mt-5">
-                <Link href="#" className="mr-5 inline-block">
+                <Link href="https://instagram.com" target="_blank" className="mr-5 inline-block">
                   <Image alt="Instagram" src="/share-icon_ig.png" width={25} height={25} />
                 </Link>
-                <Link href="#" className="mr-5 inline-block">
+                <Link href="https://facebook.com" target="_blank" className="mr-5 inline-block">
                   <Image alt="Facebook" src="/share-icon_fb.png" width={25} height={25} />
                 </Link>
               </div>
