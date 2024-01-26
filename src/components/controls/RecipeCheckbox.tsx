@@ -87,107 +87,109 @@ export default function RecipeCheckbox({
           control={control}
           label={title}
           value={value}
-          className="text-gold font-bold"
+          className="font-bold text-gold"
           disabled={disabled}
         />
         <div className={clsx('mt-0.5 text-[#7B8D97]', disabled && 'text-opacity-50')}>$$</div>
         <div className="mt-0.5">
           <Dialog>
             <DialogTrigger className="font-light underline">See Details</DialogTrigger>
-            <DialogContent className="relative m-3 flex max-w-screen-lg items-start rounded-3xl border-2 border-primary bg-white px-5 py-4 max-md:flex-wrap max-md:pt-9">
-              <div className="w-[400px] min-w-[400px] max-lg:min-w-[320px] max-xs:w-full max-xs:min-w-full">
-                <div className="relative overflow-hidden rounded-2xl pt-[100%]">
-                  <Image src="/meal-plan/chicken-recipe.jpg" alt="Chicken Recipe" fill />
+            <DialogContent className="max-w-[1040px] p-3">
+              <div className="relative flex items-start rounded-3xl border-2 border-primary bg-white px-5 py-4 text-left max-md:flex-wrap max-md:pt-9">
+                <div className="w-[400px] min-w-[400px] max-lg:min-w-[320px] max-xs:w-full max-xs:min-w-full">
+                  <div className="relative overflow-hidden rounded-2xl pt-[100%]">
+                    <Image src="/meal-plan/chicken-recipe.jpg" alt="Chicken Recipe" fill />
+                  </div>
                 </div>
-              </div>
-              <div className="ml-6 py-1 max-md:mx-3 max-md:mt-4">
-                <h2 className="text-xl font-bold text-primary max-lg:text-lg">{title}</h2>
-                <p className="mt-2 leading-tight">{description}</p>
-                <hr className="my-3 border-[#7B8D97]" />
-                <div className="-mx-4 flex">
-                  <button
-                    className={clsx(
-                      'mx-4 text-lg',
-                      tab === 'Ingredients'
-                        ? 'text-primary underline'
-                        : 'text-[#7B8D97] hover:underline'
-                    )}
-                    type="button"
-                    onClick={() => setTab('Ingredients')}
-                  >
-                    Ingredients
-                  </button>
-                  <button
-                    className={clsx(
-                      'mx-4 text-lg',
-                      tab === 'Nutrition'
-                        ? 'text-primary underline'
-                        : 'text-[#7B8D97] hover:underline'
-                    )}
-                    type="button"
-                    onClick={() => setTab('Nutrition')}
-                  >
-                    Nutrition
-                  </button>
-                </div>
-                {tab === 'Ingredients' && (
-                  <>
-                    <p className="mt-3 leading-tight">
-                      <strong>Ingredients</strong>
-                      <br />
-                      {ingredients}
-                    </p>
-                    <p className="mt-3 leading-tight">
-                      <strong>Ocelle Targeted Nutrient Blend:</strong>
-                      <br />
-                      {nutrientBlend}
-                    </p>
-                  </>
-                )}
-                {tab === 'Nutrition' && (
-                  <>
-                    <div className="mt-2 flex flex-wrap justify-between">
-                      <strong>CALORIE CONTENT:</strong>
-                      <span>{calorie} kcal/kg</span>
-                    </div>
-                    <div className="mt-1">
-                      <strong>GUARENTEED ANALYSIS:</strong>
-                      <div className="mt-2 flex flex-wrap justify-between">
-                        <span>Crude Protein</span>
-                        <span>{protein}% Min</span>
-                      </div>
-                      <div className="my-1">
-                        <Dotted />
-                      </div>
-                      <div className="flex flex-wrap justify-between">
-                        <span>Crude Fat</span>
-                        <span>{fat}% Min</span>
-                      </div>
-                      <div className="my-1">
-                        <Dotted />
-                      </div>
-                      <div className="flex flex-wrap justify-between">
-                        <span>Crude Firbe</span>
-                        <span>{fibre}% Max</span>
-                      </div>
-                      <div className="my-1">
-                        <Dotted />
-                      </div>
-                      <div className="flex flex-wrap justify-between">
-                        <span>Moisture</span>
-                        <span>{moisture}% Max</span>
-                      </div>
+                <div className="ml-6 py-1 max-md:mx-3 max-md:mt-4">
+                  <h2 className="text-xl font-bold text-primary max-lg:text-lg">{title}</h2>
+                  <p className="mt-2 leading-tight">{description}</p>
+                  <hr className="my-3 border-[#7B8D97]" />
+                  <div className="-mx-4 flex">
+                    <button
+                      className={clsx(
+                        'mx-4 text-lg',
+                        tab === 'Ingredients'
+                          ? 'text-primary underline'
+                          : 'text-[#7B8D97] hover:underline'
+                      )}
+                      type="button"
+                      onClick={() => setTab('Ingredients')}
+                    >
+                      Ingredients
+                    </button>
+                    <button
+                      className={clsx(
+                        'mx-4 text-lg',
+                        tab === 'Nutrition'
+                          ? 'text-primary underline'
+                          : 'text-[#7B8D97] hover:underline'
+                      )}
+                      type="button"
+                      onClick={() => setTab('Nutrition')}
+                    >
+                      Nutrition
+                    </button>
+                  </div>
+                  {tab === 'Ingredients' && (
+                    <>
                       <p className="mt-3 leading-tight">
-                        Our {title} for Dogs is formulated to meet the nutritional levels
-                        established by the AAFCO Dog Food Nutrient Profiles for all life stages,
-                        including growth of large sized dogs (70 lbs. or more as an adult).
+                        <strong>Ingredients</strong>
+                        <br />
+                        {ingredients}
                       </p>
-                    </div>
-                  </>
-                )}
-                <DialogClose className="absolute right-4 top-3 cursor-pointer">
-                  <Close className="h-5 w-5" />
-                </DialogClose>
+                      <p className="mt-3 leading-tight">
+                        <strong>Ocelle Targeted Nutrient Blend:</strong>
+                        <br />
+                        {nutrientBlend}
+                      </p>
+                    </>
+                  )}
+                  {tab === 'Nutrition' && (
+                    <>
+                      <div className="mt-2 flex flex-wrap justify-between">
+                        <strong>CALORIE CONTENT:</strong>
+                        <span>{calorie} kcal/kg</span>
+                      </div>
+                      <div className="mt-1">
+                        <strong>GUARENTEED ANALYSIS:</strong>
+                        <div className="mt-2 flex flex-wrap justify-between">
+                          <span>Crude Protein</span>
+                          <span>{protein}% Min</span>
+                        </div>
+                        <div className="my-1">
+                          <Dotted />
+                        </div>
+                        <div className="flex flex-wrap justify-between">
+                          <span>Crude Fat</span>
+                          <span>{fat}% Min</span>
+                        </div>
+                        <div className="my-1">
+                          <Dotted />
+                        </div>
+                        <div className="flex flex-wrap justify-between">
+                          <span>Crude Firbe</span>
+                          <span>{fibre}% Max</span>
+                        </div>
+                        <div className="my-1">
+                          <Dotted />
+                        </div>
+                        <div className="flex flex-wrap justify-between">
+                          <span>Moisture</span>
+                          <span>{moisture}% Max</span>
+                        </div>
+                        <p className="mt-3 leading-tight">
+                          Our {title} for Dogs is formulated to meet the nutritional levels
+                          established by the AAFCO Dog Food Nutrient Profiles for all life stages,
+                          including growth of large sized dogs (70 lbs. or more as an adult).
+                        </p>
+                      </div>
+                    </>
+                  )}
+                  <DialogClose className="absolute right-4 top-3 cursor-pointer">
+                    <Close className="h-5 w-5" />
+                  </DialogClose>
+                </div>
               </div>
             </DialogContent>
           </Dialog>

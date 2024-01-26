@@ -9,6 +9,7 @@ import {
   FloatingFocusManager,
   FloatingOverlay,
 } from '@floating-ui/react';
+import clsx from 'clsx';
 import React from 'react';
 
 interface DialogOptions {
@@ -119,18 +120,23 @@ export const DialogContent = React.forwardRef<HTMLDivElement, React.HTMLProps<HT
   function DialogContent(props, propRef) {
     const { context: floatingContext, ...context } = useDialogContext();
     const ref = useMergeRefs([context.refs.setFloating, propRef]);
+    const { className, children, ...baseProps } = props;
 
     if (!floatingContext.open) return null;
 
     return (
       <FloatingPortal>
         <FloatingOverlay
-          className="z-40 grid place-items-center bg-[#231815] bg-opacity-60"
+          className="z-40 bg-[#231815] bg-opacity-60 text-center content-[''] before:inline-block before:h-full before:align-middle"
           lockScroll
         >
           <FloatingFocusManager context={floatingContext}>
-            <div ref={ref} {...context.getFloatingProps(props)}>
-              {props.children}
+            <div
+              ref={ref}
+              {...context.getFloatingProps(baseProps)}
+              className={clsx('mx-auto inline-block w-full align-middle', className)}
+            >
+              {children}
             </div>
           </FloatingFocusManager>
         </FloatingOverlay>
