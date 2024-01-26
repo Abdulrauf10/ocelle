@@ -1,22 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
-import {
-  type Control,
-  type FieldValues,
-  type RegisterOptions,
-  useController,
-} from 'react-hook-form';
+import { type Control, type FieldValues, type RegisterOptions } from 'react-hook-form';
 import clsx from 'clsx';
-import {
-  FloatingFocusManager,
-  FloatingOverlay,
-  FloatingPortal,
-  useClick,
-  useDismiss,
-  useFloating,
-  useInteractions,
-  useRole,
-} from '@floating-ui/react';
 import Close from '../icons/Close';
 import RoundedCheckbox from './RoundedCheckbox';
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '../Dialog';
@@ -25,6 +10,7 @@ interface RecipeCheckboxProps {
   title: string;
   description: string;
   name: string;
+  value: string | number;
   picture: string;
   ingredients: string;
   nutrientBlend: string;
@@ -52,6 +38,7 @@ export default function RecipeCheckbox({
   picture,
   title,
   name,
+  value,
   control,
   recommended,
   disabled,
@@ -64,27 +51,7 @@ export default function RecipeCheckbox({
   fibre,
   moisture,
 }: RecipeCheckboxProps) {
-  const { field } = useController({ name, control });
-  const [isOpen, setIsOpen] = React.useState(false);
   const [tab, setTab] = React.useState<'Ingredients' | 'Nutrition'>('Ingredients');
-
-  const { refs, context } = useFloating({
-    open: isOpen,
-    onOpenChange: setIsOpen,
-  });
-
-  const click = useClick(context);
-  const dismiss = useDismiss(context, {
-    outsidePressEvent: 'mousedown',
-  });
-  const role = useRole(context);
-
-  // Merge all the interactions into prop getters
-  const { getReferenceProps, getFloatingProps } = useInteractions([click, dismiss, role]);
-
-  // Set up label and description ids
-  const labelId = React.useId();
-  const descriptionId = React.useId();
 
   return (
     <div
@@ -116,10 +83,10 @@ export default function RecipeCheckbox({
       <div className="h-[70px]"></div>
       <div className={clsx('mt-2 text-center', disabled ? 'text-[#BDC6CB]' : 'text-gold')}>
         <RoundedCheckbox
-          name="w"
+          name={name}
           control={control}
           label={title}
-          value={11}
+          value={value}
           className="text-gold font-bold"
           disabled={disabled}
         />
@@ -134,12 +101,8 @@ export default function RecipeCheckbox({
                 </div>
               </div>
               <div className="ml-6 py-1 max-md:mx-3 max-md:mt-4">
-                <h2 id={labelId} className="text-xl font-bold text-primary max-lg:text-lg">
-                  {title}
-                </h2>
-                <p id={descriptionId} className="mt-2 leading-tight">
-                  {description}
-                </p>
+                <h2 className="text-xl font-bold text-primary max-lg:text-lg">{title}</h2>
+                <p className="mt-2 leading-tight">{description}</p>
                 <hr className="my-3 border-[#7B8D97]" />
                 <div className="-mx-4 flex">
                   <button
@@ -223,7 +186,7 @@ export default function RecipeCheckbox({
                   </>
                 )}
                 <DialogClose className="absolute right-4 top-3 cursor-pointer">
-                  <Close className="h-[20px] w-[20px]" />
+                  <Close className="h-5 w-5" />
                 </DialogClose>
               </div>
             </DialogContent>
