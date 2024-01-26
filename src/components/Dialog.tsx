@@ -125,7 +125,7 @@ export const DialogContent = React.forwardRef<HTMLDivElement, React.HTMLProps<HT
     return (
       <FloatingPortal>
         <FloatingOverlay
-          className="z-40 flex items-center justify-center bg-[#231815] bg-opacity-60"
+          className="z-40 grid place-items-center bg-[#231815] bg-opacity-60"
           lockScroll
         >
           <FloatingFocusManager context={floatingContext}>

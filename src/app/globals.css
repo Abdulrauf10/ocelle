@@ -24,3 +24,11 @@ span.swiper-pagination-bullet {
 span.swiper-pagination-bullet.swiper-pagination-bullet-active {
   background: var(--swiper-pagination-color, var(--swiper-theme-color));
 }
+
+span.swiper-pagination-bullet {
+  transform: scale(0.66) !important;
+}
+
+span.swiper-pagination-bullet-active {
+  transform: scale(1) !important;
+}
