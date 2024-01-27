@@ -436,7 +436,7 @@ export default function RecipesPage() {
         fibre={2}
         moisture={60}
       />
-      <div className="bg-brown bg-opacity-10 py-12">
+      <div className="bg-gold bg-opacity-10 py-14">
         <Container className="lg:px-20">
           <RecipeBenefits />
         </Container>

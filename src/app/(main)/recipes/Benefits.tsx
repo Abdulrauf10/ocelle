@@ -39,7 +39,7 @@ export default function RecipeBenefits() {
   const [opened, setOpened] = React.useState(false);
 
   return (
-    <div className="rounded-[30px] border border-gray bg-white p-10 max-md:p-6">
+    <div className="rounded-[30px] border border-gray bg-white p-10 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:p-6">
       <div className="flex max-md:items-end">
         <strong className="flex-1 text-center text-3xl text-primary">
           What Are The Main Benefits Of Feeding With OCELLE’s Fresh Recipes
