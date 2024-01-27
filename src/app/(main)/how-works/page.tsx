@@ -31,7 +31,7 @@ export default function HowWorks() {
       </div>
       <Block className="bg-[#EEEEEE]">
         <Container>
-          <H2 className="text-gray text-center">How Your Plan Works</H2>
+          <H2 className="text-center text-gray">How Your Plan Works</H2>
           <div className="mt-6">
             <HowPlanWorks />
           </div>
@@ -42,13 +42,13 @@ export default function HowWorks() {
       </Block>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <H2 className="text-dark-green text-center">
+          <H2 className="text-center text-dark-green">
             A Customised Plan To Suit <br className="max-sm:hidden" />
             Your Dog And You
           </H2>
           <div className="mt-3 flex flex-wrap justify-center">
-            <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full">
-              <div className="border-dark-green relative h-full w-full rounded-[40px] border bg-white p-10 pt-16 text-center">
+            <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full max-sm:px-0">
+              <div className="relative h-full w-full rounded-[40px] border border-dark-green bg-white p-10 pt-16 text-center max-xs:px-4">
                 <div className="absolute left-0 top-4 w-full text-center">
                   <div className="inline-block rounded-[30px] bg-secondary px-7 py-0.5 text-center font-open-sans text-xl italic text-white">
                     RECOMMENDED
@@ -57,19 +57,19 @@ export default function HowWorks() {
                 <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
                   <Image alt="Full Plan Meal" src="/meal-plan/full-plan.jpg" fill />
                 </div>
-                <h3 className="text-dark-green mt-6 text-2xl font-bold">FRESH FULL PLAN</h3>
+                <h3 className="mt-6 text-2xl font-bold text-dark-green">FRESH FULL PLAN</h3>
                 <p className="mt-2">
                   Everything needed in one simple serving. Reap the full benefits of fresh,
                   nutritious meals for your dog, meticulously crafted and portioned by experts.
                 </p>
               </div>
             </div>
-            <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full">
-              <div className="border-dark-green relative h-full w-full rounded-[40px] border bg-white p-10 pt-16 text-center">
+            <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full max-sm:px-0">
+              <div className="relative h-full w-full rounded-[40px] border border-dark-green bg-white p-10 pt-16 text-center max-xs:px-4">
                 <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
                   <Image alt="Full Plan Meal" src="/meal-plan/half-plan.jpg" fill />
                 </div>
-                <h3 className="text-dark-green mt-6 text-2xl font-bold">FRESH HALF PLAN</h3>
+                <h3 className="mt-6 text-2xl font-bold text-dark-green">FRESH HALF PLAN</h3>
                 <p className="mt-2">
                   Everything needed to supplement your dog’s current diet! Reinvigorate your
                   dog&apos;s current meals with a fresh, nutrient-packed addition.
@@ -136,7 +136,7 @@ export default function HowWorks() {
       </Section>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <H2 className="text-gold mb-10 text-center font-bold">
+          <H2 className="mb-10 text-center font-bold text-gold">
             Your Dog. Your Plan. Your Schedule.
           </H2>
           <div className="mx-auto max-w-[680px] rounded-[30px] bg-white p-12 max-sm:p-8">
