@@ -37,10 +37,10 @@ export default function Plan() {
           <H2 inline className="text-primary max-md:text-center">
             Your Dog:
           </H2>
-          <div className="border-brown mx-auto mt-4 rounded-[30px] border bg-white px-4 py-2 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] max-md:text-center">
+          <div className="mx-auto mt-4 rounded-[30px] border border-brown bg-white px-4 py-2 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] max-md:text-center">
             <div className="flex flex-wrap items-center">
               <div className="flex-1 px-3 py-3">
-                <div className="text-brown text-xl font-bold">[Muffin]</div>
+                <div className="text-xl font-bold text-brown">[Muffin]</div>
                 <div className="mt-2">[Poodle]</div>
                 <div className="mt-3">
                   [7 years and 7 months old, 8 kg, mellow, is spayed, and has no allergies / food
@@ -61,7 +61,7 @@ export default function Plan() {
           <H2 inline className="text-primary max-md:text-center">
             [Charlie]’s Box:
           </H2>
-          <div className="border-brown mt-4 rounded-[30px] border bg-white px-8 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:border-none max-md:bg-transparent max-md:p-0 max-md:shadow-none">
+          <div className="mt-4 rounded-[30px] border border-brown bg-white px-8 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:border-none max-md:bg-transparent max-md:p-0 max-md:shadow-none">
             <div className="-mx-3 flex max-md:block">
               <div className="px-3 text-center">
                 <div
@@ -80,7 +80,7 @@ export default function Plan() {
                   <div className="max-w-[280px]">
                     <p className="mt-3">
                       Upcoming box arrives by the{' '}
-                      <span className="text-brown whitespace-nowrap font-bold">
+                      <span className="whitespace-nowrap font-bold text-brown">
                         [15th of December 2023]
                       </span>
                     </p>
@@ -93,7 +93,7 @@ export default function Plan() {
                     </div>
                     <p className="mt-3">
                       You can make changes until the{' '}
-                      <span className="text-brown whitespace-nowrap font-bold">
+                      <span className="whitespace-nowrap font-bold text-brown">
                         [10th of December 2023] 11:59PM
                       </span>
                     </p>
@@ -101,7 +101,7 @@ export default function Plan() {
                 </div>
               </div>
               <div className="px-3">
-                <div className="border-gray h-full w-px border-l"></div>
+                <div className="h-full w-px border-l border-gray"></div>
               </div>
               <div className="flex-1 px-3">
                 <div
@@ -110,7 +110,7 @@ export default function Plan() {
                     mbBoxClassName
                   )}
                 >
-                  <div className="text-brown text-lg font-bold">What’s Included In This Box:</div>
+                  <div className="text-lg font-bold text-brown">What’s Included In This Box:</div>
                   <div className="-mx-1 -my-2 flex flex-wrap justify-between">
                     <span className="flex-1 px-1 py-2">
                       [2 weeks] supply of fresh, healthy food.
@@ -123,9 +123,9 @@ export default function Plan() {
                       />
                     </div>
                   </div>
-                  <hr className="border-gray my-3 max-sm:my-6" />
+                  <hr className="my-3 border-gray max-sm:my-6" />
                   <div className="-mx-1 -my-2 flex flex-wrap justify-between max-sm:mb-2">
-                    <div className="text-brown flex-1 px-1 py-2 text-lg font-bold">
+                    <div className="flex-1 px-1 py-2 text-lg font-bold text-brown">
                       [2] Fresh Recipes
                     </div>
                     <div className="whitespace-nowrap px-1 py-2 max-sm:w-full">
@@ -149,7 +149,7 @@ export default function Plan() {
                         <p className="mt-2 text-center">Fresh Chicken Recipe</p>
                       </div>
                       <div className="px-2 py-4">
-                        <div className="border-gray h-full w-px border-l max-sm:w-full max-sm:border-b"></div>
+                        <div className="h-full w-px border-l border-gray max-sm:w-full max-sm:border-b"></div>
                       </div>
                       <div className="px-2 py-4">
                         <Image
@@ -163,9 +163,9 @@ export default function Plan() {
                       </div>
                     </div>
                   </div>
-                  <hr className="border-gray my-3 max-sm:my-6" />
+                  <hr className="my-3 border-gray max-sm:my-6" />
                   <div className="-mx-1 -my-2 flex flex-wrap justify-between">
-                    <div className="text-brown flex-1 px-1 py-2 text-lg font-bold">
+                    <div className="flex-1 px-1 py-2 text-lg font-bold text-brown">
                       Fresh [Full/Half] Plan
                     </div>
                     <div className="whitespace-nowrap px-1 py-2 max-sm:w-full">

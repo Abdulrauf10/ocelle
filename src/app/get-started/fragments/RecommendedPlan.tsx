@@ -53,6 +53,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                       title="Fresh Chicken Recipe"
                       description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
                       name="recipe"
+                      value="chicken"
                       control={control}
                       picture="/meal-plan/chicken.jpg"
                       ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
@@ -70,6 +71,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                       title="Fresh Pork Recipe"
                       description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
                       name="recipe"
+                      value="pork"
                       control={control}
                       picture="/meal-plan/pork.jpg"
                       ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
@@ -87,6 +89,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                       title="Fresh Duck Recipe"
                       description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
                       name="recipe"
+                      value="duck"
                       control={control}
                       picture="/meal-plan/duck.jpg"
                       ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
@@ -103,6 +106,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                       title="Fresh Beef Recipe"
                       description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
                       name="recipe"
+                      value="beef"
                       control={control}
                       picture="/meal-plan/beef.jpg"
                       ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
@@ -119,6 +123,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                       title="Fresh Lamb Recipe"
                       description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
                       name="recipe"
+                      value="lamb"
                       control={control}
                       picture="/meal-plan/lamb.jpg"
                       ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
@@ -197,7 +202,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                 </div>
               </div>
               {errors?.transition?.message && (
-                <p className="text-error mt-5">{String(errors?.transition?.message)}</p>
+                <p className="mt-5 text-error">{String(errors?.transition?.message)}</p>
               )}
             </div>
             <div className="mt-12 flex flex-wrap items-center justify-center">
@@ -209,7 +214,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                   <Price className="ml-1 font-bold" value={252} /> (
                   <Price value={36} discount />
                   <Price className="ml-1 font-bold" value={18} />
-                  <span className="text-dark-green font-bold">/day</span>)&nbsp;
+                  <span className="font-bold text-dark-green">/day</span>)&nbsp;
                   <span className="whitespace-nowrap">with your starter discount.</span>
                 </div>
               </div>

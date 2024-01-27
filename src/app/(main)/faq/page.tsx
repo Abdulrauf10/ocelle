@@ -1,57 +1,18 @@
-'use client';
-
 import React from 'react';
 import Container from '@/components/Container';
 import Newsletter from '@/components/Newsletter';
 import Email from '@/components/icons/Email';
 import Whatsapp from '@/components/icons/Whatsapp';
-import clsx from 'clsx';
 import Link from 'next/link';
-
-interface FAQ {
-  question: string;
-  answer: React.ReactNode;
-}
+import QuestionAnswerBlock from './QuestionAnswerBlock';
 
 interface BlockProps {
   id: string;
   title: string;
-  faqs: FAQ[];
-}
-
-function ToggleBlock({ question, answer }: FAQ) {
-  const [opened, setOpened] = React.useState(false);
-
-  return (
-    <div
-      className="-mx-2 flex cursor-pointer"
-      tabIndex={0}
-      onClick={() => setOpened(!opened)}
-      onKeyDown={(e) => {
-        if (e.key === ' ' || e.key === 'Enter') {
-          e.preventDefault();
-          setOpened(!opened);
-        }
-      }}
-    >
-      <div className="px-2">
-        <div className="mt-1.5">
-          <div
-            className={clsx(
-              'h-0 w-0 border-[8px] border-l-[12px] border-r-0 border-transparent border-l-primary transition',
-              opened && 'rotate-90 border-l-secondary'
-            )}
-          ></div>
-        </div>
-      </div>
-      <div className="px-2">
-        <div className="text-xl text-primary max-sm:text-lg">{question}</div>
-        <div className={clsx('h-0 overflow-hidden transition', opened && 'h-auto')}>
-          <p className="ml-4 mt-2">{answer}</p>
-        </div>
-      </div>
-    </div>
-  );
+  faqs: Array<{
+    question: string;
+    answer: React.ReactNode;
+  }>;
 }
 
 function Block({ id, title, faqs }: BlockProps) {
@@ -61,7 +22,7 @@ function Block({ id, title, faqs }: BlockProps) {
       <h2 className="text-5xl font-bold text-primary max-sm:text-3xl">{title}</h2>
       {faqs.map((faq, idx) => (
         <div key={idx} className="mt-5">
-          <ToggleBlock question={faq.question} answer={faq.answer} />
+          <QuestionAnswerBlock question={faq.question} answer={faq.answer} />
         </div>
       ))}
     </div>

@@ -4,7 +4,6 @@ import Container from '@/components/Container';
 import H2 from '@/components/headings/H2';
 import Sound from '@/components/icons/Sound';
 import Newsletter from '@/components/Newsletter';
-import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -40,7 +39,7 @@ export default function OurStory() {
         </Container>
       </Block>
       <div className="flex flex-wrap">
-        <div className="bg-brown w-1/2 py-[4vw] pl-[8vw] pr-[4vw] text-xl text-white max-md:w-full max-md:px-4">
+        <div className="w-1/2 bg-brown py-[4vw] pl-[8vw] pr-[4vw] text-xl text-white max-md:w-full max-md:px-4">
           <H2>
             A <i>Tail</i> Of&nbsp;
             <br className="max-md:hidden" />
