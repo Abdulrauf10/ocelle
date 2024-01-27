@@ -6,6 +6,7 @@ import Link from 'next/link';
 import React from 'react';
 import HamburgerMenu from './icons/HamburgerMenu';
 import { useAuth } from '@/contexts/auth';
+import { usePathname } from 'next/navigation';
 
 interface HeaderProps {
   sticky?: boolean;
@@ -26,10 +27,15 @@ export default function Header({
   startAdornment,
   endAdornment,
 }: HeaderProps) {
+  const pathname = usePathname();
   const auth = useAuth();
   const headerRef = React.useRef<HTMLElement>(null);
   const [isOpened, setIsOpened] = React.useState(false);
   const [isSticky, setIsSticky] = React.useState(false);
+
+  React.useEffect(() => {
+    setIsOpened(false);
+  }, [pathname]);
 
   React.useEffect(() => {
     function handler() {
