@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import HamburgerMenu from './icons/HamburgerMenu';
+import { useAuth } from '@/contexts/auth';
 
 interface HeaderProps {
   sticky?: boolean;
@@ -25,6 +26,7 @@ export default function Header({
   startAdornment,
   endAdornment,
 }: HeaderProps) {
+  const auth = useAuth();
   const headerRef = React.useRef<HTMLElement>(null);
   const [isOpened, setIsOpened] = React.useState(false);
   const [isSticky, setIsSticky] = React.useState(false);
@@ -115,9 +117,15 @@ export default function Header({
           </div>
         </div>
         <div className="relative z-10 px-2">
-          <Link href="/auth/login" className="whitespace-nowrap hover:underline max-xl:mr-0">
-            Log In
-          </Link>
+          {auth.logined ? (
+            <Link href="/auth/logout" className="whitespace-nowrap hover:underline max-xl:mr-0">
+              Log Out
+            </Link>
+          ) : (
+            <Link href="/auth/login" className="whitespace-nowrap hover:underline max-xl:mr-0">
+              Log In
+            </Link>
+          )}
         </div>
         {endAdornment}
       </div>

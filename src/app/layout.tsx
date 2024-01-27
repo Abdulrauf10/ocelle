@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Jost, Open_Sans } from 'next/font/google';
 import './globals.css';
 import clsx from 'clsx';
+import { AuthProvider } from '@/contexts/auth';
 
 const jost = Jost({ subsets: ['latin'], variable: '--font-jost' });
 const openSans = Open_Sans({
@@ -17,7 +18,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className={clsx(jost.className, jost.variable, openSans.variable)}>{children}</body>
+      <body className={clsx(jost.className, jost.variable, openSans.variable)}>
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }
