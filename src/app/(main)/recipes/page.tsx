@@ -4,6 +4,7 @@ import Section from './Section';
 import Newsletter from '@/components/Newsletter';
 import H2 from '@/components/headings/H2';
 import Container from '@/components/Container';
+import RecipeBenefits from './Benefits';
 
 export default function RecipesPage() {
   return (
@@ -435,6 +436,11 @@ export default function RecipesPage() {
         fibre={2}
         moisture={60}
       />
+      <div className="bg-brown bg-opacity-10 py-12">
+        <Container className="lg:px-20">
+          <RecipeBenefits />
+        </Container>
+      </div>
       <div className="py-12">
         <Container className="text-center">
           <H2 inline className="text-primary">
