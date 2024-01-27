@@ -220,10 +220,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
               </div>
             </div>
             <div className="mb-[1vw]">
-              <Button
-                className="mx-2 mt-4 !bg-primary !bg-none !px-11 hover:!bg-[#47789c]"
-                type="button"
-              >
+              <Button theme="primary" className="mx-2 mt-4 !bg-none !px-11" type="button">
                 + Add Another Dog
               </Button>
               <Button className="mx-2 mt-4">Continue To Checkout</Button>

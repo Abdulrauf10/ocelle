@@ -67,7 +67,7 @@ interface FragmentRouterProps<T> {
 
 export default function FragmentRouter<T>({ controller }: FragmentRouterProps<T>) {
   return (
-    <div className="overflow-hidden">
+    <div className="overflow-x-clip overflow-y-visible">
       <AnimatePresence mode="wait" initial={false}>
         {controller.routes
           .filter((route) => route.name === controller.route)
