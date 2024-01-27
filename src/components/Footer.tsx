@@ -1,11 +1,12 @@
 import clsx from 'clsx';
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 import Container from './Container';
 import Whatsapp from './icons/Whatsapp';
 import Email from './icons/Email';
 import Phone from './icons/Phone';
+import { useTranslations } from 'next-intl';
+import { Link } from '@/navigation';
 
 function FooterHead({ children }: React.PropsWithChildren) {
   return <div className="font-bold uppercase">{children}</div>;
@@ -24,29 +25,33 @@ function FooterLink({ href, children }: React.PropsWithChildren<{ href: string }
 }
 
 export default function Footer({ hideNav }: FooterProps) {
+  const t = useTranslations('general');
+
   return (
     <footer className="bg-primary pb-16 pt-8 text-white">
       <Container>
         {!hideNav && (
           <div className="flex flex-wrap items-start justify-between gap-8">
             <div className="py-5 [&_a:hover]:underline">
-              <FooterHead>Product</FooterHead>
-              <FooterLink href="/how-works">How It Works</FooterLink>
-              <FooterLink href="/recipes">Recipes</FooterLink>
-              <FooterLink href="/faq">FAQ</FooterLink>
-              <FooterLink href="#">Shipping & Deliveries</FooterLink>
-              <FooterLink href="#">Reviews</FooterLink>
+              <FooterHead>{t('product')}</FooterHead>
+              <FooterLink href="/how-works">{t('how-it-works')}</FooterLink>
+              <FooterLink href="/recipes">{t('recipes')}</FooterLink>
+              <FooterLink href="/faq">
+                <span className="uppercase">{t('faq')}</span>
+              </FooterLink>
+              <FooterLink href="#">{t('shipping-and-deliveries')}</FooterLink>
+              <FooterLink href="#">{t('reviews')}</FooterLink>
             </div>
             <div className="py-5 [&_a:hover]:underline">
-              <FooterHead>About</FooterHead>
-              <FooterLink href="/why-fresh">Why Fresh?</FooterLink>
-              <FooterLink href="/about-us">Our Story</FooterLink>
-              <FooterLink href="/account/plan">My Account</FooterLink>
-              <FooterLink href="/careers">Careers</FooterLink>
-              <FooterLink href="/affiliate-program">Affiliate Program</FooterLink>
+              <FooterHead>{t('about')}</FooterHead>
+              <FooterLink href="/why-fresh">{t('why-fresh')}</FooterLink>
+              <FooterLink href="/about-us">{t('our-story')}</FooterLink>
+              <FooterLink href="/account/plan">{t('my-account')}</FooterLink>
+              <FooterLink href="/careers">{t('careers')}</FooterLink>
+              <FooterLink href="/affiliate-program">{t('affiliate-program')}</FooterLink>
             </div>
             <div className="py-5 [&_a:hover]:underline">
-              <FooterHead>Contact</FooterHead>
+              <FooterHead>{t('contact')}</FooterHead>
               <Link href="mailto:info@ocelle.dog" className="mt-5 flex items-center">
                 <Email className="w-5" />
                 <span className="pl-2">info@ocelle.dog</span>
@@ -61,7 +66,7 @@ export default function Footer({ hideNav }: FooterProps) {
               </Link>
             </div>
             <div className="py-5">
-              <FooterHead>Follow Us On</FooterHead>
+              <FooterHead>{t('follow-us-on')}</FooterHead>
               <div className="mt-5">
                 <Link href="https://instagram.com" target="_blank" className="mr-5 inline-block">
                   <Image alt="Instagram" src="/share-icon_ig.png" width={25} height={25} />
@@ -83,10 +88,10 @@ export default function Footer({ hideNav }: FooterProps) {
           <div>&copy; {new Date().getFullYear()} Ocelle Company Limited</div>
           <div className="[&_a:hover]:underline">
             <div className="mr-5 inline-block whitespace-nowrap">
-              <Link href="#">Privacy Policy</Link>
+              <Link href="#">{t('privacy-policy')}</Link>
             </div>
             <div className="inline-block whitespace-nowrap">
-              <Link href="#">Terms & Conditions</Link>
+              <Link href="#">{t('terms-and-conditions')}</Link>
             </div>
           </div>
         </div>

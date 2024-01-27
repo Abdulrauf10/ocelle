@@ -1,5 +1,5 @@
+import { Link } from '@/navigation';
 import clsx from 'clsx';
-import Link from 'next/link';
 import React from 'react';
 
 interface UnderlineButtonBaseProps {

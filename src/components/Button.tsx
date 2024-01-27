@@ -1,7 +1,7 @@
 import clsx from 'clsx';
-import Link from 'next/link';
 import React from 'react';
 import DogFoot from './icons/DogFoot';
+import { Link } from '@/navigation';
 
 interface ButtonBaseProps {
   theme?: 'primary' | 'secondary';

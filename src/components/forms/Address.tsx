@@ -1,6 +1,7 @@
-import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import React from 'react';
+import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { Controller, type Control, type FieldValues } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 
 interface AddressFormProps {
   control: Control<FieldValues>;
@@ -8,6 +9,7 @@ interface AddressFormProps {
 }
 
 export default function AddressForm({ control, prefix }: AddressFormProps) {
+  const t = useTranslations('general');
   const id = React.useId();
 
   return (
@@ -18,7 +20,7 @@ export default function AddressForm({ control, prefix }: AddressFormProps) {
           control={control}
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
-            <TextField {...field} label="First Name" fullWidth error={!!error} />
+            <TextField {...field} label={t('first-name')} fullWidth error={!!error} />
           )}
         />
       </div>
@@ -28,7 +30,7 @@ export default function AddressForm({ control, prefix }: AddressFormProps) {
           control={control}
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
-            <TextField {...field} label="Last Name" fullWidth error={!!error} />
+            <TextField {...field} label={t('last-name')} fullWidth error={!!error} />
           )}
         />
       </div>
@@ -38,7 +40,7 @@ export default function AddressForm({ control, prefix }: AddressFormProps) {
           control={control}
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
-            <TextField {...field} label="Address Line 1" fullWidth error={!!error} />
+            <TextField {...field} label={t('address-line-1')} fullWidth error={!!error} />
           )}
         />
       </div>
@@ -48,7 +50,7 @@ export default function AddressForm({ control, prefix }: AddressFormProps) {
           control={control}
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
-            <TextField {...field} label="Address Line 2" fullWidth error={!!error} />
+            <TextField {...field} label={t('address-line-2')} fullWidth error={!!error} />
           )}
         />
       </div>
@@ -59,7 +61,7 @@ export default function AddressForm({ control, prefix }: AddressFormProps) {
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
             <FormControl fullWidth>
-              <InputLabel id={`${id}-district-label`}>District</InputLabel>
+              <InputLabel id={`${id}-district-label`}>{t('district')}</InputLabel>
               <Select
                 {...field}
                 labelId={`${id}-district-label`}
@@ -83,7 +85,7 @@ export default function AddressForm({ control, prefix }: AddressFormProps) {
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
             <FormControl fullWidth>
-              <InputLabel id={`${id}-region-label`}>Region</InputLabel>
+              <InputLabel id={`${id}-region-label`}>{t('region')}</InputLabel>
               <Select
                 {...field}
                 labelId={`${id}-region-label`}
@@ -91,9 +93,9 @@ export default function AddressForm({ control, prefix }: AddressFormProps) {
                 fullWidth
                 error={!!error}
               >
-                <MenuItem value="kl">Kowloon</MenuItem>
-                <MenuItem value="nt">New Territories</MenuItem>
-                <MenuItem value="hki">Hong Kong Island</MenuItem>
+                <MenuItem value="kl">{t('kowloon')}</MenuItem>
+                <MenuItem value="nt">{t('new-territories')}</MenuItem>
+                <MenuItem value="hki">{t('hong-kong-island')}</MenuItem>
               </Select>
             </FormControl>
           )}
@@ -106,7 +108,7 @@ export default function AddressForm({ control, prefix }: AddressFormProps) {
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
             <FormControl fullWidth>
-              <InputLabel id={`${id}-country-label`}>Country</InputLabel>
+              <InputLabel id={`${id}-country-label`}>{t('country')}</InputLabel>
               <Select
                 {...field}
                 labelId={`${id}-country-label`}
@@ -114,7 +116,7 @@ export default function AddressForm({ control, prefix }: AddressFormProps) {
                 fullWidth
                 error={!!error}
               >
-                <MenuItem value="hk">Hong Kong</MenuItem>
+                <MenuItem value="hk">{t('hong-kong')}</MenuItem>
               </Select>
             </FormControl>
           )}

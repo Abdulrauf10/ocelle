@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import Image from 'next/image';
 import Price from './Price';
 import CircleTick from './icons/CircleTick';
+import { useTranslations } from 'next-intl';
 
 interface FreshPlanProps {
   title: string;
@@ -27,6 +28,8 @@ export default function FreshPlan({
   onSelect,
   children,
 }: React.PropsWithChildren<FreshPlanProps>) {
+  const t = useTranslations('general');
+
   return (
     <div
       className={clsx(
@@ -65,7 +68,7 @@ export default function FreshPlan({
               !recommended && 'opacity-0'
             )}
           >
-            Recommended
+            {t('recommended')}
           </div>
           <p className="mt-2">
             Starting at:
@@ -74,11 +77,11 @@ export default function FreshPlan({
             {discountedPricePerDay && (
               <Price className="ml-1 font-bold" value={discountedPricePerDay} />
             )}
-            <span className="text-dark-green font-bold">/day</span>.
+            <span className="font-bold text-dark-green">/day</span>.
           </p>
           {firstDiscount && (
             <p className="mt-2">
-              Enjoy <span className="text-dark-green font-bold">50%</span> off for{' '}
+              Enjoy <span className="font-bold text-dark-green">50%</span> off for{' '}
               <br className="max-lg:hidden" />
               your starter box.
             </p>

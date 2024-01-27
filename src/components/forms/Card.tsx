@@ -3,12 +3,15 @@ import Stripe from '../icons/Stripe';
 import Lock from '../icons/Lock';
 import { TextField } from '@mui/material';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 interface CardFormProps {
   control: Control<FieldValues>;
 }
 
 export default function CardForm({ control }: CardFormProps) {
+  const t = useTranslations('general');
+
   return (
     <>
       <div className="-mx-3 flex flex-wrap items-center">
@@ -16,7 +19,7 @@ export default function CardForm({ control }: CardFormProps) {
         <div className="mx-3 my-2 flex items-center">
           <Lock className="relative -top-0.5 w-6" />
           <span className="ml-4 text-lg text-[#7B8D97]">
-            All transactions are secure and encrypted.
+            {t('all-transactions-are-secure-and-encrypted')}
           </span>
         </div>
       </div>

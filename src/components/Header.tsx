@@ -2,11 +2,11 @@
 
 import clsx from 'clsx';
 import Image from 'next/image';
-import Link from 'next/link';
 import React from 'react';
 import HamburgerMenu from './icons/HamburgerMenu';
 import { useAuth } from '@/contexts/auth';
-import { usePathname } from 'next/navigation';
+import { Link, usePathname } from '@/navigation';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface HeaderProps {
   sticky?: boolean;
@@ -27,6 +27,8 @@ export default function Header({
   startAdornment,
   endAdornment,
 }: HeaderProps) {
+  const locale = useLocale();
+  const t = useTranslations('general');
   const pathname = usePathname();
   const auth = useAuth();
   const headerRef = React.useRef<HTMLElement>(null);
@@ -96,12 +98,20 @@ export default function Header({
                     <div className="p-2">
                       <div className="-mx-3 max-xl:flex-col [&_a:hover]:text-primary [&_a:hover]:underline">
                         <Link
-                          className="border-r border-[#ccc] px-3 text-primary underline"
-                          href="#"
+                          className={clsx(
+                            'border-r border-[#ccc] px-3',
+                            locale === 'en' && 'text-primary underline'
+                          )}
+                          href={pathname}
+                          locale="en"
                         >
                           EN
                         </Link>
-                        <Link className="px-3" href="#">
+                        <Link
+                          className={clsx('px-3', locale === 'zh' && 'text-primary underline')}
+                          href={pathname}
+                          locale="zh"
+                        >
                           中文
                         </Link>
                       </div>
@@ -113,7 +123,7 @@ export default function Header({
                         href="/get-started"
                         className="rounded-2xl bg-secondary px-4 py-0.5 text-white"
                       >
-                        Get Started
+                        {t('get-started')}
                       </Link>
                     </div>
                   )}
@@ -125,11 +135,11 @@ export default function Header({
         <div className="relative z-10 px-2">
           {auth.logined ? (
             <Link href="/auth/logout" className="whitespace-nowrap hover:underline max-xl:mr-0">
-              Log Out
+              {t('log-out')}
             </Link>
           ) : (
             <Link href="/auth/login" className="whitespace-nowrap hover:underline max-xl:mr-0">
-              Log In
+              {t('log-in')}
             </Link>
           )}
         </div>

@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Close from '../icons/Close';
 import RoundedCheckbox from './RoundedCheckbox';
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '../Dialog';
+import { useTranslations } from 'next-intl';
 
 interface RecipeCheckboxProps {
   title: string;
@@ -51,6 +52,7 @@ export default function RecipeCheckbox({
   fibre,
   moisture,
 }: RecipeCheckboxProps) {
+  const t = useTranslations('general');
   const [tab, setTab] = React.useState<'Ingredients' | 'Nutrition'>('Ingredients');
 
   return (
@@ -66,10 +68,10 @@ export default function RecipeCheckbox({
         {recommended && (
           <div
             className={clsx(
-              'absolute -left-1/2 inline-block select-none rounded-3xl border border-white bg-secondary px-3 py-px text-center text-sm italic text-white'
+              'absolute -left-1/2 inline-block select-none rounded-3xl border border-white bg-secondary px-3 py-px text-center text-sm uppercase italic text-white'
             )}
           >
-            RECOMMENDED
+            {t('recommended')}
           </div>
         )}
         <Image
@@ -93,7 +95,7 @@ export default function RecipeCheckbox({
         <div className={clsx('mt-0.5 text-[#7B8D97]', disabled && 'text-opacity-50')}>$$</div>
         <div className="mt-0.5">
           <Dialog>
-            <DialogTrigger className="font-light underline">See Details</DialogTrigger>
+            <DialogTrigger className="font-light underline">{t('see-details')}</DialogTrigger>
             <DialogContent className="max-w-[1040px] p-3">
               <div className="relative flex items-start rounded-3xl border-2 border-primary bg-white px-5 py-4 text-left max-md:flex-wrap max-md:pt-9">
                 <div className="w-[400px] min-w-[400px] max-lg:min-w-[320px] max-xs:w-full max-xs:min-w-full">
@@ -116,7 +118,7 @@ export default function RecipeCheckbox({
                       type="button"
                       onClick={() => setTab('Ingredients')}
                     >
-                      Ingredients
+                      {t('ingredients')}
                     </button>
                     <button
                       className={clsx(
@@ -128,13 +130,13 @@ export default function RecipeCheckbox({
                       type="button"
                       onClick={() => setTab('Nutrition')}
                     >
-                      Nutrition
+                      {t('nutrition')}
                     </button>
                   </div>
                   {tab === 'Ingredients' && (
                     <>
                       <p className="mt-3 leading-tight">
-                        <strong>Ingredients</strong>
+                        <strong>{t('ingredients')}</strong>
                         <br />
                         {ingredients}
                       </p>
@@ -148,35 +150,35 @@ export default function RecipeCheckbox({
                   {tab === 'Nutrition' && (
                     <>
                       <div className="mt-2 flex flex-wrap justify-between">
-                        <strong>CALORIE CONTENT:</strong>
-                        <span>{calorie} kcal/kg</span>
+                        <strong className="uppercase">{t('calorie-content')}:</strong>
+                        <span>{t('kcal-per-kg', { value: calorie })}</span>
                       </div>
                       <div className="mt-1">
-                        <strong>GUARENTEED ANALYSIS:</strong>
+                        <strong>{t('guarenteed-analysis')}:</strong>
                         <div className="mt-2 flex flex-wrap justify-between">
-                          <span>Crude Protein</span>
-                          <span>{protein}% Min</span>
+                          <span>{t('crude-protein')}</span>
+                          <span>{t('pct-min', { value: protein })}</span>
                         </div>
                         <div className="my-1">
                           <Dotted />
                         </div>
                         <div className="flex flex-wrap justify-between">
-                          <span>Crude Fat</span>
-                          <span>{fat}% Min</span>
+                          <span>{t('crude-fat')}</span>
+                          <span>{t('pct-min', { value: fat })}</span>
                         </div>
                         <div className="my-1">
                           <Dotted />
                         </div>
                         <div className="flex flex-wrap justify-between">
-                          <span>Crude Firbe</span>
-                          <span>{fibre}% Max</span>
+                          <span>{t('crude-firbe')}</span>
+                          <span>{t('pct-max', { value: fibre })}</span>
                         </div>
                         <div className="my-1">
                           <Dotted />
                         </div>
                         <div className="flex flex-wrap justify-between">
-                          <span>Moisture</span>
-                          <span>{moisture}% Max</span>
+                          <span>{t('moisture')}</span>
+                          <span>{t('pct-max', { value: moisture })}</span>
                         </div>
                         <p className="mt-3 leading-tight">
                           Our {title} for Dogs is formulated to meet the nutritional levels
