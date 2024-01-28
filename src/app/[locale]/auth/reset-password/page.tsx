@@ -17,7 +17,7 @@ export default function ResetPassword() {
 
   return (
     <ThemeProvider theme={theme}>
-      <main className="bg-beige py-10 text-center text-primary">
+      <main className="py-10 text-center text-primary">
         <Container>
           <H2 inline>Change Password</H2>
           <div className="mx-auto max-w-[280px] max-xs:max-w-full">

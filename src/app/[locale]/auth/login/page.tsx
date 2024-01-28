@@ -20,7 +20,7 @@ export default function Login() {
 
   return (
     <ThemeProvider theme={theme}>
-      <main className="bg-beige py-10 text-center text-primary">
+      <main className="py-10 text-center text-primary">
         <Container>
           <H2 inline>Greetings!</H2>
           <p className="mt-4 text-xl">Please log in to continue.</p>
