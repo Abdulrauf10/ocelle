@@ -81,7 +81,7 @@ export default function Header({
         </Link>
         <div
           className={clsx(
-            'w-full flex-1 px-2 max-xl:absolute max-xl:left-0 max-xl:top-[68px] max-xl:z-30 max-xl:bg-[#EEF3F7] max-xl:px-4',
+            'w-full flex-1 px-2 max-xl:absolute max-xl:left-0 max-xl:top-[72px] max-xl:z-30 max-xl:bg-[#EEF3F7] max-xl:px-4',
             !isOpened && 'max-xl:hidden'
           )}
         >
