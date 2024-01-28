@@ -1,4 +1,6 @@
 import Container from './Container';
+import ArrowRight from './icons/ArrowRight';
+import EmailStroke from './icons/Emailstroke';
 
 export default function Newsletter() {
   return (
@@ -6,8 +8,9 @@ export default function Newsletter() {
       <Container>
         <div className="-m-3 flex flex-nowrap items-center justify-center text-xl max-md:block">
           <div className="w-full p-3">
-            <div className="flex min-h-[38px] items-center bg-newsletter-icon bg-[length:60px_auto] bg-[left_center] bg-no-repeat pl-20">
-              <span>
+            <div className="flex min-h-[38px] items-center">
+              <EmailStroke className="w-[60px] min-w-[60px] text-primary" />
+              <span className="ml-5">
                 Exclusive insights, special offers, and helpful nutrition information from the
                 Ocelle Dog Pack.&nbsp;
                 <strong className="text-primary">
@@ -23,7 +26,9 @@ export default function Newsletter() {
                 className="w-full rounded-[30px] border-0 bg-white py-4 pl-6 pr-16"
                 placeholder="Enter your email address"
               />
-              <button className="absolute right-2 h-11 w-11 cursor-pointer border-0 bg-newsletter-btn bg-[length:100%_auto] bg-center bg-no-repeat"></button>
+              <button className="absolute right-2 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-0 bg-primary text-white">
+                <ArrowRight className="w-6" />
+              </button>
             </form>
           </div>
         </div>

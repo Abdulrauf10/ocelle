@@ -22,8 +22,6 @@ const config: Config = {
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-        'newsletter-icon': 'url("./newsletter-icon.png")',
-        'newsletter-btn': 'url("./newsletter-btn.png")',
       },
       content: {
         dotted:
