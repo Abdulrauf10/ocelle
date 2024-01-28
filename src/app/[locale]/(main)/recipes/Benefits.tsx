@@ -66,7 +66,7 @@ export default function RecipeBenefits() {
         );
       })}
       <div className="mt-6 text-center">
-        <Button>{t('learn-more')}</Button>
+        <Button href="/why-fresh">{t('learn-more')}</Button>
       </div>
     </div>
   );

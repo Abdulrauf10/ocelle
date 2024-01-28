@@ -39,7 +39,7 @@ export default function Footer({ hideNav }: FooterProps) {
               <FooterLink href="/faq">
                 <span className="uppercase">{t('faq')}</span>
               </FooterLink>
-              <FooterLink href="#">{t('shipping-and-deliveries')}</FooterLink>
+              <FooterLink href="/faq#deliveries">{t('shipping-and-deliveries')}</FooterLink>
               <FooterLink href="#">{t('reviews')}</FooterLink>
             </div>
             <div className="py-5 [&_a:hover]:underline">

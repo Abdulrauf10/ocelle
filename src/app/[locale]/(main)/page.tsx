@@ -51,7 +51,7 @@ export default function Home() {
             />
           </div>
           <div className="mb-5 mt-[2vw]"></div>
-          <Button>{t('learn-more')}</Button>
+          <Button href="/why-fresh">{t('learn-more')}</Button>
         </div>
       </div>
       <Block className="bg-primary bg-opacity-15">
@@ -101,7 +101,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-8 text-center">
-            <Button>{t('see-your-recipes')}</Button>
+            <Button href="/get-started">{t('see-your-recipes')}</Button>
           </div>
         </Container>
       </Block>
@@ -164,7 +164,7 @@ export default function Home() {
             <HowPlanWorks />
           </div>
           <div className="mt-2 text-center">
-            <Button>{t('build-my-plan')}</Button>
+            <Button href="/get-started">{t('build-my-plan')}</Button>
           </div>
           <p className="mt-[2.5vw] text-center text-2xl font-bold text-gray max-md:text-xl max-sm:mt-8">
             Not ready for a subscription? No problem! Try our{' '}
@@ -187,7 +187,7 @@ export default function Home() {
           </p>
           <CaseSwiper />
           <div className="mt-8 text-center">
-            <Button>{t('build-my-plan')}</Button>
+            <Button href="/get-started">{t('build-my-plan')}</Button>
           </div>
         </Container>
       </Block>
@@ -199,7 +199,7 @@ export default function Home() {
               Get fresh food conveniently delivered with our customised meal plans.
             </p>
             <div className="mt-8 text-center">
-              <Button>{t('create-your-plan')}</Button>
+              <Button href="/get-started">{t('create-your-plan')}</Button>
             </div>
           </div>
         </Container>

@@ -4,8 +4,8 @@ import Container from '@/components/Container';
 import H2 from '@/components/headings/H2';
 import Sound from '@/components/icons/Sound';
 import Newsletter from '@/components/Newsletter';
+import { Link } from '@/navigation';
 import Image from 'next/image';
-import Link from 'next/link';
 
 export default function OurStory() {
   return (
@@ -138,7 +138,7 @@ export default function OurStory() {
             We Turn Love Into Uncomplicated Care!
           </H2>
           <div className="mt-10">
-            <Button>Start Your Fresh Journey</Button>
+            <Button href="/get-started">Start Your Fresh Journey</Button>
           </div>
         </Container>
       </div>
@@ -150,7 +150,7 @@ export default function OurStory() {
             believers in the strength of community to bring about real transformation. If
             you&apos;re interested in helping us spread our mission to make a paws-itive impact on
             canine lives,{' '}
-            <Link href="#" className="text-secondary hover:underline">
+            <Link href="/affiliate-program" className="text-secondary hover:underline">
               apply here
             </Link>{' '}
             to become an OCELLE Affiliate.

@@ -39,7 +39,7 @@ export default function HowWorks() {
             <HowPlanWorks />
           </div>
           <div className="mt-2 text-center">
-            <Button>{t('build-my-plan')}</Button>
+            <Button href="/get-started">{t('build-my-plan')}</Button>
           </div>
         </Container>
       </Block>
@@ -134,7 +134,7 @@ export default function HowWorks() {
           Dinner is served!
         </p>
         <div className="mt-5">
-          <Button>{t('get-started')}</Button>
+          <Button href="/get-started">{t('get-started')}</Button>
         </div>
       </Section>
       <Block className="bg-gold bg-opacity-10">
@@ -170,7 +170,9 @@ export default function HowWorks() {
               <div className="py-px">Skip deliveries, cancel, and come back any time!</div>
             </div>
             <div className="text-center">
-              <Button className="mt-8">Try It Today</Button>
+              <Button href="/get-started" className="mt-8">
+                Try It Today
+              </Button>
             </div>
           </div>
         </Container>
