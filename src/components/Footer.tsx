@@ -30,11 +30,11 @@ export default function Footer({ hideNav }: FooterProps) {
   const t = useTranslations('general');
 
   return (
-    <footer className="bg-primary pb-16 pt-8 text-white">
+    <footer className="bg-primary pb-16 pt-8 text-white max-md:pb-12 max-md:pt-4">
       <Container>
         {!hideNav && (
-          <div className="flex flex-wrap items-start justify-between gap-8">
-            <div className="py-5 [&_a:hover]:underline">
+          <div className="flex flex-wrap items-start justify-between gap-8 max-sm:-mx-2 max-sm:gap-0">
+            <div className="py-5 max-sm:w-3/5 max-sm:px-2 [&_a:hover]:underline">
               <FooterHead>{t('product')}</FooterHead>
               <FooterLink href="/how-works">{t('how-it-works')}</FooterLink>
               <FooterLink href="/recipes">{t('recipes')}</FooterLink>
@@ -44,7 +44,7 @@ export default function Footer({ hideNav }: FooterProps) {
               <FooterLink href="/faq#deliveries">{t('shipping-and-deliveries')}</FooterLink>
               <FooterLink href="#">{t('reviews')}</FooterLink>
             </div>
-            <div className="py-5 [&_a:hover]:underline">
+            <div className="py-5 max-sm:w-2/5 max-sm:px-2 [&_a:hover]:underline">
               <FooterHead>{t('about')}</FooterHead>
               <FooterLink href="/why-fresh">{t('why-fresh')}</FooterLink>
               <FooterLink href="/about-us">{t('our-story')}</FooterLink>
@@ -52,22 +52,24 @@ export default function Footer({ hideNav }: FooterProps) {
               <FooterLink href="/careers">{t('careers')}</FooterLink>
               <FooterLink href="/affiliate-program">{t('affiliate-program')}</FooterLink>
             </div>
-            <div className="py-5 [&_a:hover]:underline">
+            <div className="py-5 max-sm:w-3/5 max-sm:px-2 [&_a:hover]:underline">
               <FooterHead>{t('contact')}</FooterHead>
-              <Link href="mailto:info@ocelle.dog" className="mt-5 flex items-center">
-                <Email className="w-5" />
+              <Link href="mailto:info@ocelle.dog" className="mt-5 inline-flex items-center">
+                <Email className="w-5 min-w-5" />
                 <span className="pl-2">info@ocelle.dog</span>
               </Link>
-              <Link href="#" className="mt-3 flex items-center">
-                <Phone className="mx-1 w-3" />
+              <br />
+              <Link href="#" className="mt-3 inline-flex items-center">
+                <Phone className="mx-1 w-3 min-w-3" />
                 <span className="pl-2">Phone Number</span>
               </Link>
-              <Link href="#" className="mt-3 flex items-center">
-                <Whatsapp className="w-5" />
+              <br />
+              <Link href="#" className="mt-3 inline-flex items-center">
+                <Whatsapp className="w-5 min-w-5" />
                 <span className="pl-2">Whatsapp Number</span>
               </Link>
             </div>
-            <div className="py-5">
+            <div className="py-5 max-sm:w-2/5 max-sm:px-2">
               <FooterHead>{t('follow-us-on')}</FooterHead>
               <div className="mt-5">
                 <Link
