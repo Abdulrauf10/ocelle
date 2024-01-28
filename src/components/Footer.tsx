@@ -7,6 +7,8 @@ import Email from './icons/Email';
 import Phone from './icons/Phone';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
+import Instagram from './icons/Instagram';
+import Facebook from './icons/Facebook';
 
 function FooterHead({ children }: React.PropsWithChildren) {
   return <div className="font-bold uppercase">{children}</div>;
@@ -68,11 +70,15 @@ export default function Footer({ hideNav }: FooterProps) {
             <div className="py-5">
               <FooterHead>{t('follow-us-on')}</FooterHead>
               <div className="mt-5">
-                <Link href="https://instagram.com" target="_blank" className="mr-5 inline-block">
-                  <Image alt="Instagram" src="/share-icon_ig.png" width={25} height={25} />
+                <Link
+                  href="https://instagram.com"
+                  target="_blank"
+                  className="bg-gradient-instagram text-fill-transparent mr-5 inline-block bg-clip-text"
+                >
+                  <Instagram className="w-[25px]" />
                 </Link>
                 <Link href="https://facebook.com" target="_blank" className="mr-5 inline-block">
-                  <Image alt="Facebook" src="/share-icon_fb.png" width={25} height={25} />
+                  <Facebook className="w-[25px]" />
                 </Link>
               </div>
             </div>

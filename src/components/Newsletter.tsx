@@ -1,6 +1,6 @@
 import Container from './Container';
 import ArrowRight from './icons/ArrowRight';
-import EmailStroke from './icons/Emailstroke';
+import EmailStroke from './icons/EmailStroke';
 
 export default function Newsletter() {
   return (
