@@ -10,7 +10,7 @@ import Block from '@/components/Block';
 import Picture from './Picture';
 import List from '@/components/List';
 import Tickbox from '@/components/icons/Tickbox';
-import Link from 'next/link';
+import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 
 export default function Home() {
@@ -31,7 +31,7 @@ export default function Home() {
       </div>
       <div className="flex flex-wrap">
         <div className="min-h-[300px] w-1/2 bg-[url('./gofresh-img.jpg')] bg-cover bg-[center_right] max-md:w-full"></div>
-        <div className="w-1/2 px-[4vw] py-[6vw] text-xl max-md:w-full">
+        <div className="w-1/2 px-[4vw] py-[6vw] text-xl max-lg:py-8 max-md:w-full">
           <H2 className="text-primary">
             More Years, <br />
             Happier Years. <br />
@@ -94,7 +94,7 @@ export default function Home() {
                 <p className="mt-3">Nutrition that exceeds industry standards (AAFCO / FEDIAF).</p>
               </div>
             </div>
-            <div className="absolute right-0 top-0 w-[65%] max-xl:static">
+            <div className="absolute right-0 top-0 w-[65%] max-xl:static max-sm:w-full">
               <div className="relative pt-[89%]">
                 <Image alt="dog with variety of food" src="/mealplan-img.png" fill />
               </div>
@@ -169,7 +169,7 @@ export default function Home() {
           <p className="mt-[2.5vw] text-center text-2xl font-bold text-gray max-md:text-xl max-sm:mt-8">
             Not ready for a subscription? No problem! Try our{' '}
             <span className="whitespace-nowrap">
-              <Link href="#" className="text-secondary hover:underline">
+              <Link href="/how-works/individual" className="text-secondary hover:underline">
                 individual packs first
               </Link>
               .
@@ -191,7 +191,7 @@ export default function Home() {
           </div>
         </Container>
       </Block>
-      <div className="bg-[url('./recommended-plan-bg.jpg')] bg-cover bg-center py-40 max-md:px-6 max-md:py-16">
+      <div className="bg-[url('./recommended-plan-bg.jpg')] bg-cover bg-center py-40 max-md:py-16">
         <Container>
           <div className="mx-auto max-w-[600px] rounded-[30px] bg-white px-[150px] py-12 text-center max-md:p-10">
             <strong className="text-3xl text-primary">See Your Dog’s Recommended Plan!</strong>

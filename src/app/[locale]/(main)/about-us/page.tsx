@@ -39,7 +39,7 @@ export default function OurStory() {
         </Container>
       </Block>
       <div className="flex flex-wrap">
-        <div className="w-1/2 bg-brown py-[4vw] pl-[8vw] pr-[4vw] text-xl text-white max-md:w-full max-md:px-4">
+        <div className="w-1/2 bg-brown py-[4vw] pl-[8vw] pr-[4vw] text-xl text-white max-lg:py-8 max-md:w-full max-md:px-4">
           <H2>
             A <i>Tail</i> Of&nbsp;
             <br className="max-md:hidden" />
@@ -91,7 +91,7 @@ export default function OurStory() {
         </div>
       </div>
       <div className="flex flex-wrap max-lg:flex-col-reverse">
-        <div className="w-1/2 bg-secondary bg-opacity-20 py-[4vw] pl-[8vw] pr-[4vw] text-xl max-lg:w-full max-lg:px-4">
+        <div className="w-1/2 bg-secondary bg-opacity-20 py-[4vw] pl-[8vw] pr-[4vw] text-xl max-lg:w-full max-lg:px-4 max-lg:py-8">
           <H2 className="text-secondary">
             Healthier. Happier.
             <br />

@@ -91,7 +91,7 @@ export default function Section({
               <Image alt={alt} src={secionImage} fill />
             </div>
           </div>
-          <div className="w-1/2 px-[4vw] max-md:w-full max-md:px-[30px] max-md:pt-[30px]">
+          <div className="w-1/2 px-[4vw] max-md:w-full max-md:px-2 max-md:pt-[30px]">
             <strong className="text-3xl text-primary">{title}</strong>
             <p className="mt-4 text-lg">{description}</p>
             <strong className="mt-6 block text-xl text-brown">{t('ingredients')}: </strong>
@@ -161,7 +161,7 @@ export default function Section({
                     <Hr />
                     <DialogSection title="What’s Not Inside?">
                       <div className="flex flex-wrap justify-evenly max-lg:justify-start">
-                        <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2">
+                        <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                           <Image
                             className="mx-auto"
                             src="/recipes/not-inside/colours.svg"
@@ -173,7 +173,7 @@ export default function Section({
                             No Colours
                           </strong>
                         </div>
-                        <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2">
+                        <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                           <Image
                             className="mx-auto"
                             src="/recipes/not-inside/filters.svg"
@@ -185,7 +185,7 @@ export default function Section({
                             No Filters
                           </strong>
                         </div>
-                        <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2">
+                        <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                           <Image
                             className="mx-auto"
                             src="/recipes/not-inside/flavourings.svg"
@@ -197,7 +197,7 @@ export default function Section({
                             No Flavourings
                           </strong>
                         </div>
-                        <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2">
+                        <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                           <Image
                             className="mx-auto"
                             src="/recipes/not-inside/preservatives.svg"
@@ -210,7 +210,7 @@ export default function Section({
                           </strong>
                         </div>
                         <div className="w-full max-lg:hidden"></div>
-                        <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2">
+                        <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                           <Image
                             className="mx-auto"
                             src="/recipes/not-inside/additives.svg"
@@ -222,7 +222,7 @@ export default function Section({
                             No Additives
                           </strong>
                         </div>
-                        <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2">
+                        <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                           <Image
                             className="mx-auto"
                             src="/recipes/not-inside/artificial-ingredients.svg"
@@ -234,7 +234,7 @@ export default function Section({
                             No Artificial Ingredients
                           </strong>
                         </div>
-                        <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2">
+                        <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                           <Image
                             className="mx-auto"
                             src="/recipes/not-inside/hormones.svg"
@@ -287,10 +287,9 @@ export default function Section({
                         </div>
                         <div className="w-1/2 px-6 py-3 max-md:w-full">
                           <div className="flex h-full items-center rounded-3xl border-2 p-4 text-primary">
-                            Our Fresh Chicken Recipe for Dogs is formulated to meet the nutritional
-                            levels established by the AAFCO Dog Food Nutrient Profiles for all life
-                            stages, including growth of large sized dogs (70 lbs. or more as an
-                            adult).
+                            Our {title} for Dogs is formulated to meet the nutritional levels
+                            established by the AAFCO Dog Food Nutrient Profiles for all life stages,
+                            including growth of large sized dogs (70 lbs. or more as an adult).
                           </div>
                         </div>
                       </div>
