@@ -62,7 +62,7 @@ export default function OurStory() {
             wouldn&apos;t stop wagging.
           </p>
         </div>
-        <div className="min-h-[380px] w-1/2 bg-[url('./charlie.jpg')] bg-cover bg-[center_left] max-md:w-full"></div>
+        <div className="min-h-[380px] w-1/2 bg-[url('./charlie.jpg')] bg-[length:auto_100%] bg-[center_left] max-md:w-full"></div>
       </div>
       <div className="flex items-center bg-primary bg-[url('./about-us-bg.svg')] bg-cover bg-center bg-repeat-x max-md:flex-col-reverse">
         <div className="flex w-1/2 justify-end max-md:w-full max-md:justify-center">
