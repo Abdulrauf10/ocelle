@@ -37,52 +37,52 @@ export default function RecipesPage() {
       </div>
       <div className="overflow-hidden bg-primary py-4">
         <div className="flex animate-marquee flex-nowrap [&_img]:max-w-none">
-          <MarqueeContent icon="icon-1.png" alt="Food" width={53} height={46}>
+          <MarqueeContent icon="icon-1.svg" alt="Food" width={53} height={46}>
             Real, Good Food
           </MarqueeContent>
-          <MarqueeContent icon="icon-2.png" alt="Approved" width={43} height={46}>
+          <MarqueeContent icon="icon-2.svg" alt="Approved" width={43} height={46}>
             Vet Approved
           </MarqueeContent>
-          <MarqueeContent icon="icon-3.png" alt="Human-Grade" width={38} height={46}>
+          <MarqueeContent icon="icon-3.svg" alt="Human-Grade" width={38} height={46}>
             Human-Grade
           </MarqueeContent>
-          <MarqueeContent icon="icon-4.png" alt="Fresh" width={38} height={48}>
+          <MarqueeContent icon="icon-4.svg" alt="Fresh" width={38} height={48}>
             Made Fresh
           </MarqueeContent>
-          <MarqueeContent icon="icon-5.png" alt="High-Quality" width={36} height={48}>
+          <MarqueeContent icon="icon-5.svg" alt="High-Quality" width={36} height={48}>
             High-Quality Ingredients
           </MarqueeContent>
-          <MarqueeContent icon="icon-6.png" alt="No Fillers" width={40} height={46}>
+          <MarqueeContent icon="icon-6.svg" alt="No Fillers" width={40} height={46}>
             No Fillers
           </MarqueeContent>
-          <MarqueeContent icon="icon-7.png" alt="No Preservatives" width={40} height={46}>
+          <MarqueeContent icon="icon-7.svg" alt="No Preservatives" width={40} height={46}>
             No Preservatives
           </MarqueeContent>
-          <MarqueeContent icon="icon-8.png" alt="No Artificial Flavours" width={40} height={46}>
+          <MarqueeContent icon="icon-8.svg" alt="No Artificial Flavours" width={40} height={46}>
             No Artificial Flavours
           </MarqueeContent>
-          <MarqueeContent icon="icon-1.png" alt="Food" width={53} height={46}>
+          <MarqueeContent icon="icon-1.svg" alt="Food" width={53} height={46}>
             Real, Good Food
           </MarqueeContent>
-          <MarqueeContent icon="icon-2.png" alt="Approved" width={43} height={46}>
+          <MarqueeContent icon="icon-2.svg" alt="Approved" width={43} height={46}>
             Vet Approved
           </MarqueeContent>
-          <MarqueeContent icon="icon-3.png" alt="Human-Grade" width={38} height={46}>
+          <MarqueeContent icon="icon-3.svg" alt="Human-Grade" width={38} height={46}>
             Human-Grade
           </MarqueeContent>
-          <MarqueeContent icon="icon-4.png" alt="Fresh" width={38} height={48}>
+          <MarqueeContent icon="icon-4.svg" alt="Fresh" width={38} height={48}>
             Made Fresh
           </MarqueeContent>
-          <MarqueeContent icon="icon-5.png" alt="High-Quality" width={36} height={48}>
+          <MarqueeContent icon="icon-5.svg" alt="High-Quality" width={36} height={48}>
             High-Quality Ingredients
           </MarqueeContent>
-          <MarqueeContent icon="icon-6.png" alt="No Fillers" width={40} height={46}>
+          <MarqueeContent icon="icon-6.svg" alt="No Fillers" width={40} height={46}>
             No Fillers
           </MarqueeContent>
-          <MarqueeContent icon="icon-7.png" alt="No Preservatives" width={40} height={46}>
+          <MarqueeContent icon="icon-7.svg" alt="No Preservatives" width={40} height={46}>
             No Preservatives
           </MarqueeContent>
-          <MarqueeContent icon="icon-8.png" alt="No Artificial Flavours" width={40} height={46}>
+          <MarqueeContent icon="icon-8.svg" alt="No Artificial Flavours" width={40} height={46}>
             No Artificial Flavours
           </MarqueeContent>
         </div>
