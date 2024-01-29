@@ -7,7 +7,7 @@ export default class Breed {
   id: number;
 
   @Column()
-  chiName?: string;
+  zhName?: string;
 
   @Column()
   enName: string;
