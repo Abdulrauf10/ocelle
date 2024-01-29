@@ -24,7 +24,7 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
 
   const fetchBreeds = React.useCallback(async () => {
     if (options === undefined) {
-      const res = await fetch('/breed');
+      const res = await fetch('/api/breed');
       setOptions((await res.json()) as Breed[]);
       setLoading(false);
     }

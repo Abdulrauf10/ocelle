@@ -17,5 +17,5 @@ export const config = {
   // Skip all paths that should not be internationalized.
   // This skips the folders "_next" and all files with
   // an extension (e.g. favicon.ico)
-  matcher: ['/((?!_next|.*\\..*).*)'],
+  matcher: ['/((?!api|_next|.*\\..*).*)'],
 };
