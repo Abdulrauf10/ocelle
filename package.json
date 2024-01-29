@@ -10,12 +10,13 @@
     "lint": "next lint",
     "ts-node": "ts-node -O {\\\"module\\\":\\\"commonjs\\\"} -r tsconfig-paths/register",
     "setup": "npm run ts-node -- src/setup.ts",
-    "typeorm": "npm run ts-node -- node_modules/typeorm/cli.js -d src/AppDataSource/MySQL.ts",
+    "typeorm": "npm run ts-node -- node_modules/typeorm/cli.js",
+    "typeorm:mysql": "npm run typeorm -- -d src/AppDataSource/MySQL.ts",
     "migration:create": "npm run typeorm -- migration:create src/migrations/${npm_config_name}",
-    "migration:generate": "npm run typeorm -- migration:generate src/migrations/${npm_config_name}",
-    "migration:run": "npm run typeorm -- migration:run",
-    "migration:show": "npm run typeorm -- migration:show",
-    "migration:revert": "npm run typeorm -- migration:revert"
+    "migration:generate": "npm run typeorm:mysql -- migration:generate src/migrations/${npm_config_name}",
+    "migration:run": "npm run typeorm:mysql -- migration:run",
+    "migration:show": "npm run typeorm:mysql -- migration:show",
+    "migration:revert": "npm run typeorm:mysql -- migration:revert"
   },
   "dependencies": {
     "@emotion/react": "^11.11.3",
