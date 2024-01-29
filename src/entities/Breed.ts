@@ -6,7 +6,7 @@ export default class Breed {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   zhName?: string;
 
   @Column()
