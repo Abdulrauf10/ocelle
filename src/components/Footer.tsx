@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import Image from 'next/image';
 import React from 'react';
 import Container from './Container';
 import Whatsapp from './icons/Whatsapp';
