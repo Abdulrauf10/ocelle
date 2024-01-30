@@ -1,16 +1,20 @@
-import { breedRepository } from '@/repositories';
+import { Breed } from '@/entities';
 import Seeder from './Seeder';
 import { BreedSize } from '@/enums';
+import { QueryRunner } from 'typeorm';
 
 export default class BreedSeeder extends Seeder {
   /**
    * Clean the Collection
    */
-  async clean(): Promise<void> {
+  async clean(queryRunner: QueryRunner): Promise<void> {
+    const breedRepository = queryRunner.manager.getRepository(Breed);
     await breedRepository.remove(await breedRepository.find());
   }
 
-  async run(): Promise<void> {
+  async run(queryRunner: QueryRunner): Promise<void> {
+    const breedRepository = queryRunner.manager.getRepository(Breed);
+
     const breeds = [
       breedRepository.create({ enName: 'Affenpinscher', size: BreedSize.Small }),
       breedRepository.create({

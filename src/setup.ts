@@ -1,20 +1,24 @@
 import seeders from '@/seeders';
 import AppDataSource from '@/AppDataSource';
 
-async function setup() {
-  await AppDataSource.initialize();
+(async function () {
+  if (!AppDataSource.isInitialized) {
+    await AppDataSource.initialize();
+  }
+
+  const queryRunner = AppDataSource.createQueryRunner();
 
   // reset seeders
   for (const seeder of seeders) {
-    await seeder.clean();
+    await seeder.clean(queryRunner);
   }
 
   // initial seeders
   for (const seeder of seeders) {
-    await seeder.run();
+    await seeder.run(queryRunner);
   }
 
-  await AppDataSource.destroy();
-}
+  await queryRunner.release();
 
-setup();
+  await AppDataSource.destroy();
+})();
