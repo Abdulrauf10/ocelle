@@ -1,13 +1,13 @@
 import Button from '@/components/Button';
 import Image from 'next/image';
-import HowPlanWorks from '../HowPlanWorks';
+import HowPlanWorks from '../../HowPlanWorks';
 import Section from './Section';
 import H2 from '@/components/headings/H2';
 import Container from '@/components/Container';
 import Block from '@/components/Block';
 import { useTranslations } from 'next-intl';
 
-export default function HowWorks() {
+export default function HowItWorksSubscription() {
   const t = useTranslations('general');
 
   return (
