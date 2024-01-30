@@ -2,7 +2,7 @@ import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { CareerLineType } from '@/enums';
 import { Career } from '.';
 
-@Entity()
+@Entity({ name: 'career_line' })
 export default class CareerLine {
   @PrimaryGeneratedColumn()
   id: number;

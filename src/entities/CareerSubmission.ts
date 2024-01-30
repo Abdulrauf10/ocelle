@@ -1,7 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Career } from '.';
 
-@Entity()
+@Entity({ name: 'career_submission' })
 export default class CareerSubmission {
   @PrimaryGeneratedColumn()
   id: number;

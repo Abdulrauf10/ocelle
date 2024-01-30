@@ -1,7 +1,7 @@
 import { BreedSize } from '@/enums';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'breed' })
 export default class Breed {
   @PrimaryGeneratedColumn()
   id: number;

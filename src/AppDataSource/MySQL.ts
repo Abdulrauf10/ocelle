@@ -1,4 +1,5 @@
 import 'reflect-metadata';
+import dotenv from 'dotenv';
 import { Breed, Career, CareerLine, CareerSubmission } from '@/entities';
 import { AddBreed1705277954625 } from '@/migrations/1705277954625-addBreed';
 import { AddCareer1706548168642 } from '@/migrations/1706548168642-addCareer';
@@ -6,6 +7,8 @@ import { AddCareerLine1706549547562 } from '@/migrations/1706549547562-addCareer
 import { AddCareerSubmission1706550641571 } from '@/migrations/1706550641571-addCareerSubmission';
 import { DataSource } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+
+dotenv.config();
 
 const MySQL = new DataSource({
   type: 'mysql',
