@@ -35,7 +35,7 @@ export default function Footer({ hideNav }: FooterProps) {
           <div className="flex flex-wrap items-start justify-between gap-8 max-sm:-mx-2 max-sm:gap-0">
             <div className="py-5 max-sm:w-3/5 max-sm:px-2 [&_a:hover]:underline">
               <FooterHead>{t('product')}</FooterHead>
-              <FooterLink href="/how-works">{t('how-it-works')}</FooterLink>
+              <FooterLink href="/how-it-works">{t('how-it-works')}</FooterLink>
               <FooterLink href="/recipes">{t('recipes')}</FooterLink>
               <FooterLink href="/faq">
                 <span className="uppercase">{t('faq')}</span>

@@ -7,7 +7,7 @@ export default function Navigator() {
   return (
     <ul className="flex flex-row max-xl:mx-0 max-xl:flex-col max-xl:text-center [&_a:hover]:text-primary [&_a:hover]:underline [&_li]:list-none">
       <li>
-        <Link href="/how-works" className="block px-4 py-2">
+        <Link href="/how-it-works" className="block px-4 py-2">
           {t('how-it-works')}
         </Link>
       </li>

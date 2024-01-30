@@ -169,7 +169,7 @@ export default function Home() {
           <p className="mt-[2.5vw] text-center text-2xl font-bold text-gray max-md:text-xl max-sm:mt-8">
             Not ready for a subscription? No problem! Try our{' '}
             <span className="whitespace-nowrap">
-              <Link href="/how-works/individual" className="text-secondary hover:underline">
+              <Link href="/how-it-works/individual" className="text-secondary hover:underline">
                 individual packs first
               </Link>
               .
