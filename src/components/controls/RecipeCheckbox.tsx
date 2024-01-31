@@ -95,7 +95,9 @@ export default function RecipeCheckbox({
         <div className={clsx('mt-0.5 text-[#7B8D97]', disabled && 'text-opacity-50')}>$$</div>
         <div className="mt-0.5">
           <Dialog>
-            <DialogTrigger className="font-light underline">{t('see-details')}</DialogTrigger>
+            <DialogTrigger className="font-light underline" type="button">
+              {t('see-details')}
+            </DialogTrigger>
             <DialogContent className="max-w-[1040px] p-3">
               <div className="relative flex items-start rounded-3xl border-2 border-primary bg-white px-5 py-4 text-left max-md:flex-wrap max-md:pt-9">
                 <div className="w-[400px] min-w-[400px] max-lg:min-w-[320px] max-xs:w-full max-xs:min-w-full">
