@@ -49,7 +49,7 @@ export default function Button({
       : 'bg-secondary text-white hover:opacity-85'
   );
   const classes = clsx(
-    'items-center justify-center cursor-pointer rounded-[30px] py-1.5 px-6 text-center text-lg font-bold border',
+    'items-center justify-center cursor-pointer rounded-[30px] py-1.5 px-6 text-center text-xl font-bold border',
     'transition-all duration-300 ease-in-out',
     fullWidth ? 'flex w-full' : 'inline-flex',
     theme === 'primary' ? primaryClasses : secondaryClasses,
