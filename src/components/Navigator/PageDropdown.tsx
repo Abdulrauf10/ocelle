@@ -20,8 +20,20 @@ export default function PageDropdown({ name, items }: PageDropdownProps) {
     setOpen(false);
   }, [pathname]);
 
+  React.useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if ((e.target as HTMLElement).closest('.navigator-page-dropdown') == null) {
+        setOpen(false);
+      }
+    }
+    if (open) {
+      window.addEventListener('click', handleClick);
+    }
+    return () => window.removeEventListener('click', handleClick);
+  });
+
   return (
-    <div className="relative inline-block">
+    <div className="navigator-page-dropdown relative inline-block">
       <button
         className="flex cursor-pointer items-center px-4 py-2 hover:text-primary hover:underline"
         onClick={() => setOpen(!open)}
