@@ -14,6 +14,7 @@ interface PageDropdownProps {
 
 export default function PageDropdown({ name, items }: PageDropdownProps) {
   const pathname = usePathname();
+  const id = React.useId();
   const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
@@ -22,7 +23,7 @@ export default function PageDropdown({ name, items }: PageDropdownProps) {
 
   React.useEffect(() => {
     function handleClick(e: MouseEvent) {
-      if ((e.target as HTMLElement).closest('.navigator-page-dropdown') == null) {
+      if ((e.target as HTMLElement).closest(`[data-id="${id}"]`) == null) {
         setOpen(false);
       }
     }
@@ -33,7 +34,7 @@ export default function PageDropdown({ name, items }: PageDropdownProps) {
   });
 
   return (
-    <div className="navigator-page-dropdown relative inline-block">
+    <div data-id={id} className="relative inline-block">
       <button
         className="flex cursor-pointer items-center px-4 py-2 hover:text-primary hover:underline"
         onClick={() => setOpen(!open)}
