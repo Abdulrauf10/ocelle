@@ -34,7 +34,7 @@ export default function HowItWorksSubscription() {
       </div>
       <Block className="bg-[#EEEEEE]">
         <Container>
-          <H2 className="text-center text-gray">How Your Plan Works</H2>
+          <H2 className="text-center text-gray">How OCELLE Works</H2>
           <div className="mt-6">
             <HowPlanWorks />
           </div>
