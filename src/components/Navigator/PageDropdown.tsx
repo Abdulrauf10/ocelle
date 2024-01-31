@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ArrowDown from '../icons/ArrowDown';
-import { Link } from '@/navigation';
+import { Link, usePathname } from '@/navigation';
 
 interface PageDropdownProps {
   name: string;
@@ -13,7 +13,12 @@ interface PageDropdownProps {
 }
 
 export default function PageDropdown({ name, items }: PageDropdownProps) {
+  const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
+
+  React.useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   return (
     <div className="relative inline-block">
