@@ -7,7 +7,7 @@ export default function Navigator() {
   const t = useTranslations('general');
 
   return (
-    <ul className="flex flex-row max-xl:mx-0 max-xl:flex-col max-xl:text-center [&_li]:list-none">
+    <ul className="flex flex-row flex-wrap max-lg:mx-0 max-lg:flex-col max-lg:text-center [&_li]:list-none">
       <li>
         <PageDropdown
           name={t('how-it-works')}
@@ -26,9 +26,9 @@ export default function Navigator() {
       <li className="uppercase">
         <PageLink href="/faq" name={t('faq')} />
       </li>
-      <li>
+      {/* <li>
         <PageLink href="/reviews" name={t('reviews')} />
-      </li>
+      </li> */}
       <li>
         <PageLink href="/about-us" name={t('about-us')} />
       </li>
