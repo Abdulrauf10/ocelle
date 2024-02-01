@@ -1,4 +1,3 @@
-import { BreedSize } from '@/enums';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'breed' })
@@ -12,6 +11,6 @@ export default class Breed {
   @Column()
   enName: string;
 
-  @Column({ type: 'varchar' })
-  size: BreedSize;
+  @Column()
+  size: 'Small' | 'Medium' | 'Large';
 }
