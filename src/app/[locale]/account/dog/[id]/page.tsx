@@ -77,7 +77,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
 
   const fetchBreeds = React.useCallback(async () => {
     if (breedOptions === undefined) {
-      const res = await fetch('/breed');
+      const res = await fetch('/api/breed');
       setBreedOptions((await res.json()) as Breed[]);
       setBreedLoading(false);
     }
