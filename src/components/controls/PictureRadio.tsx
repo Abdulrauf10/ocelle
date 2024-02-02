@@ -41,7 +41,7 @@ function Radio({
         <div className={clsx('absolute h-0.5 w-full', error ? 'bg-error' : 'bg-primary')}></div>
         <div
           className={clsx(
-            'relative mx-auto h-4 w-4 rounded-full border ',
+            'relative mx-auto h-4 w-4 rounded-full border-2',
             isSelected ? 'bg-secondary' : 'bg-white',
             error ? 'border-error' : 'border-primary'
           )}
