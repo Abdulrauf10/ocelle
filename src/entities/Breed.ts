@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { DogBreed } from '.';
 
 @Entity({ name: 'breed' })
 export default class Breed {
@@ -13,4 +14,7 @@ export default class Breed {
 
   @Column()
   size: 'Small' | 'Medium' | 'Large';
+
+  @OneToMany(() => DogBreed, (dog) => dog.breed)
+  dogs: DogBreed[];
 }
