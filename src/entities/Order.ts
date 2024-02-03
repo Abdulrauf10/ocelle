@@ -5,20 +5,20 @@ import { OrderSize } from '@/enums';
 @Entity({ name: 'order' })
 export default class Order {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ type: 'int' })
-  orderSize: OrderSize;
+  orderSize!: OrderSize;
 
   @Column()
-  deliveryDate: Date;
+  deliveryDate!: Date;
 
   @Column()
-  createdAt: Date;
+  createdAt!: Date;
 
   @Column()
-  saleorId: string;
+  saleorId!: string;
 
   @OneToMany(() => DogOrder, (dog) => dog.order)
-  dogs: DogOrder[];
+  dogs!: DogOrder[];
 }

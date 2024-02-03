@@ -4,14 +4,14 @@ import { Breed, Dog } from '.';
 @Entity({ name: 'dog_breed' })
 export default class DogBreed {
   @PrimaryColumn()
-  breedId: number;
+  breedId!: number;
 
   @PrimaryColumn()
-  dogId: number;
+  dogId!: number;
 
   @ManyToOne(() => Breed, (breed) => breed.dogs)
-  breed: Breed;
+  breed!: Breed;
 
   @ManyToOne(() => Dog, (dog) => dog.breeds)
-  dog: Dog;
+  dog!: Dog;
 }

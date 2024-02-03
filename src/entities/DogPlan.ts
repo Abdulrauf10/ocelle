@@ -5,27 +5,27 @@ import { MealPlan, Recipe } from '@/enums';
 @Entity({ name: 'dog_plan' })
 export default class DogPlan {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ type: 'int' })
-  mealPlan: MealPlan;
+  mealPlan!: MealPlan;
 
   @Column()
-  recipe1: Recipe;
+  recipe1!: Recipe;
 
   @Column({ nullable: true })
   recipe2?: Recipe;
 
   @Column()
-  isEnabledTransitionPeriod: boolean;
+  isEnabledTransitionPeriod!: boolean;
 
   @Column()
-  isEnabled: boolean;
+  isEnabled!: boolean;
 
   @Column()
-  lastDeliveryDate: Date;
+  lastDeliveryDate!: Date;
 
   @OneToOne(() => Dog, (dog) => dog.plan)
   @JoinColumn()
-  dog: Dog;
+  dog!: Dog;
 }

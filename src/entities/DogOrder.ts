@@ -5,23 +5,23 @@ import { MealPlan, Recipe } from '@/enums';
 @Entity({ name: 'dog_order' })
 export default class DogOrder {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ type: 'int' })
-  mealPlan: MealPlan;
+  mealPlan!: MealPlan;
 
   @Column()
-  recipe1: Recipe;
+  recipe1!: Recipe;
 
   @Column({ nullable: true })
   recipe2?: Recipe;
 
   @Column()
-  isTransitionPeriod: boolean;
+  isTransitionPeriod!: boolean;
 
   @ManyToOne(() => Dog, (dog) => dog.orders)
-  dog: Dog;
+  dog!: Dog;
 
   @ManyToOne(() => Order, (order) => order.dogs)
-  order: Order;
+  order!: Order;
 }

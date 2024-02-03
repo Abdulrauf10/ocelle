@@ -5,44 +5,44 @@ import { FoodAllergies } from '@/enums';
 @Entity({ name: 'dog' })
 export default class Dog {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  name: string;
+  name!: string;
 
   @Column()
-  sex: 'M' | 'F';
+  sex!: 'M' | 'F';
 
   @Column()
-  isNeutered: boolean;
+  isNeutered!: boolean;
 
   @Column({ type: 'double', precision: 5, scale: 2, comment: 'KG' })
-  weight: number;
+  weight!: number;
 
   @Column()
-  bodyCondition: 'TooSkinny' | 'JustRight' | 'Rounded' | 'Chunky';
+  bodyCondition!: 'TooSkinny' | 'JustRight' | 'Rounded' | 'Chunky';
 
   @Column()
-  activityLevel: 'Mellow' | 'Active' | 'VeryActive';
+  activityLevel!: 'Mellow' | 'Active' | 'VeryActive';
 
   @Column({ type: 'int' })
-  foodAllergies: FoodAllergies;
+  foodAllergies!: FoodAllergies;
 
   @Column()
-  amountOfTreats: 'None' | 'Some' | 'Lots';
+  amountOfTreats!: 'None' | 'Some' | 'Lots';
 
   @Column()
-  pickiness: 'Picky' | 'GoodEater' | 'EatAnything';
+  pickiness!: 'Picky' | 'GoodEater' | 'EatAnything';
 
   @OneToOne(() => DogPlan, (plan) => plan.dog)
-  plan: DogPlan;
+  plan!: DogPlan;
 
   @ManyToOne(() => SaleorUser, (user) => user.dogs)
-  user: SaleorUser;
+  user!: SaleorUser;
 
   @OneToMany(() => DogBreed, (breed) => breed.dog)
-  breeds: DogBreed[];
+  breeds!: DogBreed[];
 
   @OneToMany(() => DogOrder, (order) => order.dog)
-  orders: DogOrder[];
+  orders!: DogOrder[];
 }

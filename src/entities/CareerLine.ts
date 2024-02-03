@@ -5,14 +5,14 @@ import { Career } from '.';
 @Entity({ name: 'career_line' })
 export default class CareerLine {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ type: 'int' })
-  lineType: CareerLineType;
+  lineType!: CareerLineType;
 
   @Column()
-  name: string;
+  name!: string;
 
   @ManyToOne(() => Career, (career) => career.lines)
-  career: Career;
+  career!: Career;
 }

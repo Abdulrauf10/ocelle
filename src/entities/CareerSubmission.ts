@@ -4,26 +4,26 @@ import { Career } from '.';
 @Entity({ name: 'career_submission' })
 export default class CareerSubmission {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  firstName: string;
+  firstName!: string;
 
   @Column()
-  lastName: string;
+  lastName!: string;
 
   @Column()
-  email: string;
+  email!: string;
 
   @Column()
-  phone: string;
+  phone!: string;
 
   @Column({ type: 'mediumblob' })
-  resume: Buffer;
+  resume!: Buffer;
 
   @Column({ type: 'mediumblob', nullable: true })
   coverLetter?: Buffer;
 
   @ManyToOne(() => Career, (career) => career.submissions)
-  career: Career;
+  career!: Career;
 }

@@ -5,32 +5,32 @@ import { CareerLine, CareerSubmission } from '.';
 @Entity({ name: 'career' })
 export default class Career {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column()
-  name: string;
+  name!: string;
 
   @Column({ type: 'int' })
-  workType: WorkType;
+  workType!: WorkType;
 
   @Column({ type: 'int' })
-  classification: Classification;
+  classification!: Classification;
 
   @Column({ type: 'int' })
-  workPattern: WorkPattern;
+  workPattern!: WorkPattern;
 
   @Column()
-  applyDate: Date;
+  applyDate!: Date;
 
   @Column()
-  endDate: Date;
+  endDate!: Date;
 
   @Column()
-  isDisabled: boolean;
+  isDisabled!: boolean;
 
   @OneToMany(() => CareerLine, (line) => line.career)
-  lines: CareerLine[];
+  lines!: CareerLine[];
 
   @OneToMany(() => CareerSubmission, (line) => line.career)
-  submissions: CareerSubmission[];
+  submissions!: CareerSubmission[];
 }
