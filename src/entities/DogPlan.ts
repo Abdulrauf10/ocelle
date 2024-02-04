@@ -1,4 +1,11 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  type Relation,
+} from 'typeorm';
 import { Dog } from '.';
 import { MealPlan, Recipe } from '@/enums';
 
@@ -25,7 +32,7 @@ export default class DogPlan {
   @Column()
   lastDeliveryDate!: Date;
 
-  @OneToOne(() => Dog, (dog) => dog.plan)
+  @OneToOne(() => Dog, (dog: Dog) => dog.plan)
   @JoinColumn()
-  dog!: Dog;
+  dog!: Relation<Dog>;
 }

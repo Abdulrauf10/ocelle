@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, type Relation } from 'typeorm';
 import { Career } from '.';
 
 @Entity({ name: 'career_submission' })
@@ -25,5 +25,5 @@ export default class CareerSubmission {
   coverLetter?: Buffer;
 
   @ManyToOne(() => Career, (career) => career.submissions)
-  career!: Career;
+  career!: Relation<Career>;
 }

@@ -1,4 +1,12 @@
-import { Column, Entity, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  type Relation,
+} from 'typeorm';
 import { DogBreed, DogOrder, DogPlan, SaleorUser } from '.';
 import { FoodAllergies } from '@/enums';
 
@@ -35,14 +43,14 @@ export default class Dog {
   pickiness!: 'Picky' | 'GoodEater' | 'EatAnything';
 
   @OneToOne(() => DogPlan, (plan) => plan.dog)
-  plan!: DogPlan;
+  plan!: Relation<DogPlan>;
 
   @ManyToOne(() => SaleorUser, (user) => user.dogs)
-  user!: SaleorUser;
+  user!: Relation<SaleorUser>;
 
   @OneToMany(() => DogBreed, (breed) => breed.dog)
-  breeds!: DogBreed[];
+  breeds!: Relation<DogBreed>[];
 
   @OneToMany(() => DogOrder, (order) => order.dog)
-  orders!: DogOrder[];
+  orders!: Relation<DogOrder>[];
 }

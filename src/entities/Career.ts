@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, type Relation } from 'typeorm';
 import { Classification, WorkPattern, WorkType } from '@/enums';
 import { CareerLine, CareerSubmission } from '.';
 
@@ -29,8 +29,8 @@ export default class Career {
   isDisabled!: boolean;
 
   @OneToMany(() => CareerLine, (line) => line.career)
-  lines!: CareerLine[];
+  lines!: Relation<CareerLine>[];
 
   @OneToMany(() => CareerSubmission, (line) => line.career)
-  submissions!: CareerSubmission[];
+  submissions!: Relation<CareerSubmission>[];
 }

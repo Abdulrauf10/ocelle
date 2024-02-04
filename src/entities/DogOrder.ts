@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, type Relation } from 'typeorm';
 import { Dog, Order } from '.';
 import { MealPlan, Recipe } from '@/enums';
 
@@ -20,8 +20,8 @@ export default class DogOrder {
   isTransitionPeriod!: boolean;
 
   @ManyToOne(() => Dog, (dog) => dog.orders)
-  dog!: Dog;
+  dog!: Relation<Dog>;
 
   @ManyToOne(() => Order, (order) => order.dogs)
-  order!: Order;
+  order!: Relation<Order>;
 }

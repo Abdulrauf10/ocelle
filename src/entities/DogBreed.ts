@@ -1,4 +1,4 @@
-import { Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Entity, ManyToOne, PrimaryColumn, type Relation } from 'typeorm';
 import { Breed, Dog } from '.';
 
 @Entity({ name: 'dog_breed' })
@@ -10,8 +10,8 @@ export default class DogBreed {
   dogId!: number;
 
   @ManyToOne(() => Breed, (breed) => breed.dogs)
-  breed!: Breed;
+  breed!: Relation<Breed>;
 
   @ManyToOne(() => Dog, (dog) => dog.breeds)
-  dog!: Dog;
+  dog!: Relation<Dog>;
 }

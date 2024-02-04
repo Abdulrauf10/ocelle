@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, type Relation } from 'typeorm';
 import { CareerLineType } from '@/enums';
 import { Career } from '.';
 
@@ -14,5 +14,5 @@ export default class CareerLine {
   name!: string;
 
   @ManyToOne(() => Career, (career) => career.lines)
-  career!: Career;
+  career!: Relation<Career>;
 }

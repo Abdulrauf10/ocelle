@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, type Relation } from 'typeorm';
 import { Dog } from '.';
 import { OrderSize } from '@/enums';
 
@@ -14,5 +14,5 @@ export default class SaleorUser {
   saleorId!: string;
 
   @OneToMany(() => Dog, (dog) => dog.user)
-  dogs!: Dog[];
+  dogs!: Relation<Dog>[];
 }
