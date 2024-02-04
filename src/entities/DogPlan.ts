@@ -17,10 +17,10 @@ export default class DogPlan {
   @Column({ type: 'int' })
   mealPlan!: MealPlan;
 
-  @Column()
+  @Column({ type: 'int' })
   recipe1!: Recipe;
 
-  @Column({ nullable: true })
+  @Column({ type: 'int', nullable: true })
   recipe2?: Recipe;
 
   @Column()
