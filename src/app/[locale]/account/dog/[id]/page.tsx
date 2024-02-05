@@ -4,7 +4,6 @@ import React from 'react';
 import clsx from 'clsx';
 import theme from '@/app/mui-theme';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
 import { Breed } from '@/entities';
 import { Autocomplete, Chip, TextField, ThemeProvider } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
@@ -15,6 +14,7 @@ import PictureRadio from '@/components/controls/PictureRadio';
 import Image from 'next/image';
 import Button from '@/components/Button';
 import { useTranslations } from 'next-intl';
+import Headings from '@/components/Headings';
 
 interface EditDogBlockProps {
   title: string;
@@ -30,17 +30,17 @@ function EditDogBlock({
     if (description) {
       return (
         <div className="-m-1 flex flex-wrap items-end pb-3">
-          <H2 inline className="p-1 text-primary">
+          <Headings tag="h2" styles="h2" className="p-1 text-primary">
             {title}
-          </H2>
+          </Headings>
           <p className="p-1 max-md:w-full">{description}</p>
         </div>
       );
     }
     return (
-      <H2 inline className="pb-3 text-primary">
+      <Headings tag="h2" styles="h2" className="pb-3 text-primary">
         {title}
-      </H2>
+      </Headings>
     );
   };
 
@@ -87,9 +87,9 @@ export default function EditDog({ params }: { params: { id: string } }) {
     <ThemeProvider theme={theme}>
       <main className="bg-gold bg-opacity-10 py-10">
         <Container className="max-w-[860px]">
-          <H2 inline className="text-center text-primary">
+          <Headings tag="h1" styles="h2" className="text-center text-primary">
             Edit [Charlie]’s Information
-          </H2>
+          </Headings>
           <EditDogBlock title="Name">
             <Controller
               name="dogName"

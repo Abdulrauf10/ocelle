@@ -4,13 +4,13 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
 import UnderlineButton from '@/components/UnderlineButton';
 import { ThemeProvider } from '@mui/material';
 import Button from '@/components/Button';
 import theme from '@/app/mui-theme';
 import CardForm from '@/components/forms/Card';
 import { useTranslations } from 'next-intl';
+import Headings from '@/components/Headings';
 
 export default function Payments() {
   const t = useTranslations('general');
@@ -32,9 +32,9 @@ export default function Payments() {
       <main className="bg-gold bg-opacity-10 py-10">
         <Container>
           <div className="mx-auto max-w-[520px]">
-            <H2 inline className="text-center text-primary">
+            <Headings tag="h1" styles="h2" className="text-center text-primary">
               Payment Info
-            </H2>
+            </Headings>
             <div className="py-4"></div>
             <CardForm control={control} />
             <div className="-mx-2 mt-8 flex">

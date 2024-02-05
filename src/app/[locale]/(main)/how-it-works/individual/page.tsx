@@ -1,6 +1,6 @@
 import Button from '@/components/Button';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
+import Headings from '@/components/Headings';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -73,7 +73,9 @@ export default function HowItWorksIndividual() {
     <main>
       <div className="bg-primary bg-opacity-10 py-[2.4vw] text-center max-lg:py-8">
         <Container>
-          <H2 className="text-primary">Feeding Fresh Is Easy With OCELLE</H2>
+          <Headings tag="h1" styles="h1" className="text-primary">
+            Feeding Fresh Is Easy With OCELLE
+          </Headings>
           <p className="mt-4 text-secondary">
             If you’re not ready for a subscription, our individual packs come in set weights and can
             be ordered anytime.
@@ -157,7 +159,9 @@ export default function HowItWorksIndividual() {
       />
       <div className="bg-gray bg-opacity-20 py-[2.4vw] max-lg:py-8">
         <Container className="max-w-screen-xl text-center">
-          <H2 className="text-gray">Your Dog Deserves A Fresh Start</H2>
+          <Headings tag="h2" styles="h1" className="text-gray">
+            Your Dog Deserves A Fresh Start
+          </Headings>
           <div className="mt-10">
             <div className="-mx-4 -my-4 flex flex-wrap">
               <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
@@ -216,7 +220,9 @@ export default function HowItWorksIndividual() {
       </div>
       <div className="bg-dark-green py-[2.4vw] max-lg:py-8">
         <Container className="text-center text-white">
-          <H2>Easier For You. Better For Them.</H2>
+          <Headings tag="h2" styles="h1">
+            Easier For You. Better For Them.
+          </Headings>
           <p className="mt-2 text-xl">
             Get fresh food conveniently delivered with our customised meal plans.
           </p>

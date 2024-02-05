@@ -4,13 +4,13 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
 import UnderlineButton from '@/components/UnderlineButton';
 import { ThemeProvider } from '@mui/material';
 import theme from '@/app/mui-theme';
 import DateCalendar from '@/components/controls/DateCalendar';
 import CircleTick from '@/components/icons/CircleTick';
 import { useTranslations } from 'next-intl';
+import Headings from '@/components/Headings';
 
 export default function PauseDelivery() {
   const t = useTranslations('general');
@@ -36,9 +36,9 @@ export default function PauseDelivery() {
             <div className="mx-auto h-12 w-12 rounded-full bg-secondary p-1.5">
               <CircleTick className="relative top-px" />
             </div>
-            <H2 inline className="mt-2 text-center text-primary">
+            <Headings tag="h1" styles="h2" className="mt-2 text-center text-primary">
               Done!
-            </H2>
+            </Headings>
             <p className="mx-auto mt-4 max-w-[360px] text-center">
               Your orders are now paused. Delivery will resume on the{' '}
               <strong className="whitespace-nowrap">[23rd of February 2024]</strong>.
@@ -54,9 +54,9 @@ export default function PauseDelivery() {
         ) : (
           <form onSubmit={handleSubmit(onSubmit)}>
             <Container>
-              <H2 inline className="text-center text-primary">
+              <Headings tag="h1" styles="h2" className="text-center text-primary">
                 Pause All Deliveries
-              </H2>
+              </Headings>
               <p className="mx-auto mt-4 max-w-[680px] text-center">
                 Let us know when you’d like to pause your plan until. You can always adjust your
                 restart date and we’ll notify you before we begin preparing your next order.

@@ -4,7 +4,6 @@ import React from 'react';
 import Image from 'next/image';
 import clsx from 'clsx';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
 import Unbox from '@/components/icons/Unbox';
 import User from '@/components/icons/User';
 import HomeAddress from '@/components/icons/HomeAddress';
@@ -12,6 +11,7 @@ import Billing from '@/components/icons/Billing';
 import Bell from '@/components/icons/Bell';
 import { useRouter } from '@/navigation';
 import { useTranslations } from 'next-intl';
+import Headings from '@/components/Headings';
 
 interface BlockProps {
   className?: string;
@@ -70,9 +70,9 @@ export default function Account() {
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
-        <H2 inline className="text-center text-primary">
+        <Headings tag="h1" styles="h2" className="text-center text-primary">
           {t('my-info')}
-        </H2>
+        </Headings>
         <p className="mt-4 text-center">Manage your account information</p>
         <div className="py-4"></div>
         <div className="mx-auto max-w-[480px]">

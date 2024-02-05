@@ -3,7 +3,7 @@
 import theme from '@/app/mui-theme';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
+import Headings from '@/components/Headings';
 import { TextField, ThemeProvider } from '@mui/material';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -19,7 +19,9 @@ export default function ResetPassword() {
     <ThemeProvider theme={theme}>
       <main className="py-10 text-center text-primary">
         <Container>
-          <H2 inline>Change Password</H2>
+          <Headings tag="h1" styles="h2">
+            Change Password
+          </Headings>
           <div className="mx-auto max-w-[280px] max-xs:max-w-full">
             <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-6">
               <Controller

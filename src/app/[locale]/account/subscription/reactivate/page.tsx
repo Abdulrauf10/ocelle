@@ -3,12 +3,12 @@
 import { useRouter } from '@/navigation';
 import clsx from 'clsx';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
 import EditButton from '@/components/EditButton';
 import Plus from '@/components/icons/Plus';
 import Sub from '@/components/icons/Sub';
 import Image from 'next/image';
 import Button from '@/components/Button';
+import Headings from '@/components/Headings';
 
 interface BlockProps {
   className?: string;
@@ -41,9 +41,9 @@ export default function Reactivate() {
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
-        <H2 inline className="text-center text-primary">
+        <Headings tag="h1" styles="h2" className="text-center text-primary">
           Welcome Back To The OCELLE Pack!
-        </H2>
+        </Headings>
         <p className="mt-6 text-center">Please review your details below.</p>
         <Block className="mt-8">
           <div className="item-center -mx-2 flex">

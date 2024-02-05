@@ -3,7 +3,7 @@
 import theme from '@/app/mui-theme';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
+import Headings from '@/components/Headings';
 import UnderlineButton from '@/components/UnderlineButton';
 import { TextField, ThemeProvider } from '@mui/material';
 import { useTranslations } from 'next-intl';
@@ -22,7 +22,9 @@ export default function Login() {
     <ThemeProvider theme={theme}>
       <main className="py-10 text-center text-primary">
         <Container>
-          <H2 inline>Greetings!</H2>
+          <Headings tag="h1" styles="h2">
+            Greetings!
+          </Headings>
           <p className="mt-4 text-xl">Please log in to continue.</p>
           <div className="mx-auto max-w-[300px] max-xs:max-w-full">
             <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-6">
@@ -58,9 +60,9 @@ export default function Login() {
               label="Forgot Password?"
             />
             <hr className="mt-4 border-primary" />
-            <H2 inline className="mt-6">
+            <Headings tag="h2" styles="h2" className="mt-6">
               New To OCELLE?
-            </H2>
+            </Headings>
             <Button reverse fullWidth className="mt-8">
               {t('build-your-plan')}
             </Button>

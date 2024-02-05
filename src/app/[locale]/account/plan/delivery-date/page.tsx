@@ -3,11 +3,11 @@
 import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
 import UnderlineButton from '@/components/UnderlineButton';
-import H2 from '@/components/headings/H2';
 import Button from '@/components/Button';
 import { useForm } from 'react-hook-form';
 import DateCalendar from '@/components/controls/DateCalendar';
 import { useTranslations } from 'next-intl';
+import Headings from '@/components/Headings';
 
 export default function PlanDeliveryDate() {
   const t = useTranslations('general');
@@ -17,9 +17,9 @@ export default function PlanDeliveryDate() {
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
-        <H2 inline className="text-center text-primary">
+        <Headings tag="h1" styles="h2" className="text-center text-primary">
           Change Delivery Date
-        </H2>
+        </Headings>
         <p className="mx-auto mt-4 max-w-[620px] text-center">
           Your upcoming box is arriving on the{' '}
           <strong className="whitespace-nowrap">[15th of December 2023]</strong>. It contains

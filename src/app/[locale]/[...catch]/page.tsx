@@ -4,8 +4,8 @@ import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
+import Headings from '@/components/Headings';
 import Navigator from '@/components/Navigator';
-import H2 from '@/components/headings/H2';
 import { useRouter } from '@/navigation';
 import Image from 'next/image';
 import { useTranslations } from 'use-intl';
@@ -20,7 +20,9 @@ export default function NotFound() {
       <div className="bg-gold bg-opacity-20">
         <Container className="flex items-end max-md:flex-col max-sm:items-center">
           <div className="w-full px-4 py-20 max-md:py-12 max-sm:py-8">
-            <H2 className="text-primary">Aiya! Page Gone Walkies!</H2>
+            <Headings tag="h1" styles="h1" className="text-primary">
+              Aiya! Page Gone Walkies!
+            </Headings>
             <p className="mt-4">
               <span className="italic text-primary">RUH-ROH!</span>{' '}
               <span className="text-secondary">(WRONG PAGE!)</span>

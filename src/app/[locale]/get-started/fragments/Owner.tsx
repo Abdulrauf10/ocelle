@@ -5,11 +5,11 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import UnderlineButton from '@/components/UnderlineButton';
 import Section from '../Section';
-import H2 from '@/components/headings/H2';
 import SectionBreak from '../SectionBreak';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
+import Headings from '@/components/Headings';
 
 export default function OwnerFragment({ navigate }: FragmentProps<Stage>) {
   const t = useTranslations('general');
@@ -25,9 +25,9 @@ export default function OwnerFragment({ navigate }: FragmentProps<Stage>) {
 
   return (
     <Container className="text-center">
-      <H2 className="font-bold text-primary" inline>
+      <Headings tag="h1" styles="h2" className="font-bold text-primary">
         Now, tell us a bit about you!
-      </H2>
+      </Headings>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-12">
         <Section title="What’s your name?">
           <div className="mx-auto max-w-[320px]">

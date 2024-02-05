@@ -3,10 +3,10 @@
 import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
 import UnderlineButton from '@/components/UnderlineButton';
-import H2 from '@/components/headings/H2';
 import Button from '@/components/Button';
 import React from 'react';
 import { useTranslations } from 'next-intl';
+import Headings from '@/components/Headings';
 
 export default function PlanOften() {
   const t = useTranslations('general');
@@ -16,17 +16,17 @@ export default function PlanOften() {
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
-        <H2 inline className="text-center text-primary">
+        <Headings tag="h1" styles="h2" className="text-center text-primary">
           How Often Would You Like To Receive Deliveries?
-        </H2>
+        </Headings>
         <div className="mt-6">
           <div className="-mx-4 -my-3 flex flex-wrap justify-center">
             <div className="px-4 py-3">
               <div className="relative mt-3 flex w-[270px] items-center rounded-3xl border border-gray bg-white px-8 py-8 shadow-[5px_5px_12px_rgba(0,0,0,.1)]">
                 <div className="flex-1 px-2">
-                  <H2 inline className="text-primary">
+                  <Headings tag="h2" styles="h2" className="text-primary">
                     7 Days
-                  </H2>
+                  </Headings>
                   <p className="mt-1">$[15]/day</p>
                 </div>
                 <div className="px-2">
@@ -46,9 +46,9 @@ export default function PlanOften() {
             <div className="px-4 py-3">
               <div className="relative mt-3 flex w-[270px] items-center rounded-3xl border border-gray bg-white px-8 py-8 shadow-[5px_5px_12px_rgba(0,0,0,.1)]">
                 <div className="flex-1 px-2">
-                  <H2 inline className="text-primary">
+                  <Headings tag="h2" styles="h2" className="text-primary">
                     14 Days
-                  </H2>
+                  </Headings>
                   <p className="mt-1">$[13]/day</p>
                 </div>
                 <div className="px-2">

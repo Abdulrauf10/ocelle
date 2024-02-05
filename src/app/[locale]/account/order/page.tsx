@@ -2,9 +2,9 @@
 
 import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
 import UnderlineButton from '@/components/UnderlineButton';
 import { useTranslations } from 'next-intl';
+import Headings from '@/components/Headings';
 
 export default function Orders() {
   const t = useTranslations('general');
@@ -13,9 +13,9 @@ export default function Orders() {
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
-        <H2 inline className="text-center text-primary">
+        <Headings tag="h1" styles="h2" className="text-center text-primary">
           Orders
-        </H2>
+        </Headings>
         <div className="mx-auto mt-6 max-w-[680px] overflow-hidden rounded-3xl border border-gray">
           <table className="w-full">
             <thead className="bg-gray text-white">

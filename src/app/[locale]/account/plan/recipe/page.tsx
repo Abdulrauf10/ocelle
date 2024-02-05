@@ -3,7 +3,6 @@
 import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
 import UnderlineButton from '@/components/UnderlineButton';
-import H2 from '@/components/headings/H2';
 import Button from '@/components/Button';
 import { useForm } from 'react-hook-form';
 import RecipeCheckbox from '@/components/controls/RecipeCheckbox';
@@ -11,6 +10,7 @@ import DogSwitch from '../../DogSwitch';
 import { ThemeProvider } from '@mui/material';
 import theme from '@/app/mui-theme';
 import { useTranslations } from 'next-intl';
+import Headings from '@/components/Headings';
 
 export default function PlanRecipe() {
   const t = useTranslations('general');
@@ -24,9 +24,9 @@ export default function PlanRecipe() {
           <div className="mx-auto flex max-w-[1120px] justify-end">
             <DogSwitch />
           </div>
-          <H2 inline className="text-center text-primary max-lg:mt-6">
+          <Headings tag="h1" styles="h2" className="text-center text-primary max-lg:mt-6">
             Choose [Charlie]&apos;s Fresh Recipes
-          </H2>
+          </Headings>
           <p className="mx-auto mt-4 max-w-[620px] text-center">
             [Charlie]’s upcoming box is scheduled for the{' '}
             <strong className="whitespace-nowrap">[15th of December 2023]</strong>.

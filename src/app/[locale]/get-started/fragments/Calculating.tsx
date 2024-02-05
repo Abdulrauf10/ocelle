@@ -1,9 +1,9 @@
+import React from 'react';
+import Image from 'next/image';
 import Container from '@/components/Container';
 import { FragmentProps } from '@/components/FragmentRouter';
-import H2 from '@/components/headings/H2';
-import Image from 'next/image';
+import Headings from '@/components/Headings';
 import Stage from '../Stage';
-import React from 'react';
 
 export default function CalculatingFragment({ navigate }: FragmentProps<Stage>) {
   React.useEffect(() => {
@@ -22,7 +22,9 @@ export default function CalculatingFragment({ navigate }: FragmentProps<Stage>) 
         height={200}
         className="inline-block"
       />
-      <H2 className="mt-8 font-bold text-primary">Calculating...</H2>
+      <Headings tag="h1" styles="h2" className="mt-8 font-bold text-primary">
+        Calculating...
+      </Headings>
       <p className="mt-8 text-primary">
         We’re crunching some numbers to formulate [Charlie]’s meal plan.
       </p>

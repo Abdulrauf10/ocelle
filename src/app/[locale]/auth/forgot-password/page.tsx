@@ -3,7 +3,7 @@
 import theme from '@/app/mui-theme';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
+import Headings from '@/components/Headings';
 import UnderlineButton from '@/components/UnderlineButton';
 import { TextField, ThemeProvider } from '@mui/material';
 import { useTranslations } from 'next-intl';
@@ -22,7 +22,9 @@ export default function ForgotPassword() {
     <ThemeProvider theme={theme}>
       <main className="py-10 text-center text-primary">
         <Container>
-          <H2 inline>Set New Password</H2>
+          <Headings tag="h1" styles="h2">
+            Set New Password
+          </Headings>
           <p className="mt-4 text-xl">
             Trouble logging in? Please enter your email to reset your password.
           </p>

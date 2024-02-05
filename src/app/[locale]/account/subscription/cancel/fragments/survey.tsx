@@ -3,10 +3,10 @@ import { FragmentProps } from '@/components/FragmentRouter';
 import { Path } from '../types';
 import { Controller, useForm } from 'react-hook-form';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import Button from '@/components/Button';
 import { useTranslations } from 'next-intl';
+import Headings from '@/components/Headings';
 
 export default function SurveyFragment({ navigate }: FragmentProps<Path>) {
   const t = useTranslations('general');
@@ -39,9 +39,9 @@ export default function SurveyFragment({ navigate }: FragmentProps<Path>) {
 
   return (
     <Container>
-      <H2 inline className="text-center text-primary">
+      <Headings tag="h1" styles="h2" className="text-center text-primary">
         Cancel My Subscription
-      </H2>
+      </Headings>
       <p className="mt-4 text-center">
         Thank you for trying our fresh food for your dogs. Before you go,{' '}
         <br className="max-sm:hidden" />
@@ -111,10 +111,10 @@ export default function SurveyFragment({ navigate }: FragmentProps<Path>) {
           </div>
         </div>
       </div>
-      <H2 inline className="mt-20 text-center text-primary">
+      <Headings tag="h2" styles="h2" className="mt-20 text-center text-primary">
         Is there anything else you’d like to share about your experience? <br />
         If so, we’d love to improve on it!
-      </H2>
+      </Headings>
       <div className="pb-2 text-center">
         <Controller
           name="feedback"

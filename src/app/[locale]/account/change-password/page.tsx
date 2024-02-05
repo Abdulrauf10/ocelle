@@ -4,12 +4,12 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
 import UnderlineButton from '@/components/UnderlineButton';
 import { TextField, ThemeProvider } from '@mui/material';
 import Button from '@/components/Button';
 import theme from '@/app/mui-theme';
 import { useTranslations } from 'next-intl';
+import Headings from '@/components/Headings';
 
 export default function ChangePassword() {
   const t = useTranslations('general');
@@ -31,9 +31,9 @@ export default function ChangePassword() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Container>
             <div className="mx-auto max-w-[520px]">
-              <H2 inline className="text-center text-primary">
+              <Headings tag="h1" styles="h2" className="text-center text-primary">
                 Change Password
-              </H2>
+              </Headings>
               <div className="py-4"></div>
               <div className="-m-2 flex flex-wrap">
                 <div className="w-full p-2">

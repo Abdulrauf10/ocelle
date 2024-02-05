@@ -2,13 +2,13 @@ import React from 'react';
 import AppDataSource from '@/AppDataSource';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
 import { Career } from '@/entities';
 import { Classification, WorkPattern, WorkType } from '@/enums';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import UnderlineButton from '@/components/UnderlineButton';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
+import Headings from '@/components/Headings';
 
 async function fetchData() {
   if (!AppDataSource.isInitialized) {
@@ -86,7 +86,9 @@ export default async function Careers() {
     <main>
       <div className="bg-primary bg-opacity-10 py-12">
         <Container>
-          <H2 className="text-center text-primary">Dog People Wanted</H2>
+          <Headings tag="h1" styles="h1" className="text-center text-primary">
+            Dog People Wanted
+          </Headings>
           <p className="mt-4 text-center text-secondary">
             Make a living helping dogs live happier, healthier lives.
           </p>

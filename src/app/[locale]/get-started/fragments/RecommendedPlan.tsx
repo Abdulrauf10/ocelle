@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import Container from '@/components/Container';
 import { useForm } from 'react-hook-form';
-import H2 from '@/components/headings/H2';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import Price from '@/components/Price';
 import Button from '@/components/Button';
@@ -10,6 +9,7 @@ import RecipeCheckbox from '@/components/controls/RecipeCheckbox';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Section from '../Section';
 import Stage from '../Stage';
+import Headings from '@/components/Headings';
 
 export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stage>) {
   const {
@@ -155,7 +155,9 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
               </div>
             </div>
             <div className="mx-auto mt-10 max-w-[840px] rounded-[20px] border border-primary bg-white p-7 text-primary shadow-[3px_3px_10px_rgba(0,0,0,.2)]">
-              <H2 inline>Use A Transition Period In Starter Box?</H2>
+              <Headings tag="h2" styles="h2">
+                Use A Transition Period In Starter Box?
+              </Headings>
               <p className="mt-5">
                 Vets recommend for dogs to undergo a transition period when changing to a new diet –
                 especially if there has been little or no change over the years to the previous

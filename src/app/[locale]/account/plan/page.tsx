@@ -5,11 +5,11 @@ import clsx from 'clsx';
 import { ThemeProvider } from '@mui/material';
 import theme from '@/app/mui-theme';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
 import Button from '@/components/Button';
 import UnderlineButton from '@/components/UnderlineButton';
 import Image from 'next/image';
 import DogSwitch from '../DogSwitch';
+import Headings from '@/components/Headings';
 
 export default function Plan() {
   const mbBoxClassName = clsx(
@@ -22,9 +22,9 @@ export default function Plan() {
         <Container className="max-w-[860px]">
           <div className="item-center -mx-4 -my-3 flex max-sm:flex-col-reverse">
             <div className="flex-1 px-4 py-3 max-sm:text-center">
-              <H2 inline className="text-primary">
+              <Headings tag="h1" styles="h2" className="text-primary">
                 Welcome Back, [Kevan]
-              </H2>
+              </Headings>
               <p className="mt-4">
                 Keep tabs on your subscription and edit [Charlie]’s information.
               </p>
@@ -34,9 +34,9 @@ export default function Plan() {
             </div>
           </div>
           <div className="py-6"></div>
-          <H2 inline className="text-primary max-md:text-center">
+          <Headings tag="h2" styles="h2" className="text-primary max-md:text-center">
             Your Dog:
-          </H2>
+          </Headings>
           <div className="mx-auto mt-4 rounded-[30px] border border-brown bg-white px-4 py-2 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] max-md:text-center">
             <div className="flex flex-wrap items-center">
               <div className="flex-1 px-3 py-3">
@@ -58,9 +58,9 @@ export default function Plan() {
             </div>
           </div>
           <div className="py-6"></div>
-          <H2 inline className="text-primary max-md:text-center">
+          <Headings tag="h2" styles="h2" className="text-primary max-md:text-center">
             [Charlie]’s Box:
-          </H2>
+          </Headings>
           <div className="mt-4 rounded-[30px] border border-brown bg-white px-8 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:border-none max-md:bg-transparent max-md:p-0 max-md:shadow-none">
             <div className="-mx-3 flex max-md:block">
               <div className="px-3 text-center">
@@ -187,10 +187,10 @@ export default function Plan() {
                 <Image src="/referral-box.svg" alt="Referral Box" width={300} height={300} />
               </div>
               <div className="px-4 max-md:text-center">
-                <H2 inline>
+                <Headings tag="h2" styles="h2">
                   Know More Dog People? Refer a Friend, Earn{' '}
                   <span className="text-[1.1em] font-bold">[$50]</span>
-                </H2>
+                </Headings>
                 <p className="mt-3">
                   Refer your friends to try OCELLE with a special discount code and get{' '}
                   <span className="text-[1.4em] font-bold">[$50]</span> off your next box!

@@ -4,7 +4,6 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
 import UnderlineButton from '@/components/UnderlineButton';
 import { ThemeProvider } from '@mui/material';
 import Button from '@/components/Button';
@@ -12,6 +11,7 @@ import theme from '@/app/mui-theme';
 import AddressForm from '@/components/forms/Address';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import { useTranslations } from 'next-intl';
+import Headings from '@/components/Headings';
 
 interface AddressBlockProps {
   isDeliveryAddress?: boolean;
@@ -71,9 +71,9 @@ export default function Addresses() {
       <main className="bg-gold bg-opacity-10 py-10">
         <Container>
           <div className="mx-auto max-w-[520px]">
-            <H2 inline className="text-center text-primary">
+            <Headings tag="h2" styles="h2" className="text-center text-primary">
               {t('delivery-address')}
-            </H2>
+            </Headings>
             <p className="mt-4 text-center">
               Delivery address changes will be in effect, starting with your [next] order, scheduled
               for the <strong>[29th of December 2023]</strong>.
@@ -81,9 +81,9 @@ export default function Addresses() {
             <div className="py-4"></div>
             <AddressBlock isDeliveryAddress onSubmit={onDeliverySubmit} />
             <div className="py-12"></div>
-            <H2 inline className="text-center text-primary">
+            <Headings tag="h2" styles="h2" className="text-center text-primary">
               {t('billing-address')}
-            </H2>
+            </Headings>
             <div className="py-4"></div>
             <AddressBlock onSubmit={onBillingSubmit} />
             <div className="mt-12 text-center">

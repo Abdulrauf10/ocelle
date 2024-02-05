@@ -1,4 +1,4 @@
-import H2 from '@/components/headings/H2';
+import Headings from '@/components/Headings';
 import React from 'react';
 
 interface SectionProps {
@@ -18,9 +18,9 @@ export default function Section({
   return (
     <>
       <div className={className}>
-        <H2 className="text-primary" inline>
+        <Headings tag="h2" styles="h2" className="text-primary">
           {title}
-        </H2>
+        </Headings>
         {description && <p className="mt-5 italic text-primary">{description}</p>}
       </div>
       <div className={dense ? 'mt-4' : 'mt-8'}>{children}</div>

@@ -3,10 +3,10 @@
 import { useRouter } from '@/navigation';
 import { Switch, ThemeProvider, createTheme } from '@mui/material';
 import Container from '@/components/Container';
-import H2 from '@/components/headings/H2';
 import UnderlineButton from '@/components/UnderlineButton';
 import Button from '@/components/Button';
 import { useTranslations } from 'next-intl';
+import Headings from '@/components/Headings';
 
 export default function Subscriptions() {
   const t = useTranslations('general');
@@ -73,9 +73,9 @@ export default function Subscriptions() {
     >
       <main className="bg-gold bg-opacity-10 py-10">
         <Container>
-          <H2 inline className="text-center text-primary">
+          <Headings tag="h1" styles="h2" className="text-center text-primary">
             Your Subscriptions
-          </H2>
+          </Headings>
           <div className="mx-auto mt-4 max-w-[580px] rounded-3xl border border-gray bg-white p-6 text-center shadow-[5px_5px_12px_rgba(0,0,0,.1)]">
             <div className="text-xl font-bold text-gold">Reactivate Or Suspend A Plan</div>
             <div className="mt-4 flex items-center">

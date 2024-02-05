@@ -2,10 +2,10 @@ import Button from '@/components/Button';
 import MarqueeContent from '../MarqueeContent';
 import Section from './Section';
 import Newsletter from '@/components/Newsletter';
-import H2 from '@/components/headings/H2';
 import Container from '@/components/Container';
 import RecipeBenefits from './Benefits';
 import { useTranslations } from 'next-intl';
+import Headings from '@/components/Headings';
 
 export default function RecipesPage() {
   const t = useTranslations('general');
@@ -446,9 +446,9 @@ export default function RecipesPage() {
       </div>
       <div className="py-12">
         <Container className="text-center">
-          <H2 inline className="text-primary">
+          <Headings tag="h2" styles="h2" className="text-primary">
             Freshen Up With A Science First Approach To Pet Food
-          </H2>
+          </Headings>
           <p className="mt-6 text-lg">
             Get fresh food conveniently delivered with our customised meal plans.
           </p>

@@ -2,9 +2,9 @@ import { useRouter } from '@/navigation';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import { FragmentProps } from '@/components/FragmentRouter';
-import H2 from '@/components/headings/H2';
 import { Path } from '../types';
 import { useTranslations } from 'next-intl';
+import Headings from '@/components/Headings';
 
 export default function IndexFragment({ navigate }: FragmentProps<Path>) {
   const t = useTranslations('general');
@@ -12,9 +12,9 @@ export default function IndexFragment({ navigate }: FragmentProps<Path>) {
 
   return (
     <Container>
-      <H2 inline className="text-center text-primary">
+      <Headings tag="h1" styles="h2" className="text-center text-primary">
         Cancel My Subscription
-      </H2>
+      </Headings>
       <p className="mx-auto mt-4 max-w-[680px] text-center">
         Please be advised: If you have overstocked or just need a pause in deliveries, you can
         simply delay the next shipment rather than cancel.
