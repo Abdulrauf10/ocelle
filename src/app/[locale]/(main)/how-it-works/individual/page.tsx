@@ -173,8 +173,8 @@ export default function HowItWorksIndividual() {
                     className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                   />
                 </div>
-                <p className="mt-4 text-xl font-bold text-gray">Developed By Vet Nutritionists</p>
-                <p>
+                <p className="mt-6 text-xl font-bold text-gray">Developed By Vet Nutritionists</p>
+                <p className="mt-3">
                   Many of the health issues dogs face are related to diet. That’s why our team is
                   devoted to determining exactly what dogs need to live happier, healthier lives.
                 </p>
@@ -188,8 +188,8 @@ export default function HowItWorksIndividual() {
                     className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                   />
                 </div>
-                <p className="mt-4 text-xl font-bold text-gray">Crafted With Premium Ingredients</p>
-                <p>
+                <p className="mt-6 text-xl font-bold text-gray">Crafted With Premium Ingredients</p>
+                <p className="mt-3">
                   No heat-blasted ingredients. No preservatives. No fillers. No nonsense. Just real
                   ingredients you can see, nutrition dogs need, and the flavours they crave.
                 </p>
@@ -203,17 +203,17 @@ export default function HowItWorksIndividual() {
                     className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                   />
                 </div>
-                <p className="mt-4 text-xl font-bold text-gray">
+                <p className="mt-6 text-xl font-bold text-gray">
                   Freshly Made To Lock In Nutrients
                 </p>
-                <p>
+                <p className="mt-3">
                   Our ingredients are gently cooked to maximize digestibility and preserve vital
                   nutrients, texture, and taste.
                 </p>
               </div>
             </div>
           </div>
-          <div className="mt-8">
+          <div className="mt-10">
             <Button>{t('learn-more')}</Button>
           </div>
         </Container>
