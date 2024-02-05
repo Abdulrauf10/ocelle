@@ -26,7 +26,7 @@ export default function Login() {
             Greetings!
           </Headings>
           <p className="mt-4 text-xl">Please log in to continue.</p>
-          <div className="mx-auto max-w-[300px] max-xs:max-w-full">
+          <div className="mx-auto max-w-[260px] max-xs:max-w-full">
             <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-6">
               <Controller
                 name="email"
@@ -63,7 +63,7 @@ export default function Login() {
             <Headings tag="h2" styles="h2" className="mt-6">
               New To OCELLE?
             </Headings>
-            <Button reverse fullWidth className="mt-8">
+            <Button href="/get-started" reverse fullWidth className="mt-8">
               {t('build-your-plan')}
             </Button>
           </div>
