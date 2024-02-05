@@ -6,6 +6,7 @@ import Container from '@/components/Container';
 import RecipeBenefits from './Benefits';
 import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
+import Block from '@/components/Block';
 
 export default function RecipesPage() {
   const t = useTranslations('general');
@@ -439,12 +440,12 @@ export default function RecipesPage() {
         fibre={2}
         moisture={60}
       />
-      <div className="bg-gold bg-opacity-10 py-14">
+      <Block className="bg-gold bg-opacity-10">
         <Container className="lg:px-20">
           <RecipeBenefits />
         </Container>
-      </div>
-      <div className="py-12">
+      </Block>
+      <Block>
         <Container className="text-center">
           <Headings tag="h2" styles="h2" className="text-primary">
             Freshen Up With A Science First Approach To Pet Food
@@ -456,7 +457,7 @@ export default function RecipesPage() {
             {t('create-your-plan')}
           </Button>
         </Container>
-      </div>
+      </Block>
       <Newsletter />
     </main>
   );

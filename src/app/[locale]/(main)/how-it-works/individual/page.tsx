@@ -1,3 +1,4 @@
+import Block from '@/components/Block';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Headings from '@/components/Headings';
@@ -21,7 +22,7 @@ interface SectionProps {
 
 function Section({ picture, title, description, price, reverse, className, theme }: SectionProps) {
   return (
-    <div className={clsx('py-12', className.root)}>
+    <Block className={className.root}>
       <Container className="max-w-screen-lg">
         <div
           className={clsx(
@@ -62,7 +63,7 @@ function Section({ picture, title, description, price, reverse, className, theme
           </div>
         </div>
       </Container>
-    </div>
+    </Block>
   );
 }
 
@@ -71,7 +72,7 @@ export default function HowItWorksIndividual() {
 
   return (
     <main>
-      <div className="bg-primary bg-opacity-10 py-[2.4vw] text-center max-lg:py-8">
+      <Block className="bg-primary bg-opacity-10 text-center">
         <Container>
           <Headings tag="h1" styles="h1" className="text-primary">
             Feeding Fresh Is Easy With OCELLE
@@ -81,7 +82,7 @@ export default function HowItWorksIndividual() {
             be ordered anytime.
           </p>
         </Container>
-      </div>
+      </Block>
       <Section
         picture="/recipes/individual/bundle.jpg"
         title="Taster Bundle – 500g"
@@ -157,7 +158,7 @@ export default function HowItWorksIndividual() {
         }}
         reverse
       />
-      <div className="bg-gray bg-opacity-20 py-[2.4vw] max-lg:py-8">
+      <Block className="bg-gray bg-opacity-20">
         <Container className="max-w-screen-xl text-center">
           <Headings tag="h2" styles="h1" className="text-gray">
             Your Dog Deserves A Fresh Start
@@ -217,8 +218,8 @@ export default function HowItWorksIndividual() {
             <Button>{t('learn-more')}</Button>
           </div>
         </Container>
-      </div>
-      <div className="bg-dark-green py-[2.4vw] max-lg:py-8">
+      </Block>
+      <Block className="bg-dark-green">
         <Container className="text-center text-white">
           <Headings tag="h2" styles="h1">
             Easier For You. Better For Them.
@@ -230,7 +231,7 @@ export default function HowItWorksIndividual() {
             <Button>Try It Today</Button>
           </div>
         </Container>
-      </div>
+      </Block>
     </main>
   );
 }

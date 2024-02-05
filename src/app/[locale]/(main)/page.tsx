@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <main>
       <Picture />
-      <div className="bg-dark-green py-[2vw] max-lg:py-8">
+      <Block className="bg-dark-green">
         <Container className="text-center text-white">
           <Headings tag="h1" styles="h1">
             They’re My Dogs. They’re My Family.
@@ -30,30 +30,32 @@ export default function Home() {
             nutrition for a longer and more vibrant life! It’s science... and it’s delicious.
           </p>
         </Container>
-      </div>
+      </Block>
       <div className="flex flex-wrap">
         <div className="min-h-[300px] w-1/2 bg-[url('./gofresh-img.jpg')] bg-cover bg-[center_right] max-md:w-full"></div>
-        <div className="w-1/2 px-[4vw] py-[6vw] text-xl max-lg:py-8 max-md:w-full">
-          <Headings tag="h2" styles="h1" className="text-primary">
-            More Years, <br />
-            Happier Years. <br />
-            It’s Time To Go Fresh.
-          </Headings>
-          <div className="mt-[2vw]">
-            <List
-              picture={<Tickbox className="mr-4 h-5 w-5" />}
-              className={{ listItem: 'py-0.5' }}
-              items={[
-                'Increased Lifespan',
-                'Delayed Onset of Chronic Disease',
-                'Reduced Likelihood of Obesity',
-                'Increased Bio-Health and Food Safety',
-                'Increased Vitality and Happiness',
-              ]}
-            />
-          </div>
-          <div className="mb-5 mt-[2vw]"></div>
-          <Button href="/why-fresh">{t('learn-more')}</Button>
+        <div className="w-1/2 px-[4vw] text-xl max-md:w-full">
+          <Block>
+            <Headings tag="h2" styles="h1" className="text-primary">
+              More Years, <br />
+              Happier Years. <br />
+              It’s Time To Go Fresh.
+            </Headings>
+            <div className="mt-[2vw]">
+              <List
+                picture={<Tickbox className="mr-4 h-5 w-5" />}
+                className={{ listItem: 'py-0.5' }}
+                items={[
+                  'Increased Lifespan',
+                  'Delayed Onset of Chronic Disease',
+                  'Reduced Likelihood of Obesity',
+                  'Increased Bio-Health and Food Safety',
+                  'Increased Vitality and Happiness',
+                ]}
+              />
+            </div>
+            <div className="mb-5 mt-[2vw]"></div>
+            <Button href="/why-fresh">{t('learn-more')}</Button>
+          </Block>
         </div>
       </div>
       <Block className="bg-primary bg-opacity-15">

@@ -1,3 +1,4 @@
+import Block from '@/components/Block';
 import Container from '@/components/Container';
 import { Career } from '@/entities';
 import { WorkPattern, WorkType } from '@/enums';
@@ -7,7 +8,7 @@ export default function Title({ career }: { career: Career }) {
   const t = useTranslations('general');
 
   return (
-    <div className="bg-primary bg-opacity-10 py-12">
+    <Block styles="tight" className="bg-primary bg-opacity-10">
       <Container className="max-w-screen-lg">
         <div className="text-2xl font-bold text-brown">{career.name}</div>
         <div className="mt-1">
@@ -28,6 +29,6 @@ export default function Title({ career }: { career: Career }) {
           )}
         </div>
       </Container>
-    </div>
+    </Block>
   );
 }

@@ -16,6 +16,7 @@ import { mergeRefs } from 'react-merge-refs';
 import { serialize } from 'object-to-formdata';
 import Container from '@/components/Container';
 import Image from 'next/image';
+import Block from '@/components/Block';
 
 interface FileInputProps {
   control: Control<FieldValues>;
@@ -95,7 +96,7 @@ export default function ApplyForm({
 
   if (completed) {
     return (
-      <div className="bg-gold bg-opacity-10 py-16 text-center text-primary">
+      <Block styles="tight" className="bg-gold bg-opacity-10 text-center text-primary">
         <Container className="max-w-screen-lg">
           <Image
             src="/ocelle-logo.png"
@@ -110,14 +111,14 @@ export default function ApplyForm({
             learn more about you and will be in touch if you move forward in the process.
           </p>
         </Container>
-      </div>
+      </Block>
     );
   }
 
   return (
     <ThemeProvider theme={theme}>
       {children}
-      <div className="bg-gold bg-opacity-10 py-10">
+      <Block styles="tight" className="bg-gold bg-opacity-10">
         <Container className="max-w-screen-lg">
           <div className="text-2xl font-bold uppercase text-primary">Submit Your Application</div>
           <div>
@@ -218,7 +219,7 @@ export default function ApplyForm({
             </form>
           </div>
         </Container>
-      </div>
+      </Block>
     </ThemeProvider>
   );
 }

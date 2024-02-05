@@ -7,6 +7,7 @@ import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import Title from './Title';
+import Block from '@/components/Block';
 
 async function fetchData(id: number) {
   if (!AppDataSource.isInitialized) {
@@ -65,7 +66,7 @@ export default async function CareerView({ params }: { params: { id: string } })
   return (
     <main>
       <Title career={career} />
-      <div className="bg-gold bg-opacity-10 py-10">
+      <Block styles="tight" className="bg-gold bg-opacity-10">
         <Container className="max-w-screen-lg">
           <p>
             OCELLE was born with the mission of improving the lives of pets and pet parents
@@ -111,7 +112,7 @@ export default async function CareerView({ params }: { params: { id: string } })
             </Button>
           </div>
         </Container>
-      </div>
+      </Block>
     </main>
   );
 }

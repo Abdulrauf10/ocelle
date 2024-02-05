@@ -78,7 +78,7 @@ export default function Section({
   const t = useTranslations('general');
 
   return (
-    <Block className={clsx('py-20', className)}>
+    <Block className={className}>
       <Container className="lg:px-20">
         <div
           className={clsx(

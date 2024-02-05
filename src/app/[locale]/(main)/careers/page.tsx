@@ -9,6 +9,7 @@ import { getTranslations } from 'next-intl/server';
 import UnderlineButton from '@/components/UnderlineButton';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import Headings from '@/components/Headings';
+import Block from '@/components/Block';
 
 async function fetchData() {
   if (!AppDataSource.isInitialized) {
@@ -84,7 +85,7 @@ export default async function Careers() {
 
   return (
     <main>
-      <div className="bg-primary bg-opacity-10 py-12">
+      <Block styles="tight" className="bg-primary bg-opacity-10">
         <Container>
           <Headings tag="h1" styles="h1" className="text-center text-primary">
             Dog People Wanted
@@ -93,8 +94,8 @@ export default async function Careers() {
             Make a living helping dogs live happier, healthier lives.
           </p>
         </Container>
-      </div>
-      <div className="bg-gold bg-opacity-10 py-12">
+      </Block>
+      <Block styles="tight" className="bg-gold bg-opacity-10">
         <Container className="max-w-screen-lg">
           {count > 0 ? (
             <div className="-my-10">
@@ -171,7 +172,7 @@ export default async function Careers() {
             </div>
           )}
         </Container>
-      </div>
+      </Block>
     </main>
   );
 }
