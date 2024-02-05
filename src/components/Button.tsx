@@ -4,7 +4,7 @@ import DogFoot from './icons/DogFoot';
 import { Link } from '@/navigation';
 
 interface ButtonBaseProps {
-  theme?: 'primary' | 'secondary';
+  theme?: 'primary' | 'secondary' | 'red' | 'yellow' | 'green';
   className?: string;
   reverse?: boolean;
   fullWidth?: boolean;
@@ -48,11 +48,37 @@ export default function Button({
       ? 'bg-white text-secondary hover:bg-gray hover:bg-opacity-5 hover:border-gray'
       : 'bg-secondary text-white hover:opacity-85'
   );
+  const redClasses = clsx(
+    'border-how-it-works-red',
+    reverse
+      ? 'bg-white text-how-it-works-red hover:bg-gray hover:bg-opacity-5 hover:border-gray'
+      : 'bg-how-it-works-red text-white hover:opacity-85'
+  );
+  const yellowClasses = clsx(
+    'border-how-it-works-yellow',
+    reverse
+      ? 'bg-white text-how-it-works-yellow hover:bg-gray hover:bg-opacity-5 hover:border-gray'
+      : 'bg-how-it-works-yellow text-white hover:opacity-85'
+  );
+  const greenClasses = clsx(
+    'border-how-it-works-green',
+    reverse
+      ? 'bg-white text-how-it-works-green hover:bg-gray hover:bg-opacity-5 hover:border-gray'
+      : 'bg-how-it-works-green text-white hover:opacity-85'
+  );
   const classes = clsx(
     'items-center justify-center cursor-pointer rounded-[30px] py-1.5 px-6 text-center text-xl font-bold border',
     'transition-all duration-300 ease-in-out',
     fullWidth ? 'flex w-full' : 'inline-flex',
-    theme === 'primary' ? primaryClasses : secondaryClasses,
+    theme === 'green'
+      ? greenClasses
+      : theme === 'yellow'
+        ? yellowClasses
+        : theme === 'red'
+          ? redClasses
+          : theme === 'primary'
+            ? primaryClasses
+            : secondaryClasses,
     className
   );
 

@@ -18,6 +18,9 @@ const config: Config = {
         beige: '#FCF9F5',
         error: '#f00',
         brown: '#A98D72',
+        'how-it-works-red': '#E9545D',
+        'how-it-works-yellow': '#FCBB00',
+        'how-it-works-green': '#93D06D',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
