@@ -4,14 +4,18 @@ import Container from '@/components/Container';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Headings from '@/components/Headings';
 import Stage from '../Stage';
+import { useTranslations } from 'next-intl';
 
 export default function CalculatingFragment({ navigate }: FragmentProps<Stage>) {
+  const t = useTranslations();
   React.useEffect(() => {
     const timeout = setTimeout(() => {
       navigate(Stage.ChoosePlan);
     }, 3000);
     return () => clearTimeout(timeout);
   }, [navigate]);
+
+  const name = 'Charlie';
 
   return (
     <Container className="text-center">
@@ -23,10 +27,10 @@ export default function CalculatingFragment({ navigate }: FragmentProps<Stage>) 
         className="inline-block"
       />
       <Headings tag="h1" styles="h2" className="mt-8 font-bold text-primary">
-        Calculating...
+        {t('calculating')}
       </Headings>
       <p className="mt-8 text-primary">
-        We’re crunching some numbers to formulate [Charlie]’s meal plan.
+        {t('were-crunching-some-numbers-to-formulate-{}-meal-plan', { name })}
       </p>
     </Container>
   );

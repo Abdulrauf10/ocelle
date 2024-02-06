@@ -65,7 +65,7 @@ export default function CardForm({ control }: CardFormProps) {
               control={control}
               rules={{ required: true }}
               render={({ field, fieldState: { error } }) => (
-                <TextField {...field} label="Name On Card" fullWidth error={!!error} />
+                <TextField {...field} label={t('name-on-card')} fullWidth error={!!error} />
               )}
             />
           </div>
@@ -75,7 +75,7 @@ export default function CardForm({ control }: CardFormProps) {
               control={control}
               rules={{ required: true }}
               render={({ field, fieldState: { error } }) => (
-                <TextField {...field} label="Card Number" fullWidth error={!!error} />
+                <TextField {...field} label={t('card-number')} fullWidth error={!!error} />
               )}
             />
           </div>
@@ -85,7 +85,7 @@ export default function CardForm({ control }: CardFormProps) {
               control={control}
               rules={{ required: true }}
               render={({ field, fieldState: { error } }) => (
-                <TextField {...field} label="Card Expiration Date" fullWidth error={!!error} />
+                <TextField {...field} label={t('card-expiration-date')} fullWidth error={!!error} />
               )}
             />
           </div>
@@ -95,7 +95,7 @@ export default function CardForm({ control }: CardFormProps) {
               control={control}
               rules={{ required: true }}
               render={({ field, fieldState: { error } }) => (
-                <TextField {...field} label="CVC" fullWidth error={!!error} />
+                <TextField {...field} label={t('cvc')} fullWidth error={!!error} />
               )}
             />
           </div>

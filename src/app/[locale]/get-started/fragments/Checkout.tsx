@@ -46,6 +46,8 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
     [navigate]
   );
 
+  const name = 'Charlie';
+
   return (
     <ThemeProvider
       theme={createTheme(theme, {
@@ -74,7 +76,7 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
         <Container>
           <div className="-mx-6 flex flex-wrap max-lg:-mx-3">
             <div className="flex-1 px-6 max-lg:px-3">
-              <Section dense title="User Account Information">
+              <Section dense title={t('user-account-information')}>
                 <div className="-m-2 flex flex-wrap">
                   <div className="w-1/2 p-2">
                     <Controller
@@ -115,7 +117,7 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                         <TextField
                           {...field}
                           type="password"
-                          label="Password"
+                          label={t('password')}
                           fullWidth
                           error={!!error}
                         />
@@ -131,7 +133,7 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                         <TextField
                           {...field}
                           type="password"
-                          label="Confirm Password"
+                          label={t('confirm-password')}
                           fullWidth
                           error={!!error}
                         />
@@ -144,7 +146,7 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                       control={control}
                       rules={{ required: true }}
                       render={({ field, fieldState: { error } }) => (
-                        <TextField {...field} label="Phone Number" fullWidth error={!!error} />
+                        <TextField {...field} label={t('phone-number')} fullWidth error={!!error} />
                       )}
                     />
                   </div>
@@ -158,7 +160,7 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                     name="isSameBillingAddress"
                     value={1}
                     control={control}
-                    label={t('use-as', { name: t('billing-address') })}
+                    label={t('use-as-{}', { name: t('billing-address') })}
                   />
                 </div>
               </Section>
@@ -167,18 +169,23 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                 <AddressForm control={control} prefix="billing" />
               </Section>
               <SectionBreak half />
-              <Section dense title="Payment Information">
+              <Section dense title={t('payment-information')}>
                 <CardForm control={control} />
               </Section>
               <SectionBreak half />
-              <Section dense title="Delivery Date">
+              <Section dense title={t('delivery-date')}>
                 <p>
-                  [Charlie]’s 2-week starter box will be delivered on the [25th of December 2023].{' '}
+                  {t('{}-{}-week-starter-box-will-be-delivered-on-the-{}', {
+                    name,
+                    week: 2,
+                    date: '25th of December 2023',
+                  })}{' '}
                   <EditButton onClick={() => {}} />
                 </p>
                 <p className="mt-3">
-                  After checkout, you can adjust your delivery date until the [21st of December]
-                  11:59PM.
+                  {t('after-checkout-you-can-adjust-your-delivery-date-until-the-{}', {
+                    date: '21st of December',
+                  })}
                 </p>
                 <div className="mt-4 w-fit">
                   <DateCalendar name="deliveryDate" control={control} minDate={new Date()} />
@@ -187,43 +194,47 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
             </div>
             <div className="w-1/3 px-6 max-lg:w-2/5 max-lg:px-3 max-md:mt-8 max-md:w-full">
               <div className="rounded-3xl bg-gold bg-opacity-10 px-6 py-10">
-                <h2 className="text-3xl font-bold text-gold">Order Summary</h2>
-                <CheckoutBlock title="Your Plan:">
+                <h2 className="text-3xl font-bold text-gold">{t('order-summary')}</h2>
+                <CheckoutBlock title={t('{}-colon', { value: t('your-plan') })}>
                   <p className="mt-1">
-                    Fresh full plan for [Charlie]’s diet, at a total of [$18] per day.
+                    {t('{}-for-{}-diet-at-a-total-of-{}-per-day', {
+                      plan: t('fresh-full-plan'),
+                      name,
+                      price: '$18',
+                    })}
                   </p>
                 </CheckoutBlock>
-                <CheckoutBlock title="[Charlie]’s Fresh Food Box:">
+                <CheckoutBlock title={t('{}-colon', { value: t('{}-fresh-food-box', { name }) })}>
                   <div className="-mx-1 mt-3 flex flex-wrap justify-between">
-                    <div className="px-1">Meal Plan:</div>
+                    <div className="px-1">{t('{}-colon', { value: t('meal-plan') })}</div>
                     <div className="px-1">
                       <strong className="mr-1.5">[Fresh Full Plan]</strong>
                       <EditButton onClick={() => {}} />
                     </div>
                   </div>
                   <div className="-mx-1 mt-2 flex flex-wrap justify-between">
-                    <div className="px-1">Recipes:</div>
+                    <div className="px-1">{t('{}-colon', { value: t('recipes') })}</div>
                     <div className="px-1">
                       <strong className="mr-1.5">[Chicken]</strong>
                       <EditButton onClick={() => {}} />
                     </div>
                   </div>
                   <div className="-mx-1 mt-2 flex flex-wrap justify-between">
-                    <div className="px-1">Days of Food</div>
+                    <div className="px-1">{t('days-of-food')}</div>
                     <div className="px-1">
-                      <strong className="mr-1.5">14 Days</strong>
+                      <strong className="mr-1.5">{t('{}-days', { value: 14 })}</strong>
                       <div className="inline-block w-4">&nbsp;</div>
                     </div>
                   </div>
                   <div className="-mx-1 mt-2 flex flex-wrap justify-between">
-                    <div className="px-1">Transition Period</div>
+                    <div className="px-1">{t('transition-period')}</div>
                     <div className="px-1">
-                      <strong className="mr-1.5">[Yes]</strong>
+                      <strong className="mr-1.5">[{t('yes')}]</strong>
                       <EditButton onClick={() => {}} />
                     </div>
                   </div>
                 </CheckoutBlock>
-                <CheckoutBlock title="Discount Coupon">
+                <CheckoutBlock title={t('discount-coupon')}>
                   <div className="-mx-1 mt-3 flex flex-wrap justify-between">
                     <div className="flex-1 px-1">
                       <Controller
@@ -247,7 +258,7 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                         type="button"
                         className="rounded-lg bg-secondary px-6 py-2 font-bold text-white"
                       >
-                        Apply
+                        {t('apply')}
                       </button>
                     </div>
                   </div>
@@ -255,58 +266,57 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                     <div className="h-7 w-7 rounded-full bg-secondary p-1">
                       <CircleTick />
                     </div>
-                    <p className="ml-2 text-sm">Your coupon was successfully applied</p>
+                    <p className="ml-2 text-sm">{t('your-coupon-was-successfully-applied')}</p>
                   </div>
                 </CheckoutBlock>
                 <CheckoutBlock>
                   <div className="-mx-1 flex flex-wrap justify-between">
-                    <div className="px-1">Fresh Food Box Subtotal:</div>
+                    <div className="px-1">
+                      {t('{}-colon', { value: t('fresh-food-box-subtotal') })}
+                    </div>
                     <div className="px-1">
                       <Price className="font-bold" value={500} discount />
                     </div>
                   </div>
                   <div className="-mx-1 mt-2 flex flex-wrap justify-between">
-                    <div className="px-1">With Starter Box Discount:</div>
+                    <div className="px-1">
+                      {t('{}-colon', { value: t('with-starter-box-discount') })}
+                    </div>
                     <div className="px-1">
                       <Price className="font-bold" value={250} />
                     </div>
                   </div>
                   <div className="-mx-1 mt-2 flex flex-wrap justify-between">
-                    <div className="px-1">Promo Code</div>
+                    <div className="px-1">{t('promo-code')}</div>
                     <div className="px-1">－</div>
                   </div>
                   <div className="-mx-1 mt-2 flex flex-wrap justify-between">
-                    <div className="px-1">Delivery:</div>
+                    <div className="px-1">{t('{}-colon', { value: t('delivery') })}</div>
                     <div className="px-1">
-                      <Price className="font-bold" value="FREE" dollorSign={false} />
+                      <Price className="font-bold uppercase" value={t('free')} dollorSign={false} />
                     </div>
                   </div>
                 </CheckoutBlock>
                 <CheckoutBlock>
                   <div className="-mx-1 flex flex-wrap justify-between text-xl font-bold">
-                    <div className="px-1">Today’s Total:</div>
+                    <div className="px-1">{t('{}-colon', { value: t('todays-total') })}</div>
                     <div className="px-1">$250</div>
                   </div>
                   <div className="mt-4 text-center">
-                    <Button>Checkout</Button>
+                    <Button>{t('checkout')}</Button>
                   </div>
                 </CheckoutBlock>
               </div>
               <div className="mt-10 rounded-3xl bg-gold bg-opacity-10 px-6 py-10">
-                <h2 className="text-3xl font-bold text-gold">Subscription</h2>
+                <h2 className="text-3xl font-bold text-gold">{t('subscription')}</h2>
                 <div className="mt-4 text-gold">
-                  <p>Next Order: [8th of January 2024]</p>
-                  <p className="mt-3">Delivery Cycle: Every [2 Weeks]</p>
+                  <p>{t('{}-colon', { value: t('next-order') })}[8th of January 2024]</p>
+                  <p className="mt-3">
+                    {t('{}-colon', { value: t('delivery-cycle') })}[
+                    {t('every-{}', { value: t('{}-weeks', { value: 2 }) })}]
+                  </p>
                 </div>
-                <p className="mt-4">
-                  OCELLE is an auto-renewing subscription with no long-term commitment. You can
-                  edit, pause, or cancel unprocessed orders anytime. The payment method you choose
-                  will automatically be charged at the price and frequency selected.
-                </p>
-                <p className="mt-4">
-                  If you&apos;ve included a transition period in your starter box, your next order
-                  will contain full portions for each day of food (price may be affected).
-                </p>
+                <p className="mt-4">{t.rich('subscription:description', { br: () => <br /> })}</p>
               </div>
             </div>
           </div>

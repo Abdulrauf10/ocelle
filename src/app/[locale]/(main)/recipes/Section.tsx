@@ -254,34 +254,34 @@ export default function Section({
                         <div className="w-1/2 px-6 py-3 max-md:w-full">
                           <div className="mt-2 flex flex-wrap justify-between">
                             <strong>{t('calorie-content')}:</strong>
-                            <span>{t('kcal-per-kg', { value: calorie })}</span>
+                            <span>{t('{}-kcal-per-kg', { value: calorie })}</span>
                           </div>
                           <div className="mt-2">
                             <strong>{t('guarenteed-analysis')}:</strong>
                             <div className="mt-2 flex flex-wrap justify-between">
                               <span>{t('crude-protein')}</span>
-                              <span>{t('pct-min', { value: protein })}</span>
+                              <span>{t('{}-pct-min', { value: protein })}</span>
                             </div>
                             <div className="my-1">
                               <Dotted />
                             </div>
                             <div className="flex flex-wrap justify-between">
                               <span>{t('crude-fat')}</span>
-                              <span>{t('pct-min', { value: fat })}</span>
+                              <span>{t('{}-pct-min', { value: fat })}</span>
                             </div>
                             <div className="my-1">
                               <Dotted />
                             </div>
                             <div className="flex flex-wrap justify-between">
                               <span>{t('crude-firbe')}</span>
-                              <span>{t('pct-min', { value: fibre })}</span>
+                              <span>{t('{}-pct-max', { value: fibre })}</span>
                             </div>
                             <div className="my-1">
                               <Dotted />
                             </div>
                             <div className="flex flex-wrap justify-between">
                               <span>{t('moisture')}</span>
-                              <span>{t('pct-min', { value: moisture })}</span>
+                              <span>{t('{}-pct-max', { value: moisture })}</span>
                             </div>
                           </div>
                         </div>

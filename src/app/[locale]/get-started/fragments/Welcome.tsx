@@ -5,20 +5,19 @@ import Benefits from '../Benefits';
 import Section from '../Section';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
+import { useTranslations } from 'next-intl';
 
 export default function WelcomeFragment({ navigate }: FragmentProps<Stage>) {
+  const t = useTranslations();
+
   return (
     <Container className="text-center">
       <Section
-        title={
-          <>
-            Better Food = Better Health...
-            <br />
-            And It Starts Here!
-          </>
-        }
+        title={t.rich('get-started-welcome', {
+          br: () => <br />,
+        })}
       >
-        <p className="text-primary">Let’s determine your recommended meal plan and price!</p>
+        <p className="text-primary">{t('lets-determine-your-recommended-meal-plan-and-price')}</p>
         <p className="mt-5 flex items-center justify-center text-left text-primary">
           <Image
             src="/question/timer.svg"
@@ -27,10 +26,10 @@ export default function WelcomeFragment({ navigate }: FragmentProps<Stage>) {
             height={26}
             className="mr-2 inline-block"
           />
-          This should only take about 2 minutes per dog.
+          {t('this-should-only-take-about-2-minutes-per-dog')}
         </p>
         <Button className="mt-8" onClick={() => navigate(Stage.Dog)}>
-          Let’s Get Started
+          {t('lets-get-started')}
         </Button>
       </Section>
       <Benefits />

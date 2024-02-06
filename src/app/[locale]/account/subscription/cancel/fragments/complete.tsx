@@ -38,7 +38,7 @@ export default function CompleteFragment({ navigate }: FragmentProps<Path>) {
         <UnderlineButton
           type="button"
           href="/account"
-          label={t('back-to', { name: t('my-info') })}
+          label={t('back-to-{}', { name: t('my-info') })}
         />
       </div>
     </Container>

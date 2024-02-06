@@ -26,10 +26,10 @@ export default function OwnerFragment({ navigate }: FragmentProps<Stage>) {
   return (
     <Container className="text-center">
       <Headings tag="h1" styles="h2" className="font-bold text-primary">
-        Now, tell us a bit about you!
+        {t('now-tell-us-a-bit-about-you')}
       </Headings>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-12">
-        <Section title="What’s your name?">
+        <Section title={t('whats-your-name')}>
           <div className="mx-auto max-w-[320px]">
             <Controller
               name="firstname"
@@ -51,7 +51,7 @@ export default function OwnerFragment({ navigate }: FragmentProps<Stage>) {
           </div>
         </Section>
         <SectionBreak />
-        <Section title="What’s your email address?">
+        <Section title={t('whats-your-email-address')}>
           <div className="mx-auto max-w-[320px]">
             <Controller
               name="email"
@@ -75,9 +75,9 @@ export default function OwnerFragment({ navigate }: FragmentProps<Stage>) {
         </Section>
         <div className="mt-10">
           <UnderlineButton
-            className="text-lg"
+            className="text-lg uppercase"
             href="/auth/login"
-            label="ALREADY HAVE AN ACCOUNT? LOG IN HERE"
+            label={t('already-have-an-account-log-in-here')}
           />
         </div>
         <Button className="mt-10">{t('continue')}</Button>

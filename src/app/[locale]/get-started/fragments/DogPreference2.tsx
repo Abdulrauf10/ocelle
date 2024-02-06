@@ -22,29 +22,29 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
   } = useForm();
   const options = React.useMemo(() => {
     return [
-      { label: 'None', value: 'none' },
-      { label: 'Chicken', value: 'chicken' },
-      { label: 'Beef', value: 'beef' },
-      { label: 'Pork', value: 'pork' },
-      { label: 'Lamb', value: 'lamb' },
-      { label: 'Duck', value: 'duck' },
+      { label: t('none'), value: 'none' },
+      { label: t('chicken'), value: 'chicken' },
+      { label: t('beef'), value: 'beef' },
+      { label: t('pork'), value: 'pork' },
+      { label: t('lamb'), value: 'lamb' },
+      { label: t('duck'), value: 'duck' },
     ];
-  }, []);
+  }, [t]);
 
   const onSubmit = React.useCallback(() => {
     navigate(Stage.Owner);
   }, [navigate]);
 
+  const name = 'Charlie';
+
   return (
     <Container className="text-center">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Section
-          title={
-            <>
-              Does [Charlie] have any food <br className="max-md:hidden" />
-              allergies or sensitivities?
-            </>
-          }
+          title={t.rich('does-{}-have-any-food-allergies-or-sensitivities', {
+            name,
+            br: () => <br className="max-md:hidden" />,
+          })}
         >
           <div className="mx-auto -mt-4 flex max-w-[380px] flex-wrap justify-center">
             <div className="mt-4 px-3">
@@ -108,7 +108,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
             )}
         </Section>
         <SectionBreak />
-        <Section title="What is [Charlie] currently eating?">
+        <Section title={t('what-is-{}-currently-eating', { name })}>
           <div className="mx-auto -mt-4 flex max-w-[530px] flex-wrap justify-between">
             <div className="mt-4 px-3">
               <InteractiveBlock
@@ -116,7 +116,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                 value="dry"
                 control={control}
                 name="eating"
-                label="Dry"
+                label={t('dry')}
                 error={!!errors.eating}
                 rules={{ required: true }}
               />
@@ -127,7 +127,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                 value="wet"
                 control={control}
                 name="eating"
-                label="Wet"
+                label={t('wet')}
                 error={!!errors.eating}
                 rules={{ required: true }}
               />
@@ -138,7 +138,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                 value="raw"
                 control={control}
                 name="eating"
-                label="Raw"
+                label={t('raw')}
                 error={!!errors.eating}
                 rules={{ required: true }}
               />
@@ -149,7 +149,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                 value="dehydrated"
                 control={control}
                 name="eating"
-                label="Dehydrated"
+                label={t('dehydrated')}
                 error={!!errors.eating}
                 rules={{ required: true }}
               />
@@ -160,7 +160,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                 value="fresh"
                 control={control}
                 name="eating"
-                label="Fresh"
+                label={t('fresh')}
                 error={!!errors.eating}
                 rules={{ required: true }}
               />
@@ -171,7 +171,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                 value="homemade"
                 control={control}
                 name="eating"
-                label="Homemade"
+                label={t('homemade')}
                 error={!!errors.eating}
                 rules={{ required: true }}
               />
@@ -182,7 +182,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                 value="other"
                 control={control}
                 name="eating"
-                label="Other"
+                label={t('other')}
                 error={!!errors.eating}
                 rules={{ required: true }}
               />
@@ -191,12 +191,10 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
         </Section>
         <SectionBreak />
         <Section
-          title={
-            <>
-              How many treats or table scraps <br className="max-md:hidden" />
-              does [Charlie] normally get?
-            </>
-          }
+          title={t.rich('how-many-treats-or-table-scraps-does-{}-normally-get', {
+            name,
+            br: () => <br className="max-md:hidden" />,
+          })}
         >
           <div className="mx-auto -mt-4 flex max-w-[520px] flex-wrap justify-center">
             <div className="mt-4 px-3">
@@ -205,7 +203,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                 value="none"
                 control={control}
                 name="treats"
-                label="None"
+                label={t('none')}
                 error={!!errors.treats}
                 rules={{ required: true }}
               />
@@ -216,7 +214,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                 value="some"
                 control={control}
                 name="treats"
-                label="Some"
+                label={t('some')}
                 error={!!errors.treats}
                 rules={{ required: true }}
               />
@@ -227,7 +225,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                 value="lots"
                 control={control}
                 name="treats"
-                label="Lots"
+                label={t('lots')}
                 error={!!errors.treats}
                 rules={{ required: true }}
               />
@@ -235,7 +233,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
           </div>
         </Section>
         <SectionBreak />
-        <Section title=" How picky is [Charlie] at mealtimes?">
+        <Section title={t('how-picky-is-{}-at-mealtimes', { name })}>
           <div className="mx-auto mt-10 max-w-[640px]">
             <PictureRadio
               name="picky"
@@ -244,7 +242,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
               error={!!errors.picky}
               radios={[
                 {
-                  label: 'Can Be Picky',
+                  label: t('can-be-picky'),
                   value: 'picky',
                   children: (
                     <div className="flex items-end">
@@ -253,7 +251,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                   ),
                 },
                 {
-                  label: 'Is A Good Eater',
+                  label: t('is-a-good-eater'),
                   value: 'eater',
                   children: (
                     <div className="flex items-end">
@@ -267,7 +265,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                   ),
                 },
                 {
-                  label: 'Will Eat Anything',
+                  label: t('will-eat-anything'),
                   value: 'eatAnything',
                   children: (
                     <Image

@@ -36,7 +36,7 @@ function AddressBlock({ isDeliveryAddress, onSubmit }: AddressBlockProps) {
             name="isSameBillingAddress"
             value={1}
             control={control}
-            label={t('use-as', { name: t('billing-address') })}
+            label={t('use-as-{}', { name: t('billing-address') })}
           />
         </div>
       )}

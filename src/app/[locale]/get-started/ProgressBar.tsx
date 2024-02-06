@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import Stage from './Stage';
 
 interface ProgressBarProps {
@@ -44,12 +45,14 @@ function isCheckoutStage(stage: Stage) {
 }
 
 export default function ProgressBar({ stage }: ProgressBarProps) {
+  const t = useTranslations();
+
   return (
     <div className="relative flex w-full flex-1 whitespace-nowrap">
       <div className="absolute bottom-[5.5px] h-0.5 w-full bg-primary"></div>
       <div className="w-1/4">
         <div className="px-1">
-          <div className="text-gray text-center text-lg">Dogs</div>
+          <div className="text-center text-lg text-gray">{t('dogs')}</div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isDogStage(stage) && (
               <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>
@@ -59,7 +62,7 @@ export default function ProgressBar({ stage }: ProgressBarProps) {
       </div>
       <div className="w-1/4">
         <div className="px-1">
-          <div className="text-gray text-center text-lg">You</div>
+          <div className="text-center text-lg text-gray">{t('you')}</div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isYouStage(stage) && (
               <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>
@@ -69,7 +72,7 @@ export default function ProgressBar({ stage }: ProgressBarProps) {
       </div>
       <div className="w-1/4">
         <div className="px-1">
-          <div className="text-gray text-center text-lg">Your Plan</div>
+          <div className="text-center text-lg text-gray">{t('your-plan')}</div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isYourPlanStage(stage) && (
               <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>
@@ -79,7 +82,7 @@ export default function ProgressBar({ stage }: ProgressBarProps) {
       </div>
       <div className="w-1/4">
         <div className="px-1">
-          <div className="text-gray text-center text-lg">Checkout</div>
+          <div className="text-center text-lg text-gray">{t('checkout')}</div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isCheckoutStage(stage) && (
               <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>

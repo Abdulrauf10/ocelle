@@ -23,12 +23,16 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
     navigate(Stage.DogPreference2);
   }, [navigate]);
 
+  const name = 'Charlie';
+
   return (
     <Container className="text-center">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Section
-          title="What is [Charlie]’s current weight?"
-          description="If you’re unsure, you can always adjust this information in your account later."
+          title={t('what-is-{}-current-weight', { name })}
+          description={t(
+            'if-youre-unsure-you-can-always-adjust-this-information-in-your-account-later'
+          )}
         >
           <div className="flex flex-wrap items-center justify-center">
             <Controller
@@ -38,11 +42,11 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
                 required: true,
                 min: {
                   value: 0.5,
-                  message: '[Ocelle is currently available to dogs between 0.5 to 50 kg.]',
+                  message: t('ocelle-is-currently-available-to-dogs-between-05-to-50-kg'),
                 },
                 max: {
                   value: 50,
-                  message: '[Ocelle is currently available to dogs between 0.5 to 50 kg.]',
+                  message: t('ocelle-is-currently-available-to-dogs-between-05-to-50-kg'),
                 },
               }}
               render={({ field, fieldState: { error } }) => (
@@ -62,7 +66,7 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
           </div>
         </Section>
         <SectionBreak />
-        <Section title="What best represents their current body condition?">
+        <Section title={t('what-best-represents-their-current-body-condition')}>
           <div className="mx-auto mt-10 max-w-[840px]">
             <PictureRadio
               name="bodyCondition"
@@ -71,7 +75,7 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
               error={!!errors.bodyCondition}
               radios={[
                 {
-                  label: 'Too Skinny',
+                  label: t('too-skinny'),
                   value: 'too-skinny',
                   children: (
                     <Image
@@ -83,7 +87,7 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
                   ),
                 },
                 {
-                  label: 'Just Right',
+                  label: t('just-right'),
                   value: 'just-right',
                   children: (
                     <Image
@@ -95,7 +99,7 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
                   ),
                 },
                 {
-                  label: 'Rounded',
+                  label: t('rounded'),
                   value: 'rounded',
                   children: (
                     <Image
@@ -107,7 +111,7 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
                   ),
                 },
                 {
-                  label: 'Chunky',
+                  label: t('chunky'),
                   value: 'chunky',
                   children: (
                     <Image
@@ -122,15 +126,12 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
             />
           </div>
           <p className="mt-5 text-primary">
-            [Visible rib cage and / or spine. Noticeable loss of muscle mass.]
+            [{t('visible-rib-cage-spine-noticeable-loss-of-muscle-mass')}]
           </p>
-          <p className="mt-5 italic text-primary">
-            [We’ll adjust their calories and help to manage their weight, so that it’s just right
-            for optimum health and wellbeing!]
-          </p>
+          <p className="mt-5 italic text-primary">[{t('adjust-their-calories')}]</p>
         </Section>
         <SectionBreak />
-        <Section title="How active is [Charlie]?">
+        <Section title={t('how-active-is', { name })}>
           <div className="mx-auto mt-10 max-w-[640px]">
             <PictureRadio
               name="active"
@@ -139,21 +140,21 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
               error={!!errors.active}
               radios={[
                 {
-                  label: 'Mellow',
+                  label: t('mellow'),
                   value: 'mellow',
                   children: (
                     <Image src="/question/mellow.svg" alt="Mellow dog" width={100} height={95} />
                   ),
                 },
                 {
-                  label: 'Active',
+                  label: t('active'),
                   value: 'active',
                   children: (
                     <Image src="/question/active.svg" alt="Active dog" width={80} height={95} />
                   ),
                 },
                 {
-                  label: 'Very Active',
+                  label: t('very-active'),
                   value: 'very-active',
                   children: (
                     <Image
@@ -167,7 +168,9 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
               ]}
             />
           </div>
-          <p className="mt-5 text-primary">[Less than 30 minutes of outdoor daily activity.]</p>
+          <p className="mt-5 text-primary">
+            [{t('less-than-30-minutes-of-outdoor-daily-activity')}]
+          </p>
         </Section>
         <Button className="mt-8">{t('continue')}</Button>
       </form>

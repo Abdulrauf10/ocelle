@@ -24,24 +24,26 @@ export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
     navigate(Stage.DogPreference1);
   }, [navigate]);
 
+  const name = 'Charlie';
+
   return (
     <Container className="text-center">
       <Section
-        title="How old is [Charlie]?"
-        description="If you're unsure, just give us your best guess!"
+        title={t('how-old-is-{}', { name })}
+        description={t('if-youre-unsure-just-give-us-your-best-guess')}
       >
         <div className="mx-auto flex max-w-[260px] justify-between">
           <UnderlineButton
             underline={tab === 'Age'}
             className={clsx('text-lg', tab === 'Age' ? 'font-bold' : '')}
             onClick={() => setTab('Age')}
-            label="Enter Age"
+            label={t('enter-age')}
           />
           <UnderlineButton
             underline={tab === 'Birthday'}
             className={clsx('text-lg', tab === 'Birthday' ? 'font-bold' : '')}
             onClick={() => setTab('Birthday')}
-            label="Select Birthday"
+            label={t('select-birthday')}
           />
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-8 max-w-[480px]">
@@ -62,7 +64,7 @@ export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
                     />
                   )}
                 />
-                <span className="ml-2">Year(s)</span>
+                <span className="ml-2">{t('years')}</span>
               </div>
               <div className="flex items-center px-4">
                 <Controller
@@ -79,7 +81,7 @@ export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
                     />
                   )}
                 />
-                <span className="ml-2">Month(s)</span>
+                <span className="ml-2">{t('months')}</span>
               </div>
             </div>
           )}

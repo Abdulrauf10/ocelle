@@ -20,14 +20,14 @@ export default function DogFragment({ navigate }: FragmentProps<Stage>) {
 
   return (
     <Container className="text-center">
-      <Section title="What’s your dog’s name?">
+      <Section title={t('whats-your-dogs-name')}>
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-8 max-w-[320px]">
           <Controller
             name="dogName"
             control={control}
             rules={{ required: true }}
             render={({ field, fieldState: { error } }) => (
-              <TextField error={!!error} placeholder="Your Dog’s Name" fullWidth {...field} />
+              <TextField error={!!error} placeholder={t('your-dogs-name')} fullWidth {...field} />
             )}
           />
           <Button className="mt-10">{t('continue')}</Button>
@@ -35,19 +35,14 @@ export default function DogFragment({ navigate }: FragmentProps<Stage>) {
         <UnderlineButton
           className="mt-10 text-lg"
           onClick={() => setShowMoreDogs(true)}
-          label="I Have More Dogs"
+          label={t('i-have-more-dogs')}
         />
         {showMoreDogs && (
           <p className="mt-5 italic text-primary">
-            [Great! After you have finalised the order details for your first dog,
-            <br />
-            you can click ‘<strong>+ Add Another Dog</strong>’ later in this quiz or in your
-            account.
-            <br />
-            We’ll conduct the nutritional consultation for your other dog(s), as nutrition is not a
-            one-size-fits-all affair...
-            <br />
-            and that is of course, reflected in their personalised meal plans.]
+            {t.rich('i-have-more-dogs:reply', {
+              br: () => <br />,
+              strong: (chunks) => <strong>{chunks}</strong>,
+            })}
           </p>
         )}
       </Section>

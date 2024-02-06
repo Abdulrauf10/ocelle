@@ -44,7 +44,7 @@ export default function ForgotPassword() {
             <UnderlineButton
               href="/auth/login"
               className="mt-4 text-lg"
-              label={t('back-to', { name: t('log-in') })}
+              label={t('back-to-{}', { name: t('log-in') })}
             />
           </div>
         </Container>

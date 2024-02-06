@@ -15,28 +15,30 @@ export default function ChoosePlanFragment({ navigate }: FragmentProps<Stage>) {
 
   React.useEffect(() => {
     if (firstUpdate.current && selected == null) {
-      setError('[You must select either one of the plan]');
+      setError(t('you-must-select-either-one-of-the-plan'));
       firstUpdate.current = false;
     } else {
       setError(undefined);
     }
-  }, [selected]);
+  }, [t, selected]);
 
   const onSubmit = React.useCallback(() => {
     if (selected == null) {
-      setError('[You must select either one of the plan]');
+      setError(t('you-must-select-either-one-of-the-plan'));
     } else {
       navigate(Stage.RecommendedPlan);
     }
-  }, [selected, navigate]);
+  }, [t, selected, navigate]);
+
+  const name = 'Charlie';
 
   return (
     <Container className="text-center">
-      <Section title="Choose The Best Plan For You And [Charlie]">
+      <Section title={t('choose-the-best-plan-for-you-and-{}', { name })}>
         <div className="mx-auto flex max-w-[900px] flex-wrap">
           <div className="w-1/2 px-2 max-lg:w-full">
             <FreshPlan
-              title="Fresh Full Plan"
+              title={t('fresh-full-plan')}
               picture="/meal-plan/full-plan.jpg"
               pricePerDay={36}
               discountedPricePerDay={18}
@@ -46,13 +48,12 @@ export default function ChoosePlanFragment({ navigate }: FragmentProps<Stage>) {
               selected={selected === 0}
               onSelect={() => setSelected(0)}
             >
-              Everything needed in one simple serving. Reap the full benefits of fresh, nutritious
-              meals for your dog, meticulously crafted and portioned by experts.
+              {t('fresh-full-plan:description')}
             </FreshPlan>
           </div>
           <div className="w-1/2 px-2 max-lg:mt-8 max-lg:w-full">
             <FreshPlan
-              title="Fresh Half Plan"
+              title={t('fresh-half-plan')}
               picture="/meal-plan/half-plan.jpg"
               pricePerDay={25}
               discountedPricePerDay={12.5}
@@ -61,8 +62,7 @@ export default function ChoosePlanFragment({ navigate }: FragmentProps<Stage>) {
               selected={selected === 1}
               onSelect={() => setSelected(1)}
             >
-              Everything needed to supplement your dog’s current diet! Reinvigorate your dog&apos;s
-              current meals with a fresh, nutrient-packed addition.
+              {t('fresh-half-plan:description')}
             </FreshPlan>
           </div>
         </div>

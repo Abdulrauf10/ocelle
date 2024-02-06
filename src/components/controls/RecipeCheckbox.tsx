@@ -153,34 +153,34 @@ export default function RecipeCheckbox({
                     <>
                       <div className="mt-2 flex flex-wrap justify-between">
                         <strong className="uppercase">{t('calorie-content')}:</strong>
-                        <span>{t('kcal-per-kg', { value: calorie })}</span>
+                        <span>{t('{}-kcal-per-kg', { value: calorie })}</span>
                       </div>
                       <div className="mt-1">
                         <strong>{t('guarenteed-analysis')}:</strong>
                         <div className="mt-2 flex flex-wrap justify-between">
                           <span>{t('crude-protein')}</span>
-                          <span>{t('pct-min', { value: protein })}</span>
+                          <span>{t('{}-pct-min', { value: protein })}</span>
                         </div>
                         <div className="my-1">
                           <Dotted />
                         </div>
                         <div className="flex flex-wrap justify-between">
                           <span>{t('crude-fat')}</span>
-                          <span>{t('pct-min', { value: fat })}</span>
+                          <span>{t('{}-pct-min', { value: fat })}</span>
                         </div>
                         <div className="my-1">
                           <Dotted />
                         </div>
                         <div className="flex flex-wrap justify-between">
                           <span>{t('crude-firbe')}</span>
-                          <span>{t('pct-max', { value: fibre })}</span>
+                          <span>{t('{}-pct-max', { value: fibre })}</span>
                         </div>
                         <div className="my-1">
                           <Dotted />
                         </div>
                         <div className="flex flex-wrap justify-between">
                           <span>{t('moisture')}</span>
-                          <span>{t('pct-max', { value: moisture })}</span>
+                          <span>{t('{}-pct-max', { value: moisture })}</span>
                         </div>
                         <p className="mt-3 leading-tight">
                           Our {title} for Dogs is formulated to meet the nutritional levels

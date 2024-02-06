@@ -10,8 +10,10 @@ import { FragmentProps } from '@/components/FragmentRouter';
 import Section from '../Section';
 import Stage from '../Stage';
 import Headings from '@/components/Headings';
+import { useTranslations } from 'next-intl';
 
 export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stage>) {
+  const t = useTranslations();
   const {
     control,
     handleSubmit,
@@ -22,20 +24,22 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
     navigate(Stage.Checkout);
   }, [navigate]);
 
+  const name = 'Charlie';
+
   return (
     <form className="text-center" onSubmit={handleSubmit(onSubmit)}>
       <Section
         className="px-4"
-        title={
-          <>
-            [Charlie]’s <span className="whitespace-nowrap">Recommended Plan</span>
-          </>
-        }
+        title={t.rich('{}-recommended-plan', {
+          name,
+          span: (chunks) => <span className="whitespace-nowrap">{chunks}</span>,
+        })}
         description={
           <span className="not-italic">
-            Based on your responses, we recommend these fresh recipes for [Charlie]. They’re all
-            made <br className="max-md:hidden" />
-            with human grade meat and fresh vegetables that are ideal for [Charlie]’s needs.
+            {t.rich('{}-recommended-plan:description', {
+              name,
+              br: () => <br className="max-md:hidden" />,
+            })}
           </span>
         }
       >
@@ -44,8 +48,10 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
             <div className="flex justify-center">
               <div className="">
                 <p className="text-primary">
-                  Feel free to adjust [Charlie]’s meal plan by selecting from up to 2 suitable
-                  recipes below.
+                  {t(
+                    'feel-free-to-adjust-{}-meal-plan-by-selecting-from-up-to-suitable-recipes-below',
+                    { name, recipes: 2 }
+                  )}
                 </p>
                 <div className="mt-5 flex max-w-[820px] flex-wrap justify-center">
                   <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
@@ -156,17 +162,9 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
             </div>
             <div className="mx-auto mt-10 max-w-[840px] rounded-[20px] border border-primary bg-white p-7 text-primary shadow-[3px_3px_10px_rgba(0,0,0,.2)]">
               <Headings tag="h2" styles="h2">
-                Use A Transition Period In Starter Box?
+                {t('use-a-transition-period-in-starter-box')}
               </Headings>
-              <p className="mt-5">
-                Vets recommend for dogs to undergo a transition period when changing to a new diet –
-                especially if there has been little or no change over the years to the previous
-                diet. In the early stages of a new diet, your dog may experience some watery poops
-                if transitioned too quickly; this is perfectly normal and nothing to be concerned
-                about. While transitioning isn’t an exact science, OCELLE suggests slowly
-                transitioning your dog on to the new diet with smaller portions over a 7-day period,
-                to enable time to adjust to the OCELLE goodness!
-              </p>
+              <p className="mt-5">{t('use-a-transition-period-in-starter-box:description')}</p>
               <div className="my-3 flex flex-wrap justify-center">
                 <div className="mt-4 px-2">
                   <InteractiveBlock
@@ -174,7 +172,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                     value={0}
                     control={control}
                     name="transition"
-                    label="Don’t Use Transition"
+                    label={t('dont-use-transition')}
                     rules={{
                       required: {
                         value: true,
@@ -191,7 +189,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                     value={1}
                     control={control}
                     name="transition"
-                    label="Use Transition"
+                    label={t('use-transition')}
                     rules={{
                       required: {
                         value: true,
@@ -210,22 +208,22 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
             <div className="mt-12 flex flex-wrap items-center justify-center">
               <Image src="/question/eat-anything.svg" alt="Eating Dog" width={60} height={70} />
               <div className="my-2 ml-3 inline-flex flex-wrap items-center justify-center text-primary">
-                <div>Starter Box:&nbsp;</div>
+                <div className="mr-1">{t('{}-colon', { value: t('starter-box') })}</div>
                 <div>
                   <Price value={504} discount />
                   <Price className="ml-1 font-bold" value={252} /> (
                   <Price value={36} discount />
                   <Price className="ml-1 font-bold" value={18} />
-                  <span className="font-bold text-dark-green">/day</span>)&nbsp;
-                  <span className="whitespace-nowrap">with your starter discount.</span>
+                  <span className="font-bold text-dark-green">{t('per-day')}</span>)&nbsp;
+                  <span className="whitespace-nowrap">{t('with-your-starter-discount')}</span>
                 </div>
               </div>
             </div>
             <div className="mb-[1vw]">
               <Button theme="primary" className="mx-2 mt-4 !bg-none !px-11" type="button">
-                + Add Another Dog
+                + {t('add-another-dog')}
               </Button>
-              <Button className="mx-2 mt-4">Continue To Checkout</Button>
+              <Button className="mx-2 mt-4">{t('continue-to-{}', { name: t('checkout') })}</Button>
             </div>
           </Container>
         </div>

@@ -43,10 +43,10 @@ export default function InteractiveBlock({
       className={clsx(
         'flex min-w-[140px] select-none items-center rounded-full border border-current px-4 py-1.5',
         error
-          ? 'text-error bg-white'
+          ? 'bg-white text-error'
           : isSelected
             ? 'border-primary bg-primary text-white'
-            : 'text-brown bg-brown bg-opacity-10',
+            : 'bg-brown bg-opacity-10 text-brown',
         className
       )}
     >

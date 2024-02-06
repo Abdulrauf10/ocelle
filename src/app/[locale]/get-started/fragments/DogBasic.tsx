@@ -21,6 +21,7 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
     formState: { errors },
   } = useForm();
   const isUnknownBreed = watch('isUnknownBreed', false);
+  const gender = watch('gender', 1);
   const [loading, setLoading] = React.useState(true);
   const [options, setOptions] = React.useState<Breed[] | undefined>(undefined);
 
@@ -36,12 +37,14 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
     navigate(Stage.DogAge);
   }, [navigate]);
 
+  const name = 'Charlie';
+
   return (
     <Container className="text-center">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Section
-          title="What breed is [Charlie]?"
-          description="If [Charlie] is a mix, you can select multiple breeds."
+          title={t('what-breed-is', { name })}
+          description={t('if-{}-is-a-mix-you-can-select-multiple-breeds', { name })}
         >
           <div className="mx-auto max-w-[480px]">
             <Controller
@@ -61,7 +64,7 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      placeholder="Start Typing The Breed"
+                      placeholder={t('start-typing-the-breed')}
                       error={!!errors.breed}
                     />
                   )}
@@ -84,19 +87,19 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
               <CircleCheckbox
                 control={control}
                 name="isUnknownBreed"
-                label="Don’t Know The Breed"
+                label={t('dont-know-the-breed')}
                 value="Y"
               />
             </div>
           </div>
         </Section>
         <SectionBreak />
-        <Section title="[Charlie] is a ...">
+        <Section title={t('{}-is-a', { name })}>
           <div className="flex justify-center">
             <div className="px-3">
               <InteractiveBlock
                 type="radio"
-                value={0}
+                value={1}
                 error={!!errors.gender}
                 control={control}
                 name="gender"
@@ -107,7 +110,7 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
             <div className="px-3">
               <InteractiveBlock
                 type="radio"
-                value={1}
+                value={2}
                 error={!!errors.gender}
                 control={control}
                 name="gender"
@@ -118,7 +121,7 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
           </div>
         </Section>
         <SectionBreak />
-        <Section title="Is [Charlie] ...">
+        <Section title={t('is-{}', { name })}>
           <div className="flex justify-center">
             <div className="px-3">
               <InteractiveBlock
@@ -127,7 +130,7 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
                 error={!!errors.neuter}
                 control={control}
                 name="neuter"
-                label="[Neutered]"
+                label={gender == 1 ? t('neutered') : t('spayed')}
                 rules={{ required: true }}
               />
             </div>
@@ -138,13 +141,13 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
                 error={!!errors.neuter}
                 control={control}
                 name="neuter"
-                label="[Not Neutered]"
+                label={gender == 1 ? t('not-neutered') : t('not-spayed')}
                 rules={{ required: true }}
               />
             </div>
           </div>
           <p className="mt-10 italic text-primary">
-            Spayed and neutered dogs require fewer calories.
+            [{t('spayed-and-neutered-dogs-require-fewer-calories')}]
           </p>
         </Section>
         <Button className="mt-10">{t('continue')}</Button>
