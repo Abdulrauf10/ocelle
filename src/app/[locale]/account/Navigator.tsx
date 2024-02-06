@@ -2,7 +2,7 @@ import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 
 export default function Navigator() {
-  const t = useTranslations('general');
+  const t = useTranslations();
 
   return (
     <ul className="flex flex-row justify-center max-lg:mx-0 max-lg:flex-col max-lg:text-center [&_a:hover]:text-primary [&_a:hover]:underline [&_li]:list-none">

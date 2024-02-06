@@ -28,7 +28,7 @@ export default function Header({
   endAdornment,
 }: HeaderProps) {
   const locale = useLocale();
-  const t = useTranslations('general');
+  const t = useTranslations();
   const pathname = usePathname();
   const auth = useAuth();
   const headerRef = React.useRef<HTMLElement>(null);

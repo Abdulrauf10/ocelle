@@ -75,7 +75,7 @@ export default function Section({
   fibre,
   moisture,
 }: React.PropsWithChildren<SectionProps>) {
-  const t = useTranslations('general');
+  const t = useTranslations();
 
   return (
     <Block className={className}>

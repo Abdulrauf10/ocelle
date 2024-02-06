@@ -13,7 +13,7 @@ import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
 
 export default function PlanRecipe() {
-  const t = useTranslations('general');
+  const t = useTranslations();
   const router = useRouter();
   const { control } = useForm();
 

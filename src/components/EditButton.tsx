@@ -8,7 +8,7 @@ interface EditButtonProps {
 }
 
 export default function EditButton({ className, onClick }: EditButtonProps) {
-  const t = useTranslations('general');
+  const t = useTranslations();
 
   return (
     <button

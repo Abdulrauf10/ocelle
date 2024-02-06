@@ -5,7 +5,7 @@ interface BackProps {
 }
 
 export default function Back({ onClick }: BackProps) {
-  const t = useTranslations('general');
+  const t = useTranslations();
 
   return (
     <button

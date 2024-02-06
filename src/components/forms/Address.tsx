@@ -9,7 +9,7 @@ interface AddressFormProps {
 }
 
 export default function AddressForm({ control, prefix }: AddressFormProps) {
-  const t = useTranslations('general');
+  const t = useTranslations();
   const id = React.useId();
 
   return (

@@ -53,7 +53,7 @@ function EditDogBlock({
 }
 
 export default function EditDog({ params }: { params: { id: string } }) {
-  const t = useTranslations('general');
+  const t = useTranslations();
   const {
     control,
     trigger,

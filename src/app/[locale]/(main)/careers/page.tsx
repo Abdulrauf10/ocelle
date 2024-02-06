@@ -43,7 +43,7 @@ async function fetchData() {
 }
 
 function CareerBlock({ career }: { career: Career }) {
-  const t = useTranslations('general');
+  const t = useTranslations();
 
   return (
     <div className="mt-4 rounded-2xl bg-white px-16 py-8 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-sm:px-10 max-sm:py-6">
@@ -81,7 +81,7 @@ function CareerBlock({ career }: { career: Career }) {
 export default async function Careers() {
   const { count, operations, marketing, financeAndAccounting, technology, sales } =
     await fetchData();
-  const t = await getTranslations('general');
+  const t = await getTranslations();
 
   return (
     <main>

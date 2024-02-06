@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
 
 export default function SurveyFragment({ navigate }: FragmentProps<Path>) {
-  const t = useTranslations('general');
+  const t = useTranslations();
   const { control } = useForm();
   const reasons = React.useMemo(() => {
     return [

@@ -5,7 +5,7 @@ import { WorkPattern, WorkType } from '@/enums';
 import { useTranslations } from 'next-intl';
 
 export default function Title({ career }: { career: Career }) {
-  const t = useTranslations('general');
+  const t = useTranslations();
 
   return (
     <Block styles="tight" className="bg-primary bg-opacity-10">

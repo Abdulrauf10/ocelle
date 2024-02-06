@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
 
 export default function IndexFragment({ navigate }: FragmentProps<Path>) {
-  const t = useTranslations('general');
+  const t = useTranslations();
   const router = useRouter();
 
   return (

@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
 
 export default function PlanOften() {
-  const t = useTranslations('general');
+  const t = useTranslations();
   const router = useRouter();
   const [size, setSize] = React.useState<7 | 14>(14);
 

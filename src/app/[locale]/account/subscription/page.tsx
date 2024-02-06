@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
 
 export default function Subscriptions() {
-  const t = useTranslations('general');
+  const t = useTranslations();
   const router = useRouter();
 
   return (

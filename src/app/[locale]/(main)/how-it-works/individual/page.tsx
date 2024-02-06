@@ -68,7 +68,7 @@ function Section({ picture, title, description, price, reverse, className, theme
 }
 
 export default function HowItWorksIndividual() {
-  const t = useTranslations('general');
+  const t = useTranslations();
 
   return (
     <main>

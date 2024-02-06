@@ -11,7 +11,7 @@ import Image from 'next/image';
 import { useTranslations } from 'use-intl';
 
 export default function NotFound() {
-  const t = useTranslations('general');
+  const t = useTranslations();
   const router = useRouter();
 
   return (

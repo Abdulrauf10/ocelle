@@ -52,7 +52,7 @@ export default function RecipeCheckbox({
   fibre,
   moisture,
 }: RecipeCheckboxProps) {
-  const t = useTranslations('general');
+  const t = useTranslations();
   const [tab, setTab] = React.useState<'Ingredients' | 'Nutrition'>('Ingredients');
 
   return (

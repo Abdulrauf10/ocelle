@@ -19,7 +19,7 @@ interface AddressBlockProps {
 }
 
 function AddressBlock({ isDeliveryAddress, onSubmit }: AddressBlockProps) {
-  const t = useTranslations('general');
+  const t = useTranslations();
   const {
     control,
     handleSubmit,
@@ -55,7 +55,7 @@ function AddressBlock({ isDeliveryAddress, onSubmit }: AddressBlockProps) {
 }
 
 export default function Addresses() {
-  const t = useTranslations('general');
+  const t = useTranslations();
   const router = useRouter();
 
   const onDeliverySubmit = React.useCallback((values: unknown) => {

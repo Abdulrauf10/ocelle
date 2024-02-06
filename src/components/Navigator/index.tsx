@@ -4,7 +4,7 @@ import PageDropdown from './PageDropdown';
 import PageLink from './PageLink';
 
 export default function Navigator() {
-  const t = useTranslations('general');
+  const t = useTranslations();
 
   return (
     <ul className="flex flex-row flex-wrap max-lg:mx-0 max-lg:flex-col max-lg:text-center [&_li]:list-none">

@@ -9,7 +9,7 @@ import Image from 'next/image';
 import React from 'react';
 
 export default function Picture() {
-  const t = useTranslations('general');
+  const t = useTranslations();
   const dogRef = React.useRef<HTMLDivElement>(null);
   const isInView = useInView(dogRef, { once: true });
 

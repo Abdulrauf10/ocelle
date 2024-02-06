@@ -57,7 +57,7 @@ function Section({ title, lines }: SectionProps) {
 
 export default async function CareerView({ params }: { params: { id: string } }) {
   const career = await fetchData(parseInt(params.id));
-  const t = await getTranslations('general');
+  const t = await getTranslations();
 
   if (!career) {
     notFound();

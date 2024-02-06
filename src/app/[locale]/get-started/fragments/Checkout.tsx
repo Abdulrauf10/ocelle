@@ -30,7 +30,7 @@ function CheckoutBlock({ title, children }: React.PropsWithChildren<CheckoutBloc
 }
 
 export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
-  const t = useTranslations('general');
+  const t = useTranslations();
   const theme = useTheme();
   const {
     control,

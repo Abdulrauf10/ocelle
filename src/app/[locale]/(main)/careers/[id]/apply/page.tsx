@@ -31,7 +31,7 @@ async function fetchData(id: number) {
 
 export default async function CareerApply({ params }: { params: { id: string } }) {
   const career = await fetchData(parseInt(params.id));
-  const t = await getTranslations('general');
+  const t = await getTranslations();
 
   if (!career) {
     notFound();

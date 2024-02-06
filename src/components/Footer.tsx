@@ -26,7 +26,7 @@ function FooterLink({ href, children }: React.PropsWithChildren<{ href: string }
 }
 
 export default function Footer({ hideNav }: FooterProps) {
-  const t = useTranslations('general');
+  const t = useTranslations();
 
   return (
     <footer className="bg-primary pb-16 pt-8 text-white max-md:pb-12 max-md:pt-4">

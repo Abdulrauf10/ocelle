@@ -64,7 +64,7 @@ function Block({
 }
 
 export default function Account() {
-  const t = useTranslations('general');
+  const t = useTranslations();
   const router = useRouter();
 
   return (

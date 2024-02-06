@@ -9,7 +9,7 @@ import Headings from '@/components/Headings';
 import Block from '@/components/Block';
 
 export default function RecipesPage() {
-  const t = useTranslations('general');
+  const t = useTranslations();
 
   return (
     <main>

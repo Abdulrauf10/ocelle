@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 export default function AffiliateProgram() {
-  const t = useTranslations('general');
+  const t = useTranslations();
 
   return (
     <main>

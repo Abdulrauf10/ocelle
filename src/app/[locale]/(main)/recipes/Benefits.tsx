@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import React from 'react';
 
 export default function RecipeBenefits() {
-  const t = useTranslations('general');
+  const t = useTranslations();
 
   const benefits = React.useMemo(() => {
     return [

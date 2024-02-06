@@ -10,7 +10,7 @@ interface CardFormProps {
 }
 
 export default function CardForm({ control }: CardFormProps) {
-  const t = useTranslations('general');
+  const t = useTranslations();
 
   return (
     <>

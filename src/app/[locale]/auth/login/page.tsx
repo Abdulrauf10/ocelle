@@ -11,7 +11,7 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 
 export default function Login() {
-  const t = useTranslations('general');
+  const t = useTranslations();
   const { control, handleSubmit } = useForm();
 
   const onSubmit = React.useCallback((values: unknown) => {

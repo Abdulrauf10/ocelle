@@ -28,7 +28,7 @@ export default function FreshPlan({
   onSelect,
   children,
 }: React.PropsWithChildren<FreshPlanProps>) {
-  const t = useTranslations('general');
+  const t = useTranslations();
 
   return (
     <div
