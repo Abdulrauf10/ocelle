@@ -10,7 +10,7 @@ export default function CalculatingFragment({ navigate }: FragmentProps<Stage>) 
   const t = useTranslations();
   React.useEffect(() => {
     const timeout = setTimeout(() => {
-      navigate(Stage.ChoosePlan);
+      navigate(Stage.ChoosePlan, { replace: true });
     }, 3000);
     return () => clearTimeout(timeout);
   }, [navigate]);

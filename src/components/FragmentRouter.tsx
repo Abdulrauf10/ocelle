@@ -2,7 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 
 export interface FragmentProps<T> {
-  navigate(name: T | -1, options?: { empty?: boolean }): void;
+  navigate(name: T | -1, options?: { replace?: boolean }): void;
 }
 
 interface useFragmentRouterControllerProps<T> {
@@ -19,7 +19,7 @@ interface useFragmentRouterControllerReturn<T> {
     component: React.FunctionComponent<FragmentProps<T>>;
   }>;
   route?: T;
-  navigate(name: T | -1, options?: { empty?: boolean }): void;
+  navigate(name: T | -1, options?: { replace?: boolean }): void;
 }
 
 export function useFragmentRouterController<T>({
@@ -32,21 +32,15 @@ export function useFragmentRouterController<T>({
   );
 
   const navigate = React.useCallback(
-    (name: T | -1, options?: { empty?: boolean }) => {
+    (name: T | -1, options?: { replace?: boolean }) => {
       if (name === -1) {
         const nextRoute = stackRef.current.pop();
-        if (options?.empty) {
-          stackRef.current = [];
-        }
         if (nextRoute != null) {
           setCurrentRoute(nextRoute);
         }
       } else {
-        if (options?.empty) {
-          stackRef.current = [];
-        }
         setCurrentRoute(name);
-        if (currentRoute != null) {
+        if (currentRoute != null && !options?.replace) {
           stackRef.current.push(currentRoute);
         }
       }
