@@ -9,8 +9,10 @@ import PictureRadio from '@/components/controls/PictureRadio';
 import Image from 'next/image';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
+import { useTranslations } from 'next-intl';
 
 export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage>) {
+  const t = useTranslations();
   const {
     handleSubmit,
     control,
@@ -55,7 +57,7 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
             />
             <span className="ml-2">kg</span>
             {errors?.kgs?.message && (
-              <p className="text-error mt-3 w-full">{String(errors?.kgs?.message)}</p>
+              <p className="mt-3 w-full text-error">{String(errors?.kgs?.message)}</p>
             )}
           </div>
         </Section>
@@ -167,7 +169,7 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
           </div>
           <p className="mt-5 text-primary">[Less than 30 minutes of outdoor daily activity.]</p>
         </Section>
-        <Button className="mt-8">Continue</Button>
+        <Button className="mt-8">{t('continue')}</Button>
       </form>
     </Container>
   );

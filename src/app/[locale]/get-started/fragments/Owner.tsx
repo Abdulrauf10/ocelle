@@ -80,7 +80,7 @@ export default function OwnerFragment({ navigate }: FragmentProps<Stage>) {
             label="ALREADY HAVE AN ACCOUNT? LOG IN HERE"
           />
         </div>
-        <Button className="mt-10">Continue</Button>
+        <Button className="mt-10">{t('continue')}</Button>
       </form>
     </Container>
   );

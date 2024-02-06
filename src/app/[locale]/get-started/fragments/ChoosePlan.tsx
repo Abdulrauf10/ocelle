@@ -5,8 +5,10 @@ import { FragmentProps } from '@/components/FragmentRouter';
 import FreshPlan from '@/components/FreshPlan';
 import Section from '../Section';
 import Stage from '../Stage';
+import { useTranslations } from 'next-intl';
 
 export default function ChoosePlanFragment({ navigate }: FragmentProps<Stage>) {
+  const t = useTranslations();
   const firstUpdate = React.useRef(true);
   const [selected, setSelected] = React.useState<number>();
   const [error, setError] = React.useState<string>();
@@ -64,10 +66,10 @@ export default function ChoosePlanFragment({ navigate }: FragmentProps<Stage>) {
             </FreshPlan>
           </div>
         </div>
-        {error && <p className="text-error mt-5">{error}</p>}
+        {error && <p className="mt-5 text-error">{error}</p>}
       </Section>
       <Button className="mt-10" onClick={onSubmit}>
-        Continue
+        {t('continue')}
       </Button>
     </Container>
   );

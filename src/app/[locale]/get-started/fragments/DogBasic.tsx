@@ -10,8 +10,10 @@ import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import CircleCheckbox from '@/components/controls/CircleCheckbox';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
+import { useTranslations } from 'next-intl';
 
 export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
+  const t = useTranslations();
   const {
     handleSubmit,
     control,
@@ -145,7 +147,7 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
             Spayed and neutered dogs require fewer calories.
           </p>
         </Section>
-        <Button className="mt-10">Continue</Button>
+        <Button className="mt-10">{t('continue')}</Button>
       </form>
     </Container>
   );

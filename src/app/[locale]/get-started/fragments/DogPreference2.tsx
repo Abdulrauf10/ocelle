@@ -9,8 +9,10 @@ import Image from 'next/image';
 import PictureRadio from '@/components/controls/PictureRadio';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
+import { useTranslations } from 'next-intl';
 
 export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage>) {
+  const t = useTranslations();
   const {
     handleSubmit,
     control,
@@ -95,7 +97,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
           </div>
           {Array.isArray(errors.allergies) &&
             errors.allergies.some((x) => x.type === 'conflict') && (
-              <p className="text-error mx-auto mt-3 max-w-[360px] text-sm">
+              <p className="mx-auto mt-3 max-w-[360px] text-sm text-error">
                 You’ve indicated that [Charlie] has no allergies (“None!”) as well as allergies to [
                 {getValues('allergies')
                   .map((v: unknown, i: number) => (v ? options[i].label : v))
@@ -280,7 +282,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
             />
           </div>
         </Section>
-        <Button className="mt-10">Continue</Button>
+        <Button className="mt-10">{t('continue')}</Button>
       </form>
     </Container>
   );

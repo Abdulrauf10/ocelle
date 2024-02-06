@@ -7,8 +7,10 @@ import UnderlineButton from '@/components/UnderlineButton';
 import Section from '../Section';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
+import { useTranslations } from 'next-intl';
 
 export default function DogFragment({ navigate }: FragmentProps<Stage>) {
+  const t = useTranslations();
   const { handleSubmit, control } = useForm();
   const [showMoreDogs, setShowMoreDogs] = React.useState(false);
 
@@ -28,7 +30,7 @@ export default function DogFragment({ navigate }: FragmentProps<Stage>) {
               <TextField error={!!error} placeholder="Your Dog’s Name" fullWidth {...field} />
             )}
           />
-          <Button className="mt-10">Continue</Button>
+          <Button className="mt-10">{t('continue')}</Button>
         </form>
         <UnderlineButton
           className="mt-10 text-lg"

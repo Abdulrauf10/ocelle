@@ -9,8 +9,10 @@ import DateCalendar from '@/components/controls/DateCalendar';
 import clsx from 'clsx';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
+import { useTranslations } from 'next-intl';
 
 export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
+  const t = useTranslations();
   const {
     handleSubmit,
     control,
@@ -89,7 +91,7 @@ export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
               error={!!errors.birthday}
             />
           )}
-          <Button className="mt-8">Continue</Button>
+          <Button className="mt-8">{t('continue')}</Button>
         </form>
       </Section>
     </Container>
