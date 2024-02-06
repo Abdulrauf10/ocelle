@@ -12,13 +12,22 @@ import Stage from '../Stage';
 import Headings from '@/components/Headings';
 import { useTranslations } from 'next-intl';
 
+interface RecommendedPlanForm {
+  transition: number;
+  recipe: string[];
+}
+
 export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stage>) {
   const t = useTranslations();
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<RecommendedPlanForm>({
+    defaultValues: {
+      transition: 1,
+    },
+  });
 
   const onSubmit = React.useCallback(() => {
     navigate(Stage.Checkout);
@@ -173,12 +182,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                     control={control}
                     name="transition"
                     label={t('dont-use-transition')}
-                    rules={{
-                      required: {
-                        value: true,
-                        message: '[You must select transition period]',
-                      },
-                    }}
+                    rules={{ required: true }}
                     error={!!errors?.transition}
                     className="w-[190px]"
                   />
@@ -190,20 +194,12 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                     control={control}
                     name="transition"
                     label={t('use-transition')}
-                    rules={{
-                      required: {
-                        value: true,
-                        message: '[You must select transition period]',
-                      },
-                    }}
+                    rules={{ required: true }}
                     error={!!errors?.transition}
                     className="w-[190px]"
                   />
                 </div>
               </div>
-              {errors?.transition?.message && (
-                <p className="mt-5 text-error">{String(errors?.transition?.message)}</p>
-              )}
             </div>
             <div className="mt-12 flex flex-wrap items-center justify-center">
               <Image src="/question/eat-anything.svg" alt="Eating Dog" width={60} height={70} />
