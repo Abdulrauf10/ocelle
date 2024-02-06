@@ -38,12 +38,12 @@ export default function NotFound() {
             <div className="max-w-[180px]">
               <div className="mt-4">
                 <Button fullWidth onClick={() => router.back()}>
-                  {t('go-back')}
+                  <span className="flex-1">{t('go-back')}</span>
                 </Button>
               </div>
               <div className="mt-4">
                 <Button fullWidth href="/">
-                  {t('go-home')}
+                  <span className="flex-1">{t('go-home')}</span>
                 </Button>
               </div>
             </div>
