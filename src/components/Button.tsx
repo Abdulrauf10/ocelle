@@ -90,7 +90,7 @@ export default function Button({
         target={linkProps.target}
         onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
       >
-        {children}
+        <div className="flex-1 text-center">{children}</div>
         <ButtonIcon />
       </Link>
     );
@@ -102,7 +102,7 @@ export default function Button({
       type={buttonProps.type}
       onClick={onClick as React.MouseEventHandler<HTMLButtonElement>}
     >
-      {children}
+      <div className="flex-1 text-center">{children}</div>
       <ButtonIcon />
     </button>
   );
