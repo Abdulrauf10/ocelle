@@ -23,7 +23,7 @@ interface SectionProps {
 function Section({ picture, title, description, price, reverse, className, theme }: SectionProps) {
   return (
     <Block className={className.root}>
-      <Container className="max-w-screen-lg">
+      <Container className="max-w-screen-lg overflow-hidden">
         <div
           className={clsx(
             '-mx-6 -my-4 flex max-md:flex-col max-md:items-center max-md:text-center',
