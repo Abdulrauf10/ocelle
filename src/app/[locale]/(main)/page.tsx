@@ -19,7 +19,7 @@ export default function Home() {
   return (
     <main>
       <Picture />
-      <Block className="bg-dark-green">
+      <Block styles="tight" className="bg-dark-green">
         <Container className="text-center text-white">
           <Headings tag="h1" styles="h1">
             They’re My Dogs. They’re My Family.

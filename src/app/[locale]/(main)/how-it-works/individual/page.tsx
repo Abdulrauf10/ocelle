@@ -219,7 +219,7 @@ export default function HowItWorksIndividual() {
           </div>
         </Container>
       </Block>
-      <Block className="bg-dark-green">
+      <Block styles="tight" className="bg-dark-green">
         <Container className="text-center text-white">
           <Headings tag="h2" styles="h1">
             Easier For You. Better For Them.

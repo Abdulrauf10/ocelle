@@ -14,7 +14,7 @@ export default function Block({
   return (
     <div
       className={clsx(
-        styles === 'tight' ? 'py-[2.5vw] max-xl:py-10' : 'py-[3.5vw] max-xl:py-10',
+        styles === 'tight' ? 'py-[2.4vw] max-xl:py-10' : 'py-[3.5vw] max-xl:py-10',
         className
       )}
     >
