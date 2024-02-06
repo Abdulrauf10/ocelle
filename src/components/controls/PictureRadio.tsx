@@ -1,28 +1,14 @@
+import { InputControllerProps } from '@/types';
 import clsx from 'clsx';
 import React from 'react';
-import {
-  type Control,
-  type FieldValues,
-  type RegisterOptions,
-  useController,
-} from 'react-hook-form';
+import { type FieldValues, useController } from 'react-hook-form';
 
-interface CommonProps {
-  name: string;
-  control: Control<FieldValues>;
-  rules?: Omit<
-    RegisterOptions<FieldValues, string>,
-    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
-  >;
-  error?: boolean;
-}
-
-interface RadioProps extends CommonProps {
+interface RadioProps<T extends FieldValues> extends InputControllerProps<T> {
   label: React.ReactNode;
   value: string | number;
 }
 
-function Radio({
+function Radio<T extends FieldValues>({
   name,
   label,
   value,
@@ -30,7 +16,7 @@ function Radio({
   children,
   rules,
   error,
-}: React.PropsWithChildren<RadioProps>) {
+}: React.PropsWithChildren<RadioProps<T>>) {
   const { field } = useController({ name, control, rules });
   const isSelected = field.value == value;
 
@@ -59,7 +45,7 @@ function Radio({
   );
 }
 
-interface PictureRadioProps extends CommonProps {
+interface PictureRadioProps<T extends FieldValues> extends InputControllerProps<T> {
   radios: Array<
     React.PropsWithChildren<{
       label: string;
@@ -68,7 +54,13 @@ interface PictureRadioProps extends CommonProps {
   >;
 }
 
-export default function PictureRadio({ name, control, rules, radios, error }: PictureRadioProps) {
+export default function PictureRadio<T extends FieldValues>({
+  name,
+  control,
+  rules,
+  radios,
+  error,
+}: PictureRadioProps<T>) {
   return (
     <div className="flex">
       {radios.map((radio, idx) => (

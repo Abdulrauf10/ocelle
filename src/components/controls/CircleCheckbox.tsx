@@ -1,25 +1,14 @@
+import { InputControllerProps } from '@/types';
 import clsx from 'clsx';
-import {
-  type Control,
-  type FieldValues,
-  type RegisterOptions,
-  useController,
-} from 'react-hook-form';
+import { type FieldValues, useController } from 'react-hook-form';
 
-interface CircleCheckboxProps {
-  control: Control<FieldValues>;
+interface CircleCheckboxProps<T extends FieldValues> extends InputControllerProps<T> {
   label: string;
-  name: string;
-  rules?: Omit<
-    RegisterOptions<FieldValues, string>,
-    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
-  >;
   value: string | number;
-  error?: boolean;
   className?: string;
 }
 
-export default function CircleCheckbox({
+export default function CircleCheckbox<T extends FieldValues>({
   control,
   label,
   name,
@@ -27,7 +16,7 @@ export default function CircleCheckbox({
   value,
   error,
   className,
-}: CircleCheckboxProps) {
+}: CircleCheckboxProps<T>) {
   const { field } = useController({ name, control, rules });
 
   return (
@@ -50,7 +39,7 @@ export default function CircleCheckbox({
           className="absolute bottom-0 left-0 right-0 top-0 opacity-0 [&:checked+*]:block"
           value={value}
         />
-        <div className="bg-brown ml-[1.5px] mt-[1.5px] hidden h-[7px] w-[7px] rounded-full"></div>
+        <div className="ml-[1.5px] mt-[1.5px] hidden h-[7px] w-[7px] rounded-full bg-brown"></div>
       </div>
       <span>{label}</span>
     </label>

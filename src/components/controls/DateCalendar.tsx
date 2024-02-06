@@ -6,27 +6,16 @@ import { dayPickerClasses } from '@mui/x-date-pickers/DateCalendar/dayCalendarCl
 import { pickersDayClasses } from '@mui/x-date-pickers/PickersDay/pickersDayClasses';
 import { pickersCalendarHeaderClasses } from '@mui/x-date-pickers/PickersCalendarHeader/pickersCalendarHeaderClasses';
 import { ThemeProvider, createTheme, useTheme, alpha } from '@mui/material';
-import {
-  useController,
-  type Control,
-  type FieldValues,
-  type RegisterOptions,
-} from 'react-hook-form';
+import { useController, type FieldValues, type PathValue, type Path } from 'react-hook-form';
+import { InputControllerProps } from '@/types';
 
-interface DateCalendarProps {
-  name: string;
-  control: Control<FieldValues>;
-  rules?: Omit<
-    RegisterOptions<FieldValues, string>,
-    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
-  >;
-  error?: boolean;
-  defaultValue?: Date;
+interface DateCalendarProps<T extends FieldValues> extends InputControllerProps<T> {
+  defaultValue?: PathValue<T, Path<T>>;
   minDate?: Date;
   maxDate?: Date;
 }
 
-export default function DateCalendar({
+export default function DateCalendar<T extends FieldValues>({
   error,
   control,
   name,
@@ -34,11 +23,11 @@ export default function DateCalendar({
   defaultValue,
   minDate,
   maxDate,
-}: DateCalendarProps) {
+}: DateCalendarProps<T>) {
   const theme = useTheme();
   const {
     field: { onChange, ...field },
-  } = useController({ name, control, rules, defaultValue: defaultValue || null });
+  } = useController({ name, control, rules, defaultValue });
 
   return (
     <ThemeProvider

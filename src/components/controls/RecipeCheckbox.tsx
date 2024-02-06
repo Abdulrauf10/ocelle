@@ -1,16 +1,16 @@
 import React from 'react';
 import Image from 'next/image';
-import { type Control, type FieldValues, type RegisterOptions } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 import clsx from 'clsx';
 import Close from '../icons/Close';
 import RoundedCheckbox from './RoundedCheckbox';
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '../Dialog';
 import { useTranslations } from 'next-intl';
+import { InputControllerProps } from '@/types';
 
-interface RecipeCheckboxProps {
+interface RecipeCheckboxProps<T extends FieldValues> extends InputControllerProps<T> {
   title: string;
   description: string;
-  name: string;
   value: string | number;
   picture: string;
   ingredients: string;
@@ -21,11 +21,6 @@ interface RecipeCheckboxProps {
   fibre: number;
   moisture: number;
   disabled?: boolean;
-  control: Control<FieldValues, any>;
-  rules?: Omit<
-    RegisterOptions<FieldValues, string>,
-    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
-  >;
   recommended?: boolean;
 }
 
@@ -35,7 +30,7 @@ function Dotted() {
   );
 }
 
-export default function RecipeCheckbox({
+export default function RecipeCheckbox<T extends FieldValues>({
   picture,
   title,
   name,
@@ -51,7 +46,7 @@ export default function RecipeCheckbox({
   fat,
   fibre,
   moisture,
-}: RecipeCheckboxProps) {
+}: RecipeCheckboxProps<T>) {
   const t = useTranslations();
   const [tab, setTab] = React.useState<'Ingredients' | 'Nutrition'>('Ingredients');
 

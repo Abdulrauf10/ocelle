@@ -1,27 +1,16 @@
+import { InputControllerProps } from '@/types';
 import clsx from 'clsx';
-import {
-  type Control,
-  type FieldValues,
-  type RegisterOptions,
-  useController,
-} from 'react-hook-form';
+import { type FieldValues, useController } from 'react-hook-form';
 
-interface InteractiveBlockProps {
-  control: Control<FieldValues>;
+interface InteractiveBlockProps<T extends FieldValues> extends InputControllerProps<T> {
   label: string;
-  name: string;
-  rules?: Omit<
-    RegisterOptions<FieldValues, string>,
-    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
-  >;
   value: string | number;
-  error?: boolean;
   className?: string;
   type: 'checkbox' | 'radio';
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export default function InteractiveBlock({
+export default function InteractiveBlock<T extends FieldValues>({
   control,
   label,
   name,
@@ -31,10 +20,10 @@ export default function InteractiveBlock({
   className,
   type,
   onChange: parentOnChange,
-}: InteractiveBlockProps) {
+}: InteractiveBlockProps<T>) {
   const {
     field: { onChange, ...field },
-  } = useController({ name, control, rules });
+  } = useController<T>({ name, control, rules });
   const isSelected =
     type === 'checkbox' ? field.value === true : String(field.value) === String(value);
 

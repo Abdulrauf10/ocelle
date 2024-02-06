@@ -1,27 +1,16 @@
 import clsx from 'clsx';
-import {
-  type Control,
-  type FieldValues,
-  type RegisterOptions,
-  useController,
-} from 'react-hook-form';
+import { type FieldValues, useController } from 'react-hook-form';
 import Tick from '../icons/Tick';
+import { InputControllerProps } from '@/types';
 
-interface RoundedCheckboxProps {
-  control: Control<FieldValues>;
+interface RoundedCheckboxProps<T extends FieldValues> extends InputControllerProps<T> {
   label: string;
-  name: string;
-  rules?: Omit<
-    RegisterOptions<FieldValues, string>,
-    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
-  >;
   value: string | number;
-  error?: boolean;
   className?: string;
   disabled?: boolean;
 }
 
-export default function RoundedCheckbox({
+export default function RoundedCheckbox<T extends FieldValues>({
   control,
   label,
   name,
@@ -30,7 +19,7 @@ export default function RoundedCheckbox({
   error,
   className,
   disabled,
-}: RoundedCheckboxProps) {
+}: RoundedCheckboxProps<T>) {
   const { field } = useController({ name, control, rules });
   const isSelected = field.value === true;
 
@@ -59,7 +48,7 @@ export default function RoundedCheckbox({
           className="absolute bottom-0 left-0 right-0 top-0 opacity-0 [&:checked+*]:flex"
           value={value}
         />
-        <div className="bg-brown absolute bottom-0 left-0 right-0 top-0 hidden h-full w-full items-center justify-center">
+        <div className="absolute bottom-0 left-0 right-0 top-0 hidden h-full w-full items-center justify-center bg-brown">
           <Tick className="w-[14px]" />
         </div>
       </div>
