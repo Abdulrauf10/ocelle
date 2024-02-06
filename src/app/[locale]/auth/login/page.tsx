@@ -5,6 +5,7 @@ import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Headings from '@/components/Headings';
 import UnderlineButton from '@/components/UnderlineButton';
+import PasswordField from '@/components/controls/PasswordField';
 import { TextField, ThemeProvider } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import React from 'react';
@@ -37,19 +38,11 @@ export default function Login() {
                 )}
               />
               <div className="py-4"></div>
-              <Controller
+              <PasswordField
                 name="password"
                 control={control}
                 rules={{ required: true }}
-                render={({ field, fieldState: { error } }) => (
-                  <TextField
-                    error={!!error}
-                    type="password"
-                    label="Password"
-                    fullWidth
-                    {...field}
-                  />
-                )}
+                label={t('password')}
               />
               <div className="py-6"></div>
               <Button fullWidth>{t('log-in')}</Button>

@@ -15,6 +15,7 @@ import AddressForm from '@/components/forms/Address';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import EditButton from '@/components/EditButton';
 import { useTranslations } from 'next-intl';
+import PasswordField from '@/components/controls/PasswordField';
 
 interface CheckoutBlockProps {
   title?: string;
@@ -109,35 +110,19 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                     />
                   </div>
                   <div className="w-1/2 p-2">
-                    <Controller
+                    <PasswordField
                       name="password"
                       control={control}
                       rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField
-                          {...field}
-                          type="password"
-                          label={t('password')}
-                          fullWidth
-                          error={!!error}
-                        />
-                      )}
+                      label={t('password')}
                     />
                   </div>
                   <div className="w-1/2 p-2">
-                    <Controller
+                    <PasswordField
                       name="confirmPassword"
                       control={control}
                       rules={{ required: true }}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField
-                          {...field}
-                          type="password"
-                          label={t('confirm-{}', { value: t('password') })}
-                          fullWidth
-                          error={!!error}
-                        />
-                      )}
+                      label={t('confirm-{}', { value: t('password') })}
                     />
                   </div>
                   <div className="w-full p-2">

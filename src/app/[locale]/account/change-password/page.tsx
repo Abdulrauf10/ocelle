@@ -1,15 +1,16 @@
 'use client';
 
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
 import UnderlineButton from '@/components/UnderlineButton';
-import { TextField, ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import Button from '@/components/Button';
 import theme from '@/app/mui-theme';
 import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
+import PasswordField from '@/components/controls/PasswordField';
 
 export default function ChangePassword() {
   const t = useTranslations();
@@ -37,43 +38,27 @@ export default function ChangePassword() {
               <div className="py-4"></div>
               <div className="-m-2 flex flex-wrap">
                 <div className="w-full p-2">
-                  <Controller
+                  <PasswordField
                     name="password"
                     control={control}
                     rules={{ required: true }}
-                    render={({ field, fieldState: { error } }) => (
-                      <TextField
-                        {...field}
-                        label={t('current-{}', { value: t('password') })}
-                        fullWidth
-                        error={!!error}
-                      />
-                    )}
+                    label={t('current-{}', { value: t('password') })}
                   />
                 </div>
                 <div className="w-1/2 p-2">
-                  <Controller
+                  <PasswordField
                     name="newPassword"
                     control={control}
                     rules={{ required: true }}
-                    render={({ field, fieldState: { error } }) => (
-                      <TextField {...field} label={t('new-password')} fullWidth error={!!error} />
-                    )}
+                    label={t('new-password')}
                   />
                 </div>
                 <div className="w-1/2 p-2">
-                  <Controller
+                  <PasswordField
                     name="confirmPassword"
                     control={control}
                     rules={{ required: true }}
-                    render={({ field, fieldState: { error } }) => (
-                      <TextField
-                        {...field}
-                        label={t('confirm-{}', { value: t('new-password') })}
-                        fullWidth
-                        error={!!error}
-                      />
-                    )}
+                    label={t('confirm-{}', { value: t('new-password') })}
                   />
                 </div>
               </div>
