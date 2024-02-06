@@ -13,17 +13,13 @@ export default function IndexFragment({ navigate }: FragmentProps<Path>) {
   return (
     <Container>
       <Headings tag="h1" styles="h2" className="text-center text-primary">
-        Cancel My Subscription
+        {t('cancel-my-subscription')}
       </Headings>
       <p className="mx-auto mt-4 max-w-[680px] text-center">
-        Please be advised: If you have overstocked or just need a pause in deliveries, you can
-        simply delay the next shipment rather than cancel.
-        <br />
-        If you choose to reactivate your subscription, it can take up to one week to process a new
-        order.
+        {t.rich('cancel-my-subscription:description', { br: () => <br /> })}
       </p>
       <div className="mt-6 text-center">
-        <Button href="/account/pause-delivery">Pause All Deliveries</Button>
+        <Button href="/account/pause-delivery">{t('pause-all-deliveries')}</Button>
       </div>
       <div className="mx-auto mt-6 max-w-[590px]">
         <div className="-m-2 flex flex-wrap">
@@ -44,7 +40,7 @@ export default function IndexFragment({ navigate }: FragmentProps<Path>) {
               reverse
               onClick={() => navigate('survey')}
             >
-              Cancel Subscription
+              {t('cancel-subscription')}
             </Button>
           </div>
         </div>

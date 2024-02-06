@@ -57,6 +57,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
   const {
     control,
     trigger,
+    watch,
     getValues,
     reset,
     formState: { errors },
@@ -66,14 +67,14 @@ export default function EditDog({ params }: { params: { id: string } }) {
   const [tab, setTab] = React.useState<'Age' | 'Birthday'>('Age');
   const allergiesOptions = React.useMemo(() => {
     return [
-      { label: 'None', value: 'none' },
-      { label: 'Chicken', value: 'chicken' },
-      { label: 'Beef', value: 'beef' },
-      { label: 'Pork', value: 'pork' },
-      { label: 'Lamb', value: 'lamb' },
-      { label: 'Duck', value: 'duck' },
+      { label: t('none'), value: 'none' },
+      { label: t('chicken'), value: 'chicken' },
+      { label: t('beef'), value: 'beef' },
+      { label: t('pork'), value: 'pork' },
+      { label: t('lamb'), value: 'lamb' },
+      { label: t('duck'), value: 'duck' },
     ];
-  }, []);
+  }, [t]);
 
   const fetchBreeds = React.useCallback(async () => {
     if (breedOptions === undefined) {
@@ -83,26 +84,30 @@ export default function EditDog({ params }: { params: { id: string } }) {
     }
   }, [breedOptions]);
 
+  const name = 'Charlie';
+
   return (
     <ThemeProvider theme={theme}>
       <main className="bg-gold bg-opacity-10 py-10">
         <Container className="max-w-[860px]">
           <Headings tag="h1" styles="h2" className="text-center text-primary">
-            Edit [Charlie]’s Information
+            {t('edit-{}-information', { name })}
           </Headings>
-          <EditDogBlock title="Name">
+          <EditDogBlock title={t('name')}>
             <Controller
               name="dogName"
               control={control}
               rules={{ required: true }}
               render={({ field, fieldState: { error } }) => (
-                <TextField error={!!error} placeholder="Your Dog’s Name" fullWidth {...field} />
+                <TextField error={!!error} placeholder={t('your-dogs-name')} fullWidth {...field} />
               )}
             />
           </EditDogBlock>
           <EditDogBlock
-            title="Breed(s)"
-            description="(If they’re a mix, you can select multiple breeds.)"
+            title={t('breeds')}
+            description={t('({})', {
+              value: t('if-theyre-a-mix-you-can-select-multiple-breeds'),
+            })}
           >
             <Controller
               name="breed"
@@ -121,7 +126,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
                   renderInput={(params) => (
                     <TextField
                       {...params}
-                      placeholder="Start Typing The Breed"
+                      placeholder={t('start-typing-the-breed')}
                       error={!!errors.breed}
                     />
                   )}
@@ -140,19 +145,8 @@ export default function EditDog({ params }: { params: { id: string } }) {
               )}
             />
           </EditDogBlock>
-          <EditDogBlock title="Sex">
+          <EditDogBlock title={t('sex')}>
             <div className="-mx-3 flex">
-              <div className="px-3">
-                <InteractiveBlock
-                  type="radio"
-                  value={0}
-                  error={!!errors.gender}
-                  control={control}
-                  name="gender"
-                  label="Boy"
-                  rules={{ required: true }}
-                />
-              </div>
               <div className="px-3">
                 <InteractiveBlock
                   type="radio"
@@ -160,7 +154,18 @@ export default function EditDog({ params }: { params: { id: string } }) {
                   error={!!errors.gender}
                   control={control}
                   name="gender"
-                  label="Girl"
+                  label={t('boy')}
+                  rules={{ required: true }}
+                />
+              </div>
+              <div className="px-3">
+                <InteractiveBlock
+                  type="radio"
+                  value={2}
+                  error={!!errors.gender}
+                  control={control}
+                  name="gender"
+                  label={t('girl')}
                   rules={{ required: true }}
                 />
               </div>
@@ -175,7 +180,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
                   error={!!errors.neuter}
                   control={control}
                   name="neuter"
-                  label="[Neutered]"
+                  label={watch('gender', 1) == 1 ? t('neutered') : t('spayed')}
                   rules={{ required: true }}
                 />
               </div>
@@ -186,25 +191,28 @@ export default function EditDog({ params }: { params: { id: string } }) {
                   error={!!errors.neuter}
                   control={control}
                   name="neuter"
-                  label="[Not Neutered]"
+                  label={watch('gender', 1) == 1 ? t('not-neutered') : t('not-spayed')}
                   rules={{ required: true }}
                 />
               </div>
             </div>
           </EditDogBlock>
-          <EditDogBlock title="Age" description="(if you’re unsure, just give us your best guess!)">
+          <EditDogBlock
+            title={t('age')}
+            description={t('({})', { value: t('if-youre-unsure-just-give-us-your-best-guess') })}
+          >
             <div className="flex w-full max-w-[260px] justify-between">
               <UnderlineButton
                 underline={tab === 'Age'}
                 className={clsx('text-lg', tab === 'Age' ? 'font-bold' : '')}
                 onClick={() => setTab('Age')}
-                label="Enter Manually"
+                label={t('enter-manually')}
               />
               <UnderlineButton
                 underline={tab === 'Birthday'}
                 className={clsx('text-lg', tab === 'Birthday' ? 'font-bold' : '')}
                 onClick={() => setTab('Birthday')}
-                label="Select Birthday"
+                label={t('select-birthday')}
               />
             </div>
             <div className="mt-4">
@@ -225,7 +233,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
                         />
                       )}
                     />
-                    <span className="ml-2">Year(s)</span>
+                    <span className="ml-2">{t('years')}</span>
                   </div>
                   <div className="flex items-center px-4">
                     <Controller
@@ -242,7 +250,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
                         />
                       )}
                     />
-                    <span className="ml-2">Month(s)</span>
+                    <span className="ml-2">{t('months')}</span>
                   </div>
                 </div>
               )}
@@ -258,7 +266,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
               )}
             </div>
           </EditDogBlock>
-          <EditDogBlock title="Current Weight">
+          <EditDogBlock title={t('current-{}', { value: t('weight') })}>
             <div className="flex items-center">
               <Controller
                 name="kgs"
@@ -267,11 +275,11 @@ export default function EditDog({ params }: { params: { id: string } }) {
                   required: true,
                   min: {
                     value: 0.5,
-                    message: '[Ocelle is currently available to dogs between 0.5 to 50 kg.]',
+                    message: t('ocelle-is-currently-available-to-dogs-between-05-to-50-kg'),
                   },
                   max: {
                     value: 50,
-                    message: '[Ocelle is currently available to dogs between 0.5 to 50 kg.]',
+                    message: t('ocelle-is-currently-available-to-dogs-between-05-to-50-kg'),
                   },
                 }}
                 render={({ field, fieldState: { error } }) => (
@@ -290,7 +298,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
               <p className="mt-3 w-full text-error">{String(errors?.kgs?.message)}</p>
             )}
           </EditDogBlock>
-          <EditDogBlock title="Current Body Condition">
+          <EditDogBlock title={t('current-{}', { value: t('body-condition') })}>
             <div className="mt-4 max-w-[840px]">
               <PictureRadio
                 name="bodyCondition"
@@ -299,7 +307,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
                 error={!!errors.bodyCondition}
                 radios={[
                   {
-                    label: 'Too Skinny',
+                    label: t('too-skinny'),
                     value: 'too-skinny',
                     children: (
                       <Image
@@ -311,7 +319,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
                     ),
                   },
                   {
-                    label: 'Just Right',
+                    label: t('just-right'),
                     value: 'just-right',
                     children: (
                       <Image
@@ -323,7 +331,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
                     ),
                   },
                   {
-                    label: 'Rounded',
+                    label: t('rounded'),
                     value: 'rounded',
                     children: (
                       <Image
@@ -335,7 +343,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
                     ),
                   },
                   {
-                    label: 'Chunky',
+                    label: t('chunky'),
                     value: 'chunky',
                     children: (
                       <Image
@@ -350,14 +358,11 @@ export default function EditDog({ params }: { params: { id: string } }) {
               />
             </div>
             <p className="mt-5 text-primary">
-              [Visible rib cage and / or spine. Noticeable loss of muscle mass.]
+              [{t('visible-rib-cage-spine-noticeable-loss-of-muscle-mass')}]
             </p>
-            <p className="mt-5 italic text-primary">
-              [We’ll adjust their calories and help to manage their weight, so that it’s just right
-              for optimum health and wellbeing!]
-            </p>
+            <p className="mt-5 italic text-primary">[{t('adjust-their-calories')}]</p>
           </EditDogBlock>
-          <EditDogBlock title="Activity Level">
+          <EditDogBlock title={t('activity-level')}>
             <div className="mt-4 max-w-[640px]">
               <PictureRadio
                 name="active"
@@ -366,21 +371,21 @@ export default function EditDog({ params }: { params: { id: string } }) {
                 error={!!errors.active}
                 radios={[
                   {
-                    label: 'Mellow',
+                    label: t('mellow'),
                     value: 'mellow',
                     children: (
                       <Image src="/question/mellow.svg" alt="Mellow dog" width={100} height={95} />
                     ),
                   },
                   {
-                    label: 'Active',
+                    label: t('active'),
                     value: 'active',
                     children: (
                       <Image src="/question/active.svg" alt="Active dog" width={80} height={95} />
                     ),
                   },
                   {
-                    label: 'Very Active',
+                    label: t('very-active'),
                     value: 'very-active',
                     children: (
                       <Image
@@ -394,9 +399,11 @@ export default function EditDog({ params }: { params: { id: string } }) {
                 ]}
               />
             </div>
-            <p className="mt-5 text-primary">[Less than 30 minutes of outdoor daily activity.]</p>
+            <p className="mt-5 text-primary">
+              [{t('less-than-30-minutes-of-outdoor-daily-activity')}]
+            </p>
           </EditDogBlock>
-          <EditDogBlock title="Food Allergies / Sensitivities">
+          <EditDogBlock title={t('food-allergies-sensitivities')}>
             <div className="-mx-3 -mt-4 flex max-w-[640px] flex-wrap">
               <div className="mt-4 px-3">
                 <InteractiveBlock
@@ -459,7 +466,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
                 </p>
               )}
           </EditDogBlock>
-          <EditDogBlock title="Amount Of Treats / Table Scrapes Normally Consumed">
+          <EditDogBlock title={t('amount-of-treats-table-scrapes-normally-consumed')}>
             <div className="-mx-3 -mt-4 flex flex-wrap">
               <div className="mt-4 px-3">
                 <InteractiveBlock
@@ -467,7 +474,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
                   value="none"
                   control={control}
                   name="treats"
-                  label="None"
+                  label={t('none')}
                   error={!!errors.treats}
                   rules={{ required: true }}
                 />
@@ -478,7 +485,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
                   value="some"
                   control={control}
                   name="treats"
-                  label="Some"
+                  label={t('some')}
                   error={!!errors.treats}
                   rules={{ required: true }}
                 />
@@ -489,14 +496,14 @@ export default function EditDog({ params }: { params: { id: string } }) {
                   value="lots"
                   control={control}
                   name="treats"
-                  label="Lots"
+                  label={t('lots')}
                   error={!!errors.treats}
                   rules={{ required: true }}
                 />
               </div>
             </div>
           </EditDogBlock>
-          <EditDogBlock title="Pickiness Around Mealtime">
+          <EditDogBlock title={t('pickiness-around-mealtime')}>
             <div className="mt-4 max-w-[640px]">
               <PictureRadio
                 name="picky"
@@ -505,7 +512,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
                 error={!!errors.picky}
                 radios={[
                   {
-                    label: 'Can Be Picky',
+                    label: t('can-be-picky'),
                     value: 'picky',
                     children: (
                       <div className="flex items-end">
@@ -514,7 +521,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
                     ),
                   },
                   {
-                    label: 'Is A Good Eater',
+                    label: t('is-a-good-eater'),
                     value: 'eater',
                     children: (
                       <div className="flex items-end">
@@ -528,7 +535,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
                     ),
                   },
                   {
-                    label: 'Will Eat Anything',
+                    label: t('will-eat-anything'),
                     value: 'eatAnything',
                     children: (
                       <Image

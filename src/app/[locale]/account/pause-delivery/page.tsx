@@ -37,11 +37,13 @@ export default function PauseDelivery() {
               <CircleTick className="relative top-px" />
             </div>
             <Headings tag="h1" styles="h2" className="mt-2 text-center text-primary">
-              Done!
+              {t('done')}
             </Headings>
             <p className="mx-auto mt-4 max-w-[360px] text-center">
-              Your orders are now paused. Delivery will resume on the{' '}
-              <strong className="whitespace-nowrap">[23rd of February 2024]</strong>.
+              {t.rich('your-orders-are-now-paused-delivery-will-resume-on-the-{}', {
+                strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
+                date: '[23rd of February 2024]',
+              })}
             </p>
             <div className="mt-8 text-center">
               <UnderlineButton
@@ -55,15 +57,14 @@ export default function PauseDelivery() {
           <form onSubmit={handleSubmit(onSubmit)}>
             <Container>
               <Headings tag="h1" styles="h2" className="text-center text-primary">
-                Pause All Deliveries
+                {t('pause-all-deliveries')}
               </Headings>
               <p className="mx-auto mt-4 max-w-[680px] text-center">
-                Let us know when you’d like to pause your plan until. You can always adjust your
-                restart date and we’ll notify you before we begin preparing your next order.
+                {t('pause-all-deliveries:description')}
               </p>
               <div className="py-4"></div>
               <div className="text-center text-xl font-bold text-gold">
-                When Would You Like To Resume?
+                {t('when-would-you-like-to-resume')}
               </div>
               <div className="mt-4">
                 <DateCalendar name="deliveryDate" control={control} minDate={new Date()} />

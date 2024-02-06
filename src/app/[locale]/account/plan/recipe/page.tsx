@@ -17,6 +17,8 @@ export default function PlanRecipe() {
   const router = useRouter();
   const { control } = useForm();
 
+  const name = 'Charlie';
+
   return (
     <ThemeProvider theme={theme}>
       <main className="bg-gold bg-opacity-10 py-10">
@@ -25,15 +27,20 @@ export default function PlanRecipe() {
             <DogSwitch />
           </div>
           <Headings tag="h1" styles="h2" className="text-center text-primary max-lg:mt-6">
-            Choose [Charlie]&apos;s Fresh Recipes
+            {t('choose-{}-fresh-recipes', { name })}
           </Headings>
           <p className="mx-auto mt-4 max-w-[620px] text-center">
-            [Charlie]’s upcoming box is scheduled for the{' '}
-            <strong className="whitespace-nowrap">[15th of December 2023]</strong>.
+            {t.rich('{}-upcoming-box-is-scheduled-for-the-{}', {
+              name,
+              date: '15th of December 2023',
+              strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
+            })}
           </p>
           <p className="mx-auto mt-4 max-w-[620px] text-center">
-            You can make changes until the{' '}
-            <strong className="whitespace-nowrap">[10th of December 2023] 11:59PM</strong>.
+            {t.rich('you-can-make-changes-until-the-{}', {
+              date: '10th of December 2023',
+              strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
+            })}
           </p>
           <p className="mx-auto mt-4 max-w-[620px] text-center text-primary">
             Select up to 2 suitable recipes below.

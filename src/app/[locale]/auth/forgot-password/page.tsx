@@ -23,10 +23,10 @@ export default function ForgotPassword() {
       <main className="py-10 text-center text-primary">
         <Container>
           <Headings tag="h1" styles="h2">
-            Set New Password
+            {t('set-{}', { value: t('new-password') })}
           </Headings>
           <p className="mt-4 text-xl">
-            Trouble logging in? Please enter your email to reset your password.
+            {t('trouble-logging-in-please-enter-your-email-to-reset-your-password')}
           </p>
           <div className="mx-auto max-w-[300px] max-xs:max-w-full">
             <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-6">

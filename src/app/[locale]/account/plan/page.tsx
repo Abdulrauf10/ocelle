@@ -10,8 +10,10 @@ import UnderlineButton from '@/components/UnderlineButton';
 import Image from 'next/image';
 import DogSwitch from '../DogSwitch';
 import Headings from '@/components/Headings';
+import { useTranslations } from 'next-intl';
 
 export default function Plan() {
+  const t = useTranslations();
   const mbBoxClassName = clsx(
     'max-md:border-brown max-md:rounded-[30px] max-md:border max-md:bg-white max-md:p-6 max-md:shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] mx-auto'
   );
@@ -23,10 +25,10 @@ export default function Plan() {
           <div className="item-center -mx-4 -my-3 flex max-sm:flex-col-reverse">
             <div className="flex-1 px-4 py-3 max-sm:text-center">
               <Headings tag="h1" styles="h2" className="text-primary">
-                Welcome Back, [Kevan]
+                {t('welcome-back-{}', { name: 'Kevan' })}
               </Headings>
               <p className="mt-4">
-                Keep tabs on your subscription and edit [Charlie]’s information.
+                {t('keep-tabs-on-your-subscription-and-edit-{}-information', { name: 'Charlie' })}
               </p>
             </div>
             <div className="px-4 py-3">
@@ -35,7 +37,7 @@ export default function Plan() {
           </div>
           <div className="py-6"></div>
           <Headings tag="h2" styles="h2" className="text-primary max-md:text-center">
-            Your Dog:
+            {t('{}-colon', { value: t('your-dog') })}
           </Headings>
           <div className="mx-auto mt-4 rounded-[30px] border border-brown bg-white px-4 py-2 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] max-md:text-center">
             <div className="flex flex-wrap items-center">
@@ -47,19 +49,19 @@ export default function Plan() {
                   sensitivities.]
                 </div>
                 <div className="mt-3">
-                  <UnderlineButton label="View [Charlie]’s Feeding Guidelines" />
+                  <UnderlineButton label={t('view-{}-feeding-guidelines', { name: 'Charlie' })} />
                 </div>
               </div>
               <div className="px-3 py-3 max-md:w-full">
                 <Button theme="primary" href="/account/dog/1">
-                  Edit Dog’s Details
+                  {t('edit-{}', { value: t('dogs-details') })}
                 </Button>
               </div>
             </div>
           </div>
           <div className="py-6"></div>
           <Headings tag="h2" styles="h2" className="text-primary max-md:text-center">
-            [Charlie]’s Box:
+            {t('{}-colon', { value: t('{}-box', { name: 'Charlie' }) })}
           </Headings>
           <div className="mt-4 rounded-[30px] border border-brown bg-white px-8 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:border-none max-md:bg-transparent max-md:p-0 max-md:shadow-none">
             <div className="-mx-3 flex max-md:block">
@@ -79,23 +81,27 @@ export default function Plan() {
                   />
                   <div className="max-w-[280px]">
                     <p className="mt-3">
-                      Upcoming box arrives by the{' '}
-                      <span className="whitespace-nowrap font-bold text-brown">
-                        [15th of December 2023]
-                      </span>
+                      {t.rich('upcoming-box-arrives-by-the-{}', {
+                        date: '[15th of December 2023]',
+                        span: (chunks) => (
+                          <span className="whitespace-nowrap font-bold text-brown">{chunks}</span>
+                        ),
+                      })}
                     </p>
                     <div className="mt-3">
                       <UnderlineButton
                         theme="primary"
-                        label="Manage Delivery Date"
+                        label={t('manage-{}', { value: t('delivery-date') })}
                         href="/account/plan/delivery-date"
                       />
                     </div>
                     <p className="mt-3">
-                      You can make changes until the{' '}
-                      <span className="whitespace-nowrap font-bold text-brown">
-                        [10th of December 2023] 11:59PM
-                      </span>
+                      {t.rich('you-can-make-changes-until-the-{}', {
+                        date: '10th of December 2023',
+                        strong: (chunks) => (
+                          <strong className="whitespace-nowrap text-brown">{chunks}</strong>
+                        ),
+                      })}
                     </p>
                   </div>
                 </div>
@@ -110,15 +116,17 @@ export default function Plan() {
                     mbBoxClassName
                   )}
                 >
-                  <div className="text-lg font-bold text-brown">What’s Included In This Box:</div>
+                  <div className="text-lg font-bold text-brown">
+                    {t('{}-colon', { value: t('whats-included-in-this-box') })}
+                  </div>
                   <div className="-mx-1 -my-2 flex flex-wrap justify-between">
-                    <span className="flex-1 px-1 py-2">
-                      [2 weeks] supply of fresh, healthy food.
+                    <span className="flex-1 px-1 py-2 lowercase">
+                      {t('{}-supply-of-fresh-healthy-food', { value: t('{}-weeks', { value: 2 }) })}
                     </span>
                     <div className="whitespace-nowrap px-1 py-2 max-sm:w-full">
                       <UnderlineButton
                         theme="primary"
-                        label="Manage Order Size"
+                        label={t('manage-{}', { value: t('order-size') })}
                         href="/account/plan/often"
                       />
                     </div>
@@ -126,12 +134,12 @@ export default function Plan() {
                   <hr className="my-3 border-gray max-sm:my-6" />
                   <div className="-mx-1 -my-2 flex flex-wrap justify-between max-sm:mb-2">
                     <div className="flex-1 px-1 py-2 text-lg font-bold text-brown">
-                      [2] Fresh Recipes
+                      [2] {t('fresh-{}', { value: t('recipes') })}
                     </div>
                     <div className="whitespace-nowrap px-1 py-2 max-sm:w-full">
                       <UnderlineButton
                         theme="primary"
-                        label="Manage Recipes"
+                        label={t('manage-{}', { value: t('recipes') })}
                         href="/account/plan/recipe"
                       />
                     </div>
@@ -171,7 +179,7 @@ export default function Plan() {
                     <div className="whitespace-nowrap px-1 py-2 max-sm:w-full">
                       <UnderlineButton
                         theme="primary"
-                        label="Manage Meal Plan"
+                        label={t('manage-{}', { value: t('meal-plan') })}
                         href="/account/plan/meal"
                       />
                     </div>
@@ -188,14 +196,21 @@ export default function Plan() {
               </div>
               <div className="px-4 max-md:text-center">
                 <Headings tag="h2" styles="h2">
-                  Know More Dog People? Refer a Friend, Earn{' '}
-                  <span className="text-[1.1em] font-bold">[$50]</span>
+                  {t.rich('know-more-dog-people-refer-a-friend-earn-{}', {
+                    value: '[$50]',
+                    strong: (chunks) => <strong className="text-[1.1em]">{chunks}</strong>,
+                  })}
                 </Headings>
                 <p className="mt-3">
-                  Refer your friends to try OCELLE with a special discount code and get{' '}
-                  <span className="text-[1.4em] font-bold">[$50]</span> off your next box!
+                  {t.rich(
+                    'refer-your-friends-to-try-ocelle-with-a-special-discount-code-and-get-{}-off-your-next-box',
+                    {
+                      value: '[$50]',
+                      strong: (chunks) => <strong className="text-[1.4em]">{chunks}</strong>,
+                    }
+                  )}
                 </p>
-                <Button className="mt-6">Refer a Friend</Button>
+                <Button className="mt-6">{t('refer-a-friend')}</Button>
               </div>
             </div>
           </div>

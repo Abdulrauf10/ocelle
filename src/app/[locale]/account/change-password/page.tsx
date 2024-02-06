@@ -32,7 +32,7 @@ export default function ChangePassword() {
           <Container>
             <div className="mx-auto max-w-[520px]">
               <Headings tag="h1" styles="h2" className="text-center text-primary">
-                Change Password
+                {t('change-{}', { value: t('password') })}
               </Headings>
               <div className="py-4"></div>
               <div className="-m-2 flex flex-wrap">
@@ -42,7 +42,12 @@ export default function ChangePassword() {
                     control={control}
                     rules={{ required: true }}
                     render={({ field, fieldState: { error } }) => (
-                      <TextField {...field} label="Current Password" fullWidth error={!!error} />
+                      <TextField
+                        {...field}
+                        label={t('current-{}', { value: t('password') })}
+                        fullWidth
+                        error={!!error}
+                      />
                     )}
                   />
                 </div>
@@ -52,7 +57,7 @@ export default function ChangePassword() {
                     control={control}
                     rules={{ required: true }}
                     render={({ field, fieldState: { error } }) => (
-                      <TextField {...field} label="New Password" fullWidth error={!!error} />
+                      <TextField {...field} label={t('new-password')} fullWidth error={!!error} />
                     )}
                   />
                 </div>
@@ -64,7 +69,7 @@ export default function ChangePassword() {
                     render={({ field, fieldState: { error } }) => (
                       <TextField
                         {...field}
-                        label="Confirm New Password"
+                        label={t('confirm-{}', { value: t('new-password') })}
                         fullWidth
                         error={!!error}
                       />

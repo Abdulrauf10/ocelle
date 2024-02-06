@@ -21,6 +21,8 @@ export default function PlanMeal() {
     //
   }, []);
 
+  const name = 'Charlie';
+
   return (
     <ThemeProvider theme={theme}>
       <main className="bg-gold bg-opacity-10 py-10">
@@ -29,40 +31,43 @@ export default function PlanMeal() {
             <DogSwitch />
           </div>
           <Headings tag="h1" styles="h2" className="text-center text-primary max-lg:mt-6">
-            Choose [Charlie]&apos;s Fresh Recipes
+            {t('choose-{}-fresh-recipes', { name })}
           </Headings>
           <p className="mx-auto mt-4 max-w-[620px] text-center">
-            [Charlie]’s upcoming box is scheduled for the{' '}
-            <strong className="whitespace-nowrap">[15th of December 2023]</strong>.
+            {t.rich('{}-upcoming-box-is-scheduled-for-the-{}', {
+              name,
+              date: '15th of December 2023',
+              strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
+            })}
           </p>
           <p className="mx-auto mt-4 max-w-[620px] text-center">
-            You can make changes until the{' '}
-            <strong className="whitespace-nowrap">[10th of December 2023] 11:59PM</strong>.
+            {t.rich('you-can-make-changes-until-the-{}', {
+              date: '15th of December 2023',
+              strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
+            })}
           </p>
           <div className="mx-auto mt-8 flex max-w-[900px] flex-wrap">
             <div className="w-1/2 px-2 max-lg:w-full">
               <FreshPlan
-                title="Fresh Full Plan"
+                title={t('fresh-full-plan')}
                 picture="/meal-plan/full-plan.jpg"
                 pricePerDay={36}
                 recommended
                 selected={selected === 0}
                 onSelect={() => setSelected(0)}
               >
-                Everything needed in one simple serving. Reap the full benefits of fresh, nutritious
-                meals for your dog, meticulously crafted and portioned by experts.
+                {t('fresh-full-plan:description')}
               </FreshPlan>
             </div>
             <div className="w-1/2 px-2 max-lg:mt-8 max-lg:w-full">
               <FreshPlan
-                title="Fresh Half Plan"
+                title={t('fresh-half-plan')}
                 picture="/meal-plan/half-plan.jpg"
                 pricePerDay={25}
                 selected={selected === 1}
                 onSelect={() => setSelected(1)}
               >
-                Everything needed to supplement your dog’s current diet! Reinvigorate your
-                dog&apos;s current meals with a fresh, nutrient-packed addition.
+                {t('fresh-half-plan:description')}
               </FreshPlan>
             </div>
           </div>

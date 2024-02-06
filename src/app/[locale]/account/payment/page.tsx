@@ -33,7 +33,7 @@ export default function Payments() {
         <Container>
           <div className="mx-auto max-w-[520px]">
             <Headings tag="h1" styles="h2" className="text-center text-primary">
-              Payment Info
+              {t('payment-info')}
             </Headings>
             <div className="py-4"></div>
             <CardForm control={control} />

@@ -1,12 +1,14 @@
 import React from 'react';
 import { FormControl, MenuItem, Select } from '@mui/material';
+import { useTranslations } from 'next-intl';
 
 export default function DogSwitch() {
+  const t = useTranslations();
   const handleChange = React.useCallback(() => {}, []);
 
   return (
     <div className="w-[200px] max-sm:flex max-sm:w-full max-sm:items-center">
-      <div className="mb-2 whitespace-nowrap max-sm:mr-3">View info for</div>
+      <div className="mb-2 whitespace-nowrap max-sm:mr-3">{t('view-info-for')}</div>
       <FormControl fullWidth>
         <Select
           defaultValue={10}

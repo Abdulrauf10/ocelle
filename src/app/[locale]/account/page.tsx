@@ -73,36 +73,40 @@ export default function Account() {
         <Headings tag="h1" styles="h2" className="text-center text-primary">
           {t('my-info')}
         </Headings>
-        <p className="mt-4 text-center">Manage your account information</p>
+        <p className="mt-4 text-center">{t('manage-your-account-information')}</p>
         <div className="py-4"></div>
         <div className="mx-auto max-w-[480px]">
           <Block
             icon={<Unbox className="w-16" />}
-            title="Orders"
-            description="Current Order ID# [xxxxxx]"
+            title={t('orders')}
+            description={t('current-{}', { value: t('order-id-{}', { id: '[xxxxxx]' }) })}
             onClick={() => router.push('/account/order')}
           />
           <Block
             className="mt-8"
             icon={<User className="mx-2 w-12" />}
-            title="Account Info"
+            title={t('account-info')}
             description="ksaunders@ocelle.dog"
             onClick={() => router.push('/account/basic')}
           />
           <Block
             className="mt-8"
             icon={<HomeAddress className="w-16" />}
-            title="Address"
+            title={t('address')}
             onClick={() => router.push('/account/address')}
           >
             <div className="mt-4 flex max-xs:flex-wrap">
-              <strong className="min-w-[82px] text-gold">Devlivery:</strong>
+              <strong className="min-w-[82px] text-gold">
+                {t('{}-colon', { value: t('delivery') })}
+              </strong>
               <span className="w-full">
                 [20/F, Golden Star Building, 20-24 Lockhart Road, Wanchai, Hong Kong]
               </span>
             </div>
             <div className="mt-3 flex max-xs:flex-wrap">
-              <strong className="min-w-[82px] text-gold">Billing:</strong>
+              <strong className="min-w-[82px] text-gold">
+                {t('{}-colon', { value: t('billing') })}
+              </strong>
               <span className="w-full">
                 [20/F, Golden Star Building, 20-24 Lockhart Road, Wanchai, Hong Kong]
               </span>
@@ -111,7 +115,7 @@ export default function Account() {
           <Block
             className="mt-8"
             icon={<Billing className="w-14 px-1" />}
-            title="Payment Info"
+            title={t('payment-info')}
             onClick={() => router.push('/account/payment')}
           >
             <div className="mt-4 flex items-center">
@@ -130,18 +134,18 @@ export default function Account() {
           <Block
             className="mt-8"
             icon={<Bell className="mx-3 w-10" />}
-            title="Subscriptions"
+            title={t('subscriptions')}
             description={
               <div>
                 <div className="mt-1 flex items-center">
                   <div className="h-3 w-3 rounded-full bg-[#1EA939]"></div>
                   <div className="ml-3 min-w-[80px]">[Charlie]</div>
-                  <div className="pl-1">Plan [Active]</div>
+                  <div className="pl-1">{t('plan-{}', { status: t('active') })}</div>
                 </div>
                 <div className="mt-1 flex items-center">
                   <div className="h-3 w-3 rounded-full bg-error"></div>
                   <div className="ml-3 min-w-[80px]">[Muffin]</div>
-                  <div className="pl-1">Plan [Inactive]</div>
+                  <div className="pl-1">{t('plan-{}', { status: t('inactive') })}</div>
                 </div>
               </div>
             }

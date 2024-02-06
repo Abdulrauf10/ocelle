@@ -14,17 +14,17 @@ export default function Orders() {
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
         <Headings tag="h1" styles="h2" className="text-center text-primary">
-          Orders
+          {t('orders')}
         </Headings>
         <div className="mx-auto mt-6 max-w-[680px] overflow-hidden rounded-3xl border border-gray">
           <table className="w-full">
             <thead className="bg-gray text-white">
               <tr>
-                <th className="px-2 py-4">Order</th>
-                <th className="px-2 py-4">Delivery Date</th>
-                <th className="px-2 py-4">Status</th>
-                <th className="px-2 py-4">Bill Total</th>
-                <th className="px-2 py-4">Invoice</th>
+                <th className="px-2 py-4">{t('order')}</th>
+                <th className="px-2 py-4">{t('delivery-date')}</th>
+                <th className="px-2 py-4">{t('status')}</th>
+                <th className="px-2 py-4">{t('bill-total')}</th>
+                <th className="px-2 py-4">{t('invoice')}</th>
               </tr>
             </thead>
             <tbody className="bg-white text-center">
@@ -57,7 +57,7 @@ export default function Orders() {
               </tr>
               <tr className="border-t border-t-gray">
                 <td colSpan={5} className="px-2 py-3">
-                  <UnderlineButton label="Load More" className="!text-primary" />
+                  <UnderlineButton theme="primary" label={t('load-more')} />
                 </td>
               </tr>
             </tbody>

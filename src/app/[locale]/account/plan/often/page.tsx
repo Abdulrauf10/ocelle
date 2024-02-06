@@ -17,7 +17,7 @@ export default function PlanOften() {
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
         <Headings tag="h1" styles="h2" className="text-center text-primary">
-          How Often Would You Like To Receive Deliveries?
+          {t('how-often-would-you-like-to-receive-deliveries')}
         </Headings>
         <div className="mt-6">
           <div className="-mx-4 -my-3 flex flex-wrap justify-center">
@@ -25,9 +25,9 @@ export default function PlanOften() {
               <div className="relative mt-3 flex w-[270px] items-center rounded-3xl border border-gray bg-white px-8 py-8 shadow-[5px_5px_12px_rgba(0,0,0,.1)]">
                 <div className="flex-1 px-2">
                   <Headings tag="h2" styles="h2" className="text-primary">
-                    7 Days
+                    {t('{}-days', { value: 7 })}
                   </Headings>
-                  <p className="mt-1">$[15]/day</p>
+                  <p className="mt-1">$[15]{t('per-day')}</p>
                 </div>
                 <div className="px-2">
                   {size === 7 ? (
@@ -39,7 +39,7 @@ export default function PlanOften() {
                   )}
                 </div>
                 <div className="absolute top-0 -translate-y-1/2 rounded-2xl border border-white bg-[#7B8D97] px-6 py-0.5 text-white">
-                  Save Space
+                  {t('save-space')}
                 </div>
               </div>
             </div>
@@ -47,9 +47,9 @@ export default function PlanOften() {
               <div className="relative mt-3 flex w-[270px] items-center rounded-3xl border border-gray bg-white px-8 py-8 shadow-[5px_5px_12px_rgba(0,0,0,.1)]">
                 <div className="flex-1 px-2">
                   <Headings tag="h2" styles="h2" className="text-primary">
-                    14 Days
+                    {t('{}-days', { value: 14 })}
                   </Headings>
-                  <p className="mt-1">$[13]/day</p>
+                  <p className="mt-1">$[13]{t('per-day')}</p>
                 </div>
                 <div className="px-2">
                   {size === 14 ? (
@@ -61,21 +61,24 @@ export default function PlanOften() {
                   )}
                 </div>
                 <div className="absolute top-0 -translate-y-1/2 rounded-2xl border border-white bg-secondary px-6 py-0.5 text-white">
-                  Best Value
+                  {t('best-value')}
                 </div>
               </div>
             </div>
           </div>
         </div>
         <p className="mx-auto mt-8 max-w-[620px] text-center">
-          Your upcoming box is arriving on the{' '}
-          <strong className="whitespace-nowrap">[15th of December 2023]</strong>. It contains
-          [Charlie]&apos;s and [Muffin]’s fresh food.
+          {t.rich('your-upcoming-box-is-arriving-on-the-{}', {
+            date: '[15th of December 2023]',
+            strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
+          })}{' '}
+          It contains [Charlie]&apos;s and [Muffin]’s fresh food.
         </p>
         <p className="mx-auto mt-4 max-w-[620px] text-center">
-          Unfortunately, you can no longer make changes to your upcoming box. However, you can
-          reschedule your next box, scheduled for the{' '}
-          <strong className="whitespace-nowrap">[29th of December 2023]</strong>.
+          {t.rich('unfortunately-you-can-no-longer-make-changes-to-your-upcoming-box', {
+            date: '[29th of December 2023]',
+            strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
+          })}
         </p>
         <div className="mx-auto mt-8 max-w-[480px]">
           <div className="-mx-2 flex">

@@ -18,20 +18,23 @@ export default function PlanDeliveryDate() {
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
         <Headings tag="h1" styles="h2" className="text-center text-primary">
-          Change Delivery Date
+          {t('change-{}', { value: t('delivery-date') })}
         </Headings>
         <p className="mx-auto mt-4 max-w-[620px] text-center">
-          Your upcoming box is arriving on the{' '}
-          <strong className="whitespace-nowrap">[15th of December 2023]</strong>. It contains
-          [Charlie]&apos;s and [Muffin]’s fresh food.
+          {t.rich('your-upcoming-box-is-arriving-on-the-{}', {
+            date: '[15th of December 2023]',
+            strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
+          })}{' '}
+          It contains [Charlie]&apos;s and [Muffin]’s fresh food.
         </p>
         <p className="mx-auto mt-4 max-w-[620px] text-center">
-          Unfortunately, you can no longer make changes to your upcoming box. However, you can
-          reschedule your next box, scheduled for the{' '}
-          <strong className="whitespace-nowrap">[29th of December 2023]</strong>.
+          {t.rich('unfortunately-you-can-no-longer-make-changes-to-your-upcoming-box', {
+            date: '[29th of December 2023]',
+            strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
+          })}
         </p>
         <div className="mt-8 text-center">
-          <Button>Reschedule Next Box</Button>
+          <Button>{t('reschedule-next-box')}</Button>
         </div>
         <div className="mt-8">
           <DateCalendar name="deliveryDate" control={control} minDate={new Date()} />

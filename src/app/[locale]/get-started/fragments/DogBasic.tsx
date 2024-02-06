@@ -103,7 +103,7 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
                 error={!!errors.gender}
                 control={control}
                 name="gender"
-                label="Boy"
+                label={t('boy')}
                 rules={{ required: true }}
               />
             </div>
@@ -114,7 +114,7 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
                 error={!!errors.gender}
                 control={control}
                 name="gender"
-                label="Girl"
+                label={t('girl')}
                 rules={{ required: true }}
               />
             </div>

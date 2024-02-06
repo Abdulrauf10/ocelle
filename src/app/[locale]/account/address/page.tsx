@@ -75,8 +75,14 @@ export default function Addresses() {
               {t('delivery-address')}
             </Headings>
             <p className="mt-4 text-center">
-              Delivery address changes will be in effect, starting with your [next] order, scheduled
-              for the <strong>[29th of December 2023]</strong>.
+              {t.rich(
+                'delivery-address-changes-will-be-in-effect-starting-with-your-{}-order-scheduled-for-the-{}',
+                {
+                  stage: 'next',
+                  date: '29th of December 2023',
+                  strong: (chunks) => <strong>{chunks}</strong>,
+                }
+              )}
             </p>
             <div className="py-4"></div>
             <AddressBlock isDeliveryAddress onSubmit={onDeliverySubmit} />

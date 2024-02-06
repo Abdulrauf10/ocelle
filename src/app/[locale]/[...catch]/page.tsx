@@ -25,13 +25,13 @@ export default function NotFound() {
             </Headings>
             <p className="mt-4">
               <span className="italic text-primary">RUH-ROH!</span>{' '}
-              <span className="text-secondary">(WRONG PAGE!)</span>
+              <span className="uppercase text-secondary">(Wrong Page!)</span>
               <br />
               <span className="italic text-primary">RUH-RUFF! RUFF! RUFF!</span>{' '}
-              <span className="text-secondary">(TRY RELOADING!)</span>
+              <span className="uppercase text-secondary">(Try Reloading!)</span>
               <br />
               <span className="italic text-primary">WOOF! RUH-RUFF! RUFF! RUFF!</span>{' '}
-              <span className="text-secondary">(OR USE LINKS BELOW!)</span>
+              <span className="uppercase text-secondary">(Or Use Links Below!)</span>
               <br />
               <span className="italic text-primary">AROOOOOOOO!!!</span>
             </p>

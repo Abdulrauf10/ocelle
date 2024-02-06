@@ -23,9 +23,9 @@ export default function Login() {
       <main className="py-10 text-center text-primary">
         <Container>
           <Headings tag="h1" styles="h2">
-            Greetings!
+            {t('greetings')}
           </Headings>
-          <p className="mt-4 text-xl">Please log in to continue.</p>
+          <p className="mt-4 text-xl">{t('please-log-in-to-continue')}</p>
           <div className="mx-auto max-w-[260px] max-xs:max-w-full">
             <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-6">
               <Controller
@@ -57,11 +57,11 @@ export default function Login() {
             <UnderlineButton
               href="/auth/forgot-password"
               className="mt-4 text-lg"
-              label="Forgot Password?"
+              label={t('forgot-password')}
             />
             <hr className="mt-4 border-primary" />
             <Headings tag="h2" styles="h2" className="mt-6">
-              New To OCELLE?
+              {t('new-to-ocelle')}
             </Headings>
             <Button href="/get-started" reverse fullWidth className="mt-8">
               {t('build-your-plan')}

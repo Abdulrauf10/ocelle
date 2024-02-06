@@ -32,7 +32,7 @@ export default function ChangePassword() {
           <Container>
             <div className="mx-auto max-w-[520px]">
               <Headings tag="h1" styles="h2" className="text-center text-primary">
-                Account Info
+                {t('account-info')}
               </Headings>
               <div className="py-4"></div>
               <div className="-m-2 flex flex-wrap">
@@ -72,7 +72,7 @@ export default function ChangePassword() {
                     control={control}
                     rules={{ required: true }}
                     render={({ field, fieldState: { error } }) => (
-                      <TextField {...field} label="Phone Number" fullWidth error={!!error} />
+                      <TextField {...field} label={t('phone-number')} fullWidth error={!!error} />
                     )}
                   />
                 </div>
@@ -81,7 +81,7 @@ export default function ChangePassword() {
                 <UnderlineButton
                   type="button"
                   href="/account/change-password"
-                  label="Change Password"
+                  label={t('change-{}', { value: t('password') })}
                 />
               </div>
               <div className="-mx-2 mt-8 flex">

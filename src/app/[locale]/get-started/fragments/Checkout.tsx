@@ -133,7 +133,7 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                         <TextField
                           {...field}
                           type="password"
-                          label={t('confirm-password')}
+                          label={t('confirm-{}', { value: t('password') })}
                           fullWidth
                           error={!!error}
                         />

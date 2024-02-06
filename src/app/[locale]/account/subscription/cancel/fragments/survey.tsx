@@ -13,48 +13,45 @@ export default function SurveyFragment({ navigate }: FragmentProps<Path>) {
   const { control } = useForm();
   const reasons = React.useMemo(() => {
     return [
-      'I do not like subscription services',
-      "I've experienced delivery issues",
-      'I had issues with customer service Limited plan or recipe options',
-      'Feeding fresh is too inconvenient / difficult',
-      "I'm not happy with the quality of food",
-      "My dog doesn't like the food Health-related / allergies",
-      'Vet recommendation',
-      'Price',
-      'My dog is no longer with me',
-      'Other (please specify):',
+      t('i-do-not-like-subscription-services'),
+      t('ive-experienced-delivery-issues'),
+      t('i-had-issues-with-customer-service-limited-plan-or-recipe-options'),
+      t('Feeding-fresh-is-too-inconvenient-difficult'),
+      t('im-not-happy-with-the-quality-of-food'),
+      t('my-dog-doesnt-like-the-food-Health-related-allergies'),
+      t('vet-recommendation'),
+      t('price'),
+      t('my-dog-is-no-longer-with-me'),
+      t('{}-colon', { value: t('other-please-specify') }),
     ];
-  }, []);
+  }, [t]);
   const foods = React.useMemo(() => {
     return [
-      'Dry food',
-      'Wet food',
-      'Raw food',
-      'Dehydrated food',
-      'Other fresh food',
-      'Homemade food',
-      'Prescription diet',
+      t('{}-food', { value: t('dry') }),
+      t('{}-food', { value: t('wet') }),
+      t('{}-food', { value: t('raw') }),
+      t('{}-food', { value: t('dehydrated') }),
+      t('{}-food', { value: t('other-fresh') }),
+      t('{}-food', { value: t('homemade') }),
+      t('prescription-diet'),
     ];
-  }, []);
+  }, [t]);
 
   return (
     <Container>
       <Headings tag="h1" styles="h2" className="text-center text-primary">
-        Cancel My Subscription
+        {t('cancel-my-subscription')}
       </Headings>
       <p className="mt-4 text-center">
-        Thank you for trying our fresh food for your dogs. Before you go,{' '}
-        <br className="max-sm:hidden" />
-        please share a little about your experience, so we can improve things for you and your
-        fellow dog people!
+        {t.rich('cancel-my-subscription:survey', { br: () => <br className="max-sm:hidden" /> })}
       </p>
       <div className="mx-auto mt-8 max-w-[1200px] rounded-3xl border border-gray bg-white px-14 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.2)] max-lg:px-6 max-lg:py-4">
         <div className="-mx-4 flex flex-wrap">
           <div className="flex-1 p-4">
             <div className="text-2xl font-bold text-gold">
-              What’s the main reason you’re cancelling?
+              {t('whats-the-main-reason-youre-cancelling')}
             </div>
-            <p className="mt-2">Please select any that apply.</p>
+            <p className="mt-2">{t('please-select-any-that-apply')}</p>
           </div>
           <div className="p-4 max-lg:w-full">
             <div className="-my-1 flex flex-col">
@@ -89,9 +86,9 @@ export default function SurveyFragment({ navigate }: FragmentProps<Path>) {
         <div className="-mx-4 flex flex-wrap">
           <div className="flex-1 p-4">
             <div className="text-2xl font-bold text-gold">
-              What will you be replacing OCELLE with?
+              {t('what-will-you-be-replacing-ocelle-with')}
             </div>
-            <p className="mt-2">Please select any that apply.</p>
+            <p className="mt-2">{t('please-select-any-that-apply')}</p>
           </div>
           <div className="p-4 max-lg:w-full">
             <div className="-my-1 flex flex-col">
@@ -112,8 +109,7 @@ export default function SurveyFragment({ navigate }: FragmentProps<Path>) {
         </div>
       </div>
       <Headings tag="h2" styles="h2" className="mt-20 text-center text-primary">
-        Is there anything else you’d like to share about your experience? <br />
-        If so, we’d love to improve on it!
+        {t.rich('cancel-my-subscrption:experience', { br: () => <br /> })}
       </Headings>
       <div className="pb-2 text-center">
         <Controller
@@ -146,7 +142,7 @@ export default function SurveyFragment({ navigate }: FragmentProps<Path>) {
               reverse
               onClick={() => navigate('complete')}
             >
-              Cancel Subscription
+              {t('cancel-subscription')}
             </Button>
           </div>
         </div>

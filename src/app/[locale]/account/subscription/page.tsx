@@ -53,14 +53,14 @@ export default function Subscriptions() {
                 color: '#fff',
                 textAlign: 'center',
                 '&:before': {
-                  content: '"Plan Active"',
+                  content: `"${t('plan-{}', { status: t('active') })}"`,
                   position: 'relative',
                   top: 4,
                   right: 5,
                   display: 'none',
                 },
                 '&:after': {
-                  content: '"Plan Inactive"',
+                  content: `"${t('plan-{}', { status: t('inactive') })}"`,
                   position: 'relative',
                   top: 4,
                   left: 8,
@@ -74,10 +74,10 @@ export default function Subscriptions() {
       <main className="bg-gold bg-opacity-10 py-10">
         <Container>
           <Headings tag="h1" styles="h2" className="text-center text-primary">
-            Your Subscriptions
+            {t('your-subscriptions')}
           </Headings>
           <div className="mx-auto mt-4 max-w-[580px] rounded-3xl border border-gray bg-white p-6 text-center shadow-[5px_5px_12px_rgba(0,0,0,.1)]">
-            <div className="text-xl font-bold text-gold">Reactivate Or Suspend A Plan</div>
+            <div className="text-xl font-bold text-gold">{t('reactivate-or-suspend-a-plan')}</div>
             <div className="mt-4 flex items-center">
               <div className="w-1/2 px-2">[Charlie]</div>
               <div className="w-1/2 px-2 text-left">
@@ -108,13 +108,13 @@ export default function Subscriptions() {
           <div className="mt-6 text-center">
             <UnderlineButton
               theme="primary"
-              label="Pause All Deliveries"
+              label={t('pause-all-deliveries')}
               href="/account/pause-delivery"
             />
             <br />
             <UnderlineButton
               theme="primary"
-              label="Cancel My OCELLE Subscriptions"
+              label={t('cancel-my-ocelle-subscriptions')}
               href="/account/subscription/cancel"
             />
           </div>
