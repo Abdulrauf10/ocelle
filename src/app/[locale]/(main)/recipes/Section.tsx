@@ -287,9 +287,9 @@ export default function Section({
                         </div>
                         <div className="w-1/2 px-6 py-3 max-md:w-full">
                           <div className="flex h-full items-center rounded-3xl border-2 p-4 text-primary">
-                            Our {title} for Dogs is formulated to meet the nutritional levels
-                            established by the AAFCO Dog Food Nutrient Profiles for all life stages,
-                            including growth of large sized dogs (70 lbs. or more as an adult).
+                            {t('our-{}-for-dogs-is-formulated-to-meet-the-nutritional-levels', {
+                              name: title,
+                            })}
                           </div>
                         </div>
                       </div>

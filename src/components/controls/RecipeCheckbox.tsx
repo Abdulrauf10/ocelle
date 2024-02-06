@@ -183,9 +183,9 @@ export default function RecipeCheckbox({
                           <span>{t('{}-pct-max', { value: moisture })}</span>
                         </div>
                         <p className="mt-3 leading-tight">
-                          Our {title} for Dogs is formulated to meet the nutritional levels
-                          established by the AAFCO Dog Food Nutrient Profiles for all life stages,
-                          including growth of large sized dogs (70 lbs. or more as an adult).
+                          {t('our-{}-for-dogs-is-formulated-to-meet-the-nutritional-levels', {
+                            name: title,
+                          })}
                         </p>
                       </div>
                     </>
