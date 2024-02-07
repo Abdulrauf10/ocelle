@@ -1,9 +1,10 @@
-import { Controller, type Control, type FieldValues, FieldPath } from 'react-hook-form';
+import type { Control, FieldValues, FieldPath } from 'react-hook-form';
 import Stripe from '../icons/Stripe';
 import Lock from '../icons/Lock';
-import { TextField } from '@mui/material';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import PasswordField from '../controls/PasswordField';
+import TextField from '../controls/TextField';
 
 export interface ICardForm {
   cardName: string;
@@ -67,43 +68,70 @@ export default function CardForm<T extends FieldValues>({ control }: CardFormPro
       <div className="mt-3">
         <div className="-m-2 flex flex-wrap">
           <div className="w-full p-2">
-            <Controller
+            <TextField
               name={'cardName' as FieldPath<T>}
               control={control}
               rules={{ required: true }}
-              render={({ field, fieldState: { error } }) => (
-                <TextField {...field} label={t('name-on-card')} fullWidth error={!!error} />
-              )}
+              label={t('name-on-card')}
+              fullWidth
             />
           </div>
           <div className="w-full p-2">
-            <Controller
+            <TextField
               name={'cardNo' as FieldPath<T>}
               control={control}
               rules={{ required: true }}
-              render={({ field, fieldState: { error } }) => (
-                <TextField {...field} label={t('card-number')} fullWidth error={!!error} />
-              )}
+              label={t('card-number')}
+              mask={{
+                pattern: [
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  '-',
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  '-',
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  '-',
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                  /\d/,
+                ],
+              }}
+              fullWidth
             />
           </div>
           <div className="w-1/2 p-2">
-            <Controller
+            <TextField
               name={'cardExp' as FieldPath<T>}
               control={control}
               rules={{ required: true }}
-              render={({ field, fieldState: { error } }) => (
-                <TextField {...field} label={t('card-expiration-date')} fullWidth error={!!error} />
-              )}
+              label={t('card-expiration-date')}
+              mask={{
+                pattern: (value) => {
+                  if (value[0] === '1') {
+                    return [/1/, /[0-2]/, '/', /\d/, /\d/];
+                  }
+                  return [/0|1/, /[0-9]/, '/', /\d/, /\d/];
+                },
+              }}
+              fullWidth
             />
           </div>
           <div className="w-1/2 p-2">
-            <Controller
+            <PasswordField
               name={'cardCvc' as FieldPath<T>}
               control={control}
               rules={{ required: true }}
-              render={({ field, fieldState: { error } }) => (
-                <TextField {...field} label={t('cvc')} fullWidth error={!!error} />
-              )}
+              label={t('cvc')}
+              fullWidth
             />
           </div>
         </div>
