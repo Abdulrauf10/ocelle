@@ -4,7 +4,7 @@ import Tick from '../icons/Tick';
 import { InputControllerProps } from '@/types';
 
 interface RoundedCheckboxProps<T extends FieldValues> extends InputControllerProps<T> {
-  label: string;
+  label: React.ReactNode;
   value: string | number;
   className?: string;
   disabled?: boolean;
@@ -52,9 +52,11 @@ export default function RoundedCheckbox<T extends FieldValues>({
           <Tick className="w-[14px]" />
         </div>
       </div>
-      <span className={clsx(disabled && '!text-[#7B8D97] !text-opacity-50', className)}>
+      <div
+        className={clsx('inline-block', disabled && '!text-[#7B8D97] !text-opacity-50', className)}
+      >
         {label}
-      </span>
+      </div>
     </label>
   );
 }

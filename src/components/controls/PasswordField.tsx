@@ -10,6 +10,7 @@ import Visibility from '../icons/Visibility';
 
 interface PasswordFieldProps<T extends FieldValues> extends InputControllerProps<T> {
   label: string;
+  fullWidth?: boolean;
 }
 
 export default function PasswordField<T extends FieldValues>({
@@ -17,6 +18,7 @@ export default function PasswordField<T extends FieldValues>({
   rules,
   control,
   label,
+  fullWidth,
 }: PasswordFieldProps<T>) {
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -32,6 +34,7 @@ export default function PasswordField<T extends FieldValues>({
       rules={rules}
       control={control}
       label={label}
+      fullWidth={fullWidth}
       type={showPassword ? 'text' : 'password'}
       InputProps={{
         endAdornment: (

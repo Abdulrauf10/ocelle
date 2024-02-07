@@ -9,11 +9,12 @@ import {
 import { Controller, type FieldValues } from 'react-hook-form';
 
 interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> {
-  type: React.InputHTMLAttributes<unknown>['type'];
-  label: string;
+  type?: React.InputHTMLAttributes<unknown>['type'];
+  label?: string;
   className?: string;
   inputProps?: InputBaseComponentProps;
   InputProps?: Partial<FilledInputProps> | Partial<OutlinedInputProps> | Partial<InputProps>;
+  fullWidth?: boolean;
 }
 
 export default function TextField<T extends FieldValues>({
@@ -22,6 +23,7 @@ export default function TextField<T extends FieldValues>({
   control,
   label,
   type,
+  fullWidth,
   inputProps,
   InputProps,
 }: TextFieldProps<T>) {
@@ -35,7 +37,7 @@ export default function TextField<T extends FieldValues>({
           {...field}
           type={type}
           label={label}
-          fullWidth
+          fullWidth={fullWidth}
           error={!!error}
           inputProps={inputProps}
           InputProps={InputProps}

@@ -43,6 +43,7 @@ export default function Login() {
                 control={control}
                 rules={{ required: true }}
                 label={t('password')}
+                fullWidth
               />
               <div className="py-6"></div>
               <Button fullWidth>{t('log-in')}</Button>

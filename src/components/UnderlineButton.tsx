@@ -4,7 +4,7 @@ import React from 'react';
 
 interface UnderlineButtonBaseProps {
   theme?: 'primary' | 'secondary';
-  label: string;
+  label: React.ReactNode;
   underline?: boolean;
   className?: string;
 }

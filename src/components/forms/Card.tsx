@@ -1,15 +1,22 @@
-import { Controller, type Control, type FieldValues } from 'react-hook-form';
+import { Controller, type Control, type FieldValues, FieldPath } from 'react-hook-form';
 import Stripe from '../icons/Stripe';
 import Lock from '../icons/Lock';
 import { TextField } from '@mui/material';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
-interface CardFormProps {
-  control: Control<FieldValues>;
+export interface ICardForm {
+  cardName: string;
+  cardNo: string;
+  cardExp: string;
+  cardCvc: string;
 }
 
-export default function CardForm({ control }: CardFormProps) {
+interface CardFormProps<T extends FieldValues> {
+  control: Control<T, any>;
+}
+
+export default function CardForm<T extends FieldValues>({ control }: CardFormProps<T>) {
   const t = useTranslations();
 
   return (
@@ -61,7 +68,7 @@ export default function CardForm({ control }: CardFormProps) {
         <div className="-m-2 flex flex-wrap">
           <div className="w-full p-2">
             <Controller
-              name="cardName"
+              name={'cardName' as FieldPath<T>}
               control={control}
               rules={{ required: true }}
               render={({ field, fieldState: { error } }) => (
@@ -71,7 +78,7 @@ export default function CardForm({ control }: CardFormProps) {
           </div>
           <div className="w-full p-2">
             <Controller
-              name="cardNo"
+              name={'cardNo' as FieldPath<T>}
               control={control}
               rules={{ required: true }}
               render={({ field, fieldState: { error } }) => (
@@ -81,7 +88,7 @@ export default function CardForm({ control }: CardFormProps) {
           </div>
           <div className="w-1/2 p-2">
             <Controller
-              name="cardExp"
+              name={'cardExp' as FieldPath<T>}
               control={control}
               rules={{ required: true }}
               render={({ field, fieldState: { error } }) => (
@@ -91,7 +98,7 @@ export default function CardForm({ control }: CardFormProps) {
           </div>
           <div className="w-1/2 p-2">
             <Controller
-              name="cardCvc"
+              name={'cardCvc' as FieldPath<T>}
               control={control}
               rules={{ required: true }}
               render={({ field, fieldState: { error } }) => (

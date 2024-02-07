@@ -1,7 +1,7 @@
 import Container from '@/components/Container';
 import Section from '../Section';
 import { TextField, ThemeProvider, createTheme, useTheme } from '@mui/material';
-import { Controller, useForm } from 'react-hook-form';
+import { Control, Controller, useForm } from 'react-hook-form';
 import React from 'react';
 import SectionBreak from '../SectionBreak';
 import DateCalendar from '@/components/controls/DateCalendar';
@@ -10,12 +10,14 @@ import Price from '@/components/Price';
 import Button from '@/components/Button';
 import Stage from '../Stage';
 import { FragmentProps } from '@/components/FragmentRouter';
-import CardForm from '@/components/forms/Card';
-import AddressForm from '@/components/forms/Address';
+import CardForm, { ICardForm } from '@/components/forms/Card';
+import AddressForm, { IAddressForm } from '@/components/forms/Address';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import EditButton from '@/components/EditButton';
 import { useTranslations } from 'next-intl';
 import PasswordField from '@/components/controls/PasswordField';
+import UnderlineButton from '@/components/UnderlineButton';
+import CouponForm from '@/components/forms/Coupon';
 
 interface CheckoutBlockProps {
   title?: string;
@@ -30,6 +32,21 @@ function CheckoutBlock({ title, children }: React.PropsWithChildren<CheckoutBloc
   );
 }
 
+interface ICheckoutForm extends ICardForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  phone: string;
+  receiveNews: string;
+  isSameBillingAddress: string;
+  deliveryDate: Date;
+  tnc: string;
+  delivery: IAddressForm;
+  billing: IAddressForm;
+}
+
 export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
   const t = useTranslations();
   const theme = useTheme();
@@ -37,7 +54,11 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<ICheckoutForm>({
+    defaultValues: {
+      tnc: 'Y',
+    },
+  });
 
   const onSubmit = React.useCallback(
     (values: unknown) => {
@@ -81,7 +102,7 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                 <div className="-m-2 flex flex-wrap">
                   <div className="w-1/2 p-2">
                     <Controller
-                      name="firstname"
+                      name="firstName"
                       control={control}
                       rules={{ required: true }}
                       render={({ field, fieldState: { error } }) => (
@@ -91,7 +112,7 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                   </div>
                   <div className="w-1/2 p-2">
                     <Controller
-                      name="lastname"
+                      name="lastName"
                       control={control}
                       rules={{ required: true }}
                       render={({ field, fieldState: { error } }) => (
@@ -115,6 +136,7 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                       control={control}
                       rules={{ required: true }}
                       label={t('password')}
+                      fullWidth
                     />
                   </div>
                   <div className="w-1/2 p-2">
@@ -123,6 +145,7 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                       control={control}
                       rules={{ required: true }}
                       label={t('confirm-{}', { value: t('password') })}
+                      fullWidth
                     />
                   </div>
                   <div className="w-full p-2">
@@ -136,6 +159,16 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                     />
                   </div>
                 </div>
+                <div className="mt-3">
+                  <RoundedCheckbox
+                    name="receiveNews"
+                    value="Y"
+                    control={control}
+                    label={t(
+                      'keep-me-up-to-date-with-news-and-exclusive-offers-via-email-or-whatsApp'
+                    )}
+                  />
+                </div>
               </Section>
               <SectionBreak half />
               <Section dense title={t('delivery-address')}>
@@ -143,7 +176,7 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                 <div className="mt-3">
                   <RoundedCheckbox
                     name="isSameBillingAddress"
-                    value={1}
+                    value="Y"
                     control={control}
                     label={t('use-as-{}', { name: t('billing-address') })}
                   />
@@ -220,39 +253,7 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                   </div>
                 </CheckoutBlock>
                 <CheckoutBlock title={t('discount-coupon')}>
-                  <div className="-mx-1 mt-3 flex flex-wrap justify-between">
-                    <div className="flex-1 px-1">
-                      <Controller
-                        name="coupon"
-                        control={control}
-                        rules={{ required: true }}
-                        render={({ field, fieldState: { error } }) => (
-                          <TextField
-                            {...field}
-                            fullWidth
-                            error={!!error}
-                            inputProps={{
-                              className: 'bg-white',
-                            }}
-                          />
-                        )}
-                      />
-                    </div>
-                    <div className="px-1">
-                      <button
-                        type="button"
-                        className="rounded-lg bg-secondary px-6 py-2 font-bold text-white"
-                      >
-                        {t('apply')}
-                      </button>
-                    </div>
-                  </div>
-                  <div className="mt-3 flex items-center">
-                    <div className="h-7 w-7 rounded-full bg-secondary p-1">
-                      <CircleTick />
-                    </div>
-                    <p className="ml-2 text-sm">{t('your-coupon-was-successfully-applied')}</p>
-                  </div>
+                  <CouponForm />
                 </CheckoutBlock>
                 <CheckoutBlock>
                   <div className="-mx-1 flex flex-wrap justify-between">
@@ -286,6 +287,19 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                   <div className="-mx-1 flex flex-wrap justify-between text-xl font-bold">
                     <div className="px-1">{t('{}-colon', { value: t('todays-total') })}</div>
                     <div className="px-1">$250</div>
+                  </div>
+                  <div className="mt-4">
+                    <RoundedCheckbox
+                      name="tnc"
+                      value="Y"
+                      control={control}
+                      className="text-sm"
+                      label={t.rich('by-starting-the-first-box-you-agree-to-our-terms-conditions', {
+                        button: (chunks) => (
+                          <UnderlineButton type="button" theme="primary" label={chunks} />
+                        ),
+                      })}
+                    />
                   </div>
                   <div className="mt-4 text-center">
                     <Button>{t('checkout')}</Button>

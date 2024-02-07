@@ -32,6 +32,7 @@ export default function ResetPassword() {
                 control={control}
                 rules={{ required: true }}
                 label={t('new-password')}
+                fullWidth
               />
               <div className="py-4"></div>
               <PasswordField
@@ -39,6 +40,7 @@ export default function ResetPassword() {
                 control={control}
                 rules={{ required: true }}
                 label={t('confirm-{}', { value: t('new-password') })}
+                fullWidth
               />
               <div className="py-6"></div>
               <Button fullWidth>{t('set-{}', { value: t('new-password') })}</Button>

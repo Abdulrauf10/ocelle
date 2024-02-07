@@ -43,6 +43,7 @@ export default function ChangePassword() {
                     control={control}
                     rules={{ required: true }}
                     label={t('current-{}', { value: t('password') })}
+                    fullWidth
                   />
                 </div>
                 <div className="w-1/2 p-2">
@@ -51,6 +52,7 @@ export default function ChangePassword() {
                     control={control}
                     rules={{ required: true }}
                     label={t('new-password')}
+                    fullWidth
                   />
                 </div>
                 <div className="w-1/2 p-2">
@@ -59,6 +61,7 @@ export default function ChangePassword() {
                     control={control}
                     rules={{ required: true }}
                     label={t('confirm-{}', { value: t('new-password') })}
+                    fullWidth
                   />
                 </div>
               </div>

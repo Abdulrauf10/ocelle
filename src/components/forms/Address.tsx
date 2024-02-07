@@ -1,22 +1,39 @@
 import React from 'react';
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
-import { Controller, type Control, type FieldValues } from 'react-hook-form';
+import { Controller, type Control, type FieldValues, FieldPath } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 
-interface AddressFormProps {
-  control: Control<FieldValues>;
+export type IAddressForm = {
+  firstName: string;
+  lastName: string;
+  address1: string;
+  address2: string;
+  district: string;
+  region: string;
+  country: string;
+};
+
+interface AddressFormProps<T extends FieldValues> {
+  control: Control<T, any>;
   prefix?: string;
 }
 
-export default function AddressForm({ control, prefix }: AddressFormProps) {
+export default function AddressForm<T extends FieldValues>({
+  control,
+  prefix,
+}: AddressFormProps<T>) {
   const t = useTranslations();
   const id = React.useId();
+
+  const getKey = (key: string) => {
+    return (prefix ? `${prefix}.${key}` : key) as FieldPath<T>;
+  };
 
   return (
     <div className="-m-2 flex flex-wrap">
       <div className="w-1/2 p-2">
         <Controller
-          name={prefix ? `${prefix}.firstname` : 'firstname'}
+          name={getKey('firstName')}
           control={control}
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
@@ -26,7 +43,7 @@ export default function AddressForm({ control, prefix }: AddressFormProps) {
       </div>
       <div className="w-1/2 p-2">
         <Controller
-          name={prefix ? `${prefix}.lastname` : 'lastname'}
+          name={getKey('lastName')}
           control={control}
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
@@ -36,7 +53,7 @@ export default function AddressForm({ control, prefix }: AddressFormProps) {
       </div>
       <div className="w-full p-2">
         <Controller
-          name={prefix ? `${prefix}.address1` : 'address1'}
+          name={getKey('address1')}
           control={control}
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
@@ -46,7 +63,7 @@ export default function AddressForm({ control, prefix }: AddressFormProps) {
       </div>
       <div className="w-full p-2">
         <Controller
-          name={prefix ? `${prefix}.address2` : 'address2'}
+          name={getKey('address2')}
           control={control}
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
@@ -56,7 +73,7 @@ export default function AddressForm({ control, prefix }: AddressFormProps) {
       </div>
       <div className="w-1/3 p-2">
         <Controller
-          name={prefix ? `${prefix}.district` : 'district'}
+          name={getKey('district')}
           control={control}
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
@@ -80,7 +97,7 @@ export default function AddressForm({ control, prefix }: AddressFormProps) {
       </div>
       <div className="w-1/3 p-2">
         <Controller
-          name={prefix ? `${prefix}.region` : 'region'}
+          name={getKey('region')}
           control={control}
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
@@ -103,7 +120,7 @@ export default function AddressForm({ control, prefix }: AddressFormProps) {
       </div>
       <div className="w-1/3 p-2">
         <Controller
-          name={prefix ? `${prefix}.country` : 'country'}
+          name={getKey('country')}
           control={control}
           rules={{ required: true }}
           render={({ field, fieldState: { error } }) => (
