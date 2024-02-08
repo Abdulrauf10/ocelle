@@ -8,6 +8,7 @@ interface ButtonBaseProps {
   className?: string;
   reverse?: boolean;
   fullWidth?: boolean;
+  disabled?: boolean;
 }
 
 interface ButtonProps extends ButtonBaseProps {
@@ -32,10 +33,15 @@ export default function Button({
   onClick,
   reverse,
   fullWidth,
+  disabled,
   ...props
 }: React.PropsWithChildren<ButtonProps | LinkbuttonProps>) {
   const buttonProps = props as ButtonProps;
   const linkProps = props as LinkbuttonProps;
+  const baseClasses = clsx(
+    'items-center justify-center rounded-[30px] py-1.5 px-6 text-center text-xl font-bold border select-none',
+    fullWidth ? 'flex w-full' : 'inline-flex'
+  );
   const primaryClasses = clsx(
     'border-primary',
     reverse
@@ -66,21 +72,26 @@ export default function Button({
       ? 'bg-white text-how-it-works-green hover:bg-gray hover:bg-opacity-5 hover:border-gray'
       : 'bg-how-it-works-green text-white hover:opacity-85'
   );
-  const classes = clsx(
-    'items-center justify-center cursor-pointer rounded-[30px] py-1.5 px-6 text-center text-xl font-bold border',
-    'transition-all duration-300 ease-in-out',
-    fullWidth ? 'flex w-full' : 'inline-flex',
-    theme === 'green'
-      ? greenClasses
-      : theme === 'yellow'
-        ? yellowClasses
-        : theme === 'red'
-          ? redClasses
-          : theme === 'primary'
-            ? primaryClasses
-            : secondaryClasses,
-    className
-  );
+  const classes = disabled
+    ? clsx(
+        baseClasses,
+        'bg-gray bg-opacity-50 border-[#CDCAC2] text-white pointer-events-none',
+        className
+      )
+    : clsx(
+        baseClasses,
+        'cursor-pointer transition-all duration-300 ease-in-out',
+        theme === 'green'
+          ? greenClasses
+          : theme === 'yellow'
+            ? yellowClasses
+            : theme === 'red'
+              ? redClasses
+              : theme === 'primary'
+                ? primaryClasses
+                : secondaryClasses,
+        className
+      );
 
   if (linkProps.href) {
     return (
@@ -101,6 +112,7 @@ export default function Button({
       className={classes}
       type={buttonProps.type}
       onClick={onClick as React.MouseEventHandler<HTMLButtonElement>}
+      disabled={disabled}
     >
       {children}
       <ButtonIcon />
