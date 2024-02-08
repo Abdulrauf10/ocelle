@@ -37,7 +37,15 @@ export default function PlanDeliveryDate() {
           <Button>{t('reschedule-next-box')}</Button>
         </div>
         <div className="mt-8">
-          <DateCalendar name="deliveryDate" control={control} minDate={new Date()} />
+          <DateCalendar
+            name="deliveryDate"
+            control={control}
+            minDate={new Date()}
+            actions={[
+              { label: t('cancel'), onClick: () => {} },
+              { label: t('save-changes'), disabled: true, onClick: () => {} },
+            ]}
+          />
         </div>
         <div className="mt-8 text-center">
           <UnderlineButton type="button" label={t('go-back')} onClick={() => router.back()} />

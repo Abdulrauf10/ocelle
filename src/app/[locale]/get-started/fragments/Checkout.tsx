@@ -206,7 +206,15 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
                   })}
                 </p>
                 <div className="mt-4 w-fit">
-                  <DateCalendar name="deliveryDate" control={control} minDate={new Date()} />
+                  <DateCalendar
+                    name="deliveryDate"
+                    control={control}
+                    minDate={new Date()}
+                    actions={[
+                      { label: t('cancel'), onClick: () => {} },
+                      { label: t('save-changes'), onClick: () => {} },
+                    ]}
+                  />
                 </div>
               </Section>
             </div>
