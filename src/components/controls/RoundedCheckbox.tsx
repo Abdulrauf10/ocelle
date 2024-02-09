@@ -5,7 +5,6 @@ import { InputControllerProps } from '@/types';
 
 interface RoundedCheckboxProps<T extends FieldValues> extends InputControllerProps<T> {
   label: React.ReactNode;
-  value: string | number;
   className?: string;
   disabled?: boolean;
 }
@@ -15,7 +14,6 @@ export default function RoundedCheckbox<T extends FieldValues>({
   label,
   name,
   rules,
-  value,
   error,
   className,
   disabled,
@@ -46,7 +44,7 @@ export default function RoundedCheckbox<T extends FieldValues>({
           {...field}
           type="checkbox"
           className="absolute bottom-0 left-0 right-0 top-0 opacity-0 [&:checked+*]:flex"
-          value={value}
+          checked={!!field.value}
         />
         <div className="absolute bottom-0 left-0 right-0 top-0 hidden h-full w-full items-center justify-center bg-brown">
           <Tick className="w-[14px]" />

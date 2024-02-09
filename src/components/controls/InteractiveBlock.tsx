@@ -84,6 +84,7 @@ export default function InteractiveBlock<
             }
           }}
           value={(props as any).value}
+          checked={type === 'checkbox' && !!field.value}
         />
       </div>
       <span>{label}</span>
