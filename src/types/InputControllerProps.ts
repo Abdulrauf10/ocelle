@@ -7,7 +7,7 @@ interface InputControllerProps<
   control: Control<TFieldValues>;
   name: TFieldName;
   rules?: Omit<
-    RegisterOptions<TFieldValues>,
+    RegisterOptions<TFieldValues, TFieldName>,
     'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
   >;
   error?: boolean;

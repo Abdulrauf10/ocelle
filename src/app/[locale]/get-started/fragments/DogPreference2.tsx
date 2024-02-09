@@ -57,13 +57,9 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                 error={Array.isArray(errors.allergies) && !!errors.allergies[0]}
                 rules={{
                   validate: {
-                    required: (value, formValues) =>
-                      formValues.allergies.some((value: unknown) => !!value),
+                    required: (value, formValues) => formValues.allergies.some((value) => !!value),
                     conflict: (value, formValues) =>
-                      value &&
-                      !formValues.allergies.some(
-                        (value: unknown, idx: number) => idx > 0 && !!value
-                      ),
+                      !value || !formValues.allergies.some((value, idx) => idx > 0 && value),
                   },
                 }}
                 onChange={() => trigger('allergies')}
@@ -85,8 +81,8 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                     rules={{
                       validate: {
                         required: (value, formValues) =>
-                          formValues.allergies.some((value: unknown) => !!value),
-                        conflict: (value, formValues) => !(value && formValues.allergies[0]),
+                          formValues.allergies.some((value) => !!value),
+                        conflict: (value, formValues) => !value || !formValues.allergies[0],
                       },
                     }}
                     onChange={() => trigger('allergies')}
