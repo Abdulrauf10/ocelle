@@ -4,7 +4,6 @@ import { type FieldValues, useController } from 'react-hook-form';
 
 interface CircleCheckboxProps<T extends FieldValues> extends InputControllerProps<T> {
   label: string;
-  value: string | number;
   className?: string;
 }
 
@@ -13,7 +12,6 @@ export default function CircleCheckbox<T extends FieldValues>({
   label,
   name,
   rules,
-  value,
   error,
   className,
 }: CircleCheckboxProps<T>) {
@@ -37,7 +35,7 @@ export default function CircleCheckbox<T extends FieldValues>({
           {...field}
           type="checkbox"
           className="absolute bottom-0 left-0 right-0 top-0 opacity-0 [&:checked+*]:block"
-          value={value}
+          checked={!!field.value}
         />
         <div className="ml-[1.5px] mt-[1.5px] hidden h-[7px] w-[7px] rounded-full bg-brown"></div>
       </div>
