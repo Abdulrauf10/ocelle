@@ -10,32 +10,94 @@ import PictureRadio from '@/components/controls/PictureRadio';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
+import { useSurvey } from '../SurveyContext';
+import { FoodAllergies } from '@/enums';
+
+interface DogPreference2Form {
+  allergies: Array<boolean | undefined>;
+  eating?: 'Dry' | 'Wet' | 'Raw' | 'Dehydrated' | 'Fresh' | 'Homemade' | 'Other';
+  amountOfTreats?: 'None' | 'Some' | 'Lots';
+  pickiness?: 'Picky' | 'GoodEater' | 'EatAnything';
+}
+
+function foodAllergiesToArray(value?: FoodAllergies) {
+  if (value == null) {
+    return [];
+  }
+  return [
+    (value & FoodAllergies.None) === FoodAllergies.None,
+    (value & FoodAllergies.Chicken) === FoodAllergies.Chicken,
+    (value & FoodAllergies.Beef) === FoodAllergies.Beef,
+    (value & FoodAllergies.Pork) === FoodAllergies.Pork,
+    (value & FoodAllergies.Lamb) === FoodAllergies.Lamb,
+    (value & FoodAllergies.Duck) === FoodAllergies.Duck,
+  ];
+}
+
+function arrayToAllergies(array: Array<boolean | undefined>) {
+  let value!: FoodAllergies;
+  if (array[0]) {
+    value |= FoodAllergies.None;
+  }
+  if (array[1]) {
+    value |= FoodAllergies.Chicken;
+  }
+  if (array[2]) {
+    value |= FoodAllergies.Beef;
+  }
+  if (array[3]) {
+    value |= FoodAllergies.Pork;
+  }
+  if (array[4]) {
+    value |= FoodAllergies.Lamb;
+  }
+  if (array[5]) {
+    value |= FoodAllergies.Duck;
+  }
+  return value;
+}
 
 export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage>) {
   const t = useTranslations();
+  const { getDog, setDog } = useSurvey();
+  const { name, foodAllergies, currentlyEating, amountOfTreats, pickiness } = getDog();
   const {
     handleSubmit,
     control,
     formState: { errors },
     getValues,
     trigger,
-  } = useForm();
+  } = useForm<DogPreference2Form>({
+    defaultValues: {
+      allergies: foodAllergiesToArray(foodAllergies),
+      eating: currentlyEating,
+      amountOfTreats,
+      pickiness,
+    },
+  });
   const options = React.useMemo(() => {
     return [
-      { label: t('none'), value: 'none' },
-      { label: t('chicken'), value: 'chicken' },
-      { label: t('beef'), value: 'beef' },
-      { label: t('pork'), value: 'pork' },
-      { label: t('lamb'), value: 'lamb' },
-      { label: t('duck'), value: 'duck' },
+      { label: t('none') },
+      { label: t('chicken') },
+      { label: t('beef') },
+      { label: t('pork') },
+      { label: t('lamb') },
+      { label: t('duck') },
     ];
   }, [t]);
 
-  const onSubmit = React.useCallback(() => {
-    navigate(Stage.Owner);
-  }, [navigate]);
-
-  const name = 'Charlie';
+  const onSubmit = React.useCallback(
+    ({ allergies, eating, amountOfTreats, pickiness }: DogPreference2Form) => {
+      setDog({
+        foodAllergies: arrayToAllergies(allergies),
+        currentlyEating: eating,
+        amountOfTreats,
+        pickiness,
+      });
+      navigate(Stage.Owner);
+    },
+    [navigate, setDog]
+  );
 
   return (
     <Container className="text-center">
@@ -51,9 +113,8 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
               <InteractiveBlock
                 type="checkbox"
                 label={options[0].label}
-                value={options[0].value}
                 control={control}
-                name="allergies[0]"
+                name="allergies.0"
                 error={Array.isArray(errors.allergies) && !!errors.allergies[0]}
                 rules={{
                   validate: {
@@ -70,13 +131,12 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                 return;
               }
               return (
-                <div className="mt-4 px-3" key={option.value}>
+                <div className="mt-4 px-3" key={idx}>
                   <InteractiveBlock
                     type="checkbox"
                     label={options[idx].label}
-                    value={options[idx].value}
                     control={control}
-                    name={`allergies[${idx}]`}
+                    name={`allergies.${idx}`}
                     error={Array.isArray(errors.allergies) && !!errors.allergies[idx]}
                     rules={{
                       validate: {
@@ -109,7 +169,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
             <div className="mt-4 px-3">
               <InteractiveBlock
                 type="radio"
-                value="dry"
+                value="Dry"
                 control={control}
                 name="eating"
                 label={t('dry')}
@@ -120,7 +180,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
             <div className="mt-4 px-3">
               <InteractiveBlock
                 type="radio"
-                value="wet"
+                value="Wet"
                 control={control}
                 name="eating"
                 label={t('wet')}
@@ -131,7 +191,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
             <div className="mt-4 px-3">
               <InteractiveBlock
                 type="radio"
-                value="raw"
+                value="Raw"
                 control={control}
                 name="eating"
                 label={t('raw')}
@@ -142,7 +202,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
             <div className="mt-4 px-3">
               <InteractiveBlock
                 type="radio"
-                value="dehydrated"
+                value="Dehydrated"
                 control={control}
                 name="eating"
                 label={t('dehydrated')}
@@ -153,7 +213,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
             <div className="mt-4 px-3">
               <InteractiveBlock
                 type="radio"
-                value="fresh"
+                value="Fresh"
                 control={control}
                 name="eating"
                 label={t('fresh')}
@@ -164,7 +224,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
             <div className="mt-4 px-3">
               <InteractiveBlock
                 type="radio"
-                value="homemade"
+                value="Homemade"
                 control={control}
                 name="eating"
                 label={t('homemade')}
@@ -175,7 +235,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
             <div className="mt-4 px-3">
               <InteractiveBlock
                 type="radio"
-                value="other"
+                value="Other"
                 control={control}
                 name="eating"
                 label={t('other')}
@@ -196,33 +256,33 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
             <div className="mt-4 px-3">
               <InteractiveBlock
                 type="radio"
-                value="none"
+                value="None"
                 control={control}
-                name="treats"
+                name="amountOfTreats"
                 label={t('none')}
-                error={!!errors.treats}
+                error={!!errors.amountOfTreats}
                 rules={{ required: true }}
               />
             </div>
             <div className="mt-4 px-3">
               <InteractiveBlock
                 type="radio"
-                value="some"
+                value="Some"
                 control={control}
-                name="treats"
+                name="amountOfTreats"
                 label={t('some')}
-                error={!!errors.treats}
+                error={!!errors.amountOfTreats}
                 rules={{ required: true }}
               />
             </div>
             <div className="mt-4 px-3">
               <InteractiveBlock
                 type="radio"
-                value="lots"
+                value="Lots"
                 control={control}
-                name="treats"
+                name="amountOfTreats"
                 label={t('lots')}
-                error={!!errors.treats}
+                error={!!errors.amountOfTreats}
                 rules={{ required: true }}
               />
             </div>
@@ -232,14 +292,14 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
         <Section title={t('how-picky-is-{}-at-mealtimes', { name })}>
           <div className="mx-auto mt-10 max-w-[640px]">
             <PictureRadio
-              name="picky"
+              name="pickiness"
               rules={{ required: true }}
               control={control}
-              error={!!errors.picky}
+              error={!!errors.pickiness}
               radios={[
                 {
                   label: t('can-be-picky'),
-                  value: 'picky',
+                  value: 'Picky',
                   children: (
                     <div className="flex items-end">
                       <Image src="/question/picky.svg" alt="Picky dog" width={130} height={50} />
@@ -248,7 +308,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                 },
                 {
                   label: t('is-a-good-eater'),
-                  value: 'eater',
+                  value: 'GoodEater',
                   children: (
                     <div className="flex items-end">
                       <Image
@@ -262,7 +322,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
                 },
                 {
                   label: t('will-eat-anything'),
-                  value: 'eatAnything',
+                  value: 'EatAnything',
                   children: (
                     <Image
                       src="/question/eat-anything.svg"

@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import type { FieldValues } from 'react-hook-form';
+import type { FieldPath, FieldPathValue, FieldValues } from 'react-hook-form';
 import clsx from 'clsx';
 import Close from '../icons/Close';
 import RoundedCheckbox from './RoundedCheckbox';
@@ -11,7 +11,6 @@ import { InputControllerProps } from '@/types';
 interface RecipeCheckboxProps<T extends FieldValues> extends InputControllerProps<T> {
   title: string;
   description: string;
-  value: string | number;
   picture: string;
   ingredients: string;
   nutrientBlend: string;
@@ -34,7 +33,6 @@ export default function RecipeCheckbox<T extends FieldValues>({
   picture,
   title,
   name,
-  value,
   control,
   recommended,
   disabled,
@@ -83,7 +81,6 @@ export default function RecipeCheckbox<T extends FieldValues>({
           name={name}
           control={control}
           label={title}
-          value={value}
           className="font-bold text-gold"
           disabled={disabled}
         />

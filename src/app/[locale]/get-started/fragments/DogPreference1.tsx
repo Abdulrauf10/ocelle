@@ -10,20 +10,37 @@ import Image from 'next/image';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
+import { useSurvey } from '../SurveyContext';
+
+interface DogPreference1Form {
+  weight: number;
+  bodyCondition: 'TooSkinny' | 'JustRight' | 'Rounded' | 'Chunky';
+  activityLevel: 'Mellow' | 'Active' | 'VeryActive';
+}
 
 export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage>) {
   const t = useTranslations();
+  const { getDog, setDog } = useSurvey();
+  const { name, weight, bodyCondition, activityLevel } = getDog();
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm();
+  } = useForm<DogPreference1Form>({
+    defaultValues: {
+      weight,
+      bodyCondition,
+      activityLevel,
+    },
+  });
 
-  const onSubmit = React.useCallback(() => {
-    navigate(Stage.DogPreference2);
-  }, [navigate]);
-
-  const name = 'Charlie';
+  const onSubmit = React.useCallback(
+    ({ weight, bodyCondition, activityLevel }: DogPreference1Form) => {
+      setDog({ weight, bodyCondition, activityLevel });
+      navigate(Stage.DogPreference2);
+    },
+    [navigate, setDog]
+  );
 
   return (
     <Container className="text-center">
@@ -36,7 +53,7 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
         >
           <div className="flex flex-wrap items-center justify-center">
             <Controller
-              name="kgs"
+              name="weight"
               control={control}
               rules={{
                 required: true,
@@ -60,8 +77,8 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
               )}
             />
             <span className="ml-2">kg</span>
-            {errors?.kgs?.message && (
-              <p className="mt-3 w-full text-error">{String(errors?.kgs?.message)}</p>
+            {errors?.weight?.message && (
+              <p className="mt-3 w-full text-error">{String(errors?.weight?.message)}</p>
             )}
           </div>
         </Section>
@@ -76,7 +93,7 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
               radios={[
                 {
                   label: t('too-skinny'),
-                  value: 'too-skinny',
+                  value: 'TooSkinny',
                   children: (
                     <Image
                       src="/question/body-skinny.svg"
@@ -88,7 +105,7 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
                 },
                 {
                   label: t('just-right'),
-                  value: 'just-right',
+                  value: 'JustRight',
                   children: (
                     <Image
                       src="/question/body-just-right.svg"
@@ -100,7 +117,7 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
                 },
                 {
                   label: t('rounded'),
-                  value: 'rounded',
+                  value: 'Rounded',
                   children: (
                     <Image
                       src="/question/body-rounded.svg"
@@ -112,7 +129,7 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
                 },
                 {
                   label: t('chunky'),
-                  value: 'chunky',
+                  value: 'Chunky',
                   children: (
                     <Image
                       src="/question/body-chunky.svg"
@@ -134,28 +151,28 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
         <Section title={t('how-active-is', { name })}>
           <div className="mx-auto mt-10 max-w-[640px]">
             <PictureRadio
-              name="active"
+              name="activityLevel"
               rules={{ required: true }}
               control={control}
-              error={!!errors.active}
+              error={!!errors.activityLevel}
               radios={[
                 {
                   label: t('mellow'),
-                  value: 'mellow',
+                  value: 'Mellow',
                   children: (
                     <Image src="/question/mellow.svg" alt="Mellow dog" width={100} height={95} />
                   ),
                 },
                 {
                   label: t('active'),
-                  value: 'active',
+                  value: 'Active',
                   children: (
                     <Image src="/question/active.svg" alt="Active dog" width={80} height={95} />
                   ),
                 },
                 {
                   label: t('very-active'),
-                  value: 'very-active',
+                  value: 'VeryActive',
                   children: (
                     <Image
                       src="/question/very-active.svg"

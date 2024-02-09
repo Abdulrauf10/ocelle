@@ -6,31 +6,34 @@ import FreshPlan from '@/components/FreshPlan';
 import Section from '../Section';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
+import { useSurvey } from '../SurveyContext';
+import { MealPlan } from '@/enums';
 
 export default function ChoosePlanFragment({ navigate }: FragmentProps<Stage>) {
   const t = useTranslations();
+  const { getDog, setDog } = useSurvey();
+  const { name, mealPlan } = getDog();
   const firstUpdate = React.useRef(true);
-  const [selected, setSelected] = React.useState<number>();
+  const [currentMealPlan, setCurrentMealPlan] = React.useState<MealPlan>(mealPlan ?? MealPlan.Full);
   const [error, setError] = React.useState<string>();
 
   React.useEffect(() => {
-    if (firstUpdate.current && selected == null) {
+    if (firstUpdate.current && currentMealPlan == null) {
       setError(t('you-must-select-either-one-of-the-plan'));
       firstUpdate.current = false;
     } else {
       setError(undefined);
     }
-  }, [t, selected]);
+  }, [t, currentMealPlan]);
 
   const onSubmit = React.useCallback(() => {
-    if (selected == null) {
+    if (currentMealPlan == null) {
       setError(t('you-must-select-either-one-of-the-plan'));
     } else {
+      setDog({ mealPlan: currentMealPlan });
       navigate(Stage.RecommendedPlan);
     }
-  }, [t, selected, navigate]);
-
-  const name = 'Charlie';
+  }, [t, currentMealPlan, navigate, setDog]);
 
   return (
     <Container className="text-center">
@@ -45,8 +48,8 @@ export default function ChoosePlanFragment({ navigate }: FragmentProps<Stage>) {
               firstDiscount
               error={!!error}
               recommended
-              selected={selected === 0}
-              onSelect={() => setSelected(0)}
+              selected={currentMealPlan === MealPlan.Full}
+              onSelect={() => setCurrentMealPlan(MealPlan.Full)}
             >
               {t('fresh-full-plan:description')}
             </FreshPlan>
@@ -59,8 +62,8 @@ export default function ChoosePlanFragment({ navigate }: FragmentProps<Stage>) {
               discountedPricePerDay={12.5}
               firstDiscount
               error={!!error}
-              selected={selected === 1}
-              onSelect={() => setSelected(1)}
+              selected={currentMealPlan === MealPlan.Half}
+              onSelect={() => setCurrentMealPlan(MealPlan.Half)}
             >
               {t('fresh-half-plan:description')}
             </FreshPlan>

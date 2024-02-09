@@ -8,22 +8,33 @@ import Section from '../Section';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
+import { useSurvey } from '../SurveyContext';
+
+interface DogForm {
+  name: string;
+}
 
 export default function DogFragment({ navigate }: FragmentProps<Stage>) {
   const t = useTranslations();
-  const { handleSubmit, control } = useForm();
+  const { setDog, getDog } = useSurvey();
+  const { name } = getDog();
+  const { handleSubmit, control } = useForm<DogForm>({ defaultValues: { name } });
   const [showMoreDogs, setShowMoreDogs] = React.useState(false);
 
-  const onSubmit = React.useCallback(() => {
-    navigate(Stage.DogBasic);
-  }, [navigate]);
+  const onSubmit = React.useCallback(
+    (values: DogForm) => {
+      setDog(values);
+      navigate(Stage.DogBasic);
+    },
+    [navigate, setDog]
+  );
 
   return (
     <Container className="text-center">
       <Section title={t('whats-your-dogs-name')}>
         <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-8 max-w-[320px]">
           <Controller
-            name="dogName"
+            name="name"
             control={control}
             rules={{ required: true }}
             render={({ field, fieldState: { error } }) => (

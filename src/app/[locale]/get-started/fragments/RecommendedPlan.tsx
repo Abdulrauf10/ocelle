@@ -11,29 +11,85 @@ import Section from '../Section';
 import Stage from '../Stage';
 import Headings from '@/components/Headings';
 import { useTranslations } from 'next-intl';
+import { useSurvey } from '../SurveyContext';
+import { booleanToString, stringToBoolean } from '@/helpers/string';
+import { Recipe } from '@/enums';
+
+const mapIdx = [Recipe.Chicken, Recipe.Pork, Recipe.Duck, Recipe.Beef, Recipe.Lamb];
 
 interface RecommendedPlanForm {
-  transition: number;
-  recipe: string[];
+  transition: 'Y' | 'N';
+  recipe: boolean[];
+}
+
+function arrayToRecipe(array: boolean[]) {
+  let r1: Recipe | undefined = undefined;
+  let r2: Recipe | undefined = undefined;
+
+  array.forEach((value, idx) => {
+    if (value) {
+      if (r1 != null && r2 != null) {
+        return;
+      }
+      if (r1 == null) {
+        r1 = mapIdx[idx];
+      } else {
+        r2 = mapIdx[idx];
+      }
+    }
+  });
+
+  return { recipe1: r1, recipe2: r2 };
+}
+
+function recipeToArray(r1?: Recipe, r2?: Recipe) {
+  const array = Array(mapIdx.length).fill(false);
+
+  if (r1 != null) {
+    array[mapIdx.indexOf(r1)] = true;
+  }
+  if (r2 != null) {
+    array[mapIdx.indexOf(r2)] = true;
+  }
+
+  return array;
 }
 
 export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stage>) {
   const t = useTranslations();
+  const { getDog, setDog, nextDog } = useSurvey();
+  const { name, recipe1, recipe2, isEnabledTransitionPeriod } = getDog();
   const {
     control,
+    trigger,
+    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm<RecommendedPlanForm>({
     defaultValues: {
-      transition: 1,
+      recipe: recipeToArray(recipe1, recipe2),
+      transition: booleanToString(isEnabledTransitionPeriod) ?? 'Y',
     },
   });
 
-  const onSubmit = React.useCallback(() => {
-    navigate(Stage.Checkout);
-  }, [navigate]);
+  const handleAddDog = React.useCallback(async () => {
+    if (await trigger()) {
+      const { transition, recipe } = getValues();
+      const { recipe1, recipe2 } = arrayToRecipe(recipe);
+      setDog({ recipe1, recipe2, isEnabledTransitionPeriod: stringToBoolean(transition) });
+      nextDog();
+      navigate(Stage.Dog);
+    }
+  }, [trigger, navigate, nextDog, setDog, getValues]);
 
-  const name = 'Charlie';
+  const onSubmit = React.useCallback(
+    ({ transition, recipe }: RecommendedPlanForm) => {
+      const { recipe1, recipe2 } = arrayToRecipe(recipe);
+      setDog({ recipe1, recipe2, isEnabledTransitionPeriod: stringToBoolean(transition) });
+      navigate(Stage.Checkout);
+    },
+    [navigate, setDog]
+  );
 
   return (
     <form className="text-center" onSubmit={handleSubmit(onSubmit)}>
@@ -67,8 +123,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                     <RecipeCheckbox
                       title="Fresh Chicken Recipe"
                       description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-                      name="recipe"
-                      value="chicken"
+                      name="recipe.0"
                       control={control}
                       picture="/meal-plan/chicken.jpg"
                       ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
@@ -85,8 +140,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                     <RecipeCheckbox
                       title="Fresh Pork Recipe"
                       description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-                      name="recipe"
-                      value="pork"
+                      name="recipe.1"
                       control={control}
                       picture="/meal-plan/pork.jpg"
                       ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
@@ -103,8 +157,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                     <RecipeCheckbox
                       title="Fresh Duck Recipe"
                       description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-                      name="recipe"
-                      value="duck"
+                      name="recipe.2"
                       control={control}
                       picture="/meal-plan/duck.jpg"
                       ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
@@ -120,8 +173,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                     <RecipeCheckbox
                       title="Fresh Beef Recipe"
                       description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-                      name="recipe"
-                      value="beef"
+                      name="recipe.3"
                       control={control}
                       picture="/meal-plan/beef.jpg"
                       ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
@@ -137,8 +189,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                     <RecipeCheckbox
                       title="Fresh Lamb Recipe"
                       description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-                      name="recipe"
-                      value="lamb"
+                      name="recipe.4"
                       control={control}
                       picture="/meal-plan/lamb.jpg"
                       ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
@@ -178,7 +229,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                 <div className="mt-4 px-2">
                   <InteractiveBlock
                     type="radio"
-                    value={0}
+                    value="N"
                     control={control}
                     name="transition"
                     label={t('dont-use-transition')}
@@ -190,7 +241,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                 <div className="mt-4 px-2">
                   <InteractiveBlock
                     type="radio"
-                    value={1}
+                    value="Y"
                     control={control}
                     name="transition"
                     label={t('use-transition')}
@@ -216,7 +267,12 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
               </div>
             </div>
             <div className="mb-[1vw]">
-              <Button theme="primary" className="mx-2 mt-4 !bg-none !px-11" type="button">
+              <Button
+                theme="primary"
+                className="mx-2 mt-4 !bg-none !px-11"
+                type="button"
+                onClick={handleAddDog}
+              >
                 + {t('add-another-dog')}
               </Button>
               <Button className="mx-2 mt-4">{t('continue-to-{}', { name: t('checkout') })}</Button>

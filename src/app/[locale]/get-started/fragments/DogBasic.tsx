@@ -11,17 +11,33 @@ import CircleCheckbox from '@/components/controls/CircleCheckbox';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
+import { useSurvey } from '../SurveyContext';
+import { booleanToString, stringToBoolean } from '@/helpers/string';
+
+interface DogBasicForm {
+  breeds: Breed[];
+  isUnknownBreed: boolean;
+  gender: 'M' | 'F';
+  isNeutered: 'Y' | 'N';
+}
 
 export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
   const t = useTranslations();
+  const { getDog, setDog } = useSurvey();
+  const { name, breeds, gender, isNeutered, isUnknownBreed } = getDog();
   const {
     handleSubmit,
     control,
     watch,
     formState: { errors },
-  } = useForm();
-  const isUnknownBreed = watch('isUnknownBreed', false);
-  const gender = watch('gender', 1);
+  } = useForm<DogBasicForm>({
+    defaultValues: {
+      breeds: breeds || [],
+      gender,
+      isNeutered: booleanToString(isNeutered),
+      isUnknownBreed,
+    },
+  });
   const [loading, setLoading] = React.useState(true);
   const [options, setOptions] = React.useState<Breed[] | undefined>(undefined);
 
@@ -33,11 +49,18 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
     }
   }, [options]);
 
-  const onSubmit = React.useCallback(() => {
-    navigate(Stage.DogAge);
-  }, [navigate]);
-
-  const name = 'Charlie';
+  const onSubmit = React.useCallback(
+    ({ breeds, gender, isNeutered, isUnknownBreed }: DogBasicForm) => {
+      setDog({
+        breeds,
+        gender,
+        isNeutered: stringToBoolean(isNeutered),
+        isUnknownBreed,
+      });
+      navigate(Stage.DogAge);
+    },
+    [navigate, setDog]
+  );
 
   return (
     <Container className="text-center">
@@ -48,10 +71,9 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
         >
           <div className="mx-auto max-w-[480px]">
             <Controller
-              name="breed"
+              name="breeds"
               control={control}
-              rules={{ required: !isUnknownBreed }}
-              defaultValue={[]}
+              rules={{ required: !watch('isUnknownBreed', isUnknownBreed ?? false) }}
               render={({ field: { onChange, ...field } }) => (
                 <Autocomplete
                   multiple
@@ -65,10 +87,10 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
                     <TextField
                       {...params}
                       placeholder={t('start-typing-the-breed')}
-                      error={!!errors.breed}
+                      error={!!errors.breeds}
                     />
                   )}
-                  disabled={isUnknownBreed}
+                  disabled={watch('isUnknownBreed', isUnknownBreed ?? false)}
                   renderTags={(tagValue, getTagProps, state) =>
                     tagValue.map((option, index) => (
                       <Chip
@@ -88,7 +110,6 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
                 control={control}
                 name="isUnknownBreed"
                 label={t('dont-know-the-breed')}
-                value="Y"
               />
             </div>
           </div>
@@ -99,7 +120,7 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
             <div className="px-3">
               <InteractiveBlock
                 type="radio"
-                value={1}
+                value="M"
                 error={!!errors.gender}
                 control={control}
                 name="gender"
@@ -110,7 +131,7 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
             <div className="px-3">
               <InteractiveBlock
                 type="radio"
-                value={2}
+                value="F"
                 error={!!errors.gender}
                 control={control}
                 name="gender"
@@ -126,22 +147,22 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
             <div className="px-3">
               <InteractiveBlock
                 type="radio"
-                value={0}
-                error={!!errors.neuter}
+                value="N"
+                error={!!errors.isNeutered}
                 control={control}
-                name="neuter"
-                label={gender == 1 ? t('neutered') : t('spayed')}
+                name="isNeutered"
+                label={watch('gender', gender ?? 'M') == 'M' ? t('neutered') : t('spayed')}
                 rules={{ required: true }}
               />
             </div>
             <div className="px-3">
               <InteractiveBlock
                 type="radio"
-                value={1}
-                error={!!errors.neuter}
+                value="Y"
+                error={!!errors.isNeutered}
                 control={control}
-                name="neuter"
-                label={gender == 1 ? t('not-neutered') : t('not-spayed')}
+                name="isNeutered"
+                label={watch('gender', gender ?? 'M') == 'M' ? t('not-neutered') : t('not-spayed')}
                 rules={{ required: true }}
               />
             </div>

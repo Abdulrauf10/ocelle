@@ -10,21 +10,41 @@ import clsx from 'clsx';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
+import { useSurvey } from '../SurveyContext';
+
+interface DogAgeForm {
+  months?: number;
+  years?: number;
+  birthday?: Date;
+}
 
 export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
   const t = useTranslations();
+  const { getDog, setDog } = useSurvey();
+  const { name, age } = getDog();
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm();
-  const [tab, setTab] = React.useState<'Age' | 'Birthday'>('Age');
+  } = useForm<DogAgeForm>({
+    defaultValues:
+      age instanceof Date ? { birthday: age } : { months: age?.months, years: age?.years },
+  });
+  const [tab, setTab] = React.useState<'Age' | 'Birthday'>(
+    age instanceof Date ? 'Birthday' : 'Age'
+  );
 
-  const onSubmit = React.useCallback(() => {
-    navigate(Stage.DogPreference1);
-  }, [navigate]);
-
-  const name = 'Charlie';
+  const onSubmit = React.useCallback(
+    ({ months, years, birthday }: DogAgeForm) => {
+      if (tab === 'Age') {
+        setDog({ age: { months: months!, years: years! } });
+      } else {
+        setDog({ age: birthday });
+      }
+      navigate(Stage.DogPreference1);
+    },
+    [navigate, setDog, tab]
+  );
 
   return (
     <Container className="text-center">

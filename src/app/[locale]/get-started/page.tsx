@@ -21,6 +21,7 @@ import { ThemeProvider } from '@mui/material';
 import Header from '@/components/Header';
 import theme from '@/app/mui-theme';
 import FragmentRouter, { useFragmentRouterController } from '@/components/FragmentRouter';
+import { SurveyContextProvider } from './SurveyContext';
 
 interface BackButtonProps {
   show: boolean;
@@ -137,7 +138,9 @@ export default function GetStarted() {
         }
       />
       <main className="py-[3vw] max-sm:py-8">
-        <FragmentRouter controller={controller} />
+        <SurveyContextProvider>
+          <FragmentRouter controller={controller} />
+        </SurveyContextProvider>
       </main>
     </ThemeProvider>
   );

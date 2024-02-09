@@ -1,23 +1,36 @@
 import clsx from 'clsx';
-import { type FieldValues, useController } from 'react-hook-form';
+import {
+  type FieldValues,
+  type FieldPath,
+  type FieldPathValue,
+  useController,
+} from 'react-hook-form';
 import Tick from '../icons/Tick';
 import { InputControllerProps } from '@/types';
 
-interface RoundedCheckboxProps<T extends FieldValues> extends InputControllerProps<T> {
+interface RoundedCheckboxProps<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> extends InputControllerProps<TFieldValues, TFieldName> {
   label: React.ReactNode;
   className?: string;
   disabled?: boolean;
+  value?: FieldPathValue<TFieldValues, TFieldName>;
 }
 
-export default function RoundedCheckbox<T extends FieldValues>({
+export default function RoundedCheckbox<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>({
   control,
   label,
   name,
   rules,
   error,
   className,
+  value,
   disabled,
-}: RoundedCheckboxProps<T>) {
+}: RoundedCheckboxProps<TFieldValues, TFieldName>) {
   const { field } = useController({ name, control, rules });
   const isSelected = field.value === true;
 
@@ -44,7 +57,8 @@ export default function RoundedCheckbox<T extends FieldValues>({
           {...field}
           type="checkbox"
           className="absolute bottom-0 left-0 right-0 top-0 opacity-0 [&:checked+*]:flex"
-          checked={!!field.value}
+          value={value}
+          checked={disabled ? false : !!field.value}
         />
         <div className="absolute bottom-0 left-0 right-0 top-0 hidden h-full w-full items-center justify-center bg-brown">
           <Tick className="w-[14px]" />
