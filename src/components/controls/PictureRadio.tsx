@@ -1,7 +1,12 @@
 import { InputControllerProps } from '@/types';
 import clsx from 'clsx';
 import React from 'react';
-import { type FieldValues, useController } from 'react-hook-form';
+import {
+  type FieldValues,
+  type FieldPath,
+  type FieldPathValue,
+  useController,
+} from 'react-hook-form';
 
 interface RadioProps<T extends FieldValues> extends InputControllerProps<T> {
   label: React.ReactNode;
@@ -45,22 +50,22 @@ function Radio<T extends FieldValues>({
   );
 }
 
-interface PictureRadioProps<T extends FieldValues> extends InputControllerProps<T> {
+interface PictureRadioProps<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> extends InputControllerProps<TFieldValues, TFieldName> {
   radios: Array<
     React.PropsWithChildren<{
       label: string;
-      value: string | number;
+      value: FieldPathValue<TFieldValues, TFieldName>;
     }>
   >;
 }
 
-export default function PictureRadio<T extends FieldValues>({
-  name,
-  control,
-  rules,
-  radios,
-  error,
-}: PictureRadioProps<T>) {
+export default function PictureRadio<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>({ name, control, rules, radios, error }: PictureRadioProps<TFieldValues, TFieldName>) {
   return (
     <div className="flex">
       {radios.map((radio, idx) => (

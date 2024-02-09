@@ -1,31 +1,59 @@
 import { InputControllerProps } from '@/types';
 import clsx from 'clsx';
-import { type FieldValues, useController } from 'react-hook-form';
+import {
+  type FieldValues,
+  type FieldPathValue,
+  type FieldPath,
+  useController,
+} from 'react-hook-form';
 
-interface InteractiveBlockProps<T extends FieldValues> extends InputControllerProps<T> {
+interface InteractiveBlockBase<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> extends InputControllerProps<TFieldValues, TFieldName> {
   label: string;
-  value: string | number;
   className?: string;
-  type: 'checkbox' | 'radio';
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-export default function InteractiveBlock<T extends FieldValues>({
+interface InteractiveBlockCheckbox<T extends FieldValues> extends InteractiveBlockBase<T> {
+  type: 'checkbox';
+}
+
+interface InteractiveBlockRadio<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> extends InteractiveBlockBase<TFieldValues, TFieldName> {
+  type: 'radio';
+  value?: FieldPathValue<TFieldValues, TFieldName>;
+}
+
+type InteractiveBlockProps<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> = InteractiveBlockCheckbox<TFieldValues> | InteractiveBlockRadio<TFieldValues, TFieldName>;
+
+export default function InteractiveBlock<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+>({
   control,
   label,
   name,
   rules,
-  value,
   error,
   className,
   type,
   onChange: parentOnChange,
-}: InteractiveBlockProps<T>) {
+  ...props
+}: InteractiveBlockProps<TFieldValues, TFieldName>) {
   const {
     field: { onChange, ...field },
-  } = useController<T>({ name, control, rules });
+  } = useController<TFieldValues>({ name, control, rules });
   const isSelected =
-    type === 'checkbox' ? field.value === true : String(field.value) === String(value);
+    type === 'checkbox'
+      ? field.value === true
+      : String(field.value) === String((props as InteractiveBlockRadio<TFieldValues>).value);
 
   return (
     <label
@@ -55,7 +83,7 @@ export default function InteractiveBlock<T extends FieldValues>({
               parentOnChange(e);
             }
           }}
-          value={value}
+          value={(props as any).value}
         />
       </div>
       <span>{label}</span>

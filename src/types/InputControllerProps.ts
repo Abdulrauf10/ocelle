@@ -1,9 +1,15 @@
-import { Control, FieldValues, Path, RegisterOptions } from 'react-hook-form';
+import type { Control, FieldValues, FieldPath, RegisterOptions } from 'react-hook-form';
 
-interface InputControllerProps<T extends FieldValues> {
-  control: Control<T>;
-  name: Path<T>;
-  rules?: Omit<RegisterOptions<T>, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>;
+interface InputControllerProps<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> {
+  control: Control<TFieldValues>;
+  name: TFieldName;
+  rules?: Omit<
+    RegisterOptions<TFieldValues>,
+    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
+  >;
   error?: boolean;
 }
 
