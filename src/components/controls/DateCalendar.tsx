@@ -13,6 +13,7 @@ import clsx from 'clsx';
 
 interface DateCalendarProps<T extends FieldValues> extends InputControllerProps<T> {
   defaultValue?: PathValue<T, Path<T>>;
+  shouldDisableDate?(day: Date): boolean;
   minDate?: Date;
   maxDate?: Date;
   actions?: Array<{ label: string; disabled?: boolean; onClick(): void }>;
@@ -24,6 +25,7 @@ export default function DateCalendar<T extends FieldValues>({
   name,
   rules,
   defaultValue,
+  shouldDisableDate,
   minDate,
   maxDate,
   actions,
@@ -50,6 +52,7 @@ export default function DateCalendar<T extends FieldValues>({
           maxDate={maxDate}
           onChange={(value) => onChange(value)}
           disableHighlightToday
+          shouldDisableDate={shouldDisableDate}
           sx={{
             backgroundColor: '#5289B1',
             borderTopLeftRadius: '20px',
