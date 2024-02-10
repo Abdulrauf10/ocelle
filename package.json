@@ -7,7 +7,7 @@
     "build": "next build",
     "build:analyzer": "ANALYZE=true next build",
     "start": "next start",
-    "start:linux": "next start -p 80",
+    "start:direct": "next start -p 80",
     "generate:gql": "graphql-codegen --config .graphqlrc.ts",
     "lint": "next lint",
     "ts-node": "ts-node -O {\\\"module\\\":\\\"commonjs\\\"} -r tsconfig-paths/register",
