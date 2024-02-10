@@ -1,0 +1,13 @@
+mutation AccountLogin($email: String!, $password: String!) {
+    tokenCreate(email: $email, password: $password) {
+        token,
+        refreshToken,
+        csrfToken,
+        errors {
+            ...UserError
+        }
+        user {
+            id
+        }
+    }
+}
