@@ -35,11 +35,11 @@ export default function Header({
   const [isOpened, setIsOpened] = React.useState(false);
   const [isSticky, setIsSticky] = React.useState(false);
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     setIsOpened(false);
   }, [pathname]);
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     function handler() {
       if (headerRef.current) {
         const { top } = headerRef.current.getBoundingClientRect();

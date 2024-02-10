@@ -17,11 +17,11 @@ export default function PageDropdown({ name, items }: PageDropdownProps) {
   const id = React.useId();
   const [open, setOpen] = React.useState(false);
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     setOpen(false);
   }, [pathname]);
 
-  React.useEffect(() => {
+  React.useLayoutEffect(() => {
     function handleClick(e: MouseEvent) {
       if ((e.target as HTMLElement).closest(`[data-id="${id}"]`) == null) {
         setOpen(false);
