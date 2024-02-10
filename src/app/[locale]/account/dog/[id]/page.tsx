@@ -409,18 +409,17 @@ export default function EditDog({ params }: { params: { id: string } }) {
                 <InteractiveBlock
                   type="checkbox"
                   label={allergiesOptions[0].label}
-                  value={allergiesOptions[0].value}
                   control={control}
-                  name="allergies[0]"
+                  name="allergies.0"
                   error={Array.isArray(errors.allergies) && !!errors.allergies[0]}
                   rules={{
                     validate: {
                       required: (value, formValues) =>
                         formValues.allergies.some((value: unknown) => !!value),
                       conflict: (value, formValues) =>
-                        value &&
+                        !value ||
                         !formValues.allergies.some(
-                          (value: unknown, idx: number) => idx > 0 && !!value
+                          (value: unknown, idx: number) => idx > 0 && value
                         ),
                     },
                   }}
@@ -436,15 +435,14 @@ export default function EditDog({ params }: { params: { id: string } }) {
                     <InteractiveBlock
                       type="checkbox"
                       label={allergiesOptions[idx].label}
-                      value={allergiesOptions[idx].value}
                       control={control}
-                      name={`allergies[${idx}]`}
+                      name={`allergies.${idx}`}
                       error={Array.isArray(errors.allergies) && !!errors.allergies[idx]}
                       rules={{
                         validate: {
                           required: (value, formValues) =>
                             formValues.allergies.some((value: unknown) => !!value),
-                          conflict: (value, formValues) => !(value && formValues.allergies[0]),
+                          conflict: (value, formValues) => !value || !formValues.allergies[0],
                         },
                       }}
                       onChange={() => trigger('allergies')}
