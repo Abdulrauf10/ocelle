@@ -50,8 +50,7 @@ export default function PlanRecipe() {
               <RecipeCheckbox
                 title="Fresh Chicken Recipe"
                 description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-                name="recipe"
-                value="chicken"
+                name="recipe.0"
                 control={control}
                 picture="/meal-plan/chicken.jpg"
                 ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
@@ -68,8 +67,7 @@ export default function PlanRecipe() {
               <RecipeCheckbox
                 title="Fresh Pork Recipe"
                 description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-                name="recipe"
-                value="pork"
+                name="recipe.1"
                 control={control}
                 picture="/meal-plan/pork.jpg"
                 ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
@@ -86,8 +84,7 @@ export default function PlanRecipe() {
               <RecipeCheckbox
                 title="Fresh Duck Recipe"
                 description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-                name="recipe"
-                value="duck"
+                name="recipe.2"
                 control={control}
                 picture="/meal-plan/duck.jpg"
                 ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
@@ -103,8 +100,7 @@ export default function PlanRecipe() {
               <RecipeCheckbox
                 title="Fresh Beef Recipe"
                 description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-                name="recipe"
-                value="beef"
+                name="recipe.3"
                 control={control}
                 picture="/meal-plan/beef.jpg"
                 ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
@@ -120,8 +116,7 @@ export default function PlanRecipe() {
               <RecipeCheckbox
                 title="Fresh Lamb Recipe"
                 description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-                name="recipe"
-                value="lamb"
+                name="recipe.4"
                 control={control}
                 picture="/meal-plan/lamb.jpg"
                 ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
