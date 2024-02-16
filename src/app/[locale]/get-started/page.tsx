@@ -22,6 +22,7 @@ import Header from '@/components/Header';
 import theme from '@/app/mui-theme';
 import FragmentRouter, { useFragmentRouterController } from '@/components/FragmentRouter';
 import { SurveyContextProvider } from './SurveyContext';
+import clsx from 'clsx';
 
 interface BackButtonProps {
   show: boolean;
@@ -48,7 +49,7 @@ function BackButton({ show, className, onClick }: BackButtonProps) {
 
 export default function GetStarted() {
   const controller = useFragmentRouterController({
-    defaultRoute: Stage.Welcome,
+    defaultRoute: Stage.ThankYou,
     routes: [
       {
         name: Stage.Welcome,
@@ -103,40 +104,42 @@ export default function GetStarted() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Header
-        sticky={false}
-        menu={false}
-        languageSwitch={false}
-        getStarted={false}
-        startAdornment={
-          <div className="hidden px-2 max-lg:block">
-            <BackButton
-              show={
-                controller.route !== Stage.Welcome &&
-                controller.route !== Stage.Calculating &&
-                controller.route !== Stage.ThankYou
-              }
-              onClick={() => controller.navigate(-1)}
-            />
-          </div>
-        }
-        endAdornment={
-          !(controller.route === Stage.Calculating || controller.route === Stage.ThankYou) && (
-            <div className="w-full max-lg:px-2">
-              <div className="flex w-full justify-center max-lg:mt-8 lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 lg:px-[280px]">
-                <div className="relative w-full max-w-[460px]">
-                  <BackButton
-                    className="absolute -left-[80px] select-none max-lg:hidden"
-                    show={controller.route !== Stage.Welcome}
-                    onClick={() => controller.navigate(-1)}
-                  />
-                  <ProgressBar stage={controller.route || Stage.Welcome} />
+      <div className={clsx(controller.route === Stage.ThankYou && 'pointer-events-none opacity-0')}>
+        <Header
+          sticky={false}
+          menu={false}
+          languageSwitch={false}
+          getStarted={false}
+          startAdornment={
+            <div className="hidden px-2 max-lg:block">
+              <BackButton
+                show={
+                  controller.route !== Stage.Welcome &&
+                  controller.route !== Stage.Calculating &&
+                  controller.route !== Stage.ThankYou
+                }
+                onClick={() => controller.navigate(-1)}
+              />
+            </div>
+          }
+          endAdornment={
+            !(controller.route === Stage.Calculating || controller.route === Stage.ThankYou) && (
+              <div className="w-full max-lg:px-2">
+                <div className="flex w-full justify-center max-lg:mt-8 lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 lg:px-[280px]">
+                  <div className="relative w-full max-w-[460px]">
+                    <BackButton
+                      className="absolute -left-[80px] select-none max-lg:hidden"
+                      show={controller.route !== Stage.Welcome}
+                      onClick={() => controller.navigate(-1)}
+                    />
+                    <ProgressBar stage={controller.route || Stage.Welcome} />
+                  </div>
                 </div>
               </div>
-            </div>
-          )
-        }
-      />
+            )
+          }
+        />
+      </div>
       <main className="py-[3vw] max-sm:py-8">
         <SurveyContextProvider>
           <FragmentRouter controller={controller} />
