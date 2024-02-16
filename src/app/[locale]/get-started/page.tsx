@@ -49,7 +49,7 @@ function BackButton({ show, className, onClick }: BackButtonProps) {
 
 export default function GetStarted() {
   const controller = useFragmentRouterController({
-    defaultRoute: Stage.ThankYou,
+    defaultRoute: Stage.Welcome,
     routes: [
       {
         name: Stage.Welcome,
