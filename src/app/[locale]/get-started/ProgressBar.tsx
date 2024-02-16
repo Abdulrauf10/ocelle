@@ -5,6 +5,33 @@ interface ProgressBarProps {
   stage: Stage;
 }
 
+function isCheckoutStage(stage: Stage) {
+  if (stage === Stage.Checkout) {
+    return true;
+  }
+}
+
+function isYourPlanStage(stage: Stage) {
+  if (stage === Stage.ChoosePlan) {
+    return true;
+  }
+  if (stage === Stage.RecommendedPlan) {
+    return true;
+  }
+  if (isCheckoutStage(stage)) {
+    return true;
+  }
+}
+
+function isYouStage(stage: Stage) {
+  if (stage === Stage.Owner) {
+    return true;
+  }
+  if (isYourPlanStage(stage) || isCheckoutStage(stage)) {
+    return true;
+  }
+}
+
 function isDogStage(stage: Stage) {
   if (stage === Stage.Dog) {
     return true;
@@ -21,25 +48,7 @@ function isDogStage(stage: Stage) {
   if (stage === Stage.DogPreference2) {
     return true;
   }
-}
-
-function isYouStage(stage: Stage) {
-  if (stage === Stage.Owner) {
-    return true;
-  }
-}
-
-function isYourPlanStage(stage: Stage) {
-  if (stage === Stage.ChoosePlan) {
-    return true;
-  }
-  if (stage === Stage.RecommendedPlan) {
-    return true;
-  }
-}
-
-function isCheckoutStage(stage: Stage) {
-  if (stage === Stage.Checkout) {
+  if (isYouStage(stage) || isYourPlanStage(stage) || isCheckoutStage(stage)) {
     return true;
   }
 }
