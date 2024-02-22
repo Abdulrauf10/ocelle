@@ -81,7 +81,7 @@ export default function Header({
         </Link>
         <div
           className={clsx(
-            'w-full flex-1 px-2 max-lg:absolute max-lg:left-0 max-lg:top-[72px] max-lg:z-30 max-lg:bg-[#EEF3F7] max-lg:px-4',
+            'w-full flex-1  px-2 pt-4 max-lg:absolute max-lg:left-0 max-lg:top-[72px] max-lg:z-30 max-lg:bg-[#EEF3F7] max-lg:px-4',
             !isOpened && 'max-lg:hidden'
           )}
         >
@@ -132,7 +132,7 @@ export default function Header({
             )}
           </div>
         </div>
-        <div className="relative z-10 px-2">
+        <div className="relative z-10 px-2 pt-4 ">
           {auth.logined ? (
             <Link href="/auth/logout" className="whitespace-nowrap hover:underline max-lg:mr-0">
               {t('log-out')}

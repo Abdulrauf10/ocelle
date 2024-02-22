@@ -45,8 +45,8 @@ export default function Footer({ hideNav }: FooterProps) {
               <FooterLink href="/faq">
                 <span className="uppercase">{t('faq')}</span>
               </FooterLink>
-              <FooterLink href="/faq#deliveries">{t('shipping-and-deliveries')}</FooterLink>
-              <FooterLink href="#">{t('reviews')}</FooterLink>
+              <FooterLink href="/faq#deliveries">{t('deliveries')}</FooterLink>
+              {/* <FooterLink href="#">{t('reviews')}</FooterLink> */}
             </div>
             <div className="py-5 max-sm:w-2/5 max-sm:px-2 [&_a:hover]:underline">
               <FooterHead>{t('about')}</FooterHead>
@@ -62,15 +62,18 @@ export default function Footer({ hideNav }: FooterProps) {
                 <Email className="w-5 min-w-5" />
                 <span className="pl-2">info@ocelle.dog</span>
               </Link>
-              <br />
+              {/* <br />
               <Link href="#" className="mt-3 inline-flex items-center">
                 <Phone className="mx-1 w-3 min-w-3" />
                 <span className="pl-2">Phone Number</span>
-              </Link>
+              </Link> */}
               <br />
-              <Link href="#" className="mt-3 inline-flex items-center">
+              <Link
+                href="whatsapp://send?text=Hello World!&phone=92267236"
+                className="mt-3 inline-flex items-center"
+              >
                 <Whatsapp className="w-5 min-w-5" />
-                <span className="pl-2">Whatsapp Number</span>
+                <span className="pl-2">92267236</span>
               </Link>
             </div>
             <div className="py-5 max-sm:w-2/5 max-sm:px-2">

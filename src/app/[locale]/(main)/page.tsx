@@ -22,12 +22,14 @@ export default function Home() {
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center text-white">
           <Headings tag="h1" styles="h1">
-            They’re My Dogs. They’re My Family.
+            {t('they-re-my-dogs-they-re-my-family')}
           </Headings>
           <p className="mt-8 text-xl">
-            Trade guesswork for peace of mind. Relax, knowing that your dog is getting the highest
-            quality <br className="max-lg:hidden" />
-            nutrition for a longer and more vibrant life! It’s science... and it’s delicious.
+            {t(
+              'trade-guesswork-for-peace-of-mind-relax-knowing-that-your-dog-is-getting-the-highest-quality'
+            )}
+            <br className="max-lg:hidden" />
+            {t('nutrition-for-a-longer-and-more-vibrant-life-it-s-science-and-it-s-delicious')}
           </p>
         </Container>
       </Block>
@@ -36,20 +38,22 @@ export default function Home() {
         <div className="w-1/2 px-[4vw] text-xl max-md:w-full">
           <Block>
             <Headings tag="h2" styles="h1" className="text-primary">
-              More Years, <br />
-              Happier Years. <br />
-              It’s Time To Go Fresh.
+              {t('more-years')}
+              <br />
+              {t('happier-years')}
+              <br />
+              {t('it-s-time-to-go-fresh')}
             </Headings>
             <div className="mt-[2vw]">
               <List
                 picture={<Tickbox className="mr-4 h-5 w-5" />}
                 className={{ listItem: 'py-0.5' }}
                 items={[
-                  'Increased Lifespan',
-                  'Delayed Onset of Chronic Disease',
-                  'Reduced Likelihood of Obesity',
-                  'Increased Bio-Health and Food Safety',
-                  'Increased Vitality and Happiness',
+                  'increased-lifespan',
+                  'delayed-onset-of-chronic-disease',
+                  'reduced-likelihood-of-obesity',
+                  'increased-bio-health-and-food-safety',
+                  'increased-vitality-and-happiness',
                 ]}
               />
             </div>
@@ -61,41 +65,31 @@ export default function Home() {
       <Block className="bg-primary bg-opacity-15">
         <Container>
           <Headings tag="h2" styles="h1" className="text-center text-primary">
-            We’re Powered By Science <br className="max-md:hidden" />
-            Customised Meal Plans For Your Dogs.
+            {t('we-re-powered-by-science')}
+            <br className="max-md:hidden" />
+            {t('customised-meal-plans-for-your-dogs')}
           </Headings>
           <div className="relative mt-10 flex-col-reverse items-center max-xl:flex">
             <div className="pb-0 max-xl:flex max-xl:flex-wrap [&>*]:max-xl:m-0 [&>*]:max-xl:mt-3 [&>*]:max-xl:w-1/2 [&>*]:max-xl:max-w-none [&>*]:max-xl:px-4 [&>*]:max-xl:py-3 [&>*]:max-xl:text-center [&>*]:max-sm:w-full [&_img]:max-xl:inline">
               <div className="ml-12 mt-5 max-w-[450px]">
                 <Image alt="good food" src="/meal-plan/icon-1.svg" width={81} height={70} />
-                <h3 className="mt-2 text-2xl text-primary">Real, Good Food – Freshly Made</h3>
-                <p className="mt-3">
-                  Fresh, human-grade ingredients cooked slowly to maintain nutritional integrity and
-                  maximise flavour. Crafted with minimal processing and maximum safety in mind –
-                  it’s food even you could eat.
-                </p>
+                <h3 className="mt-2 text-2xl text-primary">{t('real-good-food-freshly-made')}</h3>
+                <p className="mt-3 text-xl">{t('real-good-food-freshly-made-content')}</p>
               </div>
               <div className="mt-8 max-w-[450px]">
                 <Image alt="good food" src="/meal-plan/icon-2.svg" width={74} height={70} />
-                <h3 className="mt-2 text-2xl text-primary">Customised Meal Plans</h3>
-                <p className="mt-3">
-                  Each pre-made, pre-portioned meal is aligned with your pet’s unique health goals,
-                  right down to the last calorie, as determined by the profile you create.
-                </p>
+                <h3 className="mt-2 text-2xl text-primary">{t('customised-meal-plans')}</h3>
+                <p className="mt-3 text-xl">{t('customised-meal-plans-content')}</p>
               </div>
               <div className="ml-[90px] mt-8 max-w-[420px]">
                 <Image alt="good food" src="/meal-plan/icon-3.svg" width={102} height={70} />
-                <h3 className="mt-2 text-2xl text-primary">Delivered Within Days</h3>
-                <p className="mt-3">
-                  From our kitchen to your fridge in days - that&apos;s how fresh we like it. We
-                  oversee every facet of production to make sure only the best lands in your dog’s
-                  bowl.
-                </p>
+                <h3 className="mt-2 text-2xl text-primary">{t('delivered-within-days')}</h3>
+                <p className="mt-3 text-xl">{t('delivered-within-days-content')}</p>
               </div>
-              <div className="ml-[150px] mt-8">
+              <div className="ml-[200px] mt-8">
                 <Image alt="good food" src="/meal-plan/icon-4.svg" width={67} height={70} />
-                <h3 className="mt-2 text-2xl text-primary">Vet-Approved</h3>
-                <p className="mt-3">Nutrition that exceeds industry standards (AAFCO / FEDIAF).</p>
+                <h3 className="mt-2 text-2xl text-primary">{t('vet-approved')}</h3>
+                <p className="mt-3 text-xl">{t('vet-approved-content')}</p>
               </div>
             </div>
             <div className="absolute right-0 top-0 w-[65%] max-xl:static max-sm:w-full">
@@ -112,52 +106,28 @@ export default function Home() {
       <div className="overflow-hidden bg-primary py-4">
         <div className="flex animate-marquee flex-nowrap [&_img]:max-w-none">
           <MarqueeContent icon="icon-1.svg" alt="Food" width={53} height={46}>
-            Real, Good Food
+            {t('real-good-food')}
           </MarqueeContent>
           <MarqueeContent icon="icon-2.svg" alt="Approved" width={43} height={46}>
-            Vet Approved
+            {t('vet-approved')}
           </MarqueeContent>
           <MarqueeContent icon="icon-3.svg" alt="Human-Grade" width={38} height={46}>
-            Human-Grade
+            {t('human-grade')}
           </MarqueeContent>
           <MarqueeContent icon="icon-4.svg" alt="Fresh" width={38} height={48}>
-            Made Fresh
+            {t('made-fresh')}
           </MarqueeContent>
           <MarqueeContent icon="icon-5.svg" alt="High-Quality" width={36} height={48}>
-            High-Quality Ingredients
+            {t('high-quality-ingredients')}
           </MarqueeContent>
           <MarqueeContent icon="icon-6.svg" alt="No Fillers" width={40} height={46}>
-            No Fillers
+            {t('no-fillers')}
           </MarqueeContent>
           <MarqueeContent icon="icon-7.svg" alt="No Preservatives" width={40} height={46}>
-            No Preservatives
+            {t('no-preservatives')}
           </MarqueeContent>
           <MarqueeContent icon="icon-8.svg" alt="No Artificial Flavours" width={40} height={46}>
-            No Artificial Flavours
-          </MarqueeContent>
-          <MarqueeContent icon="icon-1.svg" alt="Food" width={53} height={46}>
-            Real, Good Food
-          </MarqueeContent>
-          <MarqueeContent icon="icon-2.svg" alt="Approved" width={43} height={46}>
-            Vet Approved
-          </MarqueeContent>
-          <MarqueeContent icon="icon-3.svg" alt="Human-Grade" width={38} height={46}>
-            Human-Grade
-          </MarqueeContent>
-          <MarqueeContent icon="icon-4.svg" alt="Fresh" width={38} height={48}>
-            Made Fresh
-          </MarqueeContent>
-          <MarqueeContent icon="icon-5.svg" alt="High-Quality" width={36} height={48}>
-            High-Quality Ingredients
-          </MarqueeContent>
-          <MarqueeContent icon="icon-6.svg" alt="No Fillers" width={40} height={46}>
-            No Fillers
-          </MarqueeContent>
-          <MarqueeContent icon="icon-7.svg" alt="No Preservatives" width={40} height={46}>
-            No Preservatives
-          </MarqueeContent>
-          <MarqueeContent icon="icon-8.svg" alt="No Artificial Flavours" width={40} height={46}>
-            No Artificial Flavours
+            {t('no-artificial-flavours')}
           </MarqueeContent>
         </div>
       </div>

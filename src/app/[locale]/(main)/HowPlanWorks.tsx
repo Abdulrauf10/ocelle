@@ -11,28 +11,28 @@ export default function HowPlanWorks() {
           height={110}
           className="inline-block"
         />
-        <div className="bg-gray mx-auto mt-5 h-9 w-9 rounded-full text-center font-open-sans text-2xl font-bold leading-9 text-white">
+        <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
           1
         </div>
-        <div className="text-gray mt-2 text-2xl">Tell us about your dog</div>
-        <p className="mt-2">
+        <div className="mt-2 text-2xl text-gray">Tell us about your dog</div>
+        <p className="mt-2 text-xl">
           Take our quick quiz to help us understand your furry friend. Based on their preferences
           and needs, we&apos;ll formulate a personalised meal plan just for them.
         </p>
       </div>
-      <div className="w-1/3 px-8 py-5 text-center max-md:w-full">
+      <div className=" w-1/3 px-8 py-5 text-center max-md:w-full">
         <Image
           src="/plan-works/icon-2.png"
           alt="starter box"
           width={110}
           height={110}
-          className="inline-block"
+          className="ml-[20px] inline-block"
         />
-        <div className="bg-gray mx-auto mt-5 h-9 w-9 rounded-full text-center font-open-sans text-2xl font-bold leading-9 text-white">
+        <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
           2
         </div>
-        <div className="text-gray mt-2 text-2xl">Get your starter box</div>
-        <p className="mt-2">
+        <div className="mt-2 text-2xl text-gray">Get your starter box</div>
+        <p className="mt-2 text-xl">
           We’ll send you two weeks’ worth of freshly crafted meals. It’s the ideal intro for your
           dog’s discerning palate!
         </p>
@@ -43,13 +43,13 @@ export default function HowPlanWorks() {
           alt="deliver"
           width={165}
           height={110}
-          className="inline-block"
+          className="mr-[20px] inline-block"
         />
-        <div className="bg-gray mx-auto mt-5 h-9 w-9 rounded-full text-center font-open-sans text-2xl font-bold leading-9 text-white">
+        <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
           3
         </div>
-        <div className="text-gray mt-2 text-2xl">Real, good food, regularly delivered</div>
-        <p className="mt-2">
+        <div className="mt-2 text-2xl text-gray">Real, good food, regularly delivered</div>
+        <p className="mt-2 text-xl">
           If our meals win your hearts, sit back and relax. Your dog&apos;s food will arrive at your
           door like clockwork. If you need to make changes, simply adjust your subscription at any
           time.
