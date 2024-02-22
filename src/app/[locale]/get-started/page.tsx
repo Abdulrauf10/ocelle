@@ -17,12 +17,11 @@ import RecommendedPlanFragment from './fragments/RecommendedPlan';
 import CheckoutFragment from './fragments/Checkout';
 import ThankYouFragment from './fragments/ThankYou';
 import Back from './Back';
-import { ThemeProvider } from '@mui/material';
 import Header from '@/components/Header';
-import theme from '@/app/mui-theme';
 import FragmentRouter, { useFragmentRouterController } from '@/components/FragmentRouter';
 import { SurveyContextProvider } from './SurveyContext';
 import clsx from 'clsx';
+import AppThemeProvider from '@/components/AppThemeProvider';
 
 interface BackButtonProps {
   show: boolean;
@@ -103,7 +102,7 @@ export default function GetStarted() {
   });
 
   return (
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <div className={clsx(controller.route === Stage.ThankYou && 'pointer-events-none opacity-0')}>
         <Header
           sticky={false}
@@ -145,6 +144,6 @@ export default function GetStarted() {
           <FragmentRouter controller={controller} />
         </SurveyContextProvider>
       </main>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }

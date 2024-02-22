@@ -5,12 +5,11 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
 import UnderlineButton from '@/components/UnderlineButton';
-import { ThemeProvider } from '@mui/material';
-import theme from '@/app/mui-theme';
 import DateCalendar from '@/components/controls/DateCalendar';
 import CircleTick from '@/components/icons/CircleTick';
 import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
+import AppThemeProvider from '@/components/AppThemeProvider';
 
 export default function PauseDelivery() {
   const t = useTranslations();
@@ -29,7 +28,7 @@ export default function PauseDelivery() {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <main className="bg-gold bg-opacity-10 py-10">
         {completed ? (
           <Container>
@@ -76,6 +75,6 @@ export default function PauseDelivery() {
           </form>
         )}
       </main>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }

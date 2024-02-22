@@ -1,6 +1,6 @@
 import Container from '@/components/Container';
 import Section from '../Section';
-import { TextField, ThemeProvider, createTheme, useTheme } from '@mui/material';
+import { TextField, useTheme } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import React from 'react';
 import SectionBreak from '../SectionBreak';
@@ -19,6 +19,7 @@ import UnderlineButton from '@/components/UnderlineButton';
 import CouponForm from '@/components/forms/Coupon';
 import { useSurvey } from '../SurveyContext';
 import { MealPlan, Recipe } from '@/enums';
+import AppThemeProvider from '@/components/AppThemeProvider';
 
 function getRecipeTranslation(recipe?: Recipe) {
   switch (recipe) {
@@ -87,8 +88,8 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
   );
 
   return (
-    <ThemeProvider
-      theme={createTheme(theme, {
+    <AppThemeProvider
+      theme={{
         components: {
           MuiOutlinedInput: {
             styleOverrides: {
@@ -108,7 +109,7 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
             },
           },
         },
-      })}
+      }}
     >
       <form onSubmit={handleSubmit(onSubmit)}>
         <Container>
@@ -365,6 +366,6 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
           </div>
         </Container>
       </form>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }

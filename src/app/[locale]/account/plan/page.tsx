@@ -2,8 +2,6 @@
 
 import React from 'react';
 import clsx from 'clsx';
-import { ThemeProvider } from '@mui/material';
-import theme from '@/app/mui-theme';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
 import UnderlineButton from '@/components/UnderlineButton';
@@ -11,6 +9,7 @@ import Image from 'next/image';
 import DogSwitch from '../DogSwitch';
 import Headings from '@/components/Headings';
 import { useTranslations } from 'next-intl';
+import AppThemeProvider from '@/components/AppThemeProvider';
 
 export default function Plan() {
   const t = useTranslations();
@@ -19,7 +18,7 @@ export default function Plan() {
   );
 
   return (
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <main className="bg-gold bg-opacity-10 py-10">
         <Container className="max-w-[860px]">
           <div className="item-center -mx-4 -my-3 flex max-sm:flex-col-reverse">
@@ -216,6 +215,6 @@ export default function Plan() {
           </div>
         </Container>
       </main>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }

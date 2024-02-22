@@ -7,10 +7,9 @@ import Button from '@/components/Button';
 import { useForm } from 'react-hook-form';
 import RecipeCheckbox from '@/components/controls/RecipeCheckbox';
 import DogSwitch from '../../DogSwitch';
-import { ThemeProvider } from '@mui/material';
-import theme from '@/app/mui-theme';
 import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
+import AppThemeProvider from '@/components/AppThemeProvider';
 
 export default function PlanRecipe() {
   const t = useTranslations();
@@ -20,7 +19,7 @@ export default function PlanRecipe() {
   const name = 'Charlie';
 
   return (
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <main className="bg-gold bg-opacity-10 py-10">
         <Container>
           <div className="mx-auto flex max-w-[1120px] justify-end">
@@ -150,6 +149,6 @@ export default function PlanRecipe() {
           </div>
         </Container>
       </main>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }

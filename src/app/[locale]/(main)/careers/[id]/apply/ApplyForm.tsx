@@ -1,9 +1,8 @@
 'use client';
 
 import React from 'react';
-import theme from '@/app/mui-theme';
 import Button from '@/components/Button';
-import { TextField, ThemeProvider } from '@mui/material';
+import { TextField } from '@mui/material';
 import {
   type Control,
   type FieldValues,
@@ -17,6 +16,7 @@ import { serialize } from 'object-to-formdata';
 import Container from '@/components/Container';
 import Image from 'next/image';
 import Block from '@/components/Block';
+import AppThemeProvider from '@/components/AppThemeProvider';
 
 interface FileInputProps {
   control: Control<FieldValues>;
@@ -116,7 +116,7 @@ export default function ApplyForm({
   }
 
   return (
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       {children}
       <Block styles="tight" className="bg-gold bg-opacity-10">
         <Container className="max-w-screen-lg">
@@ -220,6 +220,6 @@ export default function ApplyForm({
           </div>
         </Container>
       </Block>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }

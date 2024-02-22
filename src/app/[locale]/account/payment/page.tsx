@@ -5,12 +5,11 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
 import UnderlineButton from '@/components/UnderlineButton';
-import { ThemeProvider } from '@mui/material';
 import Button from '@/components/Button';
-import theme from '@/app/mui-theme';
 import CardForm from '@/components/forms/Card';
 import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
+import AppThemeProvider from '@/components/AppThemeProvider';
 
 export default function Payments() {
   const t = useTranslations();
@@ -28,7 +27,7 @@ export default function Payments() {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <main className="bg-gold bg-opacity-10 py-10">
         <Container>
           <div className="mx-auto max-w-[520px]">
@@ -53,6 +52,6 @@ export default function Payments() {
           </div>
         </Container>
       </main>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }

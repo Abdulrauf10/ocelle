@@ -2,10 +2,9 @@
 
 import React from 'react';
 import clsx from 'clsx';
-import theme from '@/app/mui-theme';
 import Container from '@/components/Container';
 import { Breed } from '@/entities';
-import { Autocomplete, Chip, TextField, ThemeProvider } from '@mui/material';
+import { Autocomplete, Chip, TextField } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import UnderlineButton from '@/components/UnderlineButton';
@@ -15,6 +14,7 @@ import Image from 'next/image';
 import Button from '@/components/Button';
 import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
+import AppThemeProvider from '@/components/AppThemeProvider';
 
 interface EditDogBlockProps {
   title: string;
@@ -87,7 +87,7 @@ export default function EditDog({ params }: { params: { id: string } }) {
   const name = 'Charlie';
 
   return (
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <main className="bg-gold bg-opacity-10 py-10">
         <Container className="max-w-[860px]">
           <Headings tag="h1" styles="h2" className="text-center text-primary">
@@ -562,6 +562,6 @@ export default function EditDog({ params }: { params: { id: string } }) {
           </div>
         </Container>
       </main>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }

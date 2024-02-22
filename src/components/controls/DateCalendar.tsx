@@ -5,11 +5,12 @@ import { dateCalendarClasses } from '@mui/x-date-pickers/DateCalendar/dateCalend
 import { dayPickerClasses } from '@mui/x-date-pickers/DateCalendar/dayCalendarClasses';
 import { pickersDayClasses } from '@mui/x-date-pickers/PickersDay/pickersDayClasses';
 import { pickersCalendarHeaderClasses } from '@mui/x-date-pickers/PickersCalendarHeader/pickersCalendarHeaderClasses';
-import { ThemeProvider, createTheme, useTheme, alpha } from '@mui/material';
+import { useTheme, alpha } from '@mui/material';
 import { useController, type FieldValues, type PathValue, type Path } from 'react-hook-form';
 import { InputControllerProps } from '@/types';
 import DogFoot from '../icons/DogFoot';
 import clsx from 'clsx';
+import AppThemeProvider from '../AppThemeProvider';
 
 interface DateCalendarProps<T extends FieldValues> extends InputControllerProps<T> {
   defaultValue?: PathValue<T, Path<T>>;
@@ -36,14 +37,14 @@ export default function DateCalendar<T extends FieldValues>({
   } = useController({ name, control, rules, defaultValue });
 
   return (
-    <ThemeProvider
-      theme={createTheme(theme, {
+    <AppThemeProvider
+      theme={{
         palette: {
           primary: {
             main: '#F2892A',
           },
         },
-      })}
+      }}
     >
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <MuiDateCalendar
@@ -164,6 +165,6 @@ export default function DateCalendar<T extends FieldValues>({
           </div>
         )}
       </div>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }

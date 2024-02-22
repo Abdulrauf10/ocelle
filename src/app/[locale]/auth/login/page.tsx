@@ -1,12 +1,12 @@
 'use client';
 
-import theme from '@/app/mui-theme';
+import AppThemeProvider from '@/components/AppThemeProvider';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Headings from '@/components/Headings';
 import UnderlineButton from '@/components/UnderlineButton';
 import PasswordField from '@/components/controls/PasswordField';
-import { TextField, ThemeProvider } from '@mui/material';
+import { TextField } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -20,7 +20,7 @@ export default function Login() {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <main className="py-10 text-center text-primary">
         <Container>
           <Headings tag="h1" styles="h2">
@@ -63,6 +63,6 @@ export default function Login() {
           </div>
         </Container>
       </main>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }

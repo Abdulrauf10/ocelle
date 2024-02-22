@@ -1,14 +1,13 @@
 'use client';
 
 import React from 'react';
-import theme from '@/app/mui-theme';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Headings from '@/components/Headings';
 import PasswordField from '@/components/controls/PasswordField';
-import { ThemeProvider } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
+import AppThemeProvider from '@/components/AppThemeProvider';
 
 export default function ResetPassword() {
   const t = useTranslations();
@@ -19,7 +18,7 @@ export default function ResetPassword() {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <main className="py-10 text-center text-primary">
         <Container>
           <Headings tag="h1" styles="h2">
@@ -48,6 +47,6 @@ export default function ResetPassword() {
           </div>
         </Container>
       </main>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }

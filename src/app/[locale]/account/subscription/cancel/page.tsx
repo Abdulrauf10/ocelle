@@ -1,13 +1,12 @@
 'use client';
 
 import React from 'react';
-import { ThemeProvider } from '@mui/material';
-import theme from '@/app/mui-theme';
 import FragmentRouter, { useFragmentRouterController } from '@/components/FragmentRouter';
 import { Path } from './types';
 import IndexFragment from './fragments';
 import SurveyFragment from './fragments/survey';
 import CompleteFragment from './fragments/complete';
+import AppThemeProvider from '@/components/AppThemeProvider';
 
 export default function PauseDelivery() {
   const controller = useFragmentRouterController<Path>({
@@ -29,10 +28,10 @@ export default function PauseDelivery() {
   });
 
   return (
-    <ThemeProvider theme={theme}>
+    <AppThemeProvider>
       <main className="bg-gold bg-opacity-10 py-10">
         <FragmentRouter controller={controller} />
       </main>
-    </ThemeProvider>
+    </AppThemeProvider>
   );
 }
