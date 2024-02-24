@@ -7,6 +7,7 @@ import HamburgerMenu from './icons/HamburgerMenu';
 import { useAuth } from '@/contexts/auth';
 import { Link, usePathname } from '@/navigation';
 import { useLocale, useTranslations } from 'next-intl';
+import { logout } from '@/actions';
 
 interface HeaderProps {
   sticky?: boolean;
@@ -134,9 +135,9 @@ export default function Header({
         </div>
         <div className="relative z-10 px-2 pt-4 ">
           {auth.logined ? (
-            <Link href="/auth/logout" className="whitespace-nowrap hover:underline max-lg:mr-0">
+            <button className="whitespace-nowrap hover:underline max-lg:mr-0" onClick={logout}>
               {t('log-out')}
-            </Link>
+            </button>
           ) : (
             <Link href="/auth/login" className="whitespace-nowrap hover:underline max-lg:mr-0">
               {t('log-in')}
