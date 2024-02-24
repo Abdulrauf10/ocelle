@@ -1,7 +1,6 @@
 'use server';
 
-import { SetForgotPasswordDocument } from '@/gql/graphql';
-import { executeGraphQL } from '@/helpers/graphql';
+import saleorAuthClient from '@/saleorAuthClient';
 import Joi from 'joi';
 
 interface ResetPasswordAction {
@@ -25,14 +24,9 @@ export async function resetPasswordAction(formData: FormData) {
     throw new Error('schema is not valid');
   }
 
-  const { setPassword } = await executeGraphQL(SetForgotPasswordDocument, {
-    variables: {
-      email: value.email,
-      password: value.password,
-      token: value.token,
-    },
-    withAuth: false,
-  });
+  const {
+    data: { setPassword },
+  } = await saleorAuthClient.resetPassword(value);
 
-  return { errors: setPassword?.errors };
+  return { errors: setPassword.errors };
 }
