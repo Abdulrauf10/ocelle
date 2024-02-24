@@ -23,11 +23,15 @@ export default async function loginAction(formData: FormData) {
     throw new Error('schema is not valid');
   }
 
-  await saleorAuthClient.signIn(
+  const {
+    data: { tokenCreate },
+  } = await saleorAuthClient.signIn(
     {
       email: value.email,
       password: value.password,
     },
     { cache: 'no-store' }
   );
+
+  return { errors: tokenCreate.errors };
 }

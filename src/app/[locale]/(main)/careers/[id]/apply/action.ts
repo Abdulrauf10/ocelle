@@ -65,8 +65,6 @@ export async function applyCareerAction(formData: FormData) {
     throw new Error('career not found');
   }
 
-  console.log(value);
-
   const entity = queryRunner.manager.create(CareerSubmission, {
     firstName: value.firstName,
     lastName: value.lastName,
