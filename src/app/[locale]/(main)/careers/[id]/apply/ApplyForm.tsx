@@ -12,11 +12,11 @@ import {
   Controller,
 } from 'react-hook-form';
 import { mergeRefs } from 'react-merge-refs';
-import { serialize } from 'object-to-formdata';
 import Container from '@/components/Container';
 import Image from 'next/image';
 import Block from '@/components/Block';
 import AppThemeProvider from '@/components/AppThemeProvider';
+import { applyCareerAction } from './action';
 
 interface FileInputProps {
   control: Control<FieldValues>;
@@ -80,19 +80,11 @@ export default function ApplyForm({
   title,
   children,
 }: React.PropsWithChildren<ApplyFormProps>) {
-  const { control, handleSubmit } = useForm();
+  const {
+    control,
+    formState: { isValid },
+  } = useForm();
   const [completed, setCompleted] = React.useState(false);
-
-  const onSubmit = React.useCallback(
-    async (values: object) => {
-      const formdata = serialize({ id, ...values });
-      const res = await fetch('/api/career', { body: formdata, method: 'POST' });
-      if (res.ok) {
-        setCompleted(true);
-      }
-    },
-    [id]
-  );
 
   if (completed) {
     return (
@@ -125,7 +117,17 @@ export default function ApplyForm({
             <span className="text-error">*</span> Required
           </div>
           <div className="mt-6">
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form
+              action={async (data) => {
+                data.set('id', String(id));
+                try {
+                  await applyCareerAction(data);
+                  setCompleted(true);
+                } catch (e) {
+                  console.log(e);
+                }
+              }}
+            >
               <div className="-mx-4 -my-4 flex flex-wrap">
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-center">
@@ -213,7 +215,7 @@ export default function ApplyForm({
                   </div>
                 </div>
                 <div className="w-full px-4 py-4 text-center">
-                  <Button>Submit Application</Button>
+                  <Button disabled={!isValid}>Submit Application</Button>
                 </div>
               </div>
             </form>

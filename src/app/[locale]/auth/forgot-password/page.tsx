@@ -9,14 +9,14 @@ import { TextField } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { forgotPasswordAction } from './action';
 
 export default function ForgotPassword() {
   const t = useTranslations();
-  const { control, handleSubmit } = useForm();
-
-  const onSubmit = React.useCallback((values: unknown) => {
-    //
-  }, []);
+  const {
+    control,
+    formState: { isValid },
+  } = useForm();
 
   return (
     <AppThemeProvider>
@@ -29,7 +29,7 @@ export default function ForgotPassword() {
             {t('trouble-logging-in-please-enter-your-email-to-reset-your-password')}
           </p>
           <div className="mx-auto max-w-[300px] max-xs:max-w-full">
-            <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-6">
+            <form action={forgotPasswordAction} className="mx-auto mt-6">
               <Controller
                 name="email"
                 control={control}
@@ -39,7 +39,9 @@ export default function ForgotPassword() {
                 )}
               />
               <div className="py-6"></div>
-              <Button fullWidth>{t('submit')}</Button>
+              <Button fullWidth disabled={!isValid}>
+                {t('submit')}
+              </Button>
             </form>
             <UnderlineButton
               href="/auth/login"

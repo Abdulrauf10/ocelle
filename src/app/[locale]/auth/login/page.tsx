@@ -10,14 +10,14 @@ import { TextField } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import loginAction from './action';
 
 export default function Login() {
   const t = useTranslations();
-  const { control, handleSubmit } = useForm();
-
-  const onSubmit = React.useCallback((values: unknown) => {
-    //
-  }, []);
+  const {
+    control,
+    formState: { isValid },
+  } = useForm();
 
   return (
     <AppThemeProvider>
@@ -28,7 +28,7 @@ export default function Login() {
           </Headings>
           <p className="mt-4 text-xl">{t('please-log-in-to-continue')}</p>
           <div className="mx-auto max-w-[260px] max-xs:max-w-full">
-            <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-6">
+            <form action={loginAction} className="mx-auto mt-6">
               <Controller
                 name="email"
                 control={control}
@@ -46,7 +46,9 @@ export default function Login() {
                 fullWidth
               />
               <div className="py-6"></div>
-              <Button fullWidth>{t('log-in')}</Button>
+              <Button fullWidth disabled={!isValid}>
+                {t('log-in')}
+              </Button>
             </form>
             <UnderlineButton
               href="/auth/forgot-password"

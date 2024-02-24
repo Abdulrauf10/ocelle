@@ -8,14 +8,14 @@ import PasswordField from '@/components/controls/PasswordField';
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import AppThemeProvider from '@/components/AppThemeProvider';
+import { resetPasswordAction } from './action';
 
 export default function ResetPassword() {
   const t = useTranslations();
-  const { control, handleSubmit } = useForm();
-
-  const onSubmit = React.useCallback((values: unknown) => {
-    //
-  }, []);
+  const {
+    control,
+    formState: { isValid },
+  } = useForm();
 
   return (
     <AppThemeProvider>
@@ -25,7 +25,7 @@ export default function ResetPassword() {
             {t('change-{}', { value: t('password') })}
           </Headings>
           <div className="mx-auto max-w-[280px] max-xs:max-w-full">
-            <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-6">
+            <form action={resetPasswordAction} className="mx-auto mt-6">
               <PasswordField
                 name="password"
                 control={control}
@@ -42,7 +42,9 @@ export default function ResetPassword() {
                 fullWidth
               />
               <div className="py-6"></div>
-              <Button fullWidth>{t('set-{}', { value: t('new-password') })}</Button>
+              <Button fullWidth disabled={!isValid}>
+                {t('set-{}', { value: t('new-password') })}
+              </Button>
             </form>
           </div>
         </Container>
