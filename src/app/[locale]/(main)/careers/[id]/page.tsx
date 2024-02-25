@@ -1,4 +1,3 @@
-import AppDataSource from '@/AppDataSource';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import { Career, CareerLine } from '@/entities';
@@ -8,28 +7,20 @@ import { notFound } from 'next/navigation';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import Title from './Title';
 import Block from '@/components/Block';
+import { executeQuery } from '@/helpers/queryRunner';
 
 async function fetchData(id: number) {
-  if (!AppDataSource.isInitialized) {
-    await AppDataSource.initialize();
-  }
-
-  const queryRunner = AppDataSource.createQueryRunner();
-  await queryRunner.connect();
-
-  const data = await queryRunner.manager.findOne(Career, {
-    where: {
-      id,
-      applyDate: LessThanOrEqual(new Date()),
-      endDate: MoreThanOrEqual(new Date()),
-      isDisabled: false,
-    },
-    relations: { lines: true },
+  return executeQuery(async (queryRunner) => {
+    return await queryRunner.manager.findOne(Career, {
+      where: {
+        id,
+        applyDate: LessThanOrEqual(new Date()),
+        endDate: MoreThanOrEqual(new Date()),
+        isDisabled: false,
+      },
+      relations: { lines: true },
+    });
   });
-
-  await queryRunner.release();
-
-  return data;
 }
 
 interface SectionProps {

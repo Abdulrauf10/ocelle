@@ -1,5 +1,4 @@
 import React from 'react';
-import AppDataSource from '@/AppDataSource';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import { Career } from '@/entities';
@@ -10,36 +9,30 @@ import UnderlineButton from '@/components/UnderlineButton';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import Headings from '@/components/Headings';
 import Block from '@/components/Block';
+import { executeQuery } from '@/helpers/queryRunner';
 
 async function fetchData() {
-  if (!AppDataSource.isInitialized) {
-    await AppDataSource.initialize();
-  }
+  return executeQuery(async (queryRunner) => {
+    const data = await queryRunner.manager.find(Career, {
+      where: {
+        applyDate: LessThanOrEqual(new Date()),
+        endDate: MoreThanOrEqual(new Date()),
+        isDisabled: false,
+      },
+      relations: { lines: true },
+    });
 
-  const queryRunner = AppDataSource.createQueryRunner();
-  await queryRunner.connect();
-
-  const data = await queryRunner.manager.find(Career, {
-    where: {
-      applyDate: LessThanOrEqual(new Date()),
-      endDate: MoreThanOrEqual(new Date()),
-      isDisabled: false,
-    },
-    relations: { lines: true },
+    return {
+      count: data.length,
+      operations: data.filter((d) => d.classification === Classification.Operations),
+      marketing: data.filter((d) => d.classification === Classification.Marketing),
+      financeAndAccounting: data.filter(
+        (d) => d.classification === Classification.FinanceAndAccounting
+      ),
+      technology: data.filter((d) => d.classification === Classification.Technology),
+      sales: data.filter((d) => d.classification === Classification.Sales),
+    };
   });
-
-  await queryRunner.release();
-
-  return {
-    count: data.length,
-    operations: data.filter((d) => d.classification === Classification.Operations),
-    marketing: data.filter((d) => d.classification === Classification.Marketing),
-    financeAndAccounting: data.filter(
-      (d) => d.classification === Classification.FinanceAndAccounting
-    ),
-    technology: data.filter((d) => d.classification === Classification.Technology),
-    sales: data.filter((d) => d.classification === Classification.Sales),
-  };
 }
 
 function CareerBlock({ career }: { career: Career }) {
