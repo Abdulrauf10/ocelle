@@ -5,7 +5,7 @@ import saleorAuthClient from './saleorAuthClient';
 
 // here for global actions
 
-export function logout() {
+export async function logout() {
   saleorAuthClient.signOut();
   redirect('/');
 }
