@@ -12,6 +12,7 @@ import Tickbox from '@/components/icons/Tickbox';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
+import Marquee from 'react-fast-marquee';
 
 export default function Home() {
   const t = useTranslations();
@@ -46,7 +47,7 @@ export default function Home() {
             </Headings>
             <div className="mt-[2vw]">
               <List
-                picture={<Tickbox className="mr-4 h-5 w-5" />}
+                picture={<Tickbox className="mr-4 mt-1 h-5 w-5" />}
                 className={{ listItem: 'py-0.5' }}
                 items={[
                   'increased-lifespan',
@@ -103,34 +104,34 @@ export default function Home() {
           </div>
         </Container>
       </Block>
-      <div className="overflow-hidden bg-primary py-4">
-        <div className="flex animate-marquee flex-nowrap [&_img]:max-w-none">
-          <MarqueeContent icon="icon-1.svg" alt="Food" width={53} height={46}>
-            {t('real-good-food')}
-          </MarqueeContent>
-          <MarqueeContent icon="icon-2.svg" alt="Approved" width={43} height={46}>
-            {t('vet-approved')}
-          </MarqueeContent>
-          <MarqueeContent icon="icon-3.svg" alt="Human-Grade" width={38} height={46}>
-            {t('human-grade')}
-          </MarqueeContent>
-          <MarqueeContent icon="icon-4.svg" alt="Fresh" width={38} height={48}>
-            {t('made-fresh')}
-          </MarqueeContent>
-          <MarqueeContent icon="icon-5.svg" alt="High-Quality" width={36} height={48}>
-            {t('high-quality-ingredients')}
-          </MarqueeContent>
-          <MarqueeContent icon="icon-6.svg" alt="No Fillers" width={40} height={46}>
-            {t('no-fillers')}
-          </MarqueeContent>
-          <MarqueeContent icon="icon-7.svg" alt="No Preservatives" width={40} height={46}>
-            {t('no-preservatives')}
-          </MarqueeContent>
-          <MarqueeContent icon="icon-8.svg" alt="No Artificial Flavours" width={40} height={46}>
-            {t('no-artificial-flavours')}
-          </MarqueeContent>
-        </div>
-      </div>
+      <Marquee
+        style={{ backgroundColor: 'rgb(82 137 177)', paddingTop: '8px', paddingBottom: '8px' }}
+      >
+        <MarqueeContent icon="icon-1.svg" alt="Food" width={53} height={46}>
+          {t('real-good-food')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-2.svg" alt="Approved" width={43} height={46}>
+          {t('vet-approved')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-3.svg" alt="Human-Grade" width={38} height={46}>
+          {t('human-grade')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-4.svg" alt="Fresh" width={38} height={48}>
+          {t('made-fresh')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-5.svg" alt="High-Quality" width={36} height={48}>
+          {t('high-quality-ingredients')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-6.svg" alt="No Fillers" width={40} height={46}>
+          {t('no-fillers')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-7.svg" alt="No Preservatives" width={40} height={46}>
+          {t('no-preservatives')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-8.svg" alt="No Artificial Flavours" width={40} height={46}>
+          {t('no-artificial-flavours')}
+        </MarqueeContent>
+      </Marquee>
       <Block className="bg-gray bg-opacity-20">
         <Container>
           <Headings tag="h2" styles="h1" className="text-center text-gray">
