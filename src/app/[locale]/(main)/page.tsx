@@ -12,6 +12,7 @@ import Tickbox from '@/components/icons/Tickbox';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
+import Marquee from 'react-fast-marquee';
 
 export default function Home() {
   const t = useTranslations();
@@ -22,7 +23,9 @@ export default function Home() {
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center text-white">
           <Headings tag="h1" styles="h1">
-            {t('they-re-my-dogs-they-re-my-family')}
+            {t('they-re-my-dogs')}
+            <br className="md:hidden" />
+            {t('they-re-my-family')}
           </Headings>
           <p className="mt-8 text-xl">
             {t(
@@ -39,14 +42,14 @@ export default function Home() {
           <Block>
             <Headings tag="h2" styles="h1" className="text-primary">
               {t('more-years')}
-              <br />
+              <br className="hidden md:block xl:hidden" />
               {t('happier-years')}
               <br />
               {t('it-s-time-to-go-fresh')}
             </Headings>
             <div className="mt-[2vw]">
               <List
-                picture={<Tickbox className="mr-4 h-5 w-5" />}
+                picture={<Tickbox className="mr-4 mt-1 h-5 w-5" />}
                 className={{ listItem: 'py-0.5' }}
                 items={[
                   'increased-lifespan',
@@ -58,7 +61,9 @@ export default function Home() {
               />
             </div>
             <div className="mb-5 mt-[2vw]"></div>
-            <Button href="/why-fresh">{t('learn-more')}</Button>
+            <div className="flex justify-center">
+              <Button href="/why-fresh">{t('learn-more')}</Button>
+            </div>
           </Block>
         </div>
       </div>
@@ -66,7 +71,7 @@ export default function Home() {
         <Container>
           <Headings tag="h2" styles="h1" className="text-center text-primary">
             {t('we-re-powered-by-science')}
-            <br className="max-md:hidden" />
+            <br className="hidden lg:block" />
             {t('customised-meal-plans-for-your-dogs')}
           </Headings>
           <div className="relative mt-10 flex-col-reverse items-center max-xl:flex">
@@ -103,34 +108,34 @@ export default function Home() {
           </div>
         </Container>
       </Block>
-      <div className="overflow-hidden bg-primary py-4">
-        <div className="flex animate-marquee flex-nowrap [&_img]:max-w-none">
-          <MarqueeContent icon="icon-1.svg" alt="Food" width={53} height={46}>
-            {t('real-good-food')}
-          </MarqueeContent>
-          <MarqueeContent icon="icon-2.svg" alt="Approved" width={43} height={46}>
-            {t('vet-approved')}
-          </MarqueeContent>
-          <MarqueeContent icon="icon-3.svg" alt="Human-Grade" width={38} height={46}>
-            {t('human-grade')}
-          </MarqueeContent>
-          <MarqueeContent icon="icon-4.svg" alt="Fresh" width={38} height={48}>
-            {t('made-fresh')}
-          </MarqueeContent>
-          <MarqueeContent icon="icon-5.svg" alt="High-Quality" width={36} height={48}>
-            {t('high-quality-ingredients')}
-          </MarqueeContent>
-          <MarqueeContent icon="icon-6.svg" alt="No Fillers" width={40} height={46}>
-            {t('no-fillers')}
-          </MarqueeContent>
-          <MarqueeContent icon="icon-7.svg" alt="No Preservatives" width={40} height={46}>
-            {t('no-preservatives')}
-          </MarqueeContent>
-          <MarqueeContent icon="icon-8.svg" alt="No Artificial Flavours" width={40} height={46}>
-            {t('no-artificial-flavours')}
-          </MarqueeContent>
-        </div>
-      </div>
+      <Marquee
+        style={{ backgroundColor: 'rgb(82 137 177)', paddingTop: '8px', paddingBottom: '8px' }}
+      >
+        <MarqueeContent icon="icon-1.svg" alt="Food" width={53} height={46}>
+          {t('real-good-food')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-2.svg" alt="Approved" width={43} height={46}>
+          {t('vet-approved')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-3.svg" alt="Human-Grade" width={38} height={46}>
+          {t('human-grade')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-4.svg" alt="Fresh" width={38} height={48}>
+          {t('made-fresh')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-5.svg" alt="High-Quality" width={36} height={48}>
+          {t('high-quality-ingredients')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-6.svg" alt="No Fillers" width={40} height={46}>
+          {t('no-fillers')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-7.svg" alt="No Preservatives" width={40} height={46}>
+          {t('no-preservatives')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-8.svg" alt="No Artificial Flavours" width={40} height={46}>
+          {t('no-artificial-flavours')}
+        </MarqueeContent>
+      </Marquee>
       <Block className="bg-gray bg-opacity-20">
         <Container>
           <Headings tag="h2" styles="h1" className="text-center text-gray">
@@ -142,10 +147,15 @@ export default function Home() {
           <div className="mt-2 text-center">
             <Button href="/get-started">{t('build-my-plan')}</Button>
           </div>
-          <p className="mt-[2.5vw] text-center text-2xl font-bold text-gray max-md:text-xl max-sm:mt-8">
-            Not ready for a subscription? No problem! Try our{' '}
+          <p className="mt-[2.5vw] text-center text-3xl font-black text-gray max-md:text-3xl max-sm:mt-8">
+            Not ready for a subscription?
+            <br className="md:hidden" />
+            No problem! Try our{' '}
             <span className="whitespace-nowrap">
-              <Link href="/how-it-works/individual" className="text-secondary hover:underline">
+              <Link
+                href="/how-it-works/individual"
+                className="font-normal text-secondary hover:underline"
+              >
                 individual packs first
               </Link>
               .
@@ -155,17 +165,17 @@ export default function Home() {
       </Block>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <Headings tag="h2" styles="h1" className="text-center text-gold">
+          <Headings tag="h2" styles="h1" className="text-center font-black text-gold">
             Proof Is In The Eating
           </Headings>
           <p className="mx-auto mt-5 max-w-screen-md text-center text-xl text-gold">
-            Choose Ocelle and watch your dog thrive – from better gut health (cleaner poops!) and
+            Choose OCELLE and watch your dog thrive – from better gut health (cleaner poops!) and
             luxurious fur, to optimised energy for life. But you don&apos;t have to take our word
             for it:
           </p>
           <CaseSwiper />
           <div className="mt-8 text-center">
-            <Button href="/get-started">{t('build-my-plan')}</Button>
+            <Button href="/get-started">{t('see-my-plan')}</Button>
           </div>
         </Container>
       </Block>
@@ -173,7 +183,7 @@ export default function Home() {
         <Container>
           <div className="mx-auto max-w-[600px] rounded-[30px] bg-white px-[150px] py-12 text-center max-md:p-10">
             <strong className="text-3xl text-primary">See Your Dog’s Recommended Plan!</strong>
-            <p className="mt-5">
+            <p className="mt-5 text-xl">
               Get fresh food conveniently delivered with our customised meal plans.
             </p>
             <div className="mt-8 text-center">

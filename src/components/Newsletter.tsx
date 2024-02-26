@@ -13,6 +13,7 @@ export default function Newsletter() {
               <span className="ml-5">
                 Exclusive insights, special offers, and helpful nutrition information from the
                 Ocelle Dog Pack.&nbsp;
+                <br className="md:hidden" />
                 <strong className="text-primary">
                   Join Now! <i>Woof!</i>
                 </strong>

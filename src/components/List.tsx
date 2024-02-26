@@ -18,9 +18,9 @@ export default function List({ className, picture, items }: ListProps) {
     <ul className={clsx('list-none', className?.list)}>
       {items.map((item, idx) => {
         return (
-          <li key={idx} className={clsx('mx-0 my-2.5 flex items-center', className?.listItem)}>
-            {picture}
-            <div>{t(item)}</div>
+          <li key={idx} className={clsx('mx-0 my-2.5 flex items-start', className?.listItem)}>
+            <div>{picture}</div>
+            <div className="w-[calc(100%_-_40px)]">{t(item)}</div>
           </li>
         );
       })}
