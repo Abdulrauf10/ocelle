@@ -23,7 +23,9 @@ export default function Home() {
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center text-white">
           <Headings tag="h1" styles="h1">
-            {t('they-re-my-dogs-they-re-my-family')}
+            {t('they-re-my-dogs')}
+            <br className="md:hidden" />
+            {t('they-re-my-family')}
           </Headings>
           <p className="mt-8 text-xl">
             {t(
@@ -40,7 +42,7 @@ export default function Home() {
           <Block>
             <Headings tag="h2" styles="h1" className="text-primary">
               {t('more-years')}
-              <br />
+              <br className="hidden md:block xl:hidden" />
               {t('happier-years')}
               <br />
               {t('it-s-time-to-go-fresh')}
@@ -59,7 +61,9 @@ export default function Home() {
               />
             </div>
             <div className="mb-5 mt-[2vw]"></div>
-            <Button href="/why-fresh">{t('learn-more')}</Button>
+            <div className="flex justify-center">
+              <Button href="/why-fresh">{t('learn-more')}</Button>
+            </div>
           </Block>
         </div>
       </div>
@@ -67,7 +71,7 @@ export default function Home() {
         <Container>
           <Headings tag="h2" styles="h1" className="text-center text-primary">
             {t('we-re-powered-by-science')}
-            <br className="max-md:hidden" />
+            <br className="hidden lg:block" />
             {t('customised-meal-plans-for-your-dogs')}
           </Headings>
           <div className="relative mt-10 flex-col-reverse items-center max-xl:flex">
@@ -143,10 +147,15 @@ export default function Home() {
           <div className="mt-2 text-center">
             <Button href="/get-started">{t('build-my-plan')}</Button>
           </div>
-          <p className="mt-[2.5vw] text-center text-2xl font-bold text-gray max-md:text-xl max-sm:mt-8">
-            Not ready for a subscription? No problem! Try our{' '}
+          <p className="mt-[2.5vw] text-center text-3xl font-black text-gray max-md:text-3xl max-sm:mt-8">
+            Not ready for a subscription?
+            <br className="md:hidden" />
+            No problem! Try our{' '}
             <span className="whitespace-nowrap">
-              <Link href="/how-it-works/individual" className="text-secondary hover:underline">
+              <Link
+                href="/how-it-works/individual"
+                className="font-normal text-secondary hover:underline"
+              >
                 individual packs first
               </Link>
               .
@@ -156,17 +165,17 @@ export default function Home() {
       </Block>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <Headings tag="h2" styles="h1" className="text-center text-gold">
+          <Headings tag="h2" styles="h1" className="text-center font-black text-gold">
             Proof Is In The Eating
           </Headings>
           <p className="mx-auto mt-5 max-w-screen-md text-center text-xl text-gold">
-            Choose Ocelle and watch your dog thrive – from better gut health (cleaner poops!) and
+            Choose OCELLE and watch your dog thrive – from better gut health (cleaner poops!) and
             luxurious fur, to optimised energy for life. But you don&apos;t have to take our word
             for it:
           </p>
           <CaseSwiper />
           <div className="mt-8 text-center">
-            <Button href="/get-started">{t('build-my-plan')}</Button>
+            <Button href="/get-started">{t('see-my-plan')}</Button>
           </div>
         </Container>
       </Block>
@@ -174,7 +183,7 @@ export default function Home() {
         <Container>
           <div className="mx-auto max-w-[600px] rounded-[30px] bg-white px-[150px] py-12 text-center max-md:p-10">
             <strong className="text-3xl text-primary">See Your Dog’s Recommended Plan!</strong>
-            <p className="mt-5">
+            <p className="mt-5 text-xl">
               Get fresh food conveniently delivered with our customised meal plans.
             </p>
             <div className="mt-8 text-center">

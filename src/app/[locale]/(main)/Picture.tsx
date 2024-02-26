@@ -23,7 +23,11 @@ export default function Picture() {
           </h1>
           <div className="my-5 text-xl">
             <List
-              picture={<DogFoot className="mr-5 h-6 w-6 fill-primary" />}
+              picture={
+                <div className="mt-[2px]">
+                  <DogFoot className="mr-5 h-6 w-6 fill-primary" />
+                </div>
+              }
               className={{ listItem: 'py-1' }}
               items={[
                 'Tasty fresh food delivered to your door',
@@ -33,9 +37,11 @@ export default function Picture() {
               ]}
             />
           </div>
-          <Button className="mt-4" href="/get-started">
-            {t('get-started')}
-          </Button>
+          <div className="flex justify-center">
+            <Button className="mt-4" href="/get-started">
+              {t('get-started')}
+            </Button>
+          </div>
         </div>
         <div className="w-2/5 self-end max-md:w-full">
           <div className="w-3/4 overflow-hidden max-md:m-auto">

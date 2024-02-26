@@ -30,9 +30,9 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
           transition={{ duration: 1.5 }}
           className="max-w-[560px] rounded-[30px] bg-white py-12 pl-12 pr-24 text-left text-xl shadow-[7px_7px_5px_rgba(185,130,59,0.3)] max-lg:-mt-5 max-lg:ml-8 max-lg:px-12 max-lg:py-10 max-lg:shadow-[-7px_7px_5px_rgba(185,130,59,0.3)]"
         >
-          <h3 className="text-gold text-3xl font-bold">{dog} Plan</h3>
+          <h3 className="text-3xl font-bold text-gold">{dog} Plan</h3>
           <div className="my-1">
-            <div className="text-gold my-2.5 inline-block rounded-3xl border border-current px-11 py-1 text-xl uppercase">
+            <div className="my-2.5 inline-block rounded-3xl border border-current px-11 py-1 text-xl uppercase text-gold">
               {plan}
             </div>
           </div>
@@ -40,13 +40,15 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
           <div className="mt-5">
             <List
               picture={
-                <Image
-                  src="/brown-tick.png"
-                  className={'mr-3 h-6 w-6'}
-                  width={24}
-                  height={24}
-                  alt="brown tick"
-                />
+                <div className="mt-[2px]">
+                  <Image
+                    src="/brown-tick.png"
+                    className={'mr-3 h-6 w-6'}
+                    width={24}
+                    height={24}
+                    alt="brown tick"
+                  />
+                </div>
               }
               className={{
                 listItem: 'text-gold',
@@ -75,9 +77,10 @@ export default function CaseSwiper() {
     <Swiper
       spaceBetween={50}
       modules={[Pagination, Autoplay]}
-      pagination={{ dynamicBullets: true }}
+      pagination={{ dynamicBullets: false }}
       className="mt-10"
-      autoplay={{ delay: 10000 }}
+      autoplay={{ delay: 12000 }}
+      speed={1000}
     >
       <SwiperSlide>
         <Slide
@@ -85,7 +88,7 @@ export default function CaseSwiper() {
           plan="Fresh Duck"
           picture="/dogs/muffin.jpeg"
           listItems={[
-            'Weight loss',
+            'Weight loss support',
             'Improved digestive health (perfect poops!)',
             'Improved allergies',
           ]}
