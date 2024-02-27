@@ -14,6 +14,7 @@ import { useTranslations } from 'next-intl';
 import { useSurvey } from '../SurveyContext';
 import { booleanToString, stringToBoolean } from '@/helpers/string';
 import { Recipe } from '@/enums';
+import { isAllergies, isRecommendedRecipe } from '@/helpers/dog';
 
 const mapIdx = [Recipe.Chicken, Recipe.Pork, Recipe.Duck, Recipe.Beef, Recipe.Lamb];
 
@@ -58,7 +59,16 @@ function recipeToArray(r1?: Recipe, r2?: Recipe) {
 export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stage>) {
   const t = useTranslations();
   const { getDog, setDog, nextDog } = useSurvey();
-  const { name, recipe1, recipe2, isEnabledTransitionPeriod } = getDog();
+  const {
+    name,
+    pickiness,
+    activityLevel,
+    bodyCondition,
+    foodAllergies,
+    recipe1,
+    recipe2,
+    isEnabledTransitionPeriod,
+  } = getDog();
   const {
     control,
     trigger,
@@ -133,7 +143,14 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                       fat={5}
                       fibre={2}
                       moisture={60}
-                      recommended
+                      recommended={isRecommendedRecipe(
+                        Recipe.Chicken,
+                        pickiness!,
+                        activityLevel!,
+                        bodyCondition!,
+                        foodAllergies!
+                      )}
+                      disabled={isAllergies(Recipe.Chicken, foodAllergies!)}
                     />
                   </div>
                   <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
@@ -150,7 +167,14 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                       fat={5}
                       fibre={2}
                       moisture={60}
-                      recommended
+                      recommended={isRecommendedRecipe(
+                        Recipe.Pork,
+                        pickiness!,
+                        activityLevel!,
+                        bodyCondition!,
+                        foodAllergies!
+                      )}
+                      disabled={isAllergies(Recipe.Pork, foodAllergies!)}
                     />
                   </div>
                   <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
@@ -167,6 +191,14 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                       fat={5}
                       fibre={2}
                       moisture={60}
+                      recommended={isRecommendedRecipe(
+                        Recipe.Duck,
+                        pickiness!,
+                        activityLevel!,
+                        bodyCondition!,
+                        foodAllergies!
+                      )}
+                      disabled={isAllergies(Recipe.Duck, foodAllergies!)}
                     />
                   </div>
                   <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
@@ -183,6 +215,14 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                       fat={5}
                       fibre={2}
                       moisture={60}
+                      recommended={isRecommendedRecipe(
+                        Recipe.Beef,
+                        pickiness!,
+                        activityLevel!,
+                        bodyCondition!,
+                        foodAllergies!
+                      )}
+                      disabled={isAllergies(Recipe.Beef, foodAllergies!)}
                     />
                   </div>
                   <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
@@ -199,7 +239,14 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                       fat={5}
                       fibre={2}
                       moisture={60}
-                      disabled
+                      recommended={isRecommendedRecipe(
+                        Recipe.Lamb,
+                        pickiness!,
+                        activityLevel!,
+                        bodyCondition!,
+                        foodAllergies!
+                      )}
+                      disabled={isAllergies(Recipe.Lamb, foodAllergies!)}
                     />
                   </div>
                   <div className="mt-5 flex items-center px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
