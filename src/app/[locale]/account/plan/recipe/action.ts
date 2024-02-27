@@ -7,13 +7,13 @@ import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 
 interface SetRecipeAction {
-  id: string;
+  id: number;
   recipe1: Recipe;
   recipe2?: Recipe;
 }
 
 const schema = Joi.object<SetRecipeAction>({
-  id: Joi.string().required(),
+  id: Joi.number().positive().required(),
   recipe1: Joi.string().required(),
   recipe2: Joi.string().optional(),
 });
@@ -34,7 +34,7 @@ export default async function setRecipeAction(formData: FormData) {
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.findOne(Dog, {
       where: {
-        id: parseInt(value.id),
+        id: value.id,
         user: { saleorId: me.id },
       },
       relations: {

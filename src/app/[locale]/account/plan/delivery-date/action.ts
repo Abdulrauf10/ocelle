@@ -6,25 +6,23 @@ import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 
 interface SetDeliveryDateAction {
-  date: Date;
+  deliveryDate: string;
 }
 
 const schema = Joi.object<SetDeliveryDateAction>({
-  date: Joi.date().required(),
+  deliveryDate: Joi.date().required(),
 });
 
 export default async function setDeliveryDateAction(formData: FormData) {
   const { value, error } = schema.validate({
-    date:
-      typeof formData.get('date') === 'string'
-        ? new Date(formData.get('date') as string)
-        : undefined,
+    deliveryDate: formData.get('date'),
   });
 
   if (error) {
     throw new Error('schema is not valid');
   }
 
+  const deliveryDate = new Date(value.deliveryDate);
   const me = await getStoreMe();
 
   await executeQuery(async (queryRunner) => {
@@ -39,6 +37,7 @@ export default async function setDeliveryDateAction(formData: FormData) {
     }
 
     // TODO: set delivery date
+    console.log(deliveryDate);
 
     await queryRunner.manager.save(data);
   });

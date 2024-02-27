@@ -29,7 +29,7 @@ export default function DeliveryDateForm({
   const onSubmit = React.useCallback(
     ({ deliveryDate }: IDeliveryDateForm) => {
       startTransition(() => {
-        action(serialize({ date: deliveryDate }));
+        action(serialize({ deliveryDate }));
       });
     },
     [action]

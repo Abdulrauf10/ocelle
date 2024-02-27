@@ -7,12 +7,12 @@ import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 
 interface SetMealPlanAction {
-  id: string;
+  id: number;
   plan: 'half' | 'full';
 }
 
 const schema = Joi.object<SetMealPlanAction>({
-  id: Joi.string().required(),
+  id: Joi.number().positive().required(),
   plan: Joi.string().valid('half', 'full').required(),
 });
 
@@ -31,7 +31,7 @@ export default async function setMealPlanAction(formData: FormData) {
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.findOne(Dog, {
       where: {
-        id: parseInt(value.id),
+        id: value.id,
         user: { saleorId: me.id },
       },
       relations: {
