@@ -94,7 +94,7 @@ export default function Section({
           <div className="w-1/2 px-[4vw] max-md:w-full max-md:px-2 max-md:pt-[30px]">
             <strong className="text-[2rem] leading-[2.375rem] text-primary">{title}</strong>
             <p className="mt-4 text-[1.25rem] leading-[1.625rem]">{description}</p>
-            <strong className="mt-6 block text-2xl text-brown">{t('ingredients')}: </strong>
+            <strong className="mt-6 block text-2xl text-[#A98672]">{t('ingredients')}: </strong>
             <p className="text-[1.25rem] text-lg leading-[1.625rem]">{ingredientDescription}</p>
           </div>
         </div>
@@ -103,7 +103,7 @@ export default function Section({
             <div className="w-1/2 p-2 max-xs:w-full">
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button fullWidth reverse>
+                  <Button className="w-[232px]" reverse>
                     {t('learn-more')}
                   </Button>
                 </DialogTrigger>
@@ -302,7 +302,7 @@ export default function Section({
               </Dialog>
             </div>
             <div className="w-1/2 p-2 max-xs:w-full">
-              <Button fullWidth href="/get-started">
+              <Button className="w-[232px]" href="/get-started">
                 {t('get-started')}
               </Button>
             </div>
