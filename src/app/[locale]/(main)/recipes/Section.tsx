@@ -92,10 +92,10 @@ export default function Section({
             </div>
           </div>
           <div className="w-1/2 px-[4vw] max-md:w-full max-md:px-2 max-md:pt-[30px]">
-            <strong className="text-3xl text-primary">{title}</strong>
-            <p className="mt-4 text-lg">{description}</p>
-            <strong className="mt-6 block text-xl text-brown">{t('ingredients')}: </strong>
-            <p className="text-lg">{ingredientDescription}</p>
+            <strong className="text-[2rem] leading-[2.375rem] text-primary">{title}</strong>
+            <p className="mt-4 text-[1.25rem] leading-[1.625rem]">{description}</p>
+            <strong className="mt-6 block text-2xl text-brown">{t('ingredients')}: </strong>
+            <p className="text-[1.25rem] text-lg leading-[1.625rem]">{ingredientDescription}</p>
           </div>
         </div>
         <div className="mx-auto mt-10 max-w-[480px]">

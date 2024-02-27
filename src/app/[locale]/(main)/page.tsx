@@ -61,7 +61,7 @@ export default function Home() {
               />
             </div>
             <div className="mb-5 mt-[2vw]"></div>
-            <div className="flex justify-center">
+            <div className="flex justify-center md:justify-start">
               <Button href="/why-fresh">{t('learn-more')}</Button>
             </div>
           </Block>
