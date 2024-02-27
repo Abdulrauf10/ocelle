@@ -24,6 +24,12 @@ export default class Dog {
   @Column()
   isNeutered!: boolean;
 
+  @Column()
+  dateOfBirthMethod!: 'Manually' | 'Calendar';
+
+  @Column()
+  dateOfBirth!: Date;
+
   @Column({ type: 'double', precision: 5, scale: 2, comment: 'KG' })
   weight!: number;
 
@@ -35,6 +41,9 @@ export default class Dog {
 
   @Column({ type: 'int' })
   foodAllergies!: FoodAllergies;
+
+  @Column()
+  currentEating!: 'Dry' | 'Wet' | 'Raw' | 'Dehydrated' | 'Fresh' | 'Homemade' | 'Other';
 
   @Column()
   amountOfTreats!: 'None' | 'Some' | 'Lots';
