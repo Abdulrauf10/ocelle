@@ -108,9 +108,7 @@ export default function Home() {
           </div>
         </Container>
       </Block>
-      <Marquee
-        style={{ backgroundColor: 'rgb(82 137 177)', paddingTop: '8px', paddingBottom: '8px' }}
-      >
+      <Marquee className="bg-primary py-2">
         <MarqueeContent icon="icon-1.svg" alt="Food" width={53} height={46}>
           {t('real-good-food')}
         </MarqueeContent>
