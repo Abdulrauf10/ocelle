@@ -10,9 +10,15 @@ async function executeQuery<T>(executable: Executable<T>) {
 
   const queryRunner = AppDataSource.createQueryRunner();
   await queryRunner.connect();
+  await queryRunner.startTransaction();
 
   try {
-    return await executable(queryRunner);
+    const response = await executable(queryRunner);
+    await queryRunner.commitTransaction();
+    return response;
+  } catch (e) {
+    await queryRunner.rollbackTransaction();
+    throw e;
   } finally {
     if (!queryRunner.isReleased) await queryRunner.release();
   }
