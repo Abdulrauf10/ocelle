@@ -11,11 +11,12 @@ import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
 import { useSurvey } from '../SurveyContext';
+import { ActivityLevel, BodyCondition } from '@/types';
 
 interface DogPreference1Form {
   weight: number;
-  bodyCondition: 'TooSkinny' | 'JustRight' | 'Rounded' | 'Chunky';
-  activityLevel: 'Mellow' | 'Active' | 'VeryActive';
+  bodyCondition: BodyCondition;
+  activityLevel: ActivityLevel;
 }
 
 export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage>) {

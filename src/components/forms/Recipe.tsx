@@ -9,44 +9,10 @@ import { isAllergies, isRecommendedRecipe } from '@/helpers/dog';
 import { ActivityLevel, BodyCondition, Pickiness } from '@/types';
 import React, { useTransition } from 'react';
 import { serialize } from 'object-to-formdata';
-
-const mapIdx = [Recipe.Chicken, Recipe.Pork, Recipe.Duck, Recipe.Beef, Recipe.Lamb];
+import { arrayToRecipe, recipeToArray } from '@/helpers/form';
 
 interface RecipeForm {
   recipe: boolean[];
-}
-
-function arrayToRecipe(array: boolean[]) {
-  let r1: Recipe | undefined = undefined;
-  let r2: Recipe | undefined = undefined;
-
-  array.forEach((value, idx) => {
-    if (value) {
-      if (r1 != null && r2 != null) {
-        return;
-      }
-      if (r1 == null) {
-        r1 = mapIdx[idx];
-      } else {
-        r2 = mapIdx[idx];
-      }
-    }
-  });
-
-  return { recipe1: r1, recipe2: r2 };
-}
-
-function recipeToArray(r1?: Recipe, r2?: Recipe) {
-  const array = Array(mapIdx.length).fill(false);
-
-  if (r1 != null) {
-    array[mapIdx.indexOf(r1)] = true;
-  }
-  if (r2 != null) {
-    array[mapIdx.indexOf(r2)] = true;
-  }
-
-  return array;
 }
 
 export default function RecipeForm({

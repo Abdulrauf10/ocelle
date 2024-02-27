@@ -12,49 +12,14 @@ import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
 import { useSurvey } from '../SurveyContext';
 import { FoodAllergies } from '@/enums';
+import { AmountOfTreats, CurrentlyEating, Pickiness } from '@/types';
+import { arrayToAllergies, foodAllergiesToArray, getFoodAllergiesOptions } from '@/helpers/form';
 
 interface DogPreference2Form {
   allergies: Array<boolean | undefined>;
-  eating?: 'Dry' | 'Wet' | 'Raw' | 'Dehydrated' | 'Fresh' | 'Homemade' | 'Other';
-  amountOfTreats?: 'None' | 'Some' | 'Lots';
-  pickiness?: 'Picky' | 'GoodEater' | 'EatAnything';
-}
-
-function foodAllergiesToArray(value?: FoodAllergies) {
-  if (value == null) {
-    return [];
-  }
-  return [
-    (value & FoodAllergies.None) === FoodAllergies.None,
-    (value & FoodAllergies.Chicken) === FoodAllergies.Chicken,
-    (value & FoodAllergies.Beef) === FoodAllergies.Beef,
-    (value & FoodAllergies.Pork) === FoodAllergies.Pork,
-    (value & FoodAllergies.Lamb) === FoodAllergies.Lamb,
-    (value & FoodAllergies.Duck) === FoodAllergies.Duck,
-  ];
-}
-
-function arrayToAllergies(array: Array<boolean | undefined>) {
-  let value!: FoodAllergies;
-  if (array[0]) {
-    value |= FoodAllergies.None;
-  }
-  if (array[1]) {
-    value |= FoodAllergies.Chicken;
-  }
-  if (array[2]) {
-    value |= FoodAllergies.Beef;
-  }
-  if (array[3]) {
-    value |= FoodAllergies.Pork;
-  }
-  if (array[4]) {
-    value |= FoodAllergies.Lamb;
-  }
-  if (array[5]) {
-    value |= FoodAllergies.Duck;
-  }
-  return value;
+  eating?: CurrentlyEating;
+  amountOfTreats?: AmountOfTreats;
+  pickiness?: Pickiness;
 }
 
 export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage>) {
@@ -76,14 +41,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
     },
   });
   const options = React.useMemo(() => {
-    return [
-      { label: t('none') },
-      { label: t('chicken') },
-      { label: t('beef') },
-      { label: t('pork') },
-      { label: t('lamb') },
-      { label: t('duck') },
-    ];
+    return getFoodAllergiesOptions().map((option) => ({ label: t(option) }));
   }, [t]);
 
   const onSubmit = React.useCallback(
