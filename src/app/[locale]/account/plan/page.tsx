@@ -81,7 +81,7 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
                 </div>
               </div>
               <div className="px-3 py-3 max-md:w-full">
-                <Button theme="primary" href="/account/dog/1">
+                <Button theme="primary" href={`/account/dog/${dog.id}`}>
                   {t('edit-{}', { value: t('dogs-details') })}
                 </Button>
               </div>

@@ -2,6 +2,8 @@ type BreedSize = 'Small' | 'Medium' | 'Large';
 
 type Gender = 'M' | 'F';
 
+type DateOfBirthMethod = 'Manually' | 'Calendar';
+
 type BodyCondition = 'TooSkinny' | 'JustRight' | 'Rounded' | 'Chunky';
 
 type ActivityLevel = 'Mellow' | 'Active' | 'VeryActive';
@@ -17,6 +19,7 @@ type LifeStage = 'Puppy' | 'Adult' | 'Senior';
 export type {
   BreedSize,
   Gender,
+  DateOfBirthMethod,
   BodyCondition,
   ActivityLevel,
   CurrentlyEating,
