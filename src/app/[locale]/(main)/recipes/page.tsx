@@ -7,6 +7,7 @@ import RecipeBenefits from './Benefits';
 import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
 import Block from '@/components/Block';
+import Marquee from 'react-fast-marquee';
 
 export default function RecipesPage() {
   const t = useTranslations();
@@ -36,58 +37,34 @@ export default function RecipesPage() {
           </div>
         </div>
       </div>
-      <div className="overflow-hidden bg-primary py-4">
-        <div className="flex animate-marquee flex-nowrap [&_img]:max-w-none">
-          <MarqueeContent icon="icon-1.svg" alt="Food" width={53} height={46}>
-            Real, Good Food
-          </MarqueeContent>
-          <MarqueeContent icon="icon-2.svg" alt="Approved" width={43} height={46}>
-            Vet Approved
-          </MarqueeContent>
-          <MarqueeContent icon="icon-3.svg" alt="Human-Grade" width={38} height={46}>
-            Human-Grade
-          </MarqueeContent>
-          <MarqueeContent icon="icon-4.svg" alt="Fresh" width={38} height={48}>
-            Made Fresh
-          </MarqueeContent>
-          <MarqueeContent icon="icon-5.svg" alt="High-Quality" width={36} height={48}>
-            High-Quality Ingredients
-          </MarqueeContent>
-          <MarqueeContent icon="icon-6.svg" alt="No Fillers" width={40} height={46}>
-            No Fillers
-          </MarqueeContent>
-          <MarqueeContent icon="icon-7.svg" alt="No Preservatives" width={40} height={46}>
-            No Preservatives
-          </MarqueeContent>
-          <MarqueeContent icon="icon-8.svg" alt="No Artificial Flavours" width={40} height={46}>
-            No Artificial Flavours
-          </MarqueeContent>
-          <MarqueeContent icon="icon-1.svg" alt="Food" width={53} height={46}>
-            Real, Good Food
-          </MarqueeContent>
-          <MarqueeContent icon="icon-2.svg" alt="Approved" width={43} height={46}>
-            Vet Approved
-          </MarqueeContent>
-          <MarqueeContent icon="icon-3.svg" alt="Human-Grade" width={38} height={46}>
-            Human-Grade
-          </MarqueeContent>
-          <MarqueeContent icon="icon-4.svg" alt="Fresh" width={38} height={48}>
-            Made Fresh
-          </MarqueeContent>
-          <MarqueeContent icon="icon-5.svg" alt="High-Quality" width={36} height={48}>
-            High-Quality Ingredients
-          </MarqueeContent>
-          <MarqueeContent icon="icon-6.svg" alt="No Fillers" width={40} height={46}>
-            No Fillers
-          </MarqueeContent>
-          <MarqueeContent icon="icon-7.svg" alt="No Preservatives" width={40} height={46}>
-            No Preservatives
-          </MarqueeContent>
-          <MarqueeContent icon="icon-8.svg" alt="No Artificial Flavours" width={40} height={46}>
-            No Artificial Flavours
-          </MarqueeContent>
-        </div>
-      </div>
+      <Marquee
+        style={{ backgroundColor: 'rgb(82 137 177)', paddingTop: '8px', paddingBottom: '8px' }}
+      >
+        <MarqueeContent icon="icon-1.svg" alt="Food" width={53} height={46}>
+          {t('real-good-food')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-2.svg" alt="Approved" width={43} height={46}>
+          {t('vet-approved')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-3.svg" alt="Human-Grade" width={38} height={46}>
+          {t('human-grade')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-4.svg" alt="Fresh" width={38} height={48}>
+          {t('made-fresh')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-5.svg" alt="High-Quality" width={36} height={48}>
+          {t('high-quality-ingredients')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-6.svg" alt="No Fillers" width={40} height={46}>
+          {t('no-fillers')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-7.svg" alt="No Preservatives" width={40} height={46}>
+          {t('no-preservatives')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-8.svg" alt="No Artificial Flavours" width={40} height={46}>
+          {t('no-artificial-flavours')}
+        </MarqueeContent>
+      </Marquee>
       <Section
         className="bg-primary bg-opacity-10"
         secionImage="/recipes/chicken.jpg"

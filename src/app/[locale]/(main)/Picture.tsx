@@ -37,7 +37,7 @@ export default function Picture() {
               ]}
             />
           </div>
-          <div className="flex justify-center">
+          <div className="flex justify-center sm:justify-start ">
             <Button className="mt-4" href="/get-started">
               {t('get-started')}
             </Button>
