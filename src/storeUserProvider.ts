@@ -8,8 +8,8 @@ async function getStoreMe() {
     return {
       id: '1',
       email: 'string',
-      firstName: 'charile',
-      lastName: 'wong',
+      firstName: 'Kevan',
+      lastName: 'Wong',
     };
   }
 

@@ -1,18 +1,28 @@
+'use client';
+
 import React from 'react';
 import { FormControl, MenuItem, Select } from '@mui/material';
 import { useTranslations } from 'next-intl';
+import { useSearchParams } from 'next/navigation';
+import { usePathname, useRouter } from '@/navigation';
 
-export default function DogSwitch() {
+export default function DogSwitch({ dogs }: { dogs: Array<{ id: number; name: string }> }) {
   const t = useTranslations();
-  const handleChange = React.useCallback(() => {}, []);
+  const params = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <div className="w-[200px] max-sm:flex max-sm:w-full max-sm:items-center">
       <div className="mb-2 whitespace-nowrap max-sm:mr-3">{t('view-info-for')}</div>
       <FormControl fullWidth>
         <Select
-          defaultValue={10}
-          onChange={handleChange}
+          defaultValue={params.has('current') ? parseInt(params.get('current')!) : dogs[0].id}
+          onChange={(event) => {
+            const newParams = new URLSearchParams(params.toString());
+            newParams.set('current', String(event.target.value));
+            router.push(`${pathname}?${newParams.toString()}`);
+          }}
           sx={{
             backgroundColor: 'white',
             '& .MuiSelect-select': {
@@ -20,8 +30,13 @@ export default function DogSwitch() {
             },
           }}
         >
-          <MenuItem value={10}>Charile</MenuItem>
-          <MenuItem value={20}>Muffin</MenuItem>
+          {dogs.map((dog) => {
+            return (
+              <MenuItem key={dog.id} value={dog.id}>
+                {dog.name}
+              </MenuItem>
+            );
+          })}
         </Select>
       </FormControl>
     </div>

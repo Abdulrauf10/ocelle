@@ -3,6 +3,10 @@ fragment UserDetails on User {
 	email
 	firstName
 	lastName
+    metadata {
+        key,
+        value,
+    }
 	avatar {
 		url
 		alt

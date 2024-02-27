@@ -1,36 +1,51 @@
-'use client';
-
-import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
-import UnderlineButton from '@/components/UnderlineButton';
-import Button from '@/components/Button';
-import { useForm } from 'react-hook-form';
-import RecipeCheckbox from '@/components/controls/RecipeCheckbox';
 import DogSwitch from '../../DogSwitch';
-import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
 import AppThemeProvider from '@/components/AppThemeProvider';
+import { getStoreMe } from '@/storeUserProvider';
+import { executeQuery } from '@/helpers/queryRunner';
+import { Dog } from '@/entities';
+import { getTranslations } from 'next-intl/server';
+import AccountBackButton from '../../AccountBackButton';
+import RecipeForm from '@/components/forms/Recipe';
+import setRecipeAction from './action';
 
-export default function PlanRecipe() {
-  const t = useTranslations();
-  const router = useRouter();
-  const { control } = useForm();
+async function getData() {
+  const me = await getStoreMe();
 
-  const name = 'Charlie';
+  return executeQuery(async (queryRunner) => {
+    const dogs = await queryRunner.manager.find(Dog, {
+      where: {
+        user: { saleorId: me.id },
+      },
+      relations: {
+        plan: true,
+      },
+    });
+    return { dogs };
+  });
+}
+
+export default async function PlanRecipe({ searchParams }: { searchParams: { current?: string } }) {
+  const { dogs } = await getData();
+  const t = await getTranslations();
+  const dog = searchParams.current
+    ? dogs.find((dog) => dog.id === parseInt(searchParams.current!)) || dogs[0]
+    : dogs[0];
 
   return (
     <AppThemeProvider>
       <main className="bg-gold bg-opacity-10 py-10">
         <Container>
           <div className="mx-auto flex max-w-[1120px] justify-end">
-            <DogSwitch />
+            <DogSwitch dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))} />
           </div>
           <Headings tag="h1" styles="h2" className="text-center text-primary max-lg:mt-6">
-            {t('choose-{}-fresh-recipes', { name })}
+            {t('choose-{}-fresh-recipes', { name: dog.name })}
           </Headings>
           <p className="mx-auto mt-4 max-w-[620px] text-center">
             {t.rich('{}-upcoming-box-is-scheduled-for-the-{}', {
-              name,
+              name: dog.name,
               date: '15th of December 2023',
               strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
             })}
@@ -44,108 +59,23 @@ export default function PlanRecipe() {
           <p className="mx-auto mt-4 max-w-[620px] text-center text-primary">
             Select up to 2 suitable recipes below.
           </p>
-          <div className="mx-auto mt-5 flex max-w-[820px] flex-wrap justify-center">
-            <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
-              <RecipeCheckbox
-                title="Fresh Chicken Recipe"
-                description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-                name="recipe.0"
-                control={control}
-                picture="/meal-plan/chicken.jpg"
-                ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
-                nutrientBlend="Selenium Yeast, Vitamin A Supplement, Thiamine Hydrochloride (Vitamin B1), Riboflavin (Vitamin B2), Niacin (Vitamin B3), Pyridoxine Hydrochloride (Vitamin B6), Folic Acid (Vitamin B9), Cholecalciferol (Vitamin B12), Vitamin D3 Supplement, Sodium Chloride, Tricalcium Phosphate, Iron Amino Acid Chelate, Potassium Chloride, Potassium Iodide, Zinc Amino Acid Chelate, Magnesium Amino Acid Chelate, Manganese Amino Acid Chelate, Copper Amino Acid Chelate, Taurine, Choline Bitartrate."
-                calorie={1540}
-                protein={19}
-                fat={5}
-                fibre={2}
-                moisture={60}
-                recommended
-              />
-            </div>
-            <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
-              <RecipeCheckbox
-                title="Fresh Pork Recipe"
-                description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-                name="recipe.1"
-                control={control}
-                picture="/meal-plan/pork.jpg"
-                ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
-                nutrientBlend="Selenium Yeast, Vitamin A Supplement, Thiamine Hydrochloride (Vitamin B1), Riboflavin (Vitamin B2), Niacin (Vitamin B3), Pyridoxine Hydrochloride (Vitamin B6), Folic Acid (Vitamin B9), Cholecalciferol (Vitamin B12), Vitamin D3 Supplement, Sodium Chloride, Tricalcium Phosphate, Iron Amino Acid Chelate, Potassium Chloride, Potassium Iodide, Zinc Amino Acid Chelate, Magnesium Amino Acid Chelate, Manganese Amino Acid Chelate, Copper Amino Acid Chelate, Taurine, Choline Bitartrate."
-                calorie={1540}
-                protein={19}
-                fat={5}
-                fibre={2}
-                moisture={60}
-                recommended
-              />
-            </div>
-            <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
-              <RecipeCheckbox
-                title="Fresh Duck Recipe"
-                description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-                name="recipe.2"
-                control={control}
-                picture="/meal-plan/duck.jpg"
-                ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
-                nutrientBlend="Selenium Yeast, Vitamin A Supplement, Thiamine Hydrochloride (Vitamin B1), Riboflavin (Vitamin B2), Niacin (Vitamin B3), Pyridoxine Hydrochloride (Vitamin B6), Folic Acid (Vitamin B9), Cholecalciferol (Vitamin B12), Vitamin D3 Supplement, Sodium Chloride, Tricalcium Phosphate, Iron Amino Acid Chelate, Potassium Chloride, Potassium Iodide, Zinc Amino Acid Chelate, Magnesium Amino Acid Chelate, Manganese Amino Acid Chelate, Copper Amino Acid Chelate, Taurine, Choline Bitartrate."
-                calorie={1540}
-                protein={19}
-                fat={5}
-                fibre={2}
-                moisture={60}
-              />
-            </div>
-            <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
-              <RecipeCheckbox
-                title="Fresh Beef Recipe"
-                description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-                name="recipe.3"
-                control={control}
-                picture="/meal-plan/beef.jpg"
-                ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
-                nutrientBlend="Selenium Yeast, Vitamin A Supplement, Thiamine Hydrochloride (Vitamin B1), Riboflavin (Vitamin B2), Niacin (Vitamin B3), Pyridoxine Hydrochloride (Vitamin B6), Folic Acid (Vitamin B9), Cholecalciferol (Vitamin B12), Vitamin D3 Supplement, Sodium Chloride, Tricalcium Phosphate, Iron Amino Acid Chelate, Potassium Chloride, Potassium Iodide, Zinc Amino Acid Chelate, Magnesium Amino Acid Chelate, Manganese Amino Acid Chelate, Copper Amino Acid Chelate, Taurine, Choline Bitartrate."
-                calorie={1540}
-                protein={19}
-                fat={5}
-                fibre={2}
-                moisture={60}
-              />
-            </div>
-            <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
-              <RecipeCheckbox
-                title="Fresh Lamb Recipe"
-                description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-                name="recipe.4"
-                control={control}
-                picture="/meal-plan/lamb.jpg"
-                ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
-                nutrientBlend="Selenium Yeast, Vitamin A Supplement, Thiamine Hydrochloride (Vitamin B1), Riboflavin (Vitamin B2), Niacin (Vitamin B3), Pyridoxine Hydrochloride (Vitamin B6), Folic Acid (Vitamin B9), Cholecalciferol (Vitamin B12), Vitamin D3 Supplement, Sodium Chloride, Tricalcium Phosphate, Iron Amino Acid Chelate, Potassium Chloride, Potassium Iodide, Zinc Amino Acid Chelate, Magnesium Amino Acid Chelate, Manganese Amino Acid Chelate, Copper Amino Acid Chelate, Taurine, Choline Bitartrate."
-                calorie={1540}
-                protein={19}
-                fat={5}
-                fibre={2}
-                moisture={60}
-                disabled
-              />
-            </div>
-          </div>
-          <div className="mt-10 text-center font-bold text-dark-green">
-            Total Price: [$210 ($15/Day)]
-          </div>
-          <div className="mx-auto mt-10 max-w-[480px]">
-            <div className="-mx-2 flex">
-              <div className="w-1/2 px-2">
-                <Button fullWidth onClick={() => {}} reverse>
-                  {t('cancel')}
-                </Button>
-              </div>
-              <div className="w-1/2 px-2">
-                <Button fullWidth>{t('save-changes')}</Button>
-              </div>
-            </div>
+          <div className="mt-5">
+            <RecipeForm
+              pickiness={dog.pickiness}
+              activityLevel={dog.activityLevel}
+              bodyCondition={dog.bodyCondition}
+              foodAllergies={dog.foodAllergies}
+              initialRecipe1={dog.plan.recipe1}
+              initialRecipe2={dog.plan.recipe2}
+              action={async (formData) => {
+                'use server';
+                formData.set('dog', String(dog.id));
+                return await setRecipeAction(formData);
+              }}
+            />
           </div>
           <div className="mt-8 text-center">
-            <UnderlineButton type="button" label={t('go-back')} onClick={() => router.back()} />
+            <AccountBackButton />
           </div>
         </Container>
       </main>

@@ -1,18 +1,33 @@
-'use client';
-
-import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
-import UnderlineButton from '@/components/UnderlineButton';
 import Button from '@/components/Button';
-import { useForm } from 'react-hook-form';
-import DateCalendar from '@/components/controls/DateCalendar';
-import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
+import { Dog } from '@/entities';
+import { executeQuery } from '@/helpers/queryRunner';
+import { getStoreMe } from '@/storeUserProvider';
+import { getTranslations } from 'next-intl/server';
+import DeliveryDateForm from '@/components/forms/DeliveryDate';
+import AccountBackButton from '../../AccountBackButton';
+import setDeliveryDateAction from './action';
 
-export default function PlanDeliveryDate() {
-  const t = useTranslations();
-  const router = useRouter();
-  const { control } = useForm();
+async function getData() {
+  const me = await getStoreMe();
+
+  return executeQuery(async (queryRunner) => {
+    const dogs = await queryRunner.manager.find(Dog, {
+      where: {
+        user: { saleorId: me.id },
+      },
+      relations: {
+        plan: true,
+      },
+    });
+    return { dogs };
+  });
+}
+
+export default async function PlanDeliveryDate() {
+  const { dogs } = await getData();
+  const t = await getTranslations();
 
   return (
     <main className="bg-gold bg-opacity-10 py-10">
@@ -37,18 +52,10 @@ export default function PlanDeliveryDate() {
           <Button>{t('reschedule-next-box')}</Button>
         </div>
         <div className="mt-8">
-          <DateCalendar
-            name="deliveryDate"
-            control={control}
-            minDate={new Date()}
-            actions={[
-              { label: t('cancel'), onClick: () => {} },
-              { label: t('save-changes'), disabled: true, onClick: () => {} },
-            ]}
-          />
+          <DeliveryDateForm initialDate={new Date()} action={setDeliveryDateAction} />
         </div>
         <div className="mt-8 text-center">
-          <UnderlineButton type="button" label={t('go-back')} onClick={() => router.back()} />
+          <AccountBackButton />
         </div>
       </Container>
     </main>

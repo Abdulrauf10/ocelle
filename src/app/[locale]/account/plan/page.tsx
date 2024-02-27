@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import clsx from 'clsx';
 import Container from '@/components/Container';
@@ -8,14 +6,43 @@ import UnderlineButton from '@/components/UnderlineButton';
 import Image from 'next/image';
 import DogSwitch from '../DogSwitch';
 import Headings from '@/components/Headings';
-import { useTranslations } from 'next-intl';
+import { Dog, SaleorUser } from '@/entities';
 import AppThemeProvider from '@/components/AppThemeProvider';
+import { getTranslations } from 'next-intl/server';
+import { MealPlan, OrderSize } from '@/enums';
+import { getStoreMe } from '@/storeUserProvider';
+import { executeQuery } from '@/helpers/queryRunner';
 
-export default function Plan() {
-  const t = useTranslations();
+async function getData() {
+  const me = await getStoreMe();
+
+  return executeQuery(async (queryRunner) => {
+    const user = await queryRunner.manager.findOne(SaleorUser, {
+      where: {
+        saleorId: me.id,
+      },
+    });
+    const dogs = await queryRunner.manager.find(Dog, {
+      where: {
+        user: { saleorId: me.id },
+      },
+      relations: {
+        plan: true,
+      },
+    });
+    return { dogs, user, me };
+  });
+}
+
+export default async function Plan({ searchParams }: { searchParams: { current?: string } }) {
+  const t = await getTranslations();
   const mbBoxClassName = clsx(
     'max-md:border-brown max-md:rounded-[30px] max-md:border max-md:bg-white max-md:p-6 max-md:shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] mx-auto'
   );
+  const { dogs, user, me } = await getData();
+  const dog = searchParams.current
+    ? dogs.find((dog) => dog.id === parseInt(searchParams.current!)) || dogs[0]
+    : dogs[0];
 
   return (
     <AppThemeProvider>
@@ -24,14 +51,16 @@ export default function Plan() {
           <div className="item-center -mx-4 -my-3 flex max-sm:flex-col-reverse">
             <div className="flex-1 px-4 py-3 max-sm:text-center">
               <Headings tag="h1" styles="h2" className="text-primary">
-                {t('welcome-back-{}', { name: 'Kevan' })}
+                {t('welcome-back-{}', { name: me.firstName })}
               </Headings>
               <p className="mt-4">
-                {t('keep-tabs-on-your-subscription-and-edit-{}-information', { name: 'Charlie' })}
+                {t('keep-tabs-on-your-subscription-and-edit-{}-information', {
+                  name: dog.name,
+                })}
               </p>
             </div>
             <div className="px-4 py-3">
-              <DogSwitch />
+              <DogSwitch dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))} />
             </div>
           </div>
           <div className="py-6"></div>
@@ -41,14 +70,14 @@ export default function Plan() {
           <div className="mx-auto mt-4 rounded-[30px] border border-brown bg-white px-4 py-2 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] max-md:text-center">
             <div className="flex flex-wrap items-center">
               <div className="flex-1 px-3 py-3">
-                <div className="text-xl font-bold text-brown">[Muffin]</div>
+                <div className="text-xl font-bold text-brown">{dog.name}</div>
                 <div className="mt-2">[Poodle]</div>
                 <div className="mt-3">
                   [7 years and 7 months old, 8 kg, mellow, is spayed, and has no allergies / food
                   sensitivities.]
                 </div>
                 <div className="mt-3">
-                  <UnderlineButton label={t('view-{}-feeding-guidelines', { name: 'Charlie' })} />
+                  <UnderlineButton label={t('view-{}-feeding-guidelines', { name: dog.name })} />
                 </div>
               </div>
               <div className="px-3 py-3 max-md:w-full">
@@ -60,7 +89,7 @@ export default function Plan() {
           </div>
           <div className="py-6"></div>
           <Headings tag="h2" styles="h2" className="text-primary max-md:text-center">
-            {t('{}-colon', { value: t('{}-box', { name: 'Charlie' }) })}
+            {t('{}-colon', { value: t('{}-box', { name: dog.name }) })}
           </Headings>
           <div className="mt-4 rounded-[30px] border border-brown bg-white px-8 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:border-none max-md:bg-transparent max-md:p-0 max-md:shadow-none">
             <div className="-mx-3 flex max-md:block">
@@ -120,7 +149,11 @@ export default function Plan() {
                   </div>
                   <div className="-mx-1 -my-2 flex flex-wrap justify-between">
                     <span className="flex-1 px-1 py-2 lowercase">
-                      {t('{}-supply-of-fresh-healthy-food', { value: t('{}-weeks', { value: 2 }) })}
+                      {t('{}-supply-of-fresh-healthy-food', {
+                        value: t('{}-weeks', {
+                          value: user?.orderSize === OrderSize.OneWeek ? 1 : 2,
+                        }),
+                      })}
                     </span>
                     <div className="whitespace-nowrap px-1 py-2 max-sm:w-full">
                       <UnderlineButton
@@ -133,7 +166,7 @@ export default function Plan() {
                   <hr className="my-3 border-gray max-sm:my-6" />
                   <div className="-mx-1 -my-2 flex flex-wrap justify-between max-sm:mb-2">
                     <div className="flex-1 px-1 py-2 text-lg font-bold text-brown">
-                      [2] {t('fresh-{}', { value: t('recipes') })}
+                      {dog.plan.recipe2 == null ? 1 : 2} {t('fresh-{}', { value: t('recipes') })}
                     </div>
                     <div className="whitespace-nowrap px-1 py-2 max-sm:w-full">
                       <UnderlineButton
@@ -173,7 +206,9 @@ export default function Plan() {
                   <hr className="my-3 border-gray max-sm:my-6" />
                   <div className="-mx-1 -my-2 flex flex-wrap justify-between">
                     <div className="flex-1 px-1 py-2 text-lg font-bold text-brown">
-                      Fresh [Full/Half] Plan
+                      {dog.plan.mealPlan === MealPlan.Full
+                        ? t('fresh-full-plan')
+                        : t('fresh-half-plan')}
                     </div>
                     <div className="whitespace-nowrap px-1 py-2 max-sm:w-full">
                       <UnderlineButton
