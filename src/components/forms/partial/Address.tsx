@@ -3,7 +3,7 @@ import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/mater
 import { Controller, type Control, type FieldValues, FieldPath } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 
-export type IAddressForm = {
+export type IPartialAddressForm = {
   firstName: string;
   lastName: string;
   address1: string;
@@ -13,15 +13,15 @@ export type IAddressForm = {
   country: string;
 };
 
-interface AddressFormProps<T extends FieldValues> {
+interface PartialAddressFormProps<T extends FieldValues> {
   control: Control<T, any>;
   prefix?: string;
 }
 
-export default function AddressForm<T extends FieldValues>({
+export default function PartialAddressForm<T extends FieldValues>({
   control,
   prefix,
-}: AddressFormProps<T>) {
+}: PartialAddressFormProps<T>) {
   const t = useTranslations();
   const id = React.useId();
 

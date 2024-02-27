@@ -1,23 +1,25 @@
 import type { Control, FieldValues, FieldPath } from 'react-hook-form';
-import Stripe from '../icons/Stripe';
-import Lock from '../icons/Lock';
+import Stripe from '../../icons/Stripe';
+import Lock from '../../icons/Lock';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import PasswordField from '../controls/PasswordField';
-import TextField from '../controls/TextField';
+import PasswordField from '../../controls/PasswordField';
+import TextField from '../../controls/TextField';
 
-export interface ICardForm {
+export interface IPartialCardForm {
   cardName: string;
   cardNo: string;
   cardExp: string;
   cardCvc: string;
 }
 
-interface CardFormProps<T extends FieldValues> {
+interface PartialCardFormProps<T extends FieldValues> {
   control: Control<T, any>;
 }
 
-export default function CardForm<T extends FieldValues>({ control }: CardFormProps<T>) {
+export default function PartialCardForm<T extends FieldValues>({
+  control,
+}: PartialCardFormProps<T>) {
   const t = useTranslations();
 
   return (

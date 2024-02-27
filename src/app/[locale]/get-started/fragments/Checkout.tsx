@@ -9,8 +9,8 @@ import Price from '@/components/Price';
 import Button from '@/components/Button';
 import Stage from '../Stage';
 import { FragmentProps } from '@/components/FragmentRouter';
-import CardForm, { ICardForm } from '@/components/forms/Card';
-import AddressForm, { IAddressForm } from '@/components/forms/Address';
+import PartialCardForm, { IPartialCardForm } from '@/components/forms/partial/Card';
+import PartialAddressForm, { IPartialAddressForm } from '@/components/forms/partial/Address';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import EditButton from '@/components/EditButton';
 import { useTranslations } from 'next-intl';
@@ -49,7 +49,7 @@ function CheckoutBlock({ title, children }: React.PropsWithChildren<CheckoutBloc
   );
 }
 
-interface ICheckoutForm extends ICardForm {
+interface ICheckoutForm extends IPartialCardForm {
   firstName: string;
   lastName: string;
   email: string;
@@ -60,8 +60,8 @@ interface ICheckoutForm extends ICardForm {
   isSameBillingAddress: boolean;
   deliveryDate: Date;
   tnc: boolean;
-  delivery: IAddressForm;
-  billing: IAddressForm;
+  delivery: IPartialAddressForm;
+  billing: IPartialAddressForm;
 }
 
 export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
@@ -188,7 +188,7 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
               </Section>
               <SectionBreak half />
               <Section dense title={t('delivery-address')}>
-                <AddressForm control={control} prefix="delivery" />
+                <PartialAddressForm control={control} prefix="delivery" />
                 <div className="mt-3">
                   <RoundedCheckbox
                     name="isSameBillingAddress"
@@ -199,11 +199,11 @@ export default function CheckoutFragment({ navigate }: FragmentProps<Stage>) {
               </Section>
               <SectionBreak half />
               <Section dense title={t('billing-address')}>
-                <AddressForm control={control} prefix="billing" />
+                <PartialAddressForm control={control} prefix="billing" />
               </Section>
               <SectionBreak half />
               <Section dense title={t('payment-information')}>
-                <CardForm control={control} />
+                <PartialCardForm control={control} />
               </Section>
               <SectionBreak half />
               <Section dense title={t('delivery-date')}>

@@ -6,7 +6,7 @@ import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
 import UnderlineButton from '@/components/UnderlineButton';
 import Button from '@/components/Button';
-import CardForm from '@/components/forms/Card';
+import PartialCardForm from '@/components/forms/partial/Card';
 import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
 import AppThemeProvider from '@/components/AppThemeProvider';
@@ -35,7 +35,7 @@ export default function Payments() {
               {t('payment-info')}
             </Headings>
             <div className="py-4"></div>
-            <CardForm control={control} />
+            <PartialCardForm control={control} />
             <div className="-mx-2 mt-8 flex">
               <div className="w-1/2 px-2">
                 <Button fullWidth onClick={reset} reverse>

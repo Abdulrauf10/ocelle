@@ -6,7 +6,7 @@ import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
 import UnderlineButton from '@/components/UnderlineButton';
 import Button from '@/components/Button';
-import AddressForm from '@/components/forms/Address';
+import PartialAddressForm from '@/components/forms/partial/Address';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
@@ -28,7 +28,7 @@ function AddressBlock({ isDeliveryAddress, onSubmit }: AddressBlockProps) {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <AddressForm control={control} />
+      <PartialAddressForm control={control} />
       {isDeliveryAddress && (
         <div className="mt-4">
           <RoundedCheckbox
