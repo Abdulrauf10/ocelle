@@ -1,21 +1,29 @@
 import React from 'react';
 import { FoodAllergies, MealPlan, Recipe } from '@/enums';
 import { Breed } from '@/entities';
+import {
+  ActivityLevel,
+  AmountOfTreats,
+  BodyCondition,
+  CurrentlyEating,
+  Gender,
+  Pickiness,
+} from '@/types';
 
 interface Dog {
   name?: string;
   isUnknownBreed?: boolean;
   breeds?: Breed[];
-  gender?: 'M' | 'F';
+  gender?: Gender;
   isNeutered?: boolean;
   age?: { years: number; months: number } | Date;
   weight?: number;
-  bodyCondition?: 'TooSkinny' | 'JustRight' | 'Rounded' | 'Chunky';
-  activityLevel?: 'Mellow' | 'Active' | 'VeryActive';
+  bodyCondition?: BodyCondition;
+  activityLevel?: ActivityLevel;
   foodAllergies?: FoodAllergies;
-  currentlyEating?: 'Dry' | 'Wet' | 'Raw' | 'Dehydrated' | 'Fresh' | 'Homemade' | 'Other';
-  amountOfTreats?: 'None' | 'Some' | 'Lots';
-  pickiness?: 'Picky' | 'GoodEater' | 'EatAnything';
+  currentlyEating?: CurrentlyEating;
+  amountOfTreats?: AmountOfTreats;
+  pickiness?: Pickiness;
   mealPlan?: MealPlan;
   recipe1?: Recipe;
   recipe2?: Recipe;
