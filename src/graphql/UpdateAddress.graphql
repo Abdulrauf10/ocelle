@@ -1,0 +1,26 @@
+mutation UpdateAddress(
+  $id: ID!
+  $firstName: String!
+  $lastName: String!
+  $streetAddress1: String!
+  $streetAddress2: String!
+  $city: String!
+  $cityArea: String!
+) {
+  accountAddressUpdate(
+    id: $id
+    input: {
+      firstName: $firstName
+      lastName: $lastName
+      streetAddress1: $streetAddress1
+      streetAddress2: $streetAddress2
+      city: $city
+      cityArea: $cityArea
+      country: HK
+    }
+  ) {
+    errors {
+      ...UserError
+    }
+  }
+}

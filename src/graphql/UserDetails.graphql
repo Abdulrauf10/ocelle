@@ -1,14 +1,14 @@
 fragment UserDetails on User {
-	id
-	email
-	firstName
-	lastName
-    metadata {
-        key,
-        value,
-    }
-	avatar {
-		url
-		alt
-	}
+  id
+  email
+  firstName
+  lastName
+  metadata {
+    key
+    value
+  }
+  avatar {
+    url
+    alt
+  }
 }

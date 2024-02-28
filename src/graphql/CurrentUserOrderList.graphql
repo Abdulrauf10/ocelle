@@ -1,12 +1,12 @@
 query CurrentUserOrderList {
-	me {
-		...UserDetails
-		orders(first: 10) {
-			edges {
-				node {
-					...OrderDetails
-				}
-			}
-		}
-	}
+  me {
+    ...UserDetails
+    orders(first: 10) {
+      edges {
+        node {
+          ...OrderDetails
+        }
+      }
+    }
+  }
 }

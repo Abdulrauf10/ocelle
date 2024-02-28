@@ -1,11 +1,25 @@
-mutation AccountRegister($firstName: String!, $lastName: String!, $email: String!, $password: String!, $redirectUrl: String!) {
-    accountRegister(input: { firstName: $firstName, lastName: $lastName, email: $email, password: $password, redirectUrl: $redirectUrl }) {
-        requiresConfirmation
-        errors {
-            ...UserError
-        }
-        user {
-            id
-        }
+mutation AccountRegister(
+  $firstName: String!
+  $lastName: String!
+  $email: String!
+  $password: String!
+  $redirectUrl: String!
+) {
+  accountRegister(
+    input: {
+      firstName: $firstName
+      lastName: $lastName
+      email: $email
+      password: $password
+      redirectUrl: $redirectUrl
     }
+  ) {
+    requiresConfirmation
+    errors {
+      ...UserError
+    }
+    user {
+      id
+    }
+  }
 }

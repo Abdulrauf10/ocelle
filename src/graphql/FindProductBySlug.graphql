@@ -1,5 +1,5 @@
 query FindProductBySlug($slug: String!) {
-	product(slug: $slug) {
-        id
-    }
+  product(slug: $slug) {
+    id
+  }
 }
