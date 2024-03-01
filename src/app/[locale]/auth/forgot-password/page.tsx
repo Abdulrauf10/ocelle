@@ -1,22 +1,14 @@
-'use client';
-
 import AppThemeProvider from '@/components/AppThemeProvider';
-import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Headings from '@/components/Headings';
 import UnderlineButton from '@/components/UnderlineButton';
-import { TextField } from '@mui/material';
-import { useTranslations } from 'next-intl';
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { forgotPasswordAction } from './action';
+import forgotPasswordAction from './action';
+import ForgetPasswordForm from '@/components/forms/ForgetPassword';
+import { useTranslations } from 'next-intl';
 
 export default function ForgotPassword() {
   const t = useTranslations();
-  const {
-    control,
-    formState: { isValid },
-  } = useForm();
 
   return (
     <AppThemeProvider>
@@ -29,20 +21,7 @@ export default function ForgotPassword() {
             {t('trouble-logging-in-please-enter-your-email-to-reset-your-password')}
           </p>
           <div className="mx-auto max-w-[300px] max-xs:max-w-full">
-            <form action={forgotPasswordAction} className="mx-auto mt-6">
-              <Controller
-                name="email"
-                control={control}
-                rules={{ required: true }}
-                render={({ field, fieldState: { error } }) => (
-                  <TextField error={!!error} label={t('email')} fullWidth {...field} />
-                )}
-              />
-              <div className="py-6"></div>
-              <Button fullWidth disabled={!isValid}>
-                {t('submit')}
-              </Button>
-            </form>
+            <ForgetPasswordForm action={forgotPasswordAction} />
             <UnderlineButton
               href="/auth/login"
               className="mt-4 text-lg"

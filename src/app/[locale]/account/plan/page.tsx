@@ -9,7 +9,7 @@ import Headings from '@/components/Headings';
 import { Dog, SaleorUser } from '@/entities';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import { getTranslations } from 'next-intl/server';
-import { MealPlan, OrderSize } from '@/enums';
+import { MealPlan, OrderSize, Recipe } from '@/enums';
 import { getStoreMe } from '@/storeUserProvider';
 import { executeQuery } from '@/helpers/queryRunner';
 
@@ -28,6 +28,9 @@ async function getData() {
       },
       relations: {
         plan: true,
+        breeds: {
+          breed: true,
+        },
       },
     });
     return { dogs, user, me };
@@ -71,7 +74,16 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
             <div className="flex flex-wrap items-center">
               <div className="flex-1 px-3 py-3">
                 <div className="text-xl font-bold text-brown">{dog.name}</div>
-                <div className="mt-2">[Poodle]</div>
+                {dog.breeds.length > 0 && (
+                  <div className="mt-2">
+                    {dog.breeds.map((breed, idx) => {
+                      if (idx > 0) {
+                        return t('comma') + breed.breed.enName;
+                      }
+                      return breed.breed.enName;
+                    })}
+                  </div>
+                )}
                 <div className="mt-3">
                   [7 years and 7 months old, 8 kg, mellow, is spayed, and has no allergies / food
                   sensitivities.]
@@ -180,27 +192,43 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
                     <div className="-mx-2 -my-4 flex justify-between max-sm:flex-col">
                       <div className="px-2 py-4">
                         <Image
-                          src="/meal-plan/chicken.jpg"
-                          alt="Chicken Recipe"
+                          src={`/meal-plan/${Recipe[dog.plan.recipe1].toLowerCase()}.jpg`}
+                          alt={t('fresh-{}-recipe', {
+                            value: t(Recipe[dog.plan.recipe1].toLowerCase()),
+                          })}
                           width={195}
                           height={195}
                           className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                         />
-                        <p className="mt-2 text-center">Fresh Chicken Recipe</p>
+                        <p className="mt-2 text-center">
+                          {t('fresh-{}-recipe', {
+                            value: t(Recipe[dog.plan.recipe1].toLowerCase()),
+                          })}
+                        </p>
                       </div>
-                      <div className="px-2 py-4">
-                        <div className="h-full w-px border-l border-gray max-sm:w-full max-sm:border-b"></div>
-                      </div>
-                      <div className="px-2 py-4">
-                        <Image
-                          src="/meal-plan/lamb.jpg"
-                          alt="Lamb Recipe"
-                          width={195}
-                          height={195}
-                          className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
-                        />
-                        <p className="mt-2 text-center">Fresh Lamb Recipe</p>
-                      </div>
+                      {dog.plan.recipe2 && (
+                        <>
+                          <div className="px-2 py-4">
+                            <div className="h-full w-px border-l border-gray max-sm:w-full max-sm:border-b"></div>
+                          </div>
+                          <div className="px-2 py-4">
+                            <Image
+                              src={`/meal-plan/${Recipe[dog.plan.recipe2].toLowerCase()}.jpg`}
+                              alt={t('fresh-{}-recipe', {
+                                value: t(Recipe[dog.plan.recipe2].toLowerCase()),
+                              })}
+                              width={195}
+                              height={195}
+                              className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
+                            />
+                            <p className="mt-2 text-center">
+                              {t('fresh-{}-recipe', {
+                                value: t(Recipe[dog.plan.recipe2].toLowerCase()),
+                              })}
+                            </p>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                   <hr className="my-3 border-gray max-sm:my-6" />

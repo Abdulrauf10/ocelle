@@ -5,17 +5,17 @@ import { Dog, DogBreed } from '@/entities';
 import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 import { ActivityLevel, AmountOfTreats, BodyCondition, CurrentlyEating, Pickiness } from '@/types';
-import { DateOfBirthMethod } from '@/types/dog';
+import { DateOfBirthMethod, Gender } from '@/types/dog';
 import { FoodAllergies } from '@/enums';
 
 interface UpdateDogAction {
   id: number;
   name: string;
   breeds: number[];
-  gender: 'M' | 'F';
-  isNeutered: 'Y' | 'N';
+  gender: Gender;
+  isNeutered: boolean;
   dateOfBirthMethod: DateOfBirthMethod;
-  dateOfBirth: string;
+  dateOfBirth: Date;
   weight: number;
   bodyCondition: BodyCondition;
   activityLevel: ActivityLevel;
@@ -30,7 +30,7 @@ const schema = Joi.object<UpdateDogAction>({
   name: Joi.string().required(),
   breeds: Joi.array().items(Joi.number().positive().required()).required(),
   gender: Joi.valid('M', 'F').required(),
-  isNeutered: Joi.valid('Y', 'N').required(),
+  isNeutered: Joi.boolean().required(),
   dateOfBirthMethod: Joi.valid('Manually', 'Calendar').required(),
   dateOfBirth: Joi.date().required(),
   weight: Joi.number().positive().required(),
@@ -42,22 +42,8 @@ const schema = Joi.object<UpdateDogAction>({
   pickiness: Joi.valid('Picky', 'GoodEater', 'EatAnything').required(),
 });
 
-export default async function updateDogAction(formData: FormData) {
-  const { value, error } = schema.validate({
-    name: formData.get('name'),
-    gender: formData.get('gender'),
-    breeds: formData.getAll('breeds'),
-    isNeutered: formData.get('isNeutered'),
-    dateOfBirthMethod: formData.get('dateOfBirthMethod'),
-    dateOfBirth: formData.get('dateOfBirth'),
-    weight: formData.get('weight'),
-    bodyCondition: formData.get('bodyCondition'),
-    activityLevel: formData.get('activityLevel'),
-    allergies: formData.get('allergies'),
-    eating: formData.get('eating'),
-    amountOfTreats: formData.get('amountOfTreats'),
-    pickiness: formData.get('pickiness'),
-  });
+export default async function updateDogAction(data: UpdateDogAction) {
+  const { value, error } = schema.validate(data);
 
   if (error) {
     throw new Error('schema is not valid');
@@ -78,9 +64,9 @@ export default async function updateDogAction(formData: FormData) {
 
     data.name = value.name;
     data.sex = value.gender;
-    data.isNeutered = value.isNeutered === 'Y';
+    data.isNeutered = value.isNeutered;
     data.dateOfBirthMethod = value.dateOfBirthMethod;
-    data.dateOfBirth = new Date(value.dateOfBirth);
+    data.dateOfBirth = value.dateOfBirth;
     data.weight = value.weight;
     data.bodyCondition = value.bodyCondition;
     data.activityLevel = value.activityLevel;

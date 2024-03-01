@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import DateCalendar from '../controls/DateCalendar';
 import { useTranslations } from 'next-intl';
 import React, { useTransition } from 'react';
-import { serialize } from 'object-to-formdata';
 import { startOfDay } from 'date-fns';
 
 interface IDeliveryDateForm {
@@ -17,7 +16,7 @@ export default function DeliveryDateForm({
   onComplete,
 }: {
   initialDate: Date;
-  action(formData: FormData): Promise<void>;
+  action(data: { deliveryDate: Date }): Promise<void>;
   onComplete?(): void;
 }) {
   const t = useTranslations();
@@ -32,7 +31,7 @@ export default function DeliveryDateForm({
   const onSubmit = React.useCallback(
     ({ deliveryDate }: IDeliveryDateForm) => {
       startTransition(() => {
-        action(serialize({ deliveryDate: startOfDay(deliveryDate) }));
+        action({ deliveryDate: startOfDay(deliveryDate) });
       });
       if (typeof onComplete === 'function') onComplete();
     },

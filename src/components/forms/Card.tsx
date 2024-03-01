@@ -20,7 +20,7 @@ export default function CardForm({
   cardNo: string;
   cardExp: string;
   cvc: string;
-  action(formData: FormData): Promise<void>;
+  action(data: ICardForm): Promise<void>;
 }) {
   const t = useTranslations();
   const ref = React.useRef<HTMLFormElement | null>(null);
@@ -37,7 +37,7 @@ export default function CardForm({
   const onSubmit = React.useCallback(
     (values: ICardForm) => {
       startTransition(() => {
-        action(serialize(values));
+        action(values);
       });
     },
     [action]

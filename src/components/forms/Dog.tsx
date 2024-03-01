@@ -16,7 +16,7 @@ import Button from '../Button';
 import { ActivityLevel, AmountOfTreats, BodyCondition, CurrentlyEating, Pickiness } from '@/types';
 import { FoodAllergies } from '@/enums';
 import { arrayToAllergies, foodAllergiesToArray, getFoodAllergiesOptions } from '@/helpers/form';
-import { DateOfBirthMethod } from '@/types/dog';
+import { DateOfBirthMethod, Gender } from '@/types/dog';
 import { intervalToDuration, subMonths, subYears } from 'date-fns';
 import { serialize } from 'object-to-formdata';
 
@@ -59,7 +59,7 @@ function EditDogBlock({
 interface IDogForm {
   name: string;
   breeds: Breed[];
-  gender: 'M' | 'F';
+  gender: Gender;
   isNeutered: 'Y' | 'N';
   months?: number;
   years?: number;
@@ -68,6 +68,22 @@ interface IDogForm {
   bodyCondition: BodyCondition;
   activityLevel: ActivityLevel;
   allergies: Array<boolean | undefined>;
+  eating: CurrentlyEating;
+  amountOfTreats: AmountOfTreats;
+  pickiness: Pickiness;
+}
+
+interface IDogFormReturn {
+  name: string;
+  breeds: number[];
+  gender: Gender;
+  isNeutered: boolean;
+  dateOfBirthMethod: DateOfBirthMethod;
+  dateOfBirth: Date;
+  weight: number;
+  bodyCondition: BodyCondition;
+  activityLevel: ActivityLevel;
+  allergies: FoodAllergies;
   eating: CurrentlyEating;
   amountOfTreats: AmountOfTreats;
   pickiness: Pickiness;
@@ -91,7 +107,7 @@ export default function DogForm({
 }: {
   name: string;
   breeds: Breed[];
-  gender: 'M' | 'F';
+  gender: Gender;
   isNeutered: boolean;
   dateOfBirthMethod: DateOfBirthMethod;
   dateOfBirth: Date;
@@ -102,7 +118,7 @@ export default function DogForm({
   eating: CurrentlyEating;
   amountOfTreats: AmountOfTreats;
   pickiness: Pickiness;
-  action(formData: FormData): Promise<void>;
+  action(data: IDogFormReturn): Promise<void>;
 }) {
   const t = useTranslations();
   const dateOfBirthInterval = intervalToDuration({ start: dateOfBirth, end: new Date() });
@@ -167,26 +183,25 @@ export default function DogForm({
       amountOfTreats,
       pickiness,
     }: IDogForm) => {
-      const formData = serialize({
-        name,
-        breeds: breeds.map((breed) => breed.id),
-        gender,
-        isNeutered,
-        dateOfBirthMethod: tab === 'Birthday' ? 'Calendar' : 'Manually',
-        dateOfBirth:
-          tab === 'Birthday'
-            ? dateOfBirth
-            : subMonths(subYears(new Date(), years ?? 0), months ?? 0),
-        weight,
-        bodyCondition,
-        activityLevel,
-        allergies: arrayToAllergies(allergies),
-        eating,
-        amountOfTreats,
-        pickiness,
-      });
       startTransition(() => {
-        action(formData);
+        action({
+          name,
+          breeds: breeds.map((breed) => breed.id),
+          gender,
+          isNeutered: isNeutered === 'Y',
+          dateOfBirthMethod: tab === 'Birthday' ? 'Calendar' : 'Manually',
+          dateOfBirth:
+            tab === 'Birthday'
+              ? dateOfBirth!
+              : subMonths(subYears(new Date(), years ?? 0), months ?? 0),
+          weight,
+          bodyCondition,
+          activityLevel,
+          allergies: arrayToAllergies(allergies),
+          eating,
+          amountOfTreats,
+          pickiness,
+        });
       });
     },
     [action, tab]

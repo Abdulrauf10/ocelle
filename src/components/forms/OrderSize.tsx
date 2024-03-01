@@ -1,21 +1,21 @@
 'use client';
 
 import Button from '@/components/Button';
-import React, { useTransition } from 'react';
+import React from 'react';
 import Headings from '@/components/Headings';
 import { useTranslations } from 'next-intl';
-import { serialize } from 'object-to-formdata';
+import { OrderSize } from '@/enums';
 
 export default function OrderSizeForm({
   initialSize,
   action,
 }: {
-  initialSize: 7 | 14;
-  action(formData: FormData): Promise<void>;
+  initialSize: OrderSize;
+  action(data: { size: OrderSize }): Promise<void>;
 }) {
   const t = useTranslations();
-  const [pending, startTransition] = useTransition();
-  const [size, setSize] = React.useState<7 | 14>(initialSize);
+  const [pending, startTransition] = React.useTransition();
+  const [size, setSize] = React.useState<OrderSize>(initialSize);
 
   const isSameAsDefaultValue = size === initialSize;
 
@@ -26,7 +26,7 @@ export default function OrderSizeForm({
           <div className="px-4 py-3">
             <div
               className="relative mt-3 flex w-[270px] items-center rounded-3xl border border-gray bg-white px-8 py-8 shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
-              onClick={() => setSize(7)}
+              onClick={() => setSize(OrderSize.OneWeek)}
             >
               <div className="flex-1 px-2">
                 <Headings tag="h2" styles="h2" className="text-primary">
@@ -35,7 +35,7 @@ export default function OrderSizeForm({
                 <p className="mt-1">$[15]{t('per-day')}</p>
               </div>
               <div className="px-2">
-                {size === 7 ? (
+                {size === OrderSize.OneWeek ? (
                   <div className="flex h-8 w-8 items-center justify-center rounded-full border border-secondary">
                     <div className="h-6 w-6 rounded-full bg-secondary"></div>
                   </div>
@@ -51,7 +51,7 @@ export default function OrderSizeForm({
           <div className="px-4 py-3">
             <div
               className="relative mt-3 flex w-[270px] items-center rounded-3xl border border-gray bg-white px-8 py-8 shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
-              onClick={() => setSize(14)}
+              onClick={() => setSize(OrderSize.TwoWeek)}
             >
               <div className="flex-1 px-2">
                 <Headings tag="h2" styles="h2" className="text-primary">
@@ -60,7 +60,7 @@ export default function OrderSizeForm({
                 <p className="mt-1">$[13]{t('per-day')}</p>
               </div>
               <div className="px-2">
-                {size === 14 ? (
+                {size === OrderSize.TwoWeek ? (
                   <div className="flex h-8 w-8 items-center justify-center rounded-full border border-secondary">
                     <div className="h-6 w-6 rounded-full bg-secondary"></div>
                   </div>
@@ -101,7 +101,7 @@ export default function OrderSizeForm({
               disabled={pending || isSameAsDefaultValue}
               onClick={() => {
                 startTransition(() => {
-                  action(serialize({ size }));
+                  action({ size });
                 });
               }}
             >

@@ -1,21 +1,22 @@
-'use client';
-
 import React from 'react';
-import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Headings from '@/components/Headings';
-import PasswordField from '@/components/controls/PasswordField';
 import { useTranslations } from 'next-intl';
-import { useForm } from 'react-hook-form';
 import AppThemeProvider from '@/components/AppThemeProvider';
-import { resetPasswordAction } from './action';
+import resetPasswordAction from './action';
+import ResetPasswordForm from '@/components/forms/ResetPassword';
+import { redirect } from '@/navigation';
 
-export default function ResetPassword() {
+export default function ResetPassword({
+  searchParams,
+}: {
+  searchParams?: { email?: string; token?: string };
+}) {
   const t = useTranslations();
-  const {
-    control,
-    formState: { isValid },
-  } = useForm();
+
+  if (!searchParams || !searchParams.email || !searchParams.token) {
+    return redirect('/auth/login');
+  }
 
   return (
     <AppThemeProvider>
@@ -25,27 +26,16 @@ export default function ResetPassword() {
             {t('change-{}', { value: t('password') })}
           </Headings>
           <div className="mx-auto max-w-[280px] max-xs:max-w-full">
-            <form action={resetPasswordAction} className="mx-auto mt-6">
-              <PasswordField
-                name="password"
-                control={control}
-                rules={{ required: true }}
-                label={t('new-password')}
-                fullWidth
-              />
-              <div className="py-4"></div>
-              <PasswordField
-                name="confirmPassword"
-                control={control}
-                rules={{ required: true }}
-                label={t('confirm-{}', { value: t('new-password') })}
-                fullWidth
-              />
-              <div className="py-6"></div>
-              <Button fullWidth disabled={!isValid}>
-                {t('set-{}', { value: t('new-password') })}
-              </Button>
-            </form>
+            <ResetPasswordForm
+              action={async (data) => {
+                'use server';
+                return await resetPasswordAction({
+                  ...data,
+                  email: searchParams.email!,
+                  token: searchParams.token!,
+                });
+              }}
+            />
           </div>
         </Container>
       </main>

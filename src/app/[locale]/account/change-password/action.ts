@@ -14,11 +14,8 @@ const schema = Joi.object<ChangePasswordAction>({
   newPassword: Joi.string().required(),
 });
 
-export default async function changePasswordAction(formData: FormData) {
-  const { value, error } = schema.validate({
-    currentPassword: formData.get('currentPassword'),
-    newPassword: formData.get('newPassword'),
-  });
+export default async function changePasswordAction(data: ChangePasswordAction) {
+  const { value, error } = schema.validate(data);
 
   if (error) {
     throw new Error('schema is not valid');

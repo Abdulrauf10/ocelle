@@ -13,12 +13,10 @@ const schema = Joi.object<ForgotPasswordAction>({
   email: Joi.string().required(),
 });
 
-export async function forgotPasswordAction(formData: FormData) {
+export default async function forgotPasswordAction(data: ForgotPasswordAction) {
   const headersList = headers();
   const host = headersList.get('host');
-  const { value, error } = schema.validate({
-    email: formData.get('email'),
-  });
+  const { value, error } = schema.validate(data);
 
   if (error) {
     throw new Error('schema is not valid');
@@ -32,5 +30,8 @@ export async function forgotPasswordAction(formData: FormData) {
     withAuth: false,
   });
 
-  return { errors: requestPasswordReset?.errors };
+  if (requestPasswordReset?.errors) {
+    console.error(requestPasswordReset.errors);
+    throw new Error('forget password failed');
+  }
 }

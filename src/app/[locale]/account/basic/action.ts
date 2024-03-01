@@ -19,13 +19,8 @@ const schema = Joi.object<UpdateBasicInfoAction>({
   phone: Joi.string().required(),
 });
 
-export default async function updateBasicInfoAction(formData: FormData) {
-  const { value, error } = schema.validate({
-    firstName: formData.get('firstName'),
-    lastName: formData.get('lastName'),
-    email: formData.get('email'),
-    phone: formData.get('phone'),
-  });
+export default async function updateBasicInfoAction(data: UpdateBasicInfoAction) {
+  const { value, error } = schema.validate(data);
 
   if (error) {
     throw new Error('schema is not valid');

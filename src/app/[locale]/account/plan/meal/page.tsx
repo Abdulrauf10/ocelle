@@ -8,7 +8,6 @@ import { executeQuery } from '@/helpers/queryRunner';
 import { Dog } from '@/entities';
 import { getTranslations } from 'next-intl/server';
 import FreshPlanForm from '@/components/forms/FreshPlan';
-import { MealPlan } from '@/enums';
 import AccountBackButton from '../../AccountBackButton';
 import setMealPlanAction from './action';
 
@@ -59,11 +58,10 @@ export default async function PlanMeal({ searchParams }: { searchParams: { curre
             })}
           </p>
           <FreshPlanForm
-            initialPlan={dog.plan.mealPlan === MealPlan.Full ? 'full' : 'half'}
-            action={async (formData) => {
+            initialPlan={dog.plan.mealPlan}
+            action={async (data) => {
               'use server';
-              formData.set('dog', String(dog.id));
-              return await setMealPlanAction(formData);
+              return await setMealPlanAction({ ...data, id: dog.id });
             }}
           />
           <div className="mt-8 text-center">

@@ -1,26 +1,24 @@
 'use server';
 
 import { getStoreMe } from '@/storeUserProvider';
-import { Dog } from '@/entities';
+import { DogPlan } from '@/entities';
 import { MealPlan } from '@/enums';
 import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
+import { getNumericEnumValues } from '@/helpers/enum';
 
 interface SetMealPlanAction {
   id: number;
-  plan: 'half' | 'full';
+  plan: MealPlan;
 }
 
 const schema = Joi.object<SetMealPlanAction>({
   id: Joi.number().positive().required(),
-  plan: Joi.string().valid('half', 'full').required(),
+  plan: Joi.valid(...getNumericEnumValues(MealPlan)).required(),
 });
 
-export default async function setMealPlanAction(formData: FormData) {
-  const { value, error } = schema.validate({
-    id: formData.get('id'),
-    plan: formData.get('plan'),
-  });
+export default async function setMealPlanAction(data: SetMealPlanAction) {
+  const { value, error } = schema.validate(data);
 
   if (error) {
     throw new Error('schema is not valid');
@@ -29,13 +27,9 @@ export default async function setMealPlanAction(formData: FormData) {
   const me = await getStoreMe();
 
   await executeQuery(async (queryRunner) => {
-    const data = await queryRunner.manager.findOne(Dog, {
+    const data = await queryRunner.manager.findOne(DogPlan, {
       where: {
-        id: value.id,
-        user: { saleorId: me.id },
-      },
-      relations: {
-        plan: true,
+        dog: { id: value.id, user: { saleorId: me.id } },
       },
     });
 
@@ -43,7 +37,7 @@ export default async function setMealPlanAction(formData: FormData) {
       throw new Error('data not found');
     }
 
-    data.plan.mealPlan = value.plan === 'full' ? MealPlan.Full : MealPlan.Half;
+    data.mealPlan = value.plan;
 
     await queryRunner.manager.save(data);
   });

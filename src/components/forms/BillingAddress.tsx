@@ -26,7 +26,7 @@ export default function BillingAddressForm({
   district: string;
   region: string;
   country: string;
-  action(formData: FormData): Promise<void>;
+  action(data: IBillingAddressForm): Promise<void>;
 }) {
   const t = useTranslations();
   const ref = React.useRef<HTMLFormElement | null>(null);
@@ -46,7 +46,7 @@ export default function BillingAddressForm({
   const onSubmit = React.useCallback(
     (values: IBillingAddressForm) => {
       startTransition(() => {
-        action(serialize(values));
+        action(values);
       });
     },
     [action]

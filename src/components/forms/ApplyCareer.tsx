@@ -3,36 +3,28 @@
 import React from 'react';
 import Button from '@/components/Button';
 import { TextField } from '@mui/material';
-import {
-  type Control,
-  type FieldValues,
-  type RegisterOptions,
-  useForm,
-  useController,
-  Controller,
-} from 'react-hook-form';
+import { type FieldValues, useForm, useController, Controller } from 'react-hook-form';
 import { mergeRefs } from 'react-merge-refs';
 import Container from '@/components/Container';
 import Image from 'next/image';
 import Block from '@/components/Block';
 import AppThemeProvider from '@/components/AppThemeProvider';
-import { applyCareerAction } from './action';
+import { InputControllerProps } from '@/types';
 
-interface FileInputProps {
-  control: Control<FieldValues>;
+interface FileInputProps<T extends FieldValues> extends InputControllerProps<T> {
   label: string;
-  name: string;
-  rules?: Omit<
-    RegisterOptions<FieldValues, string>,
-    'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'
-  >;
-  error?: boolean;
 }
 
-function FileInput({ control, label, name, rules, error }: FileInputProps) {
+function FileInput<T extends FieldValues>({
+  control,
+  label,
+  name,
+  rules,
+  error,
+}: FileInputProps<T>) {
   const {
     field: { ref, onChange, value, ...field },
-  } = useController({ control, name, rules, defaultValue: '' });
+  } = useController({ control, name, rules });
   const inputRef = React.useRef<HTMLInputElement>();
   const [filename, setFilename] = React.useState<string | undefined>(undefined);
 
@@ -70,20 +62,28 @@ function FileInput({ control, label, name, rules, error }: FileInputProps) {
   );
 }
 
-interface ApplyFormProps {
-  id: number;
-  title: string;
+interface IApplyCareerForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  resume: File;
+  coverLetter?: File;
 }
 
-export default function ApplyForm({
-  id,
+export default function ApplyCareerForm({
   title,
-  children,
-}: React.PropsWithChildren<ApplyFormProps>) {
+  startAdornment,
+  action,
+}: {
+  title: string;
+  startAdornment?: React.ReactNode;
+  action(formData: FormData): Promise<void>;
+}) {
   const {
     control,
     formState: { isValid },
-  } = useForm();
+  } = useForm<IApplyCareerForm>();
   const [completed, setCompleted] = React.useState(false);
 
   if (completed) {
@@ -109,7 +109,7 @@ export default function ApplyForm({
 
   return (
     <AppThemeProvider>
-      {children}
+      {startAdornment}
       <Block styles="tight" className="bg-gold bg-opacity-10">
         <Container className="max-w-screen-lg">
           <div className="text-2xl font-bold uppercase text-primary">Submit Your Application</div>
@@ -119,9 +119,8 @@ export default function ApplyForm({
           <div className="mt-6">
             <form
               action={async (data) => {
-                data.set('id', String(id));
                 try {
-                  await applyCareerAction(data);
+                  await action(data);
                   setCompleted(true);
                 } catch (e) {
                   console.log(e);

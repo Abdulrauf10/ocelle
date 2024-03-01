@@ -2,8 +2,7 @@
 
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
-import React, { useTransition } from 'react';
-import { serialize } from 'object-to-formdata';
+import React from 'react';
 import Button from '../Button';
 import { TextField } from '@mui/material';
 
@@ -27,7 +26,7 @@ export default function UserBasicInfoForm({
   email: string;
   phone: string;
   middleAdornment?: React.ReactNode;
-  action(formData: FormData): Promise<void>;
+  action(data: IUserBasicInfoForm): Promise<void>;
 }) {
   const t = useTranslations();
   const { control, reset, watch, handleSubmit } = useForm<IUserBasicInfoForm>({
@@ -38,12 +37,12 @@ export default function UserBasicInfoForm({
       phone,
     },
   });
-  const [pending, startTransition] = useTransition();
+  const [pending, startTransition] = React.useTransition();
 
   const onSubmit = React.useCallback(
     (values: IUserBasicInfoForm) => {
       startTransition(() => {
-        action(serialize(values));
+        action(values);
       });
     },
     [action]

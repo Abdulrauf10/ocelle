@@ -29,7 +29,7 @@ export default function DeliveryAddressForm({
   district: string;
   region: string;
   country: string;
-  action(formData: FormData): Promise<void>;
+  action(data: IDeliveryAddressForm): Promise<void>;
 }) {
   const t = useTranslations();
   const ref = React.useRef<HTMLFormElement | null>(null);
@@ -49,7 +49,7 @@ export default function DeliveryAddressForm({
   const onSubmit = React.useCallback(
     (values: IDeliveryAddressForm) => {
       startTransition(() => {
-        action(serialize(values));
+        action(values);
       });
     },
     [action]

@@ -1,21 +1,21 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import React, { useTransition } from 'react';
+import React from 'react';
 import FreshPlan from '../FreshPlan';
 import Button from '../Button';
-import { serialize } from 'object-to-formdata';
+import { MealPlan } from '@/enums';
 
 export default function FreshPlanForm({
   initialPlan,
   action,
 }: {
-  initialPlan: 'full' | 'half';
-  action(formData: FormData): Promise<void>;
+  initialPlan: MealPlan;
+  action(data: { plan: MealPlan }): Promise<void>;
 }) {
   const t = useTranslations();
-  const [pending, startTransition] = useTransition();
-  const [plan, setPlan] = React.useState<'full' | 'half'>(initialPlan);
+  const [pending, startTransition] = React.useTransition();
+  const [plan, setPlan] = React.useState<MealPlan>(initialPlan);
 
   const isSameAsDefaultValue = plan === initialPlan;
 
@@ -28,8 +28,8 @@ export default function FreshPlanForm({
             picture="/meal-plan/full-plan.jpg"
             pricePerDay={36}
             recommended
-            selected={plan === 'full'}
-            onSelect={() => setPlan('full')}
+            selected={plan === MealPlan.Full}
+            onSelect={() => setPlan(MealPlan.Full)}
           >
             {t('fresh-full-plan:description')}
           </FreshPlan>
@@ -39,8 +39,8 @@ export default function FreshPlanForm({
             title={t('fresh-half-plan')}
             picture="/meal-plan/half-plan.jpg"
             pricePerDay={25}
-            selected={plan === 'half'}
-            onSelect={() => setPlan('half')}
+            selected={plan === MealPlan.Half}
+            onSelect={() => setPlan(MealPlan.Half)}
           >
             {t('fresh-half-plan:description')}
           </FreshPlan>
@@ -64,7 +64,7 @@ export default function FreshPlanForm({
               disabled={pending || isSameAsDefaultValue}
               onClick={() =>
                 startTransition(() => {
-                  action(serialize({ plan }));
+                  action({ plan });
                 })
               }
             >

@@ -7,8 +7,7 @@ import Button from '../Button';
 import { useTranslations } from 'next-intl';
 import { isAllergies, isRecommendedRecipe } from '@/helpers/dog';
 import { ActivityLevel, BodyCondition, Pickiness } from '@/types';
-import React, { useTransition } from 'react';
-import { serialize } from 'object-to-formdata';
+import React from 'react';
 import { arrayToRecipe, recipeToArray } from '@/helpers/form';
 import equal from 'deep-equal';
 
@@ -31,10 +30,10 @@ export default function RecipeForm({
   foodAllergies: FoodAllergies;
   initialRecipe1: Recipe;
   initialRecipe2?: Recipe;
-  action(formData: FormData): Promise<void>;
+  action(data: { recipe1: Recipe; recipe2?: Recipe }): Promise<void>;
 }) {
   const t = useTranslations();
-  const [pending, startTransition] = useTransition();
+  const [pending, startTransition] = React.useTransition();
   const { control, reset, watch, handleSubmit } = useForm<RecipeForm>({
     defaultValues: {
       recipe: recipeToArray(initialRecipe1, initialRecipe2),
@@ -45,7 +44,7 @@ export default function RecipeForm({
     ({ recipe }: RecipeForm) => {
       const { recipe1, recipe2 } = arrayToRecipe(recipe);
       startTransition(() => {
-        action(serialize({ recipe1, recipe2 }));
+        action({ recipe1: recipe1!, recipe2 });
       });
     },
     [action]

@@ -59,7 +59,10 @@ export default async function EditDog({ params }: { params: { id: string } }) {
             eating={dog.currentEating}
             amountOfTreats={dog.amountOfTreats}
             pickiness={dog.pickiness}
-            action={updateDogAction}
+            action={async (data) => {
+              'use server';
+              return await updateDogAction({ ...data, id: dog.id });
+            }}
           />
         </Container>
       </main>

@@ -5,19 +5,18 @@ import { SaleorUser } from '@/entities';
 import { OrderSize } from '@/enums';
 import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
+import { getNumericEnumValues } from '@/helpers/enum';
 
 interface SetOrderSizeAction {
-  size: string;
+  size: OrderSize;
 }
 
 const schema = Joi.object<SetOrderSizeAction>({
-  size: Joi.string().required(),
+  size: Joi.valid(...getNumericEnumValues(OrderSize)).required(),
 });
 
-export default async function setOrderSizeAction(formData: FormData) {
-  const { value, error } = schema.validate({
-    size: formData.get('size'),
-  });
+export default async function setOrderSizeAction(data: SetOrderSizeAction) {
+  const { value, error } = schema.validate(data);
 
   if (error) {
     throw new Error('schema is not valid');
@@ -36,7 +35,7 @@ export default async function setOrderSizeAction(formData: FormData) {
       throw new Error('user not found');
     }
 
-    data.orderSize = value.size === '7' ? OrderSize.OneWeek : OrderSize.TwoWeek;
+    data.orderSize = value.size;
 
     await queryRunner.manager.save(data);
   });

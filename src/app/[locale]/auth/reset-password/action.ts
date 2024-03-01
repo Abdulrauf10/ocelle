@@ -15,10 +15,8 @@ const schema = Joi.object<ResetPasswordAction>({
   token: Joi.string().required(),
 });
 
-export async function resetPasswordAction(formData: FormData) {
-  const { value, error } = schema.validate({
-    email: formData.get('email'),
-  });
+export default async function resetPasswordAction(data: ResetPasswordAction) {
+  const { value, error } = schema.validate(data);
 
   if (error) {
     throw new Error('schema is not valid');
@@ -28,5 +26,8 @@ export async function resetPasswordAction(formData: FormData) {
     data: { setPassword },
   } = await saleorAuthClient.resetPassword(value);
 
-  return { errors: setPassword.errors };
+  if (setPassword.errors) {
+    console.error(setPassword.errors);
+    throw new Error('reset password failed');
+  }
 }

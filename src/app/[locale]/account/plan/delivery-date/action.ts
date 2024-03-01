@@ -7,17 +7,15 @@ import { executeQuery } from '@/helpers/queryRunner';
 import { startOfDay } from 'date-fns';
 
 interface SetDeliveryDateAction {
-  deliveryDate: string;
+  deliveryDate: Date;
 }
 
 const schema = Joi.object<SetDeliveryDateAction>({
   deliveryDate: Joi.date().required(),
 });
 
-export default async function setDeliveryDateAction(formData: FormData) {
-  const { value, error } = schema.validate({
-    deliveryDate: formData.get('deliveryDate'),
-  });
+export default async function setDeliveryDateAction(data: SetDeliveryDateAction) {
+  const { value, error } = schema.validate(data);
 
   if (error) {
     throw new Error('schema is not valid');

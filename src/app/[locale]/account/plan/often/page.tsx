@@ -14,13 +14,15 @@ async function fetchData() {
   const me = await getStoreMe();
 
   return executeQuery(async (queryRunner) => {
-    return {
-      user: await queryRunner.manager.findOne(SaleorUser, {
-        where: {
-          saleorId: me.id,
-        },
-      }),
-    };
+    const user = await queryRunner.manager.findOne(SaleorUser, {
+      where: {
+        saleorId: me.id,
+      },
+    });
+    if (!user) {
+      throw new Error('failed to handle request');
+    }
+    return { user };
   });
 }
 
@@ -34,10 +36,7 @@ export default async function PlanOften() {
         <Headings tag="h1" styles="h2" className="text-center text-primary">
           {t('how-often-would-you-like-to-receive-deliveries')}
         </Headings>
-        <OrderSizeForm
-          initialSize={user?.orderSize === OrderSize.OneWeek ? 7 : 14}
-          action={setOrderSizeAction}
-        />
+        <OrderSizeForm initialSize={user.orderSize} action={setOrderSizeAction} />
         <div className="mt-8 text-center">
           <AccountBackButton />
         </div>

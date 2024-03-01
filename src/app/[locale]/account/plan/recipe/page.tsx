@@ -57,7 +57,7 @@ export default async function PlanRecipe({ searchParams }: { searchParams: { cur
             })}
           </p>
           <p className="mx-auto mt-4 max-w-[620px] text-center text-primary">
-            Select up to 2 suitable recipes below.
+            {t('select-up-to-{}-suitable-recipes-below', { value: 2 })}
           </p>
           <div className="mt-5">
             <RecipeForm
@@ -67,10 +67,9 @@ export default async function PlanRecipe({ searchParams }: { searchParams: { cur
               foodAllergies={dog.foodAllergies}
               initialRecipe1={dog.plan.recipe1}
               initialRecipe2={dog.plan.recipe2}
-              action={async (formData) => {
+              action={async (data) => {
                 'use server';
-                formData.set('dog', String(dog.id));
-                return await setRecipeAction(formData);
+                return await setRecipeAction({ ...data, id: dog.id });
               }}
             />
           </div>

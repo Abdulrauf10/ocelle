@@ -3,7 +3,6 @@
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import React, { useTransition } from 'react';
-import { serialize } from 'object-to-formdata';
 import PasswordField from '../controls/PasswordField';
 import Button from '../Button';
 
@@ -16,7 +15,7 @@ interface IChangePasswordForm {
 export default function ChangePasswordForm({
   action,
 }: {
-  action(formData: FormData): Promise<void>;
+  action(data: Omit<IChangePasswordForm, 'confirmNewPassword'>): Promise<void>;
 }) {
   const t = useTranslations();
   const { control, reset, handleSubmit } = useForm<IChangePasswordForm>();
@@ -25,7 +24,7 @@ export default function ChangePasswordForm({
   const onSubmit = React.useCallback(
     ({ currentPassword, newPassword }: IChangePasswordForm) => {
       startTransition(() => {
-        action(serialize({ currentPassword, newPassword }));
+        action({ currentPassword, newPassword });
       });
     },
     [action]

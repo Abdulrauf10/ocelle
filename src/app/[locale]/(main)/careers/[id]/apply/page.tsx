@@ -1,10 +1,11 @@
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
-import ApplyForm from './ApplyForm';
 import Title from '../Title';
 import { Career } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
+import ApplyCareerForm from '@/components/forms/ApplyCareer';
+import { applyCareerAction } from './action';
 
 async function fetchData(id: number) {
   return executeQuery(async (queryRunner) => {
@@ -30,9 +31,15 @@ export default async function CareerApply({ params }: { params: { id: string } }
 
   return (
     <main>
-      <ApplyForm id={parseInt(params.id)} title={career.name}>
-        <Title career={career} />
-      </ApplyForm>
+      <ApplyCareerForm
+        title={career.name}
+        startAdornment={<Title career={career} />}
+        action={async (data) => {
+          'use server';
+          data.set('id', String(career.id));
+          await applyCareerAction(data);
+        }}
+      />
     </main>
   );
 }

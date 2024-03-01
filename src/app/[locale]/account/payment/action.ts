@@ -17,13 +17,8 @@ const schema = Joi.object<UpdateCreditCardAction>({
   cardCvc: Joi.string().required(),
 });
 
-export default async function updateCreditCardAction(formData: FormData) {
-  const { value, error } = schema.validate({
-    cardName: formData.get('cardName'),
-    cardNo: formData.get('cardNo'),
-    cardExp: formData.get('cardExp'),
-    cardCvc: formData.get('cardCvc'),
-  });
+export default async function updateCreditCardAction(data: UpdateCreditCardAction) {
+  const { value, error } = schema.validate(data);
 
   if (error) {
     throw new Error('schema is not valid');

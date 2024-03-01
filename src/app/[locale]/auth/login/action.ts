@@ -13,11 +13,8 @@ const schema = Joi.object<LoginAction>({
   password: Joi.string().required(),
 });
 
-export default async function loginAction(formData: FormData) {
-  const { value, error } = schema.validate({
-    email: formData.get('email'),
-    password: formData.get('password'),
-  });
+export default async function loginAction(data: LoginAction) {
+  const { value, error } = schema.validate(data);
 
   if (error) {
     throw new Error('schema is not valid');
@@ -33,5 +30,8 @@ export default async function loginAction(formData: FormData) {
     { cache: 'no-store' }
   );
 
-  return { errors: tokenCreate.errors };
+  if (tokenCreate.errors) {
+    console.error(tokenCreate.errors);
+    throw new Error('login failed');
+  }
 }
