@@ -5,6 +5,7 @@ import DateCalendar from '../controls/DateCalendar';
 import { useTranslations } from 'next-intl';
 import React, { useTransition } from 'react';
 import { serialize } from 'object-to-formdata';
+import { startOfDay } from 'date-fns';
 
 interface IDeliveryDateForm {
   deliveryDate: Date;
@@ -13,15 +14,17 @@ interface IDeliveryDateForm {
 export default function DeliveryDateForm({
   initialDate,
   action,
+  onComplete,
 }: {
   initialDate: Date;
   action(formData: FormData): Promise<void>;
+  onComplete?(): void;
 }) {
   const t = useTranslations();
   const ref = React.useRef<HTMLFormElement | null>(null);
-  const { control, getValues, setValue, handleSubmit } = useForm<IDeliveryDateForm>({
+  const { control, watch, reset, handleSubmit } = useForm<IDeliveryDateForm>({
     defaultValues: {
-      deliveryDate: initialDate,
+      deliveryDate: startOfDay(initialDate),
     },
   });
   const [pending, startTransition] = useTransition();
@@ -29,11 +32,15 @@ export default function DeliveryDateForm({
   const onSubmit = React.useCallback(
     ({ deliveryDate }: IDeliveryDateForm) => {
       startTransition(() => {
-        action(serialize({ deliveryDate }));
+        action(serialize({ deliveryDate: startOfDay(deliveryDate) }));
       });
+      if (typeof onComplete === 'function') onComplete();
     },
-    [action]
+    [action, onComplete]
   );
+
+  const isSameAsDefaultValue =
+    startOfDay(watch('deliveryDate')).getTime() === startOfDay(initialDate).getTime();
 
   return (
     <form ref={ref} onSubmit={handleSubmit(onSubmit)}>
@@ -44,12 +51,12 @@ export default function DeliveryDateForm({
         actions={[
           {
             label: t('cancel'),
-            disabled: getValues().deliveryDate.getTime() === initialDate.getTime(),
-            onClick: () => setValue('deliveryDate', initialDate),
+            disabled: isSameAsDefaultValue,
+            onClick: () => reset({ deliveryDate: startOfDay(initialDate) }),
           },
           {
             label: t('save-changes'),
-            disabled: pending,
+            disabled: pending || isSameAsDefaultValue,
             onClick: () => ref.current?.requestSubmit(),
           },
         ]}

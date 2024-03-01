@@ -17,6 +17,8 @@ export default function OrderSizeForm({
   const [pending, startTransition] = useTransition();
   const [size, setSize] = React.useState<7 | 14>(initialSize);
 
+  const isSameAsDefaultValue = size === initialSize;
+
   return (
     <>
       <div className="mt-6">
@@ -89,14 +91,14 @@ export default function OrderSizeForm({
       <div className="mx-auto mt-8 max-w-[480px]">
         <div className="-mx-2 flex">
           <div className="w-1/2 px-2">
-            <Button fullWidth onClick={() => {}} reverse>
+            <Button fullWidth onClick={() => {}} reverse disabled={isSameAsDefaultValue}>
               {t('cancel')}
             </Button>
           </div>
           <div className="w-1/2 px-2">
             <Button
               fullWidth
-              disabled={pending}
+              disabled={pending || isSameAsDefaultValue}
               onClick={() => {
                 startTransition(() => {
                   action(serialize({ size }));

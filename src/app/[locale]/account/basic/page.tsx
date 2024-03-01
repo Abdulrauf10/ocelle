@@ -1,105 +1,56 @@
-'use client';
-
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
 import UnderlineButton from '@/components/UnderlineButton';
-import { TextField } from '@mui/material';
-import Button from '@/components/Button';
-import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
 import AppThemeProvider from '@/components/AppThemeProvider';
+import UserBasicInfoForm from '@/components/forms/UserBasicInfo';
+import AccountBackButton from '../AccountBackButton';
+import { getTranslations } from 'next-intl/server';
+import updateBasicInfoAction from './action';
 
-export default function ChangePassword() {
-  const t = useTranslations();
-  const router = useRouter();
-  const {
-    control,
-    handleSubmit,
-    reset,
-    formState: { isDirty },
-  } = useForm();
+async function getData() {
+  return {
+    firstName: 'Chan',
+    lastName: 'Tai Man',
+    email: 'email@example.com',
+    phone: '88888888',
+  };
+}
 
-  const onSubmit = React.useCallback((values: unknown) => {
-    console.log(values);
-  }, []);
+export default async function BasicInfo() {
+  const t = await getTranslations();
+  const { firstName, lastName, email, phone } = await getData();
 
   return (
     <AppThemeProvider>
       <main className="bg-gold bg-opacity-10 py-10">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Container>
-            <div className="mx-auto max-w-[520px]">
-              <Headings tag="h1" styles="h2" className="text-center text-primary">
-                {t('account-info')}
-              </Headings>
-              <div className="py-4"></div>
-              <div className="-m-2 flex flex-wrap">
-                <div className="w-1/2 p-2">
-                  <Controller
-                    name="firstname"
-                    control={control}
-                    rules={{ required: true }}
-                    render={({ field, fieldState: { error } }) => (
-                      <TextField {...field} label={t('first-name')} fullWidth error={!!error} />
-                    )}
+        <Container>
+          <div className="mx-auto max-w-[520px]">
+            <Headings tag="h1" styles="h2" className="text-center text-primary">
+              {t('account-info')}
+            </Headings>
+            <div className="py-4"></div>
+            <UserBasicInfoForm
+              firstName={firstName}
+              lastName={lastName}
+              email={email}
+              phone={phone}
+              middleAdornment={
+                <div className="mt-10">
+                  <UnderlineButton
+                    type="button"
+                    href="/account/change-password"
+                    label={t('change-{}', { value: t('password') })}
                   />
                 </div>
-                <div className="w-1/2 p-2">
-                  <Controller
-                    name="lastname"
-                    control={control}
-                    rules={{ required: true }}
-                    render={({ field, fieldState: { error } }) => (
-                      <TextField {...field} label={t('last-name')} fullWidth error={!!error} />
-                    )}
-                  />
-                </div>
-                <div className="w-1/2 p-2">
-                  <Controller
-                    name="email"
-                    control={control}
-                    rules={{ required: true }}
-                    render={({ field, fieldState: { error } }) => (
-                      <TextField {...field} label={t('email')} fullWidth error={!!error} />
-                    )}
-                  />
-                </div>
-                <div className="w-1/2 p-2">
-                  <Controller
-                    name="phone"
-                    control={control}
-                    rules={{ required: true }}
-                    render={({ field, fieldState: { error } }) => (
-                      <TextField {...field} label={t('phone-number')} fullWidth error={!!error} />
-                    )}
-                  />
-                </div>
-              </div>
-              <div className="mt-10">
-                <UnderlineButton
-                  type="button"
-                  href="/account/change-password"
-                  label={t('change-{}', { value: t('password') })}
-                />
-              </div>
-              <div className="-mx-2 mt-8 flex">
-                <div className="w-1/2 px-2">
-                  <Button fullWidth onClick={reset} reverse>
-                    {t('cancel')}
-                  </Button>
-                </div>
-                <div className="w-1/2 px-2">
-                  <Button fullWidth>{t('save-changes')}</Button>
-                </div>
-              </div>
-              <div className="mt-12 text-center">
-                <UnderlineButton type="button" onClick={() => router.back()} label={t('go-back')} />
-              </div>
+              }
+              action={updateBasicInfoAction}
+            />
+            <div className="mt-12 text-center">
+              <AccountBackButton />
             </div>
-          </Container>
-        </form>
+          </div>
+        </Container>
       </main>
     </AppThemeProvider>
   );

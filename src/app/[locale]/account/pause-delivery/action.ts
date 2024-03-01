@@ -1,20 +1,20 @@
 'use server';
 
-import { getStoreMe } from '@/storeUserProvider';
 import { SaleorUser } from '@/entities';
-import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
+import { getStoreMe } from '@/storeUserProvider';
 import { startOfDay } from 'date-fns';
+import Joi from 'joi';
 
-interface SetDeliveryDateAction {
+interface PauseDeliveriesAction {
   deliveryDate: string;
 }
 
-const schema = Joi.object<SetDeliveryDateAction>({
+const schema = Joi.object<PauseDeliveriesAction>({
   deliveryDate: Joi.date().required(),
 });
 
-export default async function setDeliveryDateAction(formData: FormData) {
+export default async function pauseDeliveriesAction(formData: FormData) {
   const { value, error } = schema.validate({
     deliveryDate: formData.get('deliveryDate'),
   });
@@ -39,7 +39,5 @@ export default async function setDeliveryDateAction(formData: FormData) {
 
     // TODO: set delivery date
     console.log(deliveryDate);
-
-    await queryRunner.manager.save(data);
   });
 }

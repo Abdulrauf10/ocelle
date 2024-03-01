@@ -17,6 +17,8 @@ export default function FreshPlanForm({
   const [pending, startTransition] = useTransition();
   const [plan, setPlan] = React.useState<'full' | 'half'>(initialPlan);
 
+  const isSameAsDefaultValue = plan === initialPlan;
+
   return (
     <>
       <div className="mx-auto mt-8 flex max-w-[900px] flex-wrap">
@@ -47,14 +49,19 @@ export default function FreshPlanForm({
       <div className="mx-auto mt-10 max-w-[480px]">
         <div className="-mx-2 flex">
           <div className="w-1/2 px-2">
-            <Button fullWidth onClick={() => setPlan(initialPlan)} reverse>
+            <Button
+              fullWidth
+              onClick={() => setPlan(initialPlan)}
+              reverse
+              disabled={isSameAsDefaultValue}
+            >
               {t('cancel')}
             </Button>
           </div>
           <div className="w-1/2 px-2">
             <Button
               fullWidth
-              disabled={pending}
+              disabled={pending || isSameAsDefaultValue}
               onClick={() =>
                 startTransition(() => {
                   action(serialize({ plan }));

@@ -5,6 +5,7 @@
   "per-day": "/day",
   "{}-per-day": "{value}/day",
   "{}-days": "{value} Days",
+  "comma": ", ",
   "yes": "Yes",
   "no": "No",
   "free": "Free",

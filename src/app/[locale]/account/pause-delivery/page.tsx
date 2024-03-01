@@ -1,29 +1,21 @@
 'use client';
 
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
 import UnderlineButton from '@/components/UnderlineButton';
-import DateCalendar from '@/components/controls/DateCalendar';
 import CircleTick from '@/components/icons/CircleTick';
 import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
 import AppThemeProvider from '@/components/AppThemeProvider';
+import DeliveryDateForm from '@/components/forms/DeliveryDate';
+import pauseDeliveriesAction from './action';
+import AccountBackButton from '../AccountBackButton';
 
 export default function PauseDelivery() {
   const t = useTranslations();
-  const router = useRouter();
-  const {
-    control,
-    handleSubmit,
-    reset,
-    formState: { isDirty },
-  } = useForm();
   const [completed, setCompleted] = React.useState(false);
 
-  const onSubmit = React.useCallback((values: unknown) => {
-    console.log(values);
+  const handleOnComplete = React.useCallback(() => {
     setCompleted(true);
   }, []);
 
@@ -53,26 +45,28 @@ export default function PauseDelivery() {
             </div>
           </Container>
         ) : (
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Container>
-              <Headings tag="h1" styles="h2" className="text-center text-primary">
-                {t('pause-all-deliveries')}
-              </Headings>
-              <p className="mx-auto mt-4 max-w-[680px] text-center">
-                {t('pause-all-deliveries:description')}
-              </p>
-              <div className="py-4"></div>
-              <div className="text-center text-xl font-bold text-gold">
-                {t('when-would-you-like-to-resume')}
-              </div>
-              <div className="mt-4">
-                <DateCalendar name="deliveryDate" control={control} minDate={new Date()} />
-              </div>
-              <div className="mt-8 text-center">
-                <UnderlineButton type="button" onClick={() => router.back()} label={t('go-back')} />
-              </div>
-            </Container>
-          </form>
+          <Container>
+            <Headings tag="h1" styles="h2" className="text-center text-primary">
+              {t('pause-all-deliveries')}
+            </Headings>
+            <p className="mx-auto mt-4 max-w-[680px] text-center">
+              {t('pause-all-deliveries:description')}
+            </p>
+            <div className="py-4"></div>
+            <div className="text-center text-xl font-bold text-gold">
+              {t('when-would-you-like-to-resume')}
+            </div>
+            <div className="mt-4">
+              <DeliveryDateForm
+                initialDate={new Date()}
+                action={pauseDeliveriesAction}
+                onComplete={handleOnComplete}
+              />
+            </div>
+            <div className="mt-8 text-center">
+              <AccountBackButton />
+            </div>
+          </Container>
         )}
       </main>
     </AppThemeProvider>

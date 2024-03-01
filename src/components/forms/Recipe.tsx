@@ -10,6 +10,7 @@ import { ActivityLevel, BodyCondition, Pickiness } from '@/types';
 import React, { useTransition } from 'react';
 import { serialize } from 'object-to-formdata';
 import { arrayToRecipe, recipeToArray } from '@/helpers/form';
+import equal from 'deep-equal';
 
 interface RecipeForm {
   recipe: boolean[];
@@ -34,7 +35,7 @@ export default function RecipeForm({
 }) {
   const t = useTranslations();
   const [pending, startTransition] = useTransition();
-  const { control, reset, handleSubmit } = useForm<RecipeForm>({
+  const { control, reset, watch, handleSubmit } = useForm<RecipeForm>({
     defaultValues: {
       recipe: recipeToArray(initialRecipe1, initialRecipe2),
     },
@@ -48,6 +49,11 @@ export default function RecipeForm({
       });
     },
     [action]
+  );
+
+  const isSameAsDefaultValue = equal(
+    watch('recipe'),
+    recipeToArray(initialRecipe1, initialRecipe2)
   );
 
   return (
@@ -180,12 +186,17 @@ export default function RecipeForm({
       <div className="mx-auto mt-10 max-w-[480px]">
         <div className="-mx-2 flex">
           <div className="w-1/2 px-2">
-            <Button fullWidth onClick={() => reset()} reverse>
+            <Button
+              fullWidth
+              onClick={() => reset({ recipe: recipeToArray(initialRecipe1, initialRecipe2) })}
+              reverse
+              disabled={isSameAsDefaultValue}
+            >
               {t('cancel')}
             </Button>
           </div>
           <div className="w-1/2 px-2">
-            <Button fullWidth disabled={pending}>
+            <Button fullWidth disabled={pending || isSameAsDefaultValue}>
               {t('save-changes')}
             </Button>
           </div>

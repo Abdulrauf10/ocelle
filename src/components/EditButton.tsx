@@ -1,21 +1,29 @@
 import clsx from 'clsx';
 import Pen from './icons/Pen';
 import { useTranslations } from 'next-intl';
+import { Link } from '@/navigation';
 
 interface EditButtonProps {
+  href?: string;
   className?: string;
-  onClick(): void;
+  onClick?(): void;
 }
 
-export default function EditButton({ className, onClick }: EditButtonProps) {
+export default function EditButton({ className, href, onClick }: EditButtonProps) {
   const t = useTranslations();
+  const classes = clsx('inline-flex items-center text-primary [&:hover_span]:underline', className);
+
+  if (href) {
+    return (
+      <Link href={href} className={classes} onClick={onClick}>
+        <span className="font-bold uppercase">{t('edit')}</span>
+        <Pen className="ml-1.5 w-4" />
+      </Link>
+    );
+  }
 
   return (
-    <button
-      type="button"
-      className={clsx('inline-flex items-center text-primary [&:hover_span]:underline', className)}
-      onClick={onClick}
-    >
+    <button type="button" className={classes} onClick={onClick}>
       <span className="font-bold uppercase">{t('edit')}</span>
       <Pen className="ml-1.5 w-4" />
     </button>

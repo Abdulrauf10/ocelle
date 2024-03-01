@@ -1,30 +1,24 @@
-'use client';
-
 import React from 'react';
-import { useForm } from 'react-hook-form';
-import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
-import UnderlineButton from '@/components/UnderlineButton';
-import Button from '@/components/Button';
-import PartialCardForm from '@/components/forms/partial/Card';
-import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
 import AppThemeProvider from '@/components/AppThemeProvider';
+import CardForm from '@/components/forms/Card';
+import AccountBackButton from '../AccountBackButton';
+import { getTranslations } from 'next-intl/server';
+import updateCreditCardAction from './action';
 
-export default function Payments() {
-  const t = useTranslations();
-  const router = useRouter();
+async function getData() {
+  return {
+    name: 'Chan Tai Man',
+    cardNo: '3320202020200201',
+    cardExp: '10/26',
+    cvc: '102',
+  };
+}
 
-  const {
-    control,
-    handleSubmit,
-    reset,
-    formState: { isDirty },
-  } = useForm();
-
-  const onSubmit = React.useCallback((values: unknown) => {
-    console.log(values);
-  }, []);
+export default async function Payments() {
+  const t = await getTranslations();
+  const { name, cardNo, cardExp, cvc } = await getData();
 
   return (
     <AppThemeProvider>
@@ -35,19 +29,15 @@ export default function Payments() {
               {t('payment-info')}
             </Headings>
             <div className="py-4"></div>
-            <PartialCardForm control={control} />
-            <div className="-mx-2 mt-8 flex">
-              <div className="w-1/2 px-2">
-                <Button fullWidth onClick={reset} reverse>
-                  {t('cancel')}
-                </Button>
-              </div>
-              <div className="w-1/2 px-2">
-                <Button fullWidth>{t('save-changes')}</Button>
-              </div>
-            </div>
+            <CardForm
+              name={name}
+              cardNo={cardNo}
+              cardExp={cardExp}
+              cvc={cvc}
+              action={updateCreditCardAction}
+            />
             <div className="mt-12 text-center">
-              <UnderlineButton type="button" onClick={() => router.back()} label={t('go-back')} />
+              <AccountBackButton />
             </div>
           </div>
         </Container>
