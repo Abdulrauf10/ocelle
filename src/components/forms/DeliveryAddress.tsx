@@ -3,7 +3,6 @@
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import React, { useTransition } from 'react';
-import { serialize } from 'object-to-formdata';
 import Button from '../Button';
 import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
 import RoundedCheckbox from '../controls/RoundedCheckbox';

@@ -18,7 +18,6 @@ import { FoodAllergies } from '@/enums';
 import { arrayToAllergies, foodAllergiesToArray, getFoodAllergiesOptions } from '@/helpers/form';
 import { DateOfBirthMethod, Gender } from '@/types/dog';
 import { intervalToDuration, subMonths, subYears } from 'date-fns';
-import { serialize } from 'object-to-formdata';
 
 interface EditDogBlockProps {
   title: string;

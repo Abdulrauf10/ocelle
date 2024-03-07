@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
-import React, { useTransition } from 'react';
+import React from 'react';
 import PasswordField from '../controls/PasswordField';
 import Button from '../Button';
 
@@ -19,7 +19,7 @@ export default function ChangePasswordForm({
 }) {
   const t = useTranslations();
   const { control, reset, handleSubmit } = useForm<IChangePasswordForm>();
-  const [pending, startTransition] = useTransition();
+  const [pending, startTransition] = React.useTransition();
 
   const onSubmit = React.useCallback(
     ({ currentPassword, newPassword }: IChangePasswordForm) => {

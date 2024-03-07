@@ -1,3 +1,5 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
 import { Controller, useForm } from 'react-hook-form';
 import { TextField } from '@mui/material';

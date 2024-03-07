@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import DateCalendar from '../controls/DateCalendar';
 import { useTranslations } from 'next-intl';
-import React, { useTransition } from 'react';
+import React from 'react';
 import { startOfDay } from 'date-fns';
 
 interface IDeliveryDateForm {
@@ -26,7 +26,7 @@ export default function DeliveryDateForm({
       deliveryDate: startOfDay(initialDate),
     },
   });
-  const [pending, startTransition] = useTransition();
+  const [pending, startTransition] = React.useTransition();
 
   const onSubmit = React.useCallback(
     ({ deliveryDate }: IDeliveryDateForm) => {

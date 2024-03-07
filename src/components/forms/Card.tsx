@@ -2,8 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
-import React, { useTransition } from 'react';
-import { serialize } from 'object-to-formdata';
+import React from 'react';
 import PartialCardForm, { IPartialCardForm } from './partial/Card';
 import Button from '../Button';
 
@@ -32,7 +31,7 @@ export default function CardForm({
       cardCvc: cvc,
     },
   });
-  const [pending, startTransition] = useTransition();
+  const [pending, startTransition] = React.useTransition();
 
   const onSubmit = React.useCallback(
     (values: ICardForm) => {

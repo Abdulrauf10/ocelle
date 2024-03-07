@@ -1,3 +1,5 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
 import Button from '../Button';

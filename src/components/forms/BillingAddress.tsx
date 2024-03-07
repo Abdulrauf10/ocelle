@@ -2,8 +2,7 @@
 
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
-import React, { useTransition } from 'react';
-import { serialize } from 'object-to-formdata';
+import React from 'react';
 import Button from '../Button';
 import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
 
@@ -41,7 +40,7 @@ export default function BillingAddressForm({
       country,
     },
   });
-  const [pending, startTransition] = useTransition();
+  const [pending, startTransition] = React.useTransition();
 
   const onSubmit = React.useCallback(
     (values: IBillingAddressForm) => {
