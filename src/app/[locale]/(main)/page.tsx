@@ -3,7 +3,6 @@ import Container from '@/components/Container';
 import Newsletter from '@/components/Newsletter';
 import Image from 'next/image';
 import CaseSwiper from './CaseSwiper';
-import MarqueeContent from './MarqueeContent';
 import HowPlanWorks from './HowPlanWorks';
 import Block from '@/components/Block';
 import Picture from './Picture';
@@ -12,7 +11,7 @@ import Tickbox from '@/components/icons/Tickbox';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 import Headings from '@/components/Headings';
-import Marquee from 'react-fast-marquee';
+import Marquee from '@/components/Marquee';
 
 export default function Home() {
   const t = useTranslations();
@@ -108,56 +107,66 @@ export default function Home() {
           </div>
         </Container>
       </Block>
-      <Marquee className="bg-primary py-2">
-        <MarqueeContent icon="icon-1.svg" alt="Food" width={53} height={46}>
-          {t('real-good-food')}
-        </MarqueeContent>
-        <MarqueeContent icon="icon-2.svg" alt="Approved" width={43} height={46}>
-          {t('vet-approved')}
-        </MarqueeContent>
-        <MarqueeContent icon="icon-3.svg" alt="Human-Grade" width={38} height={46}>
-          {t('human-grade')}
-        </MarqueeContent>
-        <MarqueeContent icon="icon-4.svg" alt="Fresh" width={38} height={48}>
-          {t('made-fresh')}
-        </MarqueeContent>
-        <MarqueeContent icon="icon-5.svg" alt="High-Quality" width={36} height={48}>
-          {t('high-quality-ingredients')}
-        </MarqueeContent>
-        <MarqueeContent icon="icon-6.svg" alt="No Fillers" width={40} height={46}>
-          {t('no-fillers')}
-        </MarqueeContent>
-        <MarqueeContent icon="icon-7.svg" alt="No Preservatives" width={40} height={46}>
-          {t('no-preservatives')}
-        </MarqueeContent>
-        <MarqueeContent icon="icon-8.svg" alt="No Artificial Flavours" width={40} height={46}>
-          {t('no-artificial-flavours')}
-        </MarqueeContent>
-        <MarqueeContent icon="icon-1.svg" alt="Food" width={53} height={46}>
-          {t('real-good-food')}
-        </MarqueeContent>
-        <MarqueeContent icon="icon-2.svg" alt="Approved" width={43} height={46}>
-          {t('vet-approved')}
-        </MarqueeContent>
-        <MarqueeContent icon="icon-3.svg" alt="Human-Grade" width={38} height={46}>
-          {t('human-grade')}
-        </MarqueeContent>
-        <MarqueeContent icon="icon-4.svg" alt="Fresh" width={38} height={48}>
-          {t('made-fresh')}
-        </MarqueeContent>
-        <MarqueeContent icon="icon-5.svg" alt="High-Quality" width={36} height={48}>
-          {t('high-quality-ingredients')}
-        </MarqueeContent>
-        <MarqueeContent icon="icon-6.svg" alt="No Fillers" width={40} height={46}>
-          {t('no-fillers')}
-        </MarqueeContent>
-        <MarqueeContent icon="icon-7.svg" alt="No Preservatives" width={40} height={46}>
-          {t('no-preservatives')}
-        </MarqueeContent>
-        <MarqueeContent icon="icon-8.svg" alt="No Artificial Flavours" width={40} height={46}>
-          {t('no-artificial-flavours')}
-        </MarqueeContent>
-      </Marquee>
+      <Marquee
+        items={[
+          {
+            icon: '/feature/icon-1.svg',
+            alt: t('real-good-food'),
+            width: 53,
+            height: 46,
+            title: t('real-good-food'),
+          },
+          {
+            icon: '/feature/icon-2.svg',
+            alt: t('vet-approved'),
+            width: 43,
+            height: 46,
+            title: t('vet-approved'),
+          },
+          {
+            icon: '/feature/icon-3.svg',
+            alt: t('human-grade'),
+            width: 38,
+            height: 46,
+            title: t('human-grade'),
+          },
+          {
+            icon: '/feature/icon-4.svg',
+            alt: t('made-fresh'),
+            width: 38,
+            height: 46,
+            title: t('made-fresh'),
+          },
+          {
+            icon: '/feature/icon-5.svg',
+            alt: t('high-quality-ingredients'),
+            width: 36,
+            height: 46,
+            title: t('high-quality-ingredients'),
+          },
+          {
+            icon: '/feature/icon-6.svg',
+            alt: t('no-fillers'),
+            width: 40,
+            height: 46,
+            title: t('no-fillers'),
+          },
+          {
+            icon: '/feature/icon-7.svg',
+            alt: t('no-preservatives'),
+            width: 40,
+            height: 46,
+            title: t('no-preservatives'),
+          },
+          {
+            icon: '/feature/icon-8.svg',
+            alt: t('no-artificial-flavours'),
+            width: 40,
+            height: 46,
+            title: t('no-artificial-flavours'),
+          },
+        ]}
+      />
       <Block className="bg-gray bg-opacity-20">
         <Container>
           <Headings tag="h2" styles="h1" className="text-center text-gray">
