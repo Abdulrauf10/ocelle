@@ -11,10 +11,9 @@ export default function Newsletter() {
             <div className="flex min-h-[38px] items-center">
               <EmailStroke className="w-[60px] min-w-[60px] text-primary" />
               <span className="ml-5">
-                Exclusive insights, special offers, and helpful nutrition information from the
-                Ocelle Dog Pack.&nbsp;
-                <br className="md:hidden" />
-                <strong className="text-primary">
+                Exclusive insights, special offers, and helpful nutrition information from the&nbsp;
+                <span className="uppercase">Ocelle</span> Dog Pack.&nbsp;
+                <strong className="inline-block text-primary">
                   Join Now! <i>Woof!</i>
                 </strong>
               </span>
