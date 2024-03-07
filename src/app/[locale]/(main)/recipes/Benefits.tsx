@@ -19,7 +19,7 @@ export default function RecipeBenefits() {
       {
         title: 'Meals Portioned to the Exact Calorie Reduces the Likelihood of Obesity',
         description:
-          'Overweight dogs have reduced lifespans of up to 2.5 years and showed an increased probability of developing chronic diseases.',
+          'Overweight dogs have reduced lifespans of up to 2.5 years and showed an increased probability of developing chronic diseases. While food bag guidelines offer a starting point to portion sizes, every dog is an individual with unique needs. That’s why we’ve worked closely with our Veterinarian to develop a formula that determines the optimal calorie needs for different combinations of breed, age, activity level, and ideal weight.',
       },
       {
         title: 'High Quality Ingredients With ReFreshing Transparency',
@@ -27,10 +27,20 @@ export default function RecipeBenefits() {
           'Traditional pet food is often produced under high heat (allowing for the use of low-quality ingredients), resulting in reduced nutritional quality, palatability, and the potential production of carcinogenic compounds.',
       },
       {
+        title: 'Allergy Control',
+        description:
+          'Kibble or canned foods are routinely found to contain ingredients not listed on the label, so it can be hard to be sure what’s going into your dog’s bowl. Our not so secret recipes are 100% transparent and built with limited, but powerful ingredients – allowing for confident allergy control.',
+      },
+      {
         title:
-          'Raw Diets Pose Increased Safety Concerns, Without Providing Any Proven Additional Benefits',
+          "Purely 'Raw Diets' Provide No Proven Additional Benefits While Increasing Health and Safety Concerns",
         description:
           'Most Veterinarians and governing bodies discourage the feeding of raw diets, due to safety concerns around nutritional imbalances and contamination.',
+      },
+      {
+        title: 'Satisfy Picky Eaters',
+        description:
+          'Fresh food focuses on using whole, unprocessed ingredients like meat, vegetables, and fruits. These ingredients better retain their natural flavours and textures, enticing even the pickiest of eaters, making mealtimes more exciting for your dog.',
       },
       {
         title: 'Increased Vitality and Happiness',
@@ -45,7 +55,7 @@ export default function RecipeBenefits() {
     <div className="rounded-[30px] border border-gray bg-white p-10 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:p-6">
       <div className="flex max-md:items-end">
         <strong className="flex-1 text-center text-3xl text-primary">
-          What Are The Main Benefits Of Feeding With OCELLE’s Fresh Recipes
+          The Main Benefits Of Feeding With OCELLE’s Fresh Recipes
         </strong>
         <button className="ml-3" onClick={() => setOpened(!opened)}>
           {opened ? <Sub className="w-4" /> : <Plus className="w-4" />}

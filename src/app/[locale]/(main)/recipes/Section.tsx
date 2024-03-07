@@ -25,6 +25,7 @@ interface SectionProps {
   description: string;
   ingredientDescription: string;
   ingredients: Array<{
+    spacing?: number;
     picture: string;
     title: string;
     description: string;
@@ -94,13 +95,15 @@ export default function Section({
           <div className="w-1/2 px-[4vw] max-md:w-full max-md:px-2 max-md:pt-[30px]">
             <strong className="text-[2rem] leading-[2.375rem] text-primary">{title}</strong>
             <p className="mt-4 text-[1.25rem] leading-[1.625rem]">{description}</p>
-            <strong className="mt-6 block text-2xl text-[#A98672]">{t('ingredients')}: </strong>
+            <strong className="mt-6 block text-2xl text-brown">
+              {t('{}-colon', { value: t('ingredients') })}
+            </strong>
             <p className="text-[1.25rem] text-lg leading-[1.625rem]">{ingredientDescription}</p>
           </div>
         </div>
         <div className="mx-auto mt-10 max-w-[480px]">
           <div className="-m-2 flex flex-wrap">
-            <div className="w-1/2 p-2 max-xs:w-full">
+            <div className="w-1/2 p-2 text-center max-xs:w-full">
               <Dialog>
                 <DialogTrigger asChild>
                   <Button className="w-[232px]" reverse>
@@ -110,7 +113,7 @@ export default function Section({
                 <DialogContent className="max-w-screen-lg p-3">
                   <div className="relative w-full rounded-[30px] border-4 border-primary bg-white px-12 py-10 text-left max-md:px-6 max-md:pt-9">
                     <div className="-m-3 flex items-center max-md:flex-wrap">
-                      <div className="p-3 text-[100px] font-bold leading-none text-primary max-lg:text-[70px] max-md:text-[85px] max-xs:text-[60px]">
+                      <div className="p-3 text-[90px] font-bold leading-none text-primary max-lg:text-[70px] max-md:text-[85px] max-xs:text-[60px]">
                         {title}
                       </div>
                       <div className="w-full p-3">
@@ -141,12 +144,12 @@ export default function Section({
                         {ingredients.map((ingredient, idx) => {
                           return (
                             <SwiperSlide key={idx}>
-                              <div className="mx-auto flex h-32 w-32 items-center justify-center overflow-hidden rounded-full border-2 border-primary">
+                              <div className="mx-auto flex h-32 w-32 min-w-32 items-center justify-center overflow-hidden rounded-full border-2 border-primary">
                                 <Image
                                   src={ingredient.picture}
                                   alt={ingredient.title}
-                                  width={130}
-                                  height={130}
+                                  width={124 - (ingredient.spacing ?? 0)}
+                                  height={124 - (ingredient.spacing ?? 0)}
                                 />
                               </div>
                               <strong className="mt-6 block text-center text-xl text-primary">
@@ -301,9 +304,9 @@ export default function Section({
                 </DialogContent>
               </Dialog>
             </div>
-            <div className="w-1/2 p-2 max-xs:w-full">
+            <div className="w-1/2 p-2 text-center max-xs:w-full">
               <Button className="w-[232px]" href="/get-started">
-                {t('get-started')}
+                {t('build-my-plan')}
               </Button>
             </div>
           </div>
