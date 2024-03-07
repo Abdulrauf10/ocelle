@@ -74,35 +74,44 @@ export default function Home() {
             {t('customised-meal-plans-for-your-dogs')}
           </Headings>
           <div className="relative mt-10 flex-col-reverse items-center max-xl:flex">
-            <div className="pb-0 max-xl:flex max-xl:flex-wrap [&>*]:max-xl:m-0 [&>*]:max-xl:mt-3 [&>*]:max-xl:w-1/2 [&>*]:max-xl:max-w-none [&>*]:max-xl:px-4 [&>*]:max-xl:py-3 [&>*]:max-xl:text-center [&>*]:max-sm:w-full [&_img]:max-xl:inline">
-              <div className="ml-12 mt-5 max-w-[450px]">
+            <div className="pb-0 max-xl:flex max-xl:flex-wrap [&>*]:max-xl:m-0 [&>*]:max-xl:mt-3 [&>*]:max-xl:max-w-none [&>*]:max-xl:px-4 [&>*]:max-xl:py-3 [&>*]:max-xl:text-center [&>*]:max-sm:w-full [&_img]:max-xl:inline">
+              <div className="ml-14 mt-5 md:w-1/2 xl:w-full">
                 <Image alt="good food" src="/meal-plan/icon-1.svg" width={81} height={70} />
                 <h3 className="mt-2 text-2xl text-primary">{t('real-good-food-freshly-made')}</h3>
-                <p className="mt-3 text-xl">{t('real-good-food-freshly-made-content')}</p>
+                <p className="mt-3 text-xl xl:max-w-[320px]">
+                  {t('real-good-food-freshly-made-content')}
+                </p>
               </div>
-              <div className="mt-8 max-w-[450px]">
+              <div className="mt-[6%] md:w-1/2 xl:w-full">
                 <Image alt="good food" src="/meal-plan/icon-2.svg" width={74} height={70} />
                 <h3 className="mt-2 text-2xl text-primary">{t('customised-meal-plans')}</h3>
-                <p className="mt-3 text-xl">{t('customised-meal-plans-content')}</p>
+                <p className="mt-3 text-xl xl:max-w-[320px]">
+                  {t('customised-meal-plans-content')}
+                </p>
               </div>
-              <div className="ml-[90px] mt-8 max-w-[420px]">
-                <Image alt="good food" src="/meal-plan/icon-3.svg" width={102} height={70} />
-                <h3 className="mt-2 text-2xl text-primary">{t('delivered-within-days')}</h3>
-                <p className="mt-3 text-xl">{t('delivered-within-days-content')}</p>
-              </div>
-              <div className="ml-[200px] mt-8">
-                <Image alt="good food" src="/meal-plan/icon-4.svg" width={67} height={70} />
-                <h3 className="mt-2 text-2xl text-primary">{t('vet-approved')}</h3>
-                <p className="mt-3 text-xl">{t('vet-approved-content')}</p>
+              <div className="ml-32 mt-[6%] flex flex-1 flex-wrap max-xl:-my-3">
+                <div className="w-full max-xl:py-3 md:w-1/2 xl:w-full xl:max-w-[300px]">
+                  <Image alt="good food" src="/meal-plan/icon-3.svg" width={102} height={70} />
+                  <h3 className="mt-2 text-2xl text-primary">{t('delivered-within-days')}</h3>
+                  <p className="mt-3 text-xl">{t('delivered-within-days-content')}</p>
+                </div>
+                <div className="w-full max-xl:mt-3 max-xl:py-3 md:w-1/2 xl:ml-[11%] xl:mt-[12%] xl:w-full xl:max-w-[320px]">
+                  <Image alt="good food" src="/meal-plan/icon-4.svg" width={67} height={70} />
+                  <h3 className="mt-2 text-2xl text-primary">{t('vet-approved')}</h3>
+                  <p className="mt-3 text-xl">{t('vet-approved-content')}</p>
+                </div>
+                <div className="ml-[6%] mt-[21%] text-center max-xl:hidden">
+                  <Button href="/get-started">{t('see-your-recipes')}</Button>
+                </div>
               </div>
             </div>
-            <div className="absolute right-0 top-0 w-[65%] max-xl:static max-sm:w-full">
+            <div className="absolute right-0 top-0 w-[75%] max-xl:static max-sm:w-full">
               <div className="relative pt-[89%]">
                 <Image alt="dog with variety of food" src="/mealplan-img.png" fill />
               </div>
             </div>
           </div>
-          <div className="mt-8 text-center">
+          <div className="mt-8 text-center xl:hidden">
             <Button href="/get-started">{t('see-your-recipes')}</Button>
           </div>
         </Container>
