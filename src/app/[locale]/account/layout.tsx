@@ -1,6 +1,7 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import Navigator from './Navigator';
+import Sticky from '@/components/Sticky';
 
 export const metadata = {
   title: 'Next.js',
@@ -10,7 +11,9 @@ export const metadata = {
 export default function AccountLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Header nav={<Navigator />} getStarted={false} />
+      <Sticky>
+        <Header nav={<Navigator />} getStarted={false} />
+      </Sticky>
       {children}
       <Footer />
     </>

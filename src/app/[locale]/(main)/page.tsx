@@ -133,6 +133,30 @@ export default function Home() {
         <MarqueeContent icon="icon-8.svg" alt="No Artificial Flavours" width={40} height={46}>
           {t('no-artificial-flavours')}
         </MarqueeContent>
+        <MarqueeContent icon="icon-1.svg" alt="Food" width={53} height={46}>
+          {t('real-good-food')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-2.svg" alt="Approved" width={43} height={46}>
+          {t('vet-approved')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-3.svg" alt="Human-Grade" width={38} height={46}>
+          {t('human-grade')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-4.svg" alt="Fresh" width={38} height={48}>
+          {t('made-fresh')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-5.svg" alt="High-Quality" width={36} height={48}>
+          {t('high-quality-ingredients')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-6.svg" alt="No Fillers" width={40} height={46}>
+          {t('no-fillers')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-7.svg" alt="No Preservatives" width={40} height={46}>
+          {t('no-preservatives')}
+        </MarqueeContent>
+        <MarqueeContent icon="icon-8.svg" alt="No Artificial Flavours" width={40} height={46}>
+          {t('no-artificial-flavours')}
+        </MarqueeContent>
       </Marquee>
       <Block className="bg-gray bg-opacity-20">
         <Container>

@@ -105,7 +105,6 @@ export default function GetStarted() {
     <AppThemeProvider>
       <div className={clsx(controller.route === Stage.ThankYou && 'pointer-events-none opacity-0')}>
         <Header
-          sticky={false}
           menu={false}
           languageSwitch={false}
           getStarted={false}

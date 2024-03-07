@@ -10,7 +10,6 @@ import { useLocale, useTranslations } from 'next-intl';
 import { logout } from '@/actions';
 
 interface HeaderProps {
-  sticky?: boolean;
   nav?: React.ReactNode;
   menu?: boolean;
   languageSwitch?: boolean;
@@ -20,7 +19,6 @@ interface HeaderProps {
 }
 
 export default function Header({
-  sticky = true,
   nav,
   menu = true,
   languageSwitch = true,
@@ -32,36 +30,14 @@ export default function Header({
   const t = useTranslations();
   const pathname = usePathname();
   const auth = useAuth();
-  const headerRef = React.useRef<HTMLElement>(null);
   const [isOpened, setIsOpened] = React.useState(false);
-  const [isSticky, setIsSticky] = React.useState(false);
 
   React.useLayoutEffect(() => {
     setIsOpened(false);
   }, [pathname]);
 
-  React.useLayoutEffect(() => {
-    function handler() {
-      if (headerRef.current) {
-        const { top } = headerRef.current.getBoundingClientRect();
-        setIsSticky(top <= 0 && window.scrollY > 0);
-      }
-    }
-    window.addEventListener('scroll', handler);
-    return () => {
-      window.removeEventListener('scroll', handler);
-    };
-  }, []);
-
   return (
-    <header
-      ref={headerRef}
-      className={clsx(
-        'bg-white px-[2vw] py-3 max-lg:px-4',
-        sticky ? 'sticky top-0 z-30' : 'relative',
-        sticky && isSticky && 'shadow-[0_5px_10px_#ccc]'
-      )}
-    >
+    <header className="relative bg-white px-[2vw] py-3 max-lg:px-4">
       <div className="-mx-2 flex flex-row flex-wrap items-center justify-between">
         {startAdornment}
         {menu && (
@@ -82,7 +58,7 @@ export default function Header({
         </Link>
         <div
           className={clsx(
-            'w-full flex-1  px-2 pt-4 max-lg:absolute max-lg:left-0 max-lg:top-[72px] max-lg:z-30 max-lg:bg-[#EEF3F7] max-lg:px-4',
+            'w-full flex-1 px-2 max-lg:absolute max-lg:left-0 max-lg:top-[72px] max-lg:z-30 max-lg:bg-[#EEF3F7] max-lg:px-4',
             !isOpened && 'max-lg:hidden'
           )}
         >
@@ -133,7 +109,7 @@ export default function Header({
             )}
           </div>
         </div>
-        <div className="relative z-10 px-2 pt-4 ">
+        <div className="relative z-10 px-2">
           {auth.logined ? (
             <button className="whitespace-nowrap hover:underline max-lg:mr-0" onClick={logout}>
               {t('log-out')}

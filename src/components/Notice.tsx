@@ -6,10 +6,10 @@ export default function Notice() {
   const t = useTranslations();
 
   return (
-    <div className="bg-primary py-2 pt-4 text-center text-xl text-white max-xl:text-base">
+    <div className="bg-primary py-2 text-center text-xl text-white max-xl:text-base">
       <Container>
         {t('get-50%-off-your-starter-box')}
-        <Link href="/get-started" className="font-bold hover:underline" target="_blank">
+        <Link href="/get-started" className="font-bold underline" target="_blank">
           {t('order-now')}
         </Link>
         !
