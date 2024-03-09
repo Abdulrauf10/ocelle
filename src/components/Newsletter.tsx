@@ -20,7 +20,7 @@ export default function Newsletter() {
             </div>
           </div>
           <div className="p-3">
-            <form className="relative flex w-[340px] min-w-[340px] items-center max-md:w-full">
+            <form className="relative flex w-full items-center md:w-[340px] md:min-w-[340px]">
               <input
                 type="email"
                 className="w-full rounded-[30px] border-0 bg-white py-4 pl-6 pr-16"

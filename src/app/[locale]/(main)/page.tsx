@@ -221,7 +221,7 @@ export default function Home() {
       </Block>
       <div className="bg-[url('./recommended-plan-bg.jpg')] bg-cover bg-center py-40 max-md:py-16">
         <Container>
-          <div className="mx-auto max-w-[600px] rounded-[30px] bg-white px-[150px] py-12 text-center max-md:p-10">
+          <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-8 py-12 text-center sm:p-16 md:px-[140px]">
             <strong className="text-3xl text-primary">See Your Dog’s Recommended Plan!</strong>
             <p className="mt-5 text-xl">
               Get fresh food conveniently delivered with our customised meal plans.
