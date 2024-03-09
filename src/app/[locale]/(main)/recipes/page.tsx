@@ -14,14 +14,14 @@ export default function RecipesPage() {
 
   return (
     <main>
-      <div className="bg-[url('./recipes-bg.jpg')] bg-[length:auto_100%] bg-center bg-repeat-x py-10">
-        <div className="py-[4vw] pl-[2vw] text-xl text-white max-lg:w-full">
-          <h1 className="text-[5vw] font-bold leading-[6.2vw]">
+      <div className="bg-[url('./recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-repeat-x py-10 max-lg:pb-[70%] lg:bg-[url('./recipes-bg.jpg')] lg:bg-[length:auto_100%] lg:bg-center">
+        <div className="px-[2vw] py-[4vw] text-xl text-white max-lg:w-full lg:pr-0">
+          <h1 className="text-[48px] font-bold leading-[1.2em] lg:text-[5vw]">
             Real Food.
             <br />
             That’s Our Secret.{' '}
           </h1>
-          <div className="w-1/3 max-lg:w-1/4">
+          <div className="w-full lg:w-1/3">
             <p className="mt-5">
               Crafted to human-grade standards, our recipes are skilfully balanced for total
               nutrition. We use quality proteins and vegetables, combined with targeted vitamins and
