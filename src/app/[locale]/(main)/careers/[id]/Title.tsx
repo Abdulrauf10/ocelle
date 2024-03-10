@@ -10,7 +10,7 @@ export default function Title({ career }: { career: Career }) {
   return (
     <Block styles="tight" className="bg-primary bg-opacity-10">
       <Container className="max-w-screen-lg">
-        <div className="heading-3 font-bold text-brown">{career.name}</div>
+        <div className="heading-4 font-bold text-brown">{career.name}</div>
         <div className="body-2 mt-1">
           {t(
             career.workType === WorkType.FullTime

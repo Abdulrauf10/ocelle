@@ -11,7 +11,7 @@ export default function IndexFragment({ navigate }: FragmentProps<Path>) {
 
   return (
     <Container>
-      <h1 className="heading-3 text-center font-bold text-primary">
+      <h1 className="heading-4 text-center font-bold text-primary">
         {t('cancel-my-subscription')}
       </h1>
       <p className="mx-auto mt-4 max-w-[680px] text-center">

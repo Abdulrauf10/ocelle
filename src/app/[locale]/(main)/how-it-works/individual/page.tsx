@@ -40,7 +40,7 @@ function Section({ picture, title, description, price, reverse, className, theme
             </div>
           </div>
           <div className="w-full px-6 py-4">
-            <h2 className={clsx('text-[38px] font-bold', className.title)}>{title}</h2>
+            <h2 className={clsx('heading-2 font-bold', className.title)}>{title}</h2>
             <p className={clsx('mt-4 text-[30px]', className.title)}>${price}</p>
             <p className={clsx('body-1 mt-4', className.content)}>{description}</p>
             <div className="mt-6">
@@ -169,7 +169,7 @@ export default function HowItWorksIndividual() {
                     className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                   />
                 </div>
-                <p className="heading-3 mt-6 font-bold text-gray">Developed By Vet Nutritionists</p>
+                <p className="heading-4 mt-6 font-bold text-gray">Developed By Vet Nutritionists</p>
                 <p className="body-1 mt-3">
                   Many of the health issues dogs face are related to diet. That’s why our team is
                   devoted to determining exactly what dogs need to live happier, healthier lives.
@@ -184,7 +184,7 @@ export default function HowItWorksIndividual() {
                     className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                   />
                 </div>
-                <p className="heading-3 mt-6 font-bold text-gray">
+                <p className="heading-4 mt-6 font-bold text-gray">
                   Crafted With Premium Ingredients
                 </p>
                 <p className="body-1 mt-3">
@@ -201,7 +201,7 @@ export default function HowItWorksIndividual() {
                     className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                   />
                 </div>
-                <p className="heading-3 mt-6 font-bold text-gray">
+                <p className="heading-4 mt-6 font-bold text-gray">
                   Freshly Made To Lock In Nutrients
                 </p>
                 <p className="body-1 mt-3">

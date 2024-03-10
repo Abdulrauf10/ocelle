@@ -40,7 +40,7 @@ export default async function PlanMeal({ searchParams }: { searchParams: { curre
           <div className="mx-auto flex max-w-[1120px] justify-end">
             <DogSwitch dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))} />
           </div>
-          <h1 className="heading-3 text-center font-bold text-primary max-lg:mt-6">
+          <h1 className="heading-4 text-center font-bold text-primary max-lg:mt-6">
             {t('choose-{}-fresh-recipes', { name: dog.name })}
           </h1>
           <p className="mx-auto mt-4 max-w-[620px] text-center">

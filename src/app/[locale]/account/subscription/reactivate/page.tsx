@@ -47,7 +47,7 @@ export default async function Reactivate() {
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
-        <h1 className="heading-3 text-center font-bold text-primary">
+        <h1 className="heading-4 text-center font-bold text-primary">
           {t('welcome-back-to-the-ocelle-pack')}
         </h1>
         <p className="mt-6 text-center">{t('please-review-your-details-below')}</p>

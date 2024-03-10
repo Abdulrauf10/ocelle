@@ -18,7 +18,7 @@ export default function Section({
   return (
     <>
       <div className={className}>
-        <h2 className="heading-3 mb-4 font-bold text-primary">{title}</h2>
+        <h2 className="heading-4 mb-4 font-bold text-primary">{title}</h2>
         {description && <p className="body-3 mb-2 italic text-primary">{description}</p>}
       </div>
       <div className={clsx(!dense && 'mt-4')}>{children}</div>

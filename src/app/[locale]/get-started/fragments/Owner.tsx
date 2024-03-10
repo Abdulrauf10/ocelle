@@ -24,7 +24,7 @@ export default function OwnerFragment({ navigate }: FragmentProps<Stage>) {
 
   return (
     <Container className="text-center">
-      <h1 className="heading-3 font-bold text-primary">{t('now-tell-us-a-bit-about-you')}</h1>
+      <h1 className="heading-4 font-bold text-primary">{t('now-tell-us-a-bit-about-you')}</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-12">
         <Section title={t('whats-your-name')}>
           <div className="mx-auto max-w-[320px]">

@@ -69,7 +69,7 @@ export default function Account() {
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
-        <h1 className="heading-3 text-center font-bold text-primary">{t('my-info')}</h1>
+        <h1 className="heading-4 text-center font-bold text-primary">{t('my-info')}</h1>
         <p className="mt-4 text-center">{t('manage-your-account-information')}</p>
         <div className="py-4"></div>
         <div className="mx-auto max-w-[480px]">

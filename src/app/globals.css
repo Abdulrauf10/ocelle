@@ -38,10 +38,14 @@ span.swiper-pagination-bullet-active {
 }
 
 .heading-2 {
-  @apply text-[32px] leading-[38px];
+  @apply text-[38px] leading-[48px];
 }
 
 .heading-3 {
+  @apply text-[32px] leading-[38px];
+}
+
+.heading-4 {
   @apply text-[24px] leading-[32px];
 }
 

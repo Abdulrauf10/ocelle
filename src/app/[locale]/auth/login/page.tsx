@@ -14,7 +14,7 @@ export default function Login() {
     <AppThemeProvider>
       <main className="py-10 text-center text-primary">
         <Container>
-          <h1 className="heading-3 font-bold">{t('greetings')}</h1>
+          <h1 className="heading-4 font-bold">{t('greetings')}</h1>
           <p className="mt-4 text-xl">{t('please-log-in-to-continue')}</p>
           <div className="mx-auto max-w-[260px] max-xs:max-w-full">
             <LoginForm action={loginAction} />
@@ -24,7 +24,7 @@ export default function Login() {
               label={t('forgot-password')}
             />
             <hr className="mt-4 border-primary" />
-            <h2 className="heading-3 mt-6 font-bold">{t('new-to-ocelle')}</h2>
+            <h2 className="heading-4 mt-6 font-bold">{t('new-to-ocelle')}</h2>
             <Button href="/get-started" reverse fullWidth className="mt-8">
               {t('build-your-plan')}
             </Button>

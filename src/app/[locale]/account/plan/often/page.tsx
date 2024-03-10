@@ -32,7 +32,7 @@ export default async function PlanOften() {
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
-        <h1 className="heading-3 text-center font-bold text-primary">
+        <h1 className="heading-4 text-center font-bold text-primary">
           {t('how-often-would-you-like-to-receive-deliveries')}
         </h1>
         <OrderSizeForm initialSize={user.orderSize} action={setOrderSizeAction} />

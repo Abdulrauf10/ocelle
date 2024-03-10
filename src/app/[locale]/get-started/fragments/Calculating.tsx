@@ -27,7 +27,7 @@ export default function CalculatingFragment({ navigate }: FragmentProps<Stage>) 
         height={200}
         className="inline-block"
       />
-      <h1 className="heading-3 mt-8 font-bold text-primary">{t('calculating')}</h1>
+      <h1 className="heading-4 mt-8 font-bold text-primary">{t('calculating')}</h1>
       <p className="mt-8 text-primary">
         {t('were-crunching-some-numbers-to-formulate-{}-meal-plan', { name })}
       </p>

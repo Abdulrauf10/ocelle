@@ -103,7 +103,7 @@ export default function ApplyCareerForm({
             alt="ocelle logo"
             className="mx-auto"
           />
-          <p className="heading-3 mt-8 font-bold">Thank You For Applying!</p>
+          <p className="heading-4 mt-8 font-bold">Thank You For Applying!</p>
           <p className="body-3 mt-4">
             Your application for the {title} role has been successfully submitted. We’re excited to
             learn more about you and will be in touch if you move forward in the process.

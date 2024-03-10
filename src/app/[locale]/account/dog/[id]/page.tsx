@@ -41,7 +41,7 @@ export default async function EditDog({ params }: { params: { id: string } }) {
     <AppThemeProvider>
       <main className="bg-gold bg-opacity-10 py-10">
         <Container className="max-w-[860px]">
-          <h1 className="heading-3 text-center font-bold text-primary">
+          <h1 className="heading-4 text-center font-bold text-primary">
             {t('edit-{}-information', { name: dog.name })}
           </h1>
           <DogForm

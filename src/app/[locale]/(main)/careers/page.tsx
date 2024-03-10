@@ -83,8 +83,8 @@ export default async function Careers() {
     <main>
       <Block styles="tight" className="bg-primary bg-opacity-10">
         <Container>
-          <h1 className="heading-1 text-center font-bold text-primary">Dog People Wanted</h1>
-          <p className="body-3 mt-4 text-center text-secondary">
+          <h1 className="heading-2 text-center font-bold text-primary">Dog People Wanted</h1>
+          <p className="body-3 mt-2 text-center text-secondary">
             Make a living helping dogs live happier, healthier lives.
           </p>
         </Container>
@@ -95,7 +95,7 @@ export default async function Careers() {
             <div className="-my-10">
               {operations.length > 0 && (
                 <div className="py-10">
-                  <div className="heading-3 font-bold uppercase text-primary">Operations</div>
+                  <div className="heading-4 font-bold uppercase text-primary">Operations</div>
                   {operations.map((career) => (
                     <CareerBlock key={career.id} career={career} />
                   ))}
@@ -103,7 +103,7 @@ export default async function Careers() {
               )}
               {marketing.length > 0 && (
                 <div className="py-10">
-                  <div className="heading-3 font-bold uppercase text-primary">Marketing</div>
+                  <div className="heading-4 font-bold uppercase text-primary">Marketing</div>
                   {marketing.map((career) => (
                     <CareerBlock key={career.id} career={career} />
                   ))}
@@ -111,7 +111,7 @@ export default async function Careers() {
               )}
               {financeAndAccounting.length > 0 && (
                 <div className="py-10">
-                  <div className="heading-3 font-bold uppercase text-primary">
+                  <div className="heading-4 font-bold uppercase text-primary">
                     Finance & Accounting
                   </div>
                   {financeAndAccounting.map((career) => (
@@ -121,7 +121,7 @@ export default async function Careers() {
               )}
               {technology.length > 0 && (
                 <div className="py-10">
-                  <div className="heading-3 font-bold uppercase text-primary">Technology</div>
+                  <div className="heading-4 font-bold uppercase text-primary">Technology</div>
                   {technology.map((career) => (
                     <CareerBlock key={career.id} career={career} />
                   ))}
@@ -129,7 +129,7 @@ export default async function Careers() {
               )}
               {sales.length > 0 && (
                 <div className="py-10">
-                  <div className="heading-3 font-bold uppercase text-primary">Sales</div>
+                  <div className="heading-4 font-bold uppercase text-primary">Sales</div>
                   {sales.map((career) => (
                     <CareerBlock key={career.id} career={career} />
                   ))}

@@ -69,7 +69,7 @@ export default function Addresses() {
       <main className="bg-gold bg-opacity-10 py-10">
         <Container>
           <div className="mx-auto max-w-[520px]">
-            <h2 className="heading-3 text-center font-bold text-primary">
+            <h2 className="heading-4 text-center font-bold text-primary">
               {t('delivery-address')}
             </h2>
             <p className="mt-4 text-center">
@@ -85,7 +85,7 @@ export default function Addresses() {
             <div className="py-4"></div>
             <AddressBlock isDeliveryAddress onSubmit={onDeliverySubmit} />
             <div className="py-12"></div>
-            <h2 className="heading-3 text-center font-bold text-primary">{t('billing-address')}</h2>
+            <h2 className="heading-4 text-center font-bold text-primary">{t('billing-address')}</h2>
             <div className="py-4"></div>
             <AddressBlock onSubmit={onBillingSubmit} />
             <div className="mt-12 text-center">

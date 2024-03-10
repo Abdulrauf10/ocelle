@@ -14,7 +14,7 @@ export default function CompleteFragment({ navigate }: FragmentProps<Path>) {
       <div className="mx-auto h-12 w-12 rounded-full bg-secondary p-1.5">
         <CircleTick className="relative top-px" />
       </div>
-      <h1 className="heading-3 mt-2 text-center font-bold text-primary">
+      <h1 className="heading-4 mt-2 text-center font-bold text-primary">
         {t('cancellation-successful')}
       </h1>
       <div className="relative -m-2 mx-auto mt-6 flex max-w-[780px] items-center justify-center max-lg:flex-col">

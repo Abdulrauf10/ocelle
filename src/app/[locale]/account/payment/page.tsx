@@ -24,7 +24,7 @@ export default async function Payments() {
       <main className="bg-gold bg-opacity-10 py-10">
         <Container>
           <div className="mx-auto max-w-[520px]">
-            <h1 className="heading-3 text-center font-bold text-primary">{t('payment-info')}</h1>
+            <h1 className="heading-4 text-center font-bold text-primary">{t('payment-info')}</h1>
             <div className="py-4"></div>
             <CardForm
               name={name}

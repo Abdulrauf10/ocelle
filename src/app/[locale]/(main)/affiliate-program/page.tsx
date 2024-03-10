@@ -111,7 +111,7 @@ export default function AffiliateProgram() {
             <div className="-mx-4 -my-4 flex flex-wrap">
               <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
                 <div className="h-full rounded-3xl bg-white p-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)]">
-                  <div className="heading-3 font-bold text-gold">1. Join The Program</div>
+                  <div className="heading-4 font-bold text-gold">1. Join The Program</div>
                   <p className="body-1 mt-4">
                     Complete the short form via the ‘Join Now’ button and we’ll get you started on
                     the onboarding process.
@@ -128,7 +128,7 @@ export default function AffiliateProgram() {
               </div>
               <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
                 <div className="h-full rounded-3xl bg-white p-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)]">
-                  <div className="heading-3 font-bold text-gold">2. Learn About Fresh Food</div>
+                  <div className="heading-4 font-bold text-gold">2. Learn About Fresh Food</div>
                   <p className="body-1 mt-4">
                     Once your application is approved, we’ll share brand materials with you. As an
                     Affiliate Ambassador, you’ll be the first to know about upcoming promotions and
@@ -138,7 +138,7 @@ export default function AffiliateProgram() {
               </div>
               <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
                 <div className="h-full rounded-3xl bg-white p-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)]">
-                  <div className="heading-3 font-bold text-gold">3. Earn Money</div>
+                  <div className="heading-4 font-bold text-gold">3. Earn Money</div>
                   <p className="body-1 mt-4">
                     When new customers use your unique code to purchase a subscription from OCELLE,
                     you’ll earn continuous commissions for as long as your referrals stay

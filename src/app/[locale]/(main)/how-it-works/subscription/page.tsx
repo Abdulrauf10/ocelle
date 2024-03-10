@@ -61,7 +61,7 @@ export default function HowItWorksSubscription() {
                 <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
                   <Image alt="Full Plan Meal" src="/meal-plan/full-plan.jpg" fill />
                 </div>
-                <h3 className="heading-3 mt-6 font-bold text-dark-green">FRESH FULL PLAN</h3>
+                <h3 className="heading-4 mt-6 font-bold text-dark-green">FRESH FULL PLAN</h3>
                 <p className="body-1 mt-2">
                   Everything needed in one simple serving. Reap the full benefits of fresh,
                   nutritious meals for your dog, meticulously crafted and portioned by experts.
@@ -73,7 +73,7 @@ export default function HowItWorksSubscription() {
                 <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
                   <Image alt="Full Plan Meal" src="/meal-plan/half-plan.jpg" fill />
                 </div>
-                <h3 className="heading-3 mt-6 font-bold text-dark-green">FRESH HALF PLAN</h3>
+                <h3 className="heading-4 mt-6 font-bold text-dark-green">FRESH HALF PLAN</h3>
                 <p className="body-1 mt-2">
                   Everything needed to supplement your dog’s current diet! Reinvigorate your
                   dog&apos;s current meals with a fresh, nutrient-packed addition.

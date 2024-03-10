@@ -32,12 +32,12 @@ function EditDogBlock({
     if (description) {
       return (
         <div className="-m-1 flex flex-wrap items-end pb-3">
-          <h2 className="heading-3 p-1 font-bold text-primary">{title}</h2>
+          <h2 className="heading-4 p-1 font-bold text-primary">{title}</h2>
           <p className="p-1 max-md:w-full">{description}</p>
         </div>
       );
     }
-    return <h2 className="heading-3 pb-3 font-bold text-primary">{title}</h2>;
+    return <h2 className="heading-4 pb-3 font-bold text-primary">{title}</h2>;
   };
 
   return (

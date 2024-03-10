@@ -21,7 +21,7 @@ export default function ResetPassword({
     <AppThemeProvider>
       <main className="py-10 text-center text-primary">
         <Container>
-          <h1 className="heading-3 font-bold">{t('change-{}', { value: t('password') })}</h1>
+          <h1 className="heading-4 font-bold">{t('change-{}', { value: t('password') })}</h1>
           <div className="mx-auto max-w-[280px] max-xs:max-w-full">
             <ResetPasswordForm
               action={async (data) => {

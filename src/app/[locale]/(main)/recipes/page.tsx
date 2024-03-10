@@ -524,7 +524,7 @@ export default function RecipesPage() {
       </Block>
       <Block>
         <Container className="text-center">
-          <h2 className="heading-2 font-bold text-primary">
+          <h2 className="heading-3 font-bold text-primary">
             Freshen Up With A Science First Approach To Pet Food
           </h2>
           <p className="body-1 mt-6">

@@ -72,7 +72,7 @@ export default function Subscriptions() {
     >
       <main className="bg-gold bg-opacity-10 py-10">
         <Container>
-          <h1 className="heading-3 text-center font-bold text-primary">
+          <h1 className="heading-4 text-center font-bold text-primary">
             {t('your-subscriptions')}
           </h1>
           <div className="mx-auto mt-4 max-w-[580px] rounded-3xl border border-gray bg-white p-6 text-center shadow-[5px_5px_12px_rgba(0,0,0,.1)]">

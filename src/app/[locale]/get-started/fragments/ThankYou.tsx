@@ -18,7 +18,7 @@ export default function ThankYouFragment() {
           className="min-w-[160px]"
         />
       </Link>
-      <h1 className="heading-3 mt-6 font-bold text-primary">{t('thank-you-for-your-order')}</h1>
+      <h1 className="heading-4 mt-6 font-bold text-primary">{t('thank-you-for-your-order')}</h1>
       <p className="mt-4 text-primary">
         {t('your-starter-box-will-be-delivered-on-the-{}', { date: '8th of January 2024' })}
       </p>

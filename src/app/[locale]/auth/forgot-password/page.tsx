@@ -13,7 +13,7 @@ export default function ForgotPassword() {
     <AppThemeProvider>
       <main className="py-10 text-center text-primary">
         <Container>
-          <h1 className="heading-3 font-bold">{t('set-{}', { value: t('new-password') })}</h1>
+          <h1 className="heading-4 font-bold">{t('set-{}', { value: t('new-password') })}</h1>
           <p className="mt-4 text-xl">
             {t('trouble-logging-in-please-enter-your-email-to-reset-your-password')}
           </p>

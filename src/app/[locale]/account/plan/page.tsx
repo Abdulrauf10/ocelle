@@ -52,7 +52,7 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
         <Container className="max-w-[860px]">
           <div className="item-center -mx-4 -my-3 flex max-sm:flex-col-reverse">
             <div className="flex-1 px-4 py-3 max-sm:text-center">
-              <h1 className="heading-3 font-bold text-primary">
+              <h1 className="heading-4 font-bold text-primary">
                 {t('welcome-back-{}', { name: me.firstName })}
               </h1>
               <p className="mt-4">
@@ -66,7 +66,7 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
             </div>
           </div>
           <div className="py-6"></div>
-          <h2 className="heading-3 font-bold text-primary max-md:text-center">
+          <h2 className="heading-4 font-bold text-primary max-md:text-center">
             {t('{}-colon', { value: t('your-dog') })}
           </h2>
           <div className="mx-auto mt-4 rounded-[30px] border border-brown bg-white px-4 py-2 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] max-md:text-center">
@@ -99,7 +99,7 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
             </div>
           </div>
           <div className="py-6"></div>
-          <h2 className="heading-3 font-bold text-primary max-md:text-center">
+          <h2 className="heading-4 font-bold text-primary max-md:text-center">
             {t('{}-colon', { value: t('{}-box', { name: dog.name }) })}
           </h2>
           <div className="mt-4 rounded-[30px] border border-brown bg-white px-8 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:border-none max-md:bg-transparent max-md:p-0 max-md:shadow-none">
@@ -256,7 +256,7 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
                 <Image src="/referral-box.svg" alt="Referral Box" width={300} height={300} />
               </div>
               <div className="px-4 max-md:text-center">
-                <h2 className="heading-3">
+                <h2 className="heading-4">
                   {t.rich('know-more-dog-people-refer-a-friend-earn-{}', {
                     value: '[$50]',
                     strong: (chunks) => <strong className="text-[1.1em]">{chunks}</strong>,
