@@ -58,7 +58,7 @@ export default function InteractiveBlock<
   return (
     <label
       className={clsx(
-        'flex min-w-[140px] select-none items-center rounded-full border border-current px-4 py-1.5',
+        'flex min-w-[128px] select-none items-center rounded-full border border-current px-4 py-2',
         error
           ? 'bg-white text-error'
           : isSelected
@@ -87,7 +87,7 @@ export default function InteractiveBlock<
           checked={type === 'checkbox' && !!field.value}
         />
       </div>
-      <span>{label}</span>
+      <span className="body-3">{label}</span>
     </label>
   );
 }

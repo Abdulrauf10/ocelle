@@ -61,7 +61,7 @@ export default function ProgressBar({ stage }: ProgressBarProps) {
       <div className="absolute bottom-[5.5px] h-0.5 w-full bg-primary"></div>
       <div className="w-1/4">
         <div className="px-1">
-          <div className="text-center text-lg text-gray">{t('dogs')}</div>
+          <div className="body-2 text-center text-gray">{t('dogs')}</div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isDogStage(stage) && (
               <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>
@@ -71,7 +71,7 @@ export default function ProgressBar({ stage }: ProgressBarProps) {
       </div>
       <div className="w-1/4">
         <div className="px-1">
-          <div className="text-center text-lg text-gray">{t('you')}</div>
+          <div className="body-2 text-center text-gray">{t('you')}</div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isYouStage(stage) && (
               <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>
@@ -81,7 +81,7 @@ export default function ProgressBar({ stage }: ProgressBarProps) {
       </div>
       <div className="w-1/4">
         <div className="px-1">
-          <div className="text-center text-lg text-gray">{t('your-plan')}</div>
+          <div className="body-2 text-center text-gray">{t('your-plan')}</div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isYourPlanStage(stage) && (
               <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>
@@ -91,7 +91,7 @@ export default function ProgressBar({ stage }: ProgressBarProps) {
       </div>
       <div className="w-1/4">
         <div className="px-1">
-          <div className="text-center text-lg text-gray">{t('checkout')}</div>
+          <div className="body-2 text-center text-gray">{t('checkout')}</div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isCheckoutStage(stage) && (
               <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>

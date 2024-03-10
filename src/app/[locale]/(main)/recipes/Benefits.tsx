@@ -54,7 +54,7 @@ export default function RecipeBenefits() {
   return (
     <div className="rounded-[30px] border border-gray bg-white p-10 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:p-6">
       <div className="flex max-md:items-end">
-        <strong className="flex-1 text-center text-3xl text-primary">
+        <strong className="heading-3 flex-1 text-center text-primary">
           The Main Benefits Of Feeding With OCELLE’s Fresh Recipes
         </strong>
         <button className="ml-3" onClick={() => setOpened(!opened)}>
@@ -69,9 +69,9 @@ export default function RecipeBenefits() {
               <div className="mt-1.5 flex h-4 w-4 min-w-4 items-center justify-center rounded-full bg-primary text-sm font-bold leading-none text-white">
                 {idx + 1}
               </div>
-              <div className="ml-2 text-primary">{benefit.title}</div>
+              <div className="body-1 ml-2 text-primary">{benefit.title}</div>
             </div>
-            {opened && <p className="ml-6">{benefit.description}</p>}
+            {opened && <p className="body-1 ml-8 mt-1">{benefit.description}</p>}
           </div>
         );
       })}

@@ -25,10 +25,10 @@ export default function PartialCardForm<T extends FieldValues>({
   return (
     <>
       <div className="-mx-3 flex flex-wrap items-center">
-        <Stripe className="mx-3 my-2 w-24" />
+        <Stripe className="mx-3 my-2 w-20" />
         <div className="mx-3 my-2 flex items-center">
-          <Lock className="relative -top-0.5 w-6" />
-          <span className="ml-4 text-lg text-[#7B8D97]">
+          <Lock className="relative -top-0.5 w-4" />
+          <span className="body-3 ml-4 text-lg text-[#7B8D97]">
             {t('all-transactions-are-secure-and-encrypted')}
           </span>
         </div>

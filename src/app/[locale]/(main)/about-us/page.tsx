@@ -38,25 +38,25 @@ export default function OurStory() {
         </Container>
       </Block>
       <div className="flex flex-wrap">
-        <div className="w-1/2 bg-brown pl-[8vw] pr-[4vw] text-xl text-white max-md:w-full max-md:px-4">
+        <div className="w-1/2 bg-brown pl-[8vw] pr-[4vw] text-white max-md:w-full max-md:px-4">
           <Block>
             <h2 className="heading-1 font-bold">
               A <i>Tail</i> Of&nbsp;
               <br className="max-md:hidden" />
               Transformation
             </h2>
-            <p className="mt-8">
+            <p className="body-1 mt-8">
               OCELLE starts not in a lab, but in a loving home. Our founder, Kevan, faced a
               challenge many pet parents know only too well – a beloved furry family member with
               unique needs. Kevan’s dog, Charlie, wasn&apos;t just picky; he struggled with
               allergies, making mealtimes a constant battle.
             </p>
-            <p className="mt-4">
+            <p className="body-1 mt-4">
               Despite trying an array of regular brands and diets, nothing suited Charlie. The
               breakthrough came with a simple suggestion from his Vet: Why not try homemade meals?
               Sceptical but determined, Kevan swapped processed foods for real, home-cooked meals.
             </p>
-            <p className="mt-4">
+            <p className="body-1 mt-4">
               The transformation was nothing short of miraculous. Charlie, previously lethargic and
               uninterested, began to thrive. His allergies subsided, his energy returned, and his
               tail wouldn&apos;t stop wagging.
@@ -84,7 +84,7 @@ export default function OurStory() {
             />
           </div>
           <h2 className="heading-1 pt-6 font-bold">A Fresh Perspective</h2>
-          <p className="mt-4 w-2/3 text-xl max-xl:w-full">
+          <p className="body-1 mt-4 w-2/3 max-xl:w-full">
             This personal journey sparked an idea: What if I could extend this increase in health
             and happiness to all dogs? Why should real food be an exception rather than the norm for
             our beloved pets?
@@ -92,35 +92,35 @@ export default function OurStory() {
         </div>
       </div>
       <div className="flex flex-wrap max-lg:flex-col-reverse">
-        <div className="w-1/2 bg-secondary bg-opacity-20 pl-[8vw] pr-[4vw] text-xl max-lg:w-full max-lg:px-4">
+        <div className="w-1/2 bg-secondary bg-opacity-20 pl-[8vw] pr-[4vw] max-lg:w-full max-lg:px-4">
           <Block>
             <h2 className="heading-1 font-bold text-secondary">
               Healthier. Happier.
               <br />
               Waggier.
             </h2>
-            <p className="mt-8">
+            <p className="body-1 mt-8">
               That&apos;s how OCELLE was born. Our philosophy is straightforward: Real, nourishing
               food isn&apos;t a pet&apos;s privilege; it&apos;s their right. We believe in the
               connection between diet and well-being, mirroring the importance of food in all our
               lives. No one should have to rely on the same processed foods, day in, day out, all
               year round.
             </p>
-            <p className="mt-4">
+            <p className="body-1 mt-4">
               OCELLE isn&apos;t just about providing dog food; we&apos;re redefining what pet
               nutrition actually means, and how we can all apply it in our homes, with ease.
             </p>
-            <p className="mt-4">
+            <p className="body-1 mt-4">
               After extensive research into pet nutrition, with insights from leading Vet
               Nutritionists, we’ve developed a range of fresh, convenient pet food solutions, that
               are both innovative and ground-breaking!
             </p>
-            <p className="mt-4">
+            <p className="body-1 mt-4">
               Our recipes aren&apos;t just human-grade in quality; they&apos;re meticulously crafted
               to promote your dog&apos;s health and happiness, with the same love and care you’d put
               into creating a family meal.
             </p>
-            <p className="mt-4">
+            <p className="body-1 mt-4">
               Welcome to OCELLE, where your dog’s well-being isn&apos;t just our business—it&apos;s
               our heartfelt commitment.
             </p>
@@ -148,7 +148,7 @@ export default function OurStory() {
       <Block>
         <Container className="text-center text-primary">
           <h2 className="heading-1 font-bold">Our Community</h2>
-          <p className="mx-auto mt-6 max-w-4xl text-xl">
+          <p className="body-1 mx-auto mt-6 max-w-4xl">
             Are you as passionate as we are about giving your dog(s) the best? We&apos;re firm
             believers in the strength of community to bring about real transformation. If
             you&apos;re interested in helping us spread our mission to make a paws-itive impact on

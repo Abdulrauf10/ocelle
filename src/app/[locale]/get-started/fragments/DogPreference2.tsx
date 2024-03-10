@@ -66,7 +66,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
             br: () => <br className="max-md:hidden" />,
           })}
         >
-          <div className="mx-auto -mt-4 flex max-w-[380px] flex-wrap justify-center">
+          <div className="mx-auto -mt-4 flex max-w-[360px] flex-wrap justify-center">
             <div className="mt-4 px-3">
               <InteractiveBlock
                 type="checkbox"
@@ -111,7 +111,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
           </div>
           {Array.isArray(errors.allergies) &&
             errors.allergies.some((x) => x.type === 'conflict') && (
-              <p className="mx-auto mt-3 max-w-[360px] text-sm text-error">
+              <p className="body-4 mx-auto mt-3 max-w-[360px] text-error">
                 You’ve indicated that [Charlie] has no allergies (“None!”) as well as allergies to [
                 {getValues('allergies')
                   .map((v: unknown, i: number) => (v ? options[i].label : v))
@@ -123,7 +123,7 @@ export default function DogPreference2Fragment({ navigate }: FragmentProps<Stage
         </Section>
         <SectionBreak />
         <Section title={t('what-is-{}-currently-eating', { name })}>
-          <div className="mx-auto -mt-4 flex max-w-[530px] flex-wrap justify-between">
+          <div className="mx-auto -mt-4 flex max-w-[460px] flex-wrap justify-between">
             <div className="mt-4 px-3">
               <InteractiveBlock
                 type="radio"

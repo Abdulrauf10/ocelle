@@ -126,7 +126,7 @@ export default function GetStarted() {
                 <div className="flex w-full justify-center max-lg:mt-8 lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 lg:px-[280px]">
                   <div className="relative w-full max-w-[460px]">
                     <BackButton
-                      className="absolute -left-[80px] select-none max-lg:hidden"
+                      className="absolute -left-[80px] -top-px select-none max-lg:hidden"
                       show={controller.route !== Stage.Welcome}
                       onClick={() => controller.navigate(-1)}
                     />

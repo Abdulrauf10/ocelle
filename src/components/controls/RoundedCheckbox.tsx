@@ -65,7 +65,11 @@ export default function RoundedCheckbox<
         </div>
       </div>
       <div
-        className={clsx('inline-block', disabled && '!text-[#7B8D97] !text-opacity-50', className)}
+        className={clsx(
+          'body-3 inline-block',
+          disabled && '!text-[#7B8D97] !text-opacity-50',
+          className
+        )}
       >
         {label}
       </div>

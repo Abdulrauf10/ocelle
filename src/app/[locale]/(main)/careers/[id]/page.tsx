@@ -31,13 +31,13 @@ interface SectionProps {
 function Section({ title, lines }: SectionProps) {
   return (
     <div className="overflow-hidden rounded-[30px] border-2 border-primary">
-      <div className="bg-primary px-8 py-4 text-2xl font-bold text-white">{title}</div>
+      <div className="body-1 bg-primary px-8 py-4 font-bold text-white">{title}</div>
       <div className="bg-white px-8 py-6">
         <div className="-my-2">
           {lines.map((line) => (
             <div key={line.id} className="flex py-2">
               <div className="mr-2 mt-2 h-2 w-2 min-w-2 rounded-full bg-primary"></div>
-              {line.name}
+              <p className="body-3">{line.name}</p>
             </div>
           ))}
         </div>
@@ -59,13 +59,13 @@ export default async function CareerView({ params }: { params: { id: string } })
       <Title career={career} />
       <Block styles="tight" className="bg-gold bg-opacity-10">
         <Container className="max-w-screen-lg">
-          <p>
+          <p className="body-3">
             OCELLE was born with the mission of improving the lives of pets and pet parents
             nationwide. We make human-grade pet food, tailored for each dog’s nutritional needs, and
             deliver directly to our customers’ doors. Through OCELLE’s carefully crafted meals and
             health services for members, dogs can truly live their healthiest, happiest lives.
           </p>
-          <p className="mt-6">
+          <p className="body-3 mt-6">
             As a member of our growing team, you’ll take part in a company culture that cares deeply
             about its work and its team members. We move fast, value autonomy and ownership, and are
             always looking for new ideas.
@@ -88,7 +88,7 @@ export default async function CareerView({ params }: { params: { id: string } })
               lines={career.lines.filter((line) => line.lineType === CareerLineType.Benefit)}
             />
           </div>
-          <p className="mt-8 italic">
+          <p className="body-3 mt-8 italic">
             At OCELLE we know that people are the heart of the business, and we prioritise their
             welfare. OCELLE embraces diversity and equal opportunity. We&apos;re committed to
             building a team that represents a variety of backgrounds, perspectives, and skills.

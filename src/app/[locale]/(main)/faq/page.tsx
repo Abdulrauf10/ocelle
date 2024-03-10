@@ -37,13 +37,13 @@ export default function FaQ() {
           <h2 className="-ml-3 select-none text-[215px] font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] max-lg:text-[130px]">
             FAQ
           </h2>
-          <p className="text-white">
-            If you can’t find what you’re looking for, please contact us!{' '}
+          <p className="body-2 text-white">
+            If you can’t find what you’re looking for, please contact us!
           </p>
           <div className="mt-6">
             <Link href="#" className="inline-flex text-white hover:underline">
               <Email className="w-7" />
-              <span className="ml-3 text-lg font-bold">info@ocelle.dog</span>
+              <span className="body-1 ml-3 font-bold">info@ocelle.dog</span>
             </Link>
           </div>
           <div className="mt-4">
@@ -51,7 +51,7 @@ export default function FaQ() {
               <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white">
                 <Whatsapp className="w-4 text-primary" />
               </div>
-              <span className="ml-3 text-lg font-bold">WhatsApp Number</span>
+              <span className="body-1 ml-3 font-bold">WhatsApp Number</span>
             </Link>
           </div>
         </Container>
@@ -62,7 +62,7 @@ export default function FaQ() {
             <div className="p-2">
               <Link
                 href="#our-food"
-                className="block whitespace-nowrap rounded-2xl bg-primary px-10 py-0.5 text-center text-lg text-white hover:opacity-90 max-sm:w-[180px]"
+                className="heading-3 block whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center text-white hover:opacity-90 max-sm:w-[180px]"
               >
                 Our Food
               </Link>
@@ -70,7 +70,7 @@ export default function FaQ() {
             <div className="p-2">
               <Link
                 href="#our-quiz"
-                className="block whitespace-nowrap rounded-2xl bg-primary px-10 py-0.5 text-center text-lg text-white hover:opacity-90 max-sm:w-[180px]"
+                className="heading-3 block whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center text-white hover:opacity-90 max-sm:w-[180px]"
               >
                 Our Quiz
               </Link>
@@ -78,7 +78,7 @@ export default function FaQ() {
             <div className="p-2">
               <Link
                 href="#subscription"
-                className="block whitespace-nowrap rounded-2xl bg-primary px-10 py-0.5 text-center text-lg text-white hover:opacity-90 max-sm:w-[180px]"
+                className="heading-3 block whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center text-white hover:opacity-90 max-sm:w-[180px]"
               >
                 Subscription
               </Link>
@@ -86,7 +86,7 @@ export default function FaQ() {
             <div className="p-2">
               <Link
                 href="#deliveries"
-                className="block whitespace-nowrap rounded-2xl bg-primary px-10 py-0.5 text-center text-lg text-white hover:opacity-90 max-sm:w-[180px]"
+                className="heading-3 block whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center text-white hover:opacity-90 max-sm:w-[180px]"
               >
                 Deliveries
               </Link>
@@ -94,7 +94,7 @@ export default function FaQ() {
             <div className="p-2">
               <Link
                 href="#payment"
-                className="block whitespace-nowrap rounded-2xl bg-primary px-10 py-0.5 text-center text-lg text-white hover:opacity-90 max-sm:w-[180px]"
+                className="heading-3 block whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center text-white hover:opacity-90 max-sm:w-[180px]"
               >
                 Payment
               </Link>

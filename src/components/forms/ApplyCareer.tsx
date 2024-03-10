@@ -50,11 +50,17 @@ function FileInput<T extends FieldValues>({
         }}
         {...field}
       />
-      <Button type="button" reverse fullWidth onClick={() => inputRef.current?.click()}>
+      <Button
+        className="!text-base"
+        type="button"
+        reverse
+        fullWidth
+        onClick={() => inputRef.current?.click()}
+      >
         {label}
       </Button>
       {filename && (
-        <span className="mt-1 inline-block text-sm">
+        <span className="body-4 mt-1 inline-block">
           {label}: {filename}
         </span>
       )}
@@ -97,8 +103,8 @@ export default function ApplyCareerForm({
             alt="ocelle logo"
             className="mx-auto"
           />
-          <p className="mt-8 text-2xl font-bold">Thank You For Applying!</p>
-          <p className="mt-4">
+          <p className="heading-3 mt-8 font-bold">Thank You For Applying!</p>
+          <p className="body-3 mt-4">
             Your application for the {title} role has been successfully submitted. We’re excited to
             learn more about you and will be in touch if you move forward in the process.
           </p>
@@ -112,8 +118,8 @@ export default function ApplyCareerForm({
       {startAdornment}
       <Block styles="tight" className="bg-gold bg-opacity-10">
         <Container className="max-w-screen-lg">
-          <div className="text-2xl font-bold uppercase text-primary">Submit Your Application</div>
-          <div>
+          <div className="body-1 font-bold uppercase text-primary">Submit Your Application</div>
+          <div className="body-3">
             <span className="text-error">*</span> Required
           </div>
           <div className="mt-6">
@@ -130,7 +136,7 @@ export default function ApplyCareerForm({
               <div className="-mx-4 -my-4 flex flex-wrap">
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-center">
-                    <label htmlFor="firstName" className="mr-2 w-[95px] min-w-[95px]">
+                    <label htmlFor="firstName" className="body-3 mr-2 w-[95px] min-w-[95px]">
                       First Name<span className="text-error">*</span>
                     </label>
                     <Controller
@@ -146,7 +152,7 @@ export default function ApplyCareerForm({
                 </div>
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-center">
-                    <label htmlFor="lastName" className="mr-2 w-[95px] min-w-[95px]">
+                    <label htmlFor="lastName" className="body-3 mr-2 w-[95px] min-w-[95px]">
                       Last Name<span className="text-error">*</span>
                     </label>
                     <Controller
@@ -162,7 +168,7 @@ export default function ApplyCareerForm({
                 </div>
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-center">
-                    <label htmlFor="email" className="mr-2 w-[95px] min-w-[95px]">
+                    <label htmlFor="email" className="body-3 mr-2 w-[95px] min-w-[95px]">
                       Email<span className="text-error">*</span>
                     </label>
                     <Controller
@@ -178,7 +184,7 @@ export default function ApplyCareerForm({
                 </div>
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-center">
-                    <label htmlFor="phone" className="mr-2 w-[95px] min-w-[95px]">
+                    <label htmlFor="phone" className="body-3 mr-2 w-[95px] min-w-[95px]">
                       Phone<span className="text-error">*</span>
                     </label>
                     <Controller
@@ -194,7 +200,7 @@ export default function ApplyCareerForm({
                 </div>
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-center">
-                    <label htmlFor="resume" className="mr-2 w-[95px] min-w-[95px]">
+                    <label htmlFor="resume" className="body-3 mr-2 w-[95px] min-w-[95px]">
                       Resume/CV<span className="text-error">*</span>
                     </label>
                     <FileInput
@@ -207,7 +213,7 @@ export default function ApplyCareerForm({
                 </div>
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-center">
-                    <label htmlFor="coverLetter" className="mr-2 w-[95px] min-w-[95px]">
+                    <label htmlFor="coverLetter" className="body-3 mr-2 w-[95px] min-w-[95px]">
                       Cover Letter
                     </label>
                     <FileInput control={control} name="coverLetter" label="Cover Letter" />

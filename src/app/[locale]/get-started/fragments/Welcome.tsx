@@ -17,8 +17,10 @@ export default function WelcomeFragment({ navigate }: FragmentProps<Stage>) {
           br: () => <br />,
         })}
       >
-        <p className="text-primary">{t('lets-determine-your-recommended-meal-plan-and-price')}</p>
-        <p className="mt-5 flex items-center justify-center text-left text-primary">
+        <p className="body-3 text-primary">
+          {t('lets-determine-your-recommended-meal-plan-and-price')}
+        </p>
+        <p className="body-3 mt-5 flex items-center justify-center text-left text-primary">
           <Image
             src="/question/timer.svg"
             alt="Timer"

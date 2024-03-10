@@ -77,9 +77,9 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
                 />
               )}
             />
-            <span className="ml-2">kg</span>
+            <span className="body-3 ml-2">kg</span>
             {errors?.weight?.message && (
-              <p className="mt-3 w-full text-error">{String(errors?.weight?.message)}</p>
+              <p className="body-4 mt-3 w-full text-error">{String(errors?.weight?.message)}</p>
             )}
           </div>
         </Section>
@@ -143,10 +143,10 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
               ]}
             />
           </div>
-          <p className="mt-5 text-primary">
+          <p className="body-3 mt-5 text-primary">
             [{t('visible-rib-cage-spine-noticeable-loss-of-muscle-mass')}]
           </p>
-          <p className="mt-5 italic text-primary">[{t('adjust-their-calories')}]</p>
+          <p className="body-3 mt-5 italic text-primary">[{t('adjust-their-calories')}]</p>
         </Section>
         <SectionBreak />
         <Section title={t('how-active-is', { name })}>
@@ -186,7 +186,7 @@ export default function DogPreference1Fragment({ navigate }: FragmentProps<Stage
               ]}
             />
           </div>
-          <p className="mt-5 text-primary">
+          <p className="body-3 mt-5 text-primary">
             [{t('less-than-30-minutes-of-outdoor-daily-activity')}]
           </p>
         </Section>

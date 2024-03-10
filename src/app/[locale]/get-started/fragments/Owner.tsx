@@ -72,7 +72,7 @@ export default function OwnerFragment({ navigate }: FragmentProps<Stage>) {
         </Section>
         <div className="mt-10">
           <UnderlineButton
-            className="text-lg uppercase"
+            className="body-2 uppercase"
             href="/auth/login"
             label={t('already-have-an-account-log-in-here')}
           />

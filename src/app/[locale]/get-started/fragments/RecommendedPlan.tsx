@@ -87,7 +87,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
           <Container>
             <div className="flex justify-center">
               <div className="">
-                <p className="text-primary">
+                <p className="body-3 text-primary">
                   {t(
                     'feel-free-to-adjust-{}-meal-plan-by-selecting-from-up-to-suitable-recipes-below',
                     { name, recipes: 2 }
@@ -234,7 +234,9 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
             </div>
             <div className="mx-auto mt-10 max-w-[840px] rounded-[20px] border border-primary bg-white p-7 text-primary shadow-[3px_3px_10px_rgba(0,0,0,.2)]">
               <h2 className="heading-3 font-bold">{t('use-a-transition-period-in-starter-box')}</h2>
-              <p className="mt-5">{t('use-a-transition-period-in-starter-box:description')}</p>
+              <p className="body-3 mt-5">
+                {t('use-a-transition-period-in-starter-box:description')}
+              </p>
               <div className="my-3 flex flex-wrap justify-center">
                 <div className="mt-4 px-2">
                   <InteractiveBlock
@@ -245,7 +247,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                     label={t('dont-use-transition')}
                     rules={{ required: true }}
                     error={!!errors?.transition}
-                    className="w-[190px]"
+                    className="w-[180px]"
                   />
                 </div>
                 <div className="mt-4 px-2">
@@ -257,7 +259,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
                     label={t('use-transition')}
                     rules={{ required: true }}
                     error={!!errors?.transition}
-                    className="w-[190px]"
+                    className="w-[180px]"
                   />
                 </div>
               </div>

@@ -36,7 +36,7 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
               {plan}
             </div>
           </div>
-          <p className="mt-3">{children}</p>
+          <p className="body-1 mt-3">{children}</p>
           <div className="mt-5">
             <List
               picture={

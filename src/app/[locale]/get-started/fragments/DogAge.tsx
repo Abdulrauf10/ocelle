@@ -52,7 +52,7 @@ export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
         title={t('how-old-is-{}', { name })}
         description={t('if-youre-unsure-just-give-us-your-best-guess')}
       >
-        <div className="mx-auto flex max-w-[260px] justify-between">
+        <div className="mx-auto mt-8 flex max-w-[260px] justify-between">
           <UnderlineButton
             underline={tab === 'Age'}
             className={clsx('text-lg', tab === 'Age' ? 'font-bold' : '')}
@@ -66,7 +66,7 @@ export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
             label={t('select-birthday')}
           />
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-8 max-w-[480px]">
+        <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-6 max-w-[480px]">
           {tab === 'Age' && (
             <div className="flex justify-center">
               <div className="flex items-center px-4">
@@ -84,7 +84,7 @@ export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
                     />
                   )}
                 />
-                <span className="ml-2">{t('years')}</span>
+                <span className="body-3 ml-2">{t('years')}</span>
               </div>
               <div className="flex items-center px-4">
                 <Controller
@@ -101,7 +101,7 @@ export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
                     />
                   )}
                 />
-                <span className="ml-2">{t('months')}</span>
+                <span className="body-3 ml-2">{t('months')}</span>
               </div>
             </div>
           )}

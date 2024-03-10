@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import React from 'react';
 
 interface SectionProps {
@@ -17,10 +18,10 @@ export default function Section({
   return (
     <>
       <div className={className}>
-        <h2 className="heading-3 font-bold text-primary">{title}</h2>
-        {description && <p className="mt-5 italic text-primary">{description}</p>}
+        <h2 className="heading-3 mb-4 font-bold text-primary">{title}</h2>
+        {description && <p className="body-3 mb-2 italic text-primary">{description}</p>}
       </div>
-      <div className={dense ? 'mt-4' : 'mt-8'}>{children}</div>
+      <div className={clsx(!dense && 'mt-4')}>{children}</div>
     </>
   );
 }

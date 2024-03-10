@@ -21,12 +21,12 @@ export default function RecipesPage() {
             That’s Our Secret.{' '}
           </h1>
           <div className="w-full lg:w-1/3">
-            <p className="mt-5">
+            <p className="body-1 mt-5">
               Crafted to human-grade standards, our recipes are skilfully balanced for total
               nutrition. We use quality proteins and vegetables, combined with targeted vitamins and
               minerals to nourish your dog at every stage of life.
             </p>
-            <p className="mt-3">
+            <p className="body-1 mt-3">
               No heat-blasted ingredients. No preservatives. No fillers. No nonsense. Just wholesome
               food that&apos;s as appetizing as it looks.
             </p>
@@ -524,10 +524,10 @@ export default function RecipesPage() {
       </Block>
       <Block>
         <Container className="text-center">
-          <h2 className="heading-3 font-bold text-primary">
+          <h2 className="heading-2 font-bold text-primary">
             Freshen Up With A Science First Approach To Pet Food
           </h2>
-          <p className="mt-6 text-lg">
+          <p className="body-1 mt-6">
             Get fresh food conveniently delivered with our customised meal plans.
           </p>
           <Button className="mt-6" href="/get-started">

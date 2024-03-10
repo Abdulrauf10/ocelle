@@ -167,7 +167,7 @@ export default function DogBasicFragment({ navigate }: FragmentProps<Stage>) {
               />
             </div>
           </div>
-          <p className="mt-10 italic text-primary">
+          <p className="body-3 mt-6 italic text-primary">
             [{t('spayed-and-neutered-dogs-require-fewer-calories')}]
           </p>
         </Section>

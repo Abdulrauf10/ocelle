@@ -25,7 +25,7 @@ export default function Home() {
             <br className="md:hidden" />
             {t('they-re-my-family')}
           </h1>
-          <p className="mt-8 text-xl">
+          <p className="body-1 mt-8">
             {t(
               'trade-guesswork-for-peace-of-mind-relax-knowing-that-your-dog-is-getting-the-highest-quality'
             )}
@@ -76,28 +76,26 @@ export default function Home() {
             <div className="pb-0 max-xl:flex max-xl:flex-wrap [&>*]:max-xl:m-0 [&>*]:max-xl:mt-3 [&>*]:max-xl:max-w-none [&>*]:max-xl:px-4 [&>*]:max-xl:py-3 [&>*]:max-xl:text-center [&>*]:max-sm:w-full [&_img]:max-xl:inline">
               <div className="ml-14 mt-5 md:w-1/2 xl:w-full">
                 <Image alt="good food" src="/meal-plan/icon-1.svg" width={81} height={70} />
-                <h3 className="mt-2 text-2xl text-primary">{t('real-good-food-freshly-made')}</h3>
-                <p className="mt-3 text-xl xl:max-w-[320px]">
+                <h3 className="heading-3 mt-2 text-primary">{t('real-good-food-freshly-made')}</h3>
+                <p className="body-1 mt-2 xl:max-w-[320px]">
                   {t('real-good-food-freshly-made-content')}
                 </p>
               </div>
               <div className="mt-[6%] md:w-1/2 xl:w-full">
                 <Image alt="good food" src="/meal-plan/icon-2.svg" width={74} height={70} />
-                <h3 className="mt-2 text-2xl text-primary">{t('customised-meal-plans')}</h3>
-                <p className="mt-3 text-xl xl:max-w-[320px]">
-                  {t('customised-meal-plans-content')}
-                </p>
+                <h3 className="heading-3 mt-2 text-primary">{t('customised-meal-plans')}</h3>
+                <p className="body-1 mt-2 xl:max-w-[320px]">{t('customised-meal-plans-content')}</p>
               </div>
               <div className="ml-32 mt-[6%] flex flex-1 flex-wrap max-xl:-my-3">
                 <div className="w-full max-xl:py-3 md:w-1/2 xl:w-full xl:max-w-[300px]">
                   <Image alt="good food" src="/meal-plan/icon-3.svg" width={102} height={70} />
-                  <h3 className="mt-2 text-2xl text-primary">{t('delivered-within-days')}</h3>
-                  <p className="mt-3 text-xl">{t('delivered-within-days-content')}</p>
+                  <h3 className="heading-3 mt-2 text-primary">{t('delivered-within-days')}</h3>
+                  <p className="body-1 mt-2">{t('delivered-within-days-content')}</p>
                 </div>
                 <div className="w-full max-xl:mt-3 max-xl:py-3 md:w-1/2 xl:ml-[11%] xl:mt-[12%] xl:w-full xl:max-w-[320px]">
                   <Image alt="good food" src="/meal-plan/icon-4.svg" width={67} height={70} />
-                  <h3 className="mt-2 text-2xl text-primary">{t('vet-approved')}</h3>
-                  <p className="mt-3 text-xl">{t('vet-approved-content')}</p>
+                  <h3 className="heading-3 mt-2 text-primary">{t('vet-approved')}</h3>
+                  <p className="body-1 mt-2">{t('vet-approved-content')}</p>
                 </div>
                 <div className="ml-[6%] mt-[21%] text-center max-xl:hidden">
                   <Button href="/get-started">{t('see-your-recipes')}</Button>
@@ -203,7 +201,7 @@ export default function Home() {
       <Block className="bg-gold bg-opacity-10">
         <Container>
           <h2 className="heading-1 text-center font-black text-gold">Proof Is In The Eating</h2>
-          <p className="mx-auto mt-5 max-w-screen-md text-center text-xl text-gold">
+          <p className="body-1 mx-auto mt-5 max-w-screen-md text-center text-gold">
             Choose OCELLE and watch your dog thrive – from better gut health (cleaner poops!) and
             luxurious fur, to optimised energy for life. But you don&apos;t have to take our word
             for it:
@@ -217,8 +215,8 @@ export default function Home() {
       <div className="bg-[url('./recommended-plan-bg.jpg')] bg-cover bg-center py-40 max-md:py-16">
         <Container>
           <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-8 py-12 text-center sm:p-16 md:px-[140px]">
-            <strong className="text-3xl text-primary">See Your Dog’s Recommended Plan!</strong>
-            <p className="mt-5 text-xl">
+            <strong className="heading-2 text-primary">See Your Dog’s Recommended Plan!</strong>
+            <p className="body-1 mt-5">
               Get fresh food conveniently delivered with our customised meal plans.
             </p>
             <div className="mt-8 text-center">

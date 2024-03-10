@@ -38,11 +38,11 @@ function CareerBlock({ career }: { career: Career }) {
   const t = useTranslations();
 
   return (
-    <div className="mt-4 rounded-2xl bg-white px-16 py-8 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-sm:px-10 max-sm:py-6">
+    <div className="mt-4 rounded-2xl bg-white px-10 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-sm:px-10 max-sm:py-6">
       <div className="-mx-3 -my-2 flex items-center max-xs:flex-wrap">
         <div className="w-full px-3 py-2">
-          <div className="text-2xl font-bold text-brown">{career.name}</div>
-          <div className="mt-1">
+          <div className="body-1 font-bold text-brown">{career.name}</div>
+          <div className="body-3 mt-1">
             {t(
               career.workType === WorkType.FullTime
                 ? 'full-time'
@@ -61,7 +61,11 @@ function CareerBlock({ career }: { career: Career }) {
           </div>
         </div>
         <div className="px-3 py-2">
-          <Button theme="primary" href={`./careers/${career.id}`} className="whitespace-nowrap">
+          <Button
+            theme="primary"
+            href={`./careers/${career.id}`}
+            className="whitespace-nowrap !text-base"
+          >
             {t('see-details')}
           </Button>
         </div>
@@ -80,7 +84,7 @@ export default async function Careers() {
       <Block styles="tight" className="bg-primary bg-opacity-10">
         <Container>
           <h1 className="heading-1 text-center font-bold text-primary">Dog People Wanted</h1>
-          <p className="mt-4 text-center text-secondary">
+          <p className="body-3 mt-4 text-center text-secondary">
             Make a living helping dogs live happier, healthier lives.
           </p>
         </Container>
@@ -91,9 +95,7 @@ export default async function Careers() {
             <div className="-my-10">
               {operations.length > 0 && (
                 <div className="py-10">
-                  <div className="text-4xl font-bold uppercase text-primary max-sm:text-2xl">
-                    Operations
-                  </div>
+                  <div className="heading-3 font-bold uppercase text-primary">Operations</div>
                   {operations.map((career) => (
                     <CareerBlock key={career.id} career={career} />
                   ))}
@@ -101,9 +103,7 @@ export default async function Careers() {
               )}
               {marketing.length > 0 && (
                 <div className="py-10">
-                  <div className="text-4xl font-bold uppercase text-primary max-sm:text-2xl">
-                    Marketing
-                  </div>
+                  <div className="heading-3 font-bold uppercase text-primary">Marketing</div>
                   {marketing.map((career) => (
                     <CareerBlock key={career.id} career={career} />
                   ))}
@@ -111,7 +111,7 @@ export default async function Careers() {
               )}
               {financeAndAccounting.length > 0 && (
                 <div className="py-10">
-                  <div className="text-4xl font-bold uppercase text-primary max-sm:text-2xl">
+                  <div className="heading-3 font-bold uppercase text-primary">
                     Finance & Accounting
                   </div>
                   {financeAndAccounting.map((career) => (
@@ -121,9 +121,7 @@ export default async function Careers() {
               )}
               {technology.length > 0 && (
                 <div className="py-10">
-                  <div className="text-4xl font-bold uppercase text-primary max-sm:text-2xl">
-                    Technology
-                  </div>
+                  <div className="heading-3 font-bold uppercase text-primary">Technology</div>
                   {technology.map((career) => (
                     <CareerBlock key={career.id} career={career} />
                   ))}
@@ -131,9 +129,7 @@ export default async function Careers() {
               )}
               {sales.length > 0 && (
                 <div className="py-10">
-                  <div className="text-4xl font-bold uppercase text-primary max-sm:text-2xl">
-                    Sales
-                  </div>
+                  <div className="heading-3 font-bold uppercase text-primary">Sales</div>
                   {sales.map((career) => (
                     <CareerBlock key={career.id} career={career} />
                   ))}
@@ -141,7 +137,7 @@ export default async function Careers() {
               )}
             </div>
           ) : (
-            <div className="mx-auto max-w-[640px] text-center">
+            <div className="body-3 mx-auto max-w-[640px] text-center">
               <p>
                 While we don&apos;t currently have any positions open, we&apos;re always on the
                 lookout for talented individuals who share our love for wagging tails and healthy

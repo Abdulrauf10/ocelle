@@ -20,7 +20,7 @@ export default function Marquee({
   return (
     <FastMarquee className={clsx('bg-primary py-2', className)}>
       {_items.map((item, idx) => (
-        <div key={idx} className="flex flex-nowrap items-center px-6 text-xl text-white">
+        <div key={idx} className="body-1 flex flex-nowrap items-center px-6 text-white">
           <div className="mr-3">
             <Image src={item.icon} alt={item.alt} width={item.width} height={item.height} />
           </div>

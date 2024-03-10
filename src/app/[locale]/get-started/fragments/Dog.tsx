@@ -44,12 +44,12 @@ export default function DogFragment({ navigate }: FragmentProps<Stage>) {
           <Button className="mt-10">{t('continue')}</Button>
         </form>
         <UnderlineButton
-          className="mt-10 text-lg"
+          className="body-2 mt-10"
           onClick={() => setShowMoreDogs(true)}
           label={t('i-have-more-dogs')}
         />
         {showMoreDogs && (
-          <p className="mt-5 italic text-primary">
+          <p className="body-3 mt-5 italic text-primary">
             {t.rich('i-have-more-dogs:reply', {
               br: () => <br />,
               strong: (chunks) => <strong>{chunks}</strong>,

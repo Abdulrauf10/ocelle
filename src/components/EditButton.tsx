@@ -17,7 +17,7 @@ export default function EditButton({ className, href, onClick }: EditButtonProps
     return (
       <Link href={href} className={classes} onClick={onClick}>
         <span className="font-bold uppercase">{t('edit')}</span>
-        <Pen className="ml-1.5 w-4" />
+        <Pen className="ml-1.5 w-[1em]" />
       </Link>
     );
   }
@@ -25,7 +25,7 @@ export default function EditButton({ className, href, onClick }: EditButtonProps
   return (
     <button type="button" className={classes} onClick={onClick}>
       <span className="font-bold uppercase">{t('edit')}</span>
-      <Pen className="ml-1.5 w-4" />
+      <Pen className="ml-1.5 w-[1em]" />
     </button>
   );
 }

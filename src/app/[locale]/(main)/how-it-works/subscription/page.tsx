@@ -15,8 +15,10 @@ export default function HowItWorksSubscription() {
         <div className="flex flex-wrap items-center max-lg:flex-col-reverse">
           <div className="w-2/5 py-[4vw] pl-[2vw] text-xl text-primary max-lg:w-full">
             <h1 className="text-[5vw] font-bold leading-[6.2vw]">Get Personal With An Expert</h1>
-            <p className="mt-5 font-bold italic">Nutrition is not a one-size-fits-all affair!</p>
-            <p className="mt-3">
+            <p className="body-2 mt-5 font-bold italic">
+              Nutrition is not a one-size-fits-all affair!
+            </p>
+            <p className="body-2 mt-3">
               Our unique, customised recipes are crafted by our Vet Nutritionist and tailored to
               your dog&apos;s health goals and ongoing needs.
             </p>
@@ -59,8 +61,8 @@ export default function HowItWorksSubscription() {
                 <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
                   <Image alt="Full Plan Meal" src="/meal-plan/full-plan.jpg" fill />
                 </div>
-                <h3 className="mt-6 text-2xl font-bold text-dark-green">FRESH FULL PLAN</h3>
-                <p className="mt-2">
+                <h3 className="heading-3 mt-6 font-bold text-dark-green">FRESH FULL PLAN</h3>
+                <p className="body-1 mt-2">
                   Everything needed in one simple serving. Reap the full benefits of fresh,
                   nutritious meals for your dog, meticulously crafted and portioned by experts.
                 </p>
@@ -71,8 +73,8 @@ export default function HowItWorksSubscription() {
                 <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
                   <Image alt="Full Plan Meal" src="/meal-plan/half-plan.jpg" fill />
                 </div>
-                <h3 className="mt-6 text-2xl font-bold text-dark-green">FRESH HALF PLAN</h3>
-                <p className="mt-2">
+                <h3 className="heading-3 mt-6 font-bold text-dark-green">FRESH HALF PLAN</h3>
+                <p className="body-1 mt-2">
                   Everything needed to supplement your dog’s current diet! Reinvigorate your
                   dog&apos;s current meals with a fresh, nutrient-packed addition.
                 </p>
@@ -94,7 +96,7 @@ export default function HowItWorksSubscription() {
           All The Flavour <br />
           They Desire!
         </h2>
-        <p className="mt-5 text-xl">
+        <p className="body-1 mt-5">
           Choose from five protein-rich fresh recipes, meticulously crafted with whole foods,
           slow-cooked to enhance both nutrition and taste. Mix-and-match according to your dog’s
           needs. After all, you know your dog best of all!
@@ -105,7 +107,7 @@ export default function HowItWorksSubscription() {
       </Section>
       <Section image="/dogs/three-dogs.jpeg" alt="three of dogs">
         <h2 className="heading-1 font-bold text-primary">A Lifetime Of Tailored Nutrition!</h2>
-        <p className="mt-5 text-xl">
+        <p className="body-1 mt-5">
           From puppy food to senior dog food – we’re with you every step of the way. Our meals
           evolve with your dog, delivering maximum benefits at every bowl.
         </p>
@@ -131,8 +133,8 @@ export default function HowItWorksSubscription() {
           className="-ml-4"
           alt="ocelle truck"
         />
-        <p className="mt-5 text-xl">Get ready for some serious tail-wagging!</p>
-        <p className="mt-5 text-xl">
+        <p className="body-1 mt-5">Get ready for some serious tail-wagging!</p>
+        <p className="body-1 mt-5">
           Pop your fresh food in the freezer, then defrost in the fridge 24 hours before mealtime.
           Dinner is served!
         </p>
@@ -145,9 +147,9 @@ export default function HowItWorksSubscription() {
           <h2 className="heading-1 mb-10 text-center font-bold text-gold">
             Your Dog. Your Plan. Your Schedule.
           </h2>
-          <div className="mx-auto max-w-[680px] rounded-[30px] bg-white p-12 max-sm:p-8">
-            <div className="flex items-center max-sm:block">
-              <div className="w-[150px] min-w-[150px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">
+          <div className="mx-auto max-w-[820px] rounded-[30px] bg-white p-12 max-sm:p-8">
+            <div className="body-1 flex items-center max-sm:block">
+              <div className="w-[190px] min-w-[190px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">
                 Fancy A Change?
               </div>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
@@ -156,8 +158,8 @@ export default function HowItWorksSubscription() {
                 perfect for you and your dog.
               </div>
             </div>
-            <div className="mt-6 flex items-center max-sm:block">
-              <div className="w-[150px] min-w-[150px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">
+            <div className="body-1 mt-6 flex items-center max-sm:block">
+              <div className="w-[190px] min-w-[190px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">
                 More Dogs?
               </div>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
@@ -165,9 +167,9 @@ export default function HowItWorksSubscription() {
                 No problem! Add them to your account for easy fresh meal management.
               </div>
             </div>
-            <div className="mt-6 flex items-center max-sm:block">
-              <div className="w-[150px] min-w-[150px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">
-                A Paws-itively Simple Subscription
+            <div className="body-1 mt-6 flex items-center max-sm:block">
+              <div className="w-[190px] min-w-[190px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">
+                A <i>Paws-itively</i> Simple Subscription
               </div>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
               <div className="py-px">Skip deliveries, cancel, and come back any time!</div>

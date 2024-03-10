@@ -17,8 +17,8 @@ export default function Benefits() {
               className="min-h-[60px]"
             />
           </div>
-          <h3 className="mt-3 text-lg font-bold text-gray">{t('just-real-good-food')}</h3>
-          <p>{t('fresh-human-grade-natural-ingredients')}</p>
+          <h3 className="body-2 mt-3 font-bold text-gray">{t('just-real-good-food')}</h3>
+          <p className="body-3">{t('fresh-human-grade-natural-ingredients')}</p>
         </div>
       </div>
       <div className="mt-10 w-[30%] max-w-[420px] p-5 max-lg:w-1/3 max-lg:p-[10px] max-md:w-full">
@@ -32,8 +32,8 @@ export default function Benefits() {
               className="min-h-[60px]"
             />
           </div>
-          <h3 className="mt-3 text-lg font-bold text-gray">{t('ready-to-serve')}</h3>
-          <p>{t('pre-portioned-packs-make-serving-a-snap')}</p>
+          <h3 className="body-2 mt-3 font-bold text-gray">{t('ready-to-serve')}</h3>
+          <p className="body-3">{t('pre-portioned-packs-make-serving-a-snap')}</p>
         </div>
       </div>
       <div className="mt-10 w-[30%] max-w-[400px] p-5 max-lg:w-1/3 max-lg:p-[10px] max-md:w-full">
@@ -47,8 +47,8 @@ export default function Benefits() {
               className="min-h-[60px] min-w-[110px]"
             />
           </div>
-          <h3 className="mt-3 text-lg font-bold text-gray">{t('convenient-deliveries')}</h3>
-          <p>{t('sit-back-and-skip-the-hassle')}</p>
+          <h3 className="body-2 mt-3 font-bold text-gray">{t('convenient-deliveries')}</h3>
+          <p className="body-3">{t('sit-back-and-skip-the-hassle')}</p>
         </div>
       </div>
     </div>

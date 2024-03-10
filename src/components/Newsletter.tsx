@@ -6,7 +6,7 @@ export default function Newsletter() {
   return (
     <div className="bg-primary bg-opacity-20 py-8">
       <Container>
-        <div className="-m-3 flex flex-nowrap items-center justify-center text-xl max-md:block">
+        <div className="body-1 -m-3 flex flex-nowrap items-center justify-center max-md:block">
           <div className="w-full p-3">
             <div className="flex min-h-[38px] items-center">
               <EmailStroke className="w-[60px] min-w-[60px] text-primary" />

@@ -46,5 +46,17 @@ span.swiper-pagination-bullet-active {
 }
 
 .body-1 {
-  @apply text-[20px] leading-[24px];
+  @apply text-[20px] leading-[28px];
+}
+
+.body-2 {
+  @apply text-[16px] leading-[24px];
+}
+
+.body-3 {
+  @apply text-[14px] leading-[20px];
+}
+
+.body-4 {
+  @apply text-[12px] leading-[18px];
 }

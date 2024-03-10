@@ -40,11 +40,11 @@ function Section({ picture, title, description, price, reverse, className, theme
             </div>
           </div>
           <div className="w-full px-6 py-4">
-            <h2 className={clsx('text-3xl font-bold', className.title)}>{title}</h2>
-            <p className={clsx('mt-4 text-2xl', className.title)}>${price}</p>
-            <p className={clsx('mt-4', className.content)}>{description}</p>
+            <h2 className={clsx('text-[38px] font-bold', className.title)}>{title}</h2>
+            <p className={clsx('mt-4 text-[30px]', className.title)}>${price}</p>
+            <p className={clsx('body-1 mt-4', className.content)}>{description}</p>
             <div className="mt-6">
-              <span className={clsx('mr-3 inline-block font-bold', className.content)}>
+              <span className={clsx('body-1 mr-3 inline-block font-bold', className.content)}>
                 Quantity:
               </span>
               <input
@@ -73,8 +73,8 @@ export default function HowItWorksIndividual() {
     <main>
       <Block className="bg-primary bg-opacity-10 text-center">
         <Container>
-          <h1 className="heading-1 text-primary">Feeding Fresh Is Easy With OCELLE</h1>
-          <p className="mt-4 text-secondary">
+          <h1 className="heading-1 font-bold text-primary">Feeding Fresh Is Easy With OCELLE</h1>
+          <p className="body-2 mt-4 text-secondary">
             If you’re not ready for a subscription, our individual packs come in set weights and can
             be ordered anytime.
           </p>
@@ -169,8 +169,8 @@ export default function HowItWorksIndividual() {
                     className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                   />
                 </div>
-                <p className="mt-6 text-xl font-bold text-gray">Developed By Vet Nutritionists</p>
-                <p className="mt-3">
+                <p className="heading-3 mt-6 font-bold text-gray">Developed By Vet Nutritionists</p>
+                <p className="body-1 mt-3">
                   Many of the health issues dogs face are related to diet. That’s why our team is
                   devoted to determining exactly what dogs need to live happier, healthier lives.
                 </p>
@@ -184,8 +184,10 @@ export default function HowItWorksIndividual() {
                     className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                   />
                 </div>
-                <p className="mt-6 text-xl font-bold text-gray">Crafted With Premium Ingredients</p>
-                <p className="mt-3">
+                <p className="heading-3 mt-6 font-bold text-gray">
+                  Crafted With Premium Ingredients
+                </p>
+                <p className="body-1 mt-3">
                   No heat-blasted ingredients. No preservatives. No fillers. No nonsense. Just real
                   ingredients you can see, nutrition dogs need, and the flavours they crave.
                 </p>
@@ -199,10 +201,10 @@ export default function HowItWorksIndividual() {
                     className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                   />
                 </div>
-                <p className="mt-6 text-xl font-bold text-gray">
+                <p className="heading-3 mt-6 font-bold text-gray">
                   Freshly Made To Lock In Nutrients
                 </p>
-                <p className="mt-3">
+                <p className="body-1 mt-3">
                   Our ingredients are gently cooked to maximize digestibility and preserve vital
                   nutrients, texture, and taste.
                 </p>
@@ -217,7 +219,7 @@ export default function HowItWorksIndividual() {
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center text-white">
           <h2 className="heading-1 font-bold">Easier For You. Better For Them.</h2>
-          <p className="mt-2 text-xl">
+          <p className="body-1 mt-2">
             Get fresh food conveniently delivered with our customised meal plans.
           </p>
           <div className="mt-8">

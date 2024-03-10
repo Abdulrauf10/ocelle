@@ -45,7 +45,7 @@ function Radio<T extends FieldValues>({
           />
         </div>
       </div>
-      <div className="mt-1 whitespace-nowrap px-1 text-center">{label}</div>
+      <div className="body-3 mt-1 whitespace-nowrap px-1 text-center">{label}</div>
     </label>
   );
 }

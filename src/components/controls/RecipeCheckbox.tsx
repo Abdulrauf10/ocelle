@@ -61,7 +61,7 @@ export default function RecipeCheckbox<T extends FieldValues>({
         {recommended && (
           <div
             className={clsx(
-              'absolute -left-1/2 inline-block select-none rounded-3xl border border-white bg-secondary px-3 py-px text-center text-sm uppercase italic text-white'
+              'body-4 absolute -left-1/2 inline-block select-none rounded-3xl border border-white bg-secondary px-3 py-px text-center uppercase italic text-white'
             )}
           >
             {t('recommended')}
