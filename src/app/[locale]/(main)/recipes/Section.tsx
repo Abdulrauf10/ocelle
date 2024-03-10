@@ -38,12 +38,12 @@ interface SectionProps {
 }
 
 function Hr() {
-  return <hr className="my-10 border-primary"></hr>;
+  return <hr className="my-10 border-t-2 border-primary"></hr>;
 }
 
 function Dotted() {
   return (
-    <div className="after:text-md relative h-0.5 w-full overflow-hidden whitespace-nowrap font-sans after:absolute after:-top-4 after:left-0 after:inline-block after:align-[3px] after:tracking-[6px] after:text-black after:content-dotted"></div>
+    <div className="relative h-0.5 w-full overflow-hidden whitespace-nowrap font-sans after:absolute after:-top-4 after:left-0 after:inline-block after:align-[3px] after:text-base after:tracking-[6px] after:text-black after:content-dotted"></div>
   );
 }
 
@@ -110,7 +110,7 @@ export default function Section({
                     {t('learn-more')}
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-screen-lg p-3">
+                <DialogContent className="max-w-[1100px] p-3">
                   <div className="relative w-full rounded-[30px] border-4 border-primary bg-white px-12 py-10 text-left max-md:px-6 max-md:pt-9">
                     <div className="-m-3 flex items-center max-md:flex-wrap">
                       <div className="p-3 text-[90px] font-bold leading-none text-primary max-lg:text-[70px] max-md:text-[85px] max-xs:text-[60px]">
@@ -152,10 +152,10 @@ export default function Section({
                                   height={124 - (ingredient.spacing ?? 0)}
                                 />
                               </div>
-                              <strong className="mt-6 block text-center text-xl text-primary">
+                              <strong className="heading-4 mt-6 block text-center text-primary">
                                 {ingredient.title}
                               </strong>
-                              <p className="mt-2 text-center">{ingredient.description}</p>
+                              <p className="body-1 mt-2 text-center">{ingredient.description}</p>
                             </SwiperSlide>
                           );
                         })}
@@ -172,7 +172,7 @@ export default function Section({
                             width={80}
                             height={80}
                           />
-                          <strong className="mt-2 block text-center text-xl font-bold text-primary">
+                          <strong className="heading-4 mt-2 block text-center font-bold text-primary">
                             No Colours
                           </strong>
                         </div>
@@ -184,7 +184,7 @@ export default function Section({
                             width={80}
                             height={80}
                           />
-                          <strong className="mt-2 block text-center text-xl font-bold text-primary">
+                          <strong className="heading-4 mt-2 block text-center font-bold text-primary">
                             No Filters
                           </strong>
                         </div>
@@ -196,7 +196,7 @@ export default function Section({
                             width={80}
                             height={80}
                           />
-                          <strong className="mt-2 block text-center text-xl font-bold text-primary">
+                          <strong className="heading-4 mt-2 block text-center font-bold text-primary">
                             No Flavourings
                           </strong>
                         </div>
@@ -208,7 +208,7 @@ export default function Section({
                             width={80}
                             height={80}
                           />
-                          <strong className="mt-2 block text-center text-xl font-bold text-primary">
+                          <strong className="heading-4 mt-2 block text-center font-bold text-primary">
                             No Preservatives
                           </strong>
                         </div>
@@ -221,7 +221,7 @@ export default function Section({
                             width={80}
                             height={80}
                           />
-                          <strong className="mt-2 block text-center text-xl font-bold text-primary">
+                          <strong className="heading-4 mt-2 block text-center font-bold text-primary">
                             No Additives
                           </strong>
                         </div>
@@ -233,7 +233,7 @@ export default function Section({
                             width={80}
                             height={80}
                           />
-                          <strong className="mt-2 block text-center text-xl font-bold text-primary">
+                          <strong className="heading-4 mt-2 block text-center font-bold text-primary">
                             No Artificial Ingredients
                           </strong>
                         </div>
@@ -245,7 +245,7 @@ export default function Section({
                             width={80}
                             height={80}
                           />
-                          <strong className="mt-2 block text-center text-xl font-bold text-primary">
+                          <strong className="heading-4 mt-2 block text-center font-bold text-primary">
                             No Hormones
                           </strong>
                         </div>
@@ -255,12 +255,12 @@ export default function Section({
                     <DialogSection title="Nutrition Profile">
                       <div className="-mx-6 -my-3 flex flex-wrap">
                         <div className="w-1/2 px-6 py-3 max-md:w-full">
-                          <div className="mt-2 flex flex-wrap justify-between">
-                            <strong>{t('calorie-content')}:</strong>
+                          <div className="body-1 mt-2 flex flex-wrap justify-between">
+                            <strong className="uppercase">{t('calorie-content')}:</strong>
                             <span>{t('{}-kcal-per-kg', { value: calorie })}</span>
                           </div>
-                          <div className="mt-2">
-                            <strong>{t('guarenteed-analysis')}:</strong>
+                          <div className="body-1 mt-2">
+                            <strong className="uppercase">{t('guarenteed-analysis')}:</strong>
                             <div className="mt-2 flex flex-wrap justify-between">
                               <span>{t('crude-protein')}</span>
                               <span>{t('{}-pct-min', { value: protein })}</span>
@@ -289,7 +289,7 @@ export default function Section({
                           </div>
                         </div>
                         <div className="w-1/2 px-6 py-3 max-md:w-full">
-                          <div className="flex h-full items-center rounded-3xl border-2 p-4 text-primary">
+                          <div className="body-1 flex h-full items-center rounded-3xl border-[3px] p-4 text-primary">
                             {t('our-{}-for-dogs-is-formulated-to-meet-the-nutritional-levels', {
                               name: title,
                             })}
