@@ -5,7 +5,6 @@ import Section from './Section';
 import Container from '@/components/Container';
 import Block from '@/components/Block';
 import { useTranslations } from 'next-intl';
-import Headings from '@/components/Headings';
 
 export default function HowItWorksSubscription() {
   const t = useTranslations();
@@ -34,9 +33,7 @@ export default function HowItWorksSubscription() {
       </div>
       <Block className="bg-[#EEEEEE]">
         <Container>
-          <Headings tag="h2" styles="h1" className="text-center text-gray">
-            How OCELLE Works
-          </Headings>
+          <h2 className="heading-1 text-center font-bold text-gray">How OCELLE Works</h2>
           <div className="mt-6">
             <HowPlanWorks />
           </div>
@@ -47,10 +44,10 @@ export default function HowItWorksSubscription() {
       </Block>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <Headings tag="h2" styles="h1" className="text-center text-dark-green">
+          <h2 className="heading-1 text-center font-bold text-dark-green">
             A Customised Plan To Suit <br className="max-sm:hidden" />
             Your Dog And You
-          </Headings>
+          </h2>
           <div className="mt-3 flex flex-wrap justify-center">
             <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full max-sm:px-0">
               <div className="relative h-full w-full rounded-[40px] border border-dark-green bg-white p-10 pt-16 text-center max-xs:px-4">
@@ -93,10 +90,10 @@ export default function HowItWorksSubscription() {
         reverse
         className="bg-primary bg-opacity-10"
       >
-        <Headings tag="h2" styles="h1" className="text-gold">
+        <h2 className="heading-1 font-bold text-gold">
           All The Flavour <br />
           They Desire!
-        </Headings>
+        </h2>
         <p className="mt-5 text-xl">
           Choose from five protein-rich fresh recipes, meticulously crafted with whole foods,
           slow-cooked to enhance both nutrition and taste. Mix-and-match according to your dog’s
@@ -107,9 +104,7 @@ export default function HowItWorksSubscription() {
         </div>
       </Section>
       <Section image="/dogs/three-dogs.jpeg" alt="three of dogs">
-        <Headings tag="h2" styles="h1" className="text-primary">
-          A Lifetime Of Tailored Nutrition!
-        </Headings>
+        <h2 className="heading-1 font-bold text-primary">A Lifetime Of Tailored Nutrition!</h2>
         <p className="mt-5 text-xl">
           From puppy food to senior dog food – we’re with you every step of the way. Our meals
           evolve with your dog, delivering maximum benefits at every bowl.
@@ -122,9 +117,9 @@ export default function HowItWorksSubscription() {
         image="/dogs/eating-dog.jpeg"
         alt="eating dog"
         heading={
-          <Headings tag="h2" styles="h1" className="mb-10 text-center text-primary">
+          <h2 className="heading-1 mb-10 text-center font-bold text-primary">
             When OCELLE Arrives
-          </Headings>
+          </h2>
         }
         className="bg-primary bg-opacity-10"
         reverse
@@ -147,9 +142,9 @@ export default function HowItWorksSubscription() {
       </Section>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <Headings tag="h2" styles="h1" className="mb-10 text-center font-bold text-gold">
+          <h2 className="heading-1 mb-10 text-center font-bold text-gold">
             Your Dog. Your Plan. Your Schedule.
-          </Headings>
+          </h2>
           <div className="mx-auto max-w-[680px] rounded-[30px] bg-white p-12 max-sm:p-8">
             <div className="flex items-center max-sm:block">
               <div className="w-[150px] min-w-[150px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">

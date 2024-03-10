@@ -11,7 +11,6 @@ import Billing from '@/components/icons/Billing';
 import Bell from '@/components/icons/Bell';
 import { useRouter } from '@/navigation';
 import { useTranslations } from 'next-intl';
-import Headings from '@/components/Headings';
 
 interface BlockProps {
   className?: string;
@@ -70,9 +69,7 @@ export default function Account() {
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
-        <Headings tag="h1" styles="h2" className="text-center text-primary">
-          {t('my-info')}
-        </Headings>
+        <h1 className="heading-3 text-center font-bold text-primary">{t('my-info')}</h1>
         <p className="mt-4 text-center">{t('manage-your-account-information')}</p>
         <div className="py-4"></div>
         <div className="mx-auto max-w-[480px]">

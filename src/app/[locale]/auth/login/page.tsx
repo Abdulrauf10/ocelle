@@ -1,7 +1,6 @@
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
-import Headings from '@/components/Headings';
 import UnderlineButton from '@/components/UnderlineButton';
 import { useTranslations } from 'next-intl';
 import React from 'react';
@@ -15,9 +14,7 @@ export default function Login() {
     <AppThemeProvider>
       <main className="py-10 text-center text-primary">
         <Container>
-          <Headings tag="h1" styles="h2">
-            {t('greetings')}
-          </Headings>
+          <h1 className="heading-3 font-bold">{t('greetings')}</h1>
           <p className="mt-4 text-xl">{t('please-log-in-to-continue')}</p>
           <div className="mx-auto max-w-[260px] max-xs:max-w-full">
             <LoginForm action={loginAction} />
@@ -27,9 +24,7 @@ export default function Login() {
               label={t('forgot-password')}
             />
             <hr className="mt-4 border-primary" />
-            <Headings tag="h2" styles="h2" className="mt-6">
-              {t('new-to-ocelle')}
-            </Headings>
+            <h2 className="heading-3 mt-6 font-bold">{t('new-to-ocelle')}</h2>
             <Button href="/get-started" reverse fullWidth className="mt-8">
               {t('build-your-plan')}
             </Button>

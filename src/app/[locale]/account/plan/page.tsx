@@ -5,7 +5,6 @@ import Button from '@/components/Button';
 import UnderlineButton from '@/components/UnderlineButton';
 import Image from 'next/image';
 import DogSwitch from '../DogSwitch';
-import Headings from '@/components/Headings';
 import { Dog, SaleorUser } from '@/entities';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import { getTranslations } from 'next-intl/server';
@@ -53,9 +52,9 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
         <Container className="max-w-[860px]">
           <div className="item-center -mx-4 -my-3 flex max-sm:flex-col-reverse">
             <div className="flex-1 px-4 py-3 max-sm:text-center">
-              <Headings tag="h1" styles="h2" className="text-primary">
+              <h1 className="heading-3 font-bold text-primary">
                 {t('welcome-back-{}', { name: me.firstName })}
-              </Headings>
+              </h1>
               <p className="mt-4">
                 {t('keep-tabs-on-your-subscription-and-edit-{}-information', {
                   name: dog.name,
@@ -67,9 +66,9 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
             </div>
           </div>
           <div className="py-6"></div>
-          <Headings tag="h2" styles="h2" className="text-primary max-md:text-center">
+          <h2 className="heading-3 font-bold text-primary max-md:text-center">
             {t('{}-colon', { value: t('your-dog') })}
-          </Headings>
+          </h2>
           <div className="mx-auto mt-4 rounded-[30px] border border-brown bg-white px-4 py-2 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] max-md:text-center">
             <div className="flex flex-wrap items-center">
               <div className="flex-1 px-3 py-3">
@@ -100,9 +99,9 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
             </div>
           </div>
           <div className="py-6"></div>
-          <Headings tag="h2" styles="h2" className="text-primary max-md:text-center">
+          <h2 className="heading-3 font-bold text-primary max-md:text-center">
             {t('{}-colon', { value: t('{}-box', { name: dog.name }) })}
-          </Headings>
+          </h2>
           <div className="mt-4 rounded-[30px] border border-brown bg-white px-8 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:border-none max-md:bg-transparent max-md:p-0 max-md:shadow-none">
             <div className="-mx-3 flex max-md:block">
               <div className="px-3 text-center">
@@ -257,12 +256,12 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
                 <Image src="/referral-box.svg" alt="Referral Box" width={300} height={300} />
               </div>
               <div className="px-4 max-md:text-center">
-                <Headings tag="h2" styles="h2">
+                <h2 className="heading-3">
                   {t.rich('know-more-dog-people-refer-a-friend-earn-{}', {
                     value: '[$50]',
                     strong: (chunks) => <strong className="text-[1.1em]">{chunks}</strong>,
                   })}
-                </Headings>
+                </h2>
                 <p className="mt-3">
                   {t.rich(
                     'refer-your-friends-to-try-ocelle-with-a-special-discount-code-and-get-{}-off-your-next-box',

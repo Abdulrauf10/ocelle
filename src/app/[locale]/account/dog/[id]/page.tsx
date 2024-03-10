@@ -1,7 +1,6 @@
 import React from 'react';
 import Container from '@/components/Container';
 import { Dog } from '@/entities';
-import Headings from '@/components/Headings';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import { getStoreMe } from '@/storeUserProvider';
 import { executeQuery } from '@/helpers/queryRunner';
@@ -42,9 +41,9 @@ export default async function EditDog({ params }: { params: { id: string } }) {
     <AppThemeProvider>
       <main className="bg-gold bg-opacity-10 py-10">
         <Container className="max-w-[860px]">
-          <Headings tag="h1" styles="h2" className="text-center text-primary">
+          <h1 className="heading-3 text-center font-bold text-primary">
             {t('edit-{}-information', { name: dog.name })}
-          </Headings>
+          </h1>
           <DogForm
             name={dog.name}
             breeds={dog.breeds.map((breed) => breed.breed)}

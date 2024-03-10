@@ -1,6 +1,5 @@
 import React from 'react';
 import Container from '@/components/Container';
-import Headings from '@/components/Headings';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import CardForm from '@/components/forms/Card';
 import AccountBackButton from '../AccountBackButton';
@@ -25,9 +24,7 @@ export default async function Payments() {
       <main className="bg-gold bg-opacity-10 py-10">
         <Container>
           <div className="mx-auto max-w-[520px]">
-            <Headings tag="h1" styles="h2" className="text-center text-primary">
-              {t('payment-info')}
-            </Headings>
+            <h1 className="heading-3 text-center font-bold text-primary">{t('payment-info')}</h1>
             <div className="py-4"></div>
             <CardForm
               name={name}

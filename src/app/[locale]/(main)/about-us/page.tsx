@@ -1,7 +1,6 @@
 import Block from '@/components/Block';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
-import Headings from '@/components/Headings';
 import Sound from '@/components/icons/Sound';
 import Newsletter from '@/components/Newsletter';
 import { Link } from '@/navigation';
@@ -12,9 +11,7 @@ export default function OurStory() {
     <main>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <Headings tag="h1" styles="h1" className="text-center text-primary">
-            We Do It For Them
-          </Headings>
+          <h1 className="heading-1 text-center font-bold text-primary">We Do It For Them</h1>
           <div className="mx-auto mt-10 rounded-[30px] border border-primary bg-white p-12 text-[1.6vw] leading-[1.2] max-3xl:text-[2.4vw] max-2xl:text-[2.8vw] max-xl:p-10 max-xl:text-[3.4vw] max-lg:text-[3.8vw] max-md:p-8 max-md:text-[4.8vw] max-sm:text-[36px] max-xs:p-6 max-xs:text-[32px]">
             <strong className="flex items-center text-[1em] leading-[1.5em] text-primary">
               <span>Ocelle | oh-chell-i |</span>
@@ -43,11 +40,11 @@ export default function OurStory() {
       <div className="flex flex-wrap">
         <div className="w-1/2 bg-brown pl-[8vw] pr-[4vw] text-xl text-white max-md:w-full max-md:px-4">
           <Block>
-            <Headings tag="h2" styles="h1">
+            <h2 className="heading-1 font-bold">
               A <i>Tail</i> Of&nbsp;
               <br className="max-md:hidden" />
               Transformation
-            </Headings>
+            </h2>
             <p className="mt-8">
               OCELLE starts not in a lab, but in a loving home. Our founder, Kevan, faced a
               challenge many pet parents know only too well – a beloved furry family member with
@@ -86,9 +83,7 @@ export default function OurStory() {
               className="max-md:mx-auto"
             />
           </div>
-          <Headings tag="h2" styles="h1" className="pt-6">
-            A Fresh Perspective
-          </Headings>
+          <h2 className="heading-1 pt-6 font-bold">A Fresh Perspective</h2>
           <p className="mt-4 w-2/3 text-xl max-xl:w-full">
             This personal journey sparked an idea: What if I could extend this increase in health
             and happiness to all dogs? Why should real food be an exception rather than the norm for
@@ -99,11 +94,11 @@ export default function OurStory() {
       <div className="flex flex-wrap max-lg:flex-col-reverse">
         <div className="w-1/2 bg-secondary bg-opacity-20 pl-[8vw] pr-[4vw] text-xl max-lg:w-full max-lg:px-4">
           <Block>
-            <Headings tag="h2" styles="h1" className="text-secondary">
+            <h2 className="heading-1 font-bold text-secondary">
               Healthier. Happier.
               <br />
               Waggier.
-            </Headings>
+            </h2>
             <p className="mt-8">
               That&apos;s how OCELLE was born. Our philosophy is straightforward: Real, nourishing
               food isn&apos;t a pet&apos;s privilege; it&apos;s their right. We believe in the
@@ -141,10 +136,10 @@ export default function OurStory() {
       </div>
       <Block className="bg-dark-green">
         <Container className="text-center text-white" screen>
-          <Headings tag="h2" styles="h1">
+          <h2 className="heading-1 font-bold">
             Powered By Science, <br />
             We Turn Love Into Uncomplicated Care!
-          </Headings>
+          </h2>
           <div className="mt-10">
             <Button href="/get-started">Start Your Fresh Journey</Button>
           </div>
@@ -152,9 +147,7 @@ export default function OurStory() {
       </Block>
       <Block>
         <Container className="text-center text-primary">
-          <Headings tag="h2" styles="h1">
-            Our Community
-          </Headings>
+          <h2 className="heading-1 font-bold">Our Community</h2>
           <p className="mx-auto mt-6 max-w-4xl text-xl">
             Are you as passionate as we are about giving your dog(s) the best? We&apos;re firm
             believers in the strength of community to bring about real transformation. If

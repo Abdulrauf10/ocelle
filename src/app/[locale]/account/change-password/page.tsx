@@ -1,7 +1,6 @@
 import React from 'react';
 import Container from '@/components/Container';
 import { useTranslations } from 'next-intl';
-import Headings from '@/components/Headings';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import ChangePasswordForm from '@/components/forms/ChangePassword';
 import AccountBackButton from '../AccountBackButton';
@@ -15,9 +14,9 @@ export default function ChangePassword() {
       <main className="bg-gold bg-opacity-10 py-10">
         <Container>
           <div className="mx-auto max-w-[520px]">
-            <Headings tag="h1" styles="h2" className="text-center text-primary">
+            <h1 className="heading-3 text-center font-bold text-primary">
               {t('change-{}', { value: t('password') })}
-            </Headings>
+            </h1>
             <div className="py-4"></div>
             <ChangePasswordForm action={changePasswordAction} />
             <div className="mt-12 text-center">

@@ -1,7 +1,6 @@
 import Block from '@/components/Block';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
-import Headings from '@/components/Headings';
 import Newsletter from '@/components/Newsletter';
 import UnderlineButton from '@/components/UnderlineButton';
 import { Link } from '@/navigation';
@@ -39,9 +38,7 @@ export default function AffiliateProgram() {
         <div className="min-h-[460px] w-1/2 bg-[url('./glass-dog.jpg')] bg-cover bg-[center_right] max-lg:w-full"></div>
         <div className="w-1/2 bg-primary bg-opacity-10 px-[4vw] text-xl max-lg:w-full">
           <Block className="text-primary">
-            <Headings tag="h2" styles="h1" className="text-center">
-              The Program
-            </Headings>
+            <h2 className="heading-1 text-center font-bold">The Program</h2>
             <div className="mx-auto mt-8 max-w-[580px]">
               <div className="-mx-4 -my-6 flex flex-wrap justify-center text-center">
                 <div className="w-2/5 px-4 py-6 max-xs:w-full">
@@ -103,11 +100,11 @@ export default function AffiliateProgram() {
       </div>
       <Block className="bg-gray bg-opacity-20">
         <Container className="max-w-screen-xl text-center">
-          <Headings tag="h2" styles="h1" className="text-gold">
+          <h2 className="heading-1 font-bold text-gold">
             Spread The Health
             <br />
             And We’ll Share The Wealth!
-          </Headings>
+          </h2>
           <div className="mt-10">
             <div className="-mx-4 -my-4 flex flex-wrap">
               <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">

@@ -10,7 +10,6 @@ import List from '@/components/List';
 import Tickbox from '@/components/icons/Tickbox';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
-import Headings from '@/components/Headings';
 import Marquee from '@/components/Marquee';
 
 export default function Home() {
@@ -21,11 +20,11 @@ export default function Home() {
       <Picture />
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center text-white">
-          <Headings tag="h1" styles="h1">
+          <h1 className="heading-1 font-bold">
             {t('they-re-my-dogs')}
             <br className="md:hidden" />
             {t('they-re-my-family')}
-          </Headings>
+          </h1>
           <p className="mt-8 text-xl">
             {t(
               'trade-guesswork-for-peace-of-mind-relax-knowing-that-your-dog-is-getting-the-highest-quality'
@@ -39,13 +38,13 @@ export default function Home() {
         <div className="min-h-[300px] w-1/2 bg-[url('./gofresh-img.jpg')] bg-cover bg-[center_right] max-md:w-full"></div>
         <div className="w-1/2 px-[4vw] text-xl max-md:w-full">
           <Block>
-            <Headings tag="h2" styles="h1" className="text-primary">
+            <h2 className="heading-1 font-bold text-primary">
               {t('more-years')}
               <br className="hidden md:block xl:hidden" />
               {t('happier-years')}
               <br />
               {t('it-s-time-to-go-fresh')}
-            </Headings>
+            </h2>
             <div className="mt-[2vw]">
               <List
                 picture={<Tickbox className="mr-4 mt-1 h-5 w-5" />}
@@ -68,11 +67,11 @@ export default function Home() {
       </div>
       <Block className="bg-primary bg-opacity-15">
         <Container>
-          <Headings tag="h2" styles="h1" className="text-center text-primary">
+          <h2 className="heading-1 text-center font-bold text-primary">
             {t('we-re-powered-by-science')}
             <br className="hidden lg:block" />
             {t('customised-meal-plans-for-your-dogs')}
-          </Headings>
+          </h2>
           <div className="relative mt-10 flex-col-reverse items-center max-xl:flex">
             <div className="pb-0 max-xl:flex max-xl:flex-wrap [&>*]:max-xl:m-0 [&>*]:max-xl:mt-3 [&>*]:max-xl:max-w-none [&>*]:max-xl:px-4 [&>*]:max-xl:py-3 [&>*]:max-xl:text-center [&>*]:max-sm:w-full [&_img]:max-xl:inline">
               <div className="ml-14 mt-5 md:w-1/2 xl:w-full">
@@ -178,9 +177,7 @@ export default function Home() {
       />
       <Block className="bg-gray bg-opacity-20">
         <Container>
-          <Headings tag="h2" styles="h1" className="text-center text-gray">
-            How Your Plan Works
-          </Headings>
+          <h2 className="heading-1 text-center font-bold text-gray">How Your Plan Works</h2>
           <div className="mt-6">
             <HowPlanWorks />
           </div>
@@ -205,9 +202,7 @@ export default function Home() {
       </Block>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <Headings tag="h2" styles="h1" className="text-center font-black text-gold">
-            Proof Is In The Eating
-          </Headings>
+          <h2 className="heading-1 text-center font-black text-gold">Proof Is In The Eating</h2>
           <p className="mx-auto mt-5 max-w-screen-md text-center text-xl text-gold">
             Choose OCELLE and watch your dog thrive – from better gut health (cleaner poops!) and
             luxurious fur, to optimised energy for life. But you don&apos;t have to take our word

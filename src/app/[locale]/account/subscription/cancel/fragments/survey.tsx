@@ -6,7 +6,6 @@ import Container from '@/components/Container';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import Button from '@/components/Button';
 import { useTranslations } from 'next-intl';
-import Headings from '@/components/Headings';
 
 export default function SurveyFragment({ navigate }: FragmentProps<Path>) {
   const t = useTranslations();
@@ -39,9 +38,9 @@ export default function SurveyFragment({ navigate }: FragmentProps<Path>) {
 
   return (
     <Container>
-      <Headings tag="h1" styles="h2" className="text-center text-primary">
+      <h1 className="heading-3 text-center font-bold text-primary">
         {t('cancel-my-subscription')}
-      </Headings>
+      </h1>
       <p className="mt-4 text-center">
         {t.rich('cancel-my-subscription:survey', { br: () => <br className="max-sm:hidden" /> })}
       </p>
@@ -108,9 +107,9 @@ export default function SurveyFragment({ navigate }: FragmentProps<Path>) {
           </div>
         </div>
       </div>
-      <Headings tag="h2" styles="h2" className="mt-20 text-center text-primary">
+      <h2 className="heading-3 mt-20 text-center font-bold text-primary">
         {t.rich('cancel-my-subscrption:experience', { br: () => <br /> })}
-      </Headings>
+      </h2>
       <div className="pb-2 text-center">
         <Controller
           name="feedback"

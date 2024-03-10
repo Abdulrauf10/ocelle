@@ -32,3 +32,19 @@ span.swiper-pagination-bullet {
 span.swiper-pagination-bullet-active {
   transform: scale(1) !important;
 }
+
+.heading-1 {
+  @apply text-[3vw] leading-[1.2em] max-3xl:text-[3.2vw] max-xl:text-[3.6vw] max-lg:text-[4.2vw] max-md:text-[36px] max-xs:text-[32px];
+}
+
+.heading-2 {
+  @apply text-[32px] leading-[38px];
+}
+
+.heading-3 {
+  @apply text-[24px] leading-[32px];
+}
+
+.body-1 {
+  @apply text-[20px] leading-[24px];
+}

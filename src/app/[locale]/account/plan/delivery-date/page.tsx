@@ -1,6 +1,5 @@
 import Container from '@/components/Container';
 import Button from '@/components/Button';
-import Headings from '@/components/Headings';
 import { Dog } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getStoreMe } from '@/storeUserProvider';
@@ -32,9 +31,9 @@ export default async function PlanDeliveryDate() {
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
-        <Headings tag="h1" styles="h2" className="text-center text-primary">
+        <h1 className="heading-3 text-center font-bold text-primary">
           {t('change-{}', { value: t('delivery-date') })}
-        </Headings>
+        </h1>
         <p className="mx-auto mt-4 max-w-[620px] text-center">
           {t.rich('your-upcoming-box-is-arriving-on-the-{}', {
             date: '[15th of December 2023]',

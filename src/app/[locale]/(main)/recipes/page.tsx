@@ -4,7 +4,6 @@ import Newsletter from '@/components/Newsletter';
 import Container from '@/components/Container';
 import RecipeBenefits from './Benefits';
 import { useTranslations } from 'next-intl';
-import Headings from '@/components/Headings';
 import Block from '@/components/Block';
 import Marquee from '@/components/Marquee';
 import pluralize from 'pluralize';
@@ -525,9 +524,9 @@ export default function RecipesPage() {
       </Block>
       <Block>
         <Container className="text-center">
-          <Headings tag="h2" styles="h2" className="text-primary">
+          <h2 className="heading-3 font-bold text-primary">
             Freshen Up With A Science First Approach To Pet Food
-          </Headings>
+          </h2>
           <p className="mt-6 text-lg">
             Get fresh food conveniently delivered with our customised meal plans.
           </p>

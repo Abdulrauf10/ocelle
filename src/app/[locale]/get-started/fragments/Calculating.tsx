@@ -2,7 +2,6 @@ import React from 'react';
 import Image from 'next/image';
 import Container from '@/components/Container';
 import { FragmentProps } from '@/components/FragmentRouter';
-import Headings from '@/components/Headings';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
 import { useSurvey } from '../SurveyContext';
@@ -28,9 +27,7 @@ export default function CalculatingFragment({ navigate }: FragmentProps<Stage>) 
         height={200}
         className="inline-block"
       />
-      <Headings tag="h1" styles="h2" className="mt-8 font-bold text-primary">
-        {t('calculating')}
-      </Headings>
+      <h1 className="heading-3 mt-8 font-bold text-primary">{t('calculating')}</h1>
       <p className="mt-8 text-primary">
         {t('were-crunching-some-numbers-to-formulate-{}-meal-plan', { name })}
       </p>

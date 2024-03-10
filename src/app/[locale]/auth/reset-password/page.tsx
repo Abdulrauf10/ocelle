@@ -1,6 +1,5 @@
 import React from 'react';
 import Container from '@/components/Container';
-import Headings from '@/components/Headings';
 import { useTranslations } from 'next-intl';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import resetPasswordAction from './action';
@@ -22,9 +21,7 @@ export default function ResetPassword({
     <AppThemeProvider>
       <main className="py-10 text-center text-primary">
         <Container>
-          <Headings tag="h1" styles="h2">
-            {t('change-{}', { value: t('password') })}
-          </Headings>
+          <h1 className="heading-3 font-bold">{t('change-{}', { value: t('password') })}</h1>
           <div className="mx-auto max-w-[280px] max-xs:max-w-full">
             <ResetPasswordForm
               action={async (data) => {

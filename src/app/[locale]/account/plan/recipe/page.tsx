@@ -1,6 +1,5 @@
 import Container from '@/components/Container';
 import DogSwitch from '../../DogSwitch';
-import Headings from '@/components/Headings';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import { getStoreMe } from '@/storeUserProvider';
 import { executeQuery } from '@/helpers/queryRunner';
@@ -40,9 +39,9 @@ export default async function PlanRecipe({ searchParams }: { searchParams: { cur
           <div className="mx-auto flex max-w-[1120px] justify-end">
             <DogSwitch dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))} />
           </div>
-          <Headings tag="h1" styles="h2" className="text-center text-primary max-lg:mt-6">
+          <h1 className="heading-3 text-center font-bold text-primary max-lg:mt-6">
             {t('choose-{}-fresh-recipes', { name: dog.name })}
-          </Headings>
+          </h1>
           <p className="mx-auto mt-4 max-w-[620px] text-center">
             {t.rich('{}-upcoming-box-is-scheduled-for-the-{}', {
               name: dog.name,

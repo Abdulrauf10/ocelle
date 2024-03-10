@@ -4,7 +4,6 @@ import { Breed } from '@/entities';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import Headings from '../Headings';
 import { Autocomplete, Chip, TextField } from '@mui/material';
 import InteractiveBlock from '../controls/InteractiveBlock';
 import UnderlineButton from '../UnderlineButton';
@@ -33,18 +32,12 @@ function EditDogBlock({
     if (description) {
       return (
         <div className="-m-1 flex flex-wrap items-end pb-3">
-          <Headings tag="h2" styles="h2" className="p-1 text-primary">
-            {title}
-          </Headings>
+          <h2 className="heading-3 p-1 font-bold text-primary">{title}</h2>
           <p className="p-1 max-md:w-full">{description}</p>
         </div>
       );
     }
-    return (
-      <Headings tag="h2" styles="h2" className="pb-3 text-primary">
-        {title}
-      </Headings>
-    );
+    return <h2 className="heading-3 pb-3 font-bold text-primary">{title}</h2>;
   };
 
   return (

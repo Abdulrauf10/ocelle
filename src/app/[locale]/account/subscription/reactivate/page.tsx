@@ -2,7 +2,6 @@ import Container from '@/components/Container';
 import EditButton from '@/components/EditButton';
 import Image from 'next/image';
 import Button from '@/components/Button';
-import Headings from '@/components/Headings';
 import SectionBlock from './SectionBlock';
 import SectionHr from './SectionHr';
 import CollapseBlock from './CollapseBlock';
@@ -48,9 +47,9 @@ export default async function Reactivate() {
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
-        <Headings tag="h1" styles="h2" className="text-center text-primary">
+        <h1 className="heading-3 text-center font-bold text-primary">
           {t('welcome-back-to-the-ocelle-pack')}
-        </Headings>
+        </h1>
         <p className="mt-6 text-center">{t('please-review-your-details-below')}</p>
         {dogs.map((dog) => {
           return (

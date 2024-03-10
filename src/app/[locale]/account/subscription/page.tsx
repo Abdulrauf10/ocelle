@@ -6,7 +6,6 @@ import Container from '@/components/Container';
 import UnderlineButton from '@/components/UnderlineButton';
 import Button from '@/components/Button';
 import { useTranslations } from 'next-intl';
-import Headings from '@/components/Headings';
 
 export default function Subscriptions() {
   const t = useTranslations();
@@ -73,9 +72,9 @@ export default function Subscriptions() {
     >
       <main className="bg-gold bg-opacity-10 py-10">
         <Container>
-          <Headings tag="h1" styles="h2" className="text-center text-primary">
+          <h1 className="heading-3 text-center font-bold text-primary">
             {t('your-subscriptions')}
-          </Headings>
+          </h1>
           <div className="mx-auto mt-4 max-w-[580px] rounded-3xl border border-gray bg-white p-6 text-center shadow-[5px_5px_12px_rgba(0,0,0,.1)]">
             <div className="text-xl font-bold text-gold">{t('reactivate-or-suspend-a-plan')}</div>
             <div className="mt-4 flex items-center">

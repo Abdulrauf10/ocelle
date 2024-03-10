@@ -2,7 +2,6 @@
 
 import Button from '@/components/Button';
 import React from 'react';
-import Headings from '@/components/Headings';
 import { useTranslations } from 'next-intl';
 import { OrderSize } from '@/enums';
 
@@ -29,9 +28,7 @@ export default function OrderSizeForm({
               onClick={() => setSize(OrderSize.OneWeek)}
             >
               <div className="flex-1 px-2">
-                <Headings tag="h2" styles="h2" className="text-primary">
-                  {t('{}-days', { value: 7 })}
-                </Headings>
+                <h2 className="heading-3 font-bold text-primary">{t('{}-days', { value: 7 })}</h2>
                 <p className="mt-1">$[15]{t('per-day')}</p>
               </div>
               <div className="px-2">
@@ -54,9 +51,7 @@ export default function OrderSizeForm({
               onClick={() => setSize(OrderSize.TwoWeek)}
             >
               <div className="flex-1 px-2">
-                <Headings tag="h2" styles="h2" className="text-primary">
-                  {t('{}-days', { value: 14 })}
-                </Headings>
+                <h2 className="heading-3 font-bold text-primary">{t('{}-days', { value: 14 })}</h2>
                 <p className="mt-1">$[13]{t('per-day')}</p>
               </div>
               <div className="px-2">

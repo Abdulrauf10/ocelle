@@ -9,7 +9,6 @@ import Button from '@/components/Button';
 import PartialAddressForm from '@/components/forms/partial/Address';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import { useTranslations } from 'next-intl';
-import Headings from '@/components/Headings';
 import AppThemeProvider from '@/components/AppThemeProvider';
 
 interface AddressBlockProps {
@@ -70,9 +69,9 @@ export default function Addresses() {
       <main className="bg-gold bg-opacity-10 py-10">
         <Container>
           <div className="mx-auto max-w-[520px]">
-            <Headings tag="h2" styles="h2" className="text-center text-primary">
+            <h2 className="heading-3 text-center font-bold text-primary">
               {t('delivery-address')}
-            </Headings>
+            </h2>
             <p className="mt-4 text-center">
               {t.rich(
                 'delivery-address-changes-will-be-in-effect-starting-with-your-{}-order-scheduled-for-the-{}',
@@ -86,9 +85,7 @@ export default function Addresses() {
             <div className="py-4"></div>
             <AddressBlock isDeliveryAddress onSubmit={onDeliverySubmit} />
             <div className="py-12"></div>
-            <Headings tag="h2" styles="h2" className="text-center text-primary">
-              {t('billing-address')}
-            </Headings>
+            <h2 className="heading-3 text-center font-bold text-primary">{t('billing-address')}</h2>
             <div className="py-4"></div>
             <AddressBlock onSubmit={onBillingSubmit} />
             <div className="mt-12 text-center">

@@ -5,7 +5,6 @@ import CircleTick from '@/components/icons/CircleTick';
 import UnderlineButton from '@/components/UnderlineButton';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import Headings from '@/components/Headings';
 
 export default function CompleteFragment({ navigate }: FragmentProps<Path>) {
   const t = useTranslations();
@@ -15,9 +14,9 @@ export default function CompleteFragment({ navigate }: FragmentProps<Path>) {
       <div className="mx-auto h-12 w-12 rounded-full bg-secondary p-1.5">
         <CircleTick className="relative top-px" />
       </div>
-      <Headings tag="h1" styles="h2" className="mt-2 text-center text-primary">
+      <h1 className="heading-3 mt-2 text-center font-bold text-primary">
         {t('cancellation-successful')}
-      </Headings>
+      </h1>
       <div className="relative -m-2 mx-auto mt-6 flex max-w-[780px] items-center justify-center max-lg:flex-col">
         <div className="absolute -left-24 p-2 max-lg:static">
           <Image src="/sorry.svg" alt="Sorry dog" width={80} height={80} />

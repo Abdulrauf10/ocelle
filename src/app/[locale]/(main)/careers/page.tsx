@@ -7,7 +7,6 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import UnderlineButton from '@/components/UnderlineButton';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
-import Headings from '@/components/Headings';
 import Block from '@/components/Block';
 import { executeQuery } from '@/helpers/queryRunner';
 
@@ -80,9 +79,7 @@ export default async function Careers() {
     <main>
       <Block styles="tight" className="bg-primary bg-opacity-10">
         <Container>
-          <Headings tag="h1" styles="h1" className="text-center text-primary">
-            Dog People Wanted
-          </Headings>
+          <h1 className="heading-1 text-center font-bold text-primary">Dog People Wanted</h1>
           <p className="mt-4 text-center text-secondary">
             Make a living helping dogs live happier, healthier lives.
           </p>

@@ -5,7 +5,6 @@ import Container from '@/components/Container';
 import UnderlineButton from '@/components/UnderlineButton';
 import CircleTick from '@/components/icons/CircleTick';
 import { useTranslations } from 'next-intl';
-import Headings from '@/components/Headings';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import DeliveryDateForm from '@/components/forms/DeliveryDate';
 import pauseDeliveriesAction from './action';
@@ -27,9 +26,7 @@ export default function PauseDelivery() {
             <div className="mx-auto h-12 w-12 rounded-full bg-secondary p-1.5">
               <CircleTick className="relative top-px" />
             </div>
-            <Headings tag="h1" styles="h2" className="mt-2 text-center text-primary">
-              {t('done')}
-            </Headings>
+            <h1 className="heading-3 mt-2 text-center font-bold text-primary">{t('done')}</h1>
             <p className="mx-auto mt-4 max-w-[360px] text-center">
               {t.rich('your-orders-are-now-paused-delivery-will-resume-on-the-{}', {
                 strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
@@ -46,9 +43,9 @@ export default function PauseDelivery() {
           </Container>
         ) : (
           <Container>
-            <Headings tag="h1" styles="h2" className="text-center text-primary">
+            <h1 className="heading-3 text-center font-bold text-primary">
               {t('pause-all-deliveries')}
-            </Headings>
+            </h1>
             <p className="mx-auto mt-4 max-w-[680px] text-center">
               {t('pause-all-deliveries:description')}
             </p>

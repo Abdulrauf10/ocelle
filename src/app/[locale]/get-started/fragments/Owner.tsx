@@ -9,7 +9,6 @@ import SectionBreak from '../SectionBreak';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
-import Headings from '@/components/Headings';
 
 export default function OwnerFragment({ navigate }: FragmentProps<Stage>) {
   const t = useTranslations();
@@ -25,9 +24,7 @@ export default function OwnerFragment({ navigate }: FragmentProps<Stage>) {
 
   return (
     <Container className="text-center">
-      <Headings tag="h1" styles="h2" className="font-bold text-primary">
-        {t('now-tell-us-a-bit-about-you')}
-      </Headings>
+      <h1 className="heading-3 font-bold text-primary">{t('now-tell-us-a-bit-about-you')}</h1>
       <form onSubmit={handleSubmit(onSubmit)} className="mt-12">
         <Section title={t('whats-your-name')}>
           <div className="mx-auto max-w-[320px]">

@@ -9,7 +9,6 @@ import RecipeCheckbox from '@/components/controls/RecipeCheckbox';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Section from '../Section';
 import Stage from '../Stage';
-import Headings from '@/components/Headings';
 import { useTranslations } from 'next-intl';
 import { useSurvey } from '../SurveyContext';
 import { booleanToString, stringToBoolean } from '@/helpers/string';
@@ -234,9 +233,7 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
               </div>
             </div>
             <div className="mx-auto mt-10 max-w-[840px] rounded-[20px] border border-primary bg-white p-7 text-primary shadow-[3px_3px_10px_rgba(0,0,0,.2)]">
-              <Headings tag="h2" styles="h2">
-                {t('use-a-transition-period-in-starter-box')}
-              </Headings>
+              <h2 className="heading-3 font-bold">{t('use-a-transition-period-in-starter-box')}</h2>
               <p className="mt-5">{t('use-a-transition-period-in-starter-box:description')}</p>
               <div className="my-3 flex flex-wrap justify-center">
                 <div className="mt-4 px-2">

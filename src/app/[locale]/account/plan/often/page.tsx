@@ -1,6 +1,5 @@
 import Container from '@/components/Container';
 import React from 'react';
-import Headings from '@/components/Headings';
 import { SaleorUser } from '@/entities';
 import { getTranslations } from 'next-intl/server';
 import { OrderSize } from '@/enums';
@@ -33,9 +32,9 @@ export default async function PlanOften() {
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
-        <Headings tag="h1" styles="h2" className="text-center text-primary">
+        <h1 className="heading-3 text-center font-bold text-primary">
           {t('how-often-would-you-like-to-receive-deliveries')}
-        </Headings>
+        </h1>
         <OrderSizeForm initialSize={user.orderSize} action={setOrderSizeAction} />
         <div className="mt-8 text-center">
           <AccountBackButton />

@@ -1,6 +1,5 @@
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
-import Headings from '@/components/Headings';
 import UnderlineButton from '@/components/UnderlineButton';
 import React from 'react';
 import forgotPasswordAction from './action';
@@ -14,9 +13,7 @@ export default function ForgotPassword() {
     <AppThemeProvider>
       <main className="py-10 text-center text-primary">
         <Container>
-          <Headings tag="h1" styles="h2">
-            {t('set-{}', { value: t('new-password') })}
-          </Headings>
+          <h1 className="heading-3 font-bold">{t('set-{}', { value: t('new-password') })}</h1>
           <p className="mt-4 text-xl">
             {t('trouble-logging-in-please-enter-your-email-to-reset-your-password')}
           </p>
