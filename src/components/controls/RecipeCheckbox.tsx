@@ -25,7 +25,7 @@ interface RecipeCheckboxProps<T extends FieldValues> extends InputControllerProp
 
 function Dotted() {
   return (
-    <div className="after:text-md relative h-0.5 w-full overflow-hidden whitespace-nowrap font-sans after:absolute after:-top-4 after:left-0 after:inline-block after:align-[3px] after:tracking-[6px] after:text-black after:content-dotted"></div>
+    <div className="relative h-0.5 w-full overflow-hidden whitespace-nowrap font-sans after:absolute after:-top-4 after:left-0 after:inline-block after:align-[3px] after:text-base after:tracking-[6px] after:text-black after:content-dotted"></div>
   );
 }
 
