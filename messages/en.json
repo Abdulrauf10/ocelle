@@ -355,8 +355,12 @@
   "human-grade": "Human-Grade",
   "made-fresh": "Made Fresh",
   "high-quality-ingredients": "High-Quality Ingredients",
+  "no-colours":"No Colours",
   "no-fillers":"No Fillers",
+  "no-flavourings":"No Flavourings",
   "no-preservatives":"No Preservatives",
+  "no-additives": "No Additives",
+  "no-hormones": "No Hormones",
   "no-artificial-flavours":"No Artificial Flavours",
   "see-my-plan":"See My Plan",
   "chicken-breast": "Chicken Breast",
@@ -383,5 +387,8 @@
   "duck-breast": "Duck Breast",
   "winter-melon": "Winter Melon",
   "goji-berry": "Goji Berry",
-  "whole-grain-pasta": "Whole-Grain Pasta"
+  "whole-grain-pasta": "Whole-Grain Pasta",
+  "whats-inside": "What’s Inside?",
+  "whats-not-inside": "What’s Not Inside?",
+  "nutrition-profile": "Nutrition Profile"
 }

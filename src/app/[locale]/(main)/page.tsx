@@ -50,11 +50,11 @@ export default function Home() {
                 picture={<Tickbox className="mr-4 mt-1 h-5 w-5" />}
                 className={{ listItem: 'py-0.5' }}
                 items={[
-                  'increased-lifespan',
-                  'delayed-onset-of-chronic-disease',
-                  'reduced-likelihood-of-obesity',
-                  'increased-bio-health-and-food-safety',
-                  'increased-vitality-and-happiness',
+                  t('increased-lifespan'),
+                  t('delayed-onset-of-chronic-disease'),
+                  t('reduced-likelihood-of-obesity'),
+                  t('increased-bio-health-and-food-safety'),
+                  t('increased-vitality-and-happiness'),
                 ]}
               />
             </div>

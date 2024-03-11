@@ -130,12 +130,14 @@ export default function RecipeCheckbox<T extends FieldValues>({
                   {tab === 'Ingredients' && (
                     <>
                       <p className="mt-3 leading-tight">
-                        <strong>{t('ingredients')}</strong>
+                        <strong>{t('{}-colon', { value: t('ingredients') })}</strong>
                         <br />
                         {ingredients}
                       </p>
                       <p className="mt-3 leading-tight">
-                        <strong>Ocelle Targeted Nutrient Blend:</strong>
+                        <strong>
+                          {t('{}-colon', { value: t('ocelle-targeted-nutrient-blend') })}
+                        </strong>
                         <br />
                         {nutrientBlend}
                       </p>
@@ -144,11 +146,15 @@ export default function RecipeCheckbox<T extends FieldValues>({
                   {tab === 'Nutrition' && (
                     <>
                       <div className="mt-2 flex flex-wrap justify-between">
-                        <strong className="uppercase">{t('calorie-content')}:</strong>
+                        <strong className="uppercase">
+                          {t('{}-colon', { value: t('calorie-content') })}
+                        </strong>
                         <span>{t('{}-kcal-per-kg', { value: calorie })}</span>
                       </div>
                       <div className="mt-1">
-                        <strong>{t('guarenteed-analysis')}:</strong>
+                        <strong className="uppercase">
+                          {t('{}-colon', { value: t('guarenteed-analysis') })}
+                        </strong>
                         <div className="mt-2 flex flex-wrap justify-between">
                           <span>{t('crude-protein')}</span>
                           <span>{t('{}-pct-min', { value: protein })}</span>

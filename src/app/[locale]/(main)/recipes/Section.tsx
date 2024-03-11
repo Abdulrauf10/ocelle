@@ -127,7 +127,7 @@ export default function Section({
                       </div>
                     </div>
                     <Hr />
-                    <DialogSection title="What’s Inside?">
+                    <DialogSection title={t('whats-inside')}>
                       <Swiper
                         slidesPerView={1}
                         spaceBetween={50}
@@ -167,54 +167,54 @@ export default function Section({
                       </Swiper>
                     </DialogSection>
                     <Hr />
-                    <DialogSection title="What’s Not Inside?">
+                    <DialogSection title={t('whats-not-inside')}>
                       <div className="flex flex-wrap justify-evenly max-lg:justify-start">
                         <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                           <Image
                             className="mx-auto"
                             src="/recipes/not-inside/colours.svg"
-                            alt="No Colours"
+                            alt={t('no-colours')}
                             width={80}
                             height={80}
                           />
                           <strong className="heading-4 mt-2 block text-center font-bold text-primary">
-                            No Colours
+                            {t('no-colours')}
                           </strong>
                         </div>
                         <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                           <Image
                             className="mx-auto"
                             src="/recipes/not-inside/filters.svg"
-                            alt="No Filters"
+                            alt={t('no-fillers')}
                             width={80}
                             height={80}
                           />
                           <strong className="heading-4 mt-2 block text-center font-bold text-primary">
-                            No Filters
+                            {t('no-fillers')}
                           </strong>
                         </div>
                         <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                           <Image
                             className="mx-auto"
                             src="/recipes/not-inside/flavourings.svg"
-                            alt="No Flavourings"
+                            alt={t('no-flavourings')}
                             width={80}
                             height={80}
                           />
                           <strong className="heading-4 mt-2 block text-center font-bold text-primary">
-                            No Flavourings
+                            {t('no-flavourings')}
                           </strong>
                         </div>
                         <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                           <Image
                             className="mx-auto"
                             src="/recipes/not-inside/preservatives.svg"
-                            alt="No Preservatives"
+                            alt={t('no-preservatives')}
                             width={80}
                             height={80}
                           />
                           <strong className="heading-4 mt-2 block text-center font-bold text-primary">
-                            No Preservatives
+                            {t('no-preservatives')}
                           </strong>
                         </div>
                         <div className="w-full max-lg:hidden"></div>
@@ -222,50 +222,54 @@ export default function Section({
                           <Image
                             className="mx-auto"
                             src="/recipes/not-inside/additives.svg"
-                            alt="No Additives"
+                            alt={t('no-additives')}
                             width={80}
                             height={80}
                           />
                           <strong className="heading-4 mt-2 block text-center font-bold text-primary">
-                            No Additives
+                            {t('no-additives')}
                           </strong>
                         </div>
                         <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                           <Image
                             className="mx-auto"
                             src="/recipes/not-inside/artificial-ingredients.svg"
-                            alt="No Artificial Ingredients"
+                            alt={t('no-artificial-flavours')}
                             width={80}
                             height={80}
                           />
                           <strong className="heading-4 mt-2 block text-center font-bold text-primary">
-                            No Artificial Ingredients
+                            {t('no-artificial-flavours')}
                           </strong>
                         </div>
                         <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                           <Image
                             className="mx-auto"
                             src="/recipes/not-inside/hormones.svg"
-                            alt="No Hormones"
+                            alt={t('no-hormones')}
                             width={80}
                             height={80}
                           />
                           <strong className="heading-4 mt-2 block text-center font-bold text-primary">
-                            No Hormones
+                            {t('no-hormones')}
                           </strong>
                         </div>
                       </div>
                     </DialogSection>
                     <Hr />
-                    <DialogSection title="Nutrition Profile">
+                    <DialogSection title={t('nutrition-profile')}>
                       <div className="-mx-6 -my-3 flex flex-wrap">
                         <div className="w-1/2 px-6 py-3 max-md:w-full">
                           <div className="body-1 mt-2 flex flex-wrap justify-between">
-                            <strong className="uppercase">{t('calorie-content')}:</strong>
+                            <strong className="uppercase">
+                              {t('{}-colon', { value: t('calorie-content') })}
+                            </strong>
                             <span>{t('{}-kcal-per-kg', { value: calorie })}</span>
                           </div>
                           <div className="body-1 mt-2">
-                            <strong className="uppercase">{t('guarenteed-analysis')}:</strong>
+                            <strong className="uppercase">
+                              {t('{}-colon', { value: t('guarenteed-analysis') })}
+                            </strong>
                             <div className="mt-2 flex flex-wrap justify-between">
                               <span>{t('crude-protein')}</span>
                               <span>{t('{}-pct-min', { value: protein })}</span>
