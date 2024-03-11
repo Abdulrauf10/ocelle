@@ -18,7 +18,7 @@ interface BlockProps {
 function Block({ id, title, faqs }: BlockProps) {
   return (
     <div className="py-10">
-      <div id={id} className="relative -top-[90px]"></div>
+      <div id={id} className="relative -top-[140px]"></div>
       <h2 className="heading-2 font-bold text-primary">{title}</h2>
       {faqs.map((faq, idx) => (
         <div key={idx} className="mt-5">

@@ -111,15 +111,17 @@ export default function Section({
                   </Button>
                 </DialogTrigger>
                 <DialogContent className="max-w-[1100px] p-3">
-                  <div className="relative w-full rounded-[30px] border-4 border-primary bg-white px-12 py-10 text-left max-md:px-6 max-md:pt-9">
-                    <div className="-m-3 flex items-center max-md:flex-wrap">
-                      <div className="p-3 text-[90px] font-bold leading-none text-primary max-lg:text-[70px] max-md:text-[85px] max-xs:text-[60px]">
-                        {title}
-                      </div>
-                      <div className="w-full p-3">
-                        <div className="w-full min-w-[420px] max-lg:min-w-[340px] max-sm:min-w-0">
-                          <div className="relative overflow-hidden rounded-[30px] pt-[100%]">
-                            <Image src={dialogImage} alt={alt} fill />
+                  <div className="relative w-full rounded-[40px] border-[6px] border-primary bg-white px-12 py-10 text-left shadow-[7px_7px_15px_rgba(0,0,0,0.05)] max-md:px-6 max-md:pt-9 md:border-8">
+                    <div className="md:px-6">
+                      <div className="-m-3 flex items-center max-md:flex-wrap">
+                        <div className="p-3 text-[90px] font-bold leading-none text-primary max-lg:text-[70px] max-md:text-[85px] max-xs:text-[60px]">
+                          {title}
+                        </div>
+                        <div className="w-full p-3">
+                          <div className="w-full min-w-[420px] max-lg:min-w-[340px] max-sm:min-w-0">
+                            <div className="relative overflow-hidden rounded-[30px] pt-[100%]">
+                              <Image src={dialogImage} alt={alt} fill />
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -144,18 +146,21 @@ export default function Section({
                         {ingredients.map((ingredient, idx) => {
                           return (
                             <SwiperSlide key={idx}>
-                              <div className="mx-auto flex h-32 w-32 min-w-32 items-center justify-center overflow-hidden rounded-full border-2 border-primary">
+                              <div className="mx-auto flex h-32 w-32 min-w-32 items-center justify-center overflow-hidden rounded-full border-4 border-primary">
                                 <Image
                                   src={ingredient.picture}
                                   alt={ingredient.title}
                                   width={124 - (ingredient.spacing ?? 0)}
                                   height={124 - (ingredient.spacing ?? 0)}
+                                  className="absolute"
                                 />
                               </div>
                               <strong className="heading-4 mt-6 block text-center text-primary">
                                 {ingredient.title}
                               </strong>
-                              <p className="body-1 mt-2 text-center">{ingredient.description}</p>
+                              <p className="body-1 mt-2 text-center max-md:mb-3">
+                                {ingredient.description}
+                              </p>
                             </SwiperSlide>
                           );
                         })}
@@ -297,8 +302,8 @@ export default function Section({
                         </div>
                       </div>
                     </DialogSection>
-                    <DialogClose className="absolute right-4 top-3 cursor-pointer">
-                      <Close className="h-6 w-6" />
+                    <DialogClose className="absolute right-5 top-4 cursor-pointer">
+                      <Close className="h-7 w-7 md:h-8 md:w-8" />
                     </DialogClose>
                   </div>
                 </DialogContent>
