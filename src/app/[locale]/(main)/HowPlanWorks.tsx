@@ -14,7 +14,7 @@ export default function HowPlanWorks() {
         <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
           1
         </div>
-        <div className="heading-4 mt-2 text-gray">Tell us about your dog</div>
+        <h3 className="heading-4 mt-2 text-gray">Tell us about your dog</h3>
         <p className="body-1 mt-2">
           Take our quick quiz to help us understand your furry friend. Based on their preferences
           and needs, we&apos;ll formulate a personalised meal plan just for them.
@@ -31,7 +31,7 @@ export default function HowPlanWorks() {
         <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
           2
         </div>
-        <div className="heading-4 mt-2 text-gray">Get your starter box</div>
+        <h3 className="heading-4 mt-2 text-gray">Get your starter box</h3>
         <p className="body-1 mt-2">
           We’ll send you two weeks’ worth of freshly crafted meals. It’s the ideal intro for your
           dog’s discerning palate!
@@ -48,7 +48,7 @@ export default function HowPlanWorks() {
         <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
           3
         </div>
-        <div className="heading-4 mt-2 text-gray">Real, good food, regularly delivered</div>
+        <h3 className="heading-4 mt-2 text-gray">Real, good food, regularly delivered</h3>
         <p className="body-1 mt-2">
           If our meals win your hearts, sit back and relax. Your dog&apos;s food will arrive at your
           door like clockwork. If you need to make changes, simply adjust your subscription at any

@@ -31,16 +31,16 @@ interface SectionProps {
 function Section({ title, lines }: SectionProps) {
   return (
     <div className="overflow-hidden rounded-[30px] border-2 border-primary">
-      <div className="body-1 bg-primary px-8 py-4 font-bold text-white">{title}</div>
+      <h2 className="body-1 bg-primary px-8 py-4 font-bold text-white">{title}</h2>
       <div className="bg-white px-8 py-6">
-        <div className="-my-2">
+        <ul className="-my-2 list-none">
           {lines.map((line) => (
-            <div key={line.id} className="flex py-2">
+            <li key={line.id} className="flex py-2">
               <div className="mr-2 mt-2 h-2 w-2 min-w-2 rounded-full bg-primary"></div>
               <p className="body-3">{line.name}</p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </div>
   );

@@ -19,9 +19,11 @@ interface FooterProps {
 
 function FooterLink({ href, children }: React.PropsWithChildren<{ href: string }>) {
   return (
-    <Link href={href} className="mt-5 block">
-      {children}
-    </Link>
+    <li>
+      <Link href={href} className="mt-5 block">
+        {children}
+      </Link>
+    </li>
   );
 }
 
@@ -35,26 +37,30 @@ export default function Footer({ hideNav }: FooterProps) {
           <div className="flex flex-wrap items-start justify-between gap-8 max-sm:-mx-2 max-sm:gap-0">
             <div className="py-5 max-sm:w-3/5 max-sm:px-2 [&_a:hover]:underline">
               <FooterHead>{t('product')}</FooterHead>
-              <FooterLink href="/how-it-works/subscription">
-                {t('how-it-works-subscription')}
-              </FooterLink>
-              <FooterLink href="/how-it-works/individual">
-                {t('how-it-works-individual')}
-              </FooterLink>
-              <FooterLink href="/recipes">{t('recipes')}</FooterLink>
-              <FooterLink href="/faq">
-                <span className="uppercase">{t('faq')}</span>
-              </FooterLink>
-              <FooterLink href="/faq#deliveries">{t('deliveries')}</FooterLink>
-              {/* <FooterLink href="#">{t('reviews')}</FooterLink> */}
+              <ul className="list-none">
+                <FooterLink href="/how-it-works/subscription">
+                  {t('how-it-works-subscription')}
+                </FooterLink>
+                <FooterLink href="/how-it-works/individual">
+                  {t('how-it-works-individual')}
+                </FooterLink>
+                <FooterLink href="/recipes">{t('recipes')}</FooterLink>
+                <FooterLink href="/faq">
+                  <span className="uppercase">{t('faq')}</span>
+                </FooterLink>
+                <FooterLink href="/faq#deliveries">{t('deliveries')}</FooterLink>
+                {/* <FooterLink href="#">{t('reviews')}</FooterLink> */}
+              </ul>
             </div>
             <div className="py-5 max-sm:w-2/5 max-sm:px-2 [&_a:hover]:underline">
               <FooterHead>{t('about')}</FooterHead>
-              <FooterLink href="/why-fresh">{t('why-fresh')}</FooterLink>
-              <FooterLink href="/about-us">{t('our-story')}</FooterLink>
-              <FooterLink href="/account/plan">{t('my-account')}</FooterLink>
-              <FooterLink href="/careers">{t('careers')}</FooterLink>
-              <FooterLink href="/affiliate-program">{t('affiliate-program')}</FooterLink>
+              <ul className="list-none">
+                <FooterLink href="/why-fresh">{t('why-fresh')}</FooterLink>
+                <FooterLink href="/about-us">{t('our-story')}</FooterLink>
+                <FooterLink href="/account/plan">{t('my-account')}</FooterLink>
+                <FooterLink href="/careers">{t('careers')}</FooterLink>
+                <FooterLink href="/affiliate-program">{t('affiliate-program')}</FooterLink>
+              </ul>
             </div>
             <div className="py-5 max-sm:w-3/5 max-sm:px-2 [&_a:hover]:underline">
               <FooterHead>{t('contact')}</FooterHead>

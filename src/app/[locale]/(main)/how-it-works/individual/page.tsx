@@ -43,7 +43,7 @@ function Section({ picture, title, description, price, reverse, className, theme
             <h2 className={clsx('heading-2 font-bold', className.title)}>{title}</h2>
             <p className={clsx('mt-4 text-[30px]', className.title)}>${price}</p>
             <p className={clsx('body-1 mt-4', className.content)}>{description}</p>
-            <div className="mt-6">
+            <label className="mt-6 block">
               <span className={clsx('body-1 mr-3 inline-block font-bold', className.content)}>
                 Quantity:
               </span>
@@ -55,7 +55,7 @@ function Section({ picture, title, description, price, reverse, className, theme
                 step={1}
                 min={1}
               />
-            </div>
+            </label>
             <div className="mt-6">
               <Button theme={theme}>Add To Cart</Button>
             </div>
@@ -169,7 +169,9 @@ export default function HowItWorksIndividual() {
                     className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                   />
                 </div>
-                <p className="heading-4 mt-6 font-bold text-gray">Developed By Vet Nutritionists</p>
+                <h3 className="heading-4 mt-6 font-bold text-gray">
+                  Developed By Vet Nutritionists
+                </h3>
                 <p className="body-1 mt-3">
                   Many of the health issues dogs face are related to diet. That’s why our team is
                   devoted to determining exactly what dogs need to live happier, healthier lives.
@@ -184,9 +186,9 @@ export default function HowItWorksIndividual() {
                     className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                   />
                 </div>
-                <p className="heading-4 mt-6 font-bold text-gray">
+                <h3 className="heading-4 mt-6 font-bold text-gray">
                   Crafted With Premium Ingredients
-                </p>
+                </h3>
                 <p className="body-1 mt-3">
                   No heat-blasted ingredients. No preservatives. No fillers. No nonsense. Just real
                   ingredients you can see, nutrition dogs need, and the flavours they crave.
@@ -201,9 +203,9 @@ export default function HowItWorksIndividual() {
                     className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                   />
                 </div>
-                <p className="heading-4 mt-6 font-bold text-gray">
+                <h3 className="heading-4 mt-6 font-bold text-gray">
                   Freshly Made To Lock In Nutrients
-                </p>
+                </h3>
                 <p className="body-1 mt-3">
                   Our ingredients are gently cooked to maximize digestibility and preserve vital
                   nutrients, texture, and taste.

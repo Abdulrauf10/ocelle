@@ -12,7 +12,15 @@ interface ILoginForm {
   password: string;
 }
 
-export default function LoginForm({ action }: { action(data: ILoginForm): Promise<void> }) {
+export default function LoginForm({
+  className,
+  action,
+}: {
+  className?: {
+    button?: string;
+  };
+  action(data: ILoginForm): Promise<void>;
+}) {
   const t = useTranslations();
   const [pending, startTransition] = React.useTransition();
   const {
@@ -49,7 +57,7 @@ export default function LoginForm({ action }: { action(data: ILoginForm): Promis
         fullWidth
       />
       <div className="py-6"></div>
-      <Button fullWidth disabled={!isValid || pending}>
+      <Button className={className?.button} fullWidth disabled={!isValid || pending}>
         {t('log-in')}
       </Button>
     </form>

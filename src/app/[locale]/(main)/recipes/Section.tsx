@@ -95,9 +95,9 @@ export default function Section({
           <div className="w-1/2 px-[4vw] max-md:w-full max-md:px-2 max-md:pt-[30px]">
             <h2 className="heading-3 font-bold text-primary">{title}</h2>
             <p className="body-1 mt-4">{description}</p>
-            <h3 className="heading-4 mt-6 font-bold text-brown">
+            <p className="heading-4 mt-6 font-bold text-brown">
               {t('{}-colon', { value: t('ingredients') })}
-            </h3>
+            </p>
             <p className="body-1">{ingredientDescription}</p>
           </div>
         </div>

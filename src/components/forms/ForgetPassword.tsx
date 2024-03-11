@@ -11,8 +11,12 @@ interface IForgetPasswordForm {
 }
 
 export default function ForgetPasswordForm({
+  className,
   action,
 }: {
+  className?: {
+    button?: string;
+  };
   action(data: IForgetPasswordForm): Promise<void>;
 }) {
   const t = useTranslations();
@@ -43,7 +47,7 @@ export default function ForgetPasswordForm({
         )}
       />
       <div className="py-6"></div>
-      <Button fullWidth disabled={!isValid || pending}>
+      <Button className={className?.button} fullWidth disabled={!isValid || pending}>
         {t('submit')}
       </Button>
     </form>

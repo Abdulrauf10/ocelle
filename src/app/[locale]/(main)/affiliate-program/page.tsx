@@ -47,7 +47,7 @@ export default function AffiliateProgram() {
                       <Image src="/affiliate/no-fee.svg" alt="no fee" fill />
                     </div>
                   </div>
-                  <strong className="body-1 mt-2 block">Free to join</strong>
+                  <h3 className="body-1 mt-2 block font-bold">Free to join</h3>
                 </div>
                 <div className="w-3/5 px-4 py-6 max-xs:w-full">
                   <div className="mx-auto w-16">
@@ -55,9 +55,9 @@ export default function AffiliateProgram() {
                       <Image src="/affiliate/commission.svg" alt="commission" fill />
                     </div>
                   </div>
-                  <strong className="body-1 mt-2 block">
+                  <h3 className="body-1 mt-2 block font-bold">
                     Ongoing commissions for each new customer you refer
-                  </strong>
+                  </h3>
                 </div>
                 <div className="w-2/5 px-4 py-6 max-xs:w-full">
                   <div className="mx-auto w-16">
@@ -65,7 +65,7 @@ export default function AffiliateProgram() {
                       <Image src="/affiliate/monthly.svg" alt="no fee" fill />
                     </div>
                   </div>
-                  <strong className="body-1 mt-2 block">Monthly pay-outs</strong>
+                  <h3 className="body-1 mt-2 block font-bold">Monthly pay-outs</h3>
                 </div>
                 <div className="w-3/5 px-4 py-6 max-xs:w-full">
                   <div className="mx-auto w-16">
@@ -73,9 +73,9 @@ export default function AffiliateProgram() {
                       <Image src="/affiliate/gift.svg" alt="commission" fill />
                     </div>
                   </div>
-                  <strong className="body-1 mt-2 block">
+                  <h3 className="body-1 mt-2 block font-bold">
                     Custom offers and promotions for your audience
-                  </strong>
+                  </h3>
                 </div>
                 <div className="w-2/5 px-4 py-6 max-xs:w-full">
                   <div className="mx-auto w-16">
@@ -83,7 +83,7 @@ export default function AffiliateProgram() {
                       <Image src="/affiliate/tracking.svg" alt="no fee" fill />
                     </div>
                   </div>
-                  <strong className="body-1 mt-2 block">Real-time stat tracking</strong>
+                  <h3 className="body-1 mt-2 block font-bold">Real-time stat tracking</h3>
                 </div>
                 <div className="w-3/5 px-4 py-6 max-xs:w-full">
                   <div className="mx-auto w-16">
@@ -91,9 +91,9 @@ export default function AffiliateProgram() {
                       <Image src="/affiliate/orders.svg" alt="commission" fill />
                     </div>
                   </div>
-                  <strong className="body-1 mt-2 block">
+                  <h3 className="body-1 mt-2 block font-bold">
                     We handle orders, deliveries, and payment
-                  </strong>
+                  </h3>
                 </div>
               </div>
             </div>
@@ -111,7 +111,7 @@ export default function AffiliateProgram() {
             <div className="-mx-4 -my-4 flex flex-wrap">
               <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
                 <div className="h-full rounded-3xl bg-white p-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)]">
-                  <div className="heading-4 font-bold text-gold">1. Join The Program</div>
+                  <h3 className="heading-4 font-bold text-gold">1. Join The Program</h3>
                   <p className="body-1 mt-4">
                     Complete the short form via the ‘Join Now’ button and we’ll get you started on
                     the onboarding process.
@@ -128,7 +128,7 @@ export default function AffiliateProgram() {
               </div>
               <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
                 <div className="h-full rounded-3xl bg-white p-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)]">
-                  <div className="heading-4 font-bold text-gold">2. Learn About Fresh Food</div>
+                  <h3 className="heading-4 font-bold text-gold">2. Learn About Fresh Food</h3>
                   <p className="body-1 mt-4">
                     Once your application is approved, we’ll share brand materials with you. As an
                     Affiliate Ambassador, you’ll be the first to know about upcoming promotions and
@@ -138,7 +138,7 @@ export default function AffiliateProgram() {
               </div>
               <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
                 <div className="h-full rounded-3xl bg-white p-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)]">
-                  <div className="heading-4 font-bold text-gold">3. Earn Money</div>
+                  <h3 className="heading-4 font-bold text-gold">3. Earn Money</h3>
                   <p className="body-1 mt-4">
                     When new customers use your unique code to purchase a subscription from OCELLE,
                     you’ll earn continuous commissions for as long as your referrals stay

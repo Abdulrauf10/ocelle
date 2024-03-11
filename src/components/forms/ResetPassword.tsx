@@ -12,8 +12,12 @@ interface IResetPasswordForm {
 }
 
 export default function ResetPasswordForm({
+  className,
   action,
 }: {
+  className?: {
+    button?: string;
+  };
   action(data: Omit<IResetPasswordForm, 'confirmPassword'>): Promise<void>;
 }) {
   const t = useTranslations();
@@ -51,7 +55,7 @@ export default function ResetPasswordForm({
         fullWidth
       />
       <div className="py-6"></div>
-      <Button fullWidth disabled={!isValid || pending}>
+      <Button className={className?.button} fullWidth disabled={!isValid || pending}>
         {t('set-{}', { value: t('new-password') })}
       </Button>
     </form>

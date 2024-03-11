@@ -149,9 +149,9 @@ export default function HowItWorksSubscription() {
           </h2>
           <div className="mx-auto max-w-[820px] rounded-[30px] bg-white p-12 max-sm:p-8">
             <div className="body-1 flex items-center max-sm:block">
-              <div className="w-[190px] min-w-[190px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">
+              <h3 className="w-[190px] min-w-[190px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">
                 Fancy A Change?
-              </div>
+              </h3>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
               <div className="py-px">
                 Easily tweak your delivery timings or choose new recipes based on what&apos;s
@@ -159,18 +159,18 @@ export default function HowItWorksSubscription() {
               </div>
             </div>
             <div className="body-1 mt-6 flex items-center max-sm:block">
-              <div className="w-[190px] min-w-[190px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">
+              <h3 className="w-[190px] min-w-[190px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">
                 More Dogs?
-              </div>
+              </h3>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
               <div className="py-px">
                 No problem! Add them to your account for easy fresh meal management.
               </div>
             </div>
             <div className="body-1 mt-6 flex items-center max-sm:block">
-              <div className="w-[190px] min-w-[190px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">
+              <h3 className="w-[190px] min-w-[190px] py-px text-center font-bold text-primary max-sm:w-full max-sm:text-left">
                 A <i>Paws-itively</i> Simple Subscription
-              </div>
+              </h3>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
               <div className="py-px">Skip deliveries, cancel, and come back any time!</div>
             </div>

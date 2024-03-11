@@ -41,7 +41,7 @@ function CareerBlock({ career }: { career: Career }) {
     <div className="mt-4 rounded-2xl bg-white px-10 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-sm:px-10 max-sm:py-6">
       <div className="-mx-3 -my-2 flex items-center max-xs:flex-wrap">
         <div className="w-full px-3 py-2">
-          <div className="body-1 font-bold text-brown">{career.name}</div>
+          <h3 className="body-1 font-bold text-brown">{career.name}</h3>
           <div className="body-3 mt-1">
             {t(
               career.workType === WorkType.FullTime
@@ -95,7 +95,7 @@ export default async function Careers() {
             <div className="-my-10">
               {operations.length > 0 && (
                 <div className="py-10">
-                  <div className="heading-4 font-bold uppercase text-primary">Operations</div>
+                  <h2 className="heading-4 font-bold uppercase text-primary">Operations</h2>
                   {operations.map((career) => (
                     <CareerBlock key={career.id} career={career} />
                   ))}
@@ -103,7 +103,7 @@ export default async function Careers() {
               )}
               {marketing.length > 0 && (
                 <div className="py-10">
-                  <div className="heading-4 font-bold uppercase text-primary">Marketing</div>
+                  <h2 className="heading-4 font-bold uppercase text-primary">Marketing</h2>
                   {marketing.map((career) => (
                     <CareerBlock key={career.id} career={career} />
                   ))}
@@ -111,9 +111,9 @@ export default async function Careers() {
               )}
               {financeAndAccounting.length > 0 && (
                 <div className="py-10">
-                  <div className="heading-4 font-bold uppercase text-primary">
+                  <h2 className="heading-4 font-bold uppercase text-primary">
                     Finance & Accounting
-                  </div>
+                  </h2>
                   {financeAndAccounting.map((career) => (
                     <CareerBlock key={career.id} career={career} />
                   ))}
@@ -121,7 +121,7 @@ export default async function Careers() {
               )}
               {technology.length > 0 && (
                 <div className="py-10">
-                  <div className="heading-4 font-bold uppercase text-primary">Technology</div>
+                  <h2 className="heading-4 font-bold uppercase text-primary">Technology</h2>
                   {technology.map((career) => (
                     <CareerBlock key={career.id} career={career} />
                   ))}
@@ -129,7 +129,7 @@ export default async function Careers() {
               )}
               {sales.length > 0 && (
                 <div className="py-10">
-                  <div className="heading-4 font-bold uppercase text-primary">Sales</div>
+                  <h2 className="heading-4 font-bold uppercase text-primary">Sales</h2>
                   {sales.map((career) => (
                     <CareerBlock key={career.id} career={career} />
                   ))}

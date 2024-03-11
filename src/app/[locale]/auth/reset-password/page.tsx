@@ -24,6 +24,7 @@ export default function ResetPassword({
           <h1 className="heading-4 font-bold">{t('change-{}', { value: t('password') })}</h1>
           <div className="mx-auto max-w-[280px] max-xs:max-w-full">
             <ResetPasswordForm
+              className={{ button: 'body-2 mx-auto max-w-[230px]' }}
               action={async (data) => {
                 'use server';
                 return await resetPasswordAction({
