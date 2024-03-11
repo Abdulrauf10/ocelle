@@ -122,24 +122,28 @@ export default function RecipesPage() {
         ingredients={[
           {
             picture: '/recipes/ingredients/chicken-breast.png',
+            spacing: 15,
             title: t('chicken-breast'),
             description:
               'A lean source of high-quality protein, essential for muscle growth and repair. It also supplies glucosamine and chondroitin, the building blocks of joint cartilage, tendons, and ligaments.',
           },
           {
             picture: '/recipes/ingredients/chicken-liver.png',
+            spacing: -10,
             title: t('chicken-liver'),
             description:
               'A nutrient powerhouse, packed with iron for healthy blood, vitamin A for sharp vision, B vitamins for energy metabolism, and choline for healthy brain function.',
           },
           {
             picture: '/recipes/ingredients/whole-grain-rice.png',
+            spacing: -20,
             title: t('whole-grain-rice'),
             description:
               "A wholesome source of complex carbohydrates, whole-grain rice provides dogs with sustained energy. It's also gentle on the digestive system, making it a good choice for dogs with sensitive stomachs.",
           },
           {
             picture: '/recipes/ingredients/mushroom.png',
+            spacing: -20,
             title: pluralize.plural(t('shiitake-mushroom')),
             description:
               'Shiitake mushrooms are known for their immune-boosting properties and are also a good source of B vitamins.',
