@@ -8,7 +8,7 @@
 
   --swiper-theme-color: #be873b !important;
   --swiper-pagination-bullet-size: 18px;
-  --swiper-pagination-bullet-horizontal-gap: 8px;
+  --swiper-pagination-bullet-horizontal-gap: 6px;
 }
 
 body {
@@ -26,11 +26,11 @@ span.swiper-pagination-bullet.swiper-pagination-bullet-active {
 }
 
 span.swiper-pagination-bullet {
-  transform: scale(0.66) !important;
+  transform: scale(0.75) !important;
 }
 
 span.swiper-pagination-bullet-active {
-  transform: scale(1) !important;
+  transform: scale(.85) !important;
 }
 
 .heading-1 {
