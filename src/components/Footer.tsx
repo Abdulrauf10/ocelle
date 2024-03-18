@@ -79,7 +79,7 @@ export default function Footer({ hideNav }: FooterProps) {
                 className="mt-3 inline-flex items-center"
               >
                 <Whatsapp className="w-5 min-w-5" />
-                <span className="pl-2">92267236</span>
+                <span className="pl-2">9226 7236</span>
               </Link>
             </div>
             <div className="py-5 max-sm:w-2/5 max-sm:px-2">
