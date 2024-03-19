@@ -55,17 +55,27 @@ export async function executeGraphQL<Result, Variables>(
   const body = (await response.json()) as GraphQLRespone<Result>;
 
   if ('errors' in body) {
-    throw new GraphQLError(body);
+    throw new GraphQLError(operation, body);
   }
 
   return body.data;
 }
 
-class GraphQLError extends Error {
-  constructor(public errorResponse: GraphQLErrorResponse) {
+class GraphQLError<Result, Variables> extends Error {
+  constructor(
+    public operation: TypedDocumentString<Result, Variables>,
+    public errorResponse: GraphQLErrorResponse
+  ) {
     const message = errorResponse.errors.map((error) => error.message).join('\n');
     super(message);
-    this.name = this.constructor.name;
+    let doc = '';
+    for (const line of operation.toString().split('\n')) {
+      if (line.trim().length > 0) {
+        doc = line;
+        break;
+      }
+    }
+    this.name = `${this.constructor.name} [${doc.replace('{', '').trim()}]`;
     Object.setPrototypeOf(this, new.target.prototype);
   }
 }
