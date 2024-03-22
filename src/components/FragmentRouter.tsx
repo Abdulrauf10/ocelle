@@ -2,7 +2,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 
 export interface FragmentProps<T> {
-  navigate(name: T | -1, options?: { replace?: boolean }): void;
+  state: any;
+  navigate(name: T | -1, options?: { state: any; replace?: boolean }): void;
 }
 
 interface useFragmentRouterControllerProps<T> {
@@ -19,29 +20,36 @@ interface useFragmentRouterControllerReturn<T> {
     component: React.FunctionComponent<FragmentProps<T>>;
   }>;
   route?: T;
-  navigate(name: T | -1, options?: { replace?: boolean }): void;
+  state?: any;
+  navigate(name: T | -1, options?: { state: any; replace?: boolean }): void;
 }
 
 export function useFragmentRouterController<T>({
   routes,
   defaultRoute,
 }: useFragmentRouterControllerProps<T>): useFragmentRouterControllerReturn<T> {
-  const stackRef = React.useRef<T[]>([]);
+  const stackRef = React.useRef<{ route: T; state: any }[]>([]);
+  const [currentState, setCurrentState] = React.useState<any>();
   const [currentRoute, setCurrentRoute] = React.useState<T | undefined>(
     defaultRoute || routes[0]?.name
   );
 
   const navigate = React.useCallback(
-    (name: T | -1, options?: { replace?: boolean }) => {
+    (name: T | -1, options?: { state: any; replace?: boolean }) => {
       if (name === -1) {
-        const nextRoute = stackRef.current.pop();
-        if (nextRoute != null) {
-          setCurrentRoute(nextRoute);
+        const item = stackRef.current.pop();
+        if (item != null) {
+          setCurrentRoute(item.route);
+          setCurrentState(item.state);
         }
       } else {
         setCurrentRoute(name);
+        setCurrentState(options?.state);
         if (currentRoute != null && !options?.replace) {
-          stackRef.current.push(currentRoute);
+          stackRef.current.push({
+            route: currentRoute,
+            state: options?.state,
+          });
         }
       }
     },
@@ -52,6 +60,7 @@ export function useFragmentRouterController<T>({
     navigate,
     routes,
     route: currentRoute,
+    state: currentState,
   };
 }
 
@@ -87,7 +96,7 @@ export default function FragmentRouter<T>({ controller }: FragmentRouterProps<T>
                 animate="enter"
                 exit="exit"
               >
-                <route.component navigate={controller.navigate} />
+                <route.component navigate={controller.navigate} state={controller.state} />
               </motion.div>
             );
           })}
