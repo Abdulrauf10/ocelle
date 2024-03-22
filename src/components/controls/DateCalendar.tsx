@@ -32,8 +32,8 @@ export default function DateCalendar<T extends FieldValues>({
   actions,
 }: DateCalendarProps<T>) {
   const {
-    field: { onChange, ...field },
-  } = useController({ name, control, rules });
+    field: { onChange, value, ...field },
+  } = useController({ name, control, rules, defaultValue });
 
   return (
     <AppThemeProvider
@@ -48,12 +48,12 @@ export default function DateCalendar<T extends FieldValues>({
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <MuiDateCalendar
           {...field}
+          value={value ?? null}
           minDate={minDate}
           maxDate={maxDate}
           onChange={(value) => onChange(value)}
           disableHighlightToday
           shouldDisableDate={shouldDisableDate}
-          defaultValue={defaultValue}
           sx={{
             backgroundColor: '#5289B1',
             borderTopLeftRadius: '20px',
