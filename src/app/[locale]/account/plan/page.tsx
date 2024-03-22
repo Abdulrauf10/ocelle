@@ -256,7 +256,7 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
                 <Image src="/referral-box.svg" alt="Referral Box" width={300} height={300} />
               </div>
               <div className="px-4 max-md:text-center">
-                <h2 className="heading-4">
+                <h2 className="heading-4 font-bold">
                   {t.rich('know-more-dog-people-refer-a-friend-earn-{}', {
                     value: '[$50]',
                     strong: (chunks) => <strong className="text-[1.1em]">{chunks}</strong>,

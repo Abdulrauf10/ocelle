@@ -21,7 +21,7 @@ export default function NotFound() {
       <div className="bg-gold bg-opacity-20">
         <Container className="flex max-w-screen-xl items-end max-md:flex-col max-sm:items-center">
           <div className="w-full px-4 py-20 max-md:py-12 max-sm:py-8">
-            <h1 className="heading-headline font-bold text-primary">
+            <h1 className="heading-1 font-bold text-primary">
               <i>Aiya!</i> Page <span className="inline-block">Gone Walkies!</span>
             </h1>
             <p className="body-1 mt-4">
