@@ -33,6 +33,10 @@ span.swiper-pagination-bullet-active {
   transform: scale(.85) !important;
 }
 
+.heading-headline {
+  @apply text-[5vw] leading-[6.2vw] max-sm:text-[40px] max-sm:leading-[46px];
+}
+
 .heading-1 {
   @apply text-[3vw] leading-[1.2em] max-3xl:text-[3.2vw] max-xl:text-[3.6vw] max-lg:text-[4.2vw] max-md:text-[36px] max-xs:text-[32px];
 }

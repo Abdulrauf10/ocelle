@@ -14,7 +14,7 @@ export default function HowItWorksSubscription() {
       <div className="bg-[#E8E4DB]">
         <div className="flex flex-wrap items-center max-lg:flex-col-reverse">
           <div className="w-2/5 py-[4vw] pl-[2vw] text-xl text-primary max-lg:w-full">
-            <h1 className="text-[5vw] font-bold leading-[6.2vw]">Get Personal With An Expert</h1>
+            <h1 className="heading-headline font-bold">Get Personal With An Expert</h1>
             <p className="body-2 mt-5 font-bold italic">
               Nutrition is not a one-size-fits-all affair!
             </p>

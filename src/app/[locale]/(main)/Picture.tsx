@@ -17,7 +17,7 @@ export default function Picture() {
     <div className="bg-[#e6e6e6] bg-[url('./banner-bg.svg')] bg-[length:auto_100%] bg-center bg-repeat-x">
       <div className="flex flex-wrap items-center max-md:flex-col-reverse">
         <div className="relative w-3/5 px-[2vw] py-[5vw] pr-0 text-primary max-md:w-full max-md:border-t-[10px] max-md:border-primary max-md:p-[30px]">
-          <h1 className="text-[5vw] font-bold leading-[6.2vw] max-sm:text-[40px] max-sm:leading-[46px]">
+          <h1 className="heading-headline font-bold">
             Nutrition They Need. <br />
             Food They Want.
           </h1>

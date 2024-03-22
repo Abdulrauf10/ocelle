@@ -15,10 +15,10 @@ export default function RecipesPage() {
     <main>
       <div className="bg-[url('./recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-repeat-x py-10 max-lg:pb-[70%] lg:bg-[url('./recipes-bg.jpg')] lg:bg-[length:auto_100%] lg:bg-center">
         <div className="px-[2vw] py-[4vw] text-xl text-white max-lg:w-full lg:pr-0">
-          <h1 className="text-[48px] font-bold leading-[1.2em] lg:text-[5vw]">
+          <h1 className="heading-headline font-bold">
             Real Food.
             <br />
-            That’s Our Secret.{' '}
+            That’s Our Secret.
           </h1>
           <div className="w-full lg:w-1/3">
             <p className="body-1 mt-5">
