@@ -9,6 +9,7 @@ import {
   Pickiness,
   LifeStage,
 } from './dog';
+import { CalendarEvent } from './calendar';
 
 export type {
   InputControllerProps,
@@ -20,4 +21,5 @@ export type {
   AmountOfTreats,
   Pickiness,
   LifeStage,
+  CalendarEvent,
 };

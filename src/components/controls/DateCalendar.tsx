@@ -1,11 +1,11 @@
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DateCalendar as MuiDateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { dateCalendarClasses } from '@mui/x-date-pickers/DateCalendar/dateCalendarClasses';
 import { dayPickerClasses } from '@mui/x-date-pickers/DateCalendar/dayCalendarClasses';
 import { pickersDayClasses } from '@mui/x-date-pickers/PickersDay/pickersDayClasses';
 import { pickersCalendarHeaderClasses } from '@mui/x-date-pickers/PickersCalendarHeader/pickersCalendarHeaderClasses';
-import { useTheme, alpha } from '@mui/material';
+import { alpha } from '@mui/material';
 import { useController, type FieldValues, type PathValue, type Path } from 'react-hook-form';
 import { InputControllerProps } from '@/types';
 import DogFoot from '../icons/DogFoot';
@@ -31,10 +31,9 @@ export default function DateCalendar<T extends FieldValues>({
   maxDate,
   actions,
 }: DateCalendarProps<T>) {
-  const theme = useTheme();
   const {
     field: { onChange, ...field },
-  } = useController({ name, control, rules, defaultValue });
+  } = useController({ name, control, rules });
 
   return (
     <AppThemeProvider
@@ -54,6 +53,7 @@ export default function DateCalendar<T extends FieldValues>({
           onChange={(value) => onChange(value)}
           disableHighlightToday
           shouldDisableDate={shouldDisableDate}
+          defaultValue={defaultValue}
           sx={{
             backgroundColor: '#5289B1',
             borderTopLeftRadius: '20px',
