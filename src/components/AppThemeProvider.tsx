@@ -92,6 +92,9 @@ const baseTheme: ThemeOptions = {
             transform: 'translate(16px, -9px) scale(.75)',
           },
         },
+        shrink: {
+          transform: 'translate(16px, -9px) scale(.75)',
+        },
       },
     },
     MuiPaper: {
