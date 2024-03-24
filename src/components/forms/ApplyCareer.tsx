@@ -233,7 +233,7 @@ export default function ApplyCareerForm({
                     <FileInput
                       control={control}
                       name="resume"
-                      label="Attach Resume/CV"
+                      label="Attached"
                       rules={{ required: true }}
                     />
                   </div>
@@ -243,7 +243,7 @@ export default function ApplyCareerForm({
                     <div className="body-3 mb-5 mr-2 flex h-[40px] w-[95px] min-w-[95px] items-center">
                       <label htmlFor="coverLetter">Cover Letter</label>
                     </div>
-                    <FileInput control={control} name="coverLetter" label="Cover Letter" />
+                    <FileInput control={control} name="coverLetter" label="Attached" />
                   </div>
                 </div>
                 <div className="w-full px-4 py-4 text-center">
