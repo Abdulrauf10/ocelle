@@ -3,8 +3,13 @@ import Stripe from '../../icons/Stripe';
 import Lock from '../../icons/Lock';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import PasswordField from '../../controls/PasswordField';
 import TextField from '../../controls/TextField';
+import { useTheme } from '@mui/material';
+import {
+  StripeTextFieldCVC,
+  StripeTextFieldExpiry,
+  StripeTextFieldNumber,
+} from '@/components/controls/StripeTextField';
 
 export interface IPartialCardForm {
   cardName: string;
@@ -21,6 +26,7 @@ export default function PartialCardForm<T extends FieldValues>({
   control,
 }: PartialCardFormProps<T>) {
   const t = useTranslations();
+  const theme = useTheme();
 
   return (
     <>
@@ -79,61 +85,63 @@ export default function PartialCardForm<T extends FieldValues>({
             />
           </div>
           <div className="w-full p-2">
-            <TextField
-              name={'cardNo' as FieldPath<T>}
-              control={control}
-              rules={{ required: true }}
+            <StripeTextFieldNumber
               label={t('card-number')}
-              mask={{
-                pattern: [
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  '-',
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  '-',
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  '-',
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                  /\d/,
-                ],
-              }}
-              fullWidth
-            />
-          </div>
-          <div className="w-1/2 p-2">
-            <TextField
-              name={'cardExp' as FieldPath<T>}
-              control={control}
-              rules={{ required: true }}
-              label={t('card-expiration-date')}
-              mask={{
-                pattern: (value) => {
-                  if (value[0] === '1') {
-                    return [/1/, /[0-2]/, '/', /\d/, /\d/];
-                  }
-                  return [/0|1/, /[0-9]/, '/', /\d/, /\d/];
+              InputProps={{
+                inputProps: {
+                  options: {
+                    placeholder: '',
+                    style: {
+                      base: {
+                        ...(theme.components?.MuiOutlinedInput?.styleOverrides?.input as
+                          | Record<string, unknown>
+                          | undefined),
+                        fontSize: '16px',
+                      },
+                    },
+                  },
                 },
               }}
-              fullWidth
             />
           </div>
           <div className="w-1/2 p-2">
-            <PasswordField
-              name={'cardCvc' as FieldPath<T>}
-              control={control}
-              rules={{ required: true }}
+            <StripeTextFieldExpiry
+              label={t('card-expiration-date')}
+              InputProps={{
+                inputProps: {
+                  options: {
+                    placeholder: '',
+                    style: {
+                      base: {
+                        ...(theme.components?.MuiOutlinedInput?.styleOverrides?.input as
+                          | Record<string, unknown>
+                          | undefined),
+                        fontSize: '16px',
+                      },
+                    },
+                  },
+                },
+              }}
+            />
+          </div>
+          <div className="w-1/2 p-2">
+            <StripeTextFieldCVC
               label={t('cvc')}
-              fullWidth
+              InputProps={{
+                inputProps: {
+                  options: {
+                    placeholder: '',
+                    style: {
+                      base: {
+                        ...(theme.components?.MuiOutlinedInput?.styleOverrides?.input as
+                          | Record<string, unknown>
+                          | undefined),
+                        fontSize: '16px',
+                      },
+                    },
+                  },
+                },
+              }}
             />
           </div>
         </div>
