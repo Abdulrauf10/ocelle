@@ -2,8 +2,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import React from 'react';
 
 export interface FragmentProps<T> {
-  state?: Object;
-  navigate(name: T | -1, options?: { state?: Object; replace?: boolean }): void;
+  state?: { [key: string]: any };
+  navigate(name: T | -1, options?: { state?: { [key: string]: any }; replace?: boolean }): void;
 }
 
 interface useFragmentRouterControllerProps<T> {
@@ -20,22 +20,22 @@ interface useFragmentRouterControllerReturn<T> {
     component: React.FunctionComponent<FragmentProps<T>>;
   }>;
   route?: T;
-  state?: Object;
-  navigate(name: T | -1, options?: { state?: Object; replace?: boolean }): void;
+  state?: { [key: string]: any };
+  navigate(name: T | -1, options?: { state?: { [key: string]: any }; replace?: boolean }): void;
 }
 
 export function useFragmentRouterController<T>({
   routes,
   defaultRoute,
 }: useFragmentRouterControllerProps<T>): useFragmentRouterControllerReturn<T> {
-  const stackRef = React.useRef<{ route: T; state?: Object }[]>([]);
+  const stackRef = React.useRef<{ route: T; state?: { [key: string]: any } }[]>([]);
   const [currentState, setCurrentState] = React.useState<Object>();
   const [currentRoute, setCurrentRoute] = React.useState<T | undefined>(
     defaultRoute || routes[0]?.name
   );
 
   const navigate = React.useCallback(
-    (name: T | -1, options?: { state?: Object; replace?: boolean }) => {
+    (name: T | -1, options?: { state?: { [key: string]: any }; replace?: boolean }) => {
       if (name === -1) {
         const item = stackRef.current.pop();
         if (item != null) {
