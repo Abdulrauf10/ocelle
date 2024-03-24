@@ -81,7 +81,7 @@ export default async function Careers() {
 
   return (
     <main>
-      <Block styles="tight" className="bg-primary bg-opacity-10">
+      <Block styles="narrow" className="bg-primary bg-opacity-10">
         <Container>
           <h1 className="heading-2 text-center font-bold text-primary">Dog People Wanted</h1>
           <p className="body-3 mt-2 text-center text-secondary">
@@ -89,7 +89,7 @@ export default async function Careers() {
           </p>
         </Container>
       </Block>
-      <Block styles="tight" className="bg-gold bg-opacity-10">
+      <Block styles="narrow" className="bg-gold bg-opacity-10">
         <Container className="max-w-screen-lg">
           {count > 0 ? (
             <div className="-my-10">
