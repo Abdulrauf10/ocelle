@@ -2,9 +2,12 @@ import { InputControllerProps } from '@/types';
 import {
   FilledInputProps,
   InputBaseComponentProps,
+  InputLabelProps,
   InputProps,
   TextField as MuiTextField,
   OutlinedInputProps,
+  SxProps,
+  Theme,
 } from '@mui/material';
 import MaskedInput, { type Mask } from 'react-text-mask';
 import { Controller, type FieldValues } from 'react-hook-form';
@@ -16,6 +19,8 @@ interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> 
   inputProps?: InputBaseComponentProps;
   InputProps?: Partial<FilledInputProps> | Partial<OutlinedInputProps> | Partial<InputProps>;
   fullWidth?: boolean;
+  InputLabelProps?: Partial<InputLabelProps>;
+  sx?: SxProps<Theme>;
   mask?: {
     pattern: Mask | ((value: string) => Mask);
     char?: string;
@@ -32,6 +37,8 @@ export default function TextField<T extends FieldValues>({
   fullWidth,
   inputProps,
   InputProps,
+  InputLabelProps,
+  sx,
   mask,
 }: TextFieldProps<T>) {
   if (mask?.pattern == null || (Array.isArray(mask.pattern) && mask.pattern.length === 0)) {
@@ -47,6 +54,8 @@ export default function TextField<T extends FieldValues>({
             label={label}
             fullWidth={fullWidth}
             error={!!error}
+            sx={sx}
+            InputLabelProps={InputLabelProps}
             inputProps={inputProps}
             InputProps={InputProps}
           />
