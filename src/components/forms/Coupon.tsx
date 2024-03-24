@@ -11,17 +11,29 @@ interface ICouponForm {
 }
 
 interface CouponFormProps {
+  action(data: ICouponForm): Promise<void>;
   onStatusChange?(status: 'applying' | 'applied' | 'failed', value?: string): void;
 }
 
-export default function CouponForm({}: CouponFormProps) {
+export default function CouponForm({ action }: CouponFormProps) {
   const t = useTranslations();
+  const [pending, startTransition] = React.useTransition();
   const { control, handleSubmit } = useForm<ICouponForm>({ defaultValues: { coupon: '' } });
   const [applied, setApplied] = React.useState(false);
 
-  const onSubmit = React.useCallback((values: ICouponForm) => {
-    console.log(values);
-  }, []);
+  const onSubmit = React.useCallback(
+    (values: ICouponForm) => {
+      startTransition(async () => {
+        try {
+          await action(values);
+          setApplied(true);
+        } catch (e) {
+          console.error(e);
+        }
+      });
+    },
+    [action]
+  );
 
   return (
     <>
@@ -38,6 +50,7 @@ export default function CouponForm({}: CouponFormProps) {
         <div className="px-1">
           <button
             type="button"
+            disabled={pending}
             className="rounded-lg bg-secondary px-6 py-[9.5px] font-bold text-white"
             onClick={() => handleSubmit(onSubmit)()}
           >
