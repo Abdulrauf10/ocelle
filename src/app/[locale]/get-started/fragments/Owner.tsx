@@ -9,18 +9,32 @@ import SectionBreak from '../SectionBreak';
 import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
+import { useSurvey } from '../SurveyContext';
+
+interface OwnerForm {
+  firstName: string;
+  lastName: string;
+  email: string;
+}
 
 export default function OwnerFragment({ navigate }: FragmentProps<Stage>) {
   const t = useTranslations();
+  const { owner, setOwner } = useSurvey();
   const {
     handleSubmit,
     control,
     formState: { errors },
-  } = useForm();
+  } = useForm<OwnerForm>({
+    defaultValues: owner,
+  });
 
-  const onSubmit = React.useCallback(() => {
-    navigate(Stage.Calculating);
-  }, [navigate]);
+  const onSubmit = React.useCallback(
+    (values: OwnerForm) => {
+      setOwner(values);
+      navigate(Stage.ChoosePlan);
+    },
+    [navigate, setOwner]
+  );
 
   return (
     <Container className="text-center">
@@ -29,7 +43,7 @@ export default function OwnerFragment({ navigate }: FragmentProps<Stage>) {
         <Section title={t('whats-your-name')}>
           <div className="mx-auto max-w-[320px]">
             <Controller
-              name="firstname"
+              name="firstName"
               control={control}
               rules={{ required: true }}
               render={({ field, fieldState: { error } }) => (
@@ -38,7 +52,7 @@ export default function OwnerFragment({ navigate }: FragmentProps<Stage>) {
             />
             <div className="mt-5"></div>
             <Controller
-              name="lastname"
+              name="lastName"
               control={control}
               rules={{ required: true }}
               render={({ field, fieldState: { error } }) => (

@@ -11,6 +11,7 @@ import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
 import { useSurvey } from '../SurveyContext';
+import { subDays } from 'date-fns';
 
 interface DogAgeForm {
   months?: number;
@@ -28,10 +29,12 @@ export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
     formState: { errors },
   } = useForm<DogAgeForm>({
     defaultValues:
-      age instanceof Date ? { birthday: age } : { months: age?.months, years: age?.years },
+      typeof age === 'string'
+        ? { birthday: new Date(age) }
+        : { months: age?.months, years: age?.years },
   });
   const [tab, setTab] = React.useState<'Age' | 'Birthday'>(
-    age instanceof Date ? 'Birthday' : 'Age'
+    typeof age === 'string' ? 'Birthday' : 'Age'
   );
 
   const onSubmit = React.useCallback(
@@ -39,7 +42,7 @@ export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
       if (tab === 'Age') {
         setDog({ age: { months: months!, years: years! } });
       } else {
-        setDog({ age: birthday });
+        setDog({ age: birthday!.toISOString() });
       }
       navigate(Stage.DogPreference1);
     },
@@ -111,6 +114,7 @@ export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
               name="birthday"
               rules={{ required: tab === 'Birthday' }}
               error={!!errors.birthday}
+              maxDate={subDays(new Date(), 1)}
             />
           )}
           <Button className="mt-8">{t('continue')}</Button>

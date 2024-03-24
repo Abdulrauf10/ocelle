@@ -9,6 +9,8 @@ import {
   Gender,
   Pickiness,
 } from '@/types';
+import cloneDeep from 'clone-deep';
+import store from 'store2';
 
 interface Dog {
   name?: string;
@@ -16,7 +18,7 @@ interface Dog {
   breeds?: Breed[];
   gender?: Gender;
   isNeutered?: boolean;
-  age?: { years: number; months: number } | Date;
+  age?: { years: number; months: number } | string;
   weight?: number;
   bodyCondition?: BodyCondition;
   activityLevel?: ActivityLevel;
@@ -43,13 +45,16 @@ interface SurveyContextProps {
   setDog(values: Partial<Dog>): void;
   prevDog(): void;
   nextDog(): void;
+  setOwner(owner: Owner): void;
 }
 
 const SurveyContext = React.createContext<SurveyContextProps | undefined>(undefined);
 
+const surveySession = store.namespace('survey').session;
+
 export function SurveyContextProvider({ children }: React.PropsWithChildren) {
-  const [dogs, setDogs] = React.useState<Dog[]>([]);
-  const [owner, setOwner] = React.useState<Owner>({});
+  const [dogs, setDogs] = React.useState<Dog[]>(surveySession.get('dogs') ?? []);
+  const [owner, _setOwner] = React.useState<Owner>(surveySession.get('owner') ?? {});
   const [currentDog, setCurrentDog] = React.useState(0);
 
   const getDog = React.useCallback(() => {
@@ -58,20 +63,25 @@ export function SurveyContextProvider({ children }: React.PropsWithChildren) {
 
   const setDog = React.useCallback(
     (values: Partial<Dog>) => {
-      setDogs((dogs) => {
-        dogs[currentDog] = {
-          ...dogs[currentDog],
-          ...values,
-        };
-        return dogs;
-      });
+      const nextDogs = cloneDeep(dogs);
+      nextDogs[currentDog] = {
+        ...nextDogs[currentDog],
+        ...values,
+      };
+      setDogs(nextDogs);
+      surveySession.set('dogs', nextDogs, true);
     },
-    [currentDog]
+    [currentDog, dogs]
   );
 
   const prevDog = React.useCallback(() => setCurrentDog((current) => current - 1 || 0), []);
 
   const nextDog = React.useCallback(() => setCurrentDog((current) => current + 1), []);
+
+  const setOwner = React.useCallback((owner: Owner) => {
+    _setOwner(owner);
+    surveySession.set('owner', owner, true);
+  }, []);
 
   const values = React.useMemo(() => {
     return {
@@ -81,8 +91,9 @@ export function SurveyContextProvider({ children }: React.PropsWithChildren) {
       setDog,
       prevDog,
       nextDog,
+      setOwner,
     };
-  }, [dogs, owner, getDog, setDog, prevDog, nextDog]);
+  }, [dogs, owner, getDog, setDog, prevDog, nextDog, setOwner]);
 
   return <SurveyContext.Provider value={values}>{children}</SurveyContext.Provider>;
 }
