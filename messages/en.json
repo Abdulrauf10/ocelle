@@ -5,6 +5,8 @@
   "per-day": "/day",
   "{}-per-day": "{value}/day",
   "{}-days": "{value} Days",
+  "{}-ordinal": "{value, selectordinal, one {#st} two {#nd} few {#rd} other {#th}}",
+  "{}-of-{}": "{date} of {month}",
   "comma": ", ",
   "dot": ". ",
   "yes": "Yes",
