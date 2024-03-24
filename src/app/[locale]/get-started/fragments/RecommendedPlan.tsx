@@ -21,7 +21,7 @@ interface RecommendedPlanForm {
   recipe: boolean[];
 }
 
-export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stage>) {
+export default function RecommendedPlanFragment({ state, navigate }: FragmentProps<Stage>) {
   const t = useTranslations();
   const { getDog, setDog, nextDog } = useSurvey();
   const {
@@ -61,9 +61,13 @@ export default function RecommendedPlanFragment({ navigate }: FragmentProps<Stag
     ({ transition, recipe }: RecommendedPlanForm) => {
       const { recipe1, recipe2 } = arrayToRecipe(recipe);
       setDog({ recipe1, recipe2, isEnabledTransitionPeriod: stringToBoolean(transition) });
-      navigate(Stage.Checkout);
+      if (state?.isEdit) {
+        navigate(Stage.Calculating, { replace: true });
+      } else {
+        navigate(Stage.Calculating);
+      }
     },
-    [navigate, setDog]
+    [navigate, setDog, state]
   );
 
   return (
