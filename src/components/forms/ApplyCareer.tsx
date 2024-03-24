@@ -137,7 +137,7 @@ export default function ApplyCareerForm({
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-center">
                     <label htmlFor="firstName" className="body-3 mr-2 w-[95px] min-w-[95px]">
-                      First Name<span className="text-error">*</span>
+                      First Name<span className="relative top-[-2px] text-error">*</span>
                     </label>
                     <Controller
                       name="firstName"
@@ -145,7 +145,13 @@ export default function ApplyCareerForm({
                       rules={{ required: true }}
                       control={control}
                       render={({ field, fieldState: { error } }) => (
-                        <TextField id="firstName" fullWidth {...field} error={!!error} />
+                        <TextField
+                          className="rounded-md bg-white"
+                          id="firstName"
+                          fullWidth
+                          {...field}
+                          error={!!error}
+                        />
                       )}
                     />
                   </div>
@@ -153,7 +159,7 @@ export default function ApplyCareerForm({
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-center">
                     <label htmlFor="lastName" className="body-3 mr-2 w-[95px] min-w-[95px]">
-                      Last Name<span className="text-error">*</span>
+                      Last Name<span className="relative top-[-2px] text-error">*</span>
                     </label>
                     <Controller
                       name="lastName"
@@ -161,7 +167,13 @@ export default function ApplyCareerForm({
                       rules={{ required: true }}
                       control={control}
                       render={({ field, fieldState: { error } }) => (
-                        <TextField id="lastName" fullWidth {...field} error={!!error} />
+                        <TextField
+                          className="rounded-md bg-white"
+                          id="lastName"
+                          fullWidth
+                          {...field}
+                          error={!!error}
+                        />
                       )}
                     />
                   </div>
@@ -169,7 +181,7 @@ export default function ApplyCareerForm({
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-center">
                     <label htmlFor="email" className="body-3 mr-2 w-[95px] min-w-[95px]">
-                      Email<span className="text-error">*</span>
+                      Email<span className="relative top-[-2px] text-error">*</span>
                     </label>
                     <Controller
                       name="email"
@@ -177,7 +189,13 @@ export default function ApplyCareerForm({
                       rules={{ required: true }}
                       control={control}
                       render={({ field, fieldState: { error } }) => (
-                        <TextField id="email" fullWidth {...field} error={!!error} />
+                        <TextField
+                          className="rounded-md bg-white"
+                          id="email"
+                          fullWidth
+                          {...field}
+                          error={!!error}
+                        />
                       )}
                     />
                   </div>
@@ -185,7 +203,7 @@ export default function ApplyCareerForm({
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-center">
                     <label htmlFor="phone" className="body-3 mr-2 w-[95px] min-w-[95px]">
-                      Phone<span className="text-error">*</span>
+                      Phone<span className="relative top-[-2px] text-error">*</span>
                     </label>
                     <Controller
                       name="phone"
@@ -193,16 +211,25 @@ export default function ApplyCareerForm({
                       rules={{ required: true }}
                       control={control}
                       render={({ field, fieldState: { error } }) => (
-                        <TextField id="phone" fullWidth {...field} error={!!error} />
+                        <TextField
+                          className="rounded-md bg-white"
+                          size="small"
+                          id="phone"
+                          fullWidth
+                          {...field}
+                          error={!!error}
+                        />
                       )}
                     />
                   </div>
                 </div>
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
-                  <div className="flex items-center">
-                    <label htmlFor="resume" className="body-3 mr-2 w-[95px] min-w-[95px]">
-                      Resume/CV<span className="text-error">*</span>
-                    </label>
+                  <div className="flex items-start">
+                    <div className="body-3 mb-5 mr-2 flex h-[40px] w-[95px] min-w-[95px] items-center">
+                      <label htmlFor="resume">
+                        Resume/CV<span className="relative top-[-2px] text-error">*</span>
+                      </label>
+                    </div>
                     <FileInput
                       control={control}
                       name="resume"
@@ -212,10 +239,10 @@ export default function ApplyCareerForm({
                   </div>
                 </div>
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
-                  <div className="flex items-center">
-                    <label htmlFor="coverLetter" className="body-3 mr-2 w-[95px] min-w-[95px]">
-                      Cover Letter
-                    </label>
+                  <div className="flex items-start">
+                    <div className="body-3 mb-5 mr-2 flex h-[40px] w-[95px] min-w-[95px] items-center">
+                      <label htmlFor="coverLetter">Cover Letter</label>
+                    </div>
                     <FileInput control={control} name="coverLetter" label="Cover Letter" />
                   </div>
                 </div>

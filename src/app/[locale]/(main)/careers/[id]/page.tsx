@@ -36,7 +36,9 @@ function Section({ title, lines }: SectionProps) {
         <ul className="-my-2 list-none">
           {lines.map((line) => (
             <li key={line.id} className="flex py-2">
-              <div className="mr-2 mt-2 h-2 w-2 min-w-2 rounded-full bg-primary"></div>
+              <div className="mr-2 flex h-[20px] items-center">
+                <div className="h-2 w-2 min-w-2 rounded-full bg-primary"></div>
+              </div>
               <p className="body-3">{line.name}</p>
             </li>
           ))}
@@ -76,19 +78,19 @@ export default async function CareerView({ params }: { params: { id: string } })
               lines={career.lines.filter((line) => line.lineType === CareerLineType.Responsibility)}
             />
           </div>
-          <div className="mt-8">
+          <div className="mt-6">
             <Section
               title="What You’ll Need:"
               lines={career.lines.filter((line) => line.lineType === CareerLineType.Requirement)}
             />
           </div>
-          <div className="mt-8">
+          <div className="mt-6">
             <Section
-              title="Benefits"
+              title="Benefits:"
               lines={career.lines.filter((line) => line.lineType === CareerLineType.Benefit)}
             />
           </div>
-          <p className="body-3 mt-8 italic">
+          <p className="body-3 mt-6 italic">
             At OCELLE we know that people are the heart of the business, and we prioritise their
             welfare. OCELLE embraces diversity and equal opportunity. We&apos;re committed to
             building a team that represents a variety of backgrounds, perspectives, and skills.
@@ -97,7 +99,7 @@ export default async function CareerView({ params }: { params: { id: string } })
             legally protected status. For individuals with disabilities who would like to request an
             accommodation, please include that in your application.
           </p>
-          <div className="mt-8 text-center">
+          <div className="mt-6 text-center">
             <Button className="min-w-[180px]" href={`./${params.id}/apply`}>
               {t('apply')}
             </Button>

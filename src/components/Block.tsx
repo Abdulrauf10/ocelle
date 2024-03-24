@@ -3,7 +3,7 @@ import React from 'react';
 
 interface BlockProps {
   className?: string;
-  styles?: 'tight' | 'normal';
+  styles?: 'tight' | 'normal' | 'narrow' | 'custom';
 }
 
 export default function Block({
@@ -14,7 +14,13 @@ export default function Block({
   return (
     <div
       className={clsx(
-        styles === 'tight' ? 'py-[2.4vw] max-xl:py-10' : 'py-[3.5vw] max-xl:py-10',
+        styles === 'tight'
+          ? 'py-[2.4vw] max-xl:py-10'
+          : styles === 'normal'
+            ? 'py-[3.5vw] max-xl:py-10'
+            : styles === 'narrow'
+              ? 'py-4 max-xl:py-10'
+              : '',
         className
       )}
     >
