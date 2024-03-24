@@ -20,18 +20,17 @@ interface I1823ICalendar {
   }>;
 }
 
-const redis = new Redis();
-
 /**
  * get `https://www.1823.gov.hk/common/ical/en.json` JSON response and parse to calendar events
  */
 export async function getCalendarEvents(): Promise<CalendarEvent[]> {
-  const redisRes = await redis.get('storefront-1823-icalendar');
+  const redis = new Redis();
+  const cachedCalendar = await redis.get('storefront-1823-icalendar');
   const events: CalendarEvent[] = [];
   let calendar: I1823ICalendar;
 
-  if (redisRes) {
-    calendar = JSON.parse(redisRes);
+  if (cachedCalendar) {
+    calendar = JSON.parse(cachedCalendar);
   } else {
     const res = await fetch('https://www.1823.gov.hk/common/ical/en.json');
 
