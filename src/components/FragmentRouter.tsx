@@ -48,12 +48,12 @@ export function useFragmentRouterController<T>({
         if (currentRoute != null && !options?.replace) {
           stackRef.current.push({
             route: currentRoute,
-            state: options?.state,
+            state: currentState,
           });
         }
       }
     },
-    [currentRoute]
+    [currentRoute, currentState]
   );
 
   return {

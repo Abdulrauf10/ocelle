@@ -9,7 +9,7 @@ import { useTranslations } from 'next-intl';
 import { useSurvey } from '../SurveyContext';
 import { MealPlan } from '@/enums';
 
-export default function ChoosePlanFragment({ navigate }: FragmentProps<Stage>) {
+export default function ChoosePlanFragment({ state, navigate }: FragmentProps<Stage>) {
   const t = useTranslations();
   const { getDog, setDog } = useSurvey();
   const { name, mealPlan } = getDog();
@@ -31,9 +31,13 @@ export default function ChoosePlanFragment({ navigate }: FragmentProps<Stage>) {
       setError(t('you-must-select-either-one-of-the-plan'));
     } else {
       setDog({ mealPlan: currentMealPlan });
-      navigate(Stage.RecommendedPlan);
+      if (state?.isEdit) {
+        navigate(Stage.Calculating, { replace: true });
+      } else {
+        navigate(Stage.RecommendedPlan);
+      }
     }
-  }, [t, currentMealPlan, navigate, setDog]);
+  }, [t, currentMealPlan, state, navigate, setDog]);
 
   return (
     <Container className="text-center">

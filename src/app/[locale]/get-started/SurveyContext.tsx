@@ -12,7 +12,7 @@ import {
 import cloneDeep from 'clone-deep';
 import store from 'store2';
 
-interface Dog {
+export interface Dog {
   name?: string;
   isUnknownBreed?: boolean;
   breeds?: Breed[];
