@@ -102,28 +102,32 @@ export default function CheckoutForm({
       },
     },
   });
-  const [pending, startTransition] = React.useTransition();
+  const [isSubmitInProgress, setIsSubmitInProgress] = React.useState(false);
 
   const onSubmit = React.useCallback(
-    ({ billingAddress, confirmPassword, ...values }: ICheckoutForm) => {
+    async ({ billingAddress, confirmPassword, ...values }: ICheckoutForm) => {
       if (!stripe || !elements) {
         // Stripe.js hasn't yet loaded.
         // Make  sure to disable form submission until Stripe.js has loaded.
         return;
       }
-      startTransition(async () => {
-        try {
-          await action(
-            values.isSameBillingAddress ? values : { ...values, billingAddress },
-            stripe,
-            elements
-          );
-        } catch (e) {
-          console.error(e);
-        }
-      });
+      if (isSubmitInProgress) {
+        return;
+      }
+      try {
+        setIsSubmitInProgress(true);
+        await action(
+          values.isSameBillingAddress ? values : { ...values, billingAddress },
+          stripe,
+          elements
+        );
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setIsSubmitInProgress(false);
+      }
     },
-    [action, stripe, elements]
+    [action, stripe, elements, isSubmitInProgress]
   );
 
   return (
@@ -138,6 +142,7 @@ export default function CheckoutForm({
                     name="firstName"
                     control={control}
                     rules={{ required: true }}
+                    disabled={isSubmitInProgress}
                     render={({ field, fieldState: { error } }) => (
                       <TextField {...field} label={t('first-name')} fullWidth error={!!error} />
                     )}
@@ -148,6 +153,7 @@ export default function CheckoutForm({
                     name="lastName"
                     control={control}
                     rules={{ required: true }}
+                    disabled={isSubmitInProgress}
                     render={({ field, fieldState: { error } }) => (
                       <TextField {...field} label={t('last-name')} fullWidth error={!!error} />
                     )}
@@ -158,6 +164,7 @@ export default function CheckoutForm({
                     name="email"
                     control={control}
                     rules={{ required: true }}
+                    disabled={isSubmitInProgress}
                     render={({ field, fieldState: { error } }) => (
                       <TextField {...field} label={t('email')} fullWidth error={!!error} />
                     )}
@@ -170,6 +177,7 @@ export default function CheckoutForm({
                     rules={{ required: true }}
                     label={t('password')}
                     fullWidth
+                    disabled={isSubmitInProgress}
                   />
                 </div>
                 <div className="w-1/2 p-2">
@@ -179,6 +187,7 @@ export default function CheckoutForm({
                     rules={{ required: true }}
                     label={t('confirm-{}', { value: t('password') })}
                     fullWidth
+                    disabled={isSubmitInProgress}
                   />
                 </div>
                 <div className="w-full p-2">
@@ -186,6 +195,7 @@ export default function CheckoutForm({
                     name="phone"
                     control={control}
                     rules={{ required: true }}
+                    disabled={isSubmitInProgress}
                     render={({ field, fieldState: { error } }) => (
                       <TextField {...field} label={t('phone-number')} fullWidth error={!!error} />
                     )}
@@ -199,6 +209,7 @@ export default function CheckoutForm({
                   label={t(
                     'keep-me-up-to-date-with-news-and-exclusive-offers-via-email-or-whatsApp'
                   )}
+                  disabled={isSubmitInProgress}
                 />
               </div>
             </Section>
@@ -210,6 +221,7 @@ export default function CheckoutForm({
                   name="isSameBillingAddress"
                   control={control}
                   label={t('use-as-{}', { name: t('billing-address') })}
+                  disabled={isSubmitInProgress}
                 />
               </div>
             </Section>
@@ -218,7 +230,7 @@ export default function CheckoutForm({
               <PartialAddressForm
                 control={control}
                 prefix="billingAddress"
-                disabled={watch('isSameBillingAddress')}
+                disabled={watch('isSameBillingAddress') || isSubmitInProgress}
               />
             </Section>
             <SectionBreak half />
@@ -364,10 +376,11 @@ export default function CheckoutForm({
                         <UnderlineButton type="button" theme="primary" label={chunks} />
                       ),
                     })}
+                    disabled={isSubmitInProgress}
                   />
                 </div>
                 <div className="mt-4 text-center">
-                  <Button disabled={!stripe || pending}>{t('checkout')}</Button>
+                  <Button disabled={!stripe || isSubmitInProgress}>{t('checkout')}</Button>
                 </div>
               </CheckoutBlock>
             </div>

@@ -21,6 +21,7 @@ interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> 
   fullWidth?: boolean;
   InputLabelProps?: Partial<InputLabelProps>;
   sx?: SxProps<Theme>;
+  disabled?: boolean;
   mask?: {
     pattern: Mask | ((value: string) => Mask);
     char?: string;
@@ -34,6 +35,7 @@ export default function TextField<T extends FieldValues>({
   control,
   label,
   type,
+  disabled,
   fullWidth,
   inputProps,
   InputProps,
@@ -47,6 +49,7 @@ export default function TextField<T extends FieldValues>({
         name={name}
         control={control}
         rules={rules}
+        disabled={disabled}
         render={({ field, fieldState: { error } }) => (
           <MuiTextField
             {...field}
