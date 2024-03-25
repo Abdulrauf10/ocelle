@@ -20,7 +20,7 @@ export default function Block({
             ? 'py-[3.5vw] max-xl:py-10'
             : styles === 'narrow'
               ? 'py-4 max-xl:py-10'
-              : '',
+              : 'py-[3.5vw] max-xl:py-10',
         className
       )}
     >
