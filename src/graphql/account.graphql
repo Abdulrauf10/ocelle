@@ -1,0 +1,93 @@
+fragment UserDetails on User {
+  id
+  email
+  firstName
+  lastName
+  metadata {
+    key
+    value
+  }
+  avatar {
+    url
+    alt
+  }
+}
+
+fragment UserError on AccountError {
+  field
+  message
+  code
+  addressType
+}
+
+mutation RegisterAccount($input: AccountRegisterInput!) {
+  accountRegister(input: $input) {
+    requiresConfirmation
+    errors {
+      ...UserError
+    }
+    user {
+      id
+    }
+  }
+}
+
+mutation UpdateUser($id: ID!, $firstName: String!, $lastName: String!, $email: String!) {
+  customerUpdate(id: $id, input: { firstName: $firstName, lastName: $lastName, email: $email }) {
+    errors {
+      ...UserError
+    }
+  }
+}
+
+mutation ChangePassword($oldPassword: String!, $newPassword: String!) {
+  passwordChange(oldPassword: $oldPassword, newPassword: $newPassword) {
+    errors {
+      ...UserError
+    }
+  }
+}
+
+mutation ConfirmAccount($email: String!, $token: String!) {
+  confirmAccount(email: $email, token: $token) {
+    errors {
+      ...UserError
+    }
+    user {
+      id
+    }
+  }
+}
+
+query CurrentUser {
+  me {
+    ...UserDetails
+  }
+}
+
+query CurrentUserOrderList {
+  me {
+    ...UserDetails
+    orders(first: 10) {
+      edges {
+        node {
+          ...OrderDetails
+        }
+      }
+    }
+  }
+}
+
+mutation RequestPasswordReset($email: String!, $redirectUrl: String!) {
+  requestPasswordReset(email: $email, redirectUrl: $redirectUrl) {
+    errors {
+      ...UserError
+    }
+  }
+}
+
+query FindUser($email: String!) {
+  user(email: $email) {
+    ...UserDetails
+  }
+}

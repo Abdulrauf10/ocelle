@@ -1,7 +1,92 @@
 import { Breed } from '@/entities';
 import { FoodAllergies, MealPlan, OrderSize, Recipe } from '@/enums';
-import { ActivityLevel, BodyCondition, BreedSize, LifeStage, Pickiness } from '@/types';
-import { differenceInMonths, differenceInYears } from 'date-fns';
+import {
+  ActivityLevel,
+  BodyCondition,
+  BreedSize,
+  CalendarEvent,
+  LifeStage,
+  Pickiness,
+} from '@/types';
+import { addDays, differenceInMonths, differenceInYears, getDay, startOfDay } from 'date-fns';
+
+const recipePricePerDay = {
+  [Recipe.Chicken]: 18,
+  [Recipe.Beef]: 18,
+  [Recipe.Duck]: 18,
+  [Recipe.Lamb]: 18,
+  [Recipe.Pork]: 18,
+};
+
+export function isNotProductionDate(date: Date, events: CalendarEvent[]) {
+  if (getDay(date) === 0) {
+    return true;
+  }
+  for (const event of events) {
+    if (event.start <= date && event.end > date) {
+      return true;
+    }
+  }
+  return false;
+}
+
+export function isUnavailableDeliveryDate(date: Date, events: CalendarEvent[]) {
+  if (getDay(date) === 1) {
+    return true;
+  }
+  for (const event of events) {
+    if (event.start <= date && event.end > date) {
+      return true;
+    }
+  }
+  return false;
+}
+
+export function getClosestOrderDeliveryDate(currentDate = new Date(), events: CalendarEvent[]) {
+  const dates = [
+    1, // D + production
+    1, // D + production
+    1, // D + pick up
+    1, // D + delivery
+  ];
+
+  // production as a block
+  while (isNotProductionDate(addDays(currentDate, dates[0]), events)) {
+    dates[0] += 1;
+  }
+
+  // production as a block
+  while (isNotProductionDate(addDays(currentDate, dates[0] + dates[1]), events)) {
+    dates[1] += 1;
+  }
+
+  const totalProductionDates = dates[0] + dates[1];
+
+  // pick up + delivery stick together
+  while (
+    isUnavailableDeliveryDate(
+      addDays(currentDate, totalProductionDates + dates[2] + dates[3]),
+      events
+    )
+  ) {
+    dates[2] += 1;
+  }
+
+  console.debug('processing dates debug day usage', dates);
+
+  return addDays(
+    startOfDay(currentDate),
+    dates.reduce((sum, a) => sum + a, 0)
+  );
+}
+
+export function getEditableDeliveryDateDeadline(orderDate: Date) {
+  //
+}
+
+export function calculateDeliveryDates(currentDate = new Date()) {
+  //
+}
 
 function isExactSize(breeds: Breed[], sizes: Array<BreedSize>) {
   return breeds.filter((x) => sizes.indexOf(x.size) > -1).length === breeds.length;
@@ -95,7 +180,7 @@ export function getDerMultiplier(
 /**
  * Refer to `Excel: customization variables v0.12 > Customization Variables`
  */
-export function calcuateDailyCalorieRequirement(
+export function calculateDailyCalorieRequirement(
   idealWeight: number,
   derMultiplier: number,
   plan: MealPlan
@@ -126,7 +211,7 @@ export function calculateDailyProtionSize(calorie: number, recipe: Recipe) {
  *
  * TODO: what means is cheaper / expensive recipe ????? custonization variables
  */
-export function calcuateTotalOrderPortionSize(
+export function calculateTotalOrderPortionSize(
   calorie: number,
   recipe: Recipe,
   totalRecipes: number,
@@ -264,4 +349,8 @@ export function isRecommendedRecipe(
       return false;
     }
   }
+}
+
+export function calculatePrice(recipe: Recipe) {
+  return 10;
 }

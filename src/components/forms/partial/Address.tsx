@@ -3,27 +3,27 @@
 import React from 'react';
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { Controller, type Control, type FieldValues, FieldPath } from 'react-hook-form';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 export type IPartialAddressForm = {
   firstName: string;
   lastName: string;
-  address1: string;
-  address2: string;
+  streetAddress1: string;
+  streetAddress2: string;
   district: string;
   region: string;
   country: string;
 };
 
 type DistrictMap = {
-  kowloon: (keyof IntlMessages)[];
-  'new-territories': (keyof IntlMessages)[];
-  'hong-kong-island': (keyof IntlMessages)[];
+  Kowloon: (keyof IntlMessages)[];
+  'New Territories': (keyof IntlMessages)[];
+  'Hong Kong Island': (keyof IntlMessages)[];
 };
 
 const districtMap: DistrictMap = {
-  kowloon: ['kowloon-city', 'kwun-tong', 'sham-shui-po', 'wong-tai-sin', 'yau-tsim-mong'],
-  'new-territories': [
+  Kowloon: ['kowloon-city', 'kwun-tong', 'sham-shui-po', 'wong-tai-sin', 'yau-tsim-mong'],
+  'New Territories': [
     'islands',
     'kwai-tsing',
     'north',
@@ -34,7 +34,7 @@ const districtMap: DistrictMap = {
     'tuen-mun',
     'yuen-long',
   ],
-  'hong-kong-island': ['central-and-western', 'eastern', 'southern', 'wan-chai'],
+  'Hong Kong Island': ['central-and-western', 'eastern', 'southern', 'wan-chai'],
 };
 
 interface PartialAddressFormProps<T extends FieldValues> {
@@ -48,9 +48,12 @@ export default function PartialAddressForm<T extends FieldValues>({
   prefix,
   disabled,
 }: PartialAddressFormProps<T>) {
+  const locale = useLocale();
   const t = useTranslations();
   const id = React.useId();
-  const [region, setRegion] = React.useState<keyof DistrictMap>();
+  const [pending, startTransition] = React.useTransition();
+  const [districts, setDistricts] = React.useState<{ raw: string; verbose: string }[]>([]);
+  const [region, setRegion] = React.useState<string>();
 
   const getPath = React.useCallback(
     (key: string) => {
@@ -59,13 +62,27 @@ export default function PartialAddressForm<T extends FieldValues>({
     [prefix]
   );
 
+  React.useEffect(() => {
+    if (region !== undefined) {
+      startTransition(async () => {
+        const districts = await fetch('/api/district', {
+          headers: {
+            'x-countryArea': region,
+            'x-language': locale,
+          },
+        });
+        setDistricts(await districts.json());
+      });
+    }
+  }, [region, locale]);
+
   return (
     <div className="-m-2 flex flex-wrap">
       <div className="w-1/2 p-2">
         <Controller
           name={getPath('firstName')}
           control={control}
-          rules={{ required: true }}
+          rules={{ required: !disabled }}
           render={({ field: { value, ...field }, fieldState: { error } }) => (
             <TextField
               {...field}
@@ -82,7 +99,7 @@ export default function PartialAddressForm<T extends FieldValues>({
         <Controller
           name={getPath('lastName')}
           control={control}
-          rules={{ required: true }}
+          rules={{ required: !disabled }}
           render={({ field: { value, ...field }, fieldState: { error } }) => (
             <TextField
               {...field}
@@ -97,9 +114,9 @@ export default function PartialAddressForm<T extends FieldValues>({
       </div>
       <div className="w-full p-2">
         <Controller
-          name={getPath('address1')}
+          name={getPath('streetAddress1')}
           control={control}
-          rules={{ required: true }}
+          rules={{ required: !disabled }}
           render={({ field: { value, ...field }, fieldState: { error } }) => (
             <TextField
               {...field}
@@ -114,9 +131,9 @@ export default function PartialAddressForm<T extends FieldValues>({
       </div>
       <div className="w-full p-2">
         <Controller
-          name={getPath('address2')}
+          name={getPath('streetAddress2')}
           control={control}
-          rules={{ required: true }}
+          rules={{ required: !disabled }}
           render={({ field: { value, ...field }, fieldState: { error } }) => (
             <TextField
               {...field}
@@ -133,9 +150,9 @@ export default function PartialAddressForm<T extends FieldValues>({
         <Controller
           name={getPath('district')}
           control={control}
-          rules={{ required: true }}
+          rules={{ required: !disabled }}
           render={({ field: { value, ...field }, fieldState: { error } }) => (
-            <FormControl fullWidth disabled={disabled}>
+            <FormControl fullWidth disabled={disabled || pending}>
               <InputLabel id={`${id}-district-label`}>{t('district')}</InputLabel>
               <Select
                 {...field}
@@ -145,15 +162,11 @@ export default function PartialAddressForm<T extends FieldValues>({
                 error={!!error}
                 value={value ?? ''}
               >
-                {region &&
-                  districtMap[region] &&
-                  districtMap[region].map((district) => {
-                    return (
-                      <MenuItem key={district} value={district}>
-                        {t(district)}
-                      </MenuItem>
-                    );
-                  })}
+                {districts.map((district, idx) => (
+                  <MenuItem key={idx} value={district.raw}>
+                    {district.verbose}
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           )}
@@ -163,11 +176,11 @@ export default function PartialAddressForm<T extends FieldValues>({
         <Controller
           name={getPath('region')}
           control={control}
-          rules={{ required: true }}
+          rules={{ required: !disabled }}
           render={({ field: { value, ...field }, fieldState: { error } }) => {
             setRegion(value);
             return (
-              <FormControl fullWidth disabled={disabled}>
+              <FormControl fullWidth disabled={disabled || pending}>
                 <InputLabel id={`${id}-region-label`}>{t('region')}</InputLabel>
                 <Select
                   {...field}
@@ -177,9 +190,9 @@ export default function PartialAddressForm<T extends FieldValues>({
                   error={!!error}
                   value={value ?? ''}
                 >
-                  <MenuItem value="kowloon">{t('kowloon')}</MenuItem>
-                  <MenuItem value="new-territories">{t('new-territories')}</MenuItem>
-                  <MenuItem value="hong-kong-island">{t('hong-kong-island')}</MenuItem>
+                  <MenuItem value="Kowloon">{t('kowloon')}</MenuItem>
+                  <MenuItem value="New Territories">{t('new-territories')}</MenuItem>
+                  <MenuItem value="Hong Kong Island">{t('hong-kong-island')}</MenuItem>
                 </Select>
               </FormControl>
             );
@@ -190,9 +203,9 @@ export default function PartialAddressForm<T extends FieldValues>({
         <Controller
           name={getPath('country')}
           control={control}
-          rules={{ required: true }}
+          rules={{ required: !disabled }}
           render={({ field: { value, ...field }, fieldState: { error } }) => (
-            <FormControl fullWidth disabled={disabled}>
+            <FormControl fullWidth disabled={disabled || pending}>
               <InputLabel id={`${id}-country-label`}>{t('country')}</InputLabel>
               <Select
                 {...field}
@@ -202,7 +215,7 @@ export default function PartialAddressForm<T extends FieldValues>({
                 error={!!error}
                 value={value ?? ''}
               >
-                <MenuItem value="hong-kong">{t('hong-kong')}</MenuItem>
+                <MenuItem value="HK">{t('hong-kong')}</MenuItem>
               </Select>
             </FormControl>
           )}

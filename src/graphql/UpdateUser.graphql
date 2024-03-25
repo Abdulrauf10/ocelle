@@ -1,7 +1,0 @@
-mutation UpdateUser($id: ID!, $firstName: String!, $lastName: String!, $email: String!) {
-  customerUpdate(id: $id, input: { firstName: $firstName, lastName: $lastName, email: $email }) {
-    errors {
-      ...UserError
-    }
-  }
-}

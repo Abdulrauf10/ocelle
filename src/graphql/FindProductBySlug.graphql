@@ -1,5 +1,0 @@
-query FindProductBySlug($slug: String!) {
-  product(slug: $slug) {
-    id
-  }
-}

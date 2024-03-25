@@ -1,0 +1,117 @@
+fragment PaymentGatewayFragment on PaymentGateway {
+  id
+  name
+  currencies
+  config {
+    field
+    value
+  }
+}
+
+fragment CheckoutFragment on Checkout {
+  id
+  email
+  shippingAddress {
+    ...UserAddress
+  }
+  billingAddress {
+    ...UserAddress
+  }
+  authorizeStatus
+  chargeStatus
+  isShippingRequired
+  user {
+    id
+    email
+  }
+  availablePaymentGateways {
+    ...PaymentGatewayFragment
+  }
+  totalPrice {
+    gross {
+      currency
+      amount
+    }
+  }
+}
+
+mutation CreateCheckout($input: CheckoutCreateInput!) {
+  checkoutCreate(input: $input) {
+    errors {
+      message
+      code
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}
+
+mutation AddPromoCode($checkoutId: ID!, $promoCode: String!) {
+  checkoutAddPromoCode(promoCode: $promoCode, id: $checkoutId) {
+    errors {
+      message
+      code
+    }
+  }
+}
+
+mutation RemovePromoCode($checkoutId: ID!, $promoCode: String!) {
+  checkoutRemovePromoCode(promoCode: $promoCode, id: $checkoutId) {
+    errors {
+      message
+      code
+    }
+  }
+}
+
+mutation AttachCheckoutCustomer($checkoutId: ID!, $customerId: ID!) {
+  checkoutCustomerAttach(id: $checkoutId, customerId: $customerId) {
+    errors {
+      message
+      code
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}
+
+mutation UpdateCheckoutAddress(
+  $checkoutId: ID!
+  $shippingAddress: AddressInput!
+  $billingAddress: AddressInput!
+) {
+  checkoutShippingAddressUpdate(id: $checkoutId, shippingAddress: $shippingAddress) {
+    errors {
+      field
+      message
+      code
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+  checkoutBillingAddressUpdate(id: $checkoutId, billingAddress: $billingAddress) {
+    errors {
+      field
+      message
+      code
+    }
+    checkout {
+      ...CheckoutFragment
+    }
+  }
+}
+
+mutation CompleteCheckout($checkoutId: ID!) {
+  checkoutComplete(id: $checkoutId) {
+    errors {
+      message
+      code
+    }
+    order {
+      id
+    }
+  }
+}

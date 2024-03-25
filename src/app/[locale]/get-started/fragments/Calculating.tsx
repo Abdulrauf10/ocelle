@@ -5,18 +5,54 @@ import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
 import { useSurvey } from '../SurveyContext';
+import { createCheckout, getDefaultDeliveryDate, initializeStripeTranscation } from '../actions';
+import { OrderSize } from '@/enums';
+import { CalendarEvent } from '@/types';
 
 export default function CalculatingFragment({ navigate }: FragmentProps<Stage>) {
   const t = useTranslations();
-  const { getDog } = useSurvey();
-  const { name } = getDog();
+  const { owner, getDog } = useSurvey();
+  const { name, recipe1, recipe2, mealPlan, isEnabledTransitionPeriod } = getDog();
 
   React.useEffect(() => {
-    const timeout = setTimeout(() => {
-      navigate(Stage.ChoosePlan, { replace: true });
-    }, 3000);
-    return () => clearTimeout(timeout);
-  }, [navigate]);
+    if (
+      owner.email === undefined ||
+      mealPlan === undefined ||
+      isEnabledTransitionPeriod === undefined ||
+      recipe1 === undefined
+    ) {
+      throw new Error('there have some fields not yet completed');
+    }
+    Promise.all([
+      getDefaultDeliveryDate(),
+      fetch('/api/calendar'),
+      createCheckout(
+        owner.email,
+        OrderSize.TwoWeek,
+        mealPlan,
+        isEnabledTransitionPeriod,
+        recipe1,
+        recipe2
+      ),
+      new Promise((resolve) => setTimeout(resolve, 3000)),
+    ]).then(async ([defaultDeliveryDate, calendarAPI, { checkout, gateways }]) => {
+      if (!calendarAPI.ok) {
+        throw new Error('failed to fetch calendar events');
+      }
+      const json = (await calendarAPI.json()) as CalendarEvent[];
+      const data = await initializeStripeTranscation();
+      navigate(Stage.Checkout, {
+        state: {
+          defaultDeliveryDate,
+          calendarEvents: json.map((record) => {
+            return { ...record, start: new Date(record.start), end: new Date(record.end) };
+          }),
+          stripe: data,
+        },
+        replace: true,
+      });
+    });
+  }, [navigate, owner, mealPlan, isEnabledTransitionPeriod, recipe1, recipe2]);
 
   return (
     <Container className="text-center">

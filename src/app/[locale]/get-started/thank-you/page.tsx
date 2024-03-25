@@ -1,14 +1,14 @@
 import Container from '@/components/Container';
-import { useTranslations } from 'next-intl';
-import Benefits from '../Benefits';
+import { getTranslations } from 'next-intl/server';
 import { Link } from '@/navigation';
 import Image from 'next/image';
+import Benefits from '../Benefits';
 
-export default function ThankYouFragment() {
-  const t = useTranslations();
+export default async function ThankYouPage() {
+  const t = await getTranslations();
 
   return (
-    <Container className="text-center">
+    <Container className="py-24 text-center">
       <Link href="/" className="relative z-10 mx-auto inline-block px-2">
         <Image
           alt="Ocelle"

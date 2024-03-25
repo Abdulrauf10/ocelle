@@ -1,0 +1,29 @@
+fragment ChannelFragment on Channel {
+  id
+  name
+  slug
+  isActive
+  currencyCode
+  countries {
+    country
+    code
+  }
+}
+
+query GetChannel($slug: String!) {
+  channel(slug: $slug) {
+    ...ChannelFragment
+  }
+}
+
+mutation CreateChannel($input: ChannelCreateInput!) {
+  channelCreate(input: $input) {
+    errors {
+      code
+      message
+    }
+    channel {
+      ...ChannelFragment
+    }
+  }
+}

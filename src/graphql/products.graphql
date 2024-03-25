@@ -1,0 +1,129 @@
+fragment ProductTypeFragment on ProductType {
+  id
+  name
+  slug
+  isShippingRequired
+  isDigital
+}
+
+query FindProductTypes($keyword: String!) {
+  productTypes(filter: { search: $keyword }, first: 10) {
+    edges {
+      node {
+        ...ProductTypeFragment
+      }
+    }
+  }
+}
+
+mutation CreateProductType($name: String!) {
+  productTypeCreate(input: { name: $name }) {
+    errors {
+      code
+      message
+    }
+    productType {
+      ...ProductTypeFragment
+    }
+  }
+}
+
+query FindProductCategory($slug: String!) {
+  category(slug: $slug) {
+    id
+  }
+}
+
+mutation CreateProductCategory($name: String!, $slug: String!) {
+  categoryCreate(input: { name: $name, slug: $slug }) {
+    errors {
+      code
+      message
+    }
+    category {
+      id
+    }
+  }
+}
+
+query GetAllShippingZones {
+  shippingZones(first: 100) {
+    totalCount
+    edges {
+      node {
+        id
+      }
+    }
+  }
+}
+
+query GetAllWarehouses {
+  warehouses(first: 100) {
+    totalCount
+    edges {
+      node {
+        id
+      }
+    }
+  }
+}
+
+query FindProduct($slug: String!) {
+  product(slug: $slug) {
+    id
+    variants {
+      id
+      sku
+    }
+  }
+}
+
+mutation CreateProduct(
+  $name: String!
+  $description: JSONString
+  $slug: String!
+  $productType: ID!
+  $category: ID
+  $channelListings: [ProductChannelListingCreateInput!]!
+  $variants: [ProductVariantBulkCreateInput!]
+) {
+  productBulkCreate(
+    products: {
+      name: $name
+      description: $description
+      slug: $slug
+      category: $category
+      productType: $productType
+      channelListings: $channelListings
+      variants: $variants
+    }
+  ) {
+    errors {
+      code
+      message
+    }
+    results {
+      product {
+        id
+      }
+    }
+  }
+}
+
+mutation UpdateProductChannelListing($productId: ID!, $channels: [ProductChannelListingAddInput!]) {
+  productChannelListingUpdate(id: $productId, input: { updateChannels: $channels }) {
+    errors {
+      code
+      message
+    }
+  }
+}
+
+mutation CreateProductVariants($productId: ID!, $variants: [ProductVariantBulkCreateInput!]!) {
+  productVariantBulkCreate(product: $productId, variants: $variants) {
+    errors {
+      code
+      message
+    }
+  }
+}

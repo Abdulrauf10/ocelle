@@ -15,7 +15,6 @@ import CalculatingFragment from './fragments/Calculating';
 import ChoosePlanFragment from './fragments/ChoosePlan';
 import RecommendedPlanFragment from './fragments/RecommendedPlan';
 import CheckoutFragment from './fragments/Checkout';
-import ThankYouFragment from './fragments/ThankYou';
 import Back from './Back';
 import Header from '@/components/Header';
 import FragmentRouter, { useFragmentRouterController } from '@/components/FragmentRouter';
@@ -93,10 +92,6 @@ export default function GetStarted() {
       {
         name: Stage.Checkout,
         component: CheckoutFragment,
-      },
-      {
-        name: Stage.ThankYou,
-        component: ThankYouFragment,
       },
     ],
   });
