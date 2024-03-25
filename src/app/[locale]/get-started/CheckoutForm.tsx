@@ -133,7 +133,7 @@ export default function CheckoutForm({
           const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-              return_url: urlJoin(window.location.href, '/thank-you'),
+              return_url: urlJoin(window.location.href, '/complete'),
               save_payment_method: true,
               receipt_email: values.email,
               payment_method_data: {
