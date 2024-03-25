@@ -4,7 +4,6 @@ import Lock from '../../icons/Lock';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 import TextField from '../../controls/TextField';
-import { useTheme } from '@mui/material';
 import {
   StripeTextFieldCVC,
   StripeTextFieldExpiry,
@@ -26,7 +25,6 @@ export default function PartialCardForm<T extends FieldValues>({
   control,
 }: PartialCardFormProps<T>) {
   const t = useTranslations();
-  const theme = useTheme();
 
   return (
     <>
@@ -75,7 +73,7 @@ export default function PartialCardForm<T extends FieldValues>({
       </div>
       <div className="mt-3">
         <div className="-m-2 flex flex-wrap">
-          <div className="w-full p-2">
+          {/* <div className="w-full p-2">
             <TextField
               name={'cardName' as FieldPath<T>}
               control={control}
@@ -83,7 +81,7 @@ export default function PartialCardForm<T extends FieldValues>({
               label={t('name-on-card')}
               fullWidth
             />
-          </div>
+          </div> */}
           <div className="w-full p-2">
             <StripeTextFieldNumber
               label={t('card-number')}
@@ -93,9 +91,6 @@ export default function PartialCardForm<T extends FieldValues>({
                     placeholder: '',
                     style: {
                       base: {
-                        ...(theme.components?.MuiOutlinedInput?.styleOverrides?.input as
-                          | Record<string, unknown>
-                          | undefined),
                         fontSize: '16px',
                       },
                     },
@@ -113,9 +108,6 @@ export default function PartialCardForm<T extends FieldValues>({
                     placeholder: '',
                     style: {
                       base: {
-                        ...(theme.components?.MuiOutlinedInput?.styleOverrides?.input as
-                          | Record<string, unknown>
-                          | undefined),
                         fontSize: '16px',
                       },
                     },
@@ -133,9 +125,6 @@ export default function PartialCardForm<T extends FieldValues>({
                     placeholder: '',
                     style: {
                       base: {
-                        ...(theme.components?.MuiOutlinedInput?.styleOverrides?.input as
-                          | Record<string, unknown>
-                          | undefined),
                         fontSize: '16px',
                       },
                     },
