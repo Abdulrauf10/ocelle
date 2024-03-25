@@ -23,7 +23,7 @@ import { formatDate } from '@/helpers/date';
 import { CalendarEvent } from '@/types';
 import { applyCoupon } from './actions';
 import { useElements, useStripe } from '@stripe/react-stripe-js';
-import path from 'path-browserify';
+import urlJoin from 'url-join';
 
 function getRecipeTranslation(recipe: Recipe) {
   switch (recipe) {
@@ -133,7 +133,7 @@ export default function CheckoutForm({
           const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-              return_url: path.join(window.location.href, '/thank-you'),
+              return_url: urlJoin(window.location.href, '/thank-you'),
               save_payment_method: true,
               receipt_email: values.email,
               payment_method_data: {
