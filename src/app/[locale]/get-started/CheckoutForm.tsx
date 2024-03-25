@@ -17,28 +17,13 @@ import UnderlineButton from '@/components/UnderlineButton';
 import CouponForm from '@/components/forms/Coupon';
 import { Dog } from './SurveyContext';
 import { MealPlan, Recipe } from '@/enums';
-import { isUnavailableDeliveryDate } from '@/helpers/dog';
+import { getRecipeSlug, isUnavailableDeliveryDate } from '@/helpers/dog';
 import { addDays, addWeeks } from 'date-fns';
 import { formatDate } from '@/helpers/date';
 import { CalendarEvent } from '@/types';
 import { applyCoupon } from './actions';
 import { useElements, useStripe } from '@stripe/react-stripe-js';
 import urlJoin from 'url-join';
-
-function getRecipeTranslation(recipe: Recipe) {
-  switch (recipe) {
-    case Recipe.Chicken:
-      return 'chicken';
-    case Recipe.Beef:
-      return 'beef';
-    case Recipe.Duck:
-      return 'duck';
-    case Recipe.Lamb:
-      return 'lamb';
-    case Recipe.Pork:
-      return 'pork';
-  }
-}
 
 function CheckoutBlock({ title, children }: React.PropsWithChildren<{ title?: string }>) {
   return (
@@ -341,8 +326,8 @@ export default function CheckoutForm({
                       <div className="px-1">{t('{}-colon', { value: t('recipes') })}</div>
                       <div className="px-1">
                         <strong className="mr-1.5">
-                          {dog.recipe1 != null && t(getRecipeTranslation(dog.recipe1))}
-                          {dog.recipe2 != null && `, ${t(getRecipeTranslation(dog.recipe2))}`}
+                          {dog.recipe1 != null && t(getRecipeSlug(dog.recipe1))}
+                          {dog.recipe2 != null && `, ${t(getRecipeSlug(dog.recipe2))}`}
                         </strong>
                         <EditButton onClick={onEditRecipes} />
                       </div>
