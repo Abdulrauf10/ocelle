@@ -138,9 +138,9 @@ export default function DateCalendar<T extends FieldValues>({
           }}
         />
       </LocalizationProvider>
-      <div className="mx-auto max-w-[320px] rounded-bl-[20px] rounded-br-[20px] border-b-4 border-l-4 border-r-4 border-primary bg-white px-6 pb-3">
+      <div className="mx-auto max-w-[320px] rounded-bl-[20px] rounded-br-[20px] border-b-4 border-l-4 border-r-4 border-primary bg-white px-5 pb-3">
         {actions && (
-          <div className="-mx-1 flex">
+          <div className="-mx-1 flex pt-2">
             {actions.map((action, idx) => {
               return (
                 <div key={idx} className="flex-1 px-1">
