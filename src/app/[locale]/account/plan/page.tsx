@@ -8,9 +8,10 @@ import DogSwitch from '../DogSwitch';
 import { Dog, SaleorUser } from '@/entities';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import { getTranslations } from 'next-intl/server';
-import { MealPlan, OrderSize, Recipe } from '@/enums';
+import { MealPlan, OrderSize } from '@/enums';
 import { getStoreMe } from '@/storeUserProvider';
 import { executeQuery } from '@/helpers/queryRunner';
+import { getRecipeSlug } from '@/helpers/dog';
 
 async function getData() {
   const me = await getStoreMe();
@@ -191,9 +192,9 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
                     <div className="-mx-2 -my-4 flex justify-between max-sm:flex-col">
                       <div className="px-2 py-4">
                         <Image
-                          src={`/meal-plan/${Recipe[dog.plan.recipe1].toLowerCase()}.jpg`}
+                          src={`/meal-plan/${getRecipeSlug(dog.plan.recipe1)}.jpg`}
                           alt={t('fresh-{}-recipe', {
-                            value: t(Recipe[dog.plan.recipe1].toLowerCase()),
+                            value: t(getRecipeSlug(dog.plan.recipe1)),
                           })}
                           width={195}
                           height={195}
@@ -201,7 +202,7 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
                         />
                         <p className="mt-2 text-center">
                           {t('fresh-{}-recipe', {
-                            value: t(Recipe[dog.plan.recipe1].toLowerCase()),
+                            value: t(getRecipeSlug(dog.plan.recipe1)),
                           })}
                         </p>
                       </div>
@@ -212,9 +213,9 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
                           </div>
                           <div className="px-2 py-4">
                             <Image
-                              src={`/meal-plan/${Recipe[dog.plan.recipe2].toLowerCase()}.jpg`}
+                              src={`/meal-plan/${getRecipeSlug(dog.plan.recipe1)}.jpg`}
                               alt={t('fresh-{}-recipe', {
-                                value: t(Recipe[dog.plan.recipe2].toLowerCase()),
+                                value: t(getRecipeSlug(dog.plan.recipe1)),
                               })}
                               width={195}
                               height={195}
@@ -222,7 +223,7 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
                             />
                             <p className="mt-2 text-center">
                               {t('fresh-{}-recipe', {
-                                value: t(Recipe[dog.plan.recipe2].toLowerCase()),
+                                value: t(getRecipeSlug(dog.plan.recipe1)),
                               })}
                             </p>
                           </div>

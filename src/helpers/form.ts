@@ -3,7 +3,7 @@ import { FoodAllergies, Recipe } from '@/enums';
 /**
  * get translation keys as index
  */
-function getFoodAllergiesOptions() {
+function getFoodAllergiesOptions(): ['none', 'chicken', 'beef', 'pork', 'lamb', 'duck'] {
   return ['none', 'chicken', 'beef', 'pork', 'lamb', 'duck'];
 }
 

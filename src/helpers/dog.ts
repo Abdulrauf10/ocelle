@@ -18,6 +18,21 @@ const recipePricePerDay = {
   [Recipe.Pork]: 18,
 };
 
+export function getRecipeSlug(recipe: Recipe) {
+  switch (recipe) {
+    case Recipe.Chicken:
+      return 'chicken';
+    case Recipe.Beef:
+      return 'beef';
+    case Recipe.Duck:
+      return 'duck';
+    case Recipe.Lamb:
+      return 'lamb';
+    case Recipe.Pork:
+      return 'pork';
+  }
+}
+
 export function isNotProductionDate(date: Date, events: CalendarEvent[]) {
   if (getDay(date) === 0) {
     return true;

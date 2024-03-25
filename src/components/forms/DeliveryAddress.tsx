@@ -14,8 +14,8 @@ interface IDeliveryAddressForm extends IPartialAddressForm {
 export default function DeliveryAddressForm({
   firstName,
   lastName,
-  address1,
-  address2,
+  streetAddress1,
+  streetAddress2,
   district,
   region,
   country,
@@ -23,8 +23,8 @@ export default function DeliveryAddressForm({
 }: {
   firstName: string;
   lastName: string;
-  address1: string;
-  address2: string;
+  streetAddress1: string;
+  streetAddress2: string;
   district: string;
   region: string;
   country: string;
@@ -36,8 +36,8 @@ export default function DeliveryAddressForm({
     defaultValues: {
       firstName,
       lastName,
-      address1,
-      address2,
+      streetAddress1,
+      streetAddress2,
       district,
       region,
       country,
@@ -57,8 +57,8 @@ export default function DeliveryAddressForm({
   const isSameAsDefaultValue =
     watch('firstName') === firstName &&
     watch('lastName') === lastName &&
-    watch('address1') === address1 &&
-    watch('address2') === address2 &&
+    watch('streetAddress1') === streetAddress1 &&
+    watch('streetAddress2') === streetAddress2 &&
     watch('district') === district &&
     watch('region') === region &&
     watch('country') === country;
@@ -78,7 +78,15 @@ export default function DeliveryAddressForm({
           <Button
             fullWidth
             onClick={() =>
-              reset({ firstName, lastName, address1, address2, district, region, country })
+              reset({
+                firstName,
+                lastName,
+                streetAddress1,
+                streetAddress2,
+                district,
+                region,
+                country,
+              })
             }
             reverse
             disabled={isSameAsDefaultValue}

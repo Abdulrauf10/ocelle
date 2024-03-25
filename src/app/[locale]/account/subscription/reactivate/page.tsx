@@ -1,3 +1,4 @@
+import React from 'react';
 import Container from '@/components/Container';
 import EditButton from '@/components/EditButton';
 import Image from 'next/image';
@@ -9,8 +10,8 @@ import { getStoreMe } from '@/storeUserProvider';
 import { executeQuery } from '@/helpers/queryRunner';
 import { Dog, SaleorUser } from '@/entities';
 import { getTranslations } from 'next-intl/server';
-import { MealPlan, OrderSize, Recipe } from '@/enums';
-import React from 'react';
+import { MealPlan, OrderSize } from '@/enums';
+import { getRecipeSlug } from '@/helpers/dog';
 
 function SectionTitle({ children }: React.PropsWithChildren) {
   return <strong className="text-lg text-gold">{children}</strong>;
@@ -91,11 +92,11 @@ export default async function Reactivate() {
                 <div className="flex-1 px-2">
                   <SectionTitle>{t('fresh-{}', { value: t('recipes') })}</SectionTitle>
                   <p>
-                    {t('fresh-{}', { value: t(Recipe[dog.plan.recipe1].toLowerCase()) })}
+                    {t('fresh-{}', { value: t(getRecipeSlug(dog.plan.recipe1)) })}
                     {dog.plan.recipe2 && (
                       <>
                         {t('comma')}
-                        {t('fresh-{}', { value: t(Recipe[dog.plan.recipe2].toLowerCase()) })}
+                        {t('fresh-{}', { value: t(getRecipeSlug(dog.plan.recipe2)) })}
                       </>
                     )}
                   </p>
@@ -210,11 +211,11 @@ export default async function Reactivate() {
                           {t('{}-colon', { value: t('recipes') })}
                         </div>
                         <div className="flex-1 text-right">
-                          {t('fresh-{}', { value: t(Recipe[dog.plan.recipe1].toLowerCase()) })}
+                          {t('fresh-{}', { value: t(getRecipeSlug(dog.plan.recipe1)) })}
                           {dog.plan.recipe2 && (
                             <>
                               {t('comma')}
-                              {t('fresh-{}', { value: t(Recipe[dog.plan.recipe2].toLowerCase()) })}
+                              {t('fresh-{}', { value: t(getRecipeSlug(dog.plan.recipe2)) })}
                             </>
                           )}
                         </div>

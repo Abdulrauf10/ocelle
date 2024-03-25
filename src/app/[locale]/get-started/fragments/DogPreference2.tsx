@@ -11,7 +11,6 @@ import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
 import { useSurvey } from '../SurveyContext';
-import { FoodAllergies } from '@/enums';
 import { AmountOfTreats, CurrentlyEating, Pickiness } from '@/types';
 import { arrayToAllergies, foodAllergiesToArray, getFoodAllergiesOptions } from '@/helpers/form';
 
