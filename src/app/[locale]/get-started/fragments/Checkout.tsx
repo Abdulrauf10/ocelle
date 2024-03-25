@@ -82,6 +82,7 @@ export default function CheckoutFragment() {
                         line2: address.streetAddress2,
                         state: address.region,
                       },
+                      phone: '+852' + data.phone, // assume all phones are from HK
                     },
                   },
                   receipt_email: data.email,
