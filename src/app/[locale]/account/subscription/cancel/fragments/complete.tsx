@@ -1,12 +1,10 @@
-import { FragmentProps } from '@/components/FragmentRouter';
-import { Path } from '../types';
 import Container from '@/components/Container';
 import CircleTick from '@/components/icons/CircleTick';
 import UnderlineButton from '@/components/UnderlineButton';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
-export default function CompleteFragment({ navigate }: FragmentProps<Path>) {
+export default function CompleteFragment() {
   const t = useTranslations();
 
   return (

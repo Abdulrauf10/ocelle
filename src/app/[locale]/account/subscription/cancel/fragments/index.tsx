@@ -1,13 +1,13 @@
 import { useRouter } from '@/navigation';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
-import { FragmentProps } from '@/components/FragmentRouter';
-import { Path } from '../types';
 import { useTranslations } from 'next-intl';
+import { useNavigate } from 'react-router-dom';
 
-export default function IndexFragment({ navigate }: FragmentProps<Path>) {
+export default function IndexFragment() {
   const t = useTranslations();
   const router = useRouter();
+  const navigate = useNavigate();
 
   return (
     <Container>

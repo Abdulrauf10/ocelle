@@ -1,16 +1,15 @@
 enum Stage {
-  Welcome,
-  Dog,
-  DogBasic,
-  DogAge,
-  DogPreference1,
-  DogPreference2,
-  Owner,
-  Calculating,
-  ChoosePlan,
-  RecommendedPlan,
-  Checkout,
-  ThankYou,
+  Welcome = '/',
+  Dog = '/dog',
+  DogBasic = '/dog/basic',
+  DogAge = '/dog/age',
+  DogPreference1 = '/dog/preference1',
+  DogPreference2 = '/dog/preference2',
+  Owner = '/owner',
+  Calculating = '/loading',
+  ChoosePlan = '/choose-plan',
+  RecommendedPlan = '/recommended-plan',
+  Checkout = '/checkout',
 }
 
 export default Stage;

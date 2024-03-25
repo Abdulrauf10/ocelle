@@ -7,11 +7,13 @@ import UnderlineButton from '@/components/UnderlineButton';
 import Section from '../Section';
 import DateCalendar from '@/components/controls/DateCalendar';
 import clsx from 'clsx';
-import { FragmentProps } from '@/components/FragmentRouter';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
 import { useSurvey } from '../SurveyContext';
 import { subDays } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { pageVariants } from '../transition';
 
 interface DogAgeForm {
   months?: number;
@@ -19,8 +21,9 @@ interface DogAgeForm {
   birthday?: Date;
 }
 
-export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
+export default function DogAgeFragment() {
   const t = useTranslations();
+  const navigate = useNavigate();
   const { getDog, setDog } = useSurvey();
   const { name, age } = getDog();
   const {
@@ -50,76 +53,78 @@ export default function DogAgeFragment({ navigate }: FragmentProps<Stage>) {
   );
 
   return (
-    <Container className="text-center">
-      <Section
-        title={t('how-old-is-{}', { name })}
-        description={t('if-youre-unsure-just-give-us-your-best-guess')}
-      >
-        <div className="mx-auto mt-8 flex max-w-[260px] justify-between">
-          <UnderlineButton
-            underline={tab === 'Age'}
-            className={clsx('text-lg', tab === 'Age' ? 'font-bold' : '')}
-            onClick={() => setTab('Age')}
-            label={t('enter-age')}
-          />
-          <UnderlineButton
-            underline={tab === 'Birthday'}
-            className={clsx('text-lg', tab === 'Birthday' ? 'font-bold' : '')}
-            onClick={() => setTab('Birthday')}
-            label={t('select-birthday')}
-          />
-        </div>
-        <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-6 max-w-[480px]">
-          {tab === 'Age' && (
-            <div className="flex justify-center">
-              <div className="flex items-center px-4">
-                <Controller
-                  name="years"
-                  control={control}
-                  rules={{ required: tab === 'Age' }}
-                  render={({ field, fieldState: { error } }) => (
-                    <TextField
-                      type="number"
-                      className="mr-2 w-20"
-                      inputProps={{ min: 0 }}
-                      {...field}
-                      error={!!error}
-                    />
-                  )}
-                />
-                <span className="body-3 ml-2">{t('years')}</span>
-              </div>
-              <div className="flex items-center px-4">
-                <Controller
-                  name="months"
-                  control={control}
-                  rules={{ required: tab === 'Age' }}
-                  render={({ field, fieldState: { error } }) => (
-                    <TextField
-                      type="number"
-                      className="mr-2 w-20"
-                      inputProps={{ min: 0 }}
-                      {...field}
-                      error={!!error}
-                    />
-                  )}
-                />
-                <span className="body-3 ml-2">{t('months')}</span>
-              </div>
-            </div>
-          )}
-          {tab === 'Birthday' && (
-            <DateCalendar
-              control={control}
-              name="birthday"
-              rules={{ required: tab === 'Birthday' }}
-              error={!!errors.birthday}
-              maxDate={subDays(new Date(), 1)}
+    <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
+      <Container className="text-center">
+        <Section
+          title={t('how-old-is-{}', { name })}
+          description={t('if-youre-unsure-just-give-us-your-best-guess')}
+        >
+          <div className="mx-auto mt-8 flex max-w-[260px] justify-between">
+            <UnderlineButton
+              underline={tab === 'Age'}
+              className={clsx('text-lg', tab === 'Age' ? 'font-bold' : '')}
+              onClick={() => setTab('Age')}
+              label={t('enter-age')}
             />
-          )}
-          <Button className="mt-8">{t('continue')}</Button>
-        </form>
-      </Section>
-    </Container>
+            <UnderlineButton
+              underline={tab === 'Birthday'}
+              className={clsx('text-lg', tab === 'Birthday' ? 'font-bold' : '')}
+              onClick={() => setTab('Birthday')}
+              label={t('select-birthday')}
+            />
+          </div>
+          <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-6 max-w-[480px]">
+            {tab === 'Age' && (
+              <div className="flex justify-center">
+                <div className="flex items-center px-4">
+                  <Controller
+                    name="years"
+                    control={control}
+                    rules={{ required: tab === 'Age' }}
+                    render={({ field, fieldState: { error } }) => (
+                      <TextField
+                        type="number"
+                        className="mr-2 w-20"
+                        inputProps={{ min: 0 }}
+                        {...field}
+                        error={!!error}
+                      />
+                    )}
+                  />
+                  <span className="body-3 ml-2">{t('years')}</span>
+                </div>
+                <div className="flex items-center px-4">
+                  <Controller
+                    name="months"
+                    control={control}
+                    rules={{ required: tab === 'Age' }}
+                    render={({ field, fieldState: { error } }) => (
+                      <TextField
+                        type="number"
+                        className="mr-2 w-20"
+                        inputProps={{ min: 0 }}
+                        {...field}
+                        error={!!error}
+                      />
+                    )}
+                  />
+                  <span className="body-3 ml-2">{t('months')}</span>
+                </div>
+              </div>
+            )}
+            {tab === 'Birthday' && (
+              <DateCalendar
+                control={control}
+                name="birthday"
+                rules={{ required: tab === 'Birthday' }}
+                error={!!errors.birthday}
+                maxDate={subDays(new Date(), 1)}
+              />
+            )}
+            <Button className="mt-8">{t('continue')}</Button>
+          </form>
+        </Section>
+      </Container>
+    </motion.div>
   );
 }

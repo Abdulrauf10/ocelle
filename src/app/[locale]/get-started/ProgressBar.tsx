@@ -1,10 +1,6 @@
 import { useTranslations } from 'next-intl';
 import Stage from './Stage';
 
-interface ProgressBarProps {
-  stage: Stage;
-}
-
 function isCheckoutStage(stage: Stage) {
   if (stage === Stage.Checkout) {
     return true;
@@ -53,7 +49,7 @@ function isDogStage(stage: Stage) {
   }
 }
 
-export default function ProgressBar({ stage }: ProgressBarProps) {
+export default function ProgressBar({ stage }: { stage: Stage }) {
   const t = useTranslations();
 
   return (

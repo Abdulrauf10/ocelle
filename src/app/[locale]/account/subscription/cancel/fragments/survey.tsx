@@ -1,14 +1,14 @@
 import React from 'react';
-import { FragmentProps } from '@/components/FragmentRouter';
-import { Path } from '../types';
 import { Controller, useForm } from 'react-hook-form';
 import Container from '@/components/Container';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import Button from '@/components/Button';
 import { useTranslations } from 'next-intl';
+import { useNavigate } from 'react-router-dom';
 
-export default function SurveyFragment({ navigate }: FragmentProps<Path>) {
+export default function SurveyFragment() {
   const t = useTranslations();
+  const navigate = useNavigate();
   const { control } = useForm();
   const reasons = React.useMemo(() => {
     return [
