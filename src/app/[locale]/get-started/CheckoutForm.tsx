@@ -16,14 +16,14 @@ import PasswordField from '@/components/controls/PasswordField';
 import UnderlineButton from '@/components/UnderlineButton';
 import CouponForm from '@/components/forms/Coupon';
 import { Dog } from './SurveyContext';
-import { MealPlan, Recipe } from '@/enums';
+import { MealPlan } from '@/enums';
 import { getRecipeSlug, isUnavailableDeliveryDate } from '@/helpers/dog';
 import { addDays, addWeeks } from 'date-fns';
 import { formatDate } from '@/helpers/date';
 import { CalendarEvent } from '@/types';
 import { applyCoupon } from './actions';
 import { useElements, useStripe } from '@stripe/react-stripe-js';
-import urlJoin from 'url-join';
+import { Stripe, StripeElements } from '@stripe/stripe-js';
 
 function CheckoutBlock({ title, children }: React.PropsWithChildren<{ title?: string }>) {
   return (
@@ -68,7 +68,7 @@ export default function CheckoutForm({
   onEditMealPlan(): void;
   onEditRecipes(): void;
   onEditTransitionPeriod(): void;
-  action(data: ICheckoutFormAction): Promise<void>;
+  action(data: ICheckoutFormAction, stripe: Stripe, elements: StripeElements): Promise<void>;
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -111,45 +111,13 @@ export default function CheckoutForm({
         // Make  sure to disable form submission until Stripe.js has loaded.
         return;
       }
-      const address = values.isSameBillingAddress ? values.deliveryAddress : billingAddress;
       startTransition(async () => {
         try {
-          await action(values.isSameBillingAddress ? values : { ...values, billingAddress });
-          const { error } = await stripe.confirmPayment({
-            elements,
-            confirmParams: {
-              return_url: urlJoin(window.location.href, '/complete'),
-              save_payment_method: true,
-              receipt_email: values.email,
-              payment_method_data: {
-                billing_details: {
-                  name: address.firstName + ' ' + address.lastName,
-                  email: values.email,
-                  address: {
-                    city: address.district,
-                    country: address.country,
-                    line1: address.streetAddress1,
-                    line2: address.streetAddress2,
-                    state: address.region,
-                  },
-                },
-              },
-            },
-          });
-          console.log(error);
-          if (error) {
-            // This point will only be reached if there is an immediate error when
-            // confirming the payment. Otherwise, your customer will be redirected to
-            // your `return_url`. For some payment methods like iDEAL, your customer will
-            // be redirected to an intermediate site first to authorize the payment, then
-            // redirected to the `return_url`.
-            if (error.type === 'card_error' || error.type === 'validation_error') {
-              console.error(error.message ?? 'Something went wrong');
-            } else {
-              console.error('An unexpected error occurred');
-            }
-            return;
-          }
+          await action(
+            values.isSameBillingAddress ? values : { ...values, billingAddress },
+            stripe,
+            elements
+          );
         } catch (e) {
           console.error(e);
         }
