@@ -72,8 +72,18 @@ export default function CheckoutFragment() {
                 {
                   payment_method: {
                     card,
+                    billing_details: {
+                      name: address.firstName + ' ' + address.lastName,
+                      email: data.email,
+                      address: {
+                        city: address.district,
+                        country: address.country,
+                        line1: address.streetAddress1,
+                        line2: address.streetAddress2,
+                        state: address.region,
+                      },
+                    },
                   },
-                  return_url: urlJoin(window.location.href, '/complete'),
                   receipt_email: data.email,
                   // save_payment_method: true,
                 }
