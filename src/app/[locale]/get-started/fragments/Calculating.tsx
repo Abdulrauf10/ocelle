@@ -16,19 +16,44 @@ export default function CalculatingFragment() {
   const navigate = useNavigate();
   const { owner, getDog } = useSurvey();
   const { name, recipe1, recipe2, mealPlan, isEnabledTransitionPeriod } = getDog();
+  const waitPromise = React.useMemo(() => new Promise((resolve) => setTimeout(resolve, 3000)), []);
+  const [defaultDeliveryDate, setDefaultDeliveryDate] = React.useState<Date | null>();
+  const [calendarEvents, setCalendarEvents] = React.useState<CalendarEvent[] | null>();
+  const [transcation, setTranscation] = React.useState<any | null>();
 
   React.useEffect(() => {
+    getDefaultDeliveryDate()
+      .then(setDefaultDeliveryDate)
+      .catch((e) => {
+        console.error(e);
+        setDefaultDeliveryDate(null);
+      });
+    fetch('/api/calendar')
+      .then(async (calendarAPI) => {
+        if (!calendarAPI.ok) {
+          console.error('failed to fetch calendar events');
+          setCalendarEvents(null);
+        }
+        const json = (await calendarAPI.json()) as CalendarEvent[];
+        setCalendarEvents(
+          json.map((record) => {
+            return { ...record, start: new Date(record.start), end: new Date(record.end) };
+          })
+        );
+      })
+      .catch((e) => {
+        console.error(e);
+        setCalendarEvents(null);
+      });
     if (
       owner.email === undefined ||
       mealPlan === undefined ||
       isEnabledTransitionPeriod === undefined ||
       recipe1 === undefined
     ) {
-      throw new Error('there have some fields not yet completed');
-    }
-    Promise.all([
-      getDefaultDeliveryDate(),
-      fetch('/api/calendar'),
+      console.error('failed to calculate, there have some fields not yet completed');
+      setTranscation(null);
+    } else {
       createCheckout(
         owner.email,
         OrderSize.TwoWeek,
@@ -36,26 +61,51 @@ export default function CalculatingFragment() {
         isEnabledTransitionPeriod,
         recipe1,
         recipe2
-      ),
-      new Promise((resolve) => setTimeout(resolve, 3000)),
-    ]).then(async ([defaultDeliveryDate, calendarAPI, { checkout, gateways }]) => {
-      if (!calendarAPI.ok) {
-        throw new Error('failed to fetch calendar events');
-      }
-      const json = (await calendarAPI.json()) as CalendarEvent[];
-      const data = await initializeStripeTranscation();
+      )
+        .then(async ({ checkout, gateways }) => {
+          try {
+            const data = await initializeStripeTranscation();
+            setTranscation(data);
+          } catch (e) {
+            console.error(e);
+            setTranscation(null);
+          }
+        })
+        .catch((e) => {
+          console.error(e);
+          setTranscation(null);
+        });
+    }
+  }, [owner, mealPlan, isEnabledTransitionPeriod, recipe1, recipe2]);
+
+  React.useEffect(() => {
+    if (
+      defaultDeliveryDate === undefined ||
+      calendarEvents === undefined ||
+      transcation === undefined
+    ) {
+      // fetching api and wait for the request has completed
+      return;
+    }
+    if (defaultDeliveryDate === null || calendarEvents === null || transcation === null) {
+      console.error('there have some error during create the checkout, redirect to the home page');
+      return navigate('/', {
+        state: {
+          checkoutError: true,
+        },
+      });
+    }
+    waitPromise.then(() => {
       navigate(Stage.Checkout, {
         state: {
           defaultDeliveryDate,
-          calendarEvents: json.map((record) => {
-            return { ...record, start: new Date(record.start), end: new Date(record.end) };
-          }),
-          stripe: data,
+          calendarEvents,
+          stripe: transcation,
         },
         replace: true,
       });
     });
-  }, [navigate, owner, mealPlan, isEnabledTransitionPeriod, recipe1, recipe2]);
+  }, [defaultDeliveryDate, calendarEvents, transcation, waitPromise, navigate]);
 
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">

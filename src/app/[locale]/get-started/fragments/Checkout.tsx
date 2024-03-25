@@ -13,8 +13,14 @@ import { pageVariants } from '../transition';
 export default function CheckoutFragment() {
   const { dogs } = useSurvey();
   const navigate = useNavigate();
-  const location = useLocation();
-  const { stripe, defaultDeliveryDate, calendarEvents } = location.state;
+  const { state } = useLocation();
+  const elementOptions = React.useMemo(() => {
+    return { clientSecret: state.stripe.paymentIntent.client_secret };
+  }, [state.stripe]);
+  const stripePromise = React.useMemo(
+    () => loadStripe(state.stripe.publishableKey),
+    [state.stripe]
+  );
 
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
@@ -41,14 +47,11 @@ export default function CheckoutFragment() {
           },
         }}
       >
-        <Elements
-          options={{ clientSecret: stripe.paymentIntent.client_secret }}
-          stripe={loadStripe(stripe.publishableKey)}
-        >
+        <Elements options={elementOptions} stripe={stripePromise}>
           <CheckoutForm
             dogs={dogs}
-            defaultDeliveryDate={defaultDeliveryDate}
-            calendarEvents={calendarEvents}
+            defaultDeliveryDate={state.defaultDeliveryDate}
+            calendarEvents={state.calendarEvents}
             onEditMealPlan={() => navigate(Stage.ChoosePlan, { state: { isEdit: true } })}
             onEditRecipes={() => navigate(Stage.RecommendedPlan, { state: { isEdit: true } })}
             onEditTransitionPeriod={() =>
