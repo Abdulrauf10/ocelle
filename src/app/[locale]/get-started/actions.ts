@@ -5,6 +5,7 @@ import { OrderSize, Recipe } from '@/enums';
 import {
   AddPromoCodeDocument,
   AttachCheckoutCustomerDocument,
+  CheckoutFragment,
   CompleteCheckoutDocument,
   CountryCode,
   CreateCheckoutDocument,
@@ -49,7 +50,7 @@ const SKUs = {
   [Recipe.Duck]: 'ocelle-d-s',
 };
 
-async function getCheckout() {
+async function getCheckout(): Promise<CheckoutFragment> {
   const nextServerCookiesStorage = getNextServerCookiesStorage();
   const checkoutId = nextServerCookiesStorage.getItem('checkout');
 
@@ -590,16 +591,29 @@ export async function completeCheckout() {
       }
       await queryRunner.manager.save(dogOrders);
     });
-
-    const nextServerCookiesStorage = getNextServerCookiesStorage();
-
-    nextServerCookiesStorage.removeItem('checkout');
-
-    return { deliveryDate: params.deliveryDate };
   } catch (e) {
     console.error(e);
     redirect('/get-started');
-  } finally {
-    return {};
   }
+}
+
+export async function getDeliveryDate() {
+  const nextServerCookiesStorage = getNextServerCookiesStorage();
+  const id = nextServerCookiesStorage.getItem('checkout');
+
+  if (!id) {
+    return undefined;
+  }
+
+  const params = await getCheckoutParameters(id);
+
+  if (!params) {
+    return undefined;
+  }
+
+  return params.deliveryDate;
+}
+
+export async function dropCheckoutSession() {
+  getNextServerCookiesStorage().removeItem('checkout');
 }

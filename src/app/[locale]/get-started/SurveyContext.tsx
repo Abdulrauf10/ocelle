@@ -10,7 +10,7 @@ import {
   Pickiness,
 } from '@/types';
 import cloneDeep from 'clone-deep';
-import store from 'store2';
+import { getSurveySessionStore } from '@/helpers/session';
 
 export interface Dog {
   name?: string;
@@ -50,7 +50,7 @@ interface SurveyContextProps {
 
 const SurveyContext = React.createContext<SurveyContextProps | undefined>(undefined);
 
-const surveySession = store.namespace('survey').session;
+const surveySession = getSurveySessionStore();
 
 export function SurveyContextProvider({ children }: React.PropsWithChildren) {
   const [dogs, setDogs] = React.useState<Dog[]>(surveySession.get('dogs') ?? []);

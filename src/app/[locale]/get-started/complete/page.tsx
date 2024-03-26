@@ -1,17 +1,59 @@
+'use client';
+
 import Container from '@/components/Container';
-import { getTranslations } from 'next-intl/server';
-import { Link, redirect } from '@/navigation';
+import { useTranslations } from 'next-intl';
+import { Link, useRouter } from '@/navigation';
 import Image from 'next/image';
 import Benefits from '../Benefits';
-import { completeCheckout } from '../actions';
+import { dropCheckoutSession, getDeliveryDate } from '../actions';
 import { formatDate } from '@/helpers/date';
+import React from 'react';
+import { getSurveySessionStore } from '@/helpers/session';
 
-export default async function ThankYouPage() {
-  const t = await getTranslations();
-  const { deliveryDate } = await completeCheckout();
+// TODO: clear session and checkout cookie
+
+export default function ThankYouPage() {
+  const t = useTranslations();
+  const router = useRouter();
+  const [ran, setRan] = React.useState(false);
+  const [deliveryDate, setDeliveryDate] = React.useState<Date>();
+
+  const startCleanUp = React.useCallback(async () => {
+    if (ran) {
+      return;
+    }
+    try {
+      setRan(true);
+      const deliveryDate = await getDeliveryDate();
+      if (!deliveryDate) {
+        throw new Error('delivery date is undefined');
+      }
+      setDeliveryDate(deliveryDate);
+      await dropCheckoutSession();
+      getSurveySessionStore().clearAll();
+    } catch (e) {
+      console.error(e);
+      router.replace('/get-started');
+    }
+  }, [ran, router]);
+
+  React.useEffect(() => {
+    startCleanUp();
+  }, [startCleanUp]);
 
   if (!deliveryDate) {
-    return redirect('/get-started');
+    return (
+      <Container className="py-24 text-center">
+        <Image
+          src="/question/loading.gif"
+          alt="loading indicator"
+          width={200}
+          height={200}
+          className="inline-block"
+        />
+        <h1 className="heading-4 mt-8 font-bold text-primary">{t('processing-your-order')}</h1>
+      </Container>
+    );
   }
 
   return (

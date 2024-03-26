@@ -3,7 +3,7 @@ import Stage from '../Stage';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import { CardNumberElement, Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
-import { processCheckout } from '../actions';
+import { completeCheckout, processCheckout } from '../actions';
 import CheckoutForm from '../CheckoutForm';
 import { useSurvey } from '../SurveyContext';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -104,6 +104,7 @@ export default function CheckoutFragment() {
                 }
                 return;
               }
+              await completeCheckout();
               router.push('/get-started/complete');
             }}
           />
