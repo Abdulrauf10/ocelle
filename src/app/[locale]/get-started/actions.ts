@@ -142,32 +142,30 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
     },
   });
 
-  if (!checkoutCreate || checkoutCreate.errors.length > 0 || !checkoutCreate.checkout) {
-    console.error(checkoutCreate?.errors, {
-      channel: process.env.SALEOR_CHANNEL_SLUG,
-      email,
-      lines,
-    });
+  if (!checkoutCreate || checkoutCreate.errors.length > 0) {
+    checkoutCreate && console.error(checkoutCreate?.errors);
     throw new Error('create checkout failed');
   }
 
-  if (!checkoutCreate.checkout.availablePaymentGateways.find((x) => x.id === stripeAppId)) {
+  const checkout = checkoutCreate.checkout!;
+
+  if (checkout.availablePaymentGateways.find((x) => x.id === stripeAppId)) {
     throw new Error('stripe is currently not available');
   }
 
-  await setCheckoutParameters(checkoutCreate.checkout.id, email, orderSize, dogs);
+  await setCheckoutParameters(checkout.id, email, orderSize, dogs);
 
   const nextServerCookiesStorage = getNextServerCookiesStorage();
 
-  nextServerCookiesStorage.setItem('checkout', checkoutCreate.checkout.id);
+  nextServerCookiesStorage.setItem('checkout', checkout.id);
 
   console.log('checkout debug');
-  console.dir(checkoutCreate.checkout, { depth: null });
+  console.dir(checkout, { depth: null });
 
   const { paymentGatewayInitialize } = await executeGraphQL(InitializePaymentGatewaysDocument, {
     variables: {
-      checkoutId: checkoutCreate.checkout.id,
-      paymentGateways: checkoutCreate.checkout.availablePaymentGateways.map(({ config, id }) => ({
+      checkoutId: checkout.id,
+      paymentGateways: checkout.availablePaymentGateways.map(({ config, id }) => ({
         id,
         data: config,
       })),
