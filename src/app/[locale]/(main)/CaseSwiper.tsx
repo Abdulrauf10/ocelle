@@ -79,8 +79,8 @@ export default function CaseSwiper() {
       modules={[Pagination, Autoplay]}
       pagination={{ dynamicBullets: false }}
       className="mt-10"
-      autoplay={{ delay: 12000 }}
-      speed={1000}
+      autoplay={{ delay: 10000 }}
+      speed={2000}
     >
       <SwiperSlide>
         <Slide

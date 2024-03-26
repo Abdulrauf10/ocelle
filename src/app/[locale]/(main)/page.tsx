@@ -75,25 +75,49 @@ export default function Home() {
           <div className="relative mt-10 flex-col-reverse items-center max-xl:flex">
             <div className="pb-0 max-xl:flex max-xl:flex-wrap [&>*]:max-xl:m-0 [&>*]:max-xl:mt-3 [&>*]:max-xl:max-w-none [&>*]:max-xl:px-4 [&>*]:max-xl:py-3 [&>*]:max-xl:text-center [&>*]:max-sm:w-full [&_img]:max-xl:inline">
               <div className="ml-14 mt-5 md:w-1/2 xl:w-full">
-                <Image alt="good food" src="/meal-plan/icon-1.svg" width={81} height={70} />
+                <Image
+                  alt="good food"
+                  className="h-20 w-20"
+                  src="/meal-plan/icon-1.svg"
+                  width={81}
+                  height={70}
+                />
                 <h3 className="heading-4 mt-2 text-primary">{t('real-good-food-freshly-made')}</h3>
                 <p className="body-1 mt-2 xl:max-w-[320px]">
                   {t('real-good-food-freshly-made-content')}
                 </p>
               </div>
               <div className="mt-[6%] md:w-1/2 xl:w-full">
-                <Image alt="good food" src="/meal-plan/icon-2.svg" width={74} height={70} />
+                <Image
+                  className="h-20 w-20"
+                  alt="good food"
+                  src="/meal-plan/icon-2.svg"
+                  width={74}
+                  height={70}
+                />
                 <h3 className="heading-4 mt-2 text-primary">{t('customised-meal-plans')}</h3>
                 <p className="body-1 mt-2 xl:max-w-[320px]">{t('customised-meal-plans-content')}</p>
               </div>
               <div className="ml-32 mt-[6%] flex flex-1 flex-wrap max-xl:-my-3">
                 <div className="w-full max-xl:py-3 md:w-1/2 xl:w-full xl:max-w-[300px]">
-                  <Image alt="good food" src="/meal-plan/icon-3.svg" width={102} height={70} />
+                  <Image
+                    className="h-20 w-[114px]"
+                    alt="good food"
+                    src="/meal-plan/icon-3.svg"
+                    width={102}
+                    height={70}
+                  />
                   <h3 className="heading-4 mt-2 text-primary">{t('delivered-within-days')}</h3>
                   <p className="body-1 mt-2">{t('delivered-within-days-content')}</p>
                 </div>
-                <div className="w-full max-xl:mt-3 max-xl:py-3 md:w-1/2 xl:ml-[11%] xl:mt-[12%] xl:w-full xl:max-w-[320px]">
-                  <Image alt="good food" src="/meal-plan/icon-4.svg" width={67} height={70} />
+                <div className="w-full max-xl:mt-0 max-xl:py-3 md:w-1/2 xl:ml-[11%] xl:mt-[12%] xl:w-full xl:max-w-[320px]">
+                  <Image
+                    className="h-20 w-20"
+                    alt="good food"
+                    src="/meal-plan/icon-4.svg"
+                    width={67}
+                    height={70}
+                  />
                   <h3 className="heading-4 mt-2 text-primary">{t('vet-approved')}</h3>
                   <p className="body-1 mt-2">{t('vet-approved-content')}</p>
                 </div>
@@ -182,14 +206,13 @@ export default function Home() {
           <div className="mt-2 text-center">
             <Button href="/get-started">{t('build-my-plan')}</Button>
           </div>
-          <p className="mt-[2.5vw] text-center text-3xl font-black text-gray max-md:text-3xl max-sm:mt-8">
-            Not ready for a subscription?
-            <br className="md:hidden" />
-            No problem! Try our{' '}
+          <p className="mt-[2.5vw] text-center text-[32px] font-normal text-gray max-md:text-[32px] max-sm:mt-8">
+            Not ready for a subscription? <br className="hidden max-xl:inline" />
+            No problem! Try our Not ready for a subscription?
             <span className="whitespace-nowrap">
               <Link
                 href="/how-it-works/individual"
-                className="font-normal text-secondary hover:underline"
+                className="font-normal text-secondary underline hover:underline"
               >
                 individual packs first
               </Link>
