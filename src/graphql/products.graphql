@@ -59,6 +59,16 @@ mutation CreateProductCategory($name: String!, $slug: String!) {
   }
 }
 
+mutation UpdateShippingZone($id: ID!, $input: ShippingZoneUpdateInput!) {
+  shippingZoneUpdate(id: $id, input: $input) {
+    errors {
+      field
+      message
+      code
+    }
+  }
+}
+
 query GetAllShippingZones {
   shippingZones(first: 100) {
     totalCount

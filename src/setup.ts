@@ -19,6 +19,7 @@ import {
   ShippingZone,
   ShippingZoneFragment,
   UpdateShippingMethodChannelListingDocument,
+  UpdateShippingZoneDocument,
 } from './gql/graphql';
 import invariant from 'ts-invariant';
 
@@ -173,6 +174,29 @@ async function findShippingZones() {
   return shippingZones && shippingZones.edges.map((shippingZone) => shippingZone.node);
 }
 
+async function setupShippingZones(shippingZones: ShippingZoneFragment[]) {
+  console.log('setup shipping zones...');
+
+  for (const shippingZone of shippingZones) {
+    const { shippingZoneUpdate } = await executeGraphQL(UpdateShippingZoneDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: {
+        id: shippingZone.id,
+        input: {
+          countries: ['HK'],
+        },
+      },
+    });
+    if (!shippingZoneUpdate || shippingZoneUpdate.errors.length > 0) {
+      shippingZoneUpdate && console.error(shippingZoneUpdate.errors);
+      throw new Error('failed to update shipping zone');
+    }
+  }
+}
+
 async function setupShippingMethods(shippingZones: ShippingZoneFragment[], channelId: string) {
   console.log('execute setup shipping methods...');
 
@@ -203,7 +227,7 @@ async function setupShippingMethods(shippingZones: ShippingZoneFragment[], chann
       );
       if (
         !shippingMethodChannelListingUpdate ||
-        shippingMethodChannelListingUpdate?.errors.length > 0
+        shippingMethodChannelListingUpdate.errors.length > 0
       ) {
         shippingMethodChannelListingUpdate &&
           console.error(shippingMethodChannelListingUpdate.errors);
@@ -343,6 +367,8 @@ async function setup() {
   if (!shippingZones) {
     throw new Error('failed find the shipping zones');
   }
+
+  await setupShippingZones(shippingZones);
 
   const channel = await findOrCreateChannel(shippingZones, warehouses);
   if (!channel) {
