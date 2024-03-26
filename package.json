@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run generate:gql && next build",
     "build:analyzer": "ANALYZE=true next build",
     "start": "next start",
     "start:direct": "next start -p 80",
