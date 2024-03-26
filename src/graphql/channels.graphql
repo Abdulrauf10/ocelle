@@ -1,4 +1,13 @@
-fragment ChannelFragment on Channel {
+fragment ShippingMethod on ShippingMethod {
+  id
+  name
+  price {
+    currency
+    amount
+  }
+}
+
+fragment Channel on Channel {
   id
   name
   slug
@@ -8,11 +17,16 @@ fragment ChannelFragment on Channel {
     country
     code
   }
+  availableShippingMethodsPerCountry(countries: HK) {
+    shippingMethods {
+      ...ShippingMethod
+    }
+  }
 }
 
 query GetChannel($slug: String!) {
   channel(slug: $slug) {
-    ...ChannelFragment
+    ...Channel
   }
 }
 
@@ -23,7 +37,7 @@ mutation CreateChannel($input: ChannelCreateInput!) {
       message
     }
     channel {
-      ...ChannelFragment
+      ...Channel
     }
   }
 }

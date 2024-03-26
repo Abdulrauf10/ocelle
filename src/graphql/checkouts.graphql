@@ -1,4 +1,4 @@
-fragment PaymentGatewayFragment on PaymentGateway {
+fragment PaymentGateway on PaymentGateway {
   id
   name
   currencies
@@ -8,7 +8,7 @@ fragment PaymentGatewayFragment on PaymentGateway {
   }
 }
 
-fragment CheckoutFragment on Checkout {
+fragment Checkout on Checkout {
   id
   email
   shippingAddress {
@@ -25,13 +25,22 @@ fragment CheckoutFragment on Checkout {
     email
   }
   availablePaymentGateways {
-    ...PaymentGatewayFragment
+    ...PaymentGateway
   }
   totalPrice {
     gross {
       currency
       amount
     }
+  }
+  shippingMethods {
+    ...ShippingMethod
+  }
+}
+
+query GetCheckout($id: ID!) {
+  checkout(id: $id) {
+    ...Checkout
   }
 }
 
@@ -42,7 +51,7 @@ mutation CreateCheckout($input: CheckoutCreateInput!) {
       code
     }
     checkout {
-      ...CheckoutFragment
+      ...Checkout
     }
   }
 }
@@ -72,7 +81,7 @@ mutation AttachCheckoutCustomer($checkoutId: ID!, $customerId: ID!) {
       code
     }
     checkout {
-      ...CheckoutFragment
+      ...Checkout
     }
   }
 }
@@ -89,7 +98,7 @@ mutation UpdateCheckoutAddress(
       code
     }
     checkout {
-      ...CheckoutFragment
+      ...Checkout
     }
   }
   checkoutBillingAddressUpdate(id: $checkoutId, billingAddress: $billingAddress) {
@@ -99,7 +108,7 @@ mutation UpdateCheckoutAddress(
       code
     }
     checkout {
-      ...CheckoutFragment
+      ...Checkout
     }
   }
 }
@@ -112,6 +121,7 @@ mutation CompleteCheckout($checkoutId: ID!) {
     }
     order {
       id
+      created
     }
   }
 }

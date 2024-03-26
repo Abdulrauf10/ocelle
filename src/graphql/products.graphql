@@ -1,4 +1,4 @@
-fragment ProductTypeFragment on ProductType {
+fragment ProductType on ProductType {
   id
   name
   slug
@@ -6,11 +6,24 @@ fragment ProductTypeFragment on ProductType {
   isDigital
 }
 
+fragment ShippingZone on ShippingZone {
+  id
+  shippingMethods {
+    id
+    name
+    channelListings {
+      channel {
+        id
+      }
+    }
+  }
+}
+
 query FindProductTypes($keyword: String!) {
   productTypes(filter: { search: $keyword }, first: 10) {
     edges {
       node {
-        ...ProductTypeFragment
+        ...ProductType
       }
     }
   }
@@ -23,7 +36,7 @@ mutation CreateProductType($name: String!) {
       message
     }
     productType {
-      ...ProductTypeFragment
+      ...ProductType
     }
   }
 }
@@ -51,8 +64,18 @@ query GetAllShippingZones {
     totalCount
     edges {
       node {
-        id
+        ...ShippingZone
       }
+    }
+  }
+}
+
+mutation UpdateShippingMethodChannelListing($id: ID!, $input: ShippingMethodChannelListingInput!) {
+  shippingMethodChannelListingUpdate(id: $id, input: $input) {
+    errors {
+      field
+      message
+      code
     }
   }
 }

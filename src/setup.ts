@@ -3,6 +3,7 @@ import AppDataSource from '@/AppDataSource';
 import { executeQuery } from './helpers/queryRunner';
 import { executeGraphQL } from './helpers/graphql';
 import {
+  ChannelFragment,
   CountryCode,
   CreateChannelDocument,
   CreateProductCategoryDocument,
@@ -14,10 +15,17 @@ import {
   GetAllShippingZonesDocument,
   GetAllWarehousesDocument,
   GetChannelDocument,
+  GetChannelQuery,
+  ShippingZone,
+  ShippingZoneFragment,
+  UpdateShippingMethodChannelListingDocument,
 } from './gql/graphql';
 import invariant from 'ts-invariant';
 
-async function findOrCreateChannel(shippingZones: string[], warehouses: string[]) {
+async function findOrCreateChannel(
+  shippingZones: ShippingZoneFragment[],
+  warehouses: string[]
+): Promise<ChannelFragment> {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
   console.log('execute find or create channel...');
@@ -32,8 +40,8 @@ async function findOrCreateChannel(shippingZones: string[], warehouses: string[]
     },
   });
 
-  if (channel?.id) {
-    return channel.id;
+  if (channel) {
+    return channel;
   }
 
   // create new channel
@@ -49,7 +57,7 @@ async function findOrCreateChannel(shippingZones: string[], warehouses: string[]
         currencyCode: 'HKD',
         defaultCountry: CountryCode.Hk,
         addWarehouses: warehouses,
-        addShippingZones: shippingZones,
+        addShippingZones: shippingZones.map((zone) => zone.id),
         orderSettings: {
           allowUnpaidOrders: false,
         },
@@ -63,7 +71,7 @@ async function findOrCreateChannel(shippingZones: string[], warehouses: string[]
     throw new Error('failed to create channel');
   }
 
-  return channelCreate.channel?.id;
+  return channelCreate.channel!;
 }
 
 async function findOrCreateProductType() {
@@ -162,7 +170,47 @@ async function findShippingZones() {
     },
   });
 
-  return shippingZones && shippingZones.edges.map((shippingZone) => shippingZone.node.id);
+  return shippingZones && shippingZones.edges.map((shippingZone) => shippingZone.node);
+}
+
+async function setupShippingMethods(shippingZones: ShippingZoneFragment[], channelId: string) {
+  console.log('execute setup shipping methods...');
+
+  for (const shippingZone of shippingZones) {
+    for (const { id, channelListings } of shippingZone.shippingMethods ?? []) {
+      if (channelListings?.find(({ channel }) => channel.id === channelId)) {
+        continue;
+      }
+      const { shippingMethodChannelListingUpdate } = await executeGraphQL(
+        UpdateShippingMethodChannelListingDocument,
+        {
+          withAuth: false,
+          headers: {
+            Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+          },
+          variables: {
+            id,
+            input: {
+              addChannels: [
+                {
+                  channelId,
+                  price: 0,
+                },
+              ],
+            },
+          },
+        }
+      );
+      if (
+        !shippingMethodChannelListingUpdate ||
+        shippingMethodChannelListingUpdate?.errors.length > 0
+      ) {
+        shippingMethodChannelListingUpdate &&
+          console.error(shippingMethodChannelListingUpdate.errors);
+        throw new Error('failed to add channel to shipping zone');
+      }
+    }
+  }
 }
 
 async function setupProducts(
@@ -301,7 +349,9 @@ async function setup() {
     throw new Error('failed to find the channel');
   }
 
-  const product = await setupProducts(channel, productTypeId, categoryId, warehouses);
+  await setupShippingMethods(shippingZones, channel.id);
+
+  const product = await setupProducts(channel.id, productTypeId, categoryId, warehouses);
   if (!product) {
     throw new Error('failed to create the product');
   }
