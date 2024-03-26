@@ -8,7 +8,7 @@ import SectionHr from './SectionHr';
 import CollapseBlock from './CollapseBlock';
 import { getStoreMe } from '@/storeUserProvider';
 import { executeQuery } from '@/helpers/queryRunner';
-import { Dog, SaleorUser } from '@/entities';
+import { Dog, User } from '@/entities';
 import { getTranslations } from 'next-intl/server';
 import { MealPlan, OrderSize } from '@/enums';
 import { getRecipeSlug } from '@/helpers/dog';
@@ -21,14 +21,14 @@ async function getData() {
   const me = await getStoreMe();
 
   return executeQuery(async (queryRunner) => {
-    const user = await queryRunner.manager.findOne(SaleorUser, {
+    const user = await queryRunner.manager.findOne(User, {
       where: {
-        saleorId: me.id,
+        id: me.id,
       },
     });
     const dogs = await queryRunner.manager.find(Dog, {
       where: {
-        user: { saleorId: me.id },
+        user: { id: me.id },
       },
       relations: {
         plan: true,

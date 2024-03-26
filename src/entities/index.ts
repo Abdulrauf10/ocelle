@@ -6,8 +6,9 @@ import Dog from './Dog';
 import DogBreed from './DogBreed';
 import DogOrder from './DogOrder';
 import DogPlan from './DogPlan';
+import DogRecurringRecord from './DogRecurringRecord';
 import Order from './Order';
-import SaleorUser from './SaleorUser';
+import User from './User';
 
 export {
   Breed,
@@ -18,6 +19,7 @@ export {
   DogBreed,
   DogOrder,
   DogPlan,
+  DogRecurringRecord,
   Order,
-  SaleorUser,
+  User,
 };

@@ -1,11 +1,14 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, type Relation } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryColumn, type Relation } from 'typeorm';
 import { Dog, Order } from '.';
 import { MealPlan, Recipe } from '@/enums';
 
 @Entity({ name: 'dog_order' })
 export default class DogOrder {
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryColumn()
+  dogId!: number;
+
+  @PrimaryColumn()
+  orderId!: number;
 
   @Column({ type: 'int' })
   mealPlan!: MealPlan;

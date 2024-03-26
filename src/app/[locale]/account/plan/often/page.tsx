@@ -1,8 +1,7 @@
 import Container from '@/components/Container';
 import React from 'react';
-import { SaleorUser } from '@/entities';
+import { User } from '@/entities';
 import { getTranslations } from 'next-intl/server';
-import { OrderSize } from '@/enums';
 import { getStoreMe } from '@/storeUserProvider';
 import { executeQuery } from '@/helpers/queryRunner';
 import setOrderSizeAction from './action';
@@ -13,9 +12,9 @@ async function fetchData() {
   const me = await getStoreMe();
 
   return executeQuery(async (queryRunner) => {
-    const user = await queryRunner.manager.findOne(SaleorUser, {
+    const user = await queryRunner.manager.findOne(User, {
       where: {
-        saleorId: me.id,
+        id: me.id,
       },
     });
     if (!user) {

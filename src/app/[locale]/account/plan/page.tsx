@@ -5,7 +5,7 @@ import Button from '@/components/Button';
 import UnderlineButton from '@/components/UnderlineButton';
 import Image from 'next/image';
 import DogSwitch from '../DogSwitch';
-import { Dog, SaleorUser } from '@/entities';
+import { Dog, User } from '@/entities';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import { getTranslations } from 'next-intl/server';
 import { MealPlan, OrderSize } from '@/enums';
@@ -17,14 +17,14 @@ async function getData() {
   const me = await getStoreMe();
 
   return executeQuery(async (queryRunner) => {
-    const user = await queryRunner.manager.findOne(SaleorUser, {
+    const user = await queryRunner.manager.findOne(User, {
       where: {
-        saleorId: me.id,
+        id: me.id,
       },
     });
     const dogs = await queryRunner.manager.find(Dog, {
       where: {
-        user: { saleorId: me.id },
+        user: { id: me.id },
       },
       relations: {
         plan: true,

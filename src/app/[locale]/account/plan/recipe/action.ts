@@ -31,7 +31,7 @@ export default async function setRecipeAction(data: SetRecipeAction) {
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.findOne(DogPlan, {
       where: {
-        dog: { id: value.id, user: { saleorId: me.id } },
+        dog: { id: value.id, user: { id: me.id } },
       },
     });
 

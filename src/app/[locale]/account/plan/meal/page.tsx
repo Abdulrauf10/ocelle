@@ -16,7 +16,7 @@ async function getData() {
   return executeQuery(async (queryRunner) => {
     const dogs = await queryRunner.manager.find(Dog, {
       where: {
-        user: { saleorId: me.id },
+        user: { id: me.id },
       },
       relations: {
         plan: true,

@@ -29,7 +29,7 @@ export default async function setMealPlanAction(data: SetMealPlanAction) {
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.findOne(DogPlan, {
       where: {
-        dog: { id: value.id, user: { saleorId: me.id } },
+        dog: { id: value.id, user: { id: me.id } },
       },
     });
 

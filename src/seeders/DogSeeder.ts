@@ -1,4 +1,4 @@
-import { Dog, DogPlan, SaleorUser } from '@/entities';
+import { Dog, DogPlan, User } from '@/entities';
 import Seeder from './Seeder';
 import { QueryRunner } from 'typeorm';
 import { FoodAllergies, MealPlan, OrderSize, Recipe } from '@/enums';
@@ -10,18 +10,18 @@ export default class DogSeeder extends Seeder {
   async clean(queryRunner: QueryRunner): Promise<void> {
     const dogRepository = queryRunner.manager.getRepository(Dog);
     const dogPlanRepository = queryRunner.manager.getRepository(DogPlan);
-    const userRepository = queryRunner.manager.getRepository(SaleorUser);
+    const userRepository = queryRunner.manager.getRepository(User);
     await dogPlanRepository.remove(await dogPlanRepository.find());
     await dogRepository.remove(await dogRepository.find());
     await userRepository.remove(await userRepository.find());
   }
 
   async run(queryRunner: QueryRunner): Promise<void> {
-    const userRepository = queryRunner.manager.getRepository(SaleorUser);
+    const userRepository = queryRunner.manager.getRepository(User);
     const dogRepository = queryRunner.manager.getRepository(Dog);
     const dogPlanRepository = queryRunner.manager.getRepository(DogPlan);
 
-    const user = userRepository.create({ orderSize: OrderSize.TwoWeek, saleorId: '1' });
+    const user = userRepository.create({ orderSize: OrderSize.TwoWeek, id: '1' });
 
     await userRepository.save(user);
 

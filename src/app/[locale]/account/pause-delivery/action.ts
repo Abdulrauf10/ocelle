@@ -1,6 +1,6 @@
 'use server';
 
-import { SaleorUser } from '@/entities';
+import { User } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getStoreMe } from '@/storeUserProvider';
 import { startOfDay } from 'date-fns';
@@ -25,9 +25,9 @@ export default async function pauseDeliveriesAction(data: PauseDeliveriesAction)
   const me = await getStoreMe();
 
   await executeQuery(async (queryRunner) => {
-    const data = await queryRunner.manager.findOne(SaleorUser, {
+    const data = await queryRunner.manager.findOne(User, {
       where: {
-        saleorId: me.id,
+        id: me.id,
       },
     });
 

@@ -1,6 +1,6 @@
 'use server';
 
-import { Dog, DogBreed, DogOrder, DogPlan, Order, SaleorUser } from '@/entities';
+import { Dog, DogBreed, DogOrder, DogPlan, Order, User } from '@/entities';
 import { OrderSize, Recipe } from '@/enums';
 import {
   AddPromoCodeDocument,
@@ -143,7 +143,11 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
   });
 
   if (!checkoutCreate || checkoutCreate.errors.length > 0 || !checkoutCreate.checkout) {
-    console.error(checkoutCreate?.errors);
+    console.error(checkoutCreate?.errors, {
+      channel: process.env.SALEOR_CHANNEL_SLUG,
+      email,
+      lines,
+    });
     throw new Error('create checkout failed');
   }
 
@@ -274,9 +278,9 @@ async function findOrCreateUser(
   }
 
   await executeQuery(async (queryRunner) => {
-    const entity = queryRunner.manager.create(SaleorUser, {
+    const entity = queryRunner.manager.create(User, {
+      id: accountRegister.user!.id,
       orderSize: OrderSize.TwoWeek,
-      saleorId: accountRegister.user!.id,
     });
 
     await queryRunner.manager.save(entity);
@@ -501,13 +505,13 @@ export async function completeCheckout() {
     }
 
     await executeQuery(async (queryRunner) => {
-      let user = await queryRunner.manager.findOne(SaleorUser, {
-        where: { saleorId: checkout.user!.id },
+      let user = await queryRunner.manager.findOne(User, {
+        where: { id: checkout.user!.id },
       });
       if (!user) {
-        user = queryRunner.manager.create(SaleorUser, {
+        user = queryRunner.manager.create(User, {
+          id: checkout.user!.id,
           orderSize: params.orderSize,
-          saleorId: checkout.user!.id,
         });
         await queryRunner.manager.save(user);
       }
@@ -566,10 +570,10 @@ export async function completeCheckout() {
 
       // create order
       const order = queryRunner.manager.create(Order, {
+        id: checkoutComplete.order!.id,
         orderSize: params.orderSize,
         deliveryDate: params.deliveryDate,
         createdAt: new Date(checkoutComplete.order!.created),
-        saleorId: checkoutComplete.order!.id,
       });
       await queryRunner.manager.save(order);
 

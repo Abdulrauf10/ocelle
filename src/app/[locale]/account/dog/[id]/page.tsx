@@ -16,7 +16,7 @@ async function getData(id: string) {
     const dog = await queryRunner.manager.findOne(Dog, {
       where: {
         id: parseInt(id),
-        user: { saleorId: me.id },
+        user: { id: me.id },
       },
       relations: {
         plan: true,

@@ -54,7 +54,7 @@ export default async function updateDogAction(data: UpdateDogAction) {
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.findOne(Dog, {
       where: {
-        user: { saleorId: me.id },
+        user: { id: me.id },
       },
     });
 

@@ -1,11 +1,11 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn, type Relation } from 'typeorm';
-import { Dog, DogOrder } from '.';
+import { Column, Entity, OneToMany, PrimaryColumn, type Relation } from 'typeorm';
+import { DogOrder } from '.';
 import { OrderSize } from '@/enums';
 
 @Entity({ name: 'order' })
 export default class Order {
-  @PrimaryGeneratedColumn()
-  id!: number;
+  @PrimaryColumn()
+  id!: string; // saleor order id
 
   @Column({ type: 'int' })
   orderSize!: OrderSize;
@@ -15,9 +15,6 @@ export default class Order {
 
   @Column()
   createdAt!: Date;
-
-  @Column()
-  saleorId!: string;
 
   @OneToMany(() => DogOrder, (dog) => dog.order)
   dogs!: Relation<DogOrder>[];

@@ -1,7 +1,7 @@
 'use server';
 
 import { getStoreMe } from '@/storeUserProvider';
-import { SaleorUser } from '@/entities';
+import { User } from '@/entities';
 import { OrderSize } from '@/enums';
 import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
@@ -25,9 +25,9 @@ export default async function setOrderSizeAction(data: SetOrderSizeAction) {
   const me = await getStoreMe();
 
   await executeQuery(async (queryRunner) => {
-    const data = await queryRunner.manager.findOne(SaleorUser, {
+    const data = await queryRunner.manager.findOne(User, {
       where: {
-        saleorId: me.id,
+        id: me.id,
       },
     });
 
