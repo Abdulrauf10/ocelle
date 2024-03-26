@@ -65,6 +65,7 @@ export default class DogSeeder extends Seeder {
       recipe2: Recipe.Pork,
       isEnabledTransitionPeriod: true,
       isEnabled: true,
+      startDate: new Date(),
       lastDeliveryDate: new Date(),
       dog: dog1,
     });
@@ -74,6 +75,7 @@ export default class DogSeeder extends Seeder {
       recipe1: Recipe.Chicken,
       isEnabledTransitionPeriod: true,
       isEnabled: true,
+      startDate: new Date(),
       lastDeliveryDate: new Date(),
       dog: dog2,
     });

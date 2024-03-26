@@ -16,7 +16,7 @@ import { ActivityLevel, AmountOfTreats, BodyCondition, CurrentlyEating, Pickines
 import { FoodAllergies } from '@/enums';
 import { arrayToAllergies, foodAllergiesToArray, getFoodAllergiesOptions } from '@/helpers/form';
 import { DateOfBirthMethod, Gender } from '@/types/dog';
-import { intervalToDuration, subMonths, subYears } from 'date-fns';
+import { intervalToDuration, startOfDay, subMonths, subYears } from 'date-fns';
 
 interface EditDogBlockProps {
   title: string;
@@ -185,7 +185,7 @@ export default function DogForm({
           dateOfBirth:
             tab === 'Birthday'
               ? dateOfBirth!
-              : subMonths(subYears(new Date(), years ?? 0), months ?? 0),
+              : subMonths(subYears(startOfDay(new Date()), years ?? 0), months ?? 0),
           weight,
           bodyCondition,
           activityLevel,

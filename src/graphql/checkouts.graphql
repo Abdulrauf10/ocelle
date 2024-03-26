@@ -86,6 +86,16 @@ mutation AttachCheckoutCustomer($checkoutId: ID!, $customerId: ID!) {
   }
 }
 
+mutation UpdateCheckoutShippingMethod($checkoutId: ID!, $shippingMethodId: ID!) {
+  checkoutDeliveryMethodUpdate(deliveryMethodId: $shippingMethodId, id: $checkoutId) {
+    errors {
+      field
+      message
+      code
+    }
+  }
+}
+
 mutation UpdateCheckoutAddress(
   $checkoutId: ID!
   $shippingAddress: AddressInput!

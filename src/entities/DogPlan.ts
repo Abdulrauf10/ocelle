@@ -30,6 +30,9 @@ export default class DogPlan {
   isEnabled!: boolean;
 
   @Column()
+  startDate!: Date;
+
+  @Column()
   lastDeliveryDate!: Date;
 
   @OneToOne(() => Dog, (dog: Dog) => dog.plan)

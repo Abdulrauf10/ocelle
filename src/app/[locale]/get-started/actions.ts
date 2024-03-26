@@ -1,6 +1,7 @@
 'use server';
 
-import { MealPlan, OrderSize, Recipe } from '@/enums';
+import { Dog, DogBreed, DogOrder, DogPlan, Order, SaleorUser } from '@/entities';
+import { OrderSize, Recipe } from '@/enums';
 import {
   AddPromoCodeDocument,
   AttachCheckoutCustomerDocument,
@@ -9,10 +10,13 @@ import {
   CreateCheckoutDocument,
   FindProductDocument,
   FindUserDocument,
+  GetChannelDocument,
+  GetCheckoutDocument,
   InitializePaymentGatewaysDocument,
   InitializeTransactionDocument,
   RegisterAccountDocument,
   UpdateCheckoutAddressDocument,
+  UpdateCheckoutShippingMethodDocument,
 } from '@/gql/graphql';
 import { getCalendarEvents } from '@/helpers/calendar';
 import {
@@ -21,9 +25,12 @@ import {
   isUnavailableDeliveryDate,
 } from '@/helpers/dog';
 import { executeGraphQL } from '@/helpers/graphql';
+import { executeQuery } from '@/helpers/queryRunner';
+import { getCheckoutParameters, setCheckoutParameters } from '@/helpers/redis';
 import { redirect } from '@/navigation';
+import { DogDto } from '@/types/dto';
 import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
-import { startOfDay } from 'date-fns';
+import { addDays, startOfDay } from 'date-fns';
 import Joi from 'joi';
 import { headers } from 'next/headers';
 import invariant from 'ts-invariant';
@@ -42,7 +49,7 @@ const SKUs = {
   [Recipe.Duck]: 'ocelle-d-s',
 };
 
-function getCheckoutId() {
+async function getCheckout() {
   const nextServerCookiesStorage = getNextServerCookiesStorage();
   const checkoutId = nextServerCookiesStorage.getItem('checkout');
 
@@ -50,18 +57,35 @@ function getCheckoutId() {
     throw new Error('checkout id cannot be found');
   }
 
-  return checkoutId;
+  const { checkout } = await executeGraphQL(GetCheckoutDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: { id: checkoutId },
+  });
+
+  if (!checkout) {
+    throw new Error('checkout not found');
+  }
+
+  return checkout;
 }
 
-export async function createCheckout(
-  email: string,
-  orderSize: OrderSize,
-  mealPlan: MealPlan,
-  enabledTransitionPeriod: boolean,
-  recipe1: Recipe,
-  recipe2?: Recipe
-) {
+export async function createCheckout(email: string, orderSize: OrderSize, dogs: DogDto[]) {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
+
+  const { channel } = await executeGraphQL(GetChannelDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: { slug: process.env.SALEOR_CHANNEL_SLUG },
+  });
+
+  if (!channel) {
+    throw new Error('channel not found');
+  }
 
   // make sure the settings of saleor is ready for create checkout
   const { product } = await executeGraphQL(FindProductDocument, {
@@ -79,18 +103,31 @@ export async function createCheckout(
   }
 
   // setup products
-  const lines = [
-    {
-      variantId: product.variants.find((variant) => variant.sku === SKUs[recipe1])!.id,
-      quantity: calculatePrice(recipe1),
-    },
-  ];
+  const lines = [];
 
-  if (recipe2) {
+  for (const dog of dogs) {
+    const recipe1Variant = product.variants.find((variant) => variant.sku === SKUs[dog.recipe1]);
+    if (!recipe1Variant) {
+      throw new Error(
+        `failed to add recipe 1 to checkout, variant not found (${SKUs[dog.recipe1]})`
+      );
+    }
     lines.push({
-      variantId: product.variants.find((variant) => variant.sku === SKUs[recipe2])!.id,
-      quantity: calculatePrice(recipe2),
+      variantId: recipe1Variant.id,
+      quantity: calculatePrice(dog.recipe1),
     });
+    if (dog.recipe2) {
+      const recipe2Variant = product.variants.find((variant) => variant.sku === SKUs[dog.recipe2!]);
+      if (!recipe2Variant) {
+        throw new Error(
+          `failed to add recipe 2 to checkout, variant not found (${SKUs[dog.recipe1]})`
+        );
+      }
+      lines.push({
+        variantId: recipe2Variant.id,
+        quantity: calculatePrice(dog.recipe2),
+      });
+    }
   }
 
   // create checkout
@@ -112,6 +149,8 @@ export async function createCheckout(
   if (!checkoutCreate.checkout.availablePaymentGateways.find((x) => x.id === stripeAppId)) {
     throw new Error('stripe is currently not available');
   }
+
+  await setCheckoutParameters(checkoutCreate.checkout.id, email, orderSize, dogs);
 
   const nextServerCookiesStorage = getNextServerCookiesStorage();
 
@@ -152,11 +191,11 @@ export async function createCheckout(
 }
 
 export async function initializeStripeTranscation() {
-  const checkoutId = getCheckoutId();
+  const checkout = await getCheckout();
 
   const { transactionInitialize } = await executeGraphQL(InitializeTransactionDocument, {
     variables: {
-      checkoutId,
+      checkoutId: checkout.id,
       paymentGateway: {
         id: stripeAppId,
         data: {
@@ -180,12 +219,12 @@ export async function initializeStripeTranscation() {
 }
 
 export async function applyCoupon({ coupon }: { coupon: string }) {
-  const checkoutId = getCheckoutId();
+  const checkout = await getCheckout();
 
   const { checkoutAddPromoCode } = await executeGraphQL(AddPromoCodeDocument, {
     variables: {
       promoCode: coupon,
-      checkoutId,
+      checkoutId: checkout.id,
     },
   });
 
@@ -193,6 +232,56 @@ export async function applyCoupon({ coupon }: { coupon: string }) {
     checkoutAddPromoCode && console.error(checkoutAddPromoCode.errors);
     throw new Error('failed to add coupon to checkout');
   }
+}
+
+async function findOrCreateUser(
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string,
+  channel: string,
+  redirectUrl: string
+) {
+  const { user } = await executeGraphQL(FindUserDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: { email },
+  });
+
+  if (user) {
+    return user;
+  }
+
+  const { accountRegister } = await executeGraphQL(RegisterAccountDocument, {
+    variables: {
+      input: {
+        firstName,
+        lastName,
+        password,
+        email,
+        redirectUrl,
+        channel,
+      },
+    },
+  });
+
+  if (!accountRegister || accountRegister.errors.length > 0) {
+    accountRegister && console.error(accountRegister.errors);
+    throw new Error('failed to create a user for the checkout');
+  }
+
+  await executeQuery(async (queryRunner) => {
+    const entity = queryRunner.manager.create(SaleorUser, {
+      orderSize: OrderSize.TwoWeek,
+      saleorId: accountRegister.user!.id,
+    });
+
+    await queryRunner.manager.save(entity);
+  });
+
+  return accountRegister.user!;
 }
 
 interface Address {
@@ -243,47 +332,6 @@ const schema = Joi.object<ProcessCheckoutAction>({
   billingAddress: addressSchema,
 });
 
-async function findOrCreateUser(
-  firstName: string,
-  lastName: string,
-  email: string,
-  password: string,
-  channel: string,
-  redirectUrl: string
-) {
-  const { user } = await executeGraphQL(FindUserDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: { email },
-  });
-
-  if (user) {
-    return user;
-  }
-
-  const { accountRegister } = await executeGraphQL(RegisterAccountDocument, {
-    variables: {
-      input: {
-        firstName,
-        lastName,
-        password,
-        email,
-        redirectUrl,
-        channel,
-      },
-    },
-  });
-
-  if (!accountRegister || accountRegister.errors.length > 0) {
-    accountRegister && console.error(accountRegister.errors);
-    throw new Error('failed to create a user for the checkout');
-  }
-
-  return accountRegister.user!;
-}
-
 export async function processCheckout(data: ProcessCheckoutAction) {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
@@ -296,7 +344,7 @@ export async function processCheckout(data: ProcessCheckoutAction) {
     throw new Error('schema is not valid');
   }
 
-  const checkoutId = getCheckoutId();
+  const checkout = await getCheckout();
 
   const calendarEvents = await getCalendarEvents();
 
@@ -307,6 +355,20 @@ export async function processCheckout(data: ProcessCheckoutAction) {
     throw new Error('delivery date is unavailable');
   }
 
+  const params = await getCheckoutParameters(checkout.id);
+
+  if (!params) {
+    throw new Error('failed to find checkout related parameters');
+  }
+
+  await setCheckoutParameters(
+    checkout.id,
+    params.email,
+    params.orderSize,
+    params.dogs,
+    value.deliveryDate
+  );
+
   const user = await findOrCreateUser(
     value.firstName,
     value.lastName,
@@ -316,20 +378,24 @@ export async function processCheckout(data: ProcessCheckoutAction) {
     `${origin}/auth/verify-email`
   );
 
-  const { checkoutCustomerAttach } = await executeGraphQL(AttachCheckoutCustomerDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: {
-      checkoutId,
-      customerId: user.id,
-    },
-  });
+  if (!checkout.user) {
+    const { checkoutCustomerAttach } = await executeGraphQL(AttachCheckoutCustomerDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: {
+        checkoutId: checkout.id,
+        customerId: user.id,
+      },
+    });
 
-  if (!checkoutCustomerAttach || checkoutCustomerAttach.errors.length > 0) {
-    checkoutCustomerAttach && console.error(checkoutCustomerAttach.errors);
-    throw new Error('failed to attach a user to the checkout');
+    if (!checkoutCustomerAttach || checkoutCustomerAttach.errors.length > 0) {
+      checkoutCustomerAttach && console.error(checkoutCustomerAttach.errors);
+      throw new Error('failed to attach a user to the checkout');
+    }
+  } else if (checkout.user.id !== user.id) {
+    throw new Error('incorrect user id of current checkout');
   }
 
   const shippingAddress = {
@@ -350,7 +416,7 @@ export async function processCheckout(data: ProcessCheckoutAction) {
         Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
       },
       variables: {
-        checkoutId,
+        checkoutId: checkout.id,
         shippingAddress,
         billingAddress: value.isSameBillingAddress
           ? shippingAddress
@@ -381,16 +447,159 @@ export async function processCheckout(data: ProcessCheckoutAction) {
 
 export async function completeCheckout() {
   try {
-    const checkoutId = getCheckoutId();
+    const checkout = await getCheckout();
+    const params = await getCheckoutParameters(checkout.id);
+
+    console.dir(checkout, { depth: null });
+
+    if (checkout.shippingMethods.length === 0) {
+      throw new Error('there have no available shipping method');
+    }
+
+    if (
+      // checkout.authorizeStatus !== CheckoutAuthorizeStatusEnum.Full ||
+      params === null ||
+      params.deliveryDate === undefined
+    ) {
+      throw new Error(
+        'receive incompleted checkout, reason: ' +
+          (params === null || params.deliveryDate === undefined
+            ? 'params not available'
+            : 'checkout is not authorized')
+      );
+    }
+
+    if (!checkout.user) {
+      throw new Error('checkout is not linked with user, please contact ocelle for more.');
+    }
+
+    const { checkoutDeliveryMethodUpdate } = await executeGraphQL(
+      UpdateCheckoutShippingMethodDocument,
+      {
+        variables: {
+          checkoutId: checkout.id,
+          shippingMethodId: checkout.shippingMethods[0].id,
+        },
+      }
+    );
+
+    if (!checkoutDeliveryMethodUpdate || checkoutDeliveryMethodUpdate.errors.length > 0) {
+      checkoutDeliveryMethodUpdate && console.error(checkoutDeliveryMethodUpdate.errors);
+      throw new Error('failed to update shipping method');
+    }
 
     const { checkoutComplete } = await executeGraphQL(CompleteCheckoutDocument, {
-      variables: { checkoutId },
+      variables: {
+        checkoutId: checkout.id,
+      },
     });
 
-    if (!checkoutComplete || checkoutComplete.errors) {
+    if (!checkoutComplete || checkoutComplete.errors.length > 0) {
+      checkoutComplete && console.error(checkoutComplete.errors);
       throw new Error('checkout cannot completed');
     }
+
+    await executeQuery(async (queryRunner) => {
+      let user = await queryRunner.manager.findOne(SaleorUser, {
+        where: { saleorId: checkout.user!.id },
+      });
+      if (!user) {
+        user = queryRunner.manager.create(SaleorUser, {
+          orderSize: params.orderSize,
+          saleorId: checkout.user!.id,
+        });
+        await queryRunner.manager.save(user);
+      }
+
+      // create dogs
+      const dogs = params.dogs.map((dog) =>
+        queryRunner.manager.create(Dog, {
+          name: dog.name,
+          sex: dog.gender,
+          isNeutered: dog.isNeutered,
+          dateOfBirthMethod: dog.dateOfBirthMethod,
+          dateOfBirth: dog.dateOfBirth,
+          weight: dog.weight,
+          bodyCondition: dog.bodyCondition,
+          activityLevel: dog.activityLevel,
+          foodAllergies: dog.foodAllergies,
+          currentEating: dog.currentlyEating,
+          amountOfTreats: dog.amountOfTreats,
+          pickiness: dog.pickiness,
+          user: user!,
+        })
+      );
+      await queryRunner.manager.save(dogs);
+
+      // create dogs breeds
+      const breeds = [];
+      for (let i = 0; i < dogs.length; i++) {
+        const dog = dogs[i];
+        if (params.dogs[i].breeds) {
+          for (const breed of params.dogs[i].breeds!) {
+            breeds.push(queryRunner.manager.create(DogBreed, { dog, breedId: breed }));
+          }
+        }
+      }
+      await queryRunner.manager.save(breeds);
+
+      // create dogs plan
+      const plans = [];
+      for (let i = 0; i < dogs.length; i++) {
+        const dog = dogs[i];
+        const paramsDog = params.dogs[i];
+        plans.push(
+          queryRunner.manager.create(DogPlan, {
+            mealPlan: paramsDog.mealPlan,
+            recipe1: paramsDog.recipe1,
+            recipe2: paramsDog.recipe2,
+            isEnabledTransitionPeriod: paramsDog.isEnabledTransitionPeriod,
+            startDate: addDays(startOfDay(new Date()), 1),
+            lastDeliveryDate: params.deliveryDate,
+            isEnabled: true,
+            dog,
+          })
+        );
+      }
+      await queryRunner.manager.save(plans);
+
+      // create order
+      const order = queryRunner.manager.create(Order, {
+        orderSize: params.orderSize,
+        deliveryDate: params.deliveryDate,
+        createdAt: new Date(checkoutComplete.order!.created),
+        saleorId: checkoutComplete.order!.id,
+      });
+      await queryRunner.manager.save(order);
+
+      // create dog order
+      const dogOrders = [];
+      for (let i = 0; i < dogs.length; i++) {
+        const dog = dogs[i];
+        const paramsDog = params.dogs[i];
+        dogOrders.push(
+          queryRunner.manager.create(DogOrder, {
+            mealPlan: paramsDog.mealPlan,
+            recipe1: paramsDog.recipe1,
+            recipe2: paramsDog.recipe2,
+            isTransitionPeriod: paramsDog.isEnabledTransitionPeriod,
+            dog,
+            order,
+          })
+        );
+      }
+      await queryRunner.manager.save(dogOrders);
+    });
+
+    const nextServerCookiesStorage = getNextServerCookiesStorage();
+
+    nextServerCookiesStorage.removeItem('checkout');
+
+    return { deliveryDate: params.deliveryDate };
   } catch (e) {
+    console.error(e);
     redirect('/get-started');
+  } finally {
+    return {};
   }
 }

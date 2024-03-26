@@ -9,10 +9,11 @@ import { useSurvey } from '../SurveyContext';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
-import urlJoin from 'url-join';
+import { useRouter } from '@/navigation';
 
 export default function CheckoutFragment() {
   const { dogs } = useSurvey();
+  const router = useRouter();
   const navigate = useNavigate();
   const { state } = useLocation();
   const stripePromise = React.useMemo(
@@ -89,8 +90,8 @@ export default function CheckoutFragment() {
                   // save_payment_method: true,
                 }
               );
-              console.log(error);
               if (error) {
+                console.log(error);
                 // This point will only be reached if there is an immediate error when
                 // confirming the payment. Otherwise, your customer will be redirected to
                 // your `return_url`. For some payment methods like iDEAL, your customer will
@@ -103,6 +104,7 @@ export default function CheckoutFragment() {
                 }
                 return;
               }
+              router.push('/get-started/complete');
             }}
           />
         </Elements>

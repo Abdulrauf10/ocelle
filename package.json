@@ -57,8 +57,7 @@
     "swiper": "^11.0.5",
     "ts-invariant": "^0.10.3",
     "typeorm": "^0.3.19",
-    "typeorm-naming-strategies": "^4.1.0",
-    "url-join": "^5.0.0"
+    "typeorm-naming-strategies": "^4.1.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.2",
