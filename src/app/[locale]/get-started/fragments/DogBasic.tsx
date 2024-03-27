@@ -86,6 +86,8 @@ export default function DogBasicFragment() {
                     loading={loading}
                     onOpen={fetchBreeds}
                     getOptionLabel={(option) => option.enName}
+                    freeSolo={false}
+                    getOptionDisabled={(option) => watch('breeds').length > 1}
                     isOptionEqualToValue={(option, value) => option.id === value.id}
                     renderInput={(params) => (
                       <TextField
