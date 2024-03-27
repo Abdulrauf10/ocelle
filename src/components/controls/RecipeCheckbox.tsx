@@ -21,6 +21,7 @@ interface RecipeCheckboxProps<T extends FieldValues> extends InputControllerProp
   moisture: number;
   disabled?: boolean;
   recommended?: boolean;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 function Dotted() {
@@ -34,6 +35,8 @@ export default function RecipeCheckbox<T extends FieldValues>({
   title,
   name,
   control,
+  rules,
+  error,
   recommended,
   disabled,
   description,
@@ -44,6 +47,7 @@ export default function RecipeCheckbox<T extends FieldValues>({
   fat,
   fibre,
   moisture,
+  onChange,
 }: RecipeCheckboxProps<T>) {
   const t = useTranslations();
   const [tab, setTab] = React.useState<'Ingredients' | 'Nutrition'>('Ingredients');
@@ -80,9 +84,12 @@ export default function RecipeCheckbox<T extends FieldValues>({
         <RoundedCheckbox
           name={name}
           control={control}
+          rules={rules}
+          error={error}
           label={title}
           className="font-bold text-gold"
           disabled={disabled}
+          onChange={onChange}
         />
         <div className={clsx('mt-0.5 text-[#7B8D97]', disabled && 'text-opacity-50')}>$$</div>
         <div className="mt-0.5">

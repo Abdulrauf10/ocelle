@@ -16,6 +16,7 @@ interface RoundedCheckboxProps<
   className?: string;
   disabled?: boolean;
   value?: FieldPathValue<TFieldValues, TFieldName>;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 export default function RoundedCheckbox<
@@ -30,8 +31,11 @@ export default function RoundedCheckbox<
   className,
   value,
   disabled,
+  onChange: parentOnChange,
 }: RoundedCheckboxProps<TFieldValues, TFieldName>) {
-  const { field } = useController({ name, control, rules });
+  const {
+    field: { onChange, ...field },
+  } = useController({ name, control, rules });
   const isSelected = field.value === true;
 
   return (
@@ -59,6 +63,12 @@ export default function RoundedCheckbox<
           className="absolute bottom-0 left-0 right-0 top-0 opacity-0 [&:checked+*]:flex"
           value={value}
           checked={disabled ? false : !!field.value}
+          onChange={(e) => {
+            onChange(e);
+            if (parentOnChange && typeof parentOnChange === 'function') {
+              parentOnChange(e);
+            }
+          }}
         />
         <div className="absolute bottom-0 left-0 right-0 top-0 hidden h-full w-full items-center justify-center bg-brown">
           <Tick className="w-[14px]" />
@@ -67,6 +77,7 @@ export default function RoundedCheckbox<
       <div
         className={clsx(
           'body-3 inline-block',
+          error && '!text-error',
           disabled && '!text-[#7B8D97] !text-opacity-50',
           className
         )}

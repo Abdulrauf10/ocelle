@@ -51,6 +51,21 @@ export default function RecommendedPlanFragment() {
     },
   });
 
+  const validateRecipeCheckbox = () => {
+    const values = getValues('recipe');
+    if (!Array.isArray(values)) {
+      return false;
+    }
+    if (!values.some((value) => !!value)) {
+      // all elements are false
+      return 'you must select at least one recipe';
+    }
+    if (values.filter((value) => !!value).length > 2) {
+      return 'you must select not more than 2 recipes';
+    }
+    return true;
+  };
+
   const handleAddDog = React.useCallback(async () => {
     if (await trigger()) {
       const { transition, recipe } = getValues();
@@ -109,6 +124,10 @@ export default function RecommendedPlanFragment() {
                         description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
                         name="recipe.0"
                         control={control}
+                        rules={{
+                          validate: validateRecipeCheckbox,
+                        }}
+                        error={!!errors?.recipe}
                         picture="/meal-plan/chicken.jpg"
                         ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
                         nutrientBlend="Selenium Yeast, Vitamin A Supplement, Thiamine Hydrochloride (Vitamin B1), Riboflavin (Vitamin B2), Niacin (Vitamin B3), Pyridoxine Hydrochloride (Vitamin B6), Folic Acid (Vitamin B9), Cholecalciferol (Vitamin B12), Vitamin D3 Supplement, Sodium Chloride, Tricalcium Phosphate, Iron Amino Acid Chelate, Potassium Chloride, Potassium Iodide, Zinc Amino Acid Chelate, Magnesium Amino Acid Chelate, Manganese Amino Acid Chelate, Copper Amino Acid Chelate, Taurine, Choline Bitartrate."
@@ -125,6 +144,7 @@ export default function RecommendedPlanFragment() {
                           foodAllergies!
                         )}
                         disabled={isAllergies(Recipe.Chicken, foodAllergies!)}
+                        onChange={() => trigger('recipe')}
                       />
                     </div>
                     <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
@@ -133,6 +153,10 @@ export default function RecommendedPlanFragment() {
                         description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
                         name="recipe.1"
                         control={control}
+                        rules={{
+                          validate: validateRecipeCheckbox,
+                        }}
+                        error={!!errors?.recipe}
                         picture="/meal-plan/pork.jpg"
                         ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
                         nutrientBlend="Selenium Yeast, Vitamin A Supplement, Thiamine Hydrochloride (Vitamin B1), Riboflavin (Vitamin B2), Niacin (Vitamin B3), Pyridoxine Hydrochloride (Vitamin B6), Folic Acid (Vitamin B9), Cholecalciferol (Vitamin B12), Vitamin D3 Supplement, Sodium Chloride, Tricalcium Phosphate, Iron Amino Acid Chelate, Potassium Chloride, Potassium Iodide, Zinc Amino Acid Chelate, Magnesium Amino Acid Chelate, Manganese Amino Acid Chelate, Copper Amino Acid Chelate, Taurine, Choline Bitartrate."
@@ -149,6 +173,7 @@ export default function RecommendedPlanFragment() {
                           foodAllergies!
                         )}
                         disabled={isAllergies(Recipe.Pork, foodAllergies!)}
+                        onChange={() => trigger('recipe')}
                       />
                     </div>
                     <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
@@ -157,6 +182,10 @@ export default function RecommendedPlanFragment() {
                         description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
                         name="recipe.2"
                         control={control}
+                        rules={{
+                          validate: validateRecipeCheckbox,
+                        }}
+                        error={!!errors?.recipe}
                         picture="/meal-plan/duck.jpg"
                         ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
                         nutrientBlend="Selenium Yeast, Vitamin A Supplement, Thiamine Hydrochloride (Vitamin B1), Riboflavin (Vitamin B2), Niacin (Vitamin B3), Pyridoxine Hydrochloride (Vitamin B6), Folic Acid (Vitamin B9), Cholecalciferol (Vitamin B12), Vitamin D3 Supplement, Sodium Chloride, Tricalcium Phosphate, Iron Amino Acid Chelate, Potassium Chloride, Potassium Iodide, Zinc Amino Acid Chelate, Magnesium Amino Acid Chelate, Manganese Amino Acid Chelate, Copper Amino Acid Chelate, Taurine, Choline Bitartrate."
@@ -173,6 +202,7 @@ export default function RecommendedPlanFragment() {
                           foodAllergies!
                         )}
                         disabled={isAllergies(Recipe.Duck, foodAllergies!)}
+                        onChange={() => trigger('recipe')}
                       />
                     </div>
                     <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
@@ -181,6 +211,10 @@ export default function RecommendedPlanFragment() {
                         description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
                         name="recipe.3"
                         control={control}
+                        rules={{
+                          validate: validateRecipeCheckbox,
+                        }}
+                        error={!!errors?.recipe}
                         picture="/meal-plan/beef.jpg"
                         ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
                         nutrientBlend="Selenium Yeast, Vitamin A Supplement, Thiamine Hydrochloride (Vitamin B1), Riboflavin (Vitamin B2), Niacin (Vitamin B3), Pyridoxine Hydrochloride (Vitamin B6), Folic Acid (Vitamin B9), Cholecalciferol (Vitamin B12), Vitamin D3 Supplement, Sodium Chloride, Tricalcium Phosphate, Iron Amino Acid Chelate, Potassium Chloride, Potassium Iodide, Zinc Amino Acid Chelate, Magnesium Amino Acid Chelate, Manganese Amino Acid Chelate, Copper Amino Acid Chelate, Taurine, Choline Bitartrate."
@@ -197,6 +231,7 @@ export default function RecommendedPlanFragment() {
                           foodAllergies!
                         )}
                         disabled={isAllergies(Recipe.Beef, foodAllergies!)}
+                        onChange={() => trigger('recipe')}
                       />
                     </div>
                     <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
@@ -205,6 +240,10 @@ export default function RecommendedPlanFragment() {
                         description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
                         name="recipe.4"
                         control={control}
+                        rules={{
+                          validate: validateRecipeCheckbox,
+                        }}
+                        error={!!errors?.recipe}
                         picture="/meal-plan/lamb.jpg"
                         ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
                         nutrientBlend="Selenium Yeast, Vitamin A Supplement, Thiamine Hydrochloride (Vitamin B1), Riboflavin (Vitamin B2), Niacin (Vitamin B3), Pyridoxine Hydrochloride (Vitamin B6), Folic Acid (Vitamin B9), Cholecalciferol (Vitamin B12), Vitamin D3 Supplement, Sodium Chloride, Tricalcium Phosphate, Iron Amino Acid Chelate, Potassium Chloride, Potassium Iodide, Zinc Amino Acid Chelate, Magnesium Amino Acid Chelate, Manganese Amino Acid Chelate, Copper Amino Acid Chelate, Taurine, Choline Bitartrate."
@@ -221,6 +260,7 @@ export default function RecommendedPlanFragment() {
                           foodAllergies!
                         )}
                         disabled={isAllergies(Recipe.Lamb, foodAllergies!)}
+                        onChange={() => trigger('recipe')}
                       />
                     </div>
                     <div className="mt-5 flex items-center px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
