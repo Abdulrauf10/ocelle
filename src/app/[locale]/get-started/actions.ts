@@ -149,7 +149,7 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
 
   const checkout = checkoutCreate.checkout!;
 
-  if (checkout.availablePaymentGateways.find((x) => x.id === stripeAppId)) {
+  if (!checkout.availablePaymentGateways.find((x) => x.id === stripeAppId)) {
     throw new Error('stripe is currently not available');
   }
 
