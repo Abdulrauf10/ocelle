@@ -15,8 +15,6 @@ import {
   GetAllShippingZonesDocument,
   GetAllWarehousesDocument,
   GetChannelDocument,
-  GetChannelQuery,
-  ShippingZone,
   ShippingZoneFragment,
   UpdateShippingMethodChannelListingDocument,
   UpdateShippingZoneDocument,
@@ -237,7 +235,7 @@ async function setupShippingMethods(shippingZones: ShippingZoneFragment[], chann
   }
 }
 
-async function setupProducts(
+async function setupSubscriptionProducts(
   channel: string,
   productType: string,
   category: string,
@@ -277,7 +275,7 @@ async function setupProducts(
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
-      name: 'Fresh Recipe',
+      name: 'Recipe Subscription',
       description: JSON.stringify({
         time: Date.now(),
         blocks: [
@@ -330,7 +328,7 @@ async function setupProducts(
     throw new Error('failed to create product');
   }
 
-  return productBulkCreate.results[0].product?.id;
+  return productBulkCreate.results[0].product!;
 }
 
 async function setup() {
@@ -377,9 +375,14 @@ async function setup() {
 
   await setupShippingMethods(shippingZones, channel.id);
 
-  const product = await setupProducts(channel.id, productTypeId, categoryId, warehouses);
+  const product = await setupSubscriptionProducts(
+    channel.id,
+    productTypeId,
+    categoryId,
+    warehouses
+  );
   if (!product) {
-    throw new Error('failed to create the product');
+    throw new Error('failed to create the subscription products');
   }
 }
 
