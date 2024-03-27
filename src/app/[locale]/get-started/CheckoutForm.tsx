@@ -83,23 +83,6 @@ export default function CheckoutForm({
       isSameBillingAddress: true,
       tnc: true,
       deliveryDate: closestDeliveryDate,
-
-      firstName: 'Chris',
-      lastName: 'Wong',
-      email: 'chris.wong@gmail.com',
-      phone: '88888888',
-      password: 'P@ssw0rd',
-      confirmPassword: 'P@assw0rd',
-      receiveNews: true,
-      deliveryAddress: {
-        firstName: 'Chris',
-        lastName: 'Wong',
-        streetAddress1: 'Flat A-B, 11/F, Wah Lik Industrial Centre',
-        streetAddress2: '459-469 Castle Peak Road',
-        district: 'Tsuen Wan',
-        region: 'New Territories',
-        country: 'HK',
-      },
     },
   });
   const [isSubmitInProgress, setIsSubmitInProgress] = React.useState(false);
