@@ -22,13 +22,14 @@ import {
 import { getCalendarEvents } from '@/helpers/calendar';
 import {
   calculatePrice,
-  getClosestOrderDeliveryDate,
+  getClosestDeliveryDateByDate,
   isUnavailableDeliveryDate,
 } from '@/helpers/dog';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getCheckoutParameters, setCheckoutParameters } from '@/helpers/redis';
 import { redirect } from '@/navigation';
+import { CalendarEvent } from '@/types';
 import { DogDto } from '@/types/dto';
 import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import { addDays, startOfDay } from 'date-fns';
@@ -38,8 +39,19 @@ import invariant from 'ts-invariant';
 
 const stripeAppId = process.env.SALEOR_STRIPE_APP_ID ?? 'app.saleor.stripe';
 
+/**
+ * calculate the delivery date after order placement
+ */
 export async function getClosestDeliveryDate() {
-  return getClosestOrderDeliveryDate(new Date(), await getCalendarEvents());
+  return getClosestDeliveryDateSync(await getCalendarEvents());
+}
+
+/**
+ * calculate the delivery date after order placement
+ */
+function getClosestDeliveryDateSync(events: CalendarEvent[]) {
+  // 1 day means calculation after place order
+  return getClosestDeliveryDateByDate(addDays(new Date(), 1), events);
 }
 
 const SKUs = {
@@ -353,7 +365,7 @@ export async function processCheckout(data: ProcessCheckoutAction) {
 
   if (
     isUnavailableDeliveryDate(value.deliveryDate, calendarEvents) ||
-    getClosestOrderDeliveryDate(new Date(), calendarEvents) > startOfDay(value.deliveryDate)
+    getClosestDeliveryDateSync(calendarEvents) > startOfDay(value.deliveryDate)
   ) {
     throw new Error('delivery date is unavailable');
   }

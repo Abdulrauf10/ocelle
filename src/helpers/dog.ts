@@ -57,7 +57,10 @@ export function isUnavailableDeliveryDate(date: Date, events: CalendarEvent[]) {
   return false;
 }
 
-export function getClosestOrderDeliveryDate(currentDate = new Date(), events: CalendarEvent[]) {
+/**
+ * calculate the delivery date based on any time
+ */
+export function getClosestDeliveryDateByDate(currentDate = new Date(), events: CalendarEvent[]) {
   const dates = [
     1, // D + production
     1, // D + production

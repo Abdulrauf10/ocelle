@@ -18,7 +18,7 @@ import CouponForm from '@/components/forms/Coupon';
 import { Dog } from './SurveyContext';
 import { MealPlan } from '@/enums';
 import { getRecipeSlug, isUnavailableDeliveryDate } from '@/helpers/dog';
-import { addDays, addWeeks } from 'date-fns';
+import { addWeeks } from 'date-fns';
 import { formatDate } from '@/helpers/date';
 import { CalendarEvent } from '@/types';
 import { applyCoupon } from './actions';
