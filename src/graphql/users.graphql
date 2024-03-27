@@ -13,6 +13,23 @@ fragment UserDetails on User {
   }
 }
 
+fragment UserAddress on Address {
+  id
+  metadata {
+    key
+    value
+  }
+  firstName
+  lastName
+  streetAddress1
+  streetAddress2
+  city
+  country {
+    code
+    country
+  }
+}
+
 fragment UserError on AccountError {
   field
   message
@@ -89,5 +106,62 @@ mutation RequestPasswordReset($email: String!, $redirectUrl: String!) {
 query FindUser($email: String!) {
   user(email: $email) {
     ...UserDetails
+  }
+}
+
+query GetAddresses {
+  me {
+    defaultShippingAddress {
+      ...UserAddress
+    }
+    defaultBillingAddress {
+      ...UserAddress
+    }
+  }
+}
+
+mutation UpdateAddress(
+  $id: ID!
+  $firstName: String!
+  $lastName: String!
+  $streetAddress1: String!
+  $streetAddress2: String!
+  $city: String!
+  $cityArea: String!
+) {
+  accountAddressUpdate(
+    id: $id
+    input: {
+      firstName: $firstName
+      lastName: $lastName
+      streetAddress1: $streetAddress1
+      streetAddress2: $streetAddress2
+      city: $city
+      cityArea: $cityArea
+      country: HK
+    }
+  ) {
+    errors {
+      ...UserError
+    }
+  }
+}
+
+query addressValidationRules($countryArea: String!) {
+  addressValidationRules(countryCode: HK, countryArea: $countryArea) {
+    addressFormat
+    allowedFields
+    requiredFields
+    countryAreaType
+    postalCodeType
+    cityType
+    cityChoices {
+      raw
+      verbose
+    }
+    countryAreaChoices {
+      raw
+      verbose
+    }
   }
 }

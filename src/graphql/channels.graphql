@@ -1,12 +1,3 @@
-fragment ShippingMethod on ShippingMethod {
-  id
-  name
-  price {
-    currency
-    amount
-  }
-}
-
 fragment Channel on Channel {
   id
   name

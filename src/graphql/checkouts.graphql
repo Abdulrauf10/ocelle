@@ -1,13 +1,3 @@
-fragment PaymentGateway on PaymentGateway {
-  id
-  name
-  currencies
-  config {
-    field
-    value
-  }
-}
-
 fragment Checkout on Checkout {
   id
   email

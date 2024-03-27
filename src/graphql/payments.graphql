@@ -1,3 +1,13 @@
+fragment PaymentGateway on PaymentGateway {
+  id
+  name
+  currencies
+  config {
+    field
+    value
+  }
+}
+
 mutation InitializePaymentGateways(
   $checkoutId: ID!
   $paymentGateways: [PaymentGatewayToInitialize!]

@@ -6,14 +6,52 @@ fragment ProductType on ProductType {
   isDigital
 }
 
-fragment ShippingZone on ShippingZone {
+fragment ProductVariant on ProductVariant {
   id
-  shippingMethods {
+  name
+  sku
+  quantityAvailable
+  pricing {
+    price {
+      gross {
+        currency
+        amount
+      }
+    }
+  }
+}
+
+fragment Product on Product {
+  id
+  name
+  slug
+  description
+  seoTitle
+  seoDescription
+  thumbnail(size: 1024, format: WEBP) {
+    url
+    alt
+  }
+  category {
     id
     name
-    channelListings {
-      channel {
-        id
+  }
+  variants {
+    ...ProductVariant
+  }
+  pricing {
+    priceRange {
+      start {
+        gross {
+          amount
+          currency
+        }
+      }
+      stop {
+        gross {
+          amount
+          currency
+        }
       }
     }
   }
@@ -59,55 +97,9 @@ mutation CreateProductCategory($name: String!, $slug: String!) {
   }
 }
 
-mutation UpdateShippingZone($id: ID!, $input: ShippingZoneUpdateInput!) {
-  shippingZoneUpdate(id: $id, input: $input) {
-    errors {
-      field
-      message
-      code
-    }
-  }
-}
-
-query GetAllShippingZones {
-  shippingZones(first: 100) {
-    totalCount
-    edges {
-      node {
-        ...ShippingZone
-      }
-    }
-  }
-}
-
-mutation UpdateShippingMethodChannelListing($id: ID!, $input: ShippingMethodChannelListingInput!) {
-  shippingMethodChannelListingUpdate(id: $id, input: $input) {
-    errors {
-      field
-      message
-      code
-    }
-  }
-}
-
-query GetAllWarehouses {
-  warehouses(first: 100) {
-    totalCount
-    edges {
-      node {
-        id
-      }
-    }
-  }
-}
-
 query FindProduct($slug: String!) {
   product(slug: $slug) {
-    id
-    variants {
-      id
-      sku
-    }
+    ...Product
   }
 }
 
@@ -137,7 +129,7 @@ mutation CreateProduct(
     }
     results {
       product {
-        id
+        ...Product
       }
     }
   }
