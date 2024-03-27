@@ -1,4 +1,4 @@
-import { MealPlan, OrderSize, Recipe } from '@/enums';
+import { OrderSize } from '@/enums';
 import { DogDto } from '@/types/dto';
 import { Redis } from 'ioredis';
 import invariant from 'ts-invariant';
@@ -78,5 +78,32 @@ export async function setCheckoutParameters(
     }),
     'EX',
     60 * 60 * 24 * 60 // cache alive 60 days
+  );
+}
+
+export async function upsertCheckoutParameters(
+  checkoutId: string,
+  {
+    email,
+    orderSize,
+    dogs,
+    deliveryDate,
+  }: {
+    email?: string;
+    orderSize?: OrderSize;
+    dogs?: DogDto[];
+    deliveryDate?: Date;
+  }
+) {
+  const values = await getCheckoutParameters(checkoutId);
+  if (!values && (email === undefined || orderSize === undefined || dogs === undefined)) {
+    throw new Error('checkout not found, must set the values');
+  }
+  await setCheckoutParameters(
+    checkoutId,
+    email ?? values!.email,
+    orderSize ?? values!.orderSize,
+    dogs ?? values!.dogs,
+    deliveryDate ?? values!.deliveryDate
   );
 }

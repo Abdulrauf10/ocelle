@@ -5,6 +5,8 @@ import { OrderSize, Recipe } from '@/enums';
 import {
   AddPromoCodeDocument,
   AttachCheckoutCustomerDocument,
+  CheckoutAuthorizeStatusEnum,
+  CheckoutChargeStatusEnum,
   CheckoutFragment,
   CompleteCheckoutDocument,
   CountryCode,
@@ -27,7 +29,11 @@ import {
 } from '@/helpers/dog';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
-import { getCheckoutParameters, setCheckoutParameters } from '@/helpers/redis';
+import {
+  getCheckoutParameters,
+  setCheckoutParameters,
+  upsertCheckoutParameters,
+} from '@/helpers/redis';
 import { redirect } from '@/navigation';
 import { CalendarEvent } from '@/types';
 import { DogDto } from '@/types/dto';
@@ -224,11 +230,9 @@ export async function initializeStripeTranscation() {
   });
 
   if (!transactionInitialize || transactionInitialize.errors.length > 0) {
-    transactionInitialize && console.error(transactionInitialize.errors);
+    transactionInitialize && console.error(transactionInitialize);
     throw new Error('cannot initialize transaction');
   }
-
-  console.dir(transactionInitialize, { depth: null });
 
   return transactionInitialize.data;
 }
@@ -370,19 +374,7 @@ export async function processCheckout(data: ProcessCheckoutAction) {
     throw new Error('delivery date is unavailable');
   }
 
-  const params = await getCheckoutParameters(checkout.id);
-
-  if (!params) {
-    throw new Error('failed to find checkout related parameters');
-  }
-
-  await setCheckoutParameters(
-    checkout.id,
-    params.email,
-    params.orderSize,
-    params.dogs,
-    value.deliveryDate
-  );
+  await upsertCheckoutParameters(checkout.id, { deliveryDate: value.deliveryDate });
 
   const user = await findOrCreateUser(
     value.firstName,
@@ -501,6 +493,19 @@ export async function completeCheckout() {
     if (!checkoutDeliveryMethodUpdate || checkoutDeliveryMethodUpdate.errors.length > 0) {
       checkoutDeliveryMethodUpdate && console.error(checkoutDeliveryMethodUpdate.errors);
       throw new Error('failed to update shipping method');
+    }
+
+    // we need to wait for the payment hook to be called before completing the checkout
+    for (let i = 0; i < 30; i++) {
+      const _checkout = await getCheckout();
+      if (
+        _checkout.authorizeStatus !== CheckoutAuthorizeStatusEnum.None &&
+        _checkout.chargeStatus !== CheckoutChargeStatusEnum.None
+      ) {
+        break;
+      }
+      // wait for 8 seconds to continue
+      await new Promise((resolve) => setTimeout(resolve, 1000 * 8));
     }
 
     const { checkoutComplete } = await executeGraphQL(CompleteCheckoutDocument, {
