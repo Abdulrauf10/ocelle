@@ -4,7 +4,7 @@ import Container from '@/components/Container';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
 import { Dog, useSurvey } from '../SurveyContext';
-import { createCheckout, getDefaultDeliveryDate, initializeStripeTranscation } from '../actions';
+import { createCheckout, getClosestDeliveryDate, initializeStripeTranscation } from '../actions';
 import { OrderSize } from '@/enums';
 import { CalendarEvent } from '@/types';
 import { useNavigate } from 'react-router-dom';
@@ -34,16 +34,16 @@ export default function CalculatingFragment() {
   const navigate = useNavigate();
   const { owner, dogs } = useSurvey();
   const waitPromise = React.useMemo(() => new Promise((resolve) => setTimeout(resolve, 3000)), []);
-  const [defaultDeliveryDate, setDefaultDeliveryDate] = React.useState<Date | null>();
+  const [closestDeliveryDate, setClosestDeliveryDate] = React.useState<Date | null>();
   const [calendarEvents, setCalendarEvents] = React.useState<CalendarEvent[] | null>();
   const [transcation, setTranscation] = React.useState<any | null>();
 
   React.useEffect(() => {
-    getDefaultDeliveryDate()
-      .then(setDefaultDeliveryDate)
+    getClosestDeliveryDate()
+      .then(setClosestDeliveryDate)
       .catch((e) => {
         console.error(e);
-        setDefaultDeliveryDate(null);
+        setClosestDeliveryDate(null);
       });
     fetch('/api/calendar')
       .then(async (calendarAPI) => {
@@ -118,14 +118,14 @@ export default function CalculatingFragment() {
 
   React.useEffect(() => {
     if (
-      defaultDeliveryDate === undefined ||
+      closestDeliveryDate === undefined ||
       calendarEvents === undefined ||
       transcation === undefined
     ) {
       // fetching api and wait for the request has completed
       return;
     }
-    if (defaultDeliveryDate === null || calendarEvents === null || transcation === null) {
+    if (closestDeliveryDate === null || calendarEvents === null || transcation === null) {
       console.error('there have some error during create the checkout, redirect to the home page');
       return navigate('/', {
         state: {
@@ -136,14 +136,14 @@ export default function CalculatingFragment() {
     waitPromise.then(() => {
       navigate(Stage.Checkout, {
         state: {
-          defaultDeliveryDate,
+          closestDeliveryDate,
           calendarEvents,
           stripe: transcation,
         },
         replace: true,
       });
     });
-  }, [defaultDeliveryDate, calendarEvents, transcation, waitPromise, navigate]);
+  }, [closestDeliveryDate, calendarEvents, transcation, waitPromise, navigate]);
 
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">

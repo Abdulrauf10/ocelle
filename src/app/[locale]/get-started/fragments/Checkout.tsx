@@ -52,7 +52,7 @@ export default function CheckoutFragment() {
         >
           <CheckoutForm
             dogs={dogs}
-            defaultDeliveryDate={state.defaultDeliveryDate}
+            closestDeliveryDate={state.closestDeliveryDate}
             calendarEvents={state.calendarEvents}
             onEditMealPlan={() => navigate(Stage.ChoosePlan, { state: { isEdit: true } })}
             onEditRecipes={() => navigate(Stage.RecommendedPlan, { state: { isEdit: true } })}

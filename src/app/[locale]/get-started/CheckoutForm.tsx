@@ -55,7 +55,7 @@ type ICheckoutFormAction = Omit<ICheckoutForm, 'billingAddress' | 'confirmPasswo
 
 export default function CheckoutForm({
   dogs,
-  defaultDeliveryDate,
+  closestDeliveryDate,
   calendarEvents,
   onEditMealPlan,
   onEditRecipes,
@@ -63,7 +63,7 @@ export default function CheckoutForm({
   action,
 }: {
   dogs: Dog[];
-  defaultDeliveryDate: Date;
+  closestDeliveryDate: Date;
   calendarEvents: CalendarEvent[];
   onEditMealPlan(): void;
   onEditRecipes(): void;
@@ -82,7 +82,7 @@ export default function CheckoutForm({
     defaultValues: {
       isSameBillingAddress: true,
       tnc: true,
-      deliveryDate: defaultDeliveryDate,
+      deliveryDate: closestDeliveryDate,
 
       firstName: 'Chris',
       lastName: 'Wong',
@@ -256,7 +256,7 @@ export default function CheckoutForm({
                 <DateCalendar
                   name="deliveryDate"
                   control={control}
-                  minDate={addDays(new Date(), 4)}
+                  minDate={closestDeliveryDate}
                   shouldDisableDate={(day) => isUnavailableDeliveryDate(day, calendarEvents)}
                   actions={[
                     { label: t('cancel'), onClick: () => {} },

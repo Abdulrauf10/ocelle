@@ -38,7 +38,7 @@ import invariant from 'ts-invariant';
 
 const stripeAppId = process.env.SALEOR_STRIPE_APP_ID ?? 'app.saleor.stripe';
 
-export async function getDefaultDeliveryDate() {
+export async function getClosestDeliveryDate() {
   return getClosestOrderDeliveryDate(new Date(), await getCalendarEvents());
 }
 
