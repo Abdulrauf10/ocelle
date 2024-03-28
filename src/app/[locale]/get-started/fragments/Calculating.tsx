@@ -34,7 +34,15 @@ export default function CalculatingFragment() {
         console.error(e);
         setMinPrices(null);
       });
-  }, []);
+  }, [
+    dog.age,
+    dog.isNeutered,
+    dog.isUnknownBreed,
+    dog.breeds,
+    dog.weight,
+    dog.bodyCondition,
+    dog.activityLevel,
+  ]);
 
   React.useEffect(() => {
     if (minPrices === undefined) {
@@ -53,7 +61,7 @@ export default function CalculatingFragment() {
       getSurveySessionStore().set('min-prices', minPrices);
       navigate(Stage.ChoosePlan, { replace: true });
     });
-  }, [navigate]);
+  }, [waitPromise, minPrices, navigate]);
 
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
