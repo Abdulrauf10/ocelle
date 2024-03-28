@@ -20,6 +20,11 @@ fragment ShippingZone on ShippingZone {
   }
 }
 
+fragment Warehouse on Warehouse {
+  id
+  name
+}
+
 mutation UpdateShippingZone($id: ID!, $input: ShippingZoneUpdateInput!) {
   shippingZoneUpdate(id: $id, input: $input) {
     errors {
@@ -56,7 +61,7 @@ query GetAllWarehouses {
     totalCount
     edges {
       node {
-        id
+        ...Warehouse
       }
     }
   }

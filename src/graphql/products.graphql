@@ -6,6 +6,11 @@ fragment ProductType on ProductType {
   isDigital
 }
 
+fragment Category on Category {
+  id
+  name
+}
+
 fragment ProductVariant on ProductVariant {
   id
   name
@@ -81,7 +86,7 @@ mutation CreateProductType($name: String!) {
 
 query FindProductCategory($slug: String!) {
   category(slug: $slug) {
-    id
+    ...Category
   }
 }
 
@@ -92,7 +97,7 @@ mutation CreateProductCategory($name: String!, $slug: String!) {
       message
     }
     category {
-      id
+      ...Category
     }
   }
 }
