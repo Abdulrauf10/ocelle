@@ -1,7 +1,7 @@
 'use server';
 
 import { Breed, Dog, DogBreed, DogOrder, DogPlan, Order, User } from '@/entities';
-import { OrderSize, Recipe } from '@/enums';
+import { OrderSize } from '@/enums';
 import {
   AddPromoCodeDocument,
   AttachCheckoutCustomerDocument,
@@ -61,14 +61,6 @@ function getClosestDeliveryDateSync(events: CalendarEvent[]) {
   // 1 day means calculation after place order
   return getClosestDeliveryDateByDate(addDays(new Date(), 1), events);
 }
-
-const SKUs = {
-  [Recipe.Chicken]: 'ocelle-c-s',
-  [Recipe.Beef]: 'ocelle-b-s',
-  [Recipe.Pork]: 'ocelle-p-s',
-  [Recipe.Lamb]: 'ocelle-l-s',
-  [Recipe.Duck]: 'ocelle-d-s',
-};
 
 async function getCheckout(): Promise<CheckoutFragment> {
   const nextServerCookiesStorage = getNextServerCookiesStorage();
