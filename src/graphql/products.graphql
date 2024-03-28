@@ -84,6 +84,16 @@ mutation CreateProductType($name: String!) {
   }
 }
 
+mutation DeleteProductType($id: ID!) {
+  productTypeDelete(id: $id) {
+    errors {
+      field
+      message
+      code
+    }
+  }
+}
+
 query FindProductCategory($slug: String!) {
   category(slug: $slug) {
     ...Category
@@ -98,6 +108,16 @@ mutation CreateProductCategory($name: String!, $slug: String!) {
     }
     category {
       ...Category
+    }
+  }
+}
+
+mutation DeleteProductCategory($id: ID!) {
+  categoryDelete(id: $id) {
+    errors {
+      field
+      message
+      code
     }
   }
 }

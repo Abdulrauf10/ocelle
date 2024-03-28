@@ -35,13 +35,50 @@ mutation UpdateShippingZone($id: ID!, $input: ShippingZoneUpdateInput!) {
   }
 }
 
-query GetAllShippingZones {
-  shippingZones(first: 100) {
+query FindShippingZones($filter: ShippingZoneFilterInput) {
+  shippingZones(filter: $filter, first: 100) {
     totalCount
     edges {
       node {
         ...ShippingZone
       }
+    }
+  }
+}
+
+mutation CreateShippingZone($input: ShippingZoneCreateInput!) {
+  shippingZoneCreate(input: $input) {
+    errors {
+      field
+      message
+      code
+    }
+    shippingZone {
+      ...ShippingZone
+    }
+  }
+}
+
+mutation DeleteShippingZone($id: ID!) {
+  shippingZoneDelete(id: $id) {
+    errors {
+      field
+      message
+      code
+    }
+  }
+}
+
+mutation CreateShippingMethod($input: ShippingPriceInput!) {
+  shippingPriceCreate(input: $input) {
+    errors {
+      field
+      message
+      code
+    }
+    shippingMethod {
+      id
+      name
     }
   }
 }
@@ -56,13 +93,36 @@ mutation UpdateShippingMethodChannelListing($id: ID!, $input: ShippingMethodChan
   }
 }
 
-query GetAllWarehouses {
-  warehouses(first: 100) {
+query FindWarehouses($filter: WarehouseFilterInput) {
+  warehouses(filter: $filter, first: 100) {
     totalCount
     edges {
       node {
         ...Warehouse
       }
+    }
+  }
+}
+
+mutation CreateWarehouse($input: WarehouseCreateInput!) {
+  createWarehouse(input: $input) {
+    errors {
+      field
+      message
+      code
+    }
+    warehouse {
+      ...Warehouse
+    }
+  }
+}
+
+mutation DeleteWarehouse($id: ID!) {
+  deleteWarehouse(id: $id) {
+    errors {
+      field
+      message
+      code
     }
   }
 }

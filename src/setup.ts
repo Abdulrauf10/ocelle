@@ -10,17 +10,26 @@ import {
   CreateProductCategoryDocument,
   CreateProductDocument,
   CreateProductTypeDocument,
+  CreateShippingMethodDocument,
+  CreateShippingZoneDocument,
+  CreateWarehouseDocument,
+  DeleteChannelDocument,
+  DeleteProductCategoryDocument,
+  DeleteProductTypeDocument,
+  DeleteShippingZoneDocument,
+  DeleteWarehouseDocument,
   FindProductCategoryDocument,
   FindProductDocument,
   FindProductTypesDocument,
-  GetAllShippingZonesDocument,
-  GetAllWarehousesDocument,
+  FindShippingZonesDocument,
+  FindWarehousesDocument,
   GetChannelDocument,
   ProductFragment,
   ProductTypeFragment,
+  ShippingMethodTypeEnum,
   ShippingZoneFragment,
+  UpdateChannelDocument,
   UpdateShippingMethodChannelListingDocument,
-  UpdateShippingZoneDocument,
   UpdateShopSettingsDocument,
   WarehouseFragment,
 } from './gql/graphql';
@@ -31,10 +40,161 @@ import {
   recipeSubscriptionVariantsMap,
 } from './helpers/dog';
 
-async function findOrCreateChannel(
-  shippingZones: ShippingZoneFragment[],
-  warehouses: WarehouseFragment[]
-): Promise<ChannelFragment> {
+enum SFExpressShippingMethod {
+  Free = 'SF Express (Free)',
+  Fixed = 'SF Express (Fixed)',
+}
+
+async function prugeDefaultChannel() {
+  console.log('execute pruge the default channel...');
+
+  const { channel } = await executeGraphQL(GetChannelDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      slug: 'default-channel',
+    },
+  });
+
+  if (channel) {
+    const { channelDelete } = await executeGraphQL(DeleteChannelDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: { id: channel.id },
+    });
+
+    if (!channelDelete || channelDelete.errors.length > 0) {
+      channelDelete && console.error(channelDelete.errors);
+      throw new Error('failed to delete the default channel');
+    }
+  }
+}
+
+async function prugeDefaultProductType() {
+  console.log('execute pruge the default product type...');
+
+  const { productTypes } = await executeGraphQL(FindProductTypesDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      keyword: 'Default Type',
+    },
+  });
+
+  if (productTypes && productTypes.edges.length > 0) {
+    const { productTypeDelete } = await executeGraphQL(DeleteProductTypeDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: { id: productTypes.edges[0].node.id },
+    });
+
+    if (!productTypeDelete || productTypeDelete.errors.length > 0) {
+      productTypeDelete && console.error(productTypeDelete.errors);
+      throw new Error('failed to delete the default product type');
+    }
+  }
+}
+
+async function prugeDefaultCategory() {
+  console.log('execute pruge the default category...');
+
+  const { category } = await executeGraphQL(FindProductCategoryDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      slug: 'default-category',
+    },
+  });
+
+  if (category) {
+    const { categoryDelete } = await executeGraphQL(DeleteProductCategoryDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: { id: category.id },
+    });
+
+    if (!categoryDelete || categoryDelete.errors.length > 0) {
+      categoryDelete && console.error(categoryDelete.errors);
+      throw new Error('failed to delete the default category');
+    }
+  }
+}
+
+async function prugeDefaultWarehouse() {
+  console.log('execute pruge the default warehouse...');
+
+  const { warehouses } = await executeGraphQL(FindWarehousesDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      filter: {
+        search: 'Default Warehouse',
+      },
+    },
+  });
+
+  if (warehouses && warehouses.edges.length > 0) {
+    const { deleteWarehouse } = await executeGraphQL(DeleteWarehouseDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: { id: warehouses.edges[0].node.id },
+    });
+
+    if (!deleteWarehouse || deleteWarehouse.errors.length > 0) {
+      deleteWarehouse && console.error(deleteWarehouse.errors);
+      throw new Error('failed to delete the default warehouse');
+    }
+  }
+}
+
+async function prugeDefaultShippingZone() {
+  console.log('execute pruge the default shipping zone...');
+
+  const { shippingZones } = await executeGraphQL(FindShippingZonesDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      filter: {
+        search: 'Default',
+      },
+    },
+  });
+
+  if (shippingZones && shippingZones.edges.length > 0) {
+    const { shippingZoneDelete } = await executeGraphQL(DeleteShippingZoneDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: { id: shippingZones.edges[0].node.id },
+    });
+
+    if (!shippingZoneDelete || shippingZoneDelete.errors.length > 0) {
+      shippingZoneDelete && console.error(shippingZoneDelete.errors);
+      throw new Error('failed to delete the default shipping zone');
+    }
+  }
+}
+
+async function findOrCreateChannel(warehouse: WarehouseFragment): Promise<ChannelFragment> {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
   console.log('execute find or create channel...');
@@ -50,7 +210,31 @@ async function findOrCreateChannel(
   });
 
   if (channel) {
-    return channel;
+    const { channelUpdate } = await executeGraphQL(UpdateChannelDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: {
+        id: channel.id,
+        input: {
+          name: 'Ocelle',
+          defaultCountry: CountryCode.Hk,
+          addWarehouses: [warehouse.id],
+          orderSettings: {
+            allowUnpaidOrders: false,
+          },
+          isActive: true,
+        },
+      },
+    });
+
+    if (!channelUpdate || channelUpdate.errors.length > 0) {
+      channelUpdate && console.error(channelUpdate.errors);
+      throw new Error('failed to update channel');
+    }
+
+    return channelUpdate.channel!;
   }
 
   // create new channel
@@ -65,8 +249,7 @@ async function findOrCreateChannel(
         slug: process.env.SALEOR_CHANNEL_SLUG,
         currencyCode: 'HKD',
         defaultCountry: CountryCode.Hk,
-        addWarehouses: warehouses.map((warehouse) => warehouse.id),
-        addShippingZones: shippingZones.map((zone) => zone.id),
+        addWarehouses: [warehouse.id],
         orderSettings: {
           allowUnpaidOrders: false,
         },
@@ -136,7 +319,7 @@ async function findOrCreateCategory(): Promise<CategoryFragment> {
     return category;
   }
 
-  // create new product type for product
+  // create new product category
   const { categoryCreate } = await executeGraphQL(CreateProductCategoryDocument, {
     withAuth: false,
     headers: {
@@ -156,34 +339,155 @@ async function findOrCreateCategory(): Promise<CategoryFragment> {
   return categoryCreate.category!;
 }
 
-async function findWarehouses(): Promise<WarehouseFragment[]> {
-  console.log('execute find warehouses...');
+async function findOrCreateWarehouse(): Promise<WarehouseFragment> {
+  console.log('execute find or create the warehouse...');
 
-  const { warehouses } = await executeGraphQL(GetAllWarehousesDocument, {
+  const { warehouses } = await executeGraphQL(FindWarehousesDocument, {
     withAuth: false,
     headers: {
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
+    variables: {
+      filter: {
+        search: 'Ocelle Warehouse',
+      },
+    },
   });
 
-  if (!warehouses) {
-    throw new Error('failed to find warehouses');
+  if (warehouses && warehouses.edges.length > 0) {
+    return warehouses.edges[0].node;
   }
 
-  return warehouses.edges.map((warehouse) => warehouse.node);
-}
-
-async function findShippingZones(): Promise<ShippingZoneFragment[] | null | undefined> {
-  console.log('execute find shipping zones...');
-
-  const { shippingZones } = await executeGraphQL(GetAllShippingZonesDocument, {
+  // create new warehouse
+  const { createWarehouse } = await executeGraphQL(CreateWarehouseDocument, {
     withAuth: false,
     headers: {
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
+    variables: {
+      input: {
+        name: 'Ocelle Warehouse',
+        address: {
+          streetAddress1: 'Fake address of OCELLE warehouse',
+          city: 'Lai Chi Kok',
+          postalCode: '000000',
+          countryArea: 'Kowloon',
+          country: CountryCode.Hk,
+        },
+      },
+    },
   });
 
-  return shippingZones && shippingZones.edges.map((shippingZone) => shippingZone.node!);
+  if (!createWarehouse || createWarehouse.errors.length > 0) {
+    createWarehouse && console.error(createWarehouse.errors);
+    throw new Error('failed to create warehouse');
+  }
+
+  return createWarehouse.warehouse!;
+}
+
+async function createShippingMethod(
+  shippingZone: ShippingZoneFragment,
+  channel: ChannelFragment,
+  name: string,
+  price: number
+) {
+  const { shippingPriceCreate } = await executeGraphQL(CreateShippingMethodDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      input: {
+        name,
+        type: ShippingMethodTypeEnum.Price,
+        shippingZone: shippingZone.id,
+      },
+    },
+  });
+
+  if (!shippingPriceCreate || shippingPriceCreate.errors.length > 0) {
+    shippingPriceCreate && console.error(shippingPriceCreate.errors);
+    throw new Error('failed to create shipping method');
+  }
+
+  const { shippingMethodChannelListingUpdate } = await executeGraphQL(
+    UpdateShippingMethodChannelListingDocument,
+    {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: {
+        id: shippingPriceCreate.shippingMethod!.id,
+        input: {
+          addChannels: [
+            {
+              channelId: channel.id,
+              price,
+            },
+          ],
+        },
+      },
+    }
+  );
+  if (!shippingMethodChannelListingUpdate || shippingMethodChannelListingUpdate.errors.length > 0) {
+    shippingMethodChannelListingUpdate && console.error(shippingMethodChannelListingUpdate.errors);
+    throw new Error('failed to add channel to shipping zone');
+  }
+}
+
+async function findOrCreateShippingZone(
+  channel: ChannelFragment,
+  warehouse: WarehouseFragment
+): Promise<ShippingZoneFragment> {
+  console.log('execute find or create shipping zone...');
+
+  const { shippingZones } = await executeGraphQL(FindShippingZonesDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      filter: {
+        search: 'Ocelle Shipping Zone',
+      },
+    },
+  });
+
+  if (shippingZones && shippingZones.edges.length > 0) {
+    return shippingZones.edges[0].node;
+  }
+
+  // create new shipping zone
+  const { shippingZoneCreate } = await executeGraphQL(CreateShippingZoneDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      input: {
+        name: 'Ocelle Shipping Zone',
+        default: true,
+        countries: [CountryCode.Hk],
+        addChannels: [channel.id],
+        addWarehouses: [warehouse.id],
+      },
+    },
+  });
+
+  if (!shippingZoneCreate || shippingZoneCreate.errors.length > 0) {
+    shippingZoneCreate && console.error(shippingZoneCreate.errors);
+    throw new Error('failed to create shipping zone');
+  }
+
+  const shippingZone = shippingZoneCreate.shippingZone!;
+
+  // create shipping methods for the zone
+  await createShippingMethod(shippingZone, channel, SFExpressShippingMethod.Free, 0);
+  await createShippingMethod(shippingZone, channel, SFExpressShippingMethod.Fixed, 60);
+
+  return shippingZone;
 }
 
 async function setupShop() {
@@ -206,68 +510,40 @@ async function setupShop() {
   }
 }
 
-async function setupShippingZones(shippingZones: ShippingZoneFragment[]) {
-  console.log('setup shipping zones...');
-
-  for (const shippingZone of shippingZones) {
-    const { shippingZoneUpdate } = await executeGraphQL(UpdateShippingZoneDocument, {
-      withAuth: false,
-      headers: {
-        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-      },
-      variables: {
-        id: shippingZone.id,
-        input: {
-          countries: ['HK'],
-        },
-      },
-    });
-    if (!shippingZoneUpdate || shippingZoneUpdate.errors.length > 0) {
-      shippingZoneUpdate && console.error(shippingZoneUpdate.errors);
-      throw new Error('failed to update shipping zone');
-    }
-  }
-}
-
-async function setupShippingMethods(
-  shippingZones: ShippingZoneFragment[],
-  channel: ChannelFragment
-) {
+async function setupShippingMethods(shippingZone: ShippingZoneFragment, channel: ChannelFragment) {
   console.log('execute setup shipping methods...');
 
-  for (const shippingZone of shippingZones) {
-    for (const { id, channelListings } of shippingZone.shippingMethods ?? []) {
-      if (channelListings?.find((listing) => listing.channel.id === channel.id)) {
-        continue;
-      }
-      const { shippingMethodChannelListingUpdate } = await executeGraphQL(
-        UpdateShippingMethodChannelListingDocument,
-        {
-          withAuth: false,
-          headers: {
-            Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+  for (const { id, name, channelListings } of shippingZone.shippingMethods ?? []) {
+    if (channelListings?.find((listing) => listing.channel.id === channel.id)) {
+      continue;
+    }
+    const { shippingMethodChannelListingUpdate } = await executeGraphQL(
+      UpdateShippingMethodChannelListingDocument,
+      {
+        withAuth: false,
+        headers: {
+          Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+        },
+        variables: {
+          id,
+          input: {
+            addChannels: [
+              {
+                channelId: channel.id,
+                price: name === SFExpressShippingMethod.Free ? 0 : 60,
+              },
+            ],
           },
-          variables: {
-            id,
-            input: {
-              addChannels: [
-                {
-                  channelId: channel.id,
-                  price: 0,
-                },
-              ],
-            },
-          },
-        }
-      );
-      if (
-        !shippingMethodChannelListingUpdate ||
-        shippingMethodChannelListingUpdate.errors.length > 0
-      ) {
-        shippingMethodChannelListingUpdate &&
-          console.error(shippingMethodChannelListingUpdate.errors);
-        throw new Error('failed to add channel to shipping zone');
+        },
       }
+    );
+    if (
+      !shippingMethodChannelListingUpdate ||
+      shippingMethodChannelListingUpdate.errors.length > 0
+    ) {
+      shippingMethodChannelListingUpdate &&
+        console.error(shippingMethodChannelListingUpdate.errors);
+      throw new Error('failed to add channel to shipping zone');
     }
   }
 }
@@ -276,7 +552,7 @@ async function setupSubscriptionProducts(
   channel: ChannelFragment,
   productType: ProductTypeFragment,
   category: CategoryFragment,
-  warehouses: WarehouseFragment[]
+  warehouse: WarehouseFragment
 ): Promise<ProductFragment> {
   invariant(
     process.env.SALEOR_SUBSCRIPTION_PRODUCT_SLUG,
@@ -338,12 +614,12 @@ async function setupSubscriptionProducts(
           sku,
           attributes: [],
           trackInventory: false,
-          stocks: warehouses.map((warehouse) => {
-            return {
+          stocks: [
+            {
               warehouse: warehouse.id,
               quantity: Math.pow(2, 31) - 1,
-            };
-          }),
+            },
+          ],
           channelListings: [
             {
               channelId: channel.id,
@@ -367,7 +643,7 @@ async function setupIndividualProducts(
   channel: ChannelFragment,
   productType: ProductTypeFragment,
   category: CategoryFragment,
-  warehouses: WarehouseFragment[]
+  warehouse: WarehouseFragment
 ): Promise<ProductFragment> {
   invariant(
     process.env.SALEOR_INDIVIDUAL_PRODUCT_SLUG,
@@ -433,12 +709,12 @@ async function setupIndividualProducts(
           sku,
           attributes: [],
           trackInventory: false,
-          stocks: warehouses.map((warehouse) => {
-            return {
+          stocks: [
+            {
               warehouse: warehouse.id,
               quantity: Math.pow(2, 31) - 1,
-            };
-          }),
+            },
+          ],
           channelListings: [
             {
               channelId: channel.id,
@@ -480,28 +756,20 @@ async function setup() {
   await setupShop();
 
   const productType = await findOrCreateProductType();
-
   const category = await findOrCreateCategory();
+  const warehouse = await findOrCreateWarehouse();
+  const channel = await findOrCreateChannel(warehouse);
+  const shippingZone = await findOrCreateShippingZone(channel, warehouse);
 
-  const warehouses = await findWarehouses();
-  if (warehouses.length === 0) {
-    throw new Error('saleor contains 0 of warehouse');
-  }
+  await setupShippingMethods(shippingZone, channel);
+  await setupIndividualProducts(channel, productType, category, warehouse);
+  await setupSubscriptionProducts(channel, productType, category, warehouse);
 
-  const shippingZones = await findShippingZones();
-  if (!shippingZones) {
-    throw new Error('failed find the shipping zones');
-  }
-
-  await setupShippingZones(shippingZones);
-
-  const channel = await findOrCreateChannel(shippingZones, warehouses);
-
-  await setupShippingMethods(shippingZones, channel);
-
-  await setupIndividualProducts(channel, productType, category, warehouses);
-
-  await setupSubscriptionProducts(channel, productType, category, warehouses);
+  await prugeDefaultChannel();
+  await prugeDefaultProductType();
+  await prugeDefaultCategory();
+  await prugeDefaultWarehouse();
+  await prugeDefaultShippingZone();
 }
 
 setup();
