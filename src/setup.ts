@@ -510,44 +510,6 @@ async function setupShop() {
   }
 }
 
-async function setupShippingMethods(shippingZone: ShippingZoneFragment, channel: ChannelFragment) {
-  console.log('execute setup shipping methods...');
-
-  for (const { id, name, channelListings } of shippingZone.shippingMethods ?? []) {
-    if (channelListings?.find((listing) => listing.channel.id === channel.id)) {
-      continue;
-    }
-    const { shippingMethodChannelListingUpdate } = await executeGraphQL(
-      UpdateShippingMethodChannelListingDocument,
-      {
-        withAuth: false,
-        headers: {
-          Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-        },
-        variables: {
-          id,
-          input: {
-            addChannels: [
-              {
-                channelId: channel.id,
-                price: name === SFExpressShippingMethod.Free ? 0 : 60,
-              },
-            ],
-          },
-        },
-      }
-    );
-    if (
-      !shippingMethodChannelListingUpdate ||
-      shippingMethodChannelListingUpdate.errors.length > 0
-    ) {
-      shippingMethodChannelListingUpdate &&
-        console.error(shippingMethodChannelListingUpdate.errors);
-      throw new Error('failed to add channel to shipping zone');
-    }
-  }
-}
-
 async function setupSubscriptionProducts(
   channel: ChannelFragment,
   productType: ProductTypeFragment,
@@ -761,7 +723,6 @@ async function setup() {
   const channel = await findOrCreateChannel(warehouse);
   const shippingZone = await findOrCreateShippingZone(channel, warehouse);
 
-  await setupShippingMethods(shippingZone, channel);
   await setupIndividualProducts(channel, productType, category, warehouse);
   await setupSubscriptionProducts(channel, productType, category, warehouse);
 
