@@ -24,7 +24,11 @@ import {
   WarehouseFragment,
 } from './gql/graphql';
 import invariant from 'ts-invariant';
-import { recipeSubscriptionVariantsMap } from './helpers/dog';
+import {
+  recipeBundleVariant,
+  recipeIndividualVariantsMap,
+  recipeSubscriptionVariantsMap,
+} from './helpers/dog';
 
 async function findOrCreateChannel(
   shippingZones: ShippingZoneFragment[],
@@ -253,9 +257,12 @@ async function setupSubscriptionProducts(
   category: CategoryFragment,
   warehouses: WarehouseFragment[]
 ): Promise<ProductFragment> {
-  invariant(process.env.SALEOR_PRODUCT_SLUG, 'Missing SALEOR_PRODUCT_SLUG env variable');
+  invariant(
+    process.env.SALEOR_SUBSCRIPTION_PRODUCT_SLUG,
+    'Missing SALEOR_SUBSCRIPTION_PRODUCT_SLUG env variable'
+  );
 
-  console.log('setup products...');
+  console.log('setup subscription products...');
 
   // create placeholder product if not exists
   const { product } = await executeGraphQL(FindProductDocument, {
@@ -264,7 +271,7 @@ async function setupSubscriptionProducts(
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
-      slug: process.env.SALEOR_PRODUCT_SLUG,
+      slug: process.env.SALEOR_SUBSCRIPTION_PRODUCT_SLUG,
     },
   });
 
@@ -293,7 +300,7 @@ async function setupSubscriptionProducts(
         ],
         version: '2.22.2',
       }),
-      slug: process.env.SALEOR_PRODUCT_SLUG,
+      slug: process.env.SALEOR_SUBSCRIPTION_PRODUCT_SLUG,
       productType: productType.id,
       category: category.id,
       channelListings: [
@@ -329,7 +336,7 @@ async function setupSubscriptionProducts(
 
   if (!productBulkCreate || productBulkCreate.errors.length > 0) {
     productBulkCreate && console.error(productBulkCreate.errors);
-    throw new Error('failed to create product');
+    throw new Error('failed to create subscription product');
   }
 
   return productBulkCreate.results[0].product!;
@@ -340,22 +347,114 @@ async function setupIndividualProducts(
   productType: ProductTypeFragment,
   category: CategoryFragment,
   warehouses: WarehouseFragment[]
-) {}
+): Promise<ProductFragment> {
+  invariant(
+    process.env.SALEOR_INDIVIDUAL_PRODUCT_SLUG,
+    'Missing SALEOR_INDIVIDUAL_PRODUCT_SLUG env variable'
+  );
 
-async function setup() {
-  await executeQuery(async (queryRunner) => {
-    // reset seeders
-    for (const seeder of seeders) {
-      await seeder.clean(queryRunner);
-    }
+  console.log('setup individual products...');
 
-    // initial seeders
-    for (const seeder of seeders) {
-      await seeder.run(queryRunner);
-    }
+  // create placeholder product if not exists
+  const { product } = await executeGraphQL(FindProductDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      slug: process.env.SALEOR_INDIVIDUAL_PRODUCT_SLUG,
+    },
   });
 
-  await AppDataSource.destroy();
+  if (product) {
+    return product;
+  }
+
+  const variants = Object.values(recipeIndividualVariantsMap);
+
+  variants.push(recipeBundleVariant);
+
+  // create a product if not exists
+  const { productBulkCreate } = await executeGraphQL(CreateProductDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      name: 'Recipe Individual',
+      description: JSON.stringify({
+        time: Date.now(),
+        blocks: [
+          {
+            id: 'CMRIgvbpUG',
+            data: {
+              text: 'This product is used for <b>OCELLE</b> individual purchase.',
+            },
+            type: 'paragraph',
+          },
+        ],
+        version: '2.22.2',
+      }),
+      slug: process.env.SALEOR_INDIVIDUAL_PRODUCT_SLUG,
+      productType: productType.id,
+      category: category.id,
+      channelListings: [
+        {
+          channelId: channel.id,
+          isAvailableForPurchase: true,
+          isPublished: true,
+          publishedAt: new Date().toISOString(),
+        },
+      ],
+      variants: variants.map(({ name, sku, price }) => {
+        return {
+          name,
+          sku,
+          attributes: [],
+          trackInventory: false,
+          stocks: warehouses.map((warehouse) => {
+            return {
+              warehouse: warehouse.id,
+              quantity: Math.pow(2, 31) - 1,
+            };
+          }),
+          channelListings: [
+            {
+              channelId: channel.id,
+              price,
+            },
+          ],
+        };
+      }),
+    },
+  });
+
+  if (!productBulkCreate || productBulkCreate.errors.length > 0) {
+    productBulkCreate && console.error(productBulkCreate.errors);
+    throw new Error('failed to create individual product');
+  }
+
+  return productBulkCreate.results[0].product!;
+}
+
+async function setup() {
+  try {
+    await executeQuery(async (queryRunner) => {
+      // reset seeders
+      for (const seeder of seeders) {
+        await seeder.clean(queryRunner);
+      }
+
+      // initial seeders
+      for (const seeder of seeders) {
+        await seeder.run(queryRunner);
+      }
+    });
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await AppDataSource.destroy();
+  }
 
   const productType = await findOrCreateProductType();
 
@@ -377,10 +476,9 @@ async function setup() {
 
   await setupShippingMethods(shippingZones, channel);
 
-  const product = await setupSubscriptionProducts(channel, productType, category, warehouses);
-  if (!product) {
-    throw new Error('failed to create the subscription products');
-  }
+  await setupIndividualProducts(channel, productType, category, warehouses);
+
+  await setupSubscriptionProducts(channel, productType, category, warehouses);
 }
 
 setup();

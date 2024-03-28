@@ -33,26 +33,40 @@ export const recipeSubscriptionVariantsMap = {
   },
 };
 
+/**
+ * only apply to individual case
+ */
+export const recipeBundleVariant = {
+  name: 'Bundle',
+  sku: 'ocelle-bundle-i',
+  price: 150,
+};
+
 export const recipeIndividualVariantsMap = {
   [Recipe.Chicken]: {
     name: 'Chicken',
     sku: 'ocelle-c-i',
+    price: 50,
   },
   [Recipe.Beef]: {
     name: 'Beef',
     sku: 'ocelle-b-i',
+    price: 55,
   },
   [Recipe.Duck]: {
     name: 'Duck',
     sku: 'ocelle-d-i',
+    price: 80,
   },
   [Recipe.Lamb]: {
     name: 'Lamb',
     sku: 'ocelle-l-i',
+    price: 65,
   },
   [Recipe.Pork]: {
     name: 'Pork',
     sku: 'ocelle-p-i',
+    price: 45,
   },
 };
 

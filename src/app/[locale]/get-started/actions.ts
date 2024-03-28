@@ -114,7 +114,7 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
-      slug: process.env.SALEOR_PRODUCT_SLUG!,
+      slug: process.env.SALEOR_SUBSCRIPTION_PRODUCT_SLUG!,
     },
   });
 
