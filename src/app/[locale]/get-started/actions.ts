@@ -91,7 +91,7 @@ export async function getMinPerDayPrice(
       { recipeToBeCalcuate: getTheCheapestRecipe() },
       MealPlan.Half,
       OrderSize.TwoWeek,
-      false
+      true
     ),
     fullPlan: calculateRecipePerDayPrice(
       breeds,
@@ -103,7 +103,7 @@ export async function getMinPerDayPrice(
       { recipeToBeCalcuate: getTheCheapestRecipe() },
       MealPlan.Full,
       OrderSize.TwoWeek,
-      false
+      true
     ),
   };
 }
