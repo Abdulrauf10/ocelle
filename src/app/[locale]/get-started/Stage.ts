@@ -9,6 +9,7 @@ enum Stage {
   Calculating = '/loading',
   ChoosePlan = '/choose-plan',
   RecommendedPlan = '/recommended-plan',
+  Processing = '/processing',
   Checkout = '/checkout',
 }
 

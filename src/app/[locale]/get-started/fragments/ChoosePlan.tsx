@@ -36,7 +36,7 @@ export default function ChoosePlanFragment() {
     } else {
       setDog({ mealPlan: currentMealPlan });
       if (location.state?.isEdit) {
-        navigate(Stage.Calculating, { replace: true });
+        navigate(Stage.Processing, { replace: true });
       } else {
         navigate(Stage.RecommendedPlan);
       }

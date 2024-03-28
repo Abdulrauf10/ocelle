@@ -12,6 +12,7 @@ import OwnerFragment from './fragments/Owner';
 import CalculatingFragment from './fragments/Calculating';
 import ChoosePlanFragment from './fragments/ChoosePlan';
 import RecommendedPlanFragment from './fragments/RecommendedPlan';
+import ProcessingFragment from './fragments/Processing';
 import CheckoutFragment from './fragments/Checkout';
 import { SurveyContextProvider } from './SurveyContext';
 import AppThemeProvider from '@/components/AppThemeProvider';
@@ -34,6 +35,7 @@ export default function GetStarted() {
               <Route path={Stage.DogPreference2} element={<DogPreference2Fragment />} />
               <Route path={Stage.Owner} element={<OwnerFragment />} />
               <Route path={Stage.Calculating} element={<CalculatingFragment />} />
+              <Route path={Stage.Processing} element={<ProcessingFragment />} />
               <Route path={Stage.ChoosePlan} element={<ChoosePlanFragment />} />
               <Route path={Stage.RecommendedPlan} element={<RecommendedPlanFragment />} />
               <Route path={Stage.Checkout} element={<CheckoutFragment />} />

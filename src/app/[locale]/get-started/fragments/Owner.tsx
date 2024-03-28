@@ -34,7 +34,7 @@ export default function OwnerFragment() {
   const onSubmit = React.useCallback(
     (values: OwnerForm) => {
       setOwner(values);
-      navigate(Stage.ChoosePlan);
+      navigate(Stage.Calculating);
     },
     [navigate, setOwner]
   );

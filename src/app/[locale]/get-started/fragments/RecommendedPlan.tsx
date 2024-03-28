@@ -81,9 +81,9 @@ export default function RecommendedPlanFragment() {
       const { recipe1, recipe2 } = arrayToRecipe(recipe);
       setDog({ recipe1, recipe2, isEnabledTransitionPeriod: stringToBoolean(transition) });
       if (location.state?.isEdit) {
-        navigate(Stage.Calculating, { replace: true });
+        navigate(Stage.Processing, { replace: true });
       } else {
-        navigate(Stage.Calculating);
+        navigate(Stage.Processing);
       }
     },
     [navigate, setDog, location.state]

@@ -47,13 +47,17 @@ export default function View({ children }: React.PropsWithChildren) {
         startAdornment={
           <div className="hidden px-2 max-lg:block">
             <BackButton
-              show={location.pathname !== Stage.Welcome && location.pathname !== Stage.Calculating}
+              show={
+                location.pathname !== Stage.Welcome &&
+                location.pathname !== Stage.Calculating &&
+                location.pathname !== Stage.Processing
+              }
               onClick={() => navigate(-1)}
             />
           </div>
         }
         endAdornment={
-          !(location.pathname === Stage.Calculating) && (
+          !(location.pathname === Stage.Calculating || location.pathname === Stage.Processing) && (
             <div className="w-full max-lg:px-2">
               <div className="flex w-full justify-center max-lg:mt-8 lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 lg:px-[280px]">
                 <div className="relative w-full max-w-[460px]">
