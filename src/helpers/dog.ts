@@ -205,6 +205,10 @@ function isExactSize(breeds: Breed[], sizes: Array<BreedSize>) {
   return breeds.filter((x) => sizes.indexOf(x.size) > -1).length === breeds.length;
 }
 
+function isContainsSize(breeds: Breed[], sizes: Array<BreedSize>) {
+  return breeds.filter((x) => sizes.indexOf(x.size) > -1).length > -1;
+}
+
 /**
  * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
@@ -231,17 +235,19 @@ export function getLifeStage(breeds: Breed[], dateOfBirth: Date): LifeStage | un
     else return 'Senior';
   }
 
-  if (isExactSize(breeds, ['Small']) && isExactSize(breeds, ['Medium', 'Large'])) {
+  if (isContainsSize(breeds, ['Small']) && isContainsSize(breeds, ['Medium', 'Large'])) {
     if (ageM < 12) return 'Puppy';
     else if (ageM >= 12 && ageY < 7) return 'Adult';
     else return 'Senior';
   }
 
-  if (isExactSize(breeds, ['Medium']) && isExactSize(breeds, ['Large'])) {
+  if (isContainsSize(breeds, ['Medium']) && isContainsSize(breeds, ['Large'])) {
     if (ageM < 12) return 'Puppy';
     else if (ageM >= 12 && ageY < 5) return 'Adult';
     else return 'Senior';
   }
+
+  console.error(breeds);
 }
 
 /**
