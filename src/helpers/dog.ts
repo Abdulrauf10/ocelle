@@ -70,12 +70,47 @@ export const recipeIndividualVariantsMap = {
   },
 };
 
-const recipePricePerDay = {
-  [Recipe.Chicken]: 18,
-  [Recipe.Beef]: 18,
-  [Recipe.Duck]: 18,
-  [Recipe.Lamb]: 18,
-  [Recipe.Pork]: 18,
+/**
+ * Refer to `Excel: customization variables v1.01 > Price Matrix`
+ * Priorities order by cheaply
+ */
+const recipePriorities = {
+  [Recipe.Pork]: 1,
+  [Recipe.Chicken]: 2,
+  [Recipe.Beef]: 3,
+  [Recipe.Lamb]: 4,
+  [Recipe.Duck]: 5,
+};
+
+/**
+ * Refer to `Excel: customization variables v1.01 > Price Matrix`
+ */
+const recipePriceUnits = {
+  [Recipe.Chicken]: {
+    Puppy: 0.17976,
+    Adult: 0.16976,
+    Senior: 0.16476,
+  },
+  [Recipe.Beef]: {
+    Puppy: 0.18922,
+    Adult: 0.17922,
+    Senior: 0.17422,
+  },
+  [Recipe.Pork]: {
+    Puppy: 0.15093,
+    Adult: 0.14093,
+    Senior: 0.13593,
+  },
+  [Recipe.Lamb]: {
+    Puppy: 0.29342,
+    Adult: 0.28342,
+    Senior: 0.27842,
+  },
+  [Recipe.Duck]: {
+    Puppy: 0.36791,
+    Adult: 0.35791,
+    Senior: 0.35291,
+  },
 };
 
 export function getRecipeSlug(recipe: Recipe) {
@@ -171,46 +206,47 @@ function isExactSize(breeds: Breed[], sizes: Array<BreedSize>) {
 }
 
 /**
- * Refer to `Excel: customization variables v0.12 > Customization Variables`
+ * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
-export function getLifeStage(breeds: Breed[], birth: Date): LifeStage | undefined {
-  const ageM = differenceInMonths(birth, new Date());
-  const ageY = differenceInYears(birth, new Date());
+export function getLifeStage(breeds: Breed[], dateOfBirth: Date): LifeStage | undefined {
+  const ageM = differenceInMonths(dateOfBirth, new Date());
+  const ageY = differenceInYears(dateOfBirth, new Date());
 
   // Puppy
   if (isExactSize(breeds, ['Small'])) {
-    if (ageM < 13) return 'Puppy';
-    else if (ageM >= 13 && ageY < 9) return 'Adult';
+    if (ageM < 12) return 'Puppy';
+    else if (ageM >= 12 && ageY < 9) return 'Adult';
     else return 'Senior';
   }
 
-  if (isExactSize(breeds, ['Medium'])) {
-    if (ageM < 13) return 'Puppy';
-    else if (ageM >= 13 && ageY < 7) return 'Adult';
+  if (isExactSize(breeds, ['Medium']) || breeds.length === 0) {
+    if (ageM < 12) return 'Puppy';
+    else if (ageM >= 12 && ageY < 7) return 'Adult';
     else return 'Senior';
   }
 
   if (isExactSize(breeds, ['Large'])) {
-    if (ageM < 17) return 'Puppy';
-    else if (ageM >= 17 && ageY < 5) return 'Adult';
+    if (ageM < 16) return 'Puppy';
+    else if (ageM >= 16 && ageY < 5) return 'Adult';
     else return 'Senior';
   }
 
   if (isExactSize(breeds, ['Small']) && isExactSize(breeds, ['Medium', 'Large'])) {
-    if (ageM < 13) return 'Puppy';
-    else if (ageM >= 13 && ageY < 7) return 'Adult';
+    if (ageM < 12) return 'Puppy';
+    else if (ageM >= 12 && ageY < 7) return 'Adult';
     else return 'Senior';
   }
 
   if (isExactSize(breeds, ['Medium']) && isExactSize(breeds, ['Large'])) {
-    if (ageM < 17) return 'Puppy';
-    else if (ageM >= 17 && ageY < 5) return 'Adult';
+    if (ageM < 12) return 'Puppy';
+    else if (ageM >= 12 && ageY < 5) return 'Adult';
     else return 'Senior';
   }
 }
 
 /**
  * Refer to `Excel: customization variables v0.12 > Customization Variables`
+ * @deprecated v1.01
  */
 export function isYoungPuppy(birth: Date) {
   const age = differenceInMonths(birth, new Date());
@@ -218,7 +254,7 @@ export function isYoungPuppy(birth: Date) {
 }
 
 /**
- * Refer to `Excel: customization variables v0.12 > Customization Variables`
+ * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
 export function getWeightModifier(condition: BodyCondition) {
   if (condition === 'TooSkinny') return 1.15;
@@ -227,36 +263,36 @@ export function getWeightModifier(condition: BodyCondition) {
 }
 
 /**
- * Refer to `Excel: customization variables v0.12 > Customization Variables`
+ * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
 export function calculateIdealWeight(currentWeight: number, condition: BodyCondition) {
   return currentWeight * getWeightModifier(condition);
 }
 
 /**
- * Refer to `Excel: customization variables v0.12 > Customization Variables`
+ * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
 export function getDerMultiplier(
   breeds: Breed[],
-  birth: Date,
-  isNeutered: boolean,
+  dateOfBirth: Date,
+  neutered: boolean,
   activityLevel: ActivityLevel
 ) {
-  const stage = getLifeStage(breeds, birth);
+  const stage = getLifeStage(breeds, dateOfBirth);
   if (stage === 'Puppy') {
-    return isYoungPuppy(birth) ? 3 : 2;
+    return 2;
   }
   if (activityLevel === 'Mellow') {
-    return isNeutered ? 1.1 : 1.2;
+    return neutered ? 1.1 : 1.2;
   } else if (activityLevel === 'Active') {
-    return isNeutered ? 1.4 : 1.5;
+    return neutered ? 1.4 : 1.5;
   } else {
-    return isNeutered ? 1.6 : 1.8;
+    return neutered ? 1.6 : 1.8;
   }
 }
 
 /**
- * Refer to `Excel: customization variables v0.12 > Customization Variables`
+ * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
 export function calculateDailyCalorieRequirement(
   idealWeight: number,
@@ -267,44 +303,45 @@ export function calculateDailyCalorieRequirement(
 }
 
 /**
- * Refer to `Excel: customization variables v0.12 > Customization Variables`
+ * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
-export function calculateDailyProtionSize(calorie: number, recipe: Recipe) {
+export function calculateDailyProtionSize(requiredDailyCalorie: number, recipe: Recipe) {
   switch (recipe) {
     case Recipe.Chicken:
-      return (calorie / 1540) * 1000;
+      return (requiredDailyCalorie / 1540) * 1000;
     case Recipe.Beef:
-      return (calorie / 1508) * 1000;
+      return (requiredDailyCalorie / 1508) * 1000;
     case Recipe.Pork:
-      return (calorie / 1293) * 1000;
+      return (requiredDailyCalorie / 1293) * 1000;
     case Recipe.Lamb:
-      return (calorie / 1865) * 1000;
+      return (requiredDailyCalorie / 1865) * 1000;
     case Recipe.Duck:
-      return (calorie / 1355) * 1000;
+      return (requiredDailyCalorie / 1355) * 1000;
   }
 }
 
 /**
- * Refer to `Excel: customization variables v0.12 > Customization Variables`
- *
- * TODO: what means is cheaper / expensive recipe ????? custonization variables
+ * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
-export function calculateTotalOrderPortionSize(
-  calorie: number,
-  recipe: Recipe,
-  totalRecipes: number,
+export function calculateTotalOrderPortionSizeOfRecipe(
+  requiredDailyCalorie: number,
+  recipes: { recipeToBeCalcuate: Recipe; recipeReference?: Recipe },
   orderSize: OrderSize,
   transitionPeriod: boolean
 ) {
-  const dailyProtionSize = calculateDailyProtionSize(calorie, recipe);
+  const { recipeToBeCalcuate, recipeReference } = recipes;
+  const totalRecipes = recipeReference ? 2 : 1;
+  const dailyProtionSize = calculateDailyProtionSize(requiredDailyCalorie, recipeToBeCalcuate);
   if (transitionPeriod) {
     return dailyProtionSize * 0.5 * (6 / totalRecipes) + dailyProtionSize * (8 / totalRecipes);
   } else {
-    // TODO: here for above todo action
-    if (orderSize === OrderSize.OneWeek && totalRecipes > 1) {
-      return true ? 4 : 3;
+    if (orderSize === OrderSize.OneWeek && recipeReference) {
+      return (
+        dailyProtionSize *
+        (recipePriorities[recipeToBeCalcuate] > recipePriorities[recipeReference] ? 4 : 3)
+      );
     }
-    return dailyProtionSize * (orderSize === OrderSize.TwoWeek ? 14 : 7 / totalRecipes);
+    return dailyProtionSize * (orderSize === OrderSize.TwoWeek ? 14 : 7);
   }
 }
 
@@ -330,7 +367,7 @@ export function isAllergies(recipe: Recipe, allergies: FoodAllergies) {
 }
 
 /**
- * Refer to `Excel: customization variables v0.12 > Product Recommendations`
+ * Refer to `Excel: customization variables v1.01 > Product Recommendations`
  *
  * TODO: confirmation of recommended recipes, re-checking of the recipes
  */
@@ -405,6 +442,9 @@ export function isRecommendedRecipe(
       if (pickiness !== 'EatAnything' && level === 'Active' && condition === 'TooSkinny') {
         return true;
       }
+      if (pickiness === 'Picky' && level === 'Active' && condition === 'JustRight') {
+        return true;
+      }
       return false;
     }
     case Recipe.Duck: {
@@ -429,6 +469,35 @@ export function isRecommendedRecipe(
   }
 }
 
-export function calculatePrice(recipe: Recipe) {
-  return 10;
+/**
+ * Refer to `Excel: customization variables v1.01 > Price Matrix`
+ */
+export function calculateRecipeTotalPrice(
+  breeds: Breed[],
+  dateOfBirth: Date,
+  neutered: boolean,
+  currentWeight: number,
+  condition: BodyCondition,
+  activityLevel: ActivityLevel,
+  recipes: { recipeToBeCalcuate: Recipe; recipeReference?: Recipe },
+  plan: MealPlan,
+  orderSize: OrderSize,
+  transitionPeriod: boolean
+) {
+  const lifeStage = getLifeStage(breeds, dateOfBirth);
+  const idealWeight = calculateIdealWeight(currentWeight, condition);
+  const derMultiplier = getDerMultiplier(breeds, dateOfBirth, neutered, activityLevel);
+  const requiredDailyCalorie = calculateDailyCalorieRequirement(idealWeight, derMultiplier, plan);
+  const totalOrderPortionSize = calculateTotalOrderPortionSizeOfRecipe(
+    requiredDailyCalorie,
+    recipes,
+    orderSize,
+    transitionPeriod
+  );
+  if (!lifeStage) {
+    throw new Error('cannot calculate the life stage');
+  }
+  const priceUnit = recipePriceUnits[recipes.recipeToBeCalcuate][lifeStage];
+
+  return totalOrderPortionSize * priceUnit;
 }

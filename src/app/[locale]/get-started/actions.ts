@@ -1,6 +1,6 @@
 'use server';
 
-import { Dog, DogBreed, DogOrder, DogPlan, Order, User } from '@/entities';
+import { Breed, Dog, DogBreed, DogOrder, DogPlan, Order, User } from '@/entities';
 import { OrderSize, Recipe } from '@/enums';
 import {
   AddPromoCodeDocument,
@@ -23,7 +23,7 @@ import {
 } from '@/gql/graphql';
 import { getCalendarEvents } from '@/helpers/calendar';
 import {
-  calculatePrice,
+  calculateRecipeTotalPrice,
   getClosestDeliveryDateByDate,
   isUnavailableDeliveryDate,
   recipeSubscriptionVariantsMap,
@@ -43,6 +43,7 @@ import { addDays, startOfDay } from 'date-fns';
 import Joi from 'joi';
 import { headers } from 'next/headers';
 import invariant from 'ts-invariant';
+import { In } from 'typeorm';
 
 const stripeAppId = process.env.SALEOR_STRIPE_APP_ID ?? 'app.saleor.stripe';
 
@@ -126,6 +127,16 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
   const lines = [];
 
   for (const dog of dogs) {
+    const breeds =
+      dog.breeds && dog.breeds.length > 0
+        ? await executeQuery(async (queryRunner) => {
+            return queryRunner.manager.find(Breed, {
+              where: {
+                id: In(dog.breeds!),
+              },
+            });
+          })
+        : [];
     const recipe1Variant = product.variants.find(
       (variant) => variant.sku === recipeSubscriptionVariantsMap[dog.recipe1].sku
     );
@@ -138,7 +149,20 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
     }
     lines.push({
       variantId: recipe1Variant.id,
-      quantity: calculatePrice(dog.recipe1),
+      quantity: Math.ceil(
+        calculateRecipeTotalPrice(
+          breeds,
+          new Date(dog.dateOfBirth),
+          dog.isNeutered,
+          dog.weight,
+          dog.bodyCondition,
+          dog.activityLevel,
+          { recipeToBeCalcuate: dog.recipe1, recipeReference: dog.recipe2 },
+          dog.mealPlan,
+          OrderSize.TwoWeek,
+          dog.isEnabledTransitionPeriod
+        )
+      ),
     });
     if (dog.recipe2) {
       const recipe2Variant = product.variants.find(
@@ -153,7 +177,18 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
       }
       lines.push({
         variantId: recipe2Variant.id,
-        quantity: calculatePrice(dog.recipe2),
+        quantity: calculateRecipeTotalPrice(
+          breeds,
+          new Date(dog.dateOfBirth),
+          dog.isNeutered,
+          dog.weight,
+          dog.bodyCondition,
+          dog.activityLevel,
+          { recipeToBeCalcuate: dog.recipe2, recipeReference: dog.recipe1 },
+          dog.mealPlan,
+          OrderSize.TwoWeek,
+          dog.isEnabledTransitionPeriod
+        ),
       });
     }
   }
