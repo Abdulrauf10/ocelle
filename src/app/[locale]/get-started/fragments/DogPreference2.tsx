@@ -34,6 +34,7 @@ export default function DogPreference2Fragment() {
     formState: { errors },
     getValues,
     trigger,
+    watch,
   } = useForm<DogPreference2Form>({
     defaultValues: {
       allergies: foodAllergiesToArray(foodAllergies),
@@ -256,6 +257,7 @@ export default function DogPreference2Fragment() {
             <div className="mx-auto mt-10 max-w-[640px]">
               <PictureRadio
                 name="pickiness"
+                watch={watch}
                 rules={{ required: true }}
                 control={control}
                 error={!!errors.pickiness}

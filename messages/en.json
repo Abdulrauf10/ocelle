@@ -175,6 +175,8 @@
   "very-active": "Very Active",
   "inactive": "Inactive",
   "less-than-30-minutes-of-outdoor-daily-activity": "Less than 30 minutes of outdoor daily activity.",
+  "around-1-2-hours-of-outdoor-daily-activity": "Around 1-2 hours of outdoor daily activity.",
+  "more-than-2-hours-of-outdoor-daily-activity": "More than 2 hours of outdoor daily activity.",
   "does-{}-have-any-food-allergies-or-sensitivities": "Does {name} have any food <br></br>allergies or sensitivities?",
   "what-is-{}-currently-eating": "What is {name} currently eating?",
   "dry": "Dry",

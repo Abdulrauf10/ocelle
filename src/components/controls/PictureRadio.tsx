@@ -6,11 +6,13 @@ import {
   type FieldPath,
   type FieldPathValue,
   useController,
+  UseFormWatch,
 } from 'react-hook-form';
 
 interface RadioProps<T extends FieldValues> extends InputControllerProps<T> {
   label: React.ReactNode;
   value: string | number;
+  onHover(): void;
 }
 
 function Radio<T extends FieldValues>({
@@ -21,12 +23,13 @@ function Radio<T extends FieldValues>({
   children,
   rules,
   error,
+  onHover,
 }: React.PropsWithChildren<RadioProps<T>>) {
   const { field } = useController({ name, control, rules });
   const isSelected = field.value == value;
 
   return (
-    <label className="flex flex-1 flex-col">
+    <label className="flex flex-1 flex-col" onMouseEnter={onHover}>
       <div className="flex h-full justify-center px-1">{children}</div>
       <div className="relative mt-6 flex items-center justify-center">
         <div className={clsx('absolute h-0.5 w-full', error ? 'bg-error' : 'bg-primary')}></div>
@@ -50,37 +53,67 @@ function Radio<T extends FieldValues>({
   );
 }
 
+type PictureRadioOption<
+  TFieldValues extends FieldValues,
+  TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
+> = React.PropsWithChildren<{
+  label: string;
+  value: FieldPathValue<TFieldValues, TFieldName>;
+  descripton?: React.ReactNode;
+}>;
+
 interface PictureRadioProps<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > extends InputControllerProps<TFieldValues, TFieldName> {
-  radios: Array<
-    React.PropsWithChildren<{
-      label: string;
-      value: FieldPathValue<TFieldValues, TFieldName>;
-    }>
-  >;
+  watch: UseFormWatch<TFieldValues>;
+  radios: PictureRadioOption<TFieldValues, TFieldName>[];
 }
 
 export default function PictureRadio<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({ name, control, rules, radios, error }: PictureRadioProps<TFieldValues, TFieldName>) {
+>({ name, control, watch, rules, radios, error }: PictureRadioProps<TFieldValues, TFieldName>) {
+  const currentValue = watch(name);
+  const selectedRadio = React.useMemo(() => {
+    if (!currentValue) {
+      return undefined;
+    }
+    return radios.find((radio) => radio.value === currentValue);
+  }, [currentValue]);
+  const [hoverValue, setHoverValue] = React.useState<FieldPathValue<TFieldValues, TFieldName>>();
+
+  const handleOnHover = React.useCallback((value: FieldPathValue<TFieldValues, TFieldName>) => {
+    return () => {
+      setHoverValue(value);
+    };
+  }, []);
+
+  const description = React.useMemo(() => {
+    return selectedRadio
+      ? selectedRadio.descripton
+      : hoverValue && radios.find((radio) => radio.value === hoverValue)?.descripton;
+  }, [selectedRadio, hoverValue]);
+
   return (
-    <div className="flex">
-      {radios.map((radio, idx) => (
-        <Radio
-          key={idx}
-          name={name}
-          control={control}
-          rules={rules}
-          value={radio.value}
-          label={radio.label}
-          error={error}
-        >
-          {radio.children}
-        </Radio>
-      ))}
-    </div>
+    <>
+      <div className="flex">
+        {radios.map((radio, idx) => (
+          <Radio
+            key={idx}
+            name={name}
+            control={control}
+            rules={rules}
+            value={radio.value}
+            label={radio.label}
+            error={error}
+            onHover={handleOnHover(radio.value)}
+          >
+            {radio.children}
+          </Radio>
+        ))}
+      </div>
+      {description && <div className="mt-5">{description}</div>}
+    </>
   );
 }
