@@ -1,7 +1,7 @@
 'use server';
 
 import { Breed, Dog, DogBreed, DogOrder, DogPlan, Order, User } from '@/entities';
-import { OrderSize } from '@/enums';
+import { MealPlan, OrderSize } from '@/enums';
 import {
   AddPromoCodeDocument,
   AttachCheckoutCustomerDocument,
@@ -23,8 +23,10 @@ import {
 } from '@/gql/graphql';
 import { getCalendarEvents } from '@/helpers/calendar';
 import {
+  calculateRecipePerDayPrice,
   calculateRecipeTotalPrice,
   getClosestDeliveryDateByDate,
+  getTheCheapestRecipe,
   isUnavailableDeliveryDate,
   recipeSubscriptionVariantsMap,
 } from '@/helpers/dog';
@@ -36,8 +38,8 @@ import {
   upsertCheckoutParameters,
 } from '@/helpers/redis';
 import { redirect } from '@/navigation';
-import { CalendarEvent } from '@/types';
-import { DogDto } from '@/types/dto';
+import { ActivityLevel, BodyCondition, CalendarEvent } from '@/types';
+import { DogDto, MinPricesDto } from '@/types/dto';
 import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import { addDays, startOfDay } from 'date-fns';
 import Joi from 'joi';
@@ -60,6 +62,50 @@ export async function getClosestDeliveryDate() {
 function getClosestDeliveryDateSync(events: CalendarEvent[]) {
   // 1 day means calculation after place order
   return getClosestDeliveryDateByDate(addDays(new Date(), 1), events);
+}
+
+export async function getMinPerDayPrice(
+  dog: Pick<
+    DogDto,
+    'breeds' | 'dateOfBirth' | 'isNeutered' | 'weight' | 'bodyCondition' | 'activityLevel'
+  >
+): Promise<MinPricesDto> {
+  const breeds =
+    dog.breeds && dog.breeds.length > 0
+      ? await executeQuery(async (queryRunner) => {
+          return queryRunner.manager.find(Breed, {
+            where: {
+              id: In(dog.breeds!),
+            },
+          });
+        })
+      : [];
+  return {
+    halfPlan: calculateRecipePerDayPrice(
+      breeds,
+      new Date(dog.dateOfBirth),
+      dog.isNeutered,
+      dog.weight,
+      dog.bodyCondition,
+      dog.activityLevel,
+      { recipeToBeCalcuate: getTheCheapestRecipe() },
+      MealPlan.Half,
+      OrderSize.TwoWeek,
+      false
+    ),
+    fullPlan: calculateRecipePerDayPrice(
+      breeds,
+      new Date(dog.dateOfBirth),
+      dog.isNeutered,
+      dog.weight,
+      dog.bodyCondition,
+      dog.activityLevel,
+      { recipeToBeCalcuate: getTheCheapestRecipe() },
+      MealPlan.Full,
+      OrderSize.TwoWeek,
+      false
+    ),
+  };
 }
 
 async function getCheckout(): Promise<CheckoutFragment> {

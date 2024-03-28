@@ -10,6 +10,13 @@ import { MealPlan } from '@/enums';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
+import { getSurveySessionStore } from '@/helpers/session';
+import { MinPricesDto } from '@/types/dto';
+
+function nativeRound(num: number, decimalPlaces: number = 1) {
+  const p = Math.pow(10, decimalPlaces);
+  return Math.round(num * p + Number.EPSILON) / p;
+}
 
 export default function ChoosePlanFragment() {
   const t = useTranslations();
@@ -18,6 +25,9 @@ export default function ChoosePlanFragment() {
   const { getDog, setDog } = useSurvey();
   const { name, mealPlan } = getDog();
   const firstUpdate = React.useRef(true);
+  const minPrices = React.useMemo(() => {
+    return getSurveySessionStore().get('min-prices') as MinPricesDto | undefined;
+  }, []);
   const [currentMealPlan, setCurrentMealPlan] = React.useState<MealPlan>(mealPlan ?? MealPlan.Full);
   const [error, setError] = React.useState<string>();
 
@@ -43,6 +53,11 @@ export default function ChoosePlanFragment() {
     }
   }, [t, currentMealPlan, location.state, navigate, setDog]);
 
+  if (!minPrices) {
+    console.error('cannot find min prices, redirect to home page');
+    navigate('/');
+  }
+
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <Container className="text-center">
@@ -52,8 +67,8 @@ export default function ChoosePlanFragment() {
               <FreshPlan
                 title={t('fresh-full-plan')}
                 picture="/meal-plan/full-plan.jpg"
-                pricePerDay={36}
-                discountedPricePerDay={18}
+                pricePerDay={nativeRound(minPrices!.fullPlan)}
+                discountedPricePerDay={nativeRound(minPrices!.fullPlan / 2)}
                 firstDiscount
                 error={!!error}
                 recommended
@@ -67,8 +82,8 @@ export default function ChoosePlanFragment() {
               <FreshPlan
                 title={t('fresh-half-plan')}
                 picture="/meal-plan/half-plan.jpg"
-                pricePerDay={25}
-                discountedPricePerDay={12.5}
+                pricePerDay={nativeRound(minPrices!.halfPlan)}
+                discountedPricePerDay={nativeRound(minPrices!.halfPlan / 2)}
                 firstDiscount
                 error={!!error}
                 selected={currentMealPlan === MealPlan.Half}

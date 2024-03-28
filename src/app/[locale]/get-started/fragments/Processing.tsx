@@ -10,7 +10,7 @@ import { CalendarEvent } from '@/types';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
-import { startOfDay, subMonths, subYears } from 'date-fns';
+import { getDateOfBirth } from '@/helpers/dog';
 
 function isIncompletedDogProfile(dog: Dog) {
   return (
@@ -82,12 +82,7 @@ export default function ProcessingFragment() {
             weight: dog.weight!,
             dateOfBirthMethod: typeof dog.age === 'string' ? 'Calendar' : 'Manually',
             dateOfBirth:
-              typeof dog.age === 'string'
-                ? dog.age!
-                : subMonths(
-                    subYears(startOfDay(new Date()), dog.age!.years ?? 0),
-                    dog.age!.months ?? 0
-                  ).toISOString(),
+              typeof dog.age === 'string' ? dog.age! : getDateOfBirth(dog.age!).toISOString(),
             bodyCondition: dog.bodyCondition!,
             activityLevel: dog.activityLevel!,
             foodAllergies: dog.foodAllergies!,

@@ -8,7 +8,15 @@ import {
   LifeStage,
   Pickiness,
 } from '@/types';
-import { addDays, differenceInMonths, differenceInYears, getDay, startOfDay } from 'date-fns';
+import {
+  addDays,
+  differenceInMonths,
+  differenceInYears,
+  getDay,
+  startOfDay,
+  subMonths,
+  subYears,
+} from 'date-fns';
 
 export const recipeSubscriptionVariantsMap = {
   [Recipe.Chicken]: {
@@ -112,6 +120,21 @@ const recipePriceUnits = {
     Senior: 0.35291,
   },
 };
+
+export function getTheCheapestRecipe() {
+  let cheapest: Recipe = Recipe.Beef;
+  for (const _recipe of Object.keys(recipePriorities)) {
+    const recipe = Number(_recipe) as Recipe;
+    if (recipePriorities[recipe] < recipePriorities[cheapest]) {
+      cheapest = recipe;
+    }
+  }
+  return cheapest;
+}
+
+export function getDateOfBirth({ years, months }: { years: number; months: number }) {
+  return subMonths(subYears(startOfDay(new Date()), years ?? 0), months ?? 0);
+}
 
 export function getRecipeSlug(recipe: Recipe) {
   switch (recipe) {

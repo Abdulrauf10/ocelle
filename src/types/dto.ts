@@ -29,4 +29,9 @@ interface DogDto {
   isEnabledTransitionPeriod: boolean;
 }
 
-export type { DogDto };
+interface MinPricesDto {
+  halfPlan: number;
+  fullPlan: number;
+}
+
+export type { DogDto, MinPricesDto };
