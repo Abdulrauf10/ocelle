@@ -13,46 +13,46 @@ import { addDays, differenceInMonths, differenceInYears, getDay, startOfDay } fr
 export const recipeSubscriptionVariantsMap = {
   [Recipe.Chicken]: {
     name: 'Chicken',
-    sku: 'ocelle-s-c',
+    sku: 'ocelle-c-s',
   },
   [Recipe.Beef]: {
     name: 'Beef',
-    sku: 'ocelle-s-b',
+    sku: 'ocelle-b-s',
   },
   [Recipe.Duck]: {
     name: 'Duck',
-    sku: 'ocelle-s-d',
+    sku: 'ocelle-d-s',
   },
   [Recipe.Lamb]: {
     name: 'Lamb',
-    sku: 'ocelle-s-l',
+    sku: 'ocelle-l-s',
   },
   [Recipe.Pork]: {
     name: 'Pork',
-    sku: 'ocelle-s-p',
+    sku: 'ocelle-p-s',
   },
 };
 
 export const recipeIndividualVariantsMap = {
   [Recipe.Chicken]: {
     name: 'Chicken',
-    sku: 'ocelle-i-c',
+    sku: 'ocelle-c-i',
   },
   [Recipe.Beef]: {
     name: 'Beef',
-    sku: 'ocelle-i-b',
+    sku: 'ocelle-b-i',
   },
   [Recipe.Duck]: {
     name: 'Duck',
-    sku: 'ocelle-i-d',
+    sku: 'ocelle-d-i',
   },
   [Recipe.Lamb]: {
     name: 'Lamb',
-    sku: 'ocelle-i-l',
+    sku: 'ocelle-l-i',
   },
   [Recipe.Pork]: {
     name: 'Pork',
-    sku: 'ocelle-i-p',
+    sku: 'ocelle-p-i',
   },
 };
 
