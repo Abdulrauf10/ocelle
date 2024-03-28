@@ -78,9 +78,9 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
                   <div className="mt-2">
                     {dog.breeds.map((breed, idx) => {
                       if (idx > 0) {
-                        return t('comma') + breed.breed.enName;
+                        return t('comma') + breed.breed.name;
                       }
-                      return breed.breed.enName;
+                      return breed.breed.name;
                     })}
                   </div>
                 )}

@@ -229,7 +229,7 @@ export default function DogForm({
               options={breedOptions || []}
               loading={breedLoading}
               onOpen={fetchBreeds}
-              getOptionLabel={(option) => option.enName}
+              getOptionLabel={(option) => option.name}
               isOptionEqualToValue={(option, value) => option.id === value.id}
               renderInput={(params) => (
                 <TextField
@@ -412,12 +412,21 @@ export default function DogForm({
         <div className="mt-4 max-w-[840px]">
           <PictureRadio
             name="bodyCondition"
+            watch={watch}
             rules={{ required: true }}
             control={control}
             error={!!errors.bodyCondition}
             radios={[
               {
                 label: t('too-skinny'),
+                descripton: (
+                  <p className="body-3 text-primary">
+                    {t('visible-rib-cage-spine-noticeable-loss-of-muscle-mass')}
+                    <br />
+                    <br />
+                    <i>{t('adjust-their-calories')}</i>
+                  </p>
+                ),
                 value: 'TooSkinny',
                 children: (
                   <Image src="/question/body-skinny.svg" alt="dog skinny" width={120} height={99} />
@@ -425,6 +434,12 @@ export default function DogForm({
               },
               {
                 label: t('just-right'),
+                descripton: (
+                  <p className="body-3 text-primary">
+                    Clear waistline and tucked in belly. You can easily feel their ribs and / or
+                    spine, but they are not clearly visible.
+                  </p>
+                ),
                 value: 'JustRight',
                 children: (
                   <Image
@@ -437,6 +452,17 @@ export default function DogForm({
               },
               {
                 label: t('rounded'),
+                descripton: (
+                  <p className="body-3 text-primary">
+                    Waistline is disappearing, difficult to feel ribs and spine. Broad back.
+                    <br />
+                    <br />
+                    <i>
+                      We’ll adjust their calories and help to manage their weight, so that it’s just
+                      right for optimum health and wellbeing!
+                    </i>
+                  </p>
+                ),
                 value: 'Rounded',
                 children: (
                   <Image
@@ -449,6 +475,18 @@ export default function DogForm({
               },
               {
                 label: t('chunky'),
+                descripton: (
+                  <p className="body-3 text-primary">
+                    Waistline is lost. You cannot feel their ribs and spine. Weight is a serious
+                    concern.
+                    <br />
+                    <br />
+                    <i>
+                      We’ll adjust their calories and help to manage their weight, so that it’s just
+                      right for optimum health and wellbeing!
+                    </i>
+                  </p>
+                ),
                 value: 'Chunky',
                 children: (
                   <Image src="/question/body-chunky.svg" alt="dog chunky" width={120} height={99} />
@@ -457,21 +495,23 @@ export default function DogForm({
             ]}
           />
         </div>
-        <p className="mt-5 text-primary">
-          [{t('visible-rib-cage-spine-noticeable-loss-of-muscle-mass')}]
-        </p>
-        <p className="mt-5 italic text-primary">[{t('adjust-their-calories')}]</p>
       </EditDogBlock>
       <EditDogBlock title={t('activity-level')}>
         <div className="mt-4 max-w-[640px]">
           <PictureRadio
             name="activityLevel"
+            watch={watch}
             rules={{ required: true }}
             control={control}
             error={!!errors.activityLevel}
             radios={[
               {
                 label: t('mellow'),
+                descripton: (
+                  <p className="body-3 text-primary">
+                    {t('less-than-30-minutes-of-outdoor-daily-activity')}
+                  </p>
+                ),
                 value: 'Mellow',
                 children: (
                   <Image src="/question/mellow.svg" alt="Mellow dog" width={100} height={95} />
@@ -479,6 +519,11 @@ export default function DogForm({
               },
               {
                 label: t('active'),
+                descripton: (
+                  <p className="body-3 text-primary">
+                    {t('around-1-2-hours-of-outdoor-daily-activity')}
+                  </p>
+                ),
                 value: 'Active',
                 children: (
                   <Image src="/question/active.svg" alt="Active dog" width={80} height={95} />
@@ -486,6 +531,11 @@ export default function DogForm({
               },
               {
                 label: t('very-active'),
+                descripton: (
+                  <p className="body-3 text-primary">
+                    {t('more-than-2-hours-of-outdoor-daily-activity')}
+                  </p>
+                ),
                 value: 'VeryActive',
                 children: (
                   <Image
@@ -499,7 +549,6 @@ export default function DogForm({
             ]}
           />
         </div>
-        <p className="mt-5 text-primary">[{t('less-than-30-minutes-of-outdoor-daily-activity')}]</p>
       </EditDogBlock>
       <EditDogBlock title={t('food-allergies-sensitivities')}>
         <div className="-mx-3 -mt-4 flex max-w-[640px] flex-wrap">
@@ -599,6 +648,7 @@ export default function DogForm({
         <div className="mt-4 max-w-[640px]">
           <PictureRadio
             name="pickiness"
+            watch={watch}
             rules={{ required: true }}
             control={control}
             error={!!errors.pickiness}

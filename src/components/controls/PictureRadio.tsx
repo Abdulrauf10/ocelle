@@ -80,7 +80,7 @@ export default function PictureRadio<
       return undefined;
     }
     return radios.find((radio) => radio.value === currentValue);
-  }, [currentValue]);
+  }, [radios, currentValue]);
   const [hoverValue, setHoverValue] = React.useState<FieldPathValue<TFieldValues, TFieldName>>();
 
   const handleOnHover = React.useCallback((value: FieldPathValue<TFieldValues, TFieldName>) => {
@@ -93,7 +93,7 @@ export default function PictureRadio<
     return selectedRadio
       ? selectedRadio.descripton
       : hoverValue && radios.find((radio) => radio.value === hoverValue)?.descripton;
-  }, [selectedRadio, hoverValue]);
+  }, [radios, selectedRadio, hoverValue]);
 
   return (
     <>
