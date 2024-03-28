@@ -10,6 +10,52 @@ import {
 } from '@/types';
 import { addDays, differenceInMonths, differenceInYears, getDay, startOfDay } from 'date-fns';
 
+export const recipeSubscriptionVariantsMap = {
+  [Recipe.Chicken]: {
+    name: 'Chicken',
+    sku: 'ocelle-s-c',
+  },
+  [Recipe.Beef]: {
+    name: 'Beef',
+    sku: 'ocelle-s-b',
+  },
+  [Recipe.Duck]: {
+    name: 'Duck',
+    sku: 'ocelle-s-d',
+  },
+  [Recipe.Lamb]: {
+    name: 'Lamb',
+    sku: 'ocelle-s-l',
+  },
+  [Recipe.Pork]: {
+    name: 'Pork',
+    sku: 'ocelle-s-p',
+  },
+};
+
+export const recipeIndividualVariantsMap = {
+  [Recipe.Chicken]: {
+    name: 'Chicken',
+    sku: 'ocelle-i-c',
+  },
+  [Recipe.Beef]: {
+    name: 'Beef',
+    sku: 'ocelle-i-b',
+  },
+  [Recipe.Duck]: {
+    name: 'Duck',
+    sku: 'ocelle-i-d',
+  },
+  [Recipe.Lamb]: {
+    name: 'Lamb',
+    sku: 'ocelle-i-l',
+  },
+  [Recipe.Pork]: {
+    name: 'Pork',
+    sku: 'ocelle-i-p',
+  },
+};
+
 const recipePricePerDay = {
   [Recipe.Chicken]: 18,
   [Recipe.Beef]: 18,

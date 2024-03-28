@@ -26,6 +26,7 @@ import {
   calculatePrice,
   getClosestDeliveryDateByDate,
   isUnavailableDeliveryDate,
+  recipeSubscriptionVariantsMap,
 } from '@/helpers/dog';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
@@ -125,10 +126,14 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
   const lines = [];
 
   for (const dog of dogs) {
-    const recipe1Variant = product.variants.find((variant) => variant.sku === SKUs[dog.recipe1]);
+    const recipe1Variant = product.variants.find(
+      (variant) => variant.sku === recipeSubscriptionVariantsMap[dog.recipe1].sku
+    );
     if (!recipe1Variant) {
       throw new Error(
-        `failed to add recipe 1 to checkout, variant not found (${SKUs[dog.recipe1]})`
+        `failed to add recipe 1 to checkout, variant not found (${
+          recipeSubscriptionVariantsMap[dog.recipe1].sku
+        })`
       );
     }
     lines.push({
@@ -136,10 +141,14 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
       quantity: calculatePrice(dog.recipe1),
     });
     if (dog.recipe2) {
-      const recipe2Variant = product.variants.find((variant) => variant.sku === SKUs[dog.recipe2!]);
+      const recipe2Variant = product.variants.find(
+        (variant) => variant.sku === recipeSubscriptionVariantsMap[dog.recipe2!].sku
+      );
       if (!recipe2Variant) {
         throw new Error(
-          `failed to add recipe 2 to checkout, variant not found (${SKUs[dog.recipe1]})`
+          `failed to add recipe 2 to checkout, variant not found (${
+            recipeSubscriptionVariantsMap[dog.recipe2].sku
+          })`
         );
       }
       lines.push({

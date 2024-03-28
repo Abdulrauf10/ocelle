@@ -24,6 +24,7 @@ import {
   WarehouseFragment,
 } from './gql/graphql';
 import invariant from 'ts-invariant';
+import { recipeSubscriptionVariantsMap } from './helpers/dog';
 
 async function findOrCreateChannel(
   shippingZones: ShippingZoneFragment[],
@@ -256,14 +257,6 @@ async function setupSubscriptionProducts(
 
   console.log('setup products...');
 
-  const variants = [
-    { name: 'Chicken', sku: 'ocelle-c-s' },
-    { name: 'Beef', sku: 'ocelle-b-s' },
-    { name: 'Lamb', sku: 'ocelle-l-s' },
-    { name: 'Duck', sku: 'ocelle-d-s' },
-    { name: 'Pork', sku: 'ocelle-p-s' },
-  ];
-
   // create placeholder product if not exists
   const { product } = await executeGraphQL(FindProductDocument, {
     withAuth: false,
@@ -311,7 +304,7 @@ async function setupSubscriptionProducts(
           publishedAt: new Date().toISOString(),
         },
       ],
-      variants: variants.map(({ name, sku }) => {
+      variants: Object.values(recipeSubscriptionVariantsMap).map(({ name, sku }) => {
         return {
           name,
           sku,
@@ -341,6 +334,13 @@ async function setupSubscriptionProducts(
 
   return productBulkCreate.results[0].product!;
 }
+
+async function setupIndividualProducts(
+  channel: ChannelFragment,
+  productType: ProductTypeFragment,
+  category: CategoryFragment,
+  warehouses: WarehouseFragment[]
+) {}
 
 async function setup() {
   await executeQuery(async (queryRunner) => {
