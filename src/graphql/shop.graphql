@@ -1,0 +1,17 @@
+fragment Shop on Shop {
+  id
+  name
+}
+
+mutation UpdateShopSettings($input: ShopSettingsInput!) {
+  shopSettingsUpdate(input: $input) {
+    errors {
+      field
+      message
+      code
+    }
+    shop {
+      ...Shop
+    }
+  }
+}

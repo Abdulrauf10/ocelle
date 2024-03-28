@@ -21,6 +21,7 @@ import {
   ShippingZoneFragment,
   UpdateShippingMethodChannelListingDocument,
   UpdateShippingZoneDocument,
+  UpdateShopSettingsDocument,
   WarehouseFragment,
 } from './gql/graphql';
 import invariant from 'ts-invariant';
@@ -183,6 +184,26 @@ async function findShippingZones(): Promise<ShippingZoneFragment[] | null | unde
   });
 
   return shippingZones && shippingZones.edges.map((shippingZone) => shippingZone.node!);
+}
+
+async function setupShop() {
+  console.log('setup shop...');
+
+  const { shopSettingsUpdate } = await executeGraphQL(UpdateShopSettingsDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      input: {
+        limitQuantityPerCheckout: null,
+      },
+    },
+  });
+  if (!shopSettingsUpdate || shopSettingsUpdate.errors.length > 0) {
+    shopSettingsUpdate && console.error(shopSettingsUpdate.errors);
+    throw new Error('failed to update shop');
+  }
 }
 
 async function setupShippingZones(shippingZones: ShippingZoneFragment[]) {
@@ -455,6 +476,8 @@ async function setup() {
   } finally {
     await AppDataSource.destroy();
   }
+
+  await setupShop();
 
   const productType = await findOrCreateProductType();
 
