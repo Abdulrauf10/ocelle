@@ -85,7 +85,7 @@ export default function DogBasicFragment() {
                     options={options || []}
                     loading={loading}
                     onOpen={fetchBreeds}
-                    getOptionLabel={(option) => option.enName}
+                    getOptionLabel={(option) => option.name}
                     freeSolo={false}
                     getOptionDisabled={(option) => watch('breeds').length > 1}
                     isOptionEqualToValue={(option, value) => option.id === value.id}

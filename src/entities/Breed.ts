@@ -6,14 +6,14 @@ export default class Breed {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ nullable: true })
-  zhName?: string;
-
   @Column()
-  enName!: string;
+  name!: string;
 
   @Column()
   size!: 'Small' | 'Medium' | 'Large';
+
+  @Column({ unique: true })
+  uid!: string;
 
   @OneToMany(() => DogBreed, (dog: DogBreed) => dog.breed)
   dogs!: Relation<DogBreed>[];

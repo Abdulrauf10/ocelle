@@ -15,31 +15,15 @@ export default class BreedSeeder extends Seeder {
     const breedRepository = queryRunner.manager.getRepository(Breed);
 
     const breeds = [
-      breedRepository.create({ enName: 'Affenpinscher', size: 'Small' }),
-      breedRepository.create({
-        enName: 'Afghan Hound',
-        zhName: '阿富汗獵犬',
-        size: 'Small',
-      }),
-      breedRepository.create({ enName: 'Africanis', zhName: '非洲人', size: 'Large' }),
-      breedRepository.create({ enName: 'Aidi', zhName: '艾迪', size: 'Small' }),
-      breedRepository.create({
-        enName: 'Airedale Terrier',
-        zhName: '萬用梗犬',
-        size: 'Medium',
-      }),
-      breedRepository.create({ enName: 'Akbash', size: 'Large' }),
-      breedRepository.create({
-        enName: 'Akita (Japanese)',
-        zhName: '秋田犬（日本）',
-        size: 'Large',
-      }),
-      breedRepository.create({
-        enName: 'Akita (American)',
-        zhName: '秋田犬（美國）',
-        size: 'Large',
-      }),
-      breedRepository.create({ enName: 'Aksaray Malaklisi', size: 'Large' }),
+      breedRepository.create({ name: 'Affenpinscher', size: 'Small', uid: '1' }),
+      breedRepository.create({ name: 'Afghan Hound', size: 'Small', uid: '2' }),
+      breedRepository.create({ name: 'Africanis', size: 'Large', uid: '3' }),
+      breedRepository.create({ name: 'Aidi', size: 'Small', uid: '4 - A' }),
+      breedRepository.create({ name: 'Airedale Terrier', size: 'Medium', uid: '5' }),
+      breedRepository.create({ name: 'Akbash', size: 'Large', uid: '6' }),
+      breedRepository.create({ name: 'Akita (Japanese)', size: 'Large', uid: '8' }),
+      breedRepository.create({ name: 'Akita (American)', size: 'Large', uid: '7' }),
+      breedRepository.create({ name: 'Aksaray Malaklisi', size: 'Large', uid: '9 - A' }),
     ];
 
     await breedRepository.save(breeds);
