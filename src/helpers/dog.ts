@@ -329,26 +329,51 @@ export function calculateDailyProtionSize(requiredDailyCalorie: number, recipe: 
 /**
  * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
-export function calculateTotalOrderPortionSizeOfRecipe(
-  requiredDailyCalorie: number,
+export function calculateTotalDaysInBox(
   recipes: { recipeToBeCalcuate: Recipe; recipeReference?: Recipe },
   orderSize: OrderSize,
   transitionPeriod: boolean
 ) {
   const { recipeToBeCalcuate, recipeReference } = recipes;
   const totalRecipes = recipeReference ? 2 : 1;
-  const dailyProtionSize = calculateDailyProtionSize(requiredDailyCalorie, recipeToBeCalcuate);
   if (transitionPeriod) {
-    return dailyProtionSize * 0.5 * (6 / totalRecipes) + dailyProtionSize * (8 / totalRecipes);
-  } else {
-    if (orderSize === OrderSize.OneWeek && recipeReference) {
-      return (
-        dailyProtionSize *
-        (recipePriorities[recipeToBeCalcuate] > recipePriorities[recipeReference] ? 4 : 3)
-      );
-    }
-    return dailyProtionSize * (orderSize === OrderSize.TwoWeek ? 14 : 7);
+    return {
+      transitionPeriodDays: 6 / totalRecipes,
+      normalDays: 8 / totalRecipes,
+    };
   }
+  if (orderSize === OrderSize.OneWeek && recipeReference) {
+    return {
+      transitionPeriodDays: 0,
+      normalDays: recipePriorities[recipeToBeCalcuate] > recipePriorities[recipeReference] ? 4 : 3,
+    };
+  }
+  return {
+    transitionPeriodDays: 0,
+    normalDays: orderSize === OrderSize.TwoWeek ? 14 : 7,
+  };
+}
+
+/**
+ * Refer to `Excel: customization variables v1.01 > Customization Variables`
+ */
+export function calculateTotalPortionSizeInBox(
+  requiredDailyCalorie: number,
+  recipes: { recipeToBeCalcuate: Recipe; recipeReference?: Recipe },
+  orderSize: OrderSize,
+  transitionPeriod: boolean
+) {
+  const { recipeToBeCalcuate } = recipes;
+  const dailyProtionSize = calculateDailyProtionSize(requiredDailyCalorie, recipeToBeCalcuate);
+  const { transitionPeriodDays, normalDays } = calculateTotalDaysInBox(
+    recipes,
+    orderSize,
+    transitionPeriod
+  );
+  if (transitionPeriodDays > 0) {
+    return dailyProtionSize * 0.5 * transitionPeriodDays + dailyProtionSize * normalDays;
+  }
+  return dailyProtionSize * normalDays;
 }
 
 export function isAllergies(recipe: Recipe, allergies: FoodAllergies) {
@@ -494,7 +519,7 @@ export function calculateRecipeTotalPrice(
   const idealWeight = calculateIdealWeight(currentWeight, condition);
   const derMultiplier = getDerMultiplier(breeds, dateOfBirth, neutered, activityLevel);
   const requiredDailyCalorie = calculateDailyCalorieRequirement(idealWeight, derMultiplier, plan);
-  const totalOrderPortionSize = calculateTotalOrderPortionSizeOfRecipe(
+  const totalOrderPortionSize = calculateTotalPortionSizeInBox(
     requiredDailyCalorie,
     recipes,
     orderSize,
@@ -506,4 +531,41 @@ export function calculateRecipeTotalPrice(
   const priceUnit = recipePriceUnits[recipes.recipeToBeCalcuate][lifeStage];
 
   return totalOrderPortionSize * priceUnit;
+}
+
+/**
+ * Refer to `Excel: customization variables v1.01 > Price Matrix`
+ */
+export function calculateRecipePerDayPrice(
+  breeds: Breed[],
+  dateOfBirth: Date,
+  neutered: boolean,
+  currentWeight: number,
+  condition: BodyCondition,
+  activityLevel: ActivityLevel,
+  recipes: { recipeToBeCalcuate: Recipe; recipeReference?: Recipe },
+  plan: MealPlan,
+  orderSize: OrderSize,
+  transitionPeriod: boolean
+) {
+  const { transitionPeriodDays, normalDays } = calculateTotalDaysInBox(
+    recipes,
+    orderSize,
+    transitionPeriod
+  );
+  return (
+    calculateRecipeTotalPrice(
+      breeds,
+      dateOfBirth,
+      neutered,
+      currentWeight,
+      condition,
+      activityLevel,
+      recipes,
+      plan,
+      orderSize,
+      transitionPeriod
+    ) /
+    (transitionPeriodDays + normalDays)
+  );
 }
