@@ -1,4 +1,4 @@
-import Block from '@/components/Block';
+import Block from '@/components/layouts/Block';
 import Container from '@/components/Container';
 import { Career } from '@/entities';
 import { WorkPattern, WorkType } from '@/enums';

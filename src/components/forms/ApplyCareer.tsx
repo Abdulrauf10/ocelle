@@ -7,7 +7,7 @@ import { type FieldValues, useForm, useController, Controller } from 'react-hook
 import { mergeRefs } from 'react-merge-refs';
 import Container from '@/components/Container';
 import Image from 'next/image';
-import Block from '@/components/Block';
+import Block from '@/components/layouts/Block';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import { InputControllerProps } from '@/types';
 

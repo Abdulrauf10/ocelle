@@ -1,11 +1,19 @@
-import Block from '@/components/Block';
+import Block from '@/components/layouts/Block';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
-interface SectionProps {
+function Product({
+  picture,
+  title,
+  description,
+  price,
+  reverse,
+  className,
+  theme,
+}: {
   picture: string;
   title: string;
   description: React.ReactNode;
@@ -17,9 +25,7 @@ interface SectionProps {
     title?: string;
     content?: string;
   };
-}
-
-function Section({ picture, title, description, price, reverse, className, theme }: SectionProps) {
+}) {
   return (
     <Block className={className.root}>
       <Container className="max-w-screen-lg overflow-hidden">
@@ -80,7 +86,7 @@ export default function HowItWorksIndividual() {
           </p>
         </Container>
       </Block>
-      <Section
+      <Product
         picture="/recipes/individual/bundle.jpg"
         title="Taster Bundle – 500g"
         description={
@@ -98,7 +104,7 @@ export default function HowItWorksIndividual() {
           content: 'text-white',
         }}
       />
-      <Section
+      <Product
         picture="/recipes/individual/chicken.jpg"
         title="Fresh Chicken Recipe – 200g"
         description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
@@ -110,7 +116,7 @@ export default function HowItWorksIndividual() {
         }}
         reverse
       />
-      <Section
+      <Product
         picture="/recipes/individual/beef.jpg"
         title="Fresh Beef Recipe – 200g"
         description="This hearty meal delivers high-quality beef for strength, a rainbow of veggies for antioxidant power, and superfoods to boost immunity. Hit the ground running with every bowl!"
@@ -121,7 +127,7 @@ export default function HowItWorksIndividual() {
           title: 'text-how-it-works-red',
         }}
       />
-      <Section
+      <Product
         picture="/recipes/individual/pork.jpg"
         title="Fresh Pork Recipe – 200g"
         description="Embrace gentle nutrition with this hypoallergenic feast. It combines novel proteins with leafy greens for digestive ease, immune strength, and a coat that shines. Perfect for dogs with sensitive stomachs or allergies!"
@@ -133,7 +139,7 @@ export default function HowItWorksIndividual() {
         }}
         reverse
       />
-      <Section
+      <Product
         picture="/recipes/individual/lamb.jpg"
         title="Fresh Lamb Recipe – 200g"
         description="A flavour and nutrient powerhouse, capable of satisfying even the pickiest of eaters. Crafted for muscle strength, immune support, radiant health, and a shiny coat!"
@@ -144,7 +150,7 @@ export default function HowItWorksIndividual() {
           title: 'text-how-it-works-green',
         }}
       />
-      <Section
+      <Product
         picture="/recipes/individual/duck.jpg"
         title="Fresh Duck Recipe – 200g"
         description="A wholesome feast, tailored for digestive health, luxurious coats, and improved vitality! Perfect for dogs seeking a unique and hypoallergenic dining experience without compromising on taste and health."

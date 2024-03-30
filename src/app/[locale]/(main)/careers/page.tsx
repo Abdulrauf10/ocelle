@@ -7,7 +7,7 @@ import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import UnderlineButton from '@/components/UnderlineButton';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
-import Block from '@/components/Block';
+import Block from '@/components/layouts/Block';
 import { executeQuery } from '@/helpers/queryRunner';
 
 async function fetchData() {

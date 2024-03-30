@@ -4,7 +4,7 @@ import Newsletter from '@/components/Newsletter';
 import Image from 'next/image';
 import CaseSwiper from './CaseSwiper';
 import HowPlanWorks from './HowPlanWorks';
-import Block from '@/components/Block';
+import Block from '@/components/layouts/Block';
 import Picture from './Picture';
 import List from '@/components/List';
 import Tickbox from '@/components/icons/Tickbox';

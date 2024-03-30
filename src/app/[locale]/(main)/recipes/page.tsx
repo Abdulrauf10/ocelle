@@ -1,15 +1,72 @@
 import Button from '@/components/Button';
-import Section from './Section';
 import Newsletter from '@/components/Newsletter';
 import Container from '@/components/Container';
 import RecipeBenefits from './Benefits';
 import { useTranslations } from 'next-intl';
-import Block from '@/components/Block';
+import Block from '@/components/layouts/Block';
 import Marquee from '@/components/Marquee';
 import pluralize from 'pluralize';
+import ImageContentBlock from '@/components/layouts/ImageContentBlock';
+import RecipeIngredientsDialog from '@/components/dialogs/RecipeIngredients';
+import { Recipe } from '@/enums';
+import { getRecipeSlug } from '@/helpers/dog';
+import { colon, freshRecipe } from '@/helpers/translation';
+
+function EndAdornment({
+  recipe,
+  ingredients,
+  calorie,
+  analysis,
+}: {
+  recipe: Recipe;
+  ingredients: Array<{
+    spacing?: number;
+    picture: string;
+    title: string;
+    description: string;
+  }>;
+  calorie: number;
+  analysis: {
+    protein: number;
+    fat: number;
+    fibre: number;
+    moisture: number;
+  };
+}) {
+  const t = useTranslations();
+
+  return (
+    <div className="mx-auto mt-10 max-w-[480px]">
+      <div className="-m-2 flex flex-wrap">
+        <div className="w-1/2 p-2 text-center max-xs:w-full">
+          <RecipeIngredientsDialog
+            recipe={freshRecipe(t, recipe)}
+            recipePicture={`/recipes/dispersion/${getRecipeSlug(recipe)}.jpg`}
+            ingredients={ingredients}
+            calorie={calorie}
+            analysis={analysis}
+          >
+            <Button className="w-[232px]" reverse>
+              {t('learn-more')}
+            </Button>
+          </RecipeIngredientsDialog>
+        </div>
+        <div className="w-1/2 p-2 text-center max-xs:w-full">
+          <Button className="w-[232px]" href="/get-started">
+            {t('build-my-plan')}
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function RecipesPage() {
   const t = useTranslations();
+  const className = {
+    container: 'lg:px-20',
+    image: 'pt-[80.6%] shadow-[7px_7px_15px_rgba(0,0,0,0.05)]',
+  };
 
   const ingredients = {
     'chicken-breast': {
@@ -265,206 +322,252 @@ export default function RecipesPage() {
           },
         ]}
       />
-      <Section
-        className="bg-primary bg-opacity-10"
-        secionImage="/recipes/chicken.jpg"
-        dialogImage="/recipes/dispersion/chicken.jpg"
-        alt="Chicken Recipe"
-        title="Fresh Chicken Recipe"
-        description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of
-        lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a
-        shiny coat."
-        ingredientDescription={
-          [
-            t('chicken-breast'),
-            t('chicken-liver'),
-            t('whole-grain-rice'),
-            pluralize.plural(t('shiitake-mushroom')),
-            t('spinach'),
-            t('peas'),
-            pluralize.plural(t('cranberry')),
-            t('flaxseed'),
-            t('salmon-oil'),
-            t('ocelle-targeted-nutrient-blend'),
-          ].join(t('comma')) + t('dot')
+      <ImageContentBlock
+        className={{
+          ...className,
+          block: 'bg-primary bg-opacity-10',
+        }}
+        image={`/recipes/${getRecipeSlug(Recipe.Chicken)}.jpg`}
+        alt={freshRecipe(t, Recipe.Chicken)}
+        endAdornment={
+          <EndAdornment
+            recipe={Recipe.Chicken}
+            ingredients={[
+              ingredients['chicken-breast'],
+              ingredients['chicken-liver'],
+              ingredients['whole-grain-rice'],
+              ingredients['shiitake-mushroom'],
+              ingredients['spinach'],
+              ingredients['peas'],
+              ingredients['cranberry'],
+              ingredients['flaxseed'],
+              ingredients['salmon-oil'],
+              ingredients['ocelle-targeted-nutrient-blend'],
+            ]}
+            calorie={1540}
+            analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
+          />
         }
-        ingredients={[
-          ingredients['chicken-breast'],
-          ingredients['chicken-liver'],
-          ingredients['whole-grain-rice'],
-          ingredients['shiitake-mushroom'],
-          ingredients['spinach'],
-          ingredients['peas'],
-          ingredients['cranberry'],
-          ingredients['flaxseed'],
-          ingredients['salmon-oil'],
-          ingredients['ocelle-targeted-nutrient-blend'],
-        ]}
-        calorie={1540}
-        protein={19}
-        fat={5}
-        fibre={2}
-        moisture={60}
-      />
-      <Section
-        secionImage="/recipes/beef.jpg"
-        dialogImage="/recipes/dispersion/beef.jpg"
-        alt="Beef Recipe"
+      >
+        <div className="max-md:px-2">
+          <h2 className="heading-3 font-bold text-primary">{freshRecipe(t, Recipe.Chicken)}</h2>
+          <p className="body-1 mt-4">
+            A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend
+            of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a
+            shiny coat.
+          </p>
+          <p className="heading-4 mt-6 font-bold text-brown">{colon(t, 'ingredients')}</p>
+          <p className="body-1">
+            {[
+              t('chicken-breast'),
+              t('chicken-liver'),
+              t('whole-grain-rice'),
+              pluralize.plural(t('shiitake-mushroom')),
+              t('spinach'),
+              t('peas'),
+              pluralize.plural(t('cranberry')),
+              t('flaxseed'),
+              t('salmon-oil'),
+              t('ocelle-targeted-nutrient-blend'),
+            ].join(t('comma')) + t('dot')}
+          </p>
+        </div>
+      </ImageContentBlock>
+      <ImageContentBlock
+        className={className}
+        image={`/recipes/${getRecipeSlug(Recipe.Beef)}.jpg`}
+        alt={freshRecipe(t, Recipe.Beef)}
         reverse
-        title="Fresh Beef Recipe"
-        description="This hearty meal delivers high-quality beef for strength, a rainbow of veggies for
-          antioxidant power, and superfoods to boost immunity. Hit the ground running with every
-          bowl!"
-        ingredientDescription={
-          [
-            t('beef-chuck'),
-            t('beef-liver'),
-            pluralize.plural(t('potato')),
-            pluralize.plural(t('carrot')),
-            t('kale'),
-            t('peas'),
-            pluralize.plural(t('blueberry')),
-            t('flaxseed'),
-            t('salmon-oil'),
-            t('ocelle-targeted-nutrient-blend'),
-          ].join(t('comma')) + t('dot')
+        endAdornment={
+          <EndAdornment
+            recipe={Recipe.Beef}
+            ingredients={[
+              ingredients['beef-chuck'],
+              ingredients['beef-liver'],
+              ingredients['carrot'],
+              ingredients['kale'],
+              ingredients['peas'],
+              ingredients['potato'],
+              ingredients['blueberry'],
+              ingredients['flaxseed'],
+              ingredients['salmon-oil'],
+              ingredients['ocelle-targeted-nutrient-blend'],
+            ]}
+            calorie={1540}
+            analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
+          />
         }
-        ingredients={[
-          ingredients['beef-chuck'],
-          ingredients['beef-liver'],
-          ingredients['carrot'],
-          ingredients['kale'],
-          ingredients['peas'],
-          ingredients['potato'],
-          ingredients['blueberry'],
-          ingredients['flaxseed'],
-          ingredients['salmon-oil'],
-          ingredients['ocelle-targeted-nutrient-blend'],
-        ]}
-        calorie={1540}
-        protein={19}
-        fat={5}
-        fibre={2}
-        moisture={60}
-      />
-      <Section
-        className="bg-gold bg-opacity-10"
-        secionImage="/recipes/pork.jpg"
-        dialogImage="/recipes/dispersion/pork.jpg"
-        alt="Pork Recipe"
-        title="Fresh Pork Recipe"
-        description="Embrace gentle nutrition with this hypoallergenic feast. It combines novel proteins with
-        leafy greens for digestive ease, immune strength, and a coat that shines. Perfect for dogs
-        with sensitive stomachs or allergies!"
-        ingredientDescription={
-          [
-            t('pork-loin'),
-            t('pork-liver'),
-            t('celery'),
-            pluralize.plural(t('potato')),
-            t('spinach'),
-            t('peas'),
-            pluralize.plural(t('blueberry')),
-            t('flaxseed'),
-            t('salmon-oil'),
-            t('ocelle-targeted-nutrient-blend'),
-          ].join(t('comma')) + t('dot')
+      >
+        <div className="max-md:px-2">
+          <h2 className="heading-3 font-bold text-primary">{freshRecipe(t, Recipe.Beef)}</h2>
+          <p className="body-1 mt-4">
+            This hearty meal delivers high-quality beef for strength, a rainbow of veggies for
+            antioxidant power, and superfoods to boost immunity. Hit the ground running with every
+            bowl!
+          </p>
+          <p className="heading-4 mt-6 font-bold text-brown">{colon(t, 'ingredients')}</p>
+          <p className="body-1">
+            {[
+              t('beef-chuck'),
+              t('beef-liver'),
+              pluralize.plural(t('potato')),
+              pluralize.plural(t('carrot')),
+              t('kale'),
+              t('peas'),
+              pluralize.plural(t('blueberry')),
+              t('flaxseed'),
+              t('salmon-oil'),
+              t('ocelle-targeted-nutrient-blend'),
+            ].join(t('comma')) + t('dot')}
+          </p>
+        </div>
+      </ImageContentBlock>
+      <ImageContentBlock
+        className={{
+          ...className,
+          block: 'bg-gold bg-opacity-10',
+        }}
+        image={`/recipes/${getRecipeSlug(Recipe.Pork)}.jpg`}
+        alt={freshRecipe(t, Recipe.Pork)}
+        endAdornment={
+          <EndAdornment
+            recipe={Recipe.Pork}
+            ingredients={[
+              ingredients['pork-loin'],
+              ingredients['pork-liver'],
+              ingredients['celery'],
+              ingredients['potato'],
+              ingredients['peas'],
+              ingredients['spinach'],
+              ingredients['blueberry'],
+              ingredients['flaxseed'],
+              ingredients['salmon-oil'],
+              ingredients['ocelle-targeted-nutrient-blend'],
+            ]}
+            calorie={1540}
+            analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
+          />
         }
-        ingredients={[
-          ingredients['pork-loin'],
-          ingredients['pork-liver'],
-          ingredients['celery'],
-          ingredients['potato'],
-          ingredients['peas'],
-          ingredients['spinach'],
-          ingredients['blueberry'],
-          ingredients['flaxseed'],
-          ingredients['salmon-oil'],
-          ingredients['ocelle-targeted-nutrient-blend'],
-        ]}
-        calorie={1540}
-        protein={19}
-        fat={5}
-        fibre={2}
-        moisture={60}
-      />
-      <Section
-        secionImage="/recipes/lamb.jpg"
-        dialogImage="/recipes/dispersion/lamb.jpg"
-        alt="Lamb Recipe"
+      >
+        <div className="max-md:px-2">
+          <h2 className="heading-3 font-bold text-primary">{freshRecipe(t, Recipe.Pork)}</h2>
+          <p className="body-1 mt-4">
+            Embrace gentle nutrition with this hypoallergenic feast. It combines novel proteins with
+            leafy greens for digestive ease, immune strength, and a coat that shines. Perfect for
+            dogs with sensitive stomachs or allergies!
+          </p>
+          <p className="heading-4 mt-6 font-bold text-brown">{colon(t, 'ingredients')}</p>
+          <p className="body-1">
+            {[
+              t('pork-loin'),
+              t('pork-liver'),
+              t('celery'),
+              pluralize.plural(t('potato')),
+              t('spinach'),
+              t('peas'),
+              pluralize.plural(t('blueberry')),
+              t('flaxseed'),
+              t('salmon-oil'),
+              t('ocelle-targeted-nutrient-blend'),
+            ].join(t('comma')) + t('dot')}
+          </p>
+        </div>
+      </ImageContentBlock>
+      <ImageContentBlock
+        className={className}
+        image={`/recipes/${getRecipeSlug(Recipe.Lamb)}.jpg`}
+        alt={freshRecipe(t, Recipe.Lamb)}
         reverse
-        title="Fresh Lamb Recipe"
-        description="A flavour and nutrient powerhouse, capable of satisfying even the pickiest of eaters.
-          Crafted for muscle strength, immune support, radiant health, and a shiny coat!"
-        ingredientDescription={
-          [
-            t('lamb-leg-boneless'),
-            t('beef-liver'),
-            t('whole-grain-rice'),
-            t('peas'),
-            t('spinach'),
-            pluralize.plural(t('blueberry')),
-            t('flaxseed'),
-            t('salmon-oil'),
-            t('ocelle-targeted-nutrient-blend'),
-          ].join(t('comma')) + t('dot')
+        endAdornment={
+          <EndAdornment
+            recipe={Recipe.Lamb}
+            ingredients={[
+              ingredients['lamb-leg'],
+              ingredients['beef-liver'],
+              ingredients['whole-grain-rice'],
+              ingredients['peas'],
+              ingredients['spinach'],
+              ingredients['blueberry'],
+              ingredients['flaxseed'],
+              ingredients['salmon-oil'],
+              ingredients['ocelle-targeted-nutrient-blend'],
+            ]}
+            calorie={1540}
+            analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
+          />
         }
-        ingredients={[
-          ingredients['lamb-leg'],
-          ingredients['beef-liver'],
-          ingredients['whole-grain-rice'],
-          ingredients['peas'],
-          ingredients['spinach'],
-          ingredients['blueberry'],
-          ingredients['flaxseed'],
-          ingredients['salmon-oil'],
-          ingredients['ocelle-targeted-nutrient-blend'],
-        ]}
-        calorie={1540}
-        protein={19}
-        fat={5}
-        fibre={2}
-        moisture={60}
-      />
-      <Section
-        className="bg-primary bg-opacity-10"
-        secionImage="/recipes/duck.jpg"
-        dialogImage="/recipes/dispersion/duck.jpg"
-        alt="Duck Recipe"
-        title="Fresh Duck Recipe"
-        description="A wholesome feast, tailored for digestive health, luxurious coats, and improved vitality!
-          Perfect for dogs seeking a unique and hypoallergenic dining experience without
-          compromising on taste and health."
-        ingredientDescription={
-          [
-            t('duck-breast'),
-            t('chicken-liver'),
-            t('whole-grain-pasta'),
-            t('winter-melon'),
-            t('peas'),
-            pluralize.plural(t('goji-berry')),
-            t('flaxseed'),
-            t('salmon-oil'),
-            t('ocelle-targeted-nutrient-blend'),
-          ].join(t('comma')) + t('dot')
+      >
+        <div className="max-md:px-2">
+          <h2 className="heading-3 font-bold text-primary">{freshRecipe(t, Recipe.Lamb)}</h2>
+          <p className="body-1 mt-4">
+            A flavour and nutrient powerhouse, capable of satisfying even the pickiest of eaters.
+            Crafted for muscle strength, immune support, radiant health, and a shiny coat!
+          </p>
+          <p className="heading-4 mt-6 font-bold text-brown">{colon(t, 'ingredients')}</p>
+          <p className="body-1">
+            {[
+              t('lamb-leg-boneless'),
+              t('beef-liver'),
+              t('whole-grain-rice'),
+              t('peas'),
+              t('spinach'),
+              pluralize.plural(t('blueberry')),
+              t('flaxseed'),
+              t('salmon-oil'),
+              t('ocelle-targeted-nutrient-blend'),
+            ].join(t('comma')) + t('dot')}
+          </p>
+        </div>
+      </ImageContentBlock>
+      <ImageContentBlock
+        className={{
+          ...className,
+          block: 'bg-primary bg-opacity-10',
+        }}
+        image={`/recipes/${getRecipeSlug(Recipe.Duck)}.jpg`}
+        alt={freshRecipe(t, Recipe.Duck)}
+        endAdornment={
+          <EndAdornment
+            recipe={Recipe.Duck}
+            ingredients={[
+              ingredients['duck-breast'],
+              ingredients['chicken-liver'],
+              ingredients['winter-melon'],
+              ingredients['peas'],
+              ingredients['goji-berry'],
+              ingredients['flaxseed'],
+              ingredients['whole-grain-pasta'],
+              ingredients['salmon-oil'],
+              ingredients['ocelle-targeted-nutrient-blend'],
+            ]}
+            calorie={1540}
+            analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
+          />
         }
-        ingredients={[
-          ingredients['duck-breast'],
-          ingredients['chicken-liver'],
-          ingredients['winter-melon'],
-          ingredients['peas'],
-          ingredients['goji-berry'],
-          ingredients['flaxseed'],
-          ingredients['whole-grain-pasta'],
-          ingredients['salmon-oil'],
-          ingredients['ocelle-targeted-nutrient-blend'],
-        ]}
-        calorie={1540}
-        protein={19}
-        fat={5}
-        fibre={2}
-        moisture={60}
-      />
+      >
+        <div className="max-md:px-2">
+          <h2 className="heading-3 font-bold text-primary">{freshRecipe(t, Recipe.Duck)}</h2>
+          <p className="body-1 mt-4">
+            A wholesome feast, tailored for digestive health, luxurious coats, and improved
+            vitality! Perfect for dogs seeking a unique and hypoallergenic dining experience without
+            compromising on taste and health.
+          </p>
+          <p className="heading-4 mt-6 font-bold text-brown">{colon(t, 'ingredients')}</p>
+          <p className="body-1">
+            {[
+              t('duck-breast'),
+              t('chicken-liver'),
+              t('whole-grain-pasta'),
+              t('winter-melon'),
+              t('peas'),
+              pluralize.plural(t('goji-berry')),
+              t('flaxseed'),
+              t('salmon-oil'),
+              t('ocelle-targeted-nutrient-blend'),
+            ].join(t('comma')) + t('dot')}
+          </p>
+        </div>
+      </ImageContentBlock>
       <Block className="bg-gold bg-opacity-10">
         <Container className="lg:px-20">
           <RecipeBenefits />

@@ -6,7 +6,7 @@ import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import Title from './Title';
-import Block from '@/components/Block';
+import Block from '@/components/layouts/Block';
 import { executeQuery } from '@/helpers/queryRunner';
 
 async function fetchData(id: number) {
@@ -23,12 +23,7 @@ async function fetchData(id: number) {
   });
 }
 
-interface SectionProps {
-  title: string;
-  lines: CareerLine[];
-}
-
-function Section({ title, lines }: SectionProps) {
+function CareerBlock({ title, lines }: { title: string; lines: CareerLine[] }) {
   return (
     <div className="overflow-hidden rounded-[30px] border-2 border-primary">
       <h2 className="body-1 bg-primary px-8 py-4 font-bold text-white">{title}</h2>
@@ -73,19 +68,19 @@ export default async function CareerView({ params }: { params: { id: string } })
             always looking for new ideas.
           </p>
           <div className="mt-6">
-            <Section
+            <CareerBlock
               title="What You’ll Do:"
               lines={career.lines.filter((line) => line.lineType === CareerLineType.Responsibility)}
             />
           </div>
           <div className="mt-6">
-            <Section
+            <CareerBlock
               title="What You’ll Need:"
               lines={career.lines.filter((line) => line.lineType === CareerLineType.Requirement)}
             />
           </div>
           <div className="mt-6">
-            <Section
+            <CareerBlock
               title="Benefits:"
               lines={career.lines.filter((line) => line.lineType === CareerLineType.Benefit)}
             />

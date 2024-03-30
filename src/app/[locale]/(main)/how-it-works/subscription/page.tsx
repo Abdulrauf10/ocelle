@@ -1,11 +1,11 @@
 import Button from '@/components/Button';
 import Image from 'next/image';
 import HowPlanWorks from '../../HowPlanWorks';
-import Section from './Section';
 import Container from '@/components/Container';
-import Block from '@/components/Block';
+import Block from '@/components/layouts/Block';
 import { useTranslations } from 'next-intl';
 import Newsletter from '@/components/Newsletter';
+import ImageContentBlock from '@/components/layouts/ImageContentBlock';
 
 export default function HowItWorksSubscription() {
   const t = useTranslations();
@@ -89,68 +89,80 @@ export default function HowItWorksSubscription() {
           </div>
         </Container>
       </Block>
-      <Section
+      <ImageContentBlock
         image="/dogs/favourite-dog.jpeg"
         alt="three of dogs"
         reverse
-        className="bg-primary bg-opacity-10"
+        breakpoint="sm"
+        className={{
+          block: 'bg-primary bg-opacity-10',
+        }}
       >
-        <h2 className="heading-1 font-bold text-gold max-lg:text-center">
-          All The Flavour <br />
-          They Desire!
-        </h2>
-        <p className="body-1 mt-5">
-          Choose from five protein-rich fresh recipes, meticulously crafted with whole foods,
-          slow-cooked to enhance both nutrition and taste. Mix-and-match according to your dog’s
-          needs. After all, you know your dog best of all!
-        </p>
-        <div className="mt-5 max-lg:flex max-lg:justify-center">
-          <Button href="/get-started">{t('see-my-recipes')}</Button>
+        <div className="max-sm:px-7">
+          <h2 className="heading-1 font-bold text-gold max-lg:text-center">
+            All The Flavour <br />
+            They Desire!
+          </h2>
+          <p className="body-1 mt-5">
+            Choose from five protein-rich fresh recipes, meticulously crafted with whole foods,
+            slow-cooked to enhance both nutrition and taste. Mix-and-match according to your dog’s
+            needs. After all, you know your dog best of all!
+          </p>
+          <div className="mt-5 max-lg:flex max-lg:justify-center">
+            <Button href="/get-started">{t('see-my-recipes')}</Button>
+          </div>
         </div>
-      </Section>
-      <Section image="/dogs/three-dogs.jpeg" alt="three of dogs">
-        <h2 className="heading-1 font-bold text-primary max-lg:text-center">
-          A Lifetime Of &nbsp;
-          <br className="max-[360px]:hidden min-[632px]:hidden" />
-          Tailored Nutrition!
-        </h2>
-        <p className="body-1 mt-5 max-lg:text-center">
-          From puppy food to senior dog food – we’re with you every step of the way. Our meals
-          evolve with your dog, delivering maximum benefits at every bowl.
-        </p>
-        <div className="mt-5 max-lg:flex max-lg:justify-center">
-          <Button href="/get-started">{t('build-my-plan')}</Button>
+      </ImageContentBlock>
+      <ImageContentBlock image="/dogs/three-dogs.jpeg" alt="three of dogs" breakpoint="sm">
+        <div className="max-sm:px-7">
+          <h2 className="heading-1 font-bold text-primary max-lg:text-center">
+            A Lifetime Of &nbsp;
+            <br className="max-[360px]:hidden min-[632px]:hidden" />
+            Tailored Nutrition!
+          </h2>
+          <p className="body-1 mt-5 max-lg:text-center">
+            From puppy food to senior dog food – we’re with you every step of the way. Our meals
+            evolve with your dog, delivering maximum benefits at every bowl.
+          </p>
+          <div className="mt-5 max-lg:flex max-lg:justify-center">
+            <Button href="/get-started">{t('build-my-plan')}</Button>
+          </div>
         </div>
-      </Section>
-      <Section
+      </ImageContentBlock>
+      <ImageContentBlock
         image="/dogs/eating-dog.jpeg"
         alt="eating dog"
-        heading={
+        breakpoint="sm"
+        reverse
+        className={{
+          block: 'bg-primary bg-opacity-10',
+        }}
+        startAdornment={
           <h2 className="heading-1 mb-10 text-center font-bold text-primary">
             When OCELLE Arrives
           </h2>
         }
-        className="bg-primary bg-opacity-10"
-        reverse
       >
-        <div className="max-lg:flex max-lg:justify-center">
-          <Image
-            src="/ocelle-truck.png"
-            width={170}
-            height={85}
-            className="-ml-4"
-            alt="ocelle truck"
-          />
+        <div className="max-sm:px-7">
+          <div className="max-lg:flex max-lg:justify-center">
+            <Image
+              src="/ocelle-truck.png"
+              width={170}
+              height={85}
+              className="-ml-4"
+              alt="ocelle truck"
+            />
+          </div>
+          <p className="body-1 mt-5">Get ready for some serious tail-wagging!</p>
+          <p className="body-1 mt-5">
+            Pop your fresh food in the freezer, then defrost in the fridge 24 hours before mealtime.
+            Dinner is served!
+          </p>
+          <div className="mt-5 max-lg:flex max-lg:justify-center">
+            <Button href="/get-started">{t('get-started')}</Button>
+          </div>
         </div>
-        <p className="body-1 mt-5">Get ready for some serious tail-wagging!</p>
-        <p className="body-1 mt-5">
-          Pop your fresh food in the freezer, then defrost in the fridge 24 hours before mealtime.
-          Dinner is served!
-        </p>
-        <div className="mt-5 max-lg:flex max-lg:justify-center">
-          <Button href="/get-started">{t('get-started')}</Button>
-        </div>
-      </Section>
+      </ImageContentBlock>
       <Block className="bg-gold bg-opacity-10">
         <Container>
           <h2 className="heading-1 mb-10 text-center font-bold text-gold">

@@ -1,4 +1,4 @@
-import Block from '@/components/Block';
+import Block from '@/components/layouts/Block';
 import Button from '@/components/Button';
 import Container from '@/components/Container';
 import Sound from '@/components/icons/Sound';

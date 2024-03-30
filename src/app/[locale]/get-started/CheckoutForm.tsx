@@ -3,7 +3,6 @@ import Container from '@/components/Container';
 import Section from './Section';
 import { TextField } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
-import SectionBreak from './SectionBreak';
 import DateCalendar from '@/components/controls/DateCalendar';
 import Price from '@/components/Price';
 import Button from '@/components/Button';
@@ -24,6 +23,10 @@ import { CalendarEvent } from '@/types';
 import { applyCoupon } from './actions';
 import { useElements, useStripe } from '@stripe/react-stripe-js';
 import { Stripe, StripeElements } from '@stripe/stripe-js';
+
+function Break() {
+  return <div className="mt-10"></div>;
+}
 
 function CheckoutBlock({ title, children }: React.PropsWithChildren<{ title?: string }>) {
   return (
@@ -196,7 +199,7 @@ export default function CheckoutForm({
                 />
               </div>
             </Section>
-            <SectionBreak half />
+            <Break />
             <Section dense title={t('delivery-address')}>
               <PartialAddressForm control={control} prefix="deliveryAddress" />
               <div className="mt-3">
@@ -208,7 +211,7 @@ export default function CheckoutForm({
                 />
               </div>
             </Section>
-            <SectionBreak half />
+            <Break />
             <Section dense title={t('billing-address')}>
               <PartialAddressForm
                 control={control}
@@ -216,11 +219,11 @@ export default function CheckoutForm({
                 disabled={watch('isSameBillingAddress') || isSubmitInProgress}
               />
             </Section>
-            <SectionBreak half />
+            <Break />
             <Section dense title={t('payment-information')}>
               <PartialCardForm control={control} />
             </Section>
-            <SectionBreak half />
+            <Break />
             <Section dense title={t('delivery-date')}>
               <p className="body-3">
                 {t('{}-{}-week-starter-box-will-be-delivered-on-the-{}', {
