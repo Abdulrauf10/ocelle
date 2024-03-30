@@ -68,3 +68,15 @@ span.swiper-pagination-bullet-active {
 .body-4 {
   @apply text-[12px] leading-[18px];
 }
+
+.dotted {
+  @apply relative h-0.5 w-full overflow-hidden whitespace-nowrap font-sans after:absolute after:-top-4 after:left-0 after:inline-block after:align-[3px] after:text-base after:tracking-[6px] after:content-["...................................................................................................................................................................................................................."]
+}
+
+.dotted-white {
+  @apply after:text-white
+}
+
+.dotted-black {
+  @apply after:text-black
+}

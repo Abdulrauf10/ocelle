@@ -41,12 +41,6 @@ function Hr() {
   return <hr className="my-10 border-t-2 border-primary"></hr>;
 }
 
-function Dotted() {
-  return (
-    <div className="relative h-0.5 w-full overflow-hidden whitespace-nowrap font-sans after:absolute after:-top-4 after:left-0 after:inline-block after:align-[3px] after:text-base after:tracking-[6px] after:text-black after:content-dotted"></div>
-  );
-}
-
 interface DialogSectionProps {
   title: string;
 }
@@ -275,21 +269,21 @@ export default function Section({
                               <span>{t('{}-pct-min', { value: protein })}</span>
                             </div>
                             <div className="my-1">
-                              <Dotted />
+                              <div className="dotted dotted-black" />
                             </div>
                             <div className="flex flex-wrap justify-between">
                               <span>{t('crude-fat')}</span>
                               <span>{t('{}-pct-min', { value: fat })}</span>
                             </div>
                             <div className="my-1">
-                              <Dotted />
+                              <div className="dotted dotted-black" />
                             </div>
                             <div className="flex flex-wrap justify-between">
                               <span>{t('crude-firbe')}</span>
                               <span>{t('{}-pct-max', { value: fibre })}</span>
                             </div>
                             <div className="my-1">
-                              <Dotted />
+                              <div className="dotted dotted-black" />
                             </div>
                             <div className="flex flex-wrap justify-between">
                               <span>{t('moisture')}</span>

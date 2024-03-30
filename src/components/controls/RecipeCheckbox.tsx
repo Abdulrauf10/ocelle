@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import type { FieldPath, FieldPathValue, FieldValues } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 import clsx from 'clsx';
 import Close from '../icons/Close';
 import RoundedCheckbox from './RoundedCheckbox';
@@ -22,12 +22,6 @@ interface RecipeCheckboxProps<T extends FieldValues> extends InputControllerProp
   disabled?: boolean;
   recommended?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
-}
-
-function Dotted() {
-  return (
-    <div className="relative h-0.5 w-full overflow-hidden whitespace-nowrap font-sans after:absolute after:-top-4 after:left-0 after:inline-block after:align-[3px] after:text-base after:tracking-[6px] after:text-black after:content-dotted"></div>
-  );
 }
 
 export default function RecipeCheckbox<T extends FieldValues>({
@@ -167,21 +161,21 @@ export default function RecipeCheckbox<T extends FieldValues>({
                           <span>{t('{}-pct-min', { value: protein })}</span>
                         </div>
                         <div className="my-1">
-                          <Dotted />
+                          <div className="dotted dotted-black" />
                         </div>
                         <div className="flex flex-wrap justify-between">
                           <span>{t('crude-fat')}</span>
                           <span>{t('{}-pct-min', { value: fat })}</span>
                         </div>
                         <div className="my-1">
-                          <Dotted />
+                          <div className="dotted dotted-black" />
                         </div>
                         <div className="flex flex-wrap justify-between">
                           <span>{t('crude-firbe')}</span>
                           <span>{t('{}-pct-max', { value: fibre })}</span>
                         </div>
                         <div className="my-1">
-                          <Dotted />
+                          <div className="dotted dotted-black" />
                         </div>
                         <div className="flex flex-wrap justify-between">
                           <span>{t('moisture')}</span>
