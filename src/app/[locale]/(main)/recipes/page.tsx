@@ -11,6 +11,175 @@ import pluralize from 'pluralize';
 export default function RecipesPage() {
   const t = useTranslations();
 
+  const ingredients = {
+    'chicken-breast': {
+      picture: '/recipes/ingredients/chicken-breast.png',
+      spacing: 15,
+      title: t('chicken-breast'),
+      description:
+        'A lean source of high-quality protein, essential for muscle growth and repair. It also supplies glucosamine and chondroitin, the building blocks of joint cartilage, tendons, and ligaments.',
+    },
+    'chicken-liver': {
+      picture: '/recipes/ingredients/chicken-liver.png',
+      spacing: -10,
+      title: t('chicken-liver'),
+      description:
+        'A nutrient powerhouse, packed with iron for healthy blood, vitamin A for sharp vision, B vitamins for energy metabolism, and choline for healthy brain function.',
+    },
+    'whole-grain-rice': {
+      picture: '/recipes/ingredients/whole-grain-rice.png',
+      spacing: -20,
+      title: t('whole-grain-rice'),
+      description:
+        "A wholesome source of complex carbohydrates, whole-grain rice provides dogs with sustained energy. It's also gentle on the digestive system, making it a good choice for dogs with sensitive stomachs.",
+    },
+    'shiitake-mushroom': {
+      picture: '/recipes/ingredients/mushroom.png',
+      spacing: -20,
+      title: pluralize.plural(t('shiitake-mushroom')),
+      description:
+        'Shiitake mushrooms are known for their immune-boosting properties and are also a good source of B vitamins.',
+    },
+    spinach: {
+      picture: '/recipes/ingredients/spinach.png',
+      spacing: -15,
+      title: t('spinach'),
+      description:
+        'Spinach is packed with vitamins A, C, and K, and are also a good source of iron and antioxidants. It supports immune health and provides anti-inflammatory benefits.',
+    },
+    peas: {
+      picture: '/recipes/ingredients/peas.png',
+      spacing: -10,
+      title: t('peas'),
+      description:
+        'Peas are low in calories and are a great source of plant-based protein and fibre, which can aid in digestion and nutrient absorption. They also contain essential vitamins and minerals like vitamin K, manganese, and folate.',
+    },
+    cranberry: {
+      picture: '/recipes/ingredients/cranberry.png',
+      spacing: -30,
+      title: pluralize.plural(t('cranberry')),
+      description:
+        'Rich in antioxidants, cranberries can help support urinary tract health and may prevent urinary infections. They are also beneficial for dental health.',
+    },
+    flaxseed: {
+      picture: '/recipes/ingredients/flaxseed.png',
+      spacing: -20,
+      title: t('flaxseed'),
+      description:
+        'Flaxseeds are an excellent source of essential fatty acids and fibre, promoting better skin, glossy coats, healthier brains, stronger hearts, pain-free joints, reduced inflammation, and improved digestion.',
+    },
+    'salmon-oil': {
+      picture: '/recipes/ingredients/salmon-oil.png',
+      spacing: 16,
+      title: t('salmon-oil'),
+      description:
+        'High in omega-3 fatty acids, salmon oil helps in reducing inflammation, supporting joint health, and maintaining a healthy, shiny coat.',
+    },
+    'ocelle-targeted-nutrient-blend': {
+      picture: '/recipes/ingredients/targeted-nutrient-blend.png',
+      spacing: 70,
+      title: t('ocelle-targeted-nutrient-blend'),
+      description:
+        'Each recipe contains a specific formulation of vitamins and minerals, designed to synergize with our carefully chosen ingredients, ensuring that meals are packed with the life-stage-specific nutrients needed to thrive.',
+    },
+    'beef-chuck': {
+      picture: '/recipes/ingredients/beef-chuck.png',
+      spacing: 15,
+      title: t('beef-chuck'),
+      description:
+        "Lean beef chuck is an excellent source of high-quality protein, crucial for muscle maintenance and overall body functions. It's also rich in minerals and essential nutrients, like iron and zinc, which are important for healthier immune systems, stronger bones, and wound healing.",
+    },
+    'beef-liver': {
+      picture: '/recipes/ingredients/beef-liver.png',
+      title: t('beef-liver'),
+      description:
+        'Beef liver is extremely nutrient-dense, offering a rich source of vitamin A for eye health, iron for healthy blood cells, and B vitamins for energy production.',
+    },
+    carrot: {
+      picture: '/recipes/ingredients/carrot.png',
+      spacing: 20,
+      title: pluralize.plural(t('carrot')),
+      description:
+        "Carrots are high in beta-carotene, which converts to vitamin A and supports vision health. They're also a good source of fibre, aiding in digestive health, and have antioxidants for immune support.",
+    },
+    kale: {
+      picture: '/recipes/ingredients/kale.png',
+      spacing: 15,
+      title: t('kale'),
+      description:
+        'This leafy green is packed with vitamins A, C, and K, along with antioxidants and iron. It supports immune health, vision, and overall wellness.',
+    },
+    potato: {
+      picture: '/recipes/ingredients/potato.png',
+      spacing: -20,
+      title: pluralize.plural(t('potato')),
+      description:
+        'Potatoes are a good source of carbohydrates, potassium, and vitamins C and B6. They provide energy and are easily digestible, making them suitable for sensitive stomachs.',
+    },
+    blueberry: {
+      picture: '/recipes/ingredients/blueberry.png',
+      spacing: 30,
+      title: pluralize.plural(t('blueberry')),
+      description:
+        'Blueberries are superfoods for dogs, rich in antioxidants, vitamins C and K, and fibre. They support urinary tract health and can contribute to overall cellular health and cognitive function.',
+    },
+    'pork-loin': {
+      picture: '/recipes/ingredients/pork-loin.png',
+      spacing: 20,
+      title: t('pork-loin'),
+      description:
+        "Pork is lean and a novel protein for most dogs, providing high-quality nutrients for muscle development and overall body function. It's also a good source of B vitamins, particularly B1 (thiamine), which is crucial for carbohydrate metabolism.",
+    },
+    'pork-liver': {
+      picture: '/recipes/ingredients/pork-liver.png',
+      spacing: 10,
+      title: t('pork-liver'),
+      description:
+        'Pork liver is nutrient rich, offering high levels of iron and vitamins A and B. These nutrients are key for maintaining healthy vision, blood health, and energy levels.',
+    },
+    celery: {
+      picture: '/recipes/ingredients/celery.png',
+      spacing: 20,
+      title: t('celery'),
+      description:
+        'Water spinach is a beneficial leafy green, offering vitamins A and C, iron, and antioxidants. It supports immune health, digestive wellness, and provides anti-inflammatory benefits.',
+    },
+    'lamb-leg': {
+      picture: '/recipes/ingredients/lamb-leg.png',
+      spacing: 16,
+      title: t('lamb-leg'),
+      description:
+        "Lamb is a highly palatable meat and an excellent source of quality protein and essential fats, which help with energy levels, proper growth, and overall health. It's also a good source of iron and zinc, which are crucial for immune function and skin health.",
+    },
+    'duck-breast': {
+      picture: '/recipes/ingredients/duck-breast.png',
+      title: t('duck-breast'),
+      description:
+        'Duck is lean and packed with essential amino acids, vitamins, and antioxidants to promote good health. It’s also a novel protein for many dogs, making it suitable for those with sensitivities or allergies.',
+    },
+    'winter-melon': {
+      picture: '/recipes/ingredients/winter-melon.png',
+      spacing: 14,
+      title: t('winter-melon'),
+      description:
+        "Winter melon is very low in calories and high in fibre, aiding in digestion. It's also hydrating and can be beneficial for dogs with kidney issues or those needing a low-fat diet.",
+    },
+    'goji-berry': {
+      picture: '/recipes/ingredients/goji-berry.png',
+      spacing: -15,
+      title: pluralize.plural(t('goji-berry')),
+      description:
+        'Goji berries are known for their high antioxidant content, supporting immune health, vision, and overall cellular function.',
+    },
+    'whole-grain-pasta': {
+      picture: '/recipes/ingredients/whole-grain-pasta.png',
+      spacing: 20,
+      title: t('whole-grain-pasta'),
+      description:
+        'A source of complex carbohydrates, whole grain pasta provides sustained energy. It is also a good source of fibre, which aids in digestion, and B vitamins for energy metabolism.',
+    },
+  };
+
   return (
     <main>
       <div className="bg-[url('./recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-repeat-x py-10 max-lg:pb-[70%] lg:bg-[url('./recipes-bg.jpg')] lg:bg-[length:auto_100%] lg:bg-center">
@@ -120,76 +289,16 @@ export default function RecipesPage() {
           ].join(t('comma')) + t('dot')
         }
         ingredients={[
-          {
-            picture: '/recipes/ingredients/chicken-breast.png',
-            spacing: 15,
-            title: t('chicken-breast'),
-            description:
-              'A lean source of high-quality protein, essential for muscle growth and repair. It also supplies glucosamine and chondroitin, the building blocks of joint cartilage, tendons, and ligaments.',
-          },
-          {
-            picture: '/recipes/ingredients/chicken-liver.png',
-            spacing: -10,
-            title: t('chicken-liver'),
-            description:
-              'A nutrient powerhouse, packed with iron for healthy blood, vitamin A for sharp vision, B vitamins for energy metabolism, and choline for healthy brain function.',
-          },
-          {
-            picture: '/recipes/ingredients/whole-grain-rice.png',
-            spacing: -20,
-            title: t('whole-grain-rice'),
-            description:
-              "A wholesome source of complex carbohydrates, whole-grain rice provides dogs with sustained energy. It's also gentle on the digestive system, making it a good choice for dogs with sensitive stomachs.",
-          },
-          {
-            picture: '/recipes/ingredients/mushroom.png',
-            spacing: -20,
-            title: pluralize.plural(t('shiitake-mushroom')),
-            description:
-              'Shiitake mushrooms are known for their immune-boosting properties and are also a good source of B vitamins.',
-          },
-          {
-            picture: '/recipes/ingredients/spinach.png',
-            spacing: -15,
-            title: t('spinach'),
-            description:
-              'Spinach is packed with vitamins A, C, and K, and are also a good source of iron and antioxidants. It supports immune health and provides anti-inflammatory benefits.',
-          },
-          {
-            picture: '/recipes/ingredients/peas.png',
-            spacing: -10,
-            title: t('peas'),
-            description:
-              'Peas are low in calories and are a great source of plant-based protein and fibre, which can aid in digestion and nutrient absorption. They also contain essential vitamins and minerals like vitamin K, manganese, and folate.',
-          },
-          {
-            picture: '/recipes/ingredients/cranberry.png',
-            spacing: -30,
-            title: pluralize.plural(t('cranberry')),
-            description:
-              'Rich in antioxidants, cranberries can help support urinary tract health and may prevent urinary infections. They are also beneficial for dental health.',
-          },
-          {
-            picture: '/recipes/ingredients/flaxseed.png',
-            spacing: -20,
-            title: t('flaxseed'),
-            description:
-              'Flaxseeds are an excellent source of essential fatty acids and fibre, promoting better skin, glossy coats, healthier brains, stronger hearts, pain-free joints, reduced inflammation, and improved digestion.',
-          },
-          {
-            picture: '/recipes/ingredients/salmon-oil.png',
-            spacing: 16,
-            title: t('salmon-oil'),
-            description:
-              'High in omega-3 fatty acids, salmon oil helps in reducing inflammation, supporting joint health, and maintaining a healthy, shiny coat.',
-          },
-          {
-            picture: '/recipes/ingredients/targeted-nutrient-blend.png',
-            spacing: 70,
-            title: t('ocelle-targeted-nutrient-blend'),
-            description:
-              'Each recipe contains a specific formulation of vitamins and minerals, designed to synergize with our carefully chosen ingredients, ensuring that meals are packed with the life-stage-specific nutrients needed to thrive.',
-          },
+          ingredients['chicken-breast'],
+          ingredients['chicken-liver'],
+          ingredients['whole-grain-rice'],
+          ingredients['shiitake-mushroom'],
+          ingredients['spinach'],
+          ingredients['peas'],
+          ingredients['cranberry'],
+          ingredients['flaxseed'],
+          ingredients['salmon-oil'],
+          ingredients['ocelle-targeted-nutrient-blend'],
         ]}
         calorie={1540}
         protein={19}
@@ -221,75 +330,16 @@ export default function RecipesPage() {
           ].join(t('comma')) + t('dot')
         }
         ingredients={[
-          {
-            picture: '/recipes/ingredients/beef-chuck.png',
-            spacing: 15,
-            title: t('beef-chuck'),
-            description:
-              "Lean beef chuck is an excellent source of high-quality protein, crucial for muscle maintenance and overall body functions. It's also rich in minerals and essential nutrients, like iron and zinc, which are important for healthier immune systems, stronger bones, and wound healing.",
-          },
-          {
-            picture: '/recipes/ingredients/beef-liver.png',
-            title: t('beef-liver'),
-            description:
-              'Beef liver is extremely nutrient-dense, offering a rich source of vitamin A for eye health, iron for healthy blood cells, and B vitamins for energy production.',
-          },
-          {
-            picture: '/recipes/ingredients/carrot.png',
-            spacing: 20,
-            title: pluralize.plural(t('carrot')),
-            description:
-              "Carrots are high in beta-carotene, which converts to vitamin A and supports vision health. They're also a good source of fibre, aiding in digestive health, and have antioxidants for immune support.",
-          },
-          {
-            picture: '/recipes/ingredients/kale.png',
-            spacing: 15,
-            title: t('kale'),
-            description:
-              'This leafy green is packed with vitamins A, C, and K, along with antioxidants and iron. It supports immune health, vision, and overall wellness.',
-          },
-          {
-            picture: '/recipes/ingredients/peas.png',
-            spacing: -10,
-            title: t('peas'),
-            description:
-              'Peas are low in calories and are a great source of plant-based protein and fibre, which can aid in digestion and nutrient absorption. They also contain essential vitamins and minerals like vitamin K, manganese, and folate.',
-          },
-          {
-            picture: '/recipes/ingredients/potato.png',
-            spacing: -20,
-            title: pluralize.plural(t('potato')),
-            description:
-              'Potatoes are a good source of carbohydrates, potassium, and vitamins C and B6. They provide energy and are easily digestible, making them suitable for sensitive stomachs.',
-          },
-          {
-            picture: '/recipes/ingredients/blueberry.png',
-            spacing: 30,
-            title: pluralize.plural(t('blueberry')),
-            description:
-              'Blueberries are superfoods for dogs, rich in antioxidants, vitamins C and K, and fibre. They support urinary tract health and can contribute to overall cellular health and cognitive function.',
-          },
-          {
-            picture: '/recipes/ingredients/flaxseed.png',
-            spacing: -20,
-            title: t('flaxseed'),
-            description:
-              'Flaxseeds are an excellent source of essential fatty acids and fibre, promoting better skin, glossy coats, healthier brains, stronger hearts, pain-free joints, reduced inflammation, and improved digestion.',
-          },
-          {
-            picture: '/recipes/ingredients/salmon-oil.png',
-            spacing: 16,
-            title: t('salmon-oil'),
-            description:
-              'High in omega-3 fatty acids, salmon oil helps in reducing inflammation, supporting joint health, and maintaining a healthy, shiny coat.',
-          },
-          {
-            picture: '/recipes/ingredients/targeted-nutrient-blend.png',
-            spacing: 70,
-            title: t('ocelle-targeted-nutrient-blend'),
-            description:
-              'Each recipe contains a specific formulation of vitamins and minerals, designed to synergize with our carefully chosen ingredients, ensuring that meals are packed with the life-stage-specific nutrients needed to thrive.',
-          },
+          ingredients['beef-chuck'],
+          ingredients['beef-liver'],
+          ingredients['carrot'],
+          ingredients['kale'],
+          ingredients['peas'],
+          ingredients['potato'],
+          ingredients['blueberry'],
+          ingredients['flaxseed'],
+          ingredients['salmon-oil'],
+          ingredients['ocelle-targeted-nutrient-blend'],
         ]}
         calorie={1540}
         protein={19}
@@ -321,76 +371,16 @@ export default function RecipesPage() {
           ].join(t('comma')) + t('dot')
         }
         ingredients={[
-          {
-            picture: '/recipes/ingredients/pork-loin.png',
-            spacing: 20,
-            title: t('pork-loin'),
-            description:
-              "Pork is lean and a novel protein for most dogs, providing high-quality nutrients for muscle development and overall body function. It's also a good source of B vitamins, particularly B1 (thiamine), which is crucial for carbohydrate metabolism.",
-          },
-          {
-            picture: '/recipes/ingredients/pork-liver.png',
-            spacing: 10,
-            title: t('pork-liver'),
-            description:
-              'Pork liver is nutrient rich, offering high levels of iron and vitamins A and B. These nutrients are key for maintaining healthy vision, blood health, and energy levels.',
-          },
-          {
-            picture: '/recipes/ingredients/celery.png',
-            spacing: 20,
-            title: t('celery'),
-            description:
-              'Water spinach is a beneficial leafy green, offering vitamins A and C, iron, and antioxidants. It supports immune health, digestive wellness, and provides anti-inflammatory benefits.',
-          },
-          {
-            picture: '/recipes/ingredients/potato.png',
-            spacing: -20,
-            title: pluralize.plural(t('potato')),
-            description:
-              'Potatoes are a good source of carbohydrates, potassium, and vitamins C and B6. They provide energy and are easily digestible, making them suitable for sensitive stomachs.',
-          },
-          {
-            picture: '/recipes/ingredients/peas.png',
-            spacing: -10,
-            title: t('peas'),
-            description:
-              'Peas are low in calories and are a great source of plant-based protein and fibre, which can aid in digestion and nutrient absorption. They also contain essential vitamins and minerals like vitamin K, manganese, and folate.',
-          },
-          {
-            picture: '/recipes/ingredients/spinach.png',
-            spacing: -15,
-            title: t('spinach'),
-            description:
-              'Spinach is packed with vitamins A, C, and K, and are also a good source of iron and antioxidants. It supports immune health and provides anti-inflammatory benefits.',
-          },
-          {
-            picture: '/recipes/ingredients/blueberry.png',
-            spacing: 30,
-            title: pluralize.plural(t('blueberry')),
-            description:
-              'Blueberries are superfoods for dogs, rich in antioxidants, vitamins C and K, and fibre. They support urinary tract health and can contribute to overall cellular health and cognitive function.',
-          },
-          {
-            picture: '/recipes/ingredients/flaxseed.png',
-            spacing: -20,
-            title: t('flaxseed'),
-            description:
-              'Flaxseeds are an excellent source of essential fatty acids and fibre, promoting better skin, glossy coats, healthier brains, stronger hearts, pain-free joints, reduced inflammation, and improved digestion.',
-          },
-          {
-            picture: '/recipes/ingredients/salmon-oil.png',
-            spacing: 16,
-            title: t('salmon-oil'),
-            description:
-              'High in omega-3 fatty acids, salmon oil helps in reducing inflammation, supporting joint health, and maintaining a healthy, shiny coat.',
-          },
-          {
-            picture: '/recipes/ingredients/targeted-nutrient-blend.png',
-            spacing: 70,
-            title: t('ocelle-targeted-nutrient-blend'),
-            description:
-              'Each recipe contains a specific formulation of vitamins and minerals, designed to synergize with our carefully chosen ingredients, ensuring that meals are packed with the life-stage-specific nutrients needed to thrive.',
-          },
+          ingredients['pork-loin'],
+          ingredients['pork-liver'],
+          ingredients['celery'],
+          ingredients['potato'],
+          ingredients['peas'],
+          ingredients['spinach'],
+          ingredients['blueberry'],
+          ingredients['flaxseed'],
+          ingredients['salmon-oil'],
+          ingredients['ocelle-targeted-nutrient-blend'],
         ]}
         calorie={1540}
         protein={19}
@@ -420,69 +410,15 @@ export default function RecipesPage() {
           ].join(t('comma')) + t('dot')
         }
         ingredients={[
-          {
-            picture: '/recipes/ingredients/lamb-leg.png',
-            spacing: 16,
-            title: t('lamb-leg'),
-            description:
-              "Lamb is a highly palatable meat and an excellent source of quality protein and essential fats, which help with energy levels, proper growth, and overall health. It's also a good source of iron and zinc, which are crucial for immune function and skin health.",
-          },
-          {
-            picture: '/recipes/ingredients/beef-liver.png',
-            spacing: 10,
-            title: t('beef-liver'),
-            description:
-              'Beef liver is extremely nutrient-dense, offering a rich source of vitamin A for eye health, iron for healthy blood cells, and B vitamins for energy production.',
-          },
-          {
-            picture: '/recipes/ingredients/whole-grain-rice.png',
-            spacing: -20,
-            title: t('whole-grain-rice'),
-            description:
-              "A wholesome source of complex carbohydrates, whole-grain rice provides dogs with sustained energy. It's also gentle on the digestive system, making it a good choice for dogs with sensitive stomachs.",
-          },
-          {
-            picture: '/recipes/ingredients/peas.png',
-            spacing: -10,
-            title: t('peas'),
-            description:
-              'Peas are low in calories and are a great source of plant-based protein and fibre, which can aid in digestion and nutrient absorption. They also contain essential vitamins and minerals like vitamin K, manganese, and folate.',
-          },
-          {
-            picture: '/recipes/ingredients/spinach.png',
-            spacing: -15,
-            title: t('spinach'),
-            description:
-              'Spinach is packed with vitamins A, C, and K, and are also a good source of iron and antioxidants. It supports immune health and provides anti-inflammatory benefits.',
-          },
-          {
-            picture: '/recipes/ingredients/blueberry.png',
-            spacing: 30,
-            title: pluralize.plural(t('blueberry')),
-            description:
-              'Blueberries are superfoods for dogs, rich in antioxidants, vitamins C and K, and fibre. They support urinary tract health and can contribute to overall cellular health and cognitive function.',
-          },
-          {
-            picture: '/recipes/ingredients/flaxseed.png',
-            spacing: -20,
-            title: t('flaxseed'),
-            description:
-              'Flaxseeds are an excellent source of essential fatty acids and fibre, promoting better skin, glossy coats, healthier brains, stronger hearts, pain-free joints, reduced inflammation, and improved digestion.',
-          },
-          {
-            picture: '/recipes/ingredients/salmon-oil.png',
-            spacing: 16,
-            title: t('salmon-oil'),
-            description:
-              'High in omega-3 fatty acids, salmon oil helps in reducing inflammation, supporting joint health, and maintaining a healthy, shiny coat.',
-          },
-          {
-            picture: '/recipes/ingredients/targeted-nutrient-blend.png',
-            spacing: 70,
-            title: t('ocelle-targeted-nutrient-blend'),
-            description:
-              'Each recipe contains a specific formulation of vitamins and minerals, designed to synergize with our carefully chosen ingredients, ensuring that meals are packed with the life-stage-specific nutrients needed to thrive.',
-          },
+          ingredients['lamb-leg'],
+          ingredients['beef-liver'],
+          ingredients['whole-grain-rice'],
+          ingredients['peas'],
+          ingredients['spinach'],
+          ingredients['blueberry'],
+          ingredients['flaxseed'],
+          ingredients['salmon-oil'],
+          ingredients['ocelle-targeted-nutrient-blend'],
         ]}
         calorie={1540}
         protein={19}
@@ -513,67 +449,15 @@ export default function RecipesPage() {
           ].join(t('comma')) + t('dot')
         }
         ingredients={[
-          {
-            picture: '/recipes/ingredients/duck-breast.png',
-            title: t('duck-breast'),
-            description:
-              'Duck is lean and packed with essential amino acids, vitamins, and antioxidants to promote good health. It’s also a novel protein for many dogs, making it suitable for those with sensitivities or allergies.',
-          },
-          {
-            picture: '/recipes/ingredients/chicken-liver.png',
-            title: t('chicken-liver'),
-            description:
-              'A nutrient powerhouse, packed with iron for healthy blood, vitamin A for sharp vision, B vitamins for energy metabolism, and choline for healthy brain function.',
-          },
-          {
-            picture: '/recipes/ingredients/winter-melon.png',
-            spacing: 14,
-            title: t('winter-melon'),
-            description:
-              "Winter melon is very low in calories and high in fibre, aiding in digestion. It's also hydrating and can be beneficial for dogs with kidney issues or those needing a low-fat diet.",
-          },
-          {
-            picture: '/recipes/ingredients/peas.png',
-            spacing: -10,
-            title: t('peas'),
-            description:
-              'Peas are low in calories and are a great source of plant-based protein and fibre, which can aid in digestion and nutrient absorption. They also contain essential vitamins and minerals like vitamin K, manganese, and folate.',
-          },
-          {
-            picture: '/recipes/ingredients/goji-berry.png',
-            spacing: -15,
-            title: pluralize.plural(t('goji-berry')),
-            description:
-              'Goji berries are known for their high antioxidant content, supporting immune health, vision, and overall cellular function.',
-          },
-          {
-            picture: '/recipes/ingredients/flaxseed.png',
-            spacing: -20,
-            title: t('flaxseed'),
-            description:
-              'Flaxseeds are an excellent source of essential fatty acids and fibre, promoting better skin, glossy coats, healthier brains, stronger hearts, pain-free joints, reduced inflammation, and improved digestion.',
-          },
-          {
-            picture: '/recipes/ingredients/whole-grain-pasta.png',
-            spacing: 20,
-            title: t('whole-grain-pasta'),
-            description:
-              'A source of complex carbohydrates, whole grain pasta provides sustained energy. It is also a good source of fibre, which aids in digestion, and B vitamins for energy metabolism.',
-          },
-          {
-            picture: '/recipes/ingredients/salmon-oil.png',
-            spacing: 16,
-            title: t('salmon-oil'),
-            description:
-              'High in omega-3 fatty acids, salmon oil helps in reducing inflammation, supporting joint health, and maintaining a healthy, shiny coat.',
-          },
-          {
-            picture: '/recipes/ingredients/targeted-nutrient-blend.png',
-            spacing: 70,
-            title: t('ocelle-targeted-nutrient-blend'),
-            description:
-              'Each recipe contains a specific formulation of vitamins and minerals, designed to synergize with our carefully chosen ingredients, ensuring that meals are packed with the life-stage-specific nutrients needed to thrive.',
-          },
+          ingredients['duck-breast'],
+          ingredients['chicken-liver'],
+          ingredients['winter-melon'],
+          ingredients['peas'],
+          ingredients['goji-berry'],
+          ingredients['flaxseed'],
+          ingredients['whole-grain-pasta'],
+          ingredients['salmon-oil'],
+          ingredients['ocelle-targeted-nutrient-blend'],
         ]}
         calorie={1540}
         protein={19}
