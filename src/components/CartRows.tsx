@@ -59,10 +59,10 @@ export default function CartRows({
   return lines.map((line, idx) => {
     const content = line.variant.sku ? contents[line.variant.sku] : undefined;
     if (!content) {
-      return <></>;
+      return <React.Fragment key={idx}></React.Fragment>;
     }
     return (
-      <>
+      <React.Fragment key={idx}>
         <div className="-mx-2 flex">
           <div className="px-2">
             <div className="relative h-24 w-24 overflow-hidden rounded-md">
@@ -110,7 +110,7 @@ export default function CartRows({
           </div>
         </div>
         {idx !== lines.length - 1 && <hr className="my-4 border-[#231815]" />}
-      </>
+      </React.Fragment>
     );
   });
 }
