@@ -283,12 +283,16 @@ export async function finalizeCheckout() {
     throw new Error('checkout is not linked with email, please contact ocelle for more.');
   }
 
+  const shippingMethod =
+    checkout.shippingMethods.find((method) => method.name === 'SF Express (Fixed)') ??
+    checkout.shippingMethods[0];
+
   const { checkoutDeliveryMethodUpdate } = await executeGraphQL(
     UpdateCheckoutShippingMethodDocument,
     {
       variables: {
         checkoutId: checkout.id,
-        shippingMethodId: checkout.shippingMethods[0].id,
+        shippingMethodId: shippingMethod.id,
       },
     }
   );
