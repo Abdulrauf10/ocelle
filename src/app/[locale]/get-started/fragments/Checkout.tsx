@@ -1,25 +1,21 @@
 import React from 'react';
 import Stage from '../Stage';
 import AppThemeProvider from '@/components/AppThemeProvider';
-import { CardNumberElement, Elements } from '@stripe/react-stripe-js';
-import { loadStripe } from '@stripe/stripe-js';
 import { completeCheckout, processCheckout } from '../actions';
 import CheckoutForm from '../CheckoutForm';
+import { CardNumberElement } from '@stripe/react-stripe-js';
 import { useSurvey } from '../SurveyContext';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
 import { useRouter } from '@/navigation';
+import StripeLoader from '@/components/StripeLoader';
 
 export default function CheckoutFragment() {
   const { dogs } = useSurvey();
   const router = useRouter();
   const navigate = useNavigate();
   const { state } = useLocation();
-  const stripePromise = React.useMemo(
-    () => loadStripe(state.stripe.publishableKey),
-    [state.stripe]
-  );
 
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
@@ -46,9 +42,9 @@ export default function CheckoutFragment() {
           },
         }}
       >
-        <Elements
-          options={{ clientSecret: state.stripe.paymentIntent.client_secret }}
-          stripe={stripePromise}
+        <StripeLoader
+          clientSecret={state.stripe.paymentIntent.client_secret}
+          publishableKey={state.stripe.publishableKey}
         >
           <CheckoutForm
             dogs={dogs}
@@ -108,7 +104,7 @@ export default function CheckoutFragment() {
               router.push('/get-started/complete');
             }}
           />
-        </Elements>
+        </StripeLoader>
       </AppThemeProvider>
     </motion.div>
   );
