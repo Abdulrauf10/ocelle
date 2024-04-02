@@ -44,8 +44,35 @@ export async function set1823PublicHolidays(calendar: I1823ICalendar) {
   );
 }
 
-export async function getCheckoutParameters(checkoutId: string) {
-  const value = await createRedisClient().get(`${process.env.REDIS_PREFIX}:checkout-${checkoutId}`);
+export async function getIndividualCheckoutParameters(checkoutId: string) {
+  const value = await createRedisClient().get(
+    `${process.env.REDIS_PREFIX}:checkout:individual-${checkoutId}`
+  );
+  if (value === null) {
+    return value;
+  }
+  const json = JSON.parse(value);
+  return {
+    deliveryDate:
+      typeof json.deliveryDate === 'string'
+        ? new Date(json.deliveryDate)
+        : (json.deliveryDate as undefined),
+  };
+}
+
+export async function setIndividualCheckoutParameters(checkoutId: string, deliveryDate: Date) {
+  return createRedisClient().set(
+    `${process.env.REDIS_PREFIX}:checkout:individual-${checkoutId}`,
+    JSON.stringify({ deliveryDate }),
+    'EX',
+    60 * 60 * 24 * 60 // cache alive 60 days
+  );
+}
+
+export async function getSubscriptionCheckoutParameters(checkoutId: string) {
+  const value = await createRedisClient().get(
+    `${process.env.REDIS_PREFIX}:checkout:subscription-${checkoutId}`
+  );
   if (value === null) {
     return value;
   }
@@ -61,7 +88,7 @@ export async function getCheckoutParameters(checkoutId: string) {
   };
 }
 
-export async function setCheckoutParameters(
+export async function setSubscriptionCheckoutParameters(
   checkoutId: string,
   email: string,
   orderSize: OrderSize,
@@ -69,7 +96,7 @@ export async function setCheckoutParameters(
   deliveryDate?: Date
 ) {
   return createRedisClient().set(
-    `${process.env.REDIS_PREFIX}:checkout-${checkoutId}`,
+    `${process.env.REDIS_PREFIX}:checkout:subscription-${checkoutId}`,
     JSON.stringify({
       email,
       orderSize,
@@ -81,7 +108,7 @@ export async function setCheckoutParameters(
   );
 }
 
-export async function upsertCheckoutParameters(
+export async function upsertSubscriptionCheckoutParameters(
   checkoutId: string,
   {
     email,
@@ -95,11 +122,11 @@ export async function upsertCheckoutParameters(
     deliveryDate?: Date;
   }
 ) {
-  const values = await getCheckoutParameters(checkoutId);
+  const values = await getSubscriptionCheckoutParameters(checkoutId);
   if (!values && (email === undefined || orderSize === undefined || dogs === undefined)) {
     throw new Error('checkout not found, must set the values');
   }
-  await setCheckoutParameters(
+  await setSubscriptionCheckoutParameters(
     checkoutId,
     email ?? values!.email,
     orderSize ?? values!.orderSize,

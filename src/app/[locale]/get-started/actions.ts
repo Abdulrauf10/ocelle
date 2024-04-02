@@ -34,9 +34,9 @@ import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
 import {
-  getCheckoutParameters,
-  setCheckoutParameters,
-  upsertCheckoutParameters,
+  getSubscriptionCheckoutParameters,
+  setSubscriptionCheckoutParameters,
+  upsertSubscriptionCheckoutParameters,
 } from '@/helpers/redis';
 import { redirect } from '@/navigation';
 import { DogDto, MinPricesDto } from '@/types/dto';
@@ -241,7 +241,7 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
     throw new Error('stripe is currently not available');
   }
 
-  await setCheckoutParameters(checkout.id, email, orderSize, dogs);
+  await setSubscriptionCheckoutParameters(checkout.id, email, orderSize, dogs);
 
   const nextServerCookiesStorage = getNextServerCookiesStorage();
 
@@ -444,7 +444,7 @@ export async function processCheckout(data: ProcessCheckoutAction) {
     throw new Error('delivery date is unavailable');
   }
 
-  await upsertCheckoutParameters(checkout.id, { deliveryDate: value.deliveryDate });
+  await upsertSubscriptionCheckoutParameters(checkout.id, { deliveryDate: value.deliveryDate });
 
   const user = await findOrCreateUser(
     value.firstName,
@@ -525,7 +525,7 @@ export async function processCheckout(data: ProcessCheckoutAction) {
 export async function completeCheckout() {
   try {
     const checkout = await getCheckout();
-    const params = await getCheckoutParameters(checkout.id);
+    const params = await getSubscriptionCheckoutParameters(checkout.id);
 
     console.dir(checkout, { depth: null });
 
@@ -694,7 +694,7 @@ export async function getDeliveryDate() {
     return undefined;
   }
 
-  const params = await getCheckoutParameters(id);
+  const params = await getSubscriptionCheckoutParameters(id);
 
   if (!params) {
     return undefined;
