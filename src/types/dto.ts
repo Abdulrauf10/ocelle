@@ -8,6 +8,7 @@ import {
   Pickiness,
 } from '.';
 import { DateOfBirthMethod } from './dog';
+import { CheckoutLineFragment, MoneyFragment } from '@/gql/graphql';
 
 interface DogDto {
   name: string;
@@ -34,4 +35,9 @@ interface MinPricesDto {
   fullPlan: number;
 }
 
-export type { DogDto, MinPricesDto };
+interface CartReturn {
+  lines: CheckoutLineFragment[];
+  totalPrice: MoneyFragment;
+}
+
+export type { DogDto, MinPricesDto, CartReturn };

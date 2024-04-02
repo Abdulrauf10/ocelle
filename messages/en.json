@@ -4,6 +4,7 @@
   "{}-kcal-per-kg": "{value} kcal/kg",
   "per-day": "/day",
   "{}-per-day": "{value}/day",
+  "{}-g": "{value}g",
   "{}-days": "{value} Days",
   "{}-ordinal": "{value, selectordinal, one {#st} two {#nd} few {#rd} other {#th}}",
   "{}-of-{}": "{date} of {month}",
@@ -14,6 +15,11 @@
   "free": "Free",
   "months": "Month(s)",
   "years": "Year(s)",
+  "quantity": "Quantity",
+  "add-to-cart": "Add To Cart",
+  "subtotal": "Subtotal",
+  "continue-browsing": "Continue Browsing",
+  "continue-to-checkout": "Continue To Checkout",
   "set-{}": "Set {value}",
   "edit-{}": "Edit {value}",
   "every-{}": "Every {value}",
@@ -216,6 +222,7 @@
   "use-transition": "Use Transition",
   "starter-box": "Starter Box",
   "with-your-starter-discount": "with your starter discount.",
+  "customer-details": "Customer Details",
   "user-account-information": "User Account Information",
   "password": "Password",
   "new-password": "New Password",
@@ -414,5 +421,8 @@
   "whats-inside": "What’s Inside?",
   "whats-not-inside": "What’s Not Inside?",
   "nutrition-profile": "Nutrition Profile",
-  "see-my-recipes":"See My Recipes"
+  "see-my-recipes":"See My Recipes",
+  "your-order-will-be-delivered-on-the-{}": "Your order will be delivered on the <important>{date}</important>.",
+  "your-cart": "Your Cart",
+  "test-bundle": "Test Bundle"
 }

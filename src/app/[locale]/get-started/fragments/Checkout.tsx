@@ -1,14 +1,15 @@
 import React from 'react';
 import Stage from '../Stage';
 import AppThemeProvider from '@/components/AppThemeProvider';
-import { completeCheckout, processCheckout } from '../actions';
-import CheckoutForm from '../CheckoutForm';
 import { CardNumberElement } from '@stripe/react-stripe-js';
+import { applyCoupon, completeCheckout, processCheckout } from '../actions';
+import SubscriptionCheckoutForm from '@/components/forms/SubscriptionCheckoutForm';
 import { useSurvey } from '../SurveyContext';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
 import { useRouter } from '@/navigation';
+import CouponForm from '@/components/forms/Coupon';
 import StripeLoader from '@/components/StripeLoader';
 
 export default function CheckoutFragment() {
@@ -46,10 +47,11 @@ export default function CheckoutFragment() {
           clientSecret={state.stripe.paymentIntent.client_secret}
           publishableKey={state.stripe.publishableKey}
         >
-          <CheckoutForm
+          <SubscriptionCheckoutForm
             dogs={dogs}
             closestDeliveryDate={state.closestDeliveryDate}
             calendarEvents={state.calendarEvents}
+            couponForm={<CouponForm action={applyCoupon} />}
             onEditMealPlan={() => navigate(Stage.ChoosePlan, { state: { isEdit: true } })}
             onEditRecipes={() => navigate(Stage.RecommendedPlan, { state: { isEdit: true } })}
             onEditTransitionPeriod={() =>

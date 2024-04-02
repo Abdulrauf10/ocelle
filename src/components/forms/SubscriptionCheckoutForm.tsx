@@ -1,34 +1,52 @@
+'use client';
+
 import React from 'react';
+import clsx from 'clsx';
 import Container from '@/components/Container';
-import Section from './Section';
 import { TextField } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import DateCalendar from '@/components/controls/DateCalendar';
 import Price from '@/components/Price';
 import Button from '@/components/Button';
-import PartialCardForm from '@/components/forms/partial/Card';
-import PartialAddressForm, { IPartialAddressForm } from '@/components/forms/partial/Address';
+import PartialCardForm from './partial/Card';
+import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import EditButton from '@/components/EditButton';
 import { useTranslations } from 'next-intl';
 import PasswordField from '@/components/controls/PasswordField';
 import UnderlineButton from '@/components/UnderlineButton';
-import CouponForm from '@/components/forms/Coupon';
-import { Dog } from './SurveyContext';
-import { MealPlan } from '@/enums';
+import { MealPlan, Recipe } from '@/enums';
 import { getRecipeSlug, isUnavailableDeliveryDate } from '@/helpers/dog';
 import { addWeeks } from 'date-fns';
 import { formatDate } from '@/helpers/date';
 import { CalendarEvent } from '@/types';
-import { applyCoupon } from './actions';
 import { useElements, useStripe } from '@stripe/react-stripe-js';
 import { Stripe, StripeElements } from '@stripe/stripe-js';
 
-function Break() {
-  return <div className="mt-10"></div>;
+function Section({
+  title,
+  description,
+  className,
+  dense,
+  children,
+}: React.PropsWithChildren<{
+  title: React.ReactNode;
+  description?: React.ReactNode;
+  className?: string;
+  dense?: boolean;
+}>) {
+  return (
+    <>
+      <div className={className}>
+        <h2 className="heading-4 mb-4 font-bold text-primary">{title}</h2>
+        {description && <p className="body-3 mb-2 italic text-primary">{description}</p>}
+      </div>
+      <div className={clsx(!dense && 'mt-4')}>{children}</div>
+    </>
+  );
 }
 
-function CheckoutBlock({ title, children }: React.PropsWithChildren<{ title?: string }>) {
+function SummaryBlock({ title, children }: React.PropsWithChildren<{ title?: string }>) {
   return (
     <div className="mt-4 border-t border-gold pt-4">
       {title && <h3 className="body-2 font-bold text-gold">{title}</h3>}
@@ -37,7 +55,7 @@ function CheckoutBlock({ title, children }: React.PropsWithChildren<{ title?: st
   );
 }
 
-interface ICheckoutForm {
+interface ISubscriptionCheckoutForm {
   firstName: string;
   lastName: string;
   email: string;
@@ -52,26 +70,43 @@ interface ICheckoutForm {
   billingAddress: IPartialAddressForm;
 }
 
-type ICheckoutFormAction = Omit<ICheckoutForm, 'billingAddress' | 'confirmPassword'> & {
+type ISubscriptionCheckoutFormAction = Omit<
+  ISubscriptionCheckoutForm,
+  'billingAddress' | 'confirmPassword'
+> & {
   billingAddress?: IPartialAddressForm;
 };
 
-export default function CheckoutForm({
+type DogData = {
+  name?: string;
+  mealPlan?: MealPlan;
+  recipe1?: Recipe;
+  recipe2?: Recipe;
+  isEnabledTransitionPeriod?: boolean;
+};
+
+export default function SubscriptionCheckoutForm({
   dogs,
   closestDeliveryDate,
   calendarEvents,
+  couponForm,
   onEditMealPlan,
   onEditRecipes,
   onEditTransitionPeriod,
   action,
 }: {
-  dogs: Dog[];
+  dogs: DogData[];
   closestDeliveryDate: Date;
   calendarEvents: CalendarEvent[];
+  couponForm: React.ReactNode;
   onEditMealPlan(): void;
   onEditRecipes(): void;
   onEditTransitionPeriod(): void;
-  action(data: ICheckoutFormAction, stripe: Stripe, elements: StripeElements): Promise<void>;
+  action(
+    data: ISubscriptionCheckoutFormAction,
+    stripe: Stripe,
+    elements: StripeElements
+  ): Promise<void>;
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -81,7 +116,7 @@ export default function CheckoutForm({
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<ICheckoutForm>({
+  } = useForm<ISubscriptionCheckoutForm>({
     defaultValues: {
       isSameBillingAddress: true,
       tnc: true,
@@ -91,7 +126,7 @@ export default function CheckoutForm({
   const [isSubmitInProgress, setIsSubmitInProgress] = React.useState(false);
 
   const onSubmit = React.useCallback(
-    async ({ billingAddress, confirmPassword, ...values }: ICheckoutForm) => {
+    async ({ billingAddress, confirmPassword, ...values }: ISubscriptionCheckoutForm) => {
       if (!stripe || !elements) {
         // Stripe.js hasn't yet loaded.
         // Make  sure to disable form submission until Stripe.js has loaded.
@@ -199,7 +234,7 @@ export default function CheckoutForm({
                 />
               </div>
             </Section>
-            <Break />
+            <div className="mt-10"></div>
             <Section dense title={t('delivery-address')}>
               <PartialAddressForm control={control} prefix="deliveryAddress" />
               <div className="mt-3">
@@ -211,7 +246,7 @@ export default function CheckoutForm({
                 />
               </div>
             </Section>
-            <Break />
+            <div className="mt-10"></div>
             <Section dense title={t('billing-address')}>
               <PartialAddressForm
                 control={control}
@@ -219,11 +254,11 @@ export default function CheckoutForm({
                 disabled={watch('isSameBillingAddress') || isSubmitInProgress}
               />
             </Section>
-            <Break />
+            <div className="mt-10"></div>
             <Section dense title={t('payment-information')}>
               <PartialCardForm control={control} />
             </Section>
-            <Break />
+            <div className="mt-10"></div>
             <Section dense title={t('delivery-date')}>
               <p className="body-3">
                 {t('{}-{}-week-starter-box-will-be-delivered-on-the-{}', {
@@ -255,7 +290,7 @@ export default function CheckoutForm({
           <div className="w-1/3 px-6 max-lg:w-2/5 max-lg:px-3 max-md:mt-8 max-md:w-full">
             <div className="rounded-3xl bg-gold bg-opacity-10 px-6 py-10">
               <h2 className="heading-4 font-bold text-gold">{t('order-summary')}</h2>
-              <CheckoutBlock title={t('{}-colon', { value: t('your-plan') })}>
+              <SummaryBlock title={t('{}-colon', { value: t('your-plan') })}>
                 {dogs.map((dog, idx) => {
                   return (
                     <p key={idx} className="body-3 mt-1">
@@ -270,10 +305,10 @@ export default function CheckoutForm({
                     </p>
                   );
                 })}
-              </CheckoutBlock>
+              </SummaryBlock>
               {dogs.map((dog, idx) => {
                 return (
-                  <CheckoutBlock
+                  <SummaryBlock
                     key={idx}
                     title={t('{}-colon', { value: t('{}-fresh-food-box', { name: dog.name }) })}
                   >
@@ -314,13 +349,11 @@ export default function CheckoutForm({
                         <EditButton onClick={onEditTransitionPeriod} />
                       </div>
                     </div>
-                  </CheckoutBlock>
+                  </SummaryBlock>
                 );
               })}
-              <CheckoutBlock title={t('discount-coupon')}>
-                <CouponForm action={applyCoupon} />
-              </CheckoutBlock>
-              <CheckoutBlock>
+              <SummaryBlock title={t('discount-coupon')}>{couponForm}</SummaryBlock>
+              <SummaryBlock>
                 <div className="body-3 -mx-1 flex flex-wrap justify-between">
                   <div className="px-1">
                     {t('{}-colon', { value: t('fresh-food-box-subtotal') })}
@@ -347,8 +380,8 @@ export default function CheckoutForm({
                     <Price className="font-bold uppercase" value={t('free')} dollorSign={false} />
                   </div>
                 </div>
-              </CheckoutBlock>
-              <CheckoutBlock>
+              </SummaryBlock>
+              <SummaryBlock>
                 <div className="-mx-1 flex flex-wrap justify-between font-bold">
                   <div className="px-1">{t('{}-colon', { value: t('todays-total') })}</div>
                   <div className="px-1">$250</div>
@@ -368,7 +401,7 @@ export default function CheckoutForm({
                 <div className="mt-4 text-center">
                   <Button disabled={!stripe || isSubmitInProgress}>{t('checkout')}</Button>
                 </div>
-              </CheckoutBlock>
+              </SummaryBlock>
             </div>
             <div className="mt-10 rounded-3xl bg-gold bg-opacity-10 px-6 py-10">
               <h2 className="heading-4 font-bold text-gold">{t('subscription')}</h2>

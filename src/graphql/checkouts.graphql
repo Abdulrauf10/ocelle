@@ -19,12 +19,33 @@ fragment Checkout on Checkout {
   }
   totalPrice {
     gross {
-      currency
-      amount
+      ...Money
     }
   }
   shippingMethods {
     ...ShippingMethod
+  }
+  lines {
+    ...CheckoutLine
+  }
+}
+
+fragment CheckoutLine on CheckoutLine {
+  id
+  variant {
+    id
+    sku
+  }
+  quantity
+  unitPrice {
+    gross {
+      ...Money
+    }
+  }
+  totalPrice {
+    gross {
+      ...Money
+    }
   }
 }
 
@@ -102,6 +123,45 @@ mutation UpdateCheckoutAddress(
     }
   }
   checkoutBillingAddressUpdate(id: $checkoutId, billingAddress: $billingAddress) {
+    errors {
+      field
+      message
+      code
+    }
+    checkout {
+      ...Checkout
+    }
+  }
+}
+
+mutation AddCheckoutLines($checkoutId: ID!, $lines: [CheckoutLineInput!]!) {
+  checkoutLinesAdd(id: $checkoutId, lines: $lines) {
+    errors {
+      field
+      message
+      code
+    }
+    checkout {
+      ...Checkout
+    }
+  }
+}
+
+mutation UpdateCheckoutLines($checkoutId: ID!, $lines: [CheckoutLineUpdateInput!]!) {
+  checkoutLinesUpdate(id: $checkoutId, lines: $lines) {
+    errors {
+      field
+      message
+      code
+    }
+    checkout {
+      ...Checkout
+    }
+  }
+}
+
+mutation RemoveCheckoutLines($checkoutId: ID!, $linesIds: [ID!]!) {
+  checkoutLinesDelete(id: $checkoutId, linesIds: $linesIds) {
     errors {
       field
       message
