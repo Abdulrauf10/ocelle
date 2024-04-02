@@ -41,9 +41,9 @@ export default function View({ children }: React.PropsWithChildren) {
   return (
     <>
       <Header
-        menu={false}
-        languageSwitch={false}
-        getStarted={false}
+        disableMenuButton
+        disableLanguageSwitch
+        disableGetStartedButton
         startAdornment={
           <div className="hidden px-2 max-lg:block">
             <BackButton

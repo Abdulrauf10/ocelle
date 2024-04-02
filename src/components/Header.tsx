@@ -11,9 +11,9 @@ import { logout } from '@/actions';
 
 interface HeaderProps {
   nav?: React.ReactNode;
-  menu?: boolean;
-  languageSwitch?: boolean;
-  getStarted?: boolean;
+  disableMenuButton?: boolean;
+  disableLanguageSwitch?: boolean;
+  disableGetStartedButton?: boolean;
   disableLoginButton?: boolean;
   startAdornment?: React.ReactNode;
   endAdornment?: React.ReactNode;
@@ -21,9 +21,9 @@ interface HeaderProps {
 
 export default function Header({
   nav,
-  menu = true,
-  languageSwitch = true,
-  getStarted = true,
+  disableMenuButton,
+  disableLanguageSwitch,
+  disableGetStartedButton,
   disableLoginButton,
   startAdornment,
   endAdornment,
@@ -42,7 +42,7 @@ export default function Header({
     <header className="relative bg-white px-[2vw] py-3 max-lg:px-4">
       <div className="-mx-2 flex flex-row flex-wrap items-center justify-between">
         {startAdornment}
-        {menu && (
+        {!disableMenuButton && (
           <div className="hidden px-2 max-lg:flex">
             <button onClick={() => setIsOpened((v) => !v)}>
               <HamburgerMenu className="w-[26px]" />
@@ -70,10 +70,10 @@ export default function Header({
             )}
           >
             <div className="flex-1 px-2">{nav && <div className="max-lg:pt-4">{nav}</div>}</div>
-            {(languageSwitch || getStarted) && (
+            {(!disableLanguageSwitch || !disableGetStartedButton) && (
               <div className="relative z-10 px-2">
                 <div className="-m-2 flex flex-nowrap items-center whitespace-nowrap max-lg:flex-col">
-                  {languageSwitch && (
+                  {!disableLanguageSwitch && (
                     <div className="p-2">
                       <div className="-mx-3 max-lg:flex-col [&_a:hover]:text-primary [&_a:hover]:underline">
                         <Link
@@ -96,7 +96,7 @@ export default function Header({
                       </div>
                     </div>
                   )}
-                  {getStarted && (
+                  {!disableGetStartedButton && (
                     <div className="p-2">
                       <Link
                         href="/get-started"

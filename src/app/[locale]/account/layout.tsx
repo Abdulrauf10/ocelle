@@ -12,7 +12,7 @@ export default function AccountLayout({ children }: { children: React.ReactNode 
   return (
     <>
       <Sticky>
-        <Header nav={<Navigator />} getStarted={false} />
+        <Header nav={<Navigator />} disableGetStartedButton />
       </Sticky>
       {children}
       <Footer />
