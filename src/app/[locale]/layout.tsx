@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation';
 import { Jost, Open_Sans } from 'next/font/google';
 import clsx from 'clsx';
 import { AuthProvider } from '@/contexts/auth';
-import { NextIntlClientProvider } from 'next-intl';
 import '../globals.css';
+import IntlProvider from '@/providers/intl';
 
 const jost = Jost({ subsets: ['latin'], variable: '--font-jost' });
 const openSans = Open_Sans({
@@ -34,9 +34,9 @@ export default async function RootLayout({
   return (
     <html lang={locale}>
       <body className={clsx(jost.className, jost.variable, openSans.variable)}>
-        <NextIntlClientProvider locale={locale} messages={messages}>
+        <IntlProvider locale={locale} messages={messages}>
           <AuthProvider>{children}</AuthProvider>
-        </NextIntlClientProvider>
+        </IntlProvider>
       </body>
     </html>
   );
