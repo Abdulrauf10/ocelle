@@ -1,5 +1,6 @@
 'use server';
 
+import { deleteCheckoutCookie, getCheckoutCookie, setCheckoutCookie } from '@/actions';
 import { Breed, Dog, DogBreed, DogOrder, DogPlan, Order, User } from '@/entities';
 import { MealPlan, OrderSize } from '@/enums';
 import {
@@ -40,7 +41,6 @@ import {
 } from '@/helpers/redis';
 import { redirect } from '@/navigation';
 import { DogDto, MinPricesDto } from '@/types/dto';
-import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import { addDays, startOfDay } from 'date-fns';
 import Joi from 'joi';
 import { headers } from 'next/headers';
@@ -92,8 +92,7 @@ export async function getMinPerDayPrice(
 }
 
 async function getCheckout(): Promise<CheckoutFragment> {
-  const nextServerCookiesStorage = getNextServerCookiesStorage();
-  const checkoutId = nextServerCookiesStorage.getItem('checkout');
+  const checkoutId = await getCheckoutCookie();
 
   if (!checkoutId) {
     throw new Error('checkout id cannot be found');
@@ -243,9 +242,7 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
 
   await setSubscriptionCheckoutParameters(checkout.id, email, orderSize, dogs);
 
-  const nextServerCookiesStorage = getNextServerCookiesStorage();
-
-  nextServerCookiesStorage.setItem('checkout', checkout.id);
+  await setCheckoutCookie(checkout.id);
 
   console.log('checkout debug');
   console.dir(checkout, { depth: null });
@@ -687,8 +684,7 @@ export async function finalizeCheckout() {
 }
 
 export async function getDeliveryDate() {
-  const nextServerCookiesStorage = getNextServerCookiesStorage();
-  const id = nextServerCookiesStorage.getItem('checkout');
+  const id = await getCheckoutCookie();
 
   if (!id) {
     return undefined;
@@ -704,5 +700,5 @@ export async function getDeliveryDate() {
 }
 
 export async function dropCheckoutSession() {
-  getNextServerCookiesStorage().removeItem('checkout');
+  await deleteCheckoutCookie();
 }

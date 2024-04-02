@@ -31,3 +31,15 @@ export async function getCartCookie() {
 export async function deleteCartCookie() {
   return getNextServerCookiesStorage().removeItem('cart');
 }
+
+export async function setCheckoutCookie(value: string) {
+  return getNextServerCookiesStorage().setItem('checkout', value);
+}
+
+export async function getCheckoutCookie() {
+  return getNextServerCookiesStorage().getItem('checkout');
+}
+
+export async function deleteCheckoutCookie() {
+  return getNextServerCookiesStorage().removeItem('checkout');
+}
