@@ -216,6 +216,13 @@ export function getClosestDeliveryDateByDate(currentDate = new Date(), events: C
   );
 }
 
+/**
+ * calculate the delivery date after order placement
+ */
+export function getClosestOrderDeliveryDate(events: CalendarEvent[]) {
+  return getClosestDeliveryDateByDate(addDays(new Date(), 1), events);
+}
+
 export function getEditableDeliveryDateDeadline(orderDate: Date) {
   //
 }

@@ -25,11 +25,12 @@ import { getCalendarEvents } from '@/helpers/calendar';
 import {
   calculateRecipePerDayPrice,
   calculateRecipeTotalPrice,
-  getClosestDeliveryDateByDate,
+  getClosestOrderDeliveryDate,
   getTheCheapestRecipe,
   isUnavailableDeliveryDate,
   recipeSubscriptionVariantsMap,
 } from '@/helpers/dog';
+import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
 import {
@@ -38,7 +39,6 @@ import {
   upsertCheckoutParameters,
 } from '@/helpers/redis';
 import { redirect } from '@/navigation';
-import { ActivityLevel, BodyCondition, CalendarEvent } from '@/types';
 import { DogDto, MinPricesDto } from '@/types/dto';
 import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import { addDays, startOfDay } from 'date-fns';
@@ -46,23 +46,6 @@ import Joi from 'joi';
 import { headers } from 'next/headers';
 import invariant from 'ts-invariant';
 import { In } from 'typeorm';
-
-const stripeAppId = process.env.SALEOR_STRIPE_APP_ID ?? 'app.saleor.stripe';
-
-/**
- * calculate the delivery date after order placement
- */
-export async function getClosestDeliveryDate() {
-  return getClosestDeliveryDateSync(await getCalendarEvents());
-}
-
-/**
- * calculate the delivery date after order placement
- */
-function getClosestDeliveryDateSync(events: CalendarEvent[]) {
-  // 1 day means calculation after place order
-  return getClosestDeliveryDateByDate(addDays(new Date(), 1), events);
-}
 
 export async function getMinPerDayPrice(
   dog: Pick<
@@ -133,6 +116,10 @@ async function getCheckout(): Promise<CheckoutFragment> {
 
 export async function createCheckout(email: string, orderSize: OrderSize, dogs: DogDto[]) {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
+  invariant(
+    process.env.SALEOR_SUBSCRIPTION_PRODUCT_SLUG,
+    'Missing SALEOR_SUBSCRIPTION_PRODUCT_SLUG env variable'
+  );
 
   const { channel } = await executeGraphQL(GetChannelDocument, {
     withAuth: false,
@@ -153,7 +140,7 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
-      slug: process.env.SALEOR_SUBSCRIPTION_PRODUCT_SLUG!,
+      slug: process.env.SALEOR_SUBSCRIPTION_PRODUCT_SLUG,
     },
   });
 
@@ -248,6 +235,7 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
   }
 
   const checkout = checkoutCreate.checkout!;
+  const stripeAppId = getStripeAppId();
 
   if (!checkout.availablePaymentGateways.find((x) => x.id === stripeAppId)) {
     throw new Error('stripe is currently not available');
@@ -300,7 +288,7 @@ export async function initializeStripeTranscation() {
     variables: {
       checkoutId: checkout.id,
       paymentGateway: {
-        id: stripeAppId,
+        id: getStripeAppId(),
         data: {
           automatic_payment_methods: {
             enabled: true,
@@ -451,7 +439,7 @@ export async function processCheckout(data: ProcessCheckoutAction) {
 
   if (
     isUnavailableDeliveryDate(value.deliveryDate, calendarEvents) ||
-    getClosestDeliveryDateSync(calendarEvents) > startOfDay(value.deliveryDate)
+    getClosestOrderDeliveryDate(calendarEvents) > startOfDay(value.deliveryDate)
   ) {
     throw new Error('delivery date is unavailable');
   }
