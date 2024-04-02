@@ -11,6 +11,7 @@ import {
   InitializeTransactionDocument,
   RemoveCheckoutLinesDocument,
   UpdateCheckoutAddressDocument,
+  UpdateCheckoutEmailDocument,
   UpdateCheckoutLinesDocument,
   UpdateCheckoutShippingMethodDocument,
 } from '@/gql/graphql';
@@ -202,6 +203,18 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
     getClosestOrderDeliveryDate(calendarEvents) > startOfDay(value.deliveryDate)
   ) {
     throw new Error('delivery date is unavailable');
+  }
+
+  const { checkoutEmailUpdate } = await executeGraphQL(UpdateCheckoutEmailDocument, {
+    variables: {
+      checkoutId: checkout.id,
+      email: value.email,
+    },
+  });
+
+  if (!checkoutEmailUpdate || checkoutEmailUpdate.errors.length > 0) {
+    checkoutEmailUpdate && console.error(checkoutEmailUpdate?.errors);
+    throw new Error('unable update the checkout email address');
   }
 
   const shippingAddress = {
