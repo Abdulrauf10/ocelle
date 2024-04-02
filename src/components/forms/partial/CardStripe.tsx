@@ -8,14 +8,13 @@ import {
   StripeTextFieldNumber,
 } from '@/components/controls/StripeTextField';
 
-export interface IPartialCardForm {
-  cardName: string;
+export interface IPartialCardStripeForm {
   cardNo: string;
   cardExp: string;
   cardCvc: string;
 }
 
-export default function PartialCardForm() {
+export default function PartialCardStripeForm() {
   const t = useTranslations();
 
   return (
@@ -65,15 +64,6 @@ export default function PartialCardForm() {
       </div>
       <div className="mt-3">
         <div className="-m-2 flex flex-wrap">
-          {/* <div className="w-full p-2">
-            <TextField
-              name={'cardName' as FieldPath<T>}
-              control={control}
-              rules={{ required: true }}
-              label={t('name-on-card')}
-              fullWidth
-            />
-          </div> */}
           <div className="w-full p-2">
             <StripeTextFieldNumber
               label={t('card-number')}

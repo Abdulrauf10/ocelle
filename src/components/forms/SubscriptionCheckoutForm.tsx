@@ -8,7 +8,7 @@ import { Controller, useForm } from 'react-hook-form';
 import DateCalendar from '@/components/controls/DateCalendar';
 import Price from '@/components/Price';
 import Button from '@/components/Button';
-import PartialCardForm from './partial/Card';
+import PartialCardStripeForm from './partial/CardStripe';
 import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import EditButton from '@/components/EditButton';
@@ -299,7 +299,7 @@ export default function SubscriptionCheckoutForm({
             </Section>
             <div className="mt-10"></div>
             <Section dense title={t('payment-information')}>
-              <PartialCardForm />
+              <PartialCardStripeForm />
             </Section>
             <div className="mt-10"></div>
             <Section dense title={t('delivery-date')}>
