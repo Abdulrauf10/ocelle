@@ -1,5 +1,6 @@
 'use server';
 
+import { getCartCookie, setCartCookie } from '@/actions';
 import { IndividualRecipePack, Recipe } from '@/enums';
 import {
   AddCheckoutLinesDocument,
@@ -14,7 +15,6 @@ import {
 import { recipeBundleVariant, recipeIndividualVariantsMap } from '@/helpers/dog';
 import { executeGraphQL } from '@/helpers/graphql';
 import { CartReturn } from '@/types/dto';
-import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import invariant from 'ts-invariant';
 
 function packToRecipe(pack: IndividualRecipePack) {
@@ -37,8 +37,7 @@ export async function getCartOrCheckout(
 ): Promise<CheckoutFragment | undefined> {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
-  const nextServerCookiesStorage = getNextServerCookiesStorage();
-  const cartOrCheckoutId = nextServerCookiesStorage.getItem('cart');
+  const cartOrCheckoutId = await getCartCookie();
 
   if (cartOrCheckoutId) {
     const { checkout } = await executeGraphQL(GetCheckoutDocument, {
@@ -86,7 +85,7 @@ export async function getCartOrCheckout(
 
   const checkout = checkoutCreate.checkout!;
 
-  nextServerCookiesStorage.setItem('cart', checkout.id);
+  setCartCookie(checkout.id);
 
   return checkout;
 }

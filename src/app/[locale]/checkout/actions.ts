@@ -1,5 +1,6 @@
 'use server';
 
+import { deleteCartCookie, getCartCookie } from '@/actions';
 import {
   AddPromoCodeDocument,
   CheckoutAuthorizeStatusEnum,
@@ -22,14 +23,12 @@ import { executeGraphQL } from '@/helpers/graphql';
 import { setIndividualCheckoutParameters } from '@/helpers/redis';
 import { redirect } from '@/navigation';
 import { CartReturn } from '@/types/dto';
-import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import { startOfDay } from 'date-fns';
 import Joi from 'joi';
 import invariant from 'ts-invariant';
 
 export async function getCartOrCheckout(): Promise<CheckoutFragment> {
-  const nextServerCookiesStorage = getNextServerCookiesStorage();
-  const cartOrCheckoutId = nextServerCookiesStorage.getItem('cart');
+  const cartOrCheckoutId = await getCartCookie();
 
   if (!cartOrCheckoutId) {
     console.error('checkout id cannot be found');
