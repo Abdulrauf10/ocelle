@@ -20,6 +20,7 @@ import { getClosestOrderDeliveryDate, isUnavailableDeliveryDate } from '@/helper
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
 import { setIndividualCheckoutParameters } from '@/helpers/redis';
+import { redirect } from '@/navigation';
 import { CartReturn } from '@/types/dto';
 import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import { startOfDay } from 'date-fns';
@@ -31,7 +32,8 @@ export async function getCartOrCheckout(): Promise<CheckoutFragment> {
   const cartOrCheckoutId = nextServerCookiesStorage.getItem('cart');
 
   if (!cartOrCheckoutId) {
-    throw new Error('checkout id cannot be found');
+    console.error('checkout id cannot be found');
+    return redirect('/');
   }
 
   const { checkout } = await executeGraphQL(GetCheckoutDocument, {
@@ -43,7 +45,8 @@ export async function getCartOrCheckout(): Promise<CheckoutFragment> {
   });
 
   if (!checkout) {
-    throw new Error('cart or checkout not found');
+    console.error('cart or checkout not found');
+    return redirect('/');
   }
 
   return checkout;
