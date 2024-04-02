@@ -20,8 +20,7 @@ import { getRecipeSlug, isUnavailableDeliveryDate } from '@/helpers/dog';
 import { addWeeks } from 'date-fns';
 import { formatDate } from '@/helpers/date';
 import { CalendarEvent } from '@/types';
-import { useElements, useStripe } from '@stripe/react-stripe-js';
-import { Stripe, StripeElements } from '@stripe/stripe-js';
+import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
 
 function Section({
   title,
@@ -87,26 +86,26 @@ type DogData = {
 
 export default function SubscriptionCheckoutForm({
   dogs,
+  clientSecret,
   closestDeliveryDate,
   calendarEvents,
   couponForm,
   onEditMealPlan,
   onEditRecipes,
   onEditTransitionPeriod,
-  action,
+  onBeforeTransaction,
+  onCompleteTransaction,
 }: {
   dogs: DogData[];
+  clientSecret: string;
   closestDeliveryDate: Date;
   calendarEvents: CalendarEvent[];
   couponForm: React.ReactNode;
   onEditMealPlan(): void;
   onEditRecipes(): void;
   onEditTransitionPeriod(): void;
-  action(
-    data: ISubscriptionCheckoutFormAction,
-    stripe: Stripe,
-    elements: StripeElements
-  ): Promise<void>;
+  onBeforeTransaction(data: ISubscriptionCheckoutFormAction): Promise<void>;
+  onCompleteTransaction(): Promise<void>;
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -135,20 +134,63 @@ export default function SubscriptionCheckoutForm({
       if (isSubmitInProgress) {
         return;
       }
+      // validate stripe fields
+      const { error } = await elements.submit();
+      if (error) {
+        console.log(error);
+        return;
+      }
       try {
         setIsSubmitInProgress(true);
-        await action(
-          values.isSameBillingAddress ? values : { ...values, billingAddress },
-          stripe,
-          elements
+        await onBeforeTransaction(
+          values.isSameBillingAddress ? values : { ...values, billingAddress }
         );
+        const card = elements.getElement(CardNumberElement);
+        if (!card) {
+          throw new Error('cannot find card element');
+        }
+        const address = values.isSameBillingAddress ? values.deliveryAddress : billingAddress!;
+        const { error } = await stripe.confirmCardPayment(clientSecret, {
+          payment_method: {
+            card,
+            billing_details: {
+              name: address.firstName + ' ' + address.lastName,
+              email: values.email,
+              address: {
+                city: address.district,
+                country: address.country,
+                line1: address.streetAddress1,
+                line2: address.streetAddress2,
+                state: address.region,
+              },
+              phone: '+852' + values.phone, // assume all phones are from HK
+            },
+          },
+          receipt_email: values.email,
+          // save_payment_method: true,
+        });
+        if (error) {
+          console.log(error);
+          // This point will only be reached if there is an immediate error when
+          // confirming the payment. Otherwise, your customer will be redirected to
+          // your `return_url`. For some payment methods like iDEAL, your customer will
+          // be redirected to an intermediate site first to authorize the payment, then
+          // redirected to the `return_url`.
+          if (error.type === 'card_error' || error.type === 'validation_error') {
+            console.error(error.message ?? 'Something went wrong');
+          } else {
+            console.error('An unexpected error occurred');
+          }
+          return;
+        }
+        await onCompleteTransaction();
       } catch (e) {
         console.error(e);
       } finally {
         setIsSubmitInProgress(false);
       }
     },
-    [action, stripe, elements, isSubmitInProgress]
+    [clientSecret, stripe, elements, isSubmitInProgress, onBeforeTransaction, onCompleteTransaction]
   );
 
   return (

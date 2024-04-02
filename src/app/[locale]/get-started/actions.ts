@@ -383,7 +383,7 @@ interface Address {
   country: string;
 }
 
-interface ProcessCheckoutAction {
+interface UpdateCheckoutDataAction {
   firstName: string;
   lastName: string;
   email: string;
@@ -407,7 +407,7 @@ const addressSchema = Joi.object({
   country: Joi.string().required(),
 });
 
-const schema = Joi.object<ProcessCheckoutAction>({
+const schema = Joi.object<UpdateCheckoutDataAction>({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   email: Joi.string().required(),
@@ -421,7 +421,7 @@ const schema = Joi.object<ProcessCheckoutAction>({
   billingAddress: addressSchema,
 });
 
-export async function processCheckout(data: ProcessCheckoutAction) {
+export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
   const headersList = headers();
@@ -522,7 +522,7 @@ export async function processCheckout(data: ProcessCheckoutAction) {
   }
 }
 
-export async function completeCheckout() {
+export async function finalizeCheckout() {
   try {
     const checkout = await getCheckout();
     const params = await getSubscriptionCheckoutParameters(checkout.id);

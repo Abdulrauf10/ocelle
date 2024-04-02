@@ -1,8 +1,7 @@
 import React from 'react';
 import Stage from '../Stage';
 import AppThemeProvider from '@/components/AppThemeProvider';
-import { CardNumberElement } from '@stripe/react-stripe-js';
-import { applyCoupon, completeCheckout, processCheckout } from '../actions';
+import { applyCoupon, finalizeCheckout, updateCheckoutData } from '../actions';
 import SubscriptionCheckoutForm from '@/components/forms/SubscriptionCheckoutForm';
 import { useSurvey } from '../SurveyContext';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -49,6 +48,7 @@ export default function CheckoutFragment() {
         >
           <SubscriptionCheckoutForm
             dogs={dogs}
+            clientSecret={state.stripe.paymentIntent.client_secret}
             closestDeliveryDate={state.closestDeliveryDate}
             calendarEvents={state.calendarEvents}
             couponForm={<CouponForm action={applyCoupon} />}
@@ -57,52 +57,9 @@ export default function CheckoutFragment() {
             onEditTransitionPeriod={() =>
               navigate(Stage.RecommendedPlan, { state: { isEdit: true } })
             }
-            action={async (data, stripe, elements) => {
-              await processCheckout(data);
-              const card = elements.getElement(CardNumberElement);
-              if (!card) {
-                throw new Error('cannot find card element');
-              }
-              const address = data.isSameBillingAddress
-                ? data.deliveryAddress
-                : data.billingAddress!;
-              const { error } = await stripe.confirmCardPayment(
-                state.stripe.paymentIntent.client_secret,
-                {
-                  payment_method: {
-                    card,
-                    billing_details: {
-                      name: address.firstName + ' ' + address.lastName,
-                      email: data.email,
-                      address: {
-                        city: address.district,
-                        country: address.country,
-                        line1: address.streetAddress1,
-                        line2: address.streetAddress2,
-                        state: address.region,
-                      },
-                      phone: '+852' + data.phone, // assume all phones are from HK
-                    },
-                  },
-                  receipt_email: data.email,
-                  // save_payment_method: true,
-                }
-              );
-              if (error) {
-                console.log(error);
-                // This point will only be reached if there is an immediate error when
-                // confirming the payment. Otherwise, your customer will be redirected to
-                // your `return_url`. For some payment methods like iDEAL, your customer will
-                // be redirected to an intermediate site first to authorize the payment, then
-                // redirected to the `return_url`.
-                if (error.type === 'card_error' || error.type === 'validation_error') {
-                  console.error(error.message ?? 'Something went wrong');
-                } else {
-                  console.error('An unexpected error occurred');
-                }
-                return;
-              }
-              await completeCheckout();
+            onBeforeTransaction={updateCheckoutData}
+            onCompleteTransaction={async () => {
+              await finalizeCheckout();
               router.push('/get-started/complete');
             }}
           />
