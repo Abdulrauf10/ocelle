@@ -14,6 +14,7 @@ interface HeaderProps {
   menu?: boolean;
   languageSwitch?: boolean;
   getStarted?: boolean;
+  disableLoginButton?: boolean;
   startAdornment?: React.ReactNode;
   endAdornment?: React.ReactNode;
 }
@@ -23,6 +24,7 @@ export default function Header({
   menu = true,
   languageSwitch = true,
   getStarted = true,
+  disableLoginButton,
   startAdornment,
   endAdornment,
 }: HeaderProps) {
@@ -47,7 +49,7 @@ export default function Header({
             </button>
           </div>
         )}
-        <Link href="/" className="relative z-10 px-2">
+        <Link href="/" className="relative z-10 mx-auto px-2">
           <Image
             alt="Ocelle"
             src="/ocelle-logo.png"
@@ -109,17 +111,20 @@ export default function Header({
             )}
           </div>
         </div>
-        <div className="relative z-10 px-2">
-          {auth.logined ? (
-            <button className="whitespace-nowrap hover:underline max-lg:mr-0" onClick={logout}>
-              {t('log-out')}
-            </button>
-          ) : (
-            <Link href="/auth/login" className="whitespace-nowrap hover:underline max-lg:mr-0">
-              {t('log-in')}
-            </Link>
-          )}
-        </div>
+        {!disableLoginButton && (
+          <div className="relative z-10 px-2">
+            {auth.logined ? (
+              <button className="whitespace-nowrap hover:underline max-lg:mr-0" onClick={logout}>
+                {t('log-out')}
+              </button>
+            ) : (
+              <Link href="/auth/login" className="whitespace-nowrap hover:underline max-lg:mr-0">
+                {t('log-in')}
+              </Link>
+            )}
+          </div>
+        )}
+
         {endAdornment}
       </div>
     </header>
