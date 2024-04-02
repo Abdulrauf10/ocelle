@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import type { FieldValues } from 'react-hook-form';
 import clsx from 'clsx';
-import Close from '../icons/Close';
+import CloseCircle from '../icons/CloseCircle';
 import RoundedCheckbox from './RoundedCheckbox';
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '../Dialog';
 import { useTranslations } from 'next-intl';
@@ -190,7 +190,7 @@ export default function RecipeCheckbox<T extends FieldValues>({
                     </>
                   )}
                   <DialogClose className="absolute right-4 top-3 cursor-pointer">
-                    <Close className="h-5 w-5" />
+                    <CloseCircle className="h-5 w-5" />
                   </DialogClose>
                 </div>
               </div>

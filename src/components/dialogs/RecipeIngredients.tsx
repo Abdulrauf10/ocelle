@@ -4,7 +4,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination } from 'swiper/modules';
 import { useTranslations } from 'next-intl';
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '../Dialog';
-import Close from '../icons/Close';
+import CloseCircle from '../icons/CloseCircle';
 import Image from 'next/image';
 
 import 'swiper/css';
@@ -247,7 +247,7 @@ export default function RecipeIngredientsDialog({
             </div>
           </DialogBlock>
           <DialogClose className="absolute right-5 top-4 cursor-pointer">
-            <Close className="h-7 w-7 md:h-8 md:w-8" />
+            <CloseCircle className="h-7 w-7 md:h-8 md:w-8" />
           </DialogClose>
         </div>
       </DialogContent>
