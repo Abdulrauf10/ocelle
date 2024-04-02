@@ -4,13 +4,14 @@ import Container from '@/components/Container';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';
 import { Dog, useSurvey } from '../SurveyContext';
-import { createCheckout, getClosestDeliveryDate, initializeStripeTranscation } from '../actions';
+import { createCheckout, initializeStripeTranscation } from '../actions';
 import { OrderSize } from '@/enums';
 import { CalendarEvent } from '@/types';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
 import { getDateOfBirth } from '@/helpers/dog';
+import { getClosestDeliveryDate } from '@/actions';
 
 function isIncompletedDogProfile(dog: Dog) {
   return (
