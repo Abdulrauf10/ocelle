@@ -299,7 +299,7 @@ export default function SubscriptionCheckoutForm({
             </Section>
             <div className="mt-10"></div>
             <Section dense title={t('payment-information')}>
-              <PartialCardForm control={control} />
+              <PartialCardForm />
             </Section>
             <div className="mt-10"></div>
             <Section dense title={t('delivery-date')}>

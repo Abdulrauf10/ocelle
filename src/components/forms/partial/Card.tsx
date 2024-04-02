@@ -1,9 +1,7 @@
-import type { Control, FieldValues, FieldPath } from 'react-hook-form';
 import Stripe from '../../icons/Stripe';
 import Lock from '../../icons/Lock';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import TextField from '../../controls/TextField';
 import {
   StripeTextFieldCVC,
   StripeTextFieldExpiry,
@@ -17,13 +15,7 @@ export interface IPartialCardForm {
   cardCvc: string;
 }
 
-interface PartialCardFormProps<T extends FieldValues> {
-  control: Control<T, any>;
-}
-
-export default function PartialCardForm<T extends FieldValues>({
-  control,
-}: PartialCardFormProps<T>) {
+export default function PartialCardForm() {
   const t = useTranslations();
 
   return (
