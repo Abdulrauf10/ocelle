@@ -23,11 +23,12 @@ function AddressBlock({ isDeliveryAddress, onSubmit }: AddressBlockProps) {
     handleSubmit,
     reset,
     formState: { isDirty },
+    watch,
   } = useForm();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <PartialAddressForm control={control} />
+      <PartialAddressForm control={control} watch={watch} />
       {isDeliveryAddress && (
         <div className="mt-4">
           <RoundedCheckbox

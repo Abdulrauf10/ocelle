@@ -2,7 +2,13 @@
 
 import React from 'react';
 import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
-import { Controller, type Control, type FieldValues, FieldPath } from 'react-hook-form';
+import {
+  Controller,
+  type Control,
+  type FieldValues,
+  FieldPath,
+  UseFormWatch,
+} from 'react-hook-form';
 import { useLocale, useTranslations } from 'next-intl';
 
 export type IPartialAddressForm = {
@@ -15,45 +21,24 @@ export type IPartialAddressForm = {
   country: string;
 };
 
-type DistrictMap = {
-  Kowloon: (keyof IntlMessages)[];
-  'New Territories': (keyof IntlMessages)[];
-  'Hong Kong Island': (keyof IntlMessages)[];
-};
-
-const districtMap: DistrictMap = {
-  Kowloon: ['kowloon-city', 'kwun-tong', 'sham-shui-po', 'wong-tai-sin', 'yau-tsim-mong'],
-  'New Territories': [
-    'islands',
-    'kwai-tsing',
-    'north',
-    'sai-kung',
-    'sha-tin',
-    'tai-po',
-    'tsuen-wan',
-    'tuen-mun',
-    'yuen-long',
-  ],
-  'Hong Kong Island': ['central-and-western', 'eastern', 'southern', 'wan-chai'],
-};
-
 interface PartialAddressFormProps<T extends FieldValues> {
   control: Control<T, any>;
   prefix?: string;
   disabled?: boolean;
+  watch: UseFormWatch<T>;
 }
 
 export default function PartialAddressForm<T extends FieldValues>({
   control,
   prefix,
   disabled,
+  watch,
 }: PartialAddressFormProps<T>) {
   const locale = useLocale();
   const t = useTranslations();
   const id = React.useId();
   const [pending, startTransition] = React.useTransition();
   const [districts, setDistricts] = React.useState<{ raw: string; verbose: string }[]>([]);
-  const [region, setRegion] = React.useState<string>();
 
   const getPath = React.useCallback(
     (key: string) => {
@@ -61,6 +46,8 @@ export default function PartialAddressForm<T extends FieldValues>({
     },
     [prefix]
   );
+
+  const region = watch(getPath('region'));
 
   React.useEffect(() => {
     if (region !== undefined) {
@@ -178,7 +165,6 @@ export default function PartialAddressForm<T extends FieldValues>({
           control={control}
           rules={{ required: !disabled }}
           render={({ field: { value, ...field }, fieldState: { error } }) => {
-            setRegion(value);
             return (
               <FormControl fullWidth disabled={disabled || pending}>
                 <InputLabel id={`${id}-region-label`}>{t('region')}</InputLabel>

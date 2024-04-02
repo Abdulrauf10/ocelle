@@ -65,7 +65,7 @@ export default function DeliveryAddressForm({
 
   return (
     <form ref={ref} onSubmit={handleSubmit(onSubmit)}>
-      <PartialAddressForm control={control} />
+      <PartialAddressForm control={control} watch={watch} />
       <div className="mt-4">
         <RoundedCheckbox
           name="isSameAsBillingAddress"

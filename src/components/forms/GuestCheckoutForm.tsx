@@ -240,7 +240,7 @@ export default function GuestCheckoutForm({
             </Section>
             <div className="mt-10"></div>
             <Section dense title={t('delivery-address')}>
-              <PartialAddressForm control={control} prefix="deliveryAddress" />
+              <PartialAddressForm control={control} watch={watch} prefix="deliveryAddress" />
               <div className="mt-3">
                 <RoundedCheckbox
                   name="isSameBillingAddress"
@@ -254,6 +254,7 @@ export default function GuestCheckoutForm({
             <Section dense title={t('billing-address')}>
               <PartialAddressForm
                 control={control}
+                watch={watch}
                 prefix="billingAddress"
                 disabled={watch('isSameBillingAddress') || isSubmitInProgress}
               />

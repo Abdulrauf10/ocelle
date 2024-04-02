@@ -62,7 +62,7 @@ export default function BillingAddressForm({
 
   return (
     <form ref={ref} onSubmit={handleSubmit(onSubmit)}>
-      <PartialAddressForm control={control} />
+      <PartialAddressForm control={control} watch={watch} />
       <div className="-mx-2 mt-10 flex">
         <div className="w-1/2 px-2">
           <Button
