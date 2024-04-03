@@ -14,6 +14,7 @@ export default function IntlProvider({
     <NextIntlClientProvider
       locale={locale}
       messages={messages}
+      timeZone="Asia/Hong_Kong"
       defaultTranslationValues={{
         important: (chunks) => <b>{chunks}</b>,
       }}
