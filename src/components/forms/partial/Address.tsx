@@ -139,7 +139,7 @@ export default function PartialAddressForm<T extends FieldValues>({
           control={control}
           rules={{ required: !disabled }}
           render={({ field: { value, ...field }, fieldState: { error } }) => (
-            <FormControl fullWidth disabled={disabled || pending}>
+            <FormControl fullWidth disabled={disabled || pending || districts.length === 0}>
               <InputLabel id={`${id}-district-label`}>{t('district')}</InputLabel>
               <Select
                 {...field}
