@@ -8,7 +8,7 @@ import {
   applyCoupon,
   deleteCartLine,
   finalizeCheckout,
-  getCartOrCheckout,
+  initializeCheckout,
   initializeStripeTranscation,
   updateCartLine,
   updateCheckoutData,
@@ -23,7 +23,7 @@ import Header from '@/components/Header';
 
 export default async function Checkout() {
   const t = await getTranslations();
-  const cartOrCheckout = await getCartOrCheckout();
+  const checkout = await initializeCheckout();
   const calendarEvents = await getCalendarEvents();
   const closestDeliveryDate = getClosestOrderDeliveryDate(calendarEvents);
   const { paymentIntent, publishableKey } = await initializeStripeTranscation();
@@ -55,8 +55,9 @@ export default async function Checkout() {
       <Notice />
       <Header disableLanguageSwitch disableGetStartedButton disableMenuButton disableLoginButton />
       <CartContextProvider
-        lines={cartOrCheckout.lines}
-        totalPrice={cartOrCheckout.totalPrice.gross}
+        lines={checkout.lines}
+        shippingPrice={checkout.shippingPrice.gross}
+        totalPrice={checkout.totalPrice.gross}
       >
         <StripeLoader clientSecret={paymentIntent.client_secret} publishableKey={publishableKey}>
           <div className="py-10">

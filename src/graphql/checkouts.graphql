@@ -25,6 +25,11 @@ fragment Checkout on Checkout {
   shippingMethods {
     ...ShippingMethod
   }
+  shippingPrice {
+    gross {
+      ...Money
+    }
+  }
   lines {
     ...CheckoutLine
   }
@@ -58,6 +63,7 @@ query GetCheckout($id: ID!) {
 mutation CreateCheckout($input: CheckoutCreateInput!) {
   checkoutCreate(input: $input) {
     errors {
+      field
       message
       code
     }
@@ -104,6 +110,9 @@ mutation UpdateCheckoutShippingMethod($checkoutId: ID!, $shippingMethodId: ID!) 
       message
       code
     }
+    checkout {
+      ...Checkout
+    }
   }
 }
 
@@ -122,7 +131,11 @@ mutation UpdateCheckoutAddress(
   $shippingAddress: AddressInput!
   $billingAddress: AddressInput!
 ) {
-  checkoutShippingAddressUpdate(id: $checkoutId, shippingAddress: $shippingAddress) {
+  checkoutShippingAddressUpdate(
+    id: $checkoutId
+    shippingAddress: $shippingAddress
+    validationRules: { checkRequiredFields: true }
+  ) {
     errors {
       field
       message
@@ -132,7 +145,11 @@ mutation UpdateCheckoutAddress(
       ...Checkout
     }
   }
-  checkoutBillingAddressUpdate(id: $checkoutId, billingAddress: $billingAddress) {
+  checkoutBillingAddressUpdate(
+    id: $checkoutId
+    billingAddress: $billingAddress
+    validationRules: { checkRequiredFields: true }
+  ) {
     errors {
       field
       message

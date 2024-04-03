@@ -55,6 +55,35 @@ export async function getCartOrCheckout(): Promise<CheckoutFragment> {
   return checkout;
 }
 
+export async function initializeCheckout() {
+  const checkout = await getCartOrCheckout();
+
+  if (checkout.shippingMethods.length === 0) {
+    throw new Error('there have no available shipping method');
+  }
+
+  const shippingMethod =
+    checkout.shippingMethods.find((method) => method.name === 'SF Express (Fixed)') ??
+    checkout.shippingMethods[0];
+
+  const { checkoutDeliveryMethodUpdate } = await executeGraphQL(
+    UpdateCheckoutShippingMethodDocument,
+    {
+      variables: {
+        checkoutId: checkout.id,
+        shippingMethodId: shippingMethod.id,
+      },
+    }
+  );
+
+  if (!checkoutDeliveryMethodUpdate || checkoutDeliveryMethodUpdate.errors.length > 0) {
+    checkoutDeliveryMethodUpdate && console.error(checkoutDeliveryMethodUpdate.errors);
+    throw new Error('failed to update shipping method');
+  }
+
+  return checkoutDeliveryMethodUpdate.checkout!;
+}
+
 export async function initializeStripeTranscation() {
   const checkout = await getCartOrCheckout();
 
@@ -286,31 +315,8 @@ export async function finalizeCheckout() {
 
   console.dir(checkout, { depth: null });
 
-  if (checkout.shippingMethods.length === 0) {
-    throw new Error('there have no available shipping method');
-  }
-
   if (!checkout.email) {
     throw new Error('checkout is not linked with email, please contact ocelle for more.');
-  }
-
-  const shippingMethod =
-    checkout.shippingMethods.find((method) => method.name === 'SF Express (Fixed)') ??
-    checkout.shippingMethods[0];
-
-  const { checkoutDeliveryMethodUpdate } = await executeGraphQL(
-    UpdateCheckoutShippingMethodDocument,
-    {
-      variables: {
-        checkoutId: checkout.id,
-        shippingMethodId: shippingMethod.id,
-      },
-    }
-  );
-
-  if (!checkoutDeliveryMethodUpdate || checkoutDeliveryMethodUpdate.errors.length > 0) {
-    checkoutDeliveryMethodUpdate && console.error(checkoutDeliveryMethodUpdate.errors);
-    throw new Error('failed to update shipping method');
   }
 
   // we need to wait for the payment hook to be called before completing the checkout

@@ -5,12 +5,14 @@ import { IndividualRecipePack, Recipe } from '@/enums';
 import {
   AddCheckoutLinesDocument,
   CheckoutFragment,
+  CountryCode,
   CreateCheckoutDocument,
   FindProductDocument,
   GetChannelDocument,
   GetCheckoutDocument,
   RemoveCheckoutLinesDocument,
   UpdateCheckoutLinesDocument,
+  UpdateCheckoutShippingMethodDocument,
 } from '@/gql/graphql';
 import { recipeBundleVariant, recipeIndividualVariantsMap } from '@/helpers/dog';
 import { executeGraphQL } from '@/helpers/graphql';
@@ -74,6 +76,18 @@ export async function getCartOrCheckout(
       input: {
         channel: process.env.SALEOR_CHANNEL_SLUG,
         lines: [],
+        shippingAddress: {
+          streetAddress1: 'Fake street address 1, must be entry in checkout',
+          city: 'Tsuen Wan',
+          countryArea: 'New Territories',
+          country: CountryCode.Hk,
+        },
+        billingAddress: {
+          streetAddress1: 'Fake street address 1, must be entry in checkout',
+          city: 'Tsuen Wan',
+          countryArea: 'New Territories',
+          country: CountryCode.Hk,
+        },
       },
     },
   });

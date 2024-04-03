@@ -91,7 +91,7 @@ export default function GuestCheckoutForm({
 }) {
   const stripe = useStripe();
   const elements = useElements();
-  const { lines, totalPrice, setLines, setTotalPrice } = useCart();
+  const { lines, shippingPrice, totalPrice, setLines, setTotalPrice } = useCart();
   const t = useTranslations();
   const {
     control,
@@ -323,7 +323,11 @@ export default function GuestCheckoutForm({
                 <div className="body-3 -mx-1 mt-2 flex flex-wrap justify-between">
                   <div className="px-1">{t('{}-colon', { value: t('delivery') })}</div>
                   <div className="px-1">
-                    <Price className="font-bold uppercase" value={t('free')} dollorSign={false} />
+                    {!shippingPrice || shippingPrice.amount === 0 ? (
+                      <Price className="font-bold uppercase" value={t('free')} dollorSign={false} />
+                    ) : (
+                      `$${shippingPrice.amount}`
+                    )}
                   </div>
                 </div>
                 <div className="body-2 -mx-1 mt-2 flex flex-wrap justify-between font-bold">
