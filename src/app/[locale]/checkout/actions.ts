@@ -150,7 +150,7 @@ export async function updateCartLine(lineId: string, quantity: number): Promise<
   }
 
   if (checkoutLinesUpdate.checkout!.lines.length === 0) {
-    return redirect('/');
+    redirect('/');
   }
 
   return {
@@ -175,7 +175,7 @@ export async function deleteCartLine(lineId: string): Promise<CartReturn> {
   }
 
   if (checkoutLinesDelete.checkout!.lines.length === 0) {
-    return redirect('/');
+    redirect('/');
   }
 
   return {
