@@ -58,10 +58,7 @@ export default function CheckoutFragment() {
               navigate(Stage.RecommendedPlan, { state: { isEdit: true } })
             }
             onBeforeTransaction={updateCheckoutData}
-            onCompleteTransaction={async () => {
-              await finalizeCheckout();
-              router.push('/get-started/complete');
-            }}
+            onCompleteTransaction={finalizeCheckout}
           />
         </StripeLoader>
       </AppThemeProvider>
