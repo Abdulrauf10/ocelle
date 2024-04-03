@@ -10,6 +10,7 @@ import { ActivityLevel, BodyCondition, Pickiness } from '@/types';
 import React from 'react';
 import { arrayToRecipe, recipeToArray } from '@/helpers/form';
 import equal from 'deep-equal';
+import pluralize from 'pluralize';
 
 interface RecipeForm {
   recipe: boolean[];
@@ -55,6 +56,29 @@ export default function RecipeForm({
     recipeToArray(initialRecipe1, initialRecipe2)
   );
 
+  const targetedNutrientBlendIngredients = [
+    t('selenium-yeast'),
+    t('vitamin-a-supplement'),
+    t('thiamine-hydrochloride-vitamin-b1'),
+    t('riboflavin-vitamin-b2'),
+    t('niacin-vitamin-b3'),
+    t('pyridoxine-hydrochloride-vitamin-b6'),
+    t('folic-acid-vitamin-b9'),
+    t('cholecalciferol-vitamin-b12'),
+    t('vitamin-d3-supplement'),
+    t('sodium-chloride'),
+    t('tricalcium-phosphate'),
+    t('iron-amino-acid-chelate'),
+    t('potassium-chloride'),
+    t('potassium-iodide'),
+    t('zinc-amino-acid-chelate'),
+    t('magnesium-amino-acid-chelate'),
+    t('manganese-amino-acid-chelate'),
+    t('copper-amino-acid-chelate'),
+    t('taurine'),
+    t('choline-bitartrate'),
+  ];
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mx-auto flex max-w-[820px] flex-wrap justify-center">
@@ -65,13 +89,21 @@ export default function RecipeForm({
             name="recipe.0"
             control={control}
             picture="/meal-plan/chicken.jpg"
-            ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
-            nutrientBlend="Selenium Yeast, Vitamin A Supplement, Thiamine Hydrochloride (Vitamin B1), Riboflavin (Vitamin B2), Niacin (Vitamin B3), Pyridoxine Hydrochloride (Vitamin B6), Folic Acid (Vitamin B9), Cholecalciferol (Vitamin B12), Vitamin D3 Supplement, Sodium Chloride, Tricalcium Phosphate, Iron Amino Acid Chelate, Potassium Chloride, Potassium Iodide, Zinc Amino Acid Chelate, Magnesium Amino Acid Chelate, Manganese Amino Acid Chelate, Copper Amino Acid Chelate, Taurine, Choline Bitartrate."
+            ingredients={[
+              t('beef-chuck'),
+              t('beef-liver'),
+              pluralize.plural(t('potato')),
+              pluralize.plural(t('carrot')),
+              t('kale'),
+              t('peas'),
+              pluralize.plural(t('blueberry')),
+              t('flaxseed'),
+              t('salmon-oil'),
+              t('ocelle-targeted-nutrient-blend'),
+            ]}
+            targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={1540}
-            protein={19}
-            fat={5}
-            fibre={2}
-            moisture={60}
+            analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
             recommended={isRecommendedRecipe(
               Recipe.Chicken,
               pickiness!,
@@ -89,13 +121,21 @@ export default function RecipeForm({
             name="recipe.1"
             control={control}
             picture="/meal-plan/pork.jpg"
-            ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
-            nutrientBlend="Selenium Yeast, Vitamin A Supplement, Thiamine Hydrochloride (Vitamin B1), Riboflavin (Vitamin B2), Niacin (Vitamin B3), Pyridoxine Hydrochloride (Vitamin B6), Folic Acid (Vitamin B9), Cholecalciferol (Vitamin B12), Vitamin D3 Supplement, Sodium Chloride, Tricalcium Phosphate, Iron Amino Acid Chelate, Potassium Chloride, Potassium Iodide, Zinc Amino Acid Chelate, Magnesium Amino Acid Chelate, Manganese Amino Acid Chelate, Copper Amino Acid Chelate, Taurine, Choline Bitartrate."
+            ingredients={[
+              t('pork-loin'),
+              t('pork-liver'),
+              t('celery'),
+              pluralize.plural(t('potato')),
+              t('spinach'),
+              t('peas'),
+              pluralize.plural(t('blueberry')),
+              t('flaxseed'),
+              t('salmon-oil'),
+              t('ocelle-targeted-nutrient-blend'),
+            ]}
+            targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={1540}
-            protein={19}
-            fat={5}
-            fibre={2}
-            moisture={60}
+            analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
             recommended={isRecommendedRecipe(
               Recipe.Pork,
               pickiness!,
@@ -113,13 +153,20 @@ export default function RecipeForm({
             name="recipe.2"
             control={control}
             picture="/meal-plan/duck.jpg"
-            ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
-            nutrientBlend="Selenium Yeast, Vitamin A Supplement, Thiamine Hydrochloride (Vitamin B1), Riboflavin (Vitamin B2), Niacin (Vitamin B3), Pyridoxine Hydrochloride (Vitamin B6), Folic Acid (Vitamin B9), Cholecalciferol (Vitamin B12), Vitamin D3 Supplement, Sodium Chloride, Tricalcium Phosphate, Iron Amino Acid Chelate, Potassium Chloride, Potassium Iodide, Zinc Amino Acid Chelate, Magnesium Amino Acid Chelate, Manganese Amino Acid Chelate, Copper Amino Acid Chelate, Taurine, Choline Bitartrate."
+            ingredients={[
+              t('duck-breast'),
+              t('chicken-liver'),
+              t('whole-grain-pasta'),
+              t('winter-melon'),
+              t('peas'),
+              pluralize.plural(t('goji-berry')),
+              t('flaxseed'),
+              t('salmon-oil'),
+              t('ocelle-targeted-nutrient-blend'),
+            ]}
+            targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={1540}
-            protein={19}
-            fat={5}
-            fibre={2}
-            moisture={60}
+            analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
             recommended={isRecommendedRecipe(
               Recipe.Duck,
               pickiness!,
@@ -137,13 +184,21 @@ export default function RecipeForm({
             name="recipe.3"
             control={control}
             picture="/meal-plan/beef.jpg"
-            ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
-            nutrientBlend="Selenium Yeast, Vitamin A Supplement, Thiamine Hydrochloride (Vitamin B1), Riboflavin (Vitamin B2), Niacin (Vitamin B3), Pyridoxine Hydrochloride (Vitamin B6), Folic Acid (Vitamin B9), Cholecalciferol (Vitamin B12), Vitamin D3 Supplement, Sodium Chloride, Tricalcium Phosphate, Iron Amino Acid Chelate, Potassium Chloride, Potassium Iodide, Zinc Amino Acid Chelate, Magnesium Amino Acid Chelate, Manganese Amino Acid Chelate, Copper Amino Acid Chelate, Taurine, Choline Bitartrate."
+            ingredients={[
+              t('beef-chuck'),
+              t('beef-liver'),
+              pluralize.plural(t('potato')),
+              pluralize.plural(t('carrot')),
+              t('kale'),
+              t('peas'),
+              pluralize.plural(t('blueberry')),
+              t('flaxseed'),
+              t('salmon-oil'),
+              t('ocelle-targeted-nutrient-blend'),
+            ]}
+            targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={1540}
-            protein={19}
-            fat={5}
-            fibre={2}
-            moisture={60}
+            analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
             recommended={isRecommendedRecipe(
               Recipe.Beef,
               pickiness!,
@@ -161,13 +216,20 @@ export default function RecipeForm({
             name="recipe.4"
             control={control}
             picture="/meal-plan/lamb.jpg"
-            ingredients="Chicken Breast, Chicken Liver, Whole-Grain Rice, Shiitake Mushroom, Spinach, Peas, Cranberry, Flaxseed, Salmon Oil, OCELLE Targeted Nutrient Blend."
-            nutrientBlend="Selenium Yeast, Vitamin A Supplement, Thiamine Hydrochloride (Vitamin B1), Riboflavin (Vitamin B2), Niacin (Vitamin B3), Pyridoxine Hydrochloride (Vitamin B6), Folic Acid (Vitamin B9), Cholecalciferol (Vitamin B12), Vitamin D3 Supplement, Sodium Chloride, Tricalcium Phosphate, Iron Amino Acid Chelate, Potassium Chloride, Potassium Iodide, Zinc Amino Acid Chelate, Magnesium Amino Acid Chelate, Manganese Amino Acid Chelate, Copper Amino Acid Chelate, Taurine, Choline Bitartrate."
+            ingredients={[
+              t('lamb-leg-boneless'),
+              t('beef-liver'),
+              t('whole-grain-rice'),
+              t('peas'),
+              t('spinach'),
+              pluralize.plural(t('blueberry')),
+              t('flaxseed'),
+              t('salmon-oil'),
+              t('ocelle-targeted-nutrient-blend'),
+            ]}
+            targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={1540}
-            protein={19}
-            fat={5}
-            fibre={2}
-            moisture={60}
+            analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
             recommended={isRecommendedRecipe(
               Recipe.Lamb,
               pickiness!,

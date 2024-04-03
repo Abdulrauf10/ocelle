@@ -2,23 +2,24 @@ import React from 'react';
 import Image from 'next/image';
 import type { FieldValues } from 'react-hook-form';
 import clsx from 'clsx';
-import CloseCircle from '../icons/CloseCircle';
 import RoundedCheckbox from './RoundedCheckbox';
-import { Dialog, DialogClose, DialogContent, DialogTrigger } from '../Dialog';
 import { useTranslations } from 'next-intl';
 import { InputControllerProps } from '@/types';
+import RecipeMediumDialog from '../dialogs/RecipeMedium';
 
 interface RecipeCheckboxProps<T extends FieldValues> extends InputControllerProps<T> {
   title: string;
   description: string;
   picture: string;
-  ingredients: string;
-  nutrientBlend: string;
+  ingredients: string[];
+  targetedNutrientBlendIngredients: string[];
   calorie: number;
-  protein: number;
-  fat: number;
-  fibre: number;
-  moisture: number;
+  analysis: {
+    protein: number;
+    fat: number;
+    fibre: number;
+    moisture: number;
+  };
   disabled?: boolean;
   recommended?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
@@ -35,16 +36,12 @@ export default function RecipeCheckbox<T extends FieldValues>({
   disabled,
   description,
   ingredients,
-  nutrientBlend,
+  targetedNutrientBlendIngredients,
   calorie,
-  protein,
-  fat,
-  fibre,
-  moisture,
+  analysis,
   onChange,
 }: RecipeCheckboxProps<T>) {
   const t = useTranslations();
-  const [tab, setTab] = React.useState<'Ingredients' | 'Nutrition'>('Ingredients');
 
   return (
     <div
@@ -87,115 +84,19 @@ export default function RecipeCheckbox<T extends FieldValues>({
         />
         <div className={clsx('mt-0.5 text-[#7B8D97]', disabled && 'text-opacity-50')}>$$</div>
         <div className="mt-0.5">
-          <Dialog>
-            <DialogTrigger className="font-light underline" type="button">
+          <RecipeMediumDialog
+            name={title}
+            description={description}
+            picture="/meal-plan/chicken-recipe.jpg"
+            ingredients={ingredients}
+            targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
+            calorie={calorie}
+            analysis={analysis}
+          >
+            <button type="button" className="font-light underline">
               {t('see-details')}
-            </DialogTrigger>
-            <DialogContent className="max-w-[1040px] p-3">
-              <div className="relative flex items-start rounded-3xl border-2 border-primary bg-white px-5 py-4 text-left max-md:flex-wrap max-md:pt-9">
-                <div className="w-[400px] min-w-[400px] max-lg:min-w-[320px] max-xs:w-full max-xs:min-w-full">
-                  <div className="relative overflow-hidden rounded-2xl pt-[100%]">
-                    <Image src="/meal-plan/chicken-recipe.jpg" alt="Chicken Recipe" fill />
-                  </div>
-                </div>
-                <div className="ml-6 py-1 max-md:mx-3 max-md:mt-4">
-                  <h2 className="text-xl font-bold text-primary max-lg:text-lg">{title}</h2>
-                  <p className="mt-2 leading-tight">{description}</p>
-                  <hr className="my-3 border-[#7B8D97]" />
-                  <div className="-mx-4 flex">
-                    <button
-                      className={clsx(
-                        'mx-4 text-lg',
-                        tab === 'Ingredients'
-                          ? 'text-primary underline'
-                          : 'text-[#7B8D97] hover:underline'
-                      )}
-                      type="button"
-                      onClick={() => setTab('Ingredients')}
-                    >
-                      {t('ingredients')}
-                    </button>
-                    <button
-                      className={clsx(
-                        'mx-4 text-lg',
-                        tab === 'Nutrition'
-                          ? 'text-primary underline'
-                          : 'text-[#7B8D97] hover:underline'
-                      )}
-                      type="button"
-                      onClick={() => setTab('Nutrition')}
-                    >
-                      {t('nutrition')}
-                    </button>
-                  </div>
-                  {tab === 'Ingredients' && (
-                    <>
-                      <p className="mt-3 leading-tight">
-                        <strong>{t('{}-colon', { value: t('ingredients') })}</strong>
-                        <br />
-                        {ingredients}
-                      </p>
-                      <p className="mt-3 leading-tight">
-                        <strong>
-                          {t('{}-colon', { value: t('ocelle-targeted-nutrient-blend') })}
-                        </strong>
-                        <br />
-                        {nutrientBlend}
-                      </p>
-                    </>
-                  )}
-                  {tab === 'Nutrition' && (
-                    <>
-                      <div className="mt-2 flex flex-wrap justify-between">
-                        <strong className="uppercase">
-                          {t('{}-colon', { value: t('calorie-content') })}
-                        </strong>
-                        <span>{t('{}-kcal-per-kg', { value: calorie })}</span>
-                      </div>
-                      <div className="mt-1">
-                        <strong className="uppercase">
-                          {t('{}-colon', { value: t('guarenteed-analysis') })}
-                        </strong>
-                        <div className="mt-2 flex flex-wrap justify-between">
-                          <span>{t('crude-protein')}</span>
-                          <span>{t('{}-pct-min', { value: protein })}</span>
-                        </div>
-                        <div className="my-1">
-                          <div className="dotted dotted-black" />
-                        </div>
-                        <div className="flex flex-wrap justify-between">
-                          <span>{t('crude-fat')}</span>
-                          <span>{t('{}-pct-min', { value: fat })}</span>
-                        </div>
-                        <div className="my-1">
-                          <div className="dotted dotted-black" />
-                        </div>
-                        <div className="flex flex-wrap justify-between">
-                          <span>{t('crude-firbe')}</span>
-                          <span>{t('{}-pct-max', { value: fibre })}</span>
-                        </div>
-                        <div className="my-1">
-                          <div className="dotted dotted-black" />
-                        </div>
-                        <div className="flex flex-wrap justify-between">
-                          <span>{t('moisture')}</span>
-                          <span>{t('{}-pct-max', { value: moisture })}</span>
-                        </div>
-                        <p className="mt-3 leading-tight">
-                          {t('our-{}-for-dogs-is-formulated-to-meet-the-nutritional-levels', {
-                            name: title,
-                          })}
-                        </p>
-                      </div>
-                    </>
-                  )}
-                  <DialogClose className="absolute right-4 top-3 cursor-pointer">
-                    <CloseCircle className="h-5 w-5" />
-                  </DialogClose>
-                </div>
-              </div>
-            </DialogContent>
-          </Dialog>
+            </button>
+          </RecipeMediumDialog>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ import Block from '@/components/layouts/Block';
 import Marquee from '@/components/Marquee';
 import pluralize from 'pluralize';
 import ImageContentBlock from '@/components/layouts/ImageContentBlock';
-import RecipeIngredientsDialog from '@/components/dialogs/RecipeIngredients';
+import RecipeLargeDialog from '@/components/dialogs/RecipeLarge';
 import { Recipe } from '@/enums';
 import { getRecipeSlug } from '@/helpers/dog';
 import { arrayToSentence, colon, freshRecipe } from '@/helpers/translation';
@@ -39,7 +39,7 @@ function EndAdornment({
     <div className="mx-auto mt-10 max-w-[480px]">
       <div className="-m-2 flex flex-wrap">
         <div className="w-1/2 p-2 text-center max-xs:w-full">
-          <RecipeIngredientsDialog
+          <RecipeLargeDialog
             recipe={freshRecipe(t, recipe)}
             recipePicture={`/recipes/dispersion/${getRecipeSlug(recipe)}.jpg`}
             ingredients={ingredients}
@@ -49,7 +49,7 @@ function EndAdornment({
             <Button className="w-[232px]" reverse>
               {t('learn-more')}
             </Button>
-          </RecipeIngredientsDialog>
+          </RecipeLargeDialog>
         </div>
         <div className="w-1/2 p-2 text-center max-xs:w-full">
           <Button className="w-[232px]" href="/get-started">

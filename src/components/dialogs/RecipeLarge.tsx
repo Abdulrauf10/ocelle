@@ -23,7 +23,7 @@ function DialogBlock({ title, children }: React.PropsWithChildren<{ title: strin
   );
 }
 
-export default function RecipeIngredientsDialog({
+export default function RecipeLargeDialog({
   recipe,
   recipePicture,
   ingredients,
