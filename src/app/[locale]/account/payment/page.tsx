@@ -4,7 +4,7 @@ import AppThemeProvider from '@/components/AppThemeProvider';
 import CardForm from '@/components/forms/Card';
 import { getTranslations } from 'next-intl/server';
 import updateCreditCardAction from './action';
-import BackButton from '@/components/BackButton';
+import BackButton from '@/components/buttons/BackButton';
 
 async function getData() {
   return {

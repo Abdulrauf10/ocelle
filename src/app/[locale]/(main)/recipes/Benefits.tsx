@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import Plus from '@/components/icons/Plus';
 import Sub from '@/components/icons/Sub';
 import { useTranslations } from 'next-intl';

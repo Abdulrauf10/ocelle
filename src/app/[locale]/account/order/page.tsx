@@ -2,7 +2,7 @@
 
 import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
-import UnderlineButton from '@/components/UnderlineButton';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { useTranslations } from 'next-intl';
 
 export default function Orders() {

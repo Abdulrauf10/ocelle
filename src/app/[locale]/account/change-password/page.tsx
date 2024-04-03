@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import ChangePasswordForm from '@/components/forms/ChangePassword';
 import changePasswordAction from './action';
-import BackButton from '@/components/BackButton';
+import BackButton from '@/components/buttons/BackButton';
 
 export default function ChangePassword() {
   const t = useTranslations();

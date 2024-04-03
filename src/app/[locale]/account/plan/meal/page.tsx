@@ -8,7 +8,7 @@ import { Dog } from '@/entities';
 import { getTranslations } from 'next-intl/server';
 import FreshPlanForm from '@/components/forms/FreshPlan';
 import setMealPlanAction from './action';
-import BackButton from '@/components/BackButton';
+import BackButton from '@/components/buttons/BackButton';
 
 async function getData() {
   const me = await getStoreMe();

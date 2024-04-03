@@ -6,7 +6,7 @@ import { getStoreMe } from '@/storeUserProvider';
 import { executeQuery } from '@/helpers/queryRunner';
 import setOrderSizeAction from './action';
 import OrderSizeForm from '@/components/forms/OrderSize';
-import BackButton from '@/components/BackButton';
+import BackButton from '@/components/buttons/BackButton';
 
 async function fetchData() {
   const me = await getStoreMe();

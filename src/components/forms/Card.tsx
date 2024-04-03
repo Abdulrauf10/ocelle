@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import PartialCardForm, { IPartialCardStripeForm } from './partial/CardStripe';
-import Button from '../Button';
+import Button from '../buttons/Button';
 
 interface ICardForm extends IPartialCardStripeForm {}
 

@@ -1,12 +1,12 @@
 import Container from '@/components/Container';
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import { Dog } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getStoreMe } from '@/storeUserProvider';
 import { getTranslations } from 'next-intl/server';
 import DeliveryDateForm from '@/components/forms/DeliveryDate';
 import setDeliveryDateAction from './action';
-import BackButton from '@/components/BackButton';
+import BackButton from '@/components/buttons/BackButton';
 
 async function getData() {
   const me = await getStoreMe();

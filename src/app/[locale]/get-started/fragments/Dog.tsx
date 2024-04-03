@@ -1,9 +1,9 @@
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import Container from '@/components/Container';
 import { TextField } from '@mui/material';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import UnderlineButton from '@/components/UnderlineButton';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import Section from '../Section';
 import Stage from '../Stage';
 import { useTranslations } from 'next-intl';

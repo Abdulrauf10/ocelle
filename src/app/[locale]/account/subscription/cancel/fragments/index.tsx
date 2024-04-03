@@ -1,5 +1,5 @@
 import { useRouter } from '@/navigation';
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import Container from '@/components/Container';
 import { useTranslations } from 'next-intl';
 import { useNavigate } from 'react-router-dom';

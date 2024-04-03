@@ -1,11 +1,11 @@
 import React from 'react';
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import Container from '@/components/Container';
 import { Career } from '@/entities';
 import { Classification, WorkPattern, WorkType } from '@/enums';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
-import UnderlineButton from '@/components/UnderlineButton';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import Block from '@/components/layouts/Block';
 import { executeQuery } from '@/helpers/queryRunner';

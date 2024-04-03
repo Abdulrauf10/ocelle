@@ -1,11 +1,11 @@
 import React from 'react';
 import Container from '@/components/Container';
-import UnderlineButton from '@/components/UnderlineButton';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import UserBasicInfoForm from '@/components/forms/UserBasicInfo';
 import { getTranslations } from 'next-intl/server';
 import updateBasicInfoAction from './action';
-import BackButton from '@/components/BackButton';
+import BackButton from '@/components/buttons/BackButton';
 
 async function getData() {
   return {

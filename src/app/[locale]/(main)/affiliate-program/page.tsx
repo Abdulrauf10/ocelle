@@ -1,8 +1,8 @@
 import Block from '@/components/layouts/Block';
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import Container from '@/components/Container';
 import Newsletter from '@/components/Newsletter';
-import UnderlineButton from '@/components/UnderlineButton';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';

@@ -1,6 +1,6 @@
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
-import UnderlineButton from '@/components/UnderlineButton';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import React from 'react';
 import forgotPasswordAction from './action';
 import ForgetPasswordForm from '@/components/forms/ForgetPassword';

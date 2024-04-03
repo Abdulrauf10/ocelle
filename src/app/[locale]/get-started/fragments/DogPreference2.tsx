@@ -1,7 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import Container from '@/components/Container';
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import Section from '../Section';
 import SectionBreak from '../SectionBreak';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';

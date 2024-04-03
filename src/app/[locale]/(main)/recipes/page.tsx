@@ -1,4 +1,4 @@
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import Newsletter from '@/components/Newsletter';
 import Container from '@/components/Container';
 import RecipeBenefits from './Benefits';

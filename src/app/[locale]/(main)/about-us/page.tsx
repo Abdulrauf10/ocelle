@@ -1,5 +1,5 @@
 import Block from '@/components/layouts/Block';
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import Container from '@/components/Container';
 import Sound from '@/components/icons/Sound';
 import Newsletter from '@/components/Newsletter';

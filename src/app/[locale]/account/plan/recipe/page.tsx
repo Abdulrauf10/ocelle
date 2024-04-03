@@ -7,7 +7,7 @@ import { Dog } from '@/entities';
 import { getTranslations } from 'next-intl/server';
 import RecipeForm from '@/components/forms/Recipe';
 import setRecipeAction from './action';
-import BackButton from '@/components/BackButton';
+import BackButton from '@/components/buttons/BackButton';
 
 async function getData() {
   const me = await getStoreMe();

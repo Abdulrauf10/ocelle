@@ -2,7 +2,7 @@ import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Container from '@/components/Container';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import { useTranslations } from 'next-intl';
 import { useNavigate } from 'react-router-dom';
 

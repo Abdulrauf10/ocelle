@@ -1,7 +1,7 @@
 'use client';
 
 import { colon } from '@/helpers/translation';
-import Button from '../Button';
+import Button from '../buttons/Button';
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '../Dialog';
 import Close from '../icons/Close';
 import { useTranslations } from 'next-intl';

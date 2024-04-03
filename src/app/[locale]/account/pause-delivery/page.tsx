@@ -2,13 +2,13 @@
 
 import React from 'react';
 import Container from '@/components/Container';
-import UnderlineButton from '@/components/UnderlineButton';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import CircleTick from '@/components/icons/CircleTick';
 import { useTranslations } from 'next-intl';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import DeliveryDateForm from '@/components/forms/DeliveryDate';
 import pauseDeliveriesAction from './action';
-import BackButton from '@/components/BackButton';
+import BackButton from '@/components/buttons/BackButton';
 
 export default function PauseDelivery() {
   const t = useTranslations();

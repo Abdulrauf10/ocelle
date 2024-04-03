@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import FreshPlan from '../FreshPlan';
-import Button from '../Button';
+import Button from '../buttons/Button';
 import { MealPlan } from '@/enums';
 
 export default function FreshPlanForm({

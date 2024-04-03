@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import Pen from './icons/Pen';
+import Pen from '../icons/Pen';
 import { useTranslations } from 'next-intl';
 import { Link } from '@/navigation';
 

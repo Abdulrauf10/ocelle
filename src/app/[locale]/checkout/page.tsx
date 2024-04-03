@@ -15,7 +15,7 @@ import {
 } from './actions';
 import { CartContextProvider } from '@/contexts/cart';
 import StripeLoader from '@/components/StripeLoader';
-import UnderlineButton from '@/components/UnderlineButton';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { getTranslations } from 'next-intl/server';
 import Container from '@/components/Container';
 import Notice from '@/components/Notice';

@@ -1,8 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 import Container from '@/components/Container';
-import Button from '@/components/Button';
-import UnderlineButton from '@/components/UnderlineButton';
+import Button from '@/components/buttons/Button';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import Image from 'next/image';
 import DogSwitch from '../DogSwitch';
 import { Dog, User } from '@/entities';

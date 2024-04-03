@@ -3,8 +3,8 @@
 import { useRouter } from '@/navigation';
 import { Switch, ThemeProvider, createTheme } from '@mui/material';
 import Container from '@/components/Container';
-import UnderlineButton from '@/components/UnderlineButton';
-import Button from '@/components/Button';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
+import Button from '@/components/buttons/Button';
 import { useTranslations } from 'next-intl';
 
 export default function Subscriptions() {

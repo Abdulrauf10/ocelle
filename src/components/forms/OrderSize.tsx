@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { OrderSize } from '@/enums';

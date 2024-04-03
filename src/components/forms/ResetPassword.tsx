@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { useForm } from 'react-hook-form';
-import Button from '../Button';
+import Button from '../buttons/Button';
 import React from 'react';
 import PasswordField from '../controls/PasswordField';
 

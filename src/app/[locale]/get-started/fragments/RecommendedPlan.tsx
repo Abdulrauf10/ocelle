@@ -4,7 +4,7 @@ import Container from '@/components/Container';
 import { useForm } from 'react-hook-form';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import Price from '@/components/Price';
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import RecipeCheckbox from '@/components/controls/RecipeCheckbox';
 import Section from '../Section';
 import Stage from '../Stage';

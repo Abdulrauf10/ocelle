@@ -3,7 +3,7 @@
 import { Controller, useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import React from 'react';
-import Button from '../Button';
+import Button from '../buttons/Button';
 import { TextField } from '@mui/material';
 
 interface IUserBasicInfoForm {

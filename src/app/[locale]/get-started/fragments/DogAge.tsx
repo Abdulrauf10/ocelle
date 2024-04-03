@@ -1,9 +1,9 @@
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import Container from '@/components/Container';
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import { TextField } from '@mui/material';
-import UnderlineButton from '@/components/UnderlineButton';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import Section from '../Section';
 import DateCalendar from '@/components/controls/DateCalendar';
 import clsx from 'clsx';

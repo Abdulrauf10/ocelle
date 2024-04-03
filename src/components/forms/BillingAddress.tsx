@@ -3,7 +3,7 @@
 import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import React from 'react';
-import Button from '../Button';
+import Button from '../buttons/Button';
 import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
 
 interface IBillingAddressForm extends IPartialAddressForm {}

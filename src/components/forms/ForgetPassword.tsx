@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { Controller, useForm } from 'react-hook-form';
 import { TextField } from '@mui/material';
-import Button from '../Button';
+import Button from '../buttons/Button';
 import React from 'react';
 
 interface IForgetPasswordForm {

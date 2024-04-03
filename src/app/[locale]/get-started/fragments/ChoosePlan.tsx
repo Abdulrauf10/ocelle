@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from '@/components/Container';
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import FreshPlan from '@/components/FreshPlan';
 import Section from '../Section';
 import Stage from '../Stage';

@@ -1,4 +1,4 @@
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import Image from 'next/image';
 import HowPlanWorks from '../../HowPlanWorks';
 import Container from '@/components/Container';

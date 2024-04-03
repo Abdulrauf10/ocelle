@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import PasswordField from '../controls/PasswordField';
-import Button from '../Button';
+import Button from '../buttons/Button';
 
 interface IChangePasswordForm {
   currentPassword: string;

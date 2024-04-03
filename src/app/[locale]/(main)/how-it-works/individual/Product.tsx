@@ -1,6 +1,6 @@
 'use client';
 
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import Container from '@/components/Container';
 import Block from '@/components/layouts/Block';
 import { IndividualRecipePack } from '@/enums';

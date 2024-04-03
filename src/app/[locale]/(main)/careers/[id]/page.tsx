@@ -1,4 +1,4 @@
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import Container from '@/components/Container';
 import { Career, CareerLine } from '@/entities';
 import { CareerLineType } from '@/enums';

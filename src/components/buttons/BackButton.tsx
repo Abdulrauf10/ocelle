@@ -1,6 +1,6 @@
 'use client';
 
-import UnderlineButton from '@/components/UnderlineButton';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { useRouter } from '@/navigation';
 import { useTranslations } from 'next-intl';
 

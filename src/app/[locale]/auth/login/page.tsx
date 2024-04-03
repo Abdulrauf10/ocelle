@@ -1,7 +1,7 @@
 import AppThemeProvider from '@/components/AppThemeProvider';
-import Button from '@/components/Button';
+import Button from '@/components/buttons/Button';
 import Container from '@/components/Container';
-import UnderlineButton from '@/components/UnderlineButton';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import loginAction from './action';

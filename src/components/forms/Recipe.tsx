@@ -3,7 +3,7 @@
 import { FoodAllergies, Recipe } from '@/enums';
 import { useForm } from 'react-hook-form';
 import RecipeCheckbox from '../controls/RecipeCheckbox';
-import Button from '../Button';
+import Button from '../buttons/Button';
 import { useTranslations } from 'next-intl';
 import { isAllergies, isRecommendedRecipe } from '@/helpers/dog';
 import { ActivityLevel, BodyCondition, Pickiness } from '@/types';

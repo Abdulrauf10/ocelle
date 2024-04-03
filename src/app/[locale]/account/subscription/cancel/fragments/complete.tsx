@@ -1,6 +1,6 @@
 import Container from '@/components/Container';
 import CircleTick from '@/components/icons/CircleTick';
-import UnderlineButton from '@/components/UnderlineButton';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
