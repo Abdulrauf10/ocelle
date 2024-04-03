@@ -30,6 +30,10 @@ export default function CartSection() {
     [setLines, setTotalPrice]
   );
 
+  if (lines.length === 0) {
+    return undefined;
+  }
+
   return (
     <CartDialog
       lines={
