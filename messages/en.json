@@ -255,7 +255,7 @@
   "delivery-cycle": "Delivery Cycle",
   "subscription:description": "OCELLE is an auto-renewing subscription with no long-term commitment. You can edit, pause, or cancel unprocessed orders anytime. The payment method you choose will automatically be charged at the price and frequency selected. <br></br><br></br>If you've included a transition period in your starter box, your next order will contain full portions for each day of food (price may be affected).",
   "thank-you-for-your-order": "Thank you for your order!",
-  "your-starter-box-will-be-delivered-on-the-{}": "Your starter box will be delivered on the {date}",
+  "your-{}-will-be-delivered-on-the-{}": "Your {value} will be delivered on the {date}",
   "just-real-good-food": "Just Real, Good Food",
   "fresh-human-grade-natural-ingredients": "Fresh, human-grade, natural ingredients",
   "ready-to-serve": "Ready To Serve",

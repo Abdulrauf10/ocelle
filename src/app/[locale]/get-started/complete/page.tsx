@@ -10,8 +10,6 @@ import { formatDate } from '@/helpers/date';
 import React from 'react';
 import { getSurveySessionStore } from '@/helpers/session';
 
-// TODO: clear session and checkout cookie
-
 export default function ThankYouPage() {
   const t = useTranslations();
   const router = useRouter();
@@ -69,7 +67,8 @@ export default function ThankYouPage() {
       </Link>
       <h1 className="heading-4 mt-6 font-bold text-primary">{t('thank-you-for-your-order')}</h1>
       <p className="mt-4 text-primary">
-        {t('your-starter-box-will-be-delivered-on-the-{}', {
+        {t('your-{}-will-be-delivered-on-the-{}', {
+          value: t('starter-box').toLowerCase(),
           date: formatDate(t, deliveryDate, true),
         })}
       </p>
