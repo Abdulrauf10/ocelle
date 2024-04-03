@@ -7,8 +7,8 @@ import { executeQuery } from '@/helpers/queryRunner';
 import { Dog } from '@/entities';
 import { getTranslations } from 'next-intl/server';
 import FreshPlanForm from '@/components/forms/FreshPlan';
-import AccountBackButton from '../../AccountBackButton';
 import setMealPlanAction from './action';
+import BackButton from '@/components/BackButton';
 
 async function getData() {
   const me = await getStoreMe();
@@ -64,7 +64,7 @@ export default async function PlanMeal({ searchParams }: { searchParams: { curre
             }}
           />
           <div className="mt-8 text-center">
-            <AccountBackButton />
+            <BackButton label={t('go-back')} />
           </div>
         </Container>
       </main>

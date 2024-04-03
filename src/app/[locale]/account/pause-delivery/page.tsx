@@ -8,7 +8,7 @@ import { useTranslations } from 'next-intl';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import DeliveryDateForm from '@/components/forms/DeliveryDate';
 import pauseDeliveriesAction from './action';
-import AccountBackButton from '../AccountBackButton';
+import BackButton from '@/components/BackButton';
 
 export default function PauseDelivery() {
   const t = useTranslations();
@@ -61,7 +61,7 @@ export default function PauseDelivery() {
               />
             </div>
             <div className="mt-8 text-center">
-              <AccountBackButton />
+              <BackButton label={t('go-back')} />
             </div>
           </Container>
         )}

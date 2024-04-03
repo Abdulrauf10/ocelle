@@ -6,7 +6,7 @@ import { getStoreMe } from '@/storeUserProvider';
 import { executeQuery } from '@/helpers/queryRunner';
 import setOrderSizeAction from './action';
 import OrderSizeForm from '@/components/forms/OrderSize';
-import AccountBackButton from '../../AccountBackButton';
+import BackButton from '@/components/BackButton';
 
 async function fetchData() {
   const me = await getStoreMe();
@@ -36,7 +36,7 @@ export default async function PlanOften() {
         </h1>
         <OrderSizeForm initialSize={user.orderSize} action={setOrderSizeAction} />
         <div className="mt-8 text-center">
-          <AccountBackButton />
+          <BackButton label={t('go-back')} />
         </div>
       </Container>
     </main>

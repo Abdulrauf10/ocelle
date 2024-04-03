@@ -5,9 +5,9 @@ import { getStoreMe } from '@/storeUserProvider';
 import { executeQuery } from '@/helpers/queryRunner';
 import { Dog } from '@/entities';
 import { getTranslations } from 'next-intl/server';
-import AccountBackButton from '../../AccountBackButton';
 import RecipeForm from '@/components/forms/Recipe';
 import setRecipeAction from './action';
+import BackButton from '@/components/BackButton';
 
 async function getData() {
   const me = await getStoreMe();
@@ -73,7 +73,7 @@ export default async function PlanRecipe({ searchParams }: { searchParams: { cur
             />
           </div>
           <div className="mt-8 text-center">
-            <AccountBackButton />
+            <BackButton label={t('go-back')} />
           </div>
         </Container>
       </main>

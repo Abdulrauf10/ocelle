@@ -3,8 +3,8 @@ import Container from '@/components/Container';
 import { useTranslations } from 'next-intl';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import ChangePasswordForm from '@/components/forms/ChangePassword';
-import AccountBackButton from '../AccountBackButton';
 import changePasswordAction from './action';
+import BackButton from '@/components/BackButton';
 
 export default function ChangePassword() {
   const t = useTranslations();
@@ -20,7 +20,7 @@ export default function ChangePassword() {
             <div className="py-4"></div>
             <ChangePasswordForm action={changePasswordAction} />
             <div className="mt-12 text-center">
-              <AccountBackButton />
+              <BackButton label={t('go-back')} />
             </div>
           </div>
         </Container>

@@ -3,9 +3,9 @@ import Container from '@/components/Container';
 import UnderlineButton from '@/components/UnderlineButton';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import UserBasicInfoForm from '@/components/forms/UserBasicInfo';
-import AccountBackButton from '../AccountBackButton';
 import { getTranslations } from 'next-intl/server';
 import updateBasicInfoAction from './action';
+import BackButton from '@/components/BackButton';
 
 async function getData() {
   return {
@@ -44,7 +44,7 @@ export default async function BasicInfo() {
               action={updateBasicInfoAction}
             />
             <div className="mt-12 text-center">
-              <AccountBackButton />
+              <BackButton label={t('go-back')} />
             </div>
           </div>
         </Container>

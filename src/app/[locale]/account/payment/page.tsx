@@ -2,9 +2,9 @@ import React from 'react';
 import Container from '@/components/Container';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import CardForm from '@/components/forms/Card';
-import AccountBackButton from '../AccountBackButton';
 import { getTranslations } from 'next-intl/server';
 import updateCreditCardAction from './action';
+import BackButton from '@/components/BackButton';
 
 async function getData() {
   return {
@@ -34,7 +34,7 @@ export default async function Payments() {
               action={updateCreditCardAction}
             />
             <div className="mt-12 text-center">
-              <AccountBackButton />
+              <BackButton label={t('go-back')} />
             </div>
           </div>
         </Container>

@@ -5,8 +5,8 @@ import { executeQuery } from '@/helpers/queryRunner';
 import { getStoreMe } from '@/storeUserProvider';
 import { getTranslations } from 'next-intl/server';
 import DeliveryDateForm from '@/components/forms/DeliveryDate';
-import AccountBackButton from '../../AccountBackButton';
 import setDeliveryDateAction from './action';
+import BackButton from '@/components/BackButton';
 
 async function getData() {
   const me = await getStoreMe();
@@ -54,7 +54,7 @@ export default async function PlanDeliveryDate() {
           <DeliveryDateForm initialDate={new Date()} action={setDeliveryDateAction} />
         </div>
         <div className="mt-8 text-center">
-          <AccountBackButton />
+          <BackButton label={t('go-back')} />
         </div>
       </Container>
     </main>
