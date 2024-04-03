@@ -9,9 +9,15 @@ import { useTranslations } from 'next-intl';
 export default function CartDialog({
   lines,
   subtotal,
+  disabled,
   onCheckoutClick,
   children,
-}: React.PropsWithChildren<{ lines: React.ReactNode; subtotal: number; onCheckoutClick(): void }>) {
+}: React.PropsWithChildren<{
+  lines: React.ReactNode;
+  subtotal: number;
+  disabled?: boolean;
+  onCheckoutClick(): void;
+}>) {
   const t = useTranslations();
 
   return (
@@ -30,7 +36,7 @@ export default function CartDialog({
                 <div>{colon(t, 'subtotal')}</div>
                 <div>HK${subtotal}</div>
               </div>
-              <Button fullWidth className="my-2" onClick={onCheckoutClick}>
+              <Button fullWidth className="my-2" onClick={onCheckoutClick} disabled={disabled}>
                 {t('continue-to-checkout')}
               </Button>
             </div>

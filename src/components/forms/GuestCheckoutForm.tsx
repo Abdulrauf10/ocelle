@@ -104,6 +104,7 @@ export default function GuestCheckoutForm({
       deliveryDate: closestDeliveryDate,
     },
   });
+  const [updatingCart, setUpdatingCart] = React.useState(false);
   const [isSubmitInProgress, setIsSubmitInProgress] = React.useState(false);
 
   const onSubmit = React.useCallback(
@@ -292,14 +293,24 @@ export default function GuestCheckoutForm({
                 <CartRows
                   lines={lines}
                   onUpdateClick={async (lineId, quantity) => {
-                    const { lines, totalPrice } = await onCartUpdate(lineId, quantity);
-                    setLines(lines);
-                    setTotalPrice(totalPrice);
+                    try {
+                      setUpdatingCart(true);
+                      const { lines, totalPrice } = await onCartUpdate(lineId, quantity);
+                      setLines(lines);
+                      setTotalPrice(totalPrice);
+                    } finally {
+                      setUpdatingCart(false);
+                    }
                   }}
                   onDeleteClick={async (lineId) => {
-                    const { lines, totalPrice } = await onCartDelete(lineId);
-                    setLines(lines);
-                    setTotalPrice(totalPrice);
+                    try {
+                      setUpdatingCart(true);
+                      const { lines, totalPrice } = await onCartDelete(lineId);
+                      setLines(lines);
+                      setTotalPrice(totalPrice);
+                    } finally {
+                      setUpdatingCart(false);
+                    }
                   }}
                 />
               </SummaryBlock>
@@ -320,7 +331,9 @@ export default function GuestCheckoutForm({
                   <div className="px-1">${totalPrice?.amount}</div>
                 </div>
                 <div className="mt-4 text-center">
-                  <Button disabled={!stripe || isSubmitInProgress}>{t('checkout')}</Button>
+                  <Button disabled={!stripe || isSubmitInProgress || updatingCart}>
+                    {t('checkout')}
+                  </Button>
                 </div>
               </SummaryBlock>
             </div>

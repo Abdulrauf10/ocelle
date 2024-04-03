@@ -11,21 +11,26 @@ import { useRouter } from '@/navigation';
 export default function CartSection() {
   const router = useRouter();
   const { lines, totalPrice, setLines, setTotalPrice } = useCart();
+  const [pending, startTransition] = React.useTransition();
 
   const handleCartItemUpdate = React.useCallback(
     async (lineId: string, quantity: number) => {
-      const { lines, totalPrice } = await updateCartLine(lineId, quantity);
-      setLines(lines);
-      setTotalPrice(totalPrice);
+      startTransition(async () => {
+        const { lines, totalPrice } = await updateCartLine(lineId, quantity);
+        setLines(lines);
+        setTotalPrice(totalPrice);
+      });
     },
     [setLines, setTotalPrice]
   );
 
   const handleCartItemDelete = React.useCallback(
     async (lineId: string) => {
-      const { lines, totalPrice } = await deleteCartLine(lineId);
-      setLines(lines);
-      setTotalPrice(totalPrice);
+      startTransition(async () => {
+        const { lines, totalPrice } = await deleteCartLine(lineId);
+        setLines(lines);
+        setTotalPrice(totalPrice);
+      });
     },
     [setLines, setTotalPrice]
   );
@@ -41,10 +46,12 @@ export default function CartSection() {
           lines={lines}
           onUpdateClick={handleCartItemUpdate}
           onDeleteClick={handleCartItemDelete}
+          disabled={pending}
         />
       }
       subtotal={totalPrice?.amount ?? 0}
       onCheckoutClick={() => router.push('/checkout')}
+      disabled={pending}
     >
       <button type="button" className="fixed bottom-8 right-8">
         <Cart className="w-16" count={lines.length} />

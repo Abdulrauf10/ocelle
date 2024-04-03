@@ -12,10 +12,12 @@ import Plus from './icons/Plus';
 
 export default function CartRows({
   lines,
+  disabled,
   onUpdateClick,
   onDeleteClick,
 }: {
   lines: CheckoutLineFragment[];
+  disabled?: boolean;
   onUpdateClick(lineId: string, quantity: number): Promise<void>;
   onDeleteClick(lineId: string): Promise<void>;
 }) {
@@ -80,6 +82,7 @@ export default function CartRows({
                   type="button"
                   className="relative top-1"
                   onClick={() => onDeleteClick(line.id)}
+                  disabled={disabled}
                 >
                   <TrashBin className="w-4 text-primary" />
                 </button>
@@ -92,6 +95,7 @@ export default function CartRows({
                     type="button"
                     className="absolute left-0 px-2 py-1"
                     onClick={() => onUpdateClick(line.id, line.quantity - 1)}
+                    disabled={disabled}
                   >
                     <Sub className="w-2" />
                   </button>
@@ -100,6 +104,7 @@ export default function CartRows({
                     type="button"
                     className="absolute right-0 px-2 py-1"
                     onClick={() => onUpdateClick(line.id, line.quantity + 1)}
+                    disabled={disabled}
                   >
                     <Plus className="w-2" />
                   </button>
