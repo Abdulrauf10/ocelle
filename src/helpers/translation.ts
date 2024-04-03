@@ -13,3 +13,7 @@ export function colon(
 ) {
   return t('{}-colon', { value: t(key, values) });
 }
+
+export function arrayToSentence(t: ReturnType<typeof useTranslations>, array: string[]) {
+  return array.join(t('comma')) + t('dot');
+}

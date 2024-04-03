@@ -10,7 +10,7 @@ import ImageContentBlock from '@/components/layouts/ImageContentBlock';
 import RecipeIngredientsDialog from '@/components/dialogs/RecipeIngredients';
 import { Recipe } from '@/enums';
 import { getRecipeSlug } from '@/helpers/dog';
-import { colon, freshRecipe } from '@/helpers/translation';
+import { arrayToSentence, colon, freshRecipe } from '@/helpers/translation';
 
 function EndAdornment({
   recipe,
@@ -358,7 +358,7 @@ export default function RecipesPage() {
           </p>
           <p className="heading-4 mt-6 font-bold text-brown">{colon(t, 'ingredients')}</p>
           <p className="body-1">
-            {[
+            {arrayToSentence(t, [
               t('chicken-breast'),
               t('chicken-liver'),
               t('whole-grain-rice'),
@@ -369,7 +369,7 @@ export default function RecipesPage() {
               t('flaxseed'),
               t('salmon-oil'),
               t('ocelle-targeted-nutrient-blend'),
-            ].join(t('comma')) + t('dot')}
+            ])}
           </p>
         </div>
       </ImageContentBlock>
@@ -407,7 +407,7 @@ export default function RecipesPage() {
           </p>
           <p className="heading-4 mt-6 font-bold text-brown">{colon(t, 'ingredients')}</p>
           <p className="body-1">
-            {[
+            {arrayToSentence(t, [
               t('beef-chuck'),
               t('beef-liver'),
               pluralize.plural(t('potato')),
@@ -418,7 +418,7 @@ export default function RecipesPage() {
               t('flaxseed'),
               t('salmon-oil'),
               t('ocelle-targeted-nutrient-blend'),
-            ].join(t('comma')) + t('dot')}
+            ])}
           </p>
         </div>
       </ImageContentBlock>
@@ -458,7 +458,7 @@ export default function RecipesPage() {
           </p>
           <p className="heading-4 mt-6 font-bold text-brown">{colon(t, 'ingredients')}</p>
           <p className="body-1">
-            {[
+            {arrayToSentence(t, [
               t('pork-loin'),
               t('pork-liver'),
               t('celery'),
@@ -469,7 +469,7 @@ export default function RecipesPage() {
               t('flaxseed'),
               t('salmon-oil'),
               t('ocelle-targeted-nutrient-blend'),
-            ].join(t('comma')) + t('dot')}
+            ])}
           </p>
         </div>
       </ImageContentBlock>
@@ -505,7 +505,7 @@ export default function RecipesPage() {
           </p>
           <p className="heading-4 mt-6 font-bold text-brown">{colon(t, 'ingredients')}</p>
           <p className="body-1">
-            {[
+            {arrayToSentence(t, [
               t('lamb-leg-boneless'),
               t('beef-liver'),
               t('whole-grain-rice'),
@@ -515,7 +515,7 @@ export default function RecipesPage() {
               t('flaxseed'),
               t('salmon-oil'),
               t('ocelle-targeted-nutrient-blend'),
-            ].join(t('comma')) + t('dot')}
+            ])}
           </p>
         </div>
       </ImageContentBlock>
@@ -554,7 +554,7 @@ export default function RecipesPage() {
           </p>
           <p className="heading-4 mt-6 font-bold text-brown">{colon(t, 'ingredients')}</p>
           <p className="body-1">
-            {[
+            {arrayToSentence(t, [
               t('duck-breast'),
               t('chicken-liver'),
               t('whole-grain-pasta'),
@@ -564,7 +564,7 @@ export default function RecipesPage() {
               t('flaxseed'),
               t('salmon-oil'),
               t('ocelle-targeted-nutrient-blend'),
-            ].join(t('comma')) + t('dot')}
+            ])}
           </p>
         </div>
       </ImageContentBlock>
