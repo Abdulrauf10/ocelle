@@ -24,6 +24,7 @@ fragment UserAddress on Address {
   streetAddress1
   streetAddress2
   city
+  countryArea
   country {
     code
     country
