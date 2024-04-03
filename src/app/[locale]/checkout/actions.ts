@@ -48,6 +48,10 @@ export async function getCartOrCheckout(): Promise<CheckoutFragment> {
     return redirect('/');
   }
 
+  if (checkout.lines.length === 0) {
+    return redirect('/');
+  }
+
   return checkout;
 }
 
@@ -116,6 +120,10 @@ export async function updateCartLine(lineId: string, quantity: number): Promise<
     throw new Error('unable update item from cart');
   }
 
+  if (checkoutLinesUpdate.checkout!.lines.length === 0) {
+    return redirect('/');
+  }
+
   return {
     lines: checkoutLinesUpdate.checkout!.lines,
     totalPrice: checkoutLinesUpdate.checkout!.totalPrice.gross,
@@ -135,6 +143,10 @@ export async function deleteCartLine(lineId: string): Promise<CartReturn> {
   if (!checkoutLinesDelete || checkoutLinesDelete.errors.length > 0) {
     checkoutLinesDelete && console.error(checkoutLinesDelete?.errors);
     throw new Error('unable delete item from cart');
+  }
+
+  if (checkoutLinesDelete.checkout!.lines.length === 0) {
+    return redirect('/');
   }
 
   return {
