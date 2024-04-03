@@ -18,6 +18,8 @@ import StripeLoader from '@/components/StripeLoader';
 import UnderlineButton from '@/components/UnderlineButton';
 import { getTranslations } from 'next-intl/server';
 import Container from '@/components/Container';
+import Notice from '@/components/Notice';
+import Header from '@/components/Header';
 
 export default async function Checkout() {
   const t = await getTranslations();
@@ -50,6 +52,8 @@ export default async function Checkout() {
         },
       }}
     >
+      <Notice />
+      <Header disableLanguageSwitch disableGetStartedButton disableMenuButton disableLoginButton />
       <CartContextProvider
         lines={cartOrCheckout.lines}
         totalPrice={cartOrCheckout.totalPrice.gross}

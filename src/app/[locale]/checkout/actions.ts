@@ -20,7 +20,7 @@ import { getCalendarEvents } from '@/helpers/calendar';
 import { getClosestOrderDeliveryDate, isUnavailableDeliveryDate } from '@/helpers/dog';
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
-import { setIndividualCheckoutParameters } from '@/helpers/redis';
+import { getIndividualCheckoutParameters, setIndividualCheckoutParameters } from '@/helpers/redis';
 import { redirect } from '@/navigation';
 import { CartReturn } from '@/types/dto';
 import { startOfDay } from 'date-fns';
@@ -324,4 +324,26 @@ export async function finalizeCheckout() {
     checkoutComplete && console.error(checkoutComplete.errors);
     throw new Error('checkout cannot completed');
   }
+
+  redirect('/checkout/complete');
+}
+
+export async function getDeliveryDate() {
+  const id = await getCartCookie();
+
+  if (!id) {
+    return undefined;
+  }
+
+  const params = await getIndividualCheckoutParameters(id);
+
+  if (!params) {
+    return undefined;
+  }
+
+  return params.deliveryDate;
+}
+
+export async function dropCheckoutSession() {
+  await deleteCartCookie();
 }
