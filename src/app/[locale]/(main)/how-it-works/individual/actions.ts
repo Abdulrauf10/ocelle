@@ -12,9 +12,8 @@ import {
   GetCheckoutDocument,
   RemoveCheckoutLinesDocument,
   UpdateCheckoutLinesDocument,
-  UpdateCheckoutShippingMethodDocument,
 } from '@/gql/graphql';
-import { recipeBundleVariant, recipeIndividualVariantsMap } from '@/helpers/dog';
+import { recipeBundle, recipeIndividualMap } from '@/helpers/dog';
 import { executeGraphQL } from '@/helpers/graphql';
 import { CartReturn } from '@/types/dto';
 import invariant from 'ts-invariant';
@@ -105,11 +104,6 @@ export async function getCartOrCheckout(
 }
 
 export async function addToCart(pack: IndividualRecipePack, quantity: number): Promise<CartReturn> {
-  invariant(
-    process.env.SALEOR_INDIVIDUAL_PRODUCT_SLUG,
-    'Missing SALEOR_INDIVIDUAL_PRODUCT_SLUG env variable'
-  );
-
   const cart = await getCartOrCheckout(true);
   const recipe = packToRecipe(pack);
 
@@ -119,7 +113,7 @@ export async function addToCart(pack: IndividualRecipePack, quantity: number): P
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
-      slug: process.env.SALEOR_INDIVIDUAL_PRODUCT_SLUG,
+      slug: recipe === undefined ? recipeBundle.slug : recipeIndividualMap[recipe].slug,
     },
   });
 
@@ -127,21 +121,12 @@ export async function addToCart(pack: IndividualRecipePack, quantity: number): P
     throw new Error('cannot find the product to process the checkout action');
   }
 
-  const sku =
-    recipe === undefined ? recipeBundleVariant.sku : recipeIndividualVariantsMap[recipe].sku;
-
-  const variant = product.variants.find((variant) => variant.sku === sku);
-
-  if (!variant) {
-    throw new Error('cannot find variant with sku: ' + sku);
-  }
-
   const { checkoutLinesAdd } = await executeGraphQL(AddCheckoutLinesDocument, {
     variables: {
       checkoutId: cart!.id,
       lines: [
         {
-          variantId: variant.id,
+          variantId: product.variants[0].id,
           quantity,
         },
       ],

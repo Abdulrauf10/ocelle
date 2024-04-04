@@ -18,63 +18,160 @@ import {
   subYears,
 } from 'date-fns';
 
-export const recipeSubscriptionVariantsMap = {
+/**
+ * used in saleor product variant unit price
+ */
+export const subscriptionProductUnitPrice = 0.1;
+
+/**
+ * Refer to `Excel: customization variables v1.01 > Price Matrix`
+ * price = saleor variant price
+ */
+export const recipeSubscriptionMap = {
   [Recipe.Chicken]: {
-    name: 'Chicken',
-    sku: 'ocelle-c-s',
+    name: 'Subscription: Fresh Chicken Recipe',
+    slug: 'fresh-chicken-subscription',
+    variants: {
+      Puppy: {
+        sku: 'ocelle-sub-c-p',
+        pricePerUnit: 0.17976,
+      },
+      Adult: {
+        sku: 'ocelle-sub-c-a',
+        pricePerUnit: 0.16976,
+      },
+      Senior: {
+        sku: 'ocelle-sub-c-s',
+        pricePerUnit: 0.16476,
+      },
+    },
   },
   [Recipe.Beef]: {
-    name: 'Beef',
-    sku: 'ocelle-b-s',
+    name: 'Subscription: Fresh Beef Recipe',
+    slug: 'fresh-beef-subscription',
+    variants: {
+      Puppy: {
+        sku: 'ocelle-sub-b-p',
+        pricePerUnit: 0.18922,
+      },
+      Adult: {
+        sku: 'ocelle-sub-b-a',
+        pricePerUnit: 0.17922,
+      },
+      Senior: {
+        sku: 'ocelle-sub-b-s',
+        pricePerUnit: 0.17422,
+      },
+    },
   },
   [Recipe.Duck]: {
-    name: 'Duck',
-    sku: 'ocelle-d-s',
+    name: 'Subscription: Fresh Duck Recipe',
+    slug: 'fresh-duck-subscription',
+    variants: {
+      Puppy: {
+        sku: 'ocelle-sub-d-p',
+        pricePerUnit: 0.36791,
+      },
+      Adult: {
+        sku: 'ocelle-sub-d-a',
+        pricePerUnit: 0.35791,
+      },
+      Senior: {
+        sku: 'ocelle-sub-d-s',
+        pricePerUnit: 0.35291,
+      },
+    },
   },
   [Recipe.Lamb]: {
-    name: 'Lamb',
-    sku: 'ocelle-l-s',
+    name: 'Subscription: Fresh Lamb Recipe',
+    slug: 'fresh-lamb-subscription',
+    variants: {
+      Puppy: {
+        sku: 'ocelle-sub-l-p',
+        pricePerUnit: 0.29342,
+      },
+      Adult: {
+        sku: 'ocelle-sub-l-a',
+        pricePerUnit: 0.28342,
+      },
+      Senior: {
+        sku: 'ocelle-sub-l-s',
+        pricePerUnit: 0.27842,
+      },
+    },
   },
   [Recipe.Pork]: {
-    name: 'Pork',
-    sku: 'ocelle-p-s',
+    name: 'Subscription: Fresh Pork Recipe',
+    slug: 'fresh-pork-subscription',
+    variants: {
+      Puppy: {
+        sku: 'ocelle-sub-p-p',
+        pricePerUnit: 0.15093,
+      },
+      Adult: {
+        sku: 'ocelle-sub-p-a',
+        pricePerUnit: 0.14093,
+      },
+      Senior: {
+        sku: 'ocelle-sub-p-s',
+        pricePerUnit: 0.13593,
+      },
+    },
   },
 };
 
 /**
  * only apply to individual case
  */
-export const recipeBundleVariant = {
-  name: 'Bundle',
-  sku: 'ocelle-bundle-i',
-  price: 150,
+export const recipeBundle = {
+  name: 'Test Bundle',
+  slug: 'bundle-pack',
+  variant: {
+    sku: 'ocelle-guest-bundle',
+    price: 150,
+  },
 };
 
-export const recipeIndividualVariantsMap = {
+export const recipeIndividualMap = {
   [Recipe.Chicken]: {
-    name: 'Chicken',
-    sku: 'ocelle-c-i',
-    price: 50,
+    name: 'Fresh Chicken Recipe',
+    slug: 'chicken-pack',
+    variant: {
+      sku: 'ocelle-guest-c',
+      price: 50,
+    },
   },
   [Recipe.Beef]: {
-    name: 'Beef',
-    sku: 'ocelle-b-i',
-    price: 55,
+    name: 'Fresh Beef Recipe',
+    slug: 'beef-pack',
+    variant: {
+      sku: 'ocelle-guest-b',
+      price: 55,
+    },
   },
   [Recipe.Duck]: {
-    name: 'Duck',
-    sku: 'ocelle-d-i',
-    price: 80,
+    name: 'Fresh Duck Recipe',
+    slug: 'duck-pack',
+    variant: {
+      sku: 'ocelle-guest-d',
+      price: 80,
+    },
   },
   [Recipe.Lamb]: {
-    name: 'Lamb',
-    sku: 'ocelle-l-i',
-    price: 65,
+    name: 'Fresh Lamb Recipe',
+    slug: 'lamb-pack',
+    variant: {
+      sku: 'ocelle-guest-l',
+      price: 65,
+    },
   },
   [Recipe.Pork]: {
-    name: 'Pork',
-    sku: 'ocelle-p-i',
-    price: 45,
+    name: 'Fresh Pork Recipe',
+    slug: 'pork-pack',
+    variant: {
+      sku: 'ocelle-guest-p',
+      price: 45,
+    },
   },
 };
 
@@ -90,36 +187,9 @@ const recipePriorities = {
   [Recipe.Duck]: 5,
 };
 
-/**
- * Refer to `Excel: customization variables v1.01 > Price Matrix`
- */
-const recipePriceUnits = {
-  [Recipe.Chicken]: {
-    Puppy: 0.17976,
-    Adult: 0.16976,
-    Senior: 0.16476,
-  },
-  [Recipe.Beef]: {
-    Puppy: 0.18922,
-    Adult: 0.17922,
-    Senior: 0.17422,
-  },
-  [Recipe.Pork]: {
-    Puppy: 0.15093,
-    Adult: 0.14093,
-    Senior: 0.13593,
-  },
-  [Recipe.Lamb]: {
-    Puppy: 0.29342,
-    Adult: 0.28342,
-    Senior: 0.27842,
-  },
-  [Recipe.Duck]: {
-    Puppy: 0.36791,
-    Adult: 0.35791,
-    Senior: 0.35291,
-  },
-};
+export function getSubscriptionProductActuallyQuanlityInSaleor(recipeTotalPriceInBox: number) {
+  return Math.ceil(recipeTotalPriceInBox / subscriptionProductUnitPrice);
+}
 
 export function getTheCheapestRecipe() {
   let cheapest: Recipe = Recipe.Beef;
@@ -242,7 +312,7 @@ function isContainsSize(breeds: Breed[], sizes: Array<BreedSize>) {
 /**
  * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
-export function getLifeStage(breeds: Breed[], dateOfBirth: Date): LifeStage | undefined {
+export function getLifeStage(breeds: Breed[], dateOfBirth: Date): LifeStage {
   const ageM = differenceInMonths(dateOfBirth, new Date());
   const ageY = differenceInYears(dateOfBirth, new Date());
 
@@ -277,7 +347,8 @@ export function getLifeStage(breeds: Breed[], dateOfBirth: Date): LifeStage | un
     else return 'Senior';
   }
 
-  console.error(breeds);
+  console.dir(breeds, { depth: null });
+  throw new Error('cannot calculate the life stage');
 }
 
 /**
@@ -533,7 +604,31 @@ export function isRecommendedRecipe(
 /**
  * Refer to `Excel: customization variables v1.01 > Price Matrix`
  */
-export function calculateRecipeTotalPrice(
+export function calculateRecipeTotalProtionsInBox(
+  breeds: Breed[],
+  dateOfBirth: Date,
+  neutered: boolean,
+  currentWeight: number,
+  condition: BodyCondition,
+  activityLevel: ActivityLevel,
+  recipes: { recipeToBeCalcuate: Recipe; recipeReference?: Recipe },
+  plan: MealPlan,
+  orderSize: OrderSize,
+  transitionPeriod: boolean
+) {
+  const idealWeight = calculateIdealWeight(currentWeight, condition);
+  const derMultiplier = getDerMultiplier(breeds, dateOfBirth, neutered, activityLevel);
+  const requiredDailyCalorie = calculateDailyCalorieRequirement(idealWeight, derMultiplier, plan);
+  const totalOrderPortionSize = calculateTotalPortionSizeInBox(
+    requiredDailyCalorie,
+    recipes,
+    orderSize,
+    transitionPeriod
+  );
+  return totalOrderPortionSize;
+}
+
+export function calculateRecipeTotalPriceInBox(
   breeds: Breed[],
   dateOfBirth: Date,
   neutered: boolean,
@@ -546,21 +641,25 @@ export function calculateRecipeTotalPrice(
   transitionPeriod: boolean
 ) {
   const lifeStage = getLifeStage(breeds, dateOfBirth);
-  const idealWeight = calculateIdealWeight(currentWeight, condition);
-  const derMultiplier = getDerMultiplier(breeds, dateOfBirth, neutered, activityLevel);
-  const requiredDailyCalorie = calculateDailyCalorieRequirement(idealWeight, derMultiplier, plan);
-  const totalOrderPortionSize = calculateTotalPortionSizeInBox(
-    requiredDailyCalorie,
+  const totalProtionsInBox = calculateRecipeTotalProtionsInBox(
+    breeds,
+    dateOfBirth,
+    neutered,
+    currentWeight,
+    condition,
+    activityLevel,
     recipes,
+    plan,
     orderSize,
     transitionPeriod
   );
-  if (!lifeStage) {
-    throw new Error('cannot calculate the life stage');
-  }
-  const priceUnit = recipePriceUnits[recipes.recipeToBeCalcuate][lifeStage];
 
-  return totalOrderPortionSize * priceUnit;
+  console.log(transitionPeriod, totalProtionsInBox);
+
+  return (
+    totalProtionsInBox *
+    recipeSubscriptionMap[recipes.recipeToBeCalcuate].variants[lifeStage].pricePerUnit
+  );
 }
 
 /**
@@ -583,19 +682,18 @@ export function calculateRecipePerDayPrice(
     orderSize,
     transitionPeriod
   );
-  return (
-    calculateRecipeTotalPrice(
-      breeds,
-      dateOfBirth,
-      neutered,
-      currentWeight,
-      condition,
-      activityLevel,
-      recipes,
-      plan,
-      orderSize,
-      transitionPeriod
-    ) /
-    (transitionPeriodDays + normalDays)
+  const recipeTotalPriceInBox = calculateRecipeTotalPriceInBox(
+    breeds,
+    dateOfBirth,
+    neutered,
+    currentWeight,
+    condition,
+    activityLevel,
+    recipes,
+    plan,
+    orderSize,
+    transitionPeriod
   );
+  console.log('recipeTotalPriceInBox', recipeTotalPriceInBox);
+  return recipeTotalPriceInBox / (transitionPeriodDays + normalDays);
 }

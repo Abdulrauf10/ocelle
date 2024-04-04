@@ -122,32 +122,25 @@ mutation DeleteProductCategory($id: ID!) {
   }
 }
 
+query FindProducts($where: ProductWhereInput, $filter: ProductFilterInput) {
+  products(where: $where, filter: $filter, first: 100) {
+    edges {
+      node {
+        ...Product
+      }
+    }
+    totalCount
+  }
+}
+
 query FindProduct($slug: String!) {
   product(slug: $slug) {
     ...Product
   }
 }
 
-mutation CreateProduct(
-  $name: String!
-  $description: JSONString
-  $slug: String!
-  $productType: ID!
-  $category: ID
-  $channelListings: [ProductChannelListingCreateInput!]!
-  $variants: [ProductVariantBulkCreateInput!]
-) {
-  productBulkCreate(
-    products: {
-      name: $name
-      description: $description
-      slug: $slug
-      category: $category
-      productType: $productType
-      channelListings: $channelListings
-      variants: $variants
-    }
-  ) {
+mutation CreateProducts($products: [ProductBulkCreateInput!]!) {
+  productBulkCreate(products: $products) {
     errors {
       code
       message

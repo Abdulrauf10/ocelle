@@ -12,7 +12,7 @@ import {
   CompleteCheckoutDocument,
   CountryCode,
   CreateCheckoutDocument,
-  FindProductDocument,
+  FindProductsDocument,
   FindUserDocument,
   GetChannelDocument,
   GetCheckoutDocument,
@@ -25,11 +25,13 @@ import {
 import { getCalendarEvents } from '@/helpers/calendar';
 import {
   calculateRecipePerDayPrice,
-  calculateRecipeTotalPrice,
+  calculateRecipeTotalPriceInBox,
   getClosestOrderDeliveryDate,
+  getLifeStage,
+  getSubscriptionProductActuallyQuanlityInSaleor,
   getTheCheapestRecipe,
   isUnavailableDeliveryDate,
-  recipeSubscriptionVariantsMap,
+  recipeSubscriptionMap,
 } from '@/helpers/dog';
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
@@ -115,10 +117,6 @@ async function getCheckout(): Promise<CheckoutFragment> {
 
 export async function createCheckout(email: string, orderSize: OrderSize, dogs: DogDto[]) {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
-  invariant(
-    process.env.SALEOR_SUBSCRIPTION_PRODUCT_SLUG,
-    'Missing SALEOR_SUBSCRIPTION_PRODUCT_SLUG env variable'
-  );
 
   const { channel } = await executeGraphQL(GetChannelDocument, {
     withAuth: false,
@@ -132,19 +130,40 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
     throw new Error('channel not found');
   }
 
+  const productSlugsToBeAddToLine = [];
+
+  for (const dog of dogs) {
+    const slug1 = recipeSubscriptionMap[dog.recipe1].slug;
+    const slug2 = dog.recipe2 ? recipeSubscriptionMap[dog.recipe2].slug : undefined;
+
+    if (productSlugsToBeAddToLine.indexOf(slug1) === -1) {
+      productSlugsToBeAddToLine.push(slug1);
+    }
+
+    if (slug2 && productSlugsToBeAddToLine.indexOf(slug2) === -1) {
+      productSlugsToBeAddToLine.push(slug2);
+    }
+  }
+
   // make sure the settings of saleor is ready for create checkout
-  const { product } = await executeGraphQL(FindProductDocument, {
+  const { products: _products } = await executeGraphQL(FindProductsDocument, {
     withAuth: false,
     headers: {
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
-      slug: process.env.SALEOR_SUBSCRIPTION_PRODUCT_SLUG,
+      where: {
+        slug: {
+          oneOf: productSlugsToBeAddToLine,
+        },
+      },
     },
   });
 
-  if (!product?.variants) {
-    throw new Error('cannot find the product to process the checkout action');
+  const products = _products?.edges.map((edge) => edge.node) || [];
+
+  if (products.length !== productSlugsToBeAddToLine.length) {
+    throw new Error('cannot find the products to process the checkout action');
   }
 
   // setup products
@@ -161,58 +180,60 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
             });
           })
         : [];
-    const recipe1Variant = product.variants.find(
-      (variant) => variant.sku === recipeSubscriptionVariantsMap[dog.recipe1].sku
+    const dateOfBirth = new Date(dog.dateOfBirth);
+    const lifeStage = getLifeStage(breeds, dateOfBirth);
+    const subscriptionRecipe1 = recipeSubscriptionMap[dog.recipe1];
+    const product1 = products.find((product) => product.slug === subscriptionRecipe1.slug)!;
+    const recipe1Variant = product1.variants!.find(
+      (variant) => variant.sku === subscriptionRecipe1.variants[lifeStage].sku
     );
     if (!recipe1Variant) {
       throw new Error(
-        `failed to add recipe 1 to checkout, variant not found (${
-          recipeSubscriptionVariantsMap[dog.recipe1].sku
-        })`
+        `failed to add recipe 1 to checkout, variant not found (${subscriptionRecipe1.variants[lifeStage].sku})`
       );
     }
+    const recipe1TotalPrice = calculateRecipeTotalPriceInBox(
+      breeds,
+      dateOfBirth,
+      dog.isNeutered,
+      dog.weight,
+      dog.bodyCondition,
+      dog.activityLevel,
+      { recipeToBeCalcuate: dog.recipe1, recipeReference: dog.recipe2 },
+      dog.mealPlan,
+      OrderSize.TwoWeek,
+      dog.isEnabledTransitionPeriod
+    );
     lines.push({
       variantId: recipe1Variant.id,
-      quantity: Math.ceil(
-        calculateRecipeTotalPrice(
-          breeds,
-          new Date(dog.dateOfBirth),
-          dog.isNeutered,
-          dog.weight,
-          dog.bodyCondition,
-          dog.activityLevel,
-          { recipeToBeCalcuate: dog.recipe1, recipeReference: dog.recipe2 },
-          dog.mealPlan,
-          OrderSize.TwoWeek,
-          dog.isEnabledTransitionPeriod
-        )
-      ),
+      quantity: getSubscriptionProductActuallyQuanlityInSaleor(recipe1TotalPrice),
     });
     if (dog.recipe2) {
-      const recipe2Variant = product.variants.find(
-        (variant) => variant.sku === recipeSubscriptionVariantsMap[dog.recipe2!].sku
+      const subscriptionRecipe2 = recipeSubscriptionMap[dog.recipe2];
+      const product2 = products.find((product) => product.slug === subscriptionRecipe2.slug)!;
+      const recipe2Variant = product2.variants!.find(
+        (variant) => variant.sku === subscriptionRecipe2.variants[lifeStage].sku
       );
       if (!recipe2Variant) {
         throw new Error(
-          `failed to add recipe 2 to checkout, variant not found (${
-            recipeSubscriptionVariantsMap[dog.recipe2].sku
-          })`
+          `failed to add recipe 2 to checkout, variant not found (${subscriptionRecipe2.variants[lifeStage].sku})`
         );
       }
+      const recipe2TotalPrice = calculateRecipeTotalPriceInBox(
+        breeds,
+        dateOfBirth,
+        dog.isNeutered,
+        dog.weight,
+        dog.bodyCondition,
+        dog.activityLevel,
+        { recipeToBeCalcuate: dog.recipe2, recipeReference: dog.recipe1 },
+        dog.mealPlan,
+        OrderSize.TwoWeek,
+        dog.isEnabledTransitionPeriod
+      );
       lines.push({
         variantId: recipe2Variant.id,
-        quantity: calculateRecipeTotalPrice(
-          breeds,
-          new Date(dog.dateOfBirth),
-          dog.isNeutered,
-          dog.weight,
-          dog.bodyCondition,
-          dog.activityLevel,
-          { recipeToBeCalcuate: dog.recipe2, recipeReference: dog.recipe1 },
-          dog.mealPlan,
-          OrderSize.TwoWeek,
-          dog.isEnabledTransitionPeriod
-        ),
+        quantity: getSubscriptionProductActuallyQuanlityInSaleor(recipe2TotalPrice),
       });
     }
   }

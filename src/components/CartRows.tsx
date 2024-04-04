@@ -2,7 +2,7 @@
 
 import { Recipe } from '@/enums';
 import { CheckoutLineFragment } from '@/gql/graphql';
-import { recipeBundleVariant, recipeIndividualVariantsMap } from '@/helpers/dog';
+import { recipeBundle, recipeIndividualMap } from '@/helpers/dog';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
@@ -25,32 +25,32 @@ export default function CartRows({
 
   const contents = React.useMemo(() => {
     return {
-      [recipeBundleVariant.sku]: {
+      [recipeBundle.variant.sku]: {
         title: t('test-bundle'),
         picture: '/recipes/individual/bundle.jpg',
         gram: 500,
       },
-      [recipeIndividualVariantsMap[Recipe.Chicken].sku]: {
+      [recipeIndividualMap[Recipe.Chicken].variant.sku]: {
         title: t('fresh-{}-recipe', { value: t('chicken') }),
         picture: '/recipes/individual/chicken.jpg',
         gram: 200,
       },
-      [recipeIndividualVariantsMap[Recipe.Beef].sku]: {
+      [recipeIndividualMap[Recipe.Beef].variant.sku]: {
         title: t('fresh-{}-recipe', { value: t('beef') }),
         picture: '/recipes/individual/beef.jpg',
         gram: 200,
       },
-      [recipeIndividualVariantsMap[Recipe.Lamb].sku]: {
+      [recipeIndividualMap[Recipe.Lamb].variant.sku]: {
         title: t('fresh-{}-recipe', { value: t('lamb') }),
         picture: '/recipes/individual/lamb.jpg',
         gram: 200,
       },
-      [recipeIndividualVariantsMap[Recipe.Duck].sku]: {
+      [recipeIndividualMap[Recipe.Duck].variant.sku]: {
         title: t('fresh-{}-recipe', { value: t('duck') }),
         picture: '/recipes/individual/duck.jpg',
         gram: 200,
       },
-      [recipeIndividualVariantsMap[Recipe.Pork].sku]: {
+      [recipeIndividualMap[Recipe.Pork].variant.sku]: {
         title: t('fresh-{}-recipe', { value: t('pork') }),
         picture: '/recipes/individual/pork.jpg',
         gram: 200,

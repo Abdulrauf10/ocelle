@@ -8,8 +8,8 @@ import {
   CountryCode,
   CreateChannelDocument,
   CreateProductCategoryDocument,
-  CreateProductDocument,
   CreateProductTypeDocument,
+  CreateProductsDocument,
   CreateShippingMethodDocument,
   CreateShippingZoneDocument,
   CreateWarehouseDocument,
@@ -19,8 +19,8 @@ import {
   DeleteShippingZoneDocument,
   DeleteWarehouseDocument,
   FindProductCategoryDocument,
-  FindProductDocument,
   FindProductTypesDocument,
+  FindProductsDocument,
   FindShippingZonesDocument,
   FindWarehousesDocument,
   GetChannelDocument,
@@ -35,9 +35,10 @@ import {
 } from './gql/graphql';
 import invariant from 'ts-invariant';
 import {
-  recipeBundleVariant,
-  recipeIndividualVariantsMap,
-  recipeSubscriptionVariantsMap,
+  recipeBundle,
+  recipeIndividualMap,
+  recipeSubscriptionMap,
+  subscriptionProductUnitPrice,
 } from './helpers/dog';
 
 enum SFExpressShippingMethod {
@@ -515,79 +516,79 @@ async function setupSubscriptionProducts(
   productType: ProductTypeFragment,
   category: CategoryFragment,
   warehouse: WarehouseFragment
-): Promise<ProductFragment> {
-  invariant(
-    process.env.SALEOR_SUBSCRIPTION_PRODUCT_SLUG,
-    'Missing SALEOR_SUBSCRIPTION_PRODUCT_SLUG env variable'
-  );
-
+): Promise<ProductFragment[]> {
   console.log('setup subscription products...');
 
+  const subscriptionProducts = Object.values(recipeSubscriptionMap);
+
   // create placeholder product if not exists
-  const { product } = await executeGraphQL(FindProductDocument, {
+  const { products } = await executeGraphQL(FindProductsDocument, {
     withAuth: false,
     headers: {
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
-      slug: process.env.SALEOR_SUBSCRIPTION_PRODUCT_SLUG,
+      where: {
+        slug: {
+          oneOf: subscriptionProducts.map((product) => product.slug),
+        },
+      },
     },
   });
 
-  if (product) {
-    return product;
+  const existingProducts = products?.edges.map((edge) => edge.node) || [];
+
+  if (existingProducts.length === subscriptionProducts.length) {
+    return existingProducts;
   }
 
+  const existingProductSlugs = existingProducts.map((product) => product.slug);
+
+  const productsToBeCreate = subscriptionProducts.filter(
+    (product) => existingProductSlugs.indexOf(product.slug) === -1
+  );
+
   // create a product if not exists
-  const { productBulkCreate } = await executeGraphQL(CreateProductDocument, {
+  const { productBulkCreate } = await executeGraphQL(CreateProductsDocument, {
     withAuth: false,
     headers: {
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
-      name: 'Recipe Subscription',
-      description: JSON.stringify({
-        time: Date.now(),
-        blocks: [
-          {
-            id: 'CMRIgvbpUG',
-            data: {
-              text: 'This product is used for <b>OCELLE</b> subscription purchase.',
-            },
-            type: 'paragraph',
-          },
-        ],
-        version: '2.22.2',
-      }),
-      slug: process.env.SALEOR_SUBSCRIPTION_PRODUCT_SLUG,
-      productType: productType.id,
-      category: category.id,
-      channelListings: [
-        {
-          channelId: channel.id,
-          isAvailableForPurchase: true,
-          isPublished: true,
-          publishedAt: new Date().toISOString(),
-        },
-      ],
-      variants: Object.values(recipeSubscriptionVariantsMap).map(({ name, sku }) => {
+      products: productsToBeCreate.map((recipe) => {
         return {
-          name,
-          sku,
-          attributes: [],
-          trackInventory: false,
-          stocks: [
-            {
-              warehouse: warehouse.id,
-              quantity: Math.pow(2, 31) - 1,
-            },
-          ],
+          name: recipe.name,
+          slug: recipe.slug,
+          productType: productType.id,
+          category: category.id,
           channelListings: [
             {
               channelId: channel.id,
-              price: 1,
+              isAvailableForPurchase: true,
+              isPublished: true,
+              publishedAt: new Date().toISOString(),
             },
           ],
+          variants: Object.entries(recipe.variants).map(([name, variant]) => {
+            return {
+              name,
+              sku: variant.sku,
+              attributes: [],
+              trackInventory: false,
+              stocks: [
+                {
+                  warehouse: warehouse.id,
+                  quantity: Math.pow(2, 31) - 1,
+                },
+              ],
+              channelListings: [
+                {
+                  channelId: channel.id,
+                  price: subscriptionProductUnitPrice,
+                },
+              ],
+            };
+          }),
         };
       }),
     },
@@ -598,7 +599,7 @@ async function setupSubscriptionProducts(
     throw new Error('failed to create subscription product');
   }
 
-  return productBulkCreate.results[0].product!;
+  return [...existingProducts, ...productBulkCreate.results.map((result) => result.product!)];
 }
 
 async function setupIndividualProducts(
@@ -606,81 +607,89 @@ async function setupIndividualProducts(
   productType: ProductTypeFragment,
   category: CategoryFragment,
   warehouse: WarehouseFragment
-): Promise<ProductFragment> {
-  invariant(
-    process.env.SALEOR_INDIVIDUAL_PRODUCT_SLUG,
-    'Missing SALEOR_INDIVIDUAL_PRODUCT_SLUG env variable'
-  );
-
+): Promise<ProductFragment[]> {
   console.log('setup individual products...');
 
-  // create placeholder product if not exists
-  const { product } = await executeGraphQL(FindProductDocument, {
+  const individualProducts = [recipeBundle, ...Object.values(recipeIndividualMap)];
+
+  const { products } = await executeGraphQL(FindProductsDocument, {
     withAuth: false,
     headers: {
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
-      slug: process.env.SALEOR_INDIVIDUAL_PRODUCT_SLUG,
+      where: {
+        slug: {
+          oneOf: individualProducts.map((product) => product.slug),
+        },
+      },
     },
   });
 
-  if (product) {
-    return product;
+  const existingProducts = products?.edges.map((edge) => edge.node) || [];
+
+  if (existingProducts.length === individualProducts.length) {
+    return existingProducts;
   }
 
-  const variants = Object.values(recipeIndividualVariantsMap);
+  const existingProductSlugs = existingProducts.map((product) => product.slug);
 
-  variants.push(recipeBundleVariant);
+  const productsToBeCreate = individualProducts.filter(
+    (product) => existingProductSlugs.indexOf(product.slug) === -1
+  );
 
   // create a product if not exists
-  const { productBulkCreate } = await executeGraphQL(CreateProductDocument, {
+  const { productBulkCreate } = await executeGraphQL(CreateProductsDocument, {
     withAuth: false,
     headers: {
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
-      name: 'Recipe Individual',
-      description: JSON.stringify({
-        time: Date.now(),
-        blocks: [
-          {
-            id: 'CMRIgvbpUG',
-            data: {
-              text: 'This product is used for <b>OCELLE</b> individual purchase.',
-            },
-            type: 'paragraph',
-          },
-        ],
-        version: '2.22.2',
-      }),
-      slug: process.env.SALEOR_INDIVIDUAL_PRODUCT_SLUG,
-      productType: productType.id,
-      category: category.id,
-      channelListings: [
-        {
-          channelId: channel.id,
-          isAvailableForPurchase: true,
-          isPublished: true,
-          publishedAt: new Date().toISOString(),
-        },
-      ],
-      variants: variants.map(({ name, sku, price }) => {
+      products: productsToBeCreate.map((product) => {
         return {
-          name,
-          sku,
-          attributes: [],
-          trackInventory: false,
-          stocks: [
-            {
-              warehouse: warehouse.id,
-              quantity: Math.pow(2, 31) - 1,
-            },
-          ],
+          name: product.name,
+          slug: product.slug,
+          description: JSON.stringify({
+            time: Date.now(),
+            blocks: [
+              {
+                id: 'CMRIgvbpUG',
+                data: {
+                  text: 'This product is used for <b>OCELLE</b> individual purchase.',
+                },
+                type: 'paragraph',
+              },
+            ],
+            version: '2.22.2',
+          }),
+          productType: productType.id,
+          category: category.id,
           channelListings: [
             {
               channelId: channel.id,
-              price,
+              isAvailableForPurchase: true,
+              isPublished: true,
+              publishedAt: new Date().toISOString(),
+            },
+          ],
+          variants: [
+            {
+              name: 'Default',
+              sku: product.variant.sku,
+              attributes: [],
+              trackInventory: false,
+              stocks: [
+                {
+                  warehouse: warehouse.id,
+                  quantity: Math.pow(2, 31) - 1,
+                },
+              ],
+              channelListings: [
+                {
+                  channelId: channel.id,
+                  price: product.variant.price,
+                },
+              ],
             },
           ],
         };
@@ -693,7 +702,7 @@ async function setupIndividualProducts(
     throw new Error('failed to create individual product');
   }
 
-  return productBulkCreate.results[0].product!;
+  return [...existingProducts, ...productBulkCreate.results.map((result) => result.product!)];
 }
 
 async function setup() {
