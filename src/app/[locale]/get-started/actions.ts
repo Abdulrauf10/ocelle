@@ -677,11 +677,13 @@ export async function finalizeCheckout() {
       }
       await queryRunner.manager.save(dogOrders);
     });
-    redirect('/get-started/complete');
   } catch (e) {
     console.error(e);
     redirect('/get-started');
+    return;
   }
+
+  redirect('/get-started/complete');
 }
 
 export async function getDeliveryDate() {
