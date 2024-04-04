@@ -39,7 +39,7 @@ export default function Button({
   const buttonProps = props as ButtonProps;
   const linkProps = props as LinkbuttonProps;
   const baseClasses = clsx(
-    'font-open-sans items-center justify-center rounded-[30px] py-1.5 px-6 text-center text-xl font-bold border select-none',
+    'font-open-sans items-center justify-center rounded-[30px] py-1.5 px-6 text-center text-xl font-bold border-2 select-none',
     fullWidth ? 'flex w-full' : 'inline-flex'
   );
   const primaryClasses = clsx(
