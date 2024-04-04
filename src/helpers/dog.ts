@@ -33,15 +33,15 @@ export const recipeSubscriptionMap = {
     slug: 'fresh-chicken-subscription',
     variants: {
       Puppy: {
-        sku: 'ocelle-sub-c-p',
+        sku: 'subs-chicken-puppy',
         pricePerUnit: 0.17976,
       },
       Adult: {
-        sku: 'ocelle-sub-c-a',
+        sku: 'subs-chicken-adult',
         pricePerUnit: 0.16976,
       },
       Senior: {
-        sku: 'ocelle-sub-c-s',
+        sku: 'subs-chicken-senior',
         pricePerUnit: 0.16476,
       },
     },
@@ -51,15 +51,15 @@ export const recipeSubscriptionMap = {
     slug: 'fresh-beef-subscription',
     variants: {
       Puppy: {
-        sku: 'ocelle-sub-b-p',
+        sku: 'subs-beef-puppy',
         pricePerUnit: 0.18922,
       },
       Adult: {
-        sku: 'ocelle-sub-b-a',
+        sku: 'subs-beef-adult',
         pricePerUnit: 0.17922,
       },
       Senior: {
-        sku: 'ocelle-sub-b-s',
+        sku: 'subs-beef-senior',
         pricePerUnit: 0.17422,
       },
     },
@@ -69,15 +69,15 @@ export const recipeSubscriptionMap = {
     slug: 'fresh-duck-subscription',
     variants: {
       Puppy: {
-        sku: 'ocelle-sub-d-p',
+        sku: 'subs-duck-puppy',
         pricePerUnit: 0.36791,
       },
       Adult: {
-        sku: 'ocelle-sub-d-a',
+        sku: 'subs-duck-adult',
         pricePerUnit: 0.35791,
       },
       Senior: {
-        sku: 'ocelle-sub-d-s',
+        sku: 'subs-duck-senior',
         pricePerUnit: 0.35291,
       },
     },
@@ -87,15 +87,15 @@ export const recipeSubscriptionMap = {
     slug: 'fresh-lamb-subscription',
     variants: {
       Puppy: {
-        sku: 'ocelle-sub-l-p',
+        sku: 'subs-lamb-puppy',
         pricePerUnit: 0.29342,
       },
       Adult: {
-        sku: 'ocelle-sub-l-a',
+        sku: 'subs-lamb-adult',
         pricePerUnit: 0.28342,
       },
       Senior: {
-        sku: 'ocelle-sub-l-s',
+        sku: 'subs-lamb-senior',
         pricePerUnit: 0.27842,
       },
     },
@@ -105,15 +105,15 @@ export const recipeSubscriptionMap = {
     slug: 'fresh-pork-subscription',
     variants: {
       Puppy: {
-        sku: 'ocelle-sub-p-p',
+        sku: 'subs-pork-puppy',
         pricePerUnit: 0.15093,
       },
       Adult: {
-        sku: 'ocelle-sub-p-a',
+        sku: 'subs-pork-adult',
         pricePerUnit: 0.14093,
       },
       Senior: {
-        sku: 'ocelle-sub-p-s',
+        sku: 'subs-pork-senior',
         pricePerUnit: 0.13593,
       },
     },
@@ -127,7 +127,7 @@ export const recipeBundle = {
   name: 'Test Bundle',
   slug: 'bundle-pack',
   variant: {
-    sku: 'ocelle-guest-bundle',
+    sku: 'guest-bundle',
     weightKGs: 0.5,
     price: 150,
   },
@@ -138,7 +138,7 @@ export const recipeIndividualMap = {
     name: 'Fresh Chicken Recipe',
     slug: 'chicken-pack',
     variant: {
-      sku: 'ocelle-guest-c',
+      sku: 'guest-chicken',
       weightKGs: 0.2,
       price: 50,
     },
@@ -147,7 +147,7 @@ export const recipeIndividualMap = {
     name: 'Fresh Beef Recipe',
     slug: 'beef-pack',
     variant: {
-      sku: 'ocelle-guest-b',
+      sku: 'guest-beef',
       weightKGs: 0.2,
       price: 55,
     },
@@ -156,7 +156,7 @@ export const recipeIndividualMap = {
     name: 'Fresh Duck Recipe',
     slug: 'duck-pack',
     variant: {
-      sku: 'ocelle-guest-d',
+      sku: 'guest-duck',
       weightKGs: 0.2,
       price: 80,
     },
@@ -165,7 +165,7 @@ export const recipeIndividualMap = {
     name: 'Fresh Lamb Recipe',
     slug: 'lamb-pack',
     variant: {
-      sku: 'ocelle-guest-l',
+      sku: 'guest-lamb',
       weightKGs: 0.2,
       price: 65,
     },
@@ -174,7 +174,7 @@ export const recipeIndividualMap = {
     name: 'Fresh Pork Recipe',
     slug: 'pork-pack',
     variant: {
-      sku: 'ocelle-guest-p',
+      sku: 'guest-pork',
       weightKGs: 0.2,
       price: 45,
     },
