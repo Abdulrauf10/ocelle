@@ -29,7 +29,7 @@ export const subscriptionProductUnitPrice = 0.1;
  */
 export const recipeSubscriptionMap = {
   [Recipe.Chicken]: {
-    name: 'Subscription: Fresh Chicken Recipe',
+    name: 'S: Fresh Chicken Recipe',
     slug: 'fresh-chicken-subscription',
     variants: {
       Puppy: {
@@ -47,7 +47,7 @@ export const recipeSubscriptionMap = {
     },
   },
   [Recipe.Beef]: {
-    name: 'Subscription: Fresh Beef Recipe',
+    name: 'S: Fresh Beef Recipe',
     slug: 'fresh-beef-subscription',
     variants: {
       Puppy: {
@@ -65,7 +65,7 @@ export const recipeSubscriptionMap = {
     },
   },
   [Recipe.Duck]: {
-    name: 'Subscription: Fresh Duck Recipe',
+    name: 'S: Fresh Duck Recipe',
     slug: 'fresh-duck-subscription',
     variants: {
       Puppy: {
@@ -83,7 +83,7 @@ export const recipeSubscriptionMap = {
     },
   },
   [Recipe.Lamb]: {
-    name: 'Subscription: Fresh Lamb Recipe',
+    name: 'S: Fresh Lamb Recipe',
     slug: 'fresh-lamb-subscription',
     variants: {
       Puppy: {
@@ -101,7 +101,7 @@ export const recipeSubscriptionMap = {
     },
   },
   [Recipe.Pork]: {
-    name: 'Subscription: Fresh Pork Recipe',
+    name: 'S: Fresh Pork Recipe',
     slug: 'fresh-pork-subscription',
     variants: {
       Puppy: {

@@ -268,7 +268,7 @@ async function findOrCreateChannel(warehouse: WarehouseFragment): Promise<Channe
   return channelCreate.channel!;
 }
 
-async function findOrCreateProductType(): Promise<ProductTypeFragment> {
+async function findOrCreateProductType(name: string): Promise<ProductTypeFragment> {
   console.log('execute find or create product type...');
 
   const { productTypes } = await executeGraphQL(FindProductTypesDocument, {
@@ -277,7 +277,7 @@ async function findOrCreateProductType(): Promise<ProductTypeFragment> {
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
-      keyword: 'Ocelle',
+      keyword: name,
     },
   });
 
@@ -288,9 +288,7 @@ async function findOrCreateProductType(): Promise<ProductTypeFragment> {
       headers: {
         Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
       },
-      variables: {
-        name: 'Ocelle',
-      },
+      variables: { name },
     });
 
     if (!productTypeCreate || productTypeCreate.errors.length > 0) {
@@ -561,6 +559,19 @@ async function setupSubscriptionProducts(
         return {
           name: recipe.name,
           slug: recipe.slug,
+          description: JSON.stringify({
+            time: Date.now(),
+            blocks: [
+              {
+                id: 'CMRIgvbpUG',
+                data: {
+                  text: 'This is a placeholder product. Do not <b>EDIT</b> or <b>DELETE</b> the product.',
+                },
+                type: 'paragraph',
+              },
+            ],
+            version: '2.22.2',
+          }),
           productType: productType.id,
           category: category.id,
           channelListings: [
@@ -657,7 +668,7 @@ async function setupIndividualProducts(
               {
                 id: 'CMRIgvbpUG',
                 data: {
-                  text: 'This product is used for <b>OCELLE</b> individual purchase.',
+                  text: 'This product is used for individual purchase.',
                 },
                 type: 'paragraph',
               },
@@ -729,14 +740,15 @@ async function setup() {
 
   await setupShop();
 
-  const productType = await findOrCreateProductType();
+  const individualProductType = await findOrCreateProductType('Pack');
+  const subscriptionProductType = await findOrCreateProductType('Subscription');
   const category = await findOrCreateCategory();
   const warehouse = await findOrCreateWarehouse();
   const channel = await findOrCreateChannel(warehouse);
   const shippingZone = await findOrCreateShippingZone(channel, warehouse);
 
-  await setupIndividualProducts(channel, productType, category, warehouse);
-  await setupSubscriptionProducts(channel, productType, category, warehouse);
+  await setupIndividualProducts(channel, individualProductType, category, warehouse);
+  await setupSubscriptionProducts(channel, subscriptionProductType, category, warehouse);
 
   await prugeDefaultChannel();
   await prugeDefaultProductType();
