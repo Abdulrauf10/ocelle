@@ -550,6 +550,10 @@ export async function finalizeCheckout() {
     const { checkoutDeliveryMethodUpdate } = await executeGraphQL(
       UpdateCheckoutShippingMethodDocument,
       {
+        withAuth: false,
+        headers: {
+          Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+        },
         variables: {
           checkoutId: checkout.id,
           shippingMethodId: checkout.shippingMethods[0].id,
