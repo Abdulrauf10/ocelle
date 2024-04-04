@@ -22,6 +22,7 @@ export default function Product({
   className,
   theme,
   pack,
+  detailsButton,
 }: {
   picture: string;
   title: string;
@@ -36,6 +37,7 @@ export default function Product({
     content?: string;
   };
   pack: IndividualRecipePack;
+  detailsButton?: React.ReactNode;
 }) {
   const t = useTranslations();
   const { setLines, setTotalPrice } = useCart();
@@ -72,6 +74,7 @@ export default function Product({
             </h2>
             <p className={clsx('mt-4 text-[30px]', className.title)}>${price}</p>
             <p className={clsx('body-1 mt-4', className.content)}>{description}</p>
+            {detailsButton && <div className="mt-6">{detailsButton}</div>}
             <label className="mt-6 block">
               <span className={clsx('body-1 mr-3 inline-block font-bold', className.content)}>
                 {colon(t, 'quantity')}

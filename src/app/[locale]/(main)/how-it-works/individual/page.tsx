@@ -11,6 +11,8 @@ import { CartContextProvider } from '@/contexts/cart';
 import { freshRecipe } from '@/helpers/translation';
 import { weightToGrams } from '@/helpers/saleor';
 import { ProductFragment } from '@/gql/graphql';
+import RecipeMediumDialog from '@/components/dialogs/RecipeMedium';
+import pluralize from 'pluralize';
 
 export default async function HowItWorksIndividual() {
   const t = await getTranslations();
@@ -24,6 +26,29 @@ export default async function HowItWorksIndividual() {
   const getWeight = (product: ProductFragment) => {
     return weightToGrams(product.variants![0].weight!);
   };
+
+  const targetedNutrientBlendIngredients = [
+    t('selenium-yeast'),
+    t('vitamin-a-supplement'),
+    t('thiamine-hydrochloride-vitamin-b1'),
+    t('riboflavin-vitamin-b2'),
+    t('niacin-vitamin-b3'),
+    t('pyridoxine-hydrochloride-vitamin-b6'),
+    t('folic-acid-vitamin-b9'),
+    t('cholecalciferol-vitamin-b12'),
+    t('vitamin-d3-supplement'),
+    t('sodium-chloride'),
+    t('tricalcium-phosphate'),
+    t('iron-amino-acid-chelate'),
+    t('potassium-chloride'),
+    t('potassium-iodide'),
+    t('zinc-amino-acid-chelate'),
+    t('magnesium-amino-acid-chelate'),
+    t('manganese-amino-acid-chelate'),
+    t('copper-amino-acid-chelate'),
+    t('taurine'),
+    t('choline-bitartrate'),
+  ];
 
   return (
     <CartContextProvider lines={cart ? cart.lines : []} totalPrice={cart?.totalPrice.gross}>
@@ -70,6 +95,32 @@ export default async function HowItWorksIndividual() {
           }}
           reverse
           pack={IndividualRecipePack.Chicken}
+          detailsButton={
+            <RecipeMediumDialog
+              name={freshRecipe(t, Recipe.Chicken)}
+              description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
+              picture="/meal-plan/chicken-recipe.jpg"
+              ingredients={[
+                t('chicken-breast'),
+                t('chicken-liver'),
+                t('whole-grain-rice'),
+                pluralize.plural(t('shiitake-mushroom')),
+                t('spinach'),
+                t('peas'),
+                pluralize.plural(t('cranberry')),
+                t('flaxseed'),
+                t('salmon-oil'),
+                t('ocelle-targeted-nutrient-blend'),
+              ]}
+              targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
+              calorie={1540}
+              analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
+            >
+              <Button theme="yellow" reverse>
+                {t('see-details')}
+              </Button>
+            </RecipeMediumDialog>
+          }
         />
         <Product
           picture="/recipes/individual/beef.jpg"
@@ -83,6 +134,32 @@ export default async function HowItWorksIndividual() {
             title: 'text-how-it-works-red',
           }}
           pack={IndividualRecipePack.Beef}
+          detailsButton={
+            <RecipeMediumDialog
+              name={freshRecipe(t, Recipe.Beef)}
+              description="This hearty meal delivers high-quality beef for strength, a rainbow of veggies for antioxidant power, and superfoods to boost immunity. Hit the ground running with every bowl!"
+              picture="/meal-plan/chicken-recipe.jpg"
+              ingredients={[
+                t('beef-chuck'),
+                t('beef-liver'),
+                pluralize.plural(t('potato')),
+                pluralize.plural(t('carrot')),
+                t('kale'),
+                t('peas'),
+                pluralize.plural(t('blueberry')),
+                t('flaxseed'),
+                t('salmon-oil'),
+                t('ocelle-targeted-nutrient-blend'),
+              ]}
+              targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
+              calorie={1540}
+              analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
+            >
+              <Button theme="red" reverse>
+                {t('see-details')}
+              </Button>
+            </RecipeMediumDialog>
+          }
         />
         <Product
           picture="/recipes/individual/pork.jpg"
@@ -97,6 +174,32 @@ export default async function HowItWorksIndividual() {
           }}
           reverse
           pack={IndividualRecipePack.Pork}
+          detailsButton={
+            <RecipeMediumDialog
+              name={freshRecipe(t, Recipe.Pork)}
+              description="Embrace gentle nutrition with this hypoallergenic feast. It combines novel proteins with leafy greens for digestive ease, immune strength, and a coat that shines. Perfect for dogs with sensitive stomachs or allergies!"
+              picture="/meal-plan/chicken-recipe.jpg"
+              ingredients={[
+                t('pork-loin'),
+                t('pork-liver'),
+                t('celery'),
+                pluralize.plural(t('potato')),
+                t('spinach'),
+                t('peas'),
+                pluralize.plural(t('blueberry')),
+                t('flaxseed'),
+                t('salmon-oil'),
+                t('ocelle-targeted-nutrient-blend'),
+              ]}
+              targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
+              calorie={1540}
+              analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
+            >
+              <Button theme="primary" reverse>
+                {t('see-details')}
+              </Button>
+            </RecipeMediumDialog>
+          }
         />
         <Product
           picture="/recipes/individual/lamb.jpg"
@@ -110,6 +213,31 @@ export default async function HowItWorksIndividual() {
             title: 'text-how-it-works-green',
           }}
           pack={IndividualRecipePack.Lamb}
+          detailsButton={
+            <RecipeMediumDialog
+              name={freshRecipe(t, Recipe.Lamb)}
+              description="A flavour and nutrient powerhouse, capable of satisfying even the pickiest of eaters. Crafted for muscle strength, immune support, radiant health, and a shiny coat!"
+              picture="/meal-plan/chicken-recipe.jpg"
+              ingredients={[
+                t('lamb-leg-boneless'),
+                t('beef-liver'),
+                t('whole-grain-rice'),
+                t('peas'),
+                t('spinach'),
+                pluralize.plural(t('blueberry')),
+                t('flaxseed'),
+                t('salmon-oil'),
+                t('ocelle-targeted-nutrient-blend'),
+              ]}
+              targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
+              calorie={1540}
+              analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
+            >
+              <Button theme="green" reverse>
+                {t('see-details')}
+              </Button>
+            </RecipeMediumDialog>
+          }
         />
         <Product
           picture="/recipes/individual/duck.jpg"
@@ -123,6 +251,31 @@ export default async function HowItWorksIndividual() {
           }}
           reverse
           pack={IndividualRecipePack.Duck}
+          detailsButton={
+            <RecipeMediumDialog
+              name={freshRecipe(t, Recipe.Duck)}
+              description="A wholesome feast, tailored for digestive health, luxurious coats, and improved vitality! Perfect for dogs seeking a unique and hypoallergenic dining experience without compromising on taste and health."
+              picture="/meal-plan/chicken-recipe.jpg"
+              ingredients={[
+                t('duck-breast'),
+                t('chicken-liver'),
+                t('whole-grain-pasta'),
+                t('winter-melon'),
+                t('peas'),
+                pluralize.plural(t('goji-berry')),
+                t('flaxseed'),
+                t('salmon-oil'),
+                t('ocelle-targeted-nutrient-blend'),
+              ]}
+              targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
+              calorie={1540}
+              analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
+            >
+              <Button theme="secondary" reverse>
+                {t('see-details')}
+              </Button>
+            </RecipeMediumDialog>
+          }
         />
         <Block className="bg-gray bg-opacity-20">
           <Container className="max-w-screen-xl text-center">
