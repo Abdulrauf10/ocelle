@@ -90,13 +90,13 @@ export default function RecipeForm({
             control={control}
             picture="/meal-plan/chicken.jpg"
             ingredients={[
-              t('beef-chuck'),
-              t('beef-liver'),
-              pluralize.plural(t('potato')),
-              pluralize.plural(t('carrot')),
-              t('kale'),
+              t('chicken-breast'),
+              t('chicken-liver'),
+              t('whole-grain-rice'),
+              pluralize.plural(t('shiitake-mushroom')),
+              t('spinach'),
               t('peas'),
-              pluralize.plural(t('blueberry')),
+              pluralize.plural(t('cranberry')),
               t('flaxseed'),
               t('salmon-oil'),
               t('ocelle-targeted-nutrient-blend'),
