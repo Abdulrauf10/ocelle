@@ -128,6 +128,7 @@ export const recipeBundle = {
   slug: 'bundle-pack',
   variant: {
     sku: 'ocelle-guest-bundle',
+    weightKGs: 0.5,
     price: 150,
   },
 };
@@ -138,6 +139,7 @@ export const recipeIndividualMap = {
     slug: 'chicken-pack',
     variant: {
       sku: 'ocelle-guest-c',
+      weightKGs: 0.2,
       price: 50,
     },
   },
@@ -146,6 +148,7 @@ export const recipeIndividualMap = {
     slug: 'beef-pack',
     variant: {
       sku: 'ocelle-guest-b',
+      weightKGs: 0.2,
       price: 55,
     },
   },
@@ -154,6 +157,7 @@ export const recipeIndividualMap = {
     slug: 'duck-pack',
     variant: {
       sku: 'ocelle-guest-d',
+      weightKGs: 0.2,
       price: 80,
     },
   },
@@ -162,6 +166,7 @@ export const recipeIndividualMap = {
     slug: 'lamb-pack',
     variant: {
       sku: 'ocelle-guest-l',
+      weightKGs: 0.2,
       price: 65,
     },
   },
@@ -170,6 +175,7 @@ export const recipeIndividualMap = {
     slug: 'pork-pack',
     variant: {
       sku: 'ocelle-guest-p',
+      weightKGs: 0.2,
       price: 45,
     },
   },

@@ -32,6 +32,7 @@ import {
   UpdateShippingMethodChannelListingDocument,
   UpdateShopSettingsDocument,
   WarehouseFragment,
+  WeightUnitsEnum,
 } from './gql/graphql';
 import invariant from 'ts-invariant';
 import {
@@ -501,6 +502,7 @@ async function setupShop() {
     },
     variables: {
       input: {
+        defaultWeightUnit: WeightUnitsEnum.Kg,
         limitQuantityPerCheckout: null,
       },
     },
@@ -678,6 +680,7 @@ async function setupIndividualProducts(
               sku: product.variant.sku,
               attributes: [],
               trackInventory: false,
+              weight: product.variant.weightKGs,
               stocks: [
                 {
                   warehouse: warehouse.id,

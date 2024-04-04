@@ -8,6 +8,7 @@ import {
   CountryCode,
   CreateCheckoutDocument,
   FindProductDocument,
+  FindProductsDocument,
   GetChannelDocument,
   GetCheckoutDocument,
   RemoveCheckoutLinesDocument,
@@ -30,7 +31,56 @@ function packToRecipe(pack: IndividualRecipePack) {
       return Recipe.Lamb;
     case IndividualRecipePack.Pork:
       return Recipe.Pork;
+    default:
+      throw new Error(`cannot map pack to recipe, unknown pack ${pack}`);
   }
+}
+
+export async function getProducts() {
+  invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
+
+  const individualProducts = [recipeBundle, ...Object.values(recipeIndividualMap)];
+
+  const { products } = await executeGraphQL(FindProductsDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      channel: process.env.SALEOR_CHANNEL_SLUG,
+      where: {
+        slug: {
+          oneOf: individualProducts.map((product) => product.slug),
+        },
+      },
+    },
+  });
+
+  if (!products) {
+    throw new Error('cannot find products');
+  }
+
+  return {
+    [IndividualRecipePack.Bundle]: products.edges.find(
+      (edge) => edge.node.slug === recipeBundle.slug
+    )!.node,
+    [IndividualRecipePack.Chicken]: products.edges.find(
+      (edge) =>
+        edge.node.slug === recipeIndividualMap[packToRecipe(IndividualRecipePack.Chicken)].slug
+    )!.node,
+    [IndividualRecipePack.Beef]: products.edges.find(
+      (edge) => edge.node.slug === recipeIndividualMap[packToRecipe(IndividualRecipePack.Beef)].slug
+    )!.node,
+    [IndividualRecipePack.Duck]: products.edges.find(
+      (edge) => edge.node.slug === recipeIndividualMap[packToRecipe(IndividualRecipePack.Duck)].slug
+    )!.node,
+    [IndividualRecipePack.Lamb]: products.edges.find(
+      (edge) => edge.node.slug === recipeIndividualMap[packToRecipe(IndividualRecipePack.Lamb)].slug
+    )!.node,
+    [IndividualRecipePack.Pork]: products.edges.find(
+      (edge) => edge.node.slug === recipeIndividualMap[packToRecipe(IndividualRecipePack.Pork)].slug
+    )!.node,
+  };
 }
 
 export async function getCartOrCheckout(

@@ -11,10 +11,18 @@ fragment Category on Category {
   name
 }
 
+fragment Weight on Weight {
+  unit
+  value
+}
+
 fragment ProductVariant on ProductVariant {
   id
   name
   sku
+  weight {
+    ...Weight
+  }
   quantityAvailable
   pricing {
     price {
@@ -122,8 +130,8 @@ mutation DeleteProductCategory($id: ID!) {
   }
 }
 
-query FindProducts($where: ProductWhereInput, $filter: ProductFilterInput) {
-  products(where: $where, filter: $filter, first: 100) {
+query FindProducts($where: ProductWhereInput, $filter: ProductFilterInput, $channel: String) {
+  products(where: $where, filter: $filter, channel: $channel, first: 100) {
     edges {
       node {
         ...Product

@@ -16,6 +16,7 @@ export default function Product({
   picture,
   title,
   description,
+  grams,
   price,
   reverse,
   className,
@@ -25,6 +26,7 @@ export default function Product({
   picture: string;
   title: string;
   description: React.ReactNode;
+  grams: number;
   price: number;
   reverse?: boolean;
   theme?: 'primary' | 'secondary' | 'red' | 'yellow' | 'green';
@@ -65,7 +67,9 @@ export default function Product({
             </div>
           </div>
           <div className="w-full px-6 py-4">
-            <h2 className={clsx('heading-2 font-bold', className.title)}>{title}</h2>
+            <h2 className={clsx('heading-2 font-bold', className.title)}>
+              {title} – {t('{}-g', { value: grams })}
+            </h2>
             <p className={clsx('mt-4 text-[30px]', className.title)}>${price}</p>
             <p className={clsx('body-1 mt-4', className.content)}>{description}</p>
             <label className="mt-6 block">

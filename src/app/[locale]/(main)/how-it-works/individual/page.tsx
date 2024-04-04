@@ -3,15 +3,27 @@ import Button from '@/components/buttons/Button';
 import Container from '@/components/Container';
 import Image from 'next/image';
 import Product from './Product';
-import { IndividualRecipePack } from '@/enums';
-import { getCartOrCheckout } from './actions';
+import { IndividualRecipePack, Recipe } from '@/enums';
+import { getCartOrCheckout, getProducts } from './actions';
 import { getTranslations } from 'next-intl/server';
 import CartSection from './CartSection';
 import { CartContextProvider } from '@/contexts/cart';
+import { freshRecipe } from '@/helpers/translation';
+import { weightToGrams } from '@/helpers/saleor';
+import { ProductFragment } from '@/gql/graphql';
 
 export default async function HowItWorksIndividual() {
   const t = await getTranslations();
+  const products = await getProducts();
   const cart = await getCartOrCheckout(false);
+
+  const getPrice = (product: ProductFragment) => {
+    return product.variants![0].pricing!.price!.gross.amount;
+  };
+
+  const getWeight = (product: ProductFragment) => {
+    return weightToGrams(product.variants![0].weight!);
+  };
 
   return (
     <CartContextProvider lines={cart ? cart.lines : []} totalPrice={cart?.totalPrice.gross}>
@@ -27,7 +39,7 @@ export default async function HowItWorksIndividual() {
         </Block>
         <Product
           picture="/recipes/individual/bundle.jpg"
-          title="Taster Bundle – 500g"
+          title={t('test-bundle')}
           description={
             <>
               A complete assortment of nutrient-packed, freshly made food for your dog to sample.
@@ -36,7 +48,8 @@ export default async function HowItWorksIndividual() {
               (100g).
             </>
           }
-          price={250}
+          price={getPrice(products[IndividualRecipePack.Bundle])}
+          grams={getWeight(products[IndividualRecipePack.Bundle])}
           className={{
             root: 'bg-[#A98D72]',
             title: 'text-white',
@@ -46,9 +59,10 @@ export default async function HowItWorksIndividual() {
         />
         <Product
           picture="/recipes/individual/chicken.jpg"
-          title="Fresh Chicken Recipe – 200g"
+          title={freshRecipe(t, Recipe.Chicken)}
           description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
-          price={100}
+          price={getPrice(products[IndividualRecipePack.Chicken])}
+          grams={getWeight(products[IndividualRecipePack.Chicken])}
           theme="yellow"
           className={{
             root: 'bg-how-it-works-yellow bg-opacity-[8%]',
@@ -59,9 +73,10 @@ export default async function HowItWorksIndividual() {
         />
         <Product
           picture="/recipes/individual/beef.jpg"
-          title="Fresh Beef Recipe – 200g"
+          title={freshRecipe(t, Recipe.Beef)}
           description="This hearty meal delivers high-quality beef for strength, a rainbow of veggies for antioxidant power, and superfoods to boost immunity. Hit the ground running with every bowl!"
-          price={100}
+          price={getPrice(products[IndividualRecipePack.Beef])}
+          grams={getWeight(products[IndividualRecipePack.Beef])}
           theme="red"
           className={{
             root: 'bg-how-it-works-red bg-opacity-[8%]',
@@ -71,9 +86,10 @@ export default async function HowItWorksIndividual() {
         />
         <Product
           picture="/recipes/individual/pork.jpg"
-          title="Fresh Pork Recipe – 200g"
+          title={freshRecipe(t, Recipe.Pork)}
           description="Embrace gentle nutrition with this hypoallergenic feast. It combines novel proteins with leafy greens for digestive ease, immune strength, and a coat that shines. Perfect for dogs with sensitive stomachs or allergies!"
-          price={100}
+          price={getPrice(products[IndividualRecipePack.Pork])}
+          grams={getWeight(products[IndividualRecipePack.Pork])}
           theme="primary"
           className={{
             root: 'bg-primary bg-opacity-[8%]',
@@ -84,9 +100,10 @@ export default async function HowItWorksIndividual() {
         />
         <Product
           picture="/recipes/individual/lamb.jpg"
-          title="Fresh Lamb Recipe – 200g"
+          title={freshRecipe(t, Recipe.Lamb)}
           description="A flavour and nutrient powerhouse, capable of satisfying even the pickiest of eaters. Crafted for muscle strength, immune support, radiant health, and a shiny coat!"
-          price={100}
+          price={getPrice(products[IndividualRecipePack.Lamb])}
+          grams={getWeight(products[IndividualRecipePack.Lamb])}
           theme="green"
           className={{
             root: 'bg-how-it-works-green bg-opacity-[8%]',
@@ -96,9 +113,10 @@ export default async function HowItWorksIndividual() {
         />
         <Product
           picture="/recipes/individual/duck.jpg"
-          title="Fresh Duck Recipe – 200g"
+          title={freshRecipe(t, Recipe.Duck)}
           description="A wholesome feast, tailored for digestive health, luxurious coats, and improved vitality! Perfect for dogs seeking a unique and hypoallergenic dining experience without compromising on taste and health."
-          price={100}
+          price={getPrice(products[IndividualRecipePack.Duck])}
+          grams={getWeight(products[IndividualRecipePack.Duck])}
           className={{
             root: 'bg-secondary bg-opacity-[8%]',
             title: 'text-secondary',
