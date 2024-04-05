@@ -9,6 +9,7 @@ import TrashBin from './icons/TrashBin';
 import Sub from './icons/Sub';
 import Plus from './icons/Plus';
 import { individualPackProducts } from '@/products';
+import { weightToGrams } from '@/helpers/saleor';
 
 export default function CartRows({
   lines,
@@ -26,37 +27,25 @@ export default function CartRows({
   const contents = React.useMemo(() => {
     return {
       [individualPackProducts[IndividualRecipePack.Bundle].variant.sku]: {
-        title: t('test-bundle'),
         picture: '/recipes/individual/bundle.jpg',
-        gram: 500,
       },
       [individualPackProducts[IndividualRecipePack.Chicken].variant.sku]: {
-        title: t('fresh-{}-recipe', { value: t('chicken') }),
         picture: '/recipes/individual/chicken.jpg',
-        gram: 200,
       },
       [individualPackProducts[IndividualRecipePack.Beef].variant.sku]: {
-        title: t('fresh-{}-recipe', { value: t('beef') }),
         picture: '/recipes/individual/beef.jpg',
-        gram: 200,
       },
       [individualPackProducts[IndividualRecipePack.Lamb].variant.sku]: {
-        title: t('fresh-{}-recipe', { value: t('lamb') }),
         picture: '/recipes/individual/lamb.jpg',
-        gram: 200,
       },
       [individualPackProducts[IndividualRecipePack.Duck].variant.sku]: {
-        title: t('fresh-{}-recipe', { value: t('duck') }),
         picture: '/recipes/individual/duck.jpg',
-        gram: 200,
       },
       [individualPackProducts[IndividualRecipePack.Pork].variant.sku]: {
-        title: t('fresh-{}-recipe', { value: t('pork') }),
         picture: '/recipes/individual/pork.jpg',
-        gram: 200,
       },
     };
-  }, [t]);
+  }, []);
 
   return lines.map((line, idx) => {
     const content = line.variant.sku ? contents[line.variant.sku] : undefined;
@@ -74,8 +63,10 @@ export default function CartRows({
           <div className="w-full px-2">
             <div className="-mx-2 flex justify-between">
               <div className="px-2">
-                <div className="font-bold">{content.title}</div>
-                <div className="mt-1">{t('{}-g', { value: content.gram })}</div>
+                <div className="font-bold">{line.variant.product.name}</div>
+                <div className="mt-1">
+                  {t('{}-g', { value: weightToGrams(line.variant.weight!) })}
+                </div>
               </div>
               <div className="px-2">
                 <button

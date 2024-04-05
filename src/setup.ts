@@ -681,15 +681,15 @@ async function setupIndividualProducts(
           slug: product.slug,
           description: JSON.stringify({
             time: Date.now(),
-            blocks: [
-              {
+            blocks: product.description.map((description) => {
+              return {
                 id: 'CMRIgvbpUG',
                 data: {
-                  text: 'This product is used for individual purchase.',
+                  text: description,
                 },
                 type: 'paragraph',
-              },
-            ],
+              };
+            }),
             version: '2.22.2',
           }),
           productType: productType.id,

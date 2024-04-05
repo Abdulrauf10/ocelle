@@ -40,6 +40,12 @@ fragment CheckoutLine on CheckoutLine {
   variant {
     id
     sku
+    product {
+      ...Product
+    }
+    weight {
+      ...Weight
+    }
   }
   quantity
   unitPrice {
