@@ -18,15 +18,18 @@ import {
   DeleteProductTypeDocument,
   DeleteShippingZoneDocument,
   DeleteWarehouseDocument,
+  ExcludeShippingPriceProductsDocument,
   FindProductCategoryDocument,
   FindProductTypesDocument,
   FindProductsDocument,
   FindShippingZonesDocument,
   FindWarehousesDocument,
   GetChannelDocument,
+  GetShippingZoneDocument,
   ProductFragment,
   ProductTypeFragment,
   ShippingMethodTypeEnum,
+  ShippingMethodTypeFragment,
   ShippingZoneFragment,
   UpdateChannelDocument,
   UpdateShippingMethodChannelListingDocument,
@@ -386,12 +389,35 @@ async function findOrCreateWarehouse(): Promise<WarehouseFragment> {
   return createWarehouse.warehouse!;
 }
 
-async function createShippingMethod(
+async function findOrCreateShippingMethod(
   shippingZone: ShippingZoneFragment,
   channel: ChannelFragment,
   name: string,
   price: number
-) {
+): Promise<ShippingMethodTypeFragment> {
+  const { shippingZone: _shippingZone } = await executeGraphQL(GetShippingZoneDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      id: shippingZone.id,
+      channel: channel.id,
+    },
+  });
+
+  if (!_shippingZone) {
+    throw new Error('cannot find shipping zone');
+  }
+
+  const shippingMethod = _shippingZone.shippingMethods!.find(
+    (shippingMethod) => shippingMethod.name === name
+  );
+
+  if (shippingMethod) {
+    return shippingMethod;
+  }
+
   const { shippingPriceCreate } = await executeGraphQL(CreateShippingMethodDocument, {
     withAuth: false,
     headers: {
@@ -435,6 +461,8 @@ async function createShippingMethod(
     shippingMethodChannelListingUpdate && console.error(shippingMethodChannelListingUpdate.errors);
     throw new Error('failed to add channel to shipping zone');
   }
+
+  return shippingPriceCreate.shippingMethod!;
 }
 
 async function findOrCreateShippingZone(
@@ -481,13 +509,7 @@ async function findOrCreateShippingZone(
     throw new Error('failed to create shipping zone');
   }
 
-  const shippingZone = shippingZoneCreate.shippingZone!;
-
-  // create shipping methods for the zone
-  await createShippingMethod(shippingZone, channel, SFExpressShippingMethod.Free, 0);
-  await createShippingMethod(shippingZone, channel, SFExpressShippingMethod.Fixed, 60);
-
-  return shippingZone;
+  return shippingZoneCreate.shippingZone!;
 }
 
 async function setupShop() {
@@ -719,6 +741,34 @@ async function setupIndividualProducts(
   return [...existingProducts, ...productBulkCreate.results.map((result) => result.product!)];
 }
 
+async function setupExcludeShippingMethodProducts(
+  shippingMethodId: string,
+  products: ProductFragment[]
+) {
+  console.log('setup exclude shipping method products...');
+
+  const { shippingPriceExcludeProducts } = await executeGraphQL(
+    ExcludeShippingPriceProductsDocument,
+    {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: {
+        id: shippingMethodId,
+        input: {
+          products: products.map((product) => product.id),
+        },
+      },
+    }
+  );
+
+  if (!shippingPriceExcludeProducts || shippingPriceExcludeProducts.errors.length > 0) {
+    shippingPriceExcludeProducts && console.error(shippingPriceExcludeProducts.errors);
+    throw new Error('failed to exclude products from shipping method');
+  }
+}
+
 async function setup() {
   try {
     await executeQuery(async (queryRunner) => {
@@ -747,8 +797,34 @@ async function setup() {
   const channel = await findOrCreateChannel(warehouse);
   const shippingZone = await findOrCreateShippingZone(channel, warehouse);
 
-  await setupIndividualProducts(channel, individualProductType, category, warehouse);
-  await setupSubscriptionProducts(channel, subscriptionProductType, category, warehouse);
+  const freeShippingMethod = await findOrCreateShippingMethod(
+    shippingZone,
+    channel,
+    SFExpressShippingMethod.Free,
+    0
+  );
+  const fixedShippingMethod = await findOrCreateShippingMethod(
+    shippingZone,
+    channel,
+    SFExpressShippingMethod.Fixed,
+    60
+  );
+
+  const individualProducts = await setupIndividualProducts(
+    channel,
+    individualProductType,
+    category,
+    warehouse
+  );
+  const subscriptionProducts = await setupSubscriptionProducts(
+    channel,
+    subscriptionProductType,
+    category,
+    warehouse
+  );
+
+  await setupExcludeShippingMethodProducts(freeShippingMethod.id, individualProducts);
+  await setupExcludeShippingMethodProducts(fixedShippingMethod.id, subscriptionProducts);
 
   await prugeDefaultChannel();
   await prugeDefaultProductType();

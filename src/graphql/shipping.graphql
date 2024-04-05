@@ -7,16 +7,20 @@ fragment ShippingMethod on ShippingMethod {
   }
 }
 
+fragment ShippingMethodType on ShippingMethodType {
+  id
+  name
+  channelListings {
+    channel {
+      id
+    }
+  }
+}
+
 fragment ShippingZone on ShippingZone {
   id
   shippingMethods {
-    id
-    name
-    channelListings {
-      channel {
-        id
-      }
-    }
+    ...ShippingMethodType
   }
 }
 
@@ -43,6 +47,12 @@ query FindShippingZones($filter: ShippingZoneFilterInput) {
         ...ShippingZone
       }
     }
+  }
+}
+
+query GetShippingZone($id: ID!, $channel: String!) {
+  shippingZone(id: $id, channel: $channel) {
+    ...ShippingZone
   }
 }
 
@@ -77,14 +87,23 @@ mutation CreateShippingMethod($input: ShippingPriceInput!) {
       code
     }
     shippingMethod {
-      id
-      name
+      ...ShippingMethodType
     }
   }
 }
 
 mutation UpdateShippingMethodChannelListing($id: ID!, $input: ShippingMethodChannelListingInput!) {
   shippingMethodChannelListingUpdate(id: $id, input: $input) {
+    errors {
+      field
+      message
+      code
+    }
+  }
+}
+
+mutation ExcludeShippingPriceProducts($id: ID!, $input: ShippingPriceExcludeProductsInput!) {
+  shippingPriceExcludeProducts(id: $id, input: $input) {
     errors {
       field
       message
