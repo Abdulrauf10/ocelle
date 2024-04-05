@@ -14,32 +14,13 @@ import {
   RemoveCheckoutLinesDocument,
   UpdateCheckoutLinesDocument,
 } from '@/gql/graphql';
-import { recipeBundle, recipeIndividualMap } from '@/helpers/dog';
 import { executeGraphQL } from '@/helpers/graphql';
+import { individualPackProducts, individualPackProductsValues } from '@/products';
 import { CartReturn } from '@/types/dto';
 import invariant from 'ts-invariant';
 
-function packToRecipe(pack: IndividualRecipePack) {
-  switch (pack) {
-    case IndividualRecipePack.Chicken:
-      return Recipe.Chicken;
-    case IndividualRecipePack.Beef:
-      return Recipe.Beef;
-    case IndividualRecipePack.Duck:
-      return Recipe.Duck;
-    case IndividualRecipePack.Lamb:
-      return Recipe.Lamb;
-    case IndividualRecipePack.Pork:
-      return Recipe.Pork;
-    default:
-      throw new Error(`cannot map pack to recipe, unknown pack ${pack}`);
-  }
-}
-
 export async function getProducts() {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
-
-  const individualProducts = [recipeBundle, ...Object.values(recipeIndividualMap)];
 
   const { products } = await executeGraphQL(FindProductsDocument, {
     withAuth: false,
@@ -50,7 +31,7 @@ export async function getProducts() {
       channel: process.env.SALEOR_CHANNEL_SLUG,
       where: {
         slug: {
-          oneOf: individualProducts.map((product) => product.slug),
+          oneOf: individualPackProductsValues.map((product) => product.slug),
         },
       },
     },
@@ -62,23 +43,22 @@ export async function getProducts() {
 
   return {
     [IndividualRecipePack.Bundle]: products.edges.find(
-      (edge) => edge.node.slug === recipeBundle.slug
+      (edge) => edge.node.slug === individualPackProducts[IndividualRecipePack.Bundle].slug
     )!.node,
     [IndividualRecipePack.Chicken]: products.edges.find(
-      (edge) =>
-        edge.node.slug === recipeIndividualMap[packToRecipe(IndividualRecipePack.Chicken)].slug
+      (edge) => edge.node.slug === individualPackProducts[IndividualRecipePack.Chicken].slug
     )!.node,
     [IndividualRecipePack.Beef]: products.edges.find(
-      (edge) => edge.node.slug === recipeIndividualMap[packToRecipe(IndividualRecipePack.Beef)].slug
+      (edge) => edge.node.slug === individualPackProducts[IndividualRecipePack.Beef].slug
     )!.node,
     [IndividualRecipePack.Duck]: products.edges.find(
-      (edge) => edge.node.slug === recipeIndividualMap[packToRecipe(IndividualRecipePack.Duck)].slug
+      (edge) => edge.node.slug === individualPackProducts[IndividualRecipePack.Duck].slug
     )!.node,
     [IndividualRecipePack.Lamb]: products.edges.find(
-      (edge) => edge.node.slug === recipeIndividualMap[packToRecipe(IndividualRecipePack.Lamb)].slug
+      (edge) => edge.node.slug === individualPackProducts[IndividualRecipePack.Lamb].slug
     )!.node,
     [IndividualRecipePack.Pork]: products.edges.find(
-      (edge) => edge.node.slug === recipeIndividualMap[packToRecipe(IndividualRecipePack.Pork)].slug
+      (edge) => edge.node.slug === individualPackProducts[IndividualRecipePack.Pork].slug
     )!.node,
   };
 }
@@ -155,7 +135,6 @@ export async function getCartOrCheckout(
 
 export async function addToCart(pack: IndividualRecipePack, quantity: number): Promise<CartReturn> {
   const cart = await getCartOrCheckout(true);
-  const recipe = packToRecipe(pack);
 
   const { product } = await executeGraphQL(FindProductDocument, {
     withAuth: false,
@@ -163,7 +142,7 @@ export async function addToCart(pack: IndividualRecipePack, quantity: number): P
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
-      slug: recipe === undefined ? recipeBundle.slug : recipeIndividualMap[recipe].slug,
+      slug: individualPackProducts[pack].slug,
     },
   });
 

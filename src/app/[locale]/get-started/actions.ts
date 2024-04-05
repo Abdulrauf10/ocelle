@@ -31,7 +31,6 @@ import {
   getSubscriptionProductActuallyQuanlityInSaleor,
   getTheCheapestRecipe,
   isUnavailableDeliveryDate,
-  recipeSubscriptionMap,
 } from '@/helpers/dog';
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
@@ -42,6 +41,7 @@ import {
   upsertSubscriptionCheckoutParameters,
 } from '@/helpers/redis';
 import { redirect } from '@/navigation';
+import { subscriptionProducts } from '@/products';
 import { DogDto, MinPricesDto } from '@/types/dto';
 import { addDays, startOfDay } from 'date-fns';
 import Joi from 'joi';
@@ -133,8 +133,8 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
   const productSlugsToBeAddToLine = [];
 
   for (const dog of dogs) {
-    const slug1 = recipeSubscriptionMap[dog.recipe1].slug;
-    const slug2 = dog.recipe2 ? recipeSubscriptionMap[dog.recipe2].slug : undefined;
+    const slug1 = subscriptionProducts[dog.recipe1].slug;
+    const slug2 = dog.recipe2 ? subscriptionProducts[dog.recipe2].slug : undefined;
 
     if (productSlugsToBeAddToLine.indexOf(slug1) === -1) {
       productSlugsToBeAddToLine.push(slug1);
@@ -182,7 +182,7 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
         : [];
     const dateOfBirth = new Date(dog.dateOfBirth);
     const lifeStage = getLifeStage(breeds, dateOfBirth);
-    const subscriptionRecipe1 = recipeSubscriptionMap[dog.recipe1];
+    const subscriptionRecipe1 = subscriptionProducts[dog.recipe1];
     const product1 = products.find((product) => product.slug === subscriptionRecipe1.slug)!;
     const recipe1Variant = product1.variants!.find(
       (variant) => variant.sku === subscriptionRecipe1.variants[lifeStage].sku
@@ -209,7 +209,7 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
       quantity: getSubscriptionProductActuallyQuanlityInSaleor(recipe1TotalPrice),
     });
     if (dog.recipe2) {
-      const subscriptionRecipe2 = recipeSubscriptionMap[dog.recipe2];
+      const subscriptionRecipe2 = subscriptionProducts[dog.recipe2];
       const product2 = products.find((product) => product.slug === subscriptionRecipe2.slug)!;
       const recipe2Variant = product2.variants!.find(
         (variant) => variant.sku === subscriptionRecipe2.variants[lifeStage].sku

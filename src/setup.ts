@@ -39,11 +39,10 @@ import {
 } from './gql/graphql';
 import invariant from 'ts-invariant';
 import {
-  recipeBundle,
-  recipeIndividualMap,
-  recipeSubscriptionMap,
-  subscriptionProductUnitPrice,
-} from './helpers/dog';
+  individualPackProductsValues,
+  saleorSubscriptionProductUnitPrice,
+  subscriptionProductsValues,
+} from './products';
 
 enum SFExpressShippingMethod {
   Free = 'SF Express (Free)',
@@ -541,8 +540,6 @@ async function setupSubscriptionProducts(
 ): Promise<ProductFragment[]> {
   console.log('setup subscription products...');
 
-  const subscriptionProducts = Object.values(recipeSubscriptionMap);
-
   // create placeholder product if not exists
   const { products } = await executeGraphQL(FindProductsDocument, {
     withAuth: false,
@@ -552,7 +549,7 @@ async function setupSubscriptionProducts(
     variables: {
       where: {
         slug: {
-          oneOf: subscriptionProducts.map((product) => product.slug),
+          oneOf: subscriptionProductsValues.map((product) => product.slug),
         },
       },
     },
@@ -560,13 +557,13 @@ async function setupSubscriptionProducts(
 
   const existingProducts = products?.edges.map((edge) => edge.node) || [];
 
-  if (existingProducts.length === subscriptionProducts.length) {
+  if (existingProducts.length === subscriptionProductsValues.length) {
     return existingProducts;
   }
 
   const existingProductSlugs = existingProducts.map((product) => product.slug);
 
-  const productsToBeCreate = subscriptionProducts.filter(
+  const productsToBeCreate = subscriptionProductsValues.filter(
     (product) => existingProductSlugs.indexOf(product.slug) === -1
   );
 
@@ -619,7 +616,7 @@ async function setupSubscriptionProducts(
               channelListings: [
                 {
                   channelId: channel.id,
-                  price: subscriptionProductUnitPrice,
+                  price: saleorSubscriptionProductUnitPrice,
                 },
               ],
             };
@@ -645,8 +642,6 @@ async function setupIndividualProducts(
 ): Promise<ProductFragment[]> {
   console.log('setup individual products...');
 
-  const individualProducts = [recipeBundle, ...Object.values(recipeIndividualMap)];
-
   const { products } = await executeGraphQL(FindProductsDocument, {
     withAuth: false,
     headers: {
@@ -655,7 +650,7 @@ async function setupIndividualProducts(
     variables: {
       where: {
         slug: {
-          oneOf: individualProducts.map((product) => product.slug),
+          oneOf: individualPackProductsValues.map((product) => product.slug),
         },
       },
     },
@@ -663,13 +658,13 @@ async function setupIndividualProducts(
 
   const existingProducts = products?.edges.map((edge) => edge.node) || [];
 
-  if (existingProducts.length === individualProducts.length) {
+  if (existingProducts.length === individualPackProductsValues.length) {
     return existingProducts;
   }
 
   const existingProductSlugs = existingProducts.map((product) => product.slug);
 
-  const productsToBeCreate = individualProducts.filter(
+  const productsToBeCreate = individualPackProductsValues.filter(
     (product) => existingProductSlugs.indexOf(product.slug) === -1
   );
 
@@ -796,7 +791,6 @@ async function setup() {
   const warehouse = await findOrCreateWarehouse();
   const channel = await findOrCreateChannel(warehouse);
   const shippingZone = await findOrCreateShippingZone(channel, warehouse);
-
   const freeShippingMethod = await findOrCreateShippingMethod(
     shippingZone,
     channel,
