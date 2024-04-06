@@ -2,7 +2,6 @@
   "{}-colon": "{value}: ",
   "({})": "({value})",
   "{}-kcal-per-kg": "{value} kcal/kg",
-  "per-day": "/day",
   "{}-per-day": "{value}/day",
   "{}-kg": "{value} kg",
   "{}-g": "{value}g",

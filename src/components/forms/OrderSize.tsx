@@ -4,12 +4,17 @@ import Button from '@/components/buttons/Button';
 import React from 'react';
 import { useTranslations } from 'next-intl';
 import { OrderSize } from '@/enums';
+import { nativeRound } from '@/helpers/number';
 
 export default function OrderSizeForm({
   initialSize,
+  oneWeekPrice,
+  twoWeekPrice,
   action,
 }: {
   initialSize: OrderSize;
+  oneWeekPrice: number;
+  twoWeekPrice: number;
   action(data: { size: OrderSize }): Promise<void>;
 }) {
   const t = useTranslations();
@@ -29,7 +34,7 @@ export default function OrderSizeForm({
             >
               <div className="flex-1 px-2">
                 <h2 className="heading-4 font-bold text-primary">{t('{}-days', { value: 7 })}</h2>
-                <p className="mt-1">$[15]{t('per-day')}</p>
+                <p className="mt-1">${t('{}-per-day', { value: nativeRound(oneWeekPrice) })}</p>
               </div>
               <div className="px-2">
                 {size === OrderSize.OneWeek ? (
@@ -52,7 +57,7 @@ export default function OrderSizeForm({
             >
               <div className="flex-1 px-2">
                 <h2 className="heading-4 font-bold text-primary">{t('{}-days', { value: 14 })}</h2>
-                <p className="mt-1">$[13]{t('per-day')}</p>
+                <p className="mt-1">${t('{}-per-day', { value: nativeRound(twoWeekPrice) })}</p>
               </div>
               <div className="px-2">
                 {size === OrderSize.TwoWeek ? (
