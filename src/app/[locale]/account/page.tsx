@@ -9,26 +9,13 @@ import Bell from '@/components/icons/Bell';
 import ClickableBlock from './ClickableBlock';
 import { getTranslations } from 'next-intl/server';
 import { getLoginedMeFullSize } from '@/actions';
-import { executeQuery } from '@/helpers/queryRunner';
-import { Dog } from '@/entities';
 import clsx from 'clsx';
 import { AddressToSentence } from '@/helpers/translation';
 
 export default async function Account() {
   const t = await getTranslations();
-  const me = await getLoginedMeFullSize();
-  const { dogs } = await executeQuery(async (queryRunner) => {
-    return {
-      dogs: await queryRunner.manager.find(Dog, {
-        where: {
-          user: { id: me.id },
-        },
-        relations: {
-          plan: true,
-        },
-      }),
-    };
-  });
+  const { dogs, defaultShippingAddress, defaultBillingAddress, orders, email } =
+    await getLoginedMeFullSize();
 
   return (
     <main className="bg-gold bg-opacity-10 py-10">
@@ -41,7 +28,7 @@ export default async function Account() {
             icon={<Unbox className="w-16" />}
             title={t('orders')}
             description={t('current-{}', {
-              value: t('order-id-{}', { id: me.orders!.edges[0].node.number }),
+              value: t('order-id-{}', { id: orders!.edges[0].node.number }),
             })}
             href="/account/order"
           />
@@ -49,7 +36,7 @@ export default async function Account() {
             className="mt-8"
             icon={<User className="mx-2 w-12" />}
             title={t('account-info')}
-            description={me.email}
+            description={email}
             href="/account/basic"
           />
           <ClickableBlock
@@ -62,13 +49,13 @@ export default async function Account() {
               <strong className="min-w-[82px] text-gold">
                 {t('{}-colon', { value: t('delivery') })}
               </strong>
-              <span className="w-full">{AddressToSentence(t, me.defaultShippingAddress!)}</span>
+              <span className="w-full">{AddressToSentence(t, defaultShippingAddress!)}</span>
             </div>
             <div className="mt-3 flex max-xs:flex-wrap">
               <strong className="min-w-[82px] text-gold">
                 {t('{}-colon', { value: t('billing') })}
               </strong>
-              <span className="w-full">{AddressToSentence(t, me.defaultBillingAddress!)}</span>
+              <span className="w-full">{AddressToSentence(t, defaultBillingAddress!)}</span>
             </div>
           </ClickableBlock>
           <ClickableBlock

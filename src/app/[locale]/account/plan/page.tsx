@@ -5,38 +5,12 @@ import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import Image from 'next/image';
 import DogSwitch from '../DogSwitch';
-import { Dog, User } from '@/entities';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import { getTranslations } from 'next-intl/server';
 import { MealPlan, OrderSize } from '@/enums';
-import { executeQuery } from '@/helpers/queryRunner';
 import { getRecipeSlug } from '@/helpers/dog';
 import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import { dogToSentence } from '@/helpers/translation';
-
-async function getData() {
-  const me = await getLoginedMe();
-
-  return executeQuery(async (queryRunner) => {
-    const user = await queryRunner.manager.findOne(User, {
-      where: {
-        id: me.id,
-      },
-    });
-    const dogs = await queryRunner.manager.find(Dog, {
-      where: {
-        user: { id: me.id },
-      },
-      relations: {
-        plan: true,
-        breeds: {
-          breed: true,
-        },
-      },
-    });
-    return { dogs, user, me };
-  });
-}
 
 export default async function Plan() {
   const t = await getTranslations();
@@ -44,7 +18,7 @@ export default async function Plan() {
     'max-md:border-brown max-md:rounded-[30px] max-md:border max-md:bg-white max-md:p-6 max-md:shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] mx-auto'
   );
   const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
-  const { dogs, user, me } = await getData();
+  const { dogs, firstName, orderSize } = await getLoginedMe();
   const dog = currentSelectedDogId
     ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
     : dogs[0];
@@ -56,7 +30,7 @@ export default async function Plan() {
           <div className="item-center -mx-4 -my-3 flex max-sm:flex-col-reverse">
             <div className="flex-1 px-4 py-3 max-sm:text-center">
               <h1 className="heading-4 font-bold text-primary">
-                {t('welcome-back-{}', { name: me.firstName })}
+                {t('welcome-back-{}', { name: firstName })}
               </h1>
               <p className="mt-4">
                 {t('keep-tabs-on-your-subscription-and-edit-{}-information', {
@@ -162,7 +136,7 @@ export default async function Plan() {
                     <span className="flex-1 px-1 py-2 lowercase">
                       {t('{}-supply-of-fresh-healthy-food', {
                         value: t('{}-weeks', {
-                          value: user?.orderSize === OrderSize.OneWeek ? 1 : 2,
+                          value: orderSize === OrderSize.OneWeek ? 1 : 2,
                         }),
                       })}
                     </span>

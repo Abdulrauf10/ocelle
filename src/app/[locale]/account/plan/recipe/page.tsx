@@ -2,33 +2,15 @@ import Container from '@/components/Container';
 import DogSwitch from '../../DogSwitch';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
-import { executeQuery } from '@/helpers/queryRunner';
-import { Dog } from '@/entities';
 import { getTranslations } from 'next-intl/server';
 import RecipeForm from '@/components/forms/Recipe';
 import setRecipeAction from './action';
 import BackButton from '@/components/buttons/BackButton';
 
-async function getData() {
-  const me = await getLoginedMe();
-
-  return executeQuery(async (queryRunner) => {
-    const dogs = await queryRunner.manager.find(Dog, {
-      where: {
-        user: { id: me.id },
-      },
-      relations: {
-        plan: true,
-      },
-    });
-    return { dogs };
-  });
-}
-
 export default async function PlanRecipe() {
   const t = await getTranslations();
   const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
-  const { dogs } = await getData();
+  const { dogs } = await getLoginedMe();
   const dog = currentSelectedDogId
     ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
     : dogs[0];

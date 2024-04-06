@@ -7,8 +7,6 @@ import SectionBlock from './SectionBlock';
 import SectionHr from './SectionHr';
 import CollapseBlock from './CollapseBlock';
 import { getLoginedMe } from '@/actions';
-import { executeQuery } from '@/helpers/queryRunner';
-import { Dog, User } from '@/entities';
 import { getTranslations } from 'next-intl/server';
 import { MealPlan, OrderSize } from '@/enums';
 import { getRecipeSlug } from '@/helpers/dog';
@@ -18,33 +16,9 @@ function SectionTitle({ children }: React.PropsWithChildren) {
   return <strong className="text-lg text-gold">{children}</strong>;
 }
 
-async function getData() {
-  const me = await getLoginedMe();
-
-  return executeQuery(async (queryRunner) => {
-    const user = await queryRunner.manager.findOne(User, {
-      where: {
-        id: me.id,
-      },
-    });
-    const dogs = await queryRunner.manager.find(Dog, {
-      where: {
-        user: { id: me.id },
-      },
-      relations: {
-        plan: true,
-        breeds: {
-          breed: true,
-        },
-      },
-    });
-    return { me, dogs, user };
-  });
-}
-
 export default async function Reactivate() {
   const t = await getTranslations();
-  const { me, user, dogs } = await getData();
+  const { orderSize, dogs } = await getLoginedMe();
 
   return (
     <main className="bg-gold bg-opacity-10 py-10">
@@ -152,7 +126,7 @@ export default async function Reactivate() {
           <SectionHr />
           <p>
             {t('every-{}', {
-              value: t('{}-weeks', { value: user?.orderSize === OrderSize.OneWeek ? 1 : 2 }),
+              value: t('{}-weeks', { value: orderSize === OrderSize.OneWeek ? 1 : 2 }),
             })}
           </p>
         </SectionBlock>
@@ -223,7 +197,7 @@ export default async function Reactivate() {
                           {t('{}-colon', { value: t('days-of-food') })}
                         </div>
                         <div className="flex-1 text-right">
-                          {t('{}-days', { value: user?.orderSize === OrderSize.OneWeek ? 7 : 14 })}
+                          {t('{}-days', { value: orderSize === OrderSize.OneWeek ? 7 : 14 })}
                         </div>
                       </div>
                     </div>

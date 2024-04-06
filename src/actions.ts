@@ -8,6 +8,8 @@ import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import { executeGraphQL } from './helpers/graphql';
 import { GetCurrentUserDocument, GetCurrentUserFullSizeDocument } from './gql/graphql';
 import { cookies } from 'next/headers';
+import { executeQuery } from './helpers/queryRunner';
+import { User } from './entities';
 
 // here for global actions
 
@@ -20,7 +22,23 @@ export async function getLoginedMe() {
     throw redirect('/auth/login');
   }
 
-  return me;
+  const user = await executeQuery(async (queryRunner) => {
+    return queryRunner.manager.findOne(User, {
+      where: { id: me.id },
+      relations: {
+        dogs: {
+          plan: true,
+          breeds: { breed: true },
+        },
+      },
+    });
+  });
+
+  if (!user) {
+    throw redirect('/auth/login');
+  }
+
+  return { ...user, ...me };
 }
 
 export async function getLoginedMeFullSize() {
@@ -32,7 +50,23 @@ export async function getLoginedMeFullSize() {
     throw redirect('/auth/login');
   }
 
-  return me;
+  const user = await executeQuery(async (queryRunner) => {
+    return queryRunner.manager.findOne(User, {
+      where: { id: me.id },
+      relations: {
+        dogs: {
+          plan: true,
+          breeds: { breed: true },
+        },
+      },
+    });
+  });
+
+  if (!user) {
+    throw redirect('/auth/login');
+  }
+
+  return { ...user, ...me };
 }
 
 export async function logout() {

@@ -2,8 +2,6 @@ import React from 'react';
 import Container from '@/components/Container';
 import DogSwitch from '../../DogSwitch';
 import AppThemeProvider from '@/components/AppThemeProvider';
-import { executeQuery } from '@/helpers/queryRunner';
-import { Dog } from '@/entities';
 import { getTranslations } from 'next-intl/server';
 import FreshPlanForm from '@/components/forms/FreshPlan';
 import setMealPlanAction from './action';
@@ -12,31 +10,10 @@ import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import { calculateRecipePerDayPrice } from '@/helpers/dog';
 import { MealPlan } from '@/enums';
 
-async function getData() {
-  const me = await getLoginedMe();
-
-  return executeQuery(async (queryRunner) => {
-    return {
-      dogs: await queryRunner.manager.find(Dog, {
-        where: {
-          user: { id: me.id },
-        },
-        relations: {
-          breeds: {
-            breed: true,
-          },
-          plan: true,
-          user: true,
-        },
-      }),
-    };
-  });
-}
-
 export default async function PlanMeal() {
   const t = await getTranslations();
   const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
-  const { dogs } = await getData();
+  const { dogs, orderSize } = await getLoginedMe();
   const dog = currentSelectedDogId
     ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
     : dogs[0];
@@ -50,7 +27,7 @@ export default async function PlanMeal() {
     dog.activityLevel,
     { recipeToBeCalcuate: dog.plan.recipe1, recipeReference: dog.plan.recipe2 },
     MealPlan.Full,
-    dog.user.orderSize,
+    orderSize,
     false
   );
 
@@ -63,7 +40,7 @@ export default async function PlanMeal() {
     dog.activityLevel,
     { recipeToBeCalcuate: dog.plan.recipe1, recipeReference: dog.plan.recipe2 },
     MealPlan.Half,
-    dog.user.orderSize,
+    orderSize,
     false
   );
 

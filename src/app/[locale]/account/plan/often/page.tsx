@@ -1,47 +1,16 @@
 import Container from '@/components/Container';
 import React from 'react';
-import { Dog, User } from '@/entities';
 import { getTranslations } from 'next-intl/server';
 import { getLoginedMe } from '@/actions';
-import { executeQuery } from '@/helpers/queryRunner';
 import setOrderSizeAction from './action';
 import OrderSizeForm from '@/components/forms/OrderSize';
 import BackButton from '@/components/buttons/BackButton';
 import { calculateRecipePerDayPrice } from '@/helpers/dog';
 import { OrderSize } from '@/enums';
 
-async function fetchData() {
-  const me = await getLoginedMe();
-
-  return executeQuery(async (queryRunner) => {
-    const user = await queryRunner.manager.findOne(User, {
-      where: {
-        id: me.id,
-      },
-    });
-    if (!user) {
-      throw new Error('failed to handle request');
-    }
-    const dogs = await queryRunner.manager.find(Dog, {
-      where: {
-        user: {
-          id: user.id,
-        },
-      },
-      relations: {
-        plan: true,
-        breeds: {
-          breed: true,
-        },
-      },
-    });
-    return { user, dogs };
-  });
-}
-
 export default async function PlanOften() {
   const t = await getTranslations();
-  const { user, dogs } = await fetchData();
+  const { orderSize, dogs } = await getLoginedMe();
 
   const oneWeekPrice =
     dogs.reduce((price, dog) => {
@@ -88,7 +57,7 @@ export default async function PlanOften() {
           {t('how-often-would-you-like-to-receive-deliveries')}
         </h1>
         <OrderSizeForm
-          initialSize={user.orderSize}
+          initialSize={orderSize}
           oneWeekPrice={oneWeekPrice}
           twoWeekPrice={twoWeekPrice}
           action={setOrderSizeAction}

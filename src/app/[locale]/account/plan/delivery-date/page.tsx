@@ -1,31 +1,13 @@
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
-import { Dog } from '@/entities';
-import { executeQuery } from '@/helpers/queryRunner';
 import { getTranslations } from 'next-intl/server';
 import DeliveryDateForm from '@/components/forms/DeliveryDate';
 import setDeliveryDateAction from './action';
 import BackButton from '@/components/buttons/BackButton';
 import { getLoginedMe } from '@/actions';
 
-async function getData() {
-  const me = await getLoginedMe();
-
-  return executeQuery(async (queryRunner) => {
-    const dogs = await queryRunner.manager.find(Dog, {
-      where: {
-        user: { id: me.id },
-      },
-      relations: {
-        plan: true,
-      },
-    });
-    return { dogs };
-  });
-}
-
 export default async function PlanDeliveryDate() {
-  const { dogs } = await getData();
+  const { dogs } = await getLoginedMe();
   const t = await getTranslations();
 
   return (
