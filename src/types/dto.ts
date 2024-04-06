@@ -40,4 +40,11 @@ interface CartReturn {
   totalPrice: MoneyFragment;
 }
 
-export type { DogDto, MinPricesDto, CartReturn };
+interface BreedDto {
+  id: number;
+  name: string;
+  size: 'Small' | 'Medium' | 'Large';
+  uid: string;
+}
+
+export type { DogDto, MinPricesDto, CartReturn, BreedDto };

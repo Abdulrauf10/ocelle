@@ -46,7 +46,14 @@ export default async function EditDog({ params }: { params: { id: string } }) {
           </h1>
           <DogForm
             name={dog.name}
-            breeds={dog.breeds.map((breed) => breed.breed)}
+            breeds={dog.breeds.map(({ breed }) => {
+              return {
+                id: breed.id,
+                name: breed.name,
+                size: breed.size,
+                uid: breed.uid,
+              };
+            })}
             gender={dog.sex}
             isNeutered={dog.isNeutered}
             dateOfBirthMethod={dog.dateOfBirthMethod}

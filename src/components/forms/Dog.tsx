@@ -17,6 +17,7 @@ import { FoodAllergies } from '@/enums';
 import { arrayToAllergies, foodAllergiesToArray, getFoodAllergiesOptions } from '@/helpers/form';
 import { DateOfBirthMethod, Gender } from '@/types/dog';
 import { intervalToDuration, startOfDay, subMonths, subYears } from 'date-fns';
+import { BreedDto } from '@/types/dto';
 
 interface EditDogBlockProps {
   title: string;
@@ -50,7 +51,7 @@ function EditDogBlock({
 
 interface IDogForm {
   name: string;
-  breeds: Breed[];
+  breeds: BreedDto[];
   gender: Gender;
   isNeutered: 'Y' | 'N';
   months?: number;
@@ -98,7 +99,7 @@ export default function DogForm({
   action,
 }: {
   name: string;
-  breeds: Breed[];
+  breeds: BreedDto[];
   gender: Gender;
   isNeutered: boolean;
   dateOfBirthMethod: DateOfBirthMethod;
@@ -142,7 +143,7 @@ export default function DogForm({
   });
   const [pending, startTransition] = React.useTransition();
   const [breedLoading, setBreedLoading] = React.useState(true);
-  const [breedOptions, setBreedOptions] = React.useState<Breed[] | undefined>(undefined);
+  const [breedOptions, setBreedOptions] = React.useState<BreedDto[] | undefined>(undefined);
   const [tab, setTab] = React.useState<'Age' | 'Birthday'>(
     dateOfBirthMethod === 'Manually' ? 'Age' : 'Birthday'
   );
@@ -153,7 +154,7 @@ export default function DogForm({
   const fetchBreeds = React.useCallback(async () => {
     if (breedOptions === undefined) {
       const res = await fetch('/api/breed');
-      setBreedOptions((await res.json()) as Breed[]);
+      setBreedOptions((await res.json()) as BreedDto[]);
       setBreedLoading(false);
     }
   }, [breedOptions]);
