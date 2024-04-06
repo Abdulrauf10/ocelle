@@ -77,13 +77,13 @@ mutation ConfirmAccount($email: String!, $token: String!) {
   }
 }
 
-query CurrentUser {
+query GetCurrentUser {
   me {
     ...UserDetails
   }
 }
 
-query AccountPageUser {
+query GetCurrentUserFullSize {
   me {
     ...UserDetails
     defaultBillingAddress {

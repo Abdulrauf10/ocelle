@@ -6,13 +6,25 @@ import saleorAuthClient from './saleorAuthClient';
 import { getClosestOrderDeliveryDate } from './helpers/dog';
 import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import { executeGraphQL } from './helpers/graphql';
-import { CurrentUserDocument } from './gql/graphql';
+import { GetCurrentUserDocument, GetCurrentUserFullSizeDocument } from './gql/graphql';
 import { cookies } from 'next/headers';
 
 // here for global actions
 
 export async function getLoginedMe() {
-  const { me } = await executeGraphQL(CurrentUserDocument, {
+  const { me } = await executeGraphQL(GetCurrentUserDocument, {
+    cache: 'no-cache',
+  });
+
+  if (!me) {
+    throw redirect('/auth/login');
+  }
+
+  return me;
+}
+
+export async function getLoginedMeFullSize() {
+  const { me } = await executeGraphQL(GetCurrentUserFullSizeDocument, {
     cache: 'no-cache',
   });
 

@@ -8,18 +8,15 @@ import Billing from '@/components/icons/Billing';
 import Bell from '@/components/icons/Bell';
 import ClickableBlock from './ClickableBlock';
 import { getTranslations } from 'next-intl/server';
-import { getLoginedMe } from '@/actions';
+import { getLoginedMeFullSize } from '@/actions';
 import { executeQuery } from '@/helpers/queryRunner';
 import { Dog } from '@/entities';
 import clsx from 'clsx';
 import { AddressToSentence } from '@/helpers/translation';
-import { executeGraphQL } from '@/helpers/graphql';
-import { AccountPageUserDocument } from '@/gql/graphql';
 
 export default async function Account() {
   const t = await getTranslations();
-  const me = await getLoginedMe();
-  const profile = await executeGraphQL(AccountPageUserDocument, {});
+  const me = await getLoginedMeFullSize();
   const { dogs } = await executeQuery(async (queryRunner) => {
     return {
       dogs: await queryRunner.manager.find(Dog, {
@@ -44,7 +41,7 @@ export default async function Account() {
             icon={<Unbox className="w-16" />}
             title={t('orders')}
             description={t('current-{}', {
-              value: t('order-id-{}', { id: profile.me!.orders!.edges[0].node.number }),
+              value: t('order-id-{}', { id: me.orders!.edges[0].node.number }),
             })}
             href="/account/order"
           />
@@ -65,17 +62,13 @@ export default async function Account() {
               <strong className="min-w-[82px] text-gold">
                 {t('{}-colon', { value: t('delivery') })}
               </strong>
-              <span className="w-full">
-                {AddressToSentence(t, profile.me!.defaultShippingAddress!)}
-              </span>
+              <span className="w-full">{AddressToSentence(t, me.defaultShippingAddress!)}</span>
             </div>
             <div className="mt-3 flex max-xs:flex-wrap">
               <strong className="min-w-[82px] text-gold">
                 {t('{}-colon', { value: t('billing') })}
               </strong>
-              <span className="w-full">
-                {AddressToSentence(t, profile.me!.defaultBillingAddress!)}
-              </span>
+              <span className="w-full">{AddressToSentence(t, me.defaultBillingAddress!)}</span>
             </div>
           </ClickableBlock>
           <ClickableBlock
