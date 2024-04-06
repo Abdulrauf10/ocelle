@@ -121,7 +121,7 @@ export default function DogBasicFragment() {
             </div>
           </Section>
           <SectionBreak />
-          <Section title={t('{}-is-a', { name })}>
+          <Section title={t('{}-is-a-', { name })}>
             <div className="flex justify-center">
               <div className="px-3">
                 <InteractiveBlock
@@ -148,7 +148,7 @@ export default function DogBasicFragment() {
             </div>
           </Section>
           <SectionBreak />
-          <Section title={t('is-{}', { name })}>
+          <Section title={t('is-{}-', { name })}>
             <div className="flex justify-center">
               <div className="px-3">
                 <InteractiveBlock

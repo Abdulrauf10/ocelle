@@ -12,6 +12,7 @@ import { MealPlan, OrderSize } from '@/enums';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getRecipeSlug } from '@/helpers/dog';
 import { getLoginedMe } from '@/actions';
+import { dogToSentence } from '@/helpers/translation';
 
 async function getData() {
   const me = await getLoginedMe();
@@ -84,10 +85,7 @@ export default async function Plan({ searchParams }: { searchParams: { current?:
                     })}
                   </div>
                 )}
-                <div className="mt-3">
-                  [7 years and 7 months old, 8 kg, mellow, is spayed, and has no allergies / food
-                  sensitivities.]
-                </div>
+                <div className="mt-3">{dogToSentence(t, dog)}</div>
                 <div className="mt-3">
                   <UnderlineButton label={t('view-{}-feeding-guidelines', { name: dog.name })} />
                 </div>

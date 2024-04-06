@@ -12,6 +12,7 @@ import { Dog, User } from '@/entities';
 import { getTranslations } from 'next-intl/server';
 import { MealPlan, OrderSize } from '@/enums';
 import { getRecipeSlug } from '@/helpers/dog';
+import { dogToSentence } from '@/helpers/translation';
 
 function SectionTitle({ children }: React.PropsWithChildren) {
   return <strong className="text-lg text-gold">{children}</strong>;
@@ -66,10 +67,7 @@ export default async function Reactivate() {
               <div className="-mx-2 flex items-center">
                 <div className="flex-1 px-2">
                   <SectionTitle>{t('dogs-information')}</SectionTitle>
-                  <p>
-                    [Muffin] is, [7 years and 7 months old, 8 kg, mellow, is spayed, and has no
-                    allergies / food sensitivities]
-                  </p>
+                  <p>{t('{}-is-{}', { name: dog.name, value: dogToSentence(t, dog) })}</p>
                 </div>
                 <div className="px-2">
                   <EditButton href={`/account/dog/${dog.id}`} />
