@@ -18,6 +18,7 @@ import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { Initial1711481961068 } from '@/migrations/1711481961068-initial';
 import { AddBreedUid1711599966809 } from '@/migrations/1711599966809-add-breed-uid';
 import { RemoveBreedZhName1711601291423 } from '@/migrations/1711601291423-remove-breed-zh-name';
+import { AddIsDeliveryUsAsBillingAddress1712442568405 } from '@/migrations/1712442568405-addIsDeliveryUsAsBillingAddress';
 
 dotenv.config();
 
@@ -45,7 +46,12 @@ const MySQL = new DataSource({
     Order,
     User,
   ],
-  migrations: [Initial1711481961068, AddBreedUid1711599966809, RemoveBreedZhName1711601291423],
+  migrations: [
+    Initial1711481961068,
+    AddBreedUid1711599966809,
+    RemoveBreedZhName1711601291423,
+    AddIsDeliveryUsAsBillingAddress1712442568405,
+  ],
 });
 
 export default MySQL;

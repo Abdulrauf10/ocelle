@@ -10,6 +10,9 @@ export default class User {
   @Column({ type: 'int' })
   orderSize!: OrderSize;
 
+  @Column()
+  isDeliveryUsAsBillingAddress!: boolean;
+
   @OneToMany(() => Dog, (dog) => dog.user)
   dogs!: Relation<Dog>[];
 }
