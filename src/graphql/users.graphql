@@ -83,6 +83,25 @@ query CurrentUser {
   }
 }
 
+query AccountPageUser {
+  me {
+    ...UserDetails
+    defaultBillingAddress {
+      ...UserAddress
+    }
+    defaultShippingAddress {
+      ...UserAddress
+    }
+    orders(first: 1) {
+      edges {
+        node {
+          ...OrderDetails
+        }
+      }
+    }
+  }
+}
+
 query CurrentUserOrderList {
   me {
     ...UserDetails

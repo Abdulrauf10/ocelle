@@ -3,6 +3,7 @@ import { TranslationValues, useTranslations } from 'next-intl';
 import { getRecipeSlug } from './dog';
 import { Dog } from '@/entities';
 import { differenceInMonths, differenceInYears, subYears } from 'date-fns';
+import { UserAddressFragment } from '@/gql/graphql';
 
 type useTranslationsReturn = ReturnType<typeof useTranslations>;
 
@@ -67,4 +68,14 @@ export function dogToSentence(t: useTranslationsReturn, dog: Dog) {
   }
 
   return new Intl.ListFormat('en-US').format(strings) + t('dot');
+}
+
+export function AddressToSentence(t: useTranslationsReturn, address: UserAddressFragment) {
+  return [
+    address.streetAddress1,
+    address.streetAddress2,
+    address.city,
+    address.countryArea,
+    address.country.country,
+  ].join(t('comma'));
 }
