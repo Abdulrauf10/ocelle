@@ -1,10 +1,10 @@
 'use server';
 
-import { getStoreMe } from '@/storeUserProvider';
 import { User } from '@/entities';
 import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 import { startOfDay } from 'date-fns';
+import { getLoginedMe } from '@/actions';
 
 interface SetDeliveryDateAction {
   deliveryDate: Date;
@@ -22,7 +22,7 @@ export default async function setDeliveryDateAction(data: SetDeliveryDateAction)
   }
 
   const deliveryDate = startOfDay(value.deliveryDate);
-  const me = await getStoreMe();
+  const me = await getLoginedMe();
 
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.findOne(User, {

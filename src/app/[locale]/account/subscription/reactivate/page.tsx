@@ -6,7 +6,7 @@ import Button from '@/components/buttons/Button';
 import SectionBlock from './SectionBlock';
 import SectionHr from './SectionHr';
 import CollapseBlock from './CollapseBlock';
-import { getStoreMe } from '@/storeUserProvider';
+import { getLoginedMe } from '@/actions';
 import { executeQuery } from '@/helpers/queryRunner';
 import { Dog, User } from '@/entities';
 import { getTranslations } from 'next-intl/server';
@@ -18,7 +18,7 @@ function SectionTitle({ children }: React.PropsWithChildren) {
 }
 
 async function getData() {
-  const me = await getStoreMe();
+  const me = await getLoginedMe();
 
   return executeQuery(async (queryRunner) => {
     const user = await queryRunner.manager.findOne(User, {

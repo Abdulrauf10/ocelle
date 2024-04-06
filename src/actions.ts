@@ -5,8 +5,33 @@ import { redirect } from './navigation';
 import saleorAuthClient from './saleorAuthClient';
 import { getClosestOrderDeliveryDate } from './helpers/dog';
 import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
+import { executeGraphQL } from './helpers/graphql';
+import { CurrentUserDocument } from './gql/graphql';
 
 // here for global actions
+
+const isDebugMode = true;
+
+export async function getLoginedMe() {
+  if (isDebugMode) {
+    return {
+      id: '1',
+      email: 'string',
+      firstName: 'Kevan',
+      lastName: 'Wong',
+    };
+  }
+
+  const { me } = await executeGraphQL(CurrentUserDocument, {
+    cache: 'no-cache',
+  });
+
+  if (!me) {
+    throw redirect('/auth/login');
+  }
+
+  return me;
+}
 
 export async function logout() {
   saleorAuthClient.signOut();

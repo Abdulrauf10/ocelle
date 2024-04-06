@@ -2,7 +2,7 @@
 
 import { User } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
-import { getStoreMe } from '@/storeUserProvider';
+import { getLoginedMe } from '@/actions';
 import { startOfDay } from 'date-fns';
 import Joi from 'joi';
 
@@ -22,7 +22,7 @@ export default async function pauseDeliveriesAction(data: PauseDeliveriesAction)
   }
 
   const deliveryDate = startOfDay(value.deliveryDate);
-  const me = await getStoreMe();
+  const me = await getLoginedMe();
 
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.findOne(User, {

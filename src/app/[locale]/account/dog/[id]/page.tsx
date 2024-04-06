@@ -2,15 +2,15 @@ import React from 'react';
 import Container from '@/components/Container';
 import { Dog } from '@/entities';
 import AppThemeProvider from '@/components/AppThemeProvider';
-import { getStoreMe } from '@/storeUserProvider';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import DogForm from '@/components/forms/Dog';
 import updateDogAction from './action';
+import { getLoginedMe } from '@/actions';
 
 async function getData(id: string) {
-  const me = await getStoreMe();
+  const me = await getLoginedMe();
 
   return executeQuery(async (queryRunner) => {
     const dog = await queryRunner.manager.findOne(Dog, {

@@ -2,7 +2,7 @@
 
 import { UpdateUserDocument } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
-import { getStoreMe } from '@/storeUserProvider';
+import { getLoginedMe } from '@/actions';
 import Joi from 'joi';
 
 interface UpdateBasicInfoAction {
@@ -26,7 +26,7 @@ export default async function updateBasicInfoAction(data: UpdateBasicInfoAction)
     throw new Error('schema is not valid');
   }
 
-  const me = await getStoreMe();
+  const me = await getLoginedMe();
 
   if (!me) {
     throw new Error('cannot get the current user');

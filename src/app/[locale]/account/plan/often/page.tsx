@@ -2,14 +2,14 @@ import Container from '@/components/Container';
 import React from 'react';
 import { User } from '@/entities';
 import { getTranslations } from 'next-intl/server';
-import { getStoreMe } from '@/storeUserProvider';
+import { getLoginedMe } from '@/actions';
 import { executeQuery } from '@/helpers/queryRunner';
 import setOrderSizeAction from './action';
 import OrderSizeForm from '@/components/forms/OrderSize';
 import BackButton from '@/components/buttons/BackButton';
 
 async function fetchData() {
-  const me = await getStoreMe();
+  const me = await getLoginedMe();
 
   return executeQuery(async (queryRunner) => {
     const user = await queryRunner.manager.findOne(User, {

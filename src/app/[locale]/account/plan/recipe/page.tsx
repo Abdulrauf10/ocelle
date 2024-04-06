@@ -1,7 +1,7 @@
 import Container from '@/components/Container';
 import DogSwitch from '../../DogSwitch';
 import AppThemeProvider from '@/components/AppThemeProvider';
-import { getStoreMe } from '@/storeUserProvider';
+import { getLoginedMe } from '@/actions';
 import { executeQuery } from '@/helpers/queryRunner';
 import { Dog } from '@/entities';
 import { getTranslations } from 'next-intl/server';
@@ -10,7 +10,7 @@ import setRecipeAction from './action';
 import BackButton from '@/components/buttons/BackButton';
 
 async function getData() {
-  const me = await getStoreMe();
+  const me = await getLoginedMe();
 
   return executeQuery(async (queryRunner) => {
     const dogs = await queryRunner.manager.find(Dog, {

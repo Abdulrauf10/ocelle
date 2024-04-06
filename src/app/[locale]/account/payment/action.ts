@@ -1,6 +1,6 @@
 'use server';
 
-import { getStoreMe } from '@/storeUserProvider';
+import { getLoginedMe } from '@/actions';
 import Joi from 'joi';
 
 interface UpdateCreditCardAction {
@@ -24,7 +24,7 @@ export default async function updateCreditCardAction(data: UpdateCreditCardActio
     throw new Error('schema is not valid');
   }
 
-  const me = await getStoreMe();
+  const me = await getLoginedMe();
 
   // TODO: update credit card
 }

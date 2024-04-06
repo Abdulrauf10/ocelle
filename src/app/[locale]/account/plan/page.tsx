@@ -9,12 +9,12 @@ import { Dog, User } from '@/entities';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import { getTranslations } from 'next-intl/server';
 import { MealPlan, OrderSize } from '@/enums';
-import { getStoreMe } from '@/storeUserProvider';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getRecipeSlug } from '@/helpers/dog';
+import { getLoginedMe } from '@/actions';
 
 async function getData() {
-  const me = await getStoreMe();
+  const me = await getLoginedMe();
 
   return executeQuery(async (queryRunner) => {
     const user = await queryRunner.manager.findOne(User, {

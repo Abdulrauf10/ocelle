@@ -1,12 +1,12 @@
 'use server';
 
-import { getStoreMe } from '@/storeUserProvider';
 import { Dog, DogBreed } from '@/entities';
 import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 import { ActivityLevel, AmountOfTreats, BodyCondition, CurrentlyEating, Pickiness } from '@/types';
 import { DateOfBirthMethod, Gender } from '@/types/dog';
 import { FoodAllergies } from '@/enums';
+import { getLoginedMe } from '@/actions';
 
 interface UpdateDogAction {
   id: number;
@@ -49,7 +49,7 @@ export default async function updateDogAction(data: UpdateDogAction) {
     throw new Error('schema is not valid');
   }
 
-  const me = await getStoreMe();
+  const me = await getLoginedMe();
 
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.findOne(Dog, {

@@ -1,6 +1,6 @@
 'use server';
 
-import { getStoreMe } from '@/storeUserProvider';
+import { getLoginedMe } from '@/actions';
 import { User } from '@/entities';
 import { OrderSize } from '@/enums';
 import Joi from 'joi';
@@ -22,7 +22,7 @@ export default async function setOrderSizeAction(data: SetOrderSizeAction) {
     throw new Error('schema is not valid');
   }
 
-  const me = await getStoreMe();
+  const me = await getLoginedMe();
 
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.findOne(User, {
