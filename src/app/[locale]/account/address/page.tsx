@@ -2,14 +2,13 @@
 
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from '@/navigation';
 import Container from '@/components/Container';
-import UnderlineButton from '@/components/buttons/UnderlineButton';
 import Button from '@/components/buttons/Button';
 import PartialAddressForm from '@/components/forms/partial/Address';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import { useTranslations } from 'next-intl';
 import AppThemeProvider from '@/components/AppThemeProvider';
+import BackButton from '@/components/buttons/BackButton';
 
 interface AddressBlockProps {
   isDeliveryAddress?: boolean;
@@ -55,7 +54,6 @@ function AddressBlock({ isDeliveryAddress, onSubmit }: AddressBlockProps) {
 
 export default function Addresses() {
   const t = useTranslations();
-  const router = useRouter();
 
   const onDeliverySubmit = React.useCallback((values: unknown) => {
     console.log(values);
@@ -90,7 +88,7 @@ export default function Addresses() {
             <div className="py-4"></div>
             <AddressBlock onSubmit={onBillingSubmit} />
             <div className="mt-12 text-center">
-              <UnderlineButton onClick={() => router.back()} label={t('go-back')} />
+              <BackButton label={t('go-back')} />
             </div>
           </div>
         </Container>
