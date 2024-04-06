@@ -52,6 +52,12 @@ fragment Product on Product {
   variants {
     ...ProductVariant
   }
+  translation(languageCode: ZH_HANT) {
+    name
+    description
+    seoTitle
+    seoDescription
+  }
   pricing {
     priceRange {
       start {
