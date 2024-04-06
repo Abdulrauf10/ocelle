@@ -9,6 +9,8 @@ import FreshPlanForm from '@/components/forms/FreshPlan';
 import setMealPlanAction from './action';
 import BackButton from '@/components/buttons/BackButton';
 import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
+import { calculateRecipePerDayPrice } from '@/helpers/dog';
+import { MealPlan } from '@/enums';
 
 async function getData() {
   const me = await getLoginedMe();
@@ -39,6 +41,32 @@ export default async function PlanMeal() {
     ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
     : dogs[0];
 
+  const fullPlanPerDayPrice = calculateRecipePerDayPrice(
+    dog.breeds.map(({ breed }) => breed),
+    new Date(dog.dateOfBirth),
+    dog.isNeutered,
+    dog.weight,
+    dog.bodyCondition,
+    dog.activityLevel,
+    { recipeToBeCalcuate: dog.plan.recipe1, recipeReference: dog.plan.recipe2 },
+    MealPlan.Full,
+    dog.user.orderSize,
+    false
+  );
+
+  const halfPlanPerDayPrice = calculateRecipePerDayPrice(
+    dog.breeds.map(({ breed }) => breed),
+    new Date(dog.dateOfBirth),
+    dog.isNeutered,
+    dog.weight,
+    dog.bodyCondition,
+    dog.activityLevel,
+    { recipeToBeCalcuate: dog.plan.recipe1, recipeReference: dog.plan.recipe2 },
+    MealPlan.Half,
+    dog.user.orderSize,
+    false
+  );
+
   return (
     <AppThemeProvider>
       <main className="bg-gold bg-opacity-10 py-10">
@@ -64,6 +92,8 @@ export default async function PlanMeal() {
           </p>
           <FreshPlanForm
             initialPlan={dog.plan.mealPlan}
+            fullPlanPrice={fullPlanPerDayPrice}
+            halfPlanPrice={halfPlanPerDayPrice}
             action={async (data) => {
               'use server';
               return await setMealPlanAction({ ...data, id: dog.id });

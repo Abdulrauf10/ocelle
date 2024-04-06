@@ -5,12 +5,17 @@ import React from 'react';
 import FreshPlan from '../FreshPlan';
 import Button from '../buttons/Button';
 import { MealPlan } from '@/enums';
+import { nativeRound } from '@/helpers/number';
 
 export default function FreshPlanForm({
   initialPlan,
+  halfPlanPrice,
+  fullPlanPrice,
   action,
 }: {
   initialPlan: MealPlan;
+  halfPlanPrice: number;
+  fullPlanPrice: number;
   action(data: { plan: MealPlan }): Promise<void>;
 }) {
   const t = useTranslations();
@@ -26,7 +31,7 @@ export default function FreshPlanForm({
           <FreshPlan
             title={t('fresh-full-plan')}
             picture="/meal-plan/full-plan.jpg"
-            pricePerDay={36}
+            pricePerDay={nativeRound(fullPlanPrice)}
             recommended
             selected={plan === MealPlan.Full}
             onSelect={() => setPlan(MealPlan.Full)}
@@ -38,7 +43,7 @@ export default function FreshPlanForm({
           <FreshPlan
             title={t('fresh-half-plan')}
             picture="/meal-plan/half-plan.jpg"
-            pricePerDay={25}
+            pricePerDay={nativeRound(halfPlanPrice)}
             selected={plan === MealPlan.Half}
             onSelect={() => setPlan(MealPlan.Half)}
           >
