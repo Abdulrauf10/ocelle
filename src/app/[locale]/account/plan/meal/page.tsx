@@ -8,29 +8,35 @@ import { getTranslations } from 'next-intl/server';
 import FreshPlanForm from '@/components/forms/FreshPlan';
 import setMealPlanAction from './action';
 import BackButton from '@/components/buttons/BackButton';
-import { getLoginedMe } from '@/actions';
+import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 
 async function getData() {
   const me = await getLoginedMe();
 
   return executeQuery(async (queryRunner) => {
-    const dogs = await queryRunner.manager.find(Dog, {
-      where: {
-        user: { id: me.id },
-      },
-      relations: {
-        plan: true,
-      },
-    });
-    return { dogs };
+    return {
+      dogs: await queryRunner.manager.find(Dog, {
+        where: {
+          user: { id: me.id },
+        },
+        relations: {
+          breeds: {
+            breed: true,
+          },
+          plan: true,
+          user: true,
+        },
+      }),
+    };
   });
 }
 
-export default async function PlanMeal({ searchParams }: { searchParams: { current?: string } }) {
-  const { dogs } = await getData();
+export default async function PlanMeal() {
   const t = await getTranslations();
-  const dog = searchParams.current
-    ? dogs.find((dog) => dog.id === parseInt(searchParams.current!)) || dogs[0]
+  const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
+  const { dogs } = await getData();
+  const dog = currentSelectedDogId
+    ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
     : dogs[0];
 
   return (

@@ -7,6 +7,7 @@ import { getClosestOrderDeliveryDate } from './helpers/dog';
 import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import { executeGraphQL } from './helpers/graphql';
 import { CurrentUserDocument } from './gql/graphql';
+import { cookies } from 'next/headers';
 
 // here for global actions
 
@@ -56,4 +57,8 @@ export async function getCheckoutCookie() {
 
 export async function deleteCheckoutCookie() {
   return getNextServerCookiesStorage().removeItem('checkout');
+}
+
+export async function getCurrentSelectedDogIdCookie() {
+  return cookies().get('CURRENT_DOG')?.value;
 }

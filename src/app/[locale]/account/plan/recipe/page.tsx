@@ -1,7 +1,7 @@
 import Container from '@/components/Container';
 import DogSwitch from '../../DogSwitch';
 import AppThemeProvider from '@/components/AppThemeProvider';
-import { getLoginedMe } from '@/actions';
+import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import { executeQuery } from '@/helpers/queryRunner';
 import { Dog } from '@/entities';
 import { getTranslations } from 'next-intl/server';
@@ -25,11 +25,12 @@ async function getData() {
   });
 }
 
-export default async function PlanRecipe({ searchParams }: { searchParams: { current?: string } }) {
-  const { dogs } = await getData();
+export default async function PlanRecipe() {
   const t = await getTranslations();
-  const dog = searchParams.current
-    ? dogs.find((dog) => dog.id === parseInt(searchParams.current!)) || dogs[0]
+  const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
+  const { dogs } = await getData();
+  const dog = currentSelectedDogId
+    ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
     : dogs[0];
 
   return (

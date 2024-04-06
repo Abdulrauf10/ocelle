@@ -11,7 +11,7 @@ import { getTranslations } from 'next-intl/server';
 import { MealPlan, OrderSize } from '@/enums';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getRecipeSlug } from '@/helpers/dog';
-import { getLoginedMe } from '@/actions';
+import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import { dogToSentence } from '@/helpers/translation';
 
 async function getData() {
@@ -38,14 +38,15 @@ async function getData() {
   });
 }
 
-export default async function Plan({ searchParams }: { searchParams: { current?: string } }) {
+export default async function Plan() {
   const t = await getTranslations();
   const mbBoxClassName = clsx(
     'max-md:border-brown max-md:rounded-[30px] max-md:border max-md:bg-white max-md:p-6 max-md:shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] mx-auto'
   );
+  const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
   const { dogs, user, me } = await getData();
-  const dog = searchParams.current
-    ? dogs.find((dog) => dog.id === parseInt(searchParams.current!)) || dogs[0]
+  const dog = currentSelectedDogId
+    ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
     : dogs[0];
 
   return (
