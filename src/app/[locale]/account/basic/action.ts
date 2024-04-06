@@ -43,7 +43,7 @@ export default async function updateBasicInfoAction(data: UpdateBasicInfoAction)
     },
   });
 
-  if (customerUpdate?.errors) {
+  if (!customerUpdate || customerUpdate.errors.length > 0) {
     console.error(customerUpdate?.errors);
     throw new Error('update user failed');
   }

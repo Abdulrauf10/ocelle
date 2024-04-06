@@ -28,7 +28,7 @@ export default async function changePasswordAction(data: ChangePasswordAction) {
     },
   });
 
-  if (passwordChange?.errors) {
+  if (!passwordChange || passwordChange.errors.length > 0) {
     console.error(passwordChange?.errors);
     throw new Error('change password failed');
   }
