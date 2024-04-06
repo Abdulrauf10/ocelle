@@ -1,98 +1,72 @@
-'use client';
-
 import React from 'react';
-import { useForm } from 'react-hook-form';
 import Container from '@/components/Container';
-import Button from '@/components/buttons/Button';
-import PartialAddressForm from '@/components/forms/partial/Address';
-import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
-import { useTranslations } from 'next-intl';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import BackButton from '@/components/buttons/BackButton';
+import { getTranslations } from 'next-intl/server';
+import { getLoginedMeFullSize } from '@/actions';
+import DeliveryAddressForm from '@/components/forms/DeliveryAddress';
+import BillingAddressForm from '@/components/forms/BillingAddress';
+import { changeBillingAddressAction, changeShippingAddressAction } from './actions';
+import { EditAddressProvider } from '@/contexts/editAddress';
 
-interface AddressBlockProps {
-  isDeliveryAddress?: boolean;
-  onSubmit(values: unknown): void;
-}
-
-function AddressBlock({ isDeliveryAddress, onSubmit }: AddressBlockProps) {
-  const t = useTranslations();
-  const {
-    control,
-    handleSubmit,
-    reset,
-    formState: { isDirty },
-    watch,
-  } = useForm();
-
-  return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <PartialAddressForm control={control} watch={watch} />
-      {isDeliveryAddress && (
-        <div className="mt-4">
-          <RoundedCheckbox
-            name="isSameBillingAddress"
-            value={1}
-            control={control}
-            label={t('use-as-{}', { name: t('billing-address') })}
-          />
-        </div>
-      )}
-      <div className="-mx-2 mt-10 flex">
-        <div className="w-1/2 px-2">
-          <Button fullWidth onClick={reset} reverse>
-            {t('cancel')}
-          </Button>
-        </div>
-        <div className="w-1/2 px-2">
-          <Button fullWidth>{t('save-changes')}</Button>
-        </div>
-      </div>
-    </form>
-  );
-}
-
-export default function Addresses() {
-  const t = useTranslations();
-
-  const onDeliverySubmit = React.useCallback((values: unknown) => {
-    console.log(values);
-  }, []);
-
-  const onBillingSubmit = React.useCallback((values: unknown) => {
-    console.log(values);
-  }, []);
+export default async function Addresses() {
+  const t = await getTranslations();
+  const { defaultShippingAddress, defaultBillingAddress, isDeliveryUsAsBillingAddress } =
+    await getLoginedMeFullSize();
 
   return (
     <AppThemeProvider>
-      <main className="bg-gold bg-opacity-10 py-10">
-        <Container>
-          <div className="mx-auto max-w-[520px]">
-            <h2 className="heading-4 text-center font-bold text-primary">
-              {t('delivery-address')}
-            </h2>
-            <p className="mt-4 text-center">
-              {t.rich(
-                'delivery-address-changes-will-be-in-effect-starting-with-your-{}-order-scheduled-for-the-{}',
-                {
-                  stage: 'next',
-                  date: '29th of December 2023',
-                  strong: (chunks) => <strong>{chunks}</strong>,
-                }
-              )}
-            </p>
-            <div className="py-4"></div>
-            <AddressBlock isDeliveryAddress onSubmit={onDeliverySubmit} />
-            <div className="py-12"></div>
-            <h2 className="heading-4 text-center font-bold text-primary">{t('billing-address')}</h2>
-            <div className="py-4"></div>
-            <AddressBlock onSubmit={onBillingSubmit} />
-            <div className="mt-12 text-center">
-              <BackButton label={t('go-back')} />
+      <EditAddressProvider initialIsDeliveryUsAsBillingAddress={isDeliveryUsAsBillingAddress}>
+        <main className="bg-gold bg-opacity-10 py-10">
+          <Container>
+            <div className="mx-auto max-w-[520px]">
+              <h2 className="heading-4 text-center font-bold text-primary">
+                {t('delivery-address')}
+              </h2>
+              <p className="mt-4 text-center">
+                {t.rich(
+                  'delivery-address-changes-will-be-in-effect-starting-with-your-{}-order-scheduled-for-the-{}',
+                  {
+                    stage: 'next',
+                    date: '29th of December 2023',
+                    strong: (chunks) => <strong>{chunks}</strong>,
+                  }
+                )}
+              </p>
+              <div className="py-4"></div>
+              <DeliveryAddressForm
+                firstName={defaultShippingAddress?.firstName}
+                lastName={defaultShippingAddress?.lastName}
+                streetAddress1={defaultShippingAddress?.streetAddress1}
+                streetAddress2={defaultShippingAddress?.streetAddress2}
+                district={defaultShippingAddress?.city}
+                region={defaultShippingAddress?.countryArea}
+                country={defaultShippingAddress?.country.code}
+                isSameAsBillingAddress={isDeliveryUsAsBillingAddress}
+                action={changeShippingAddressAction}
+              />
+              <div className="py-12"></div>
+              <h2 className="heading-4 text-center font-bold text-primary">
+                {t('billing-address')}
+              </h2>
+              <div className="py-4"></div>
+              <BillingAddressForm
+                firstName={defaultBillingAddress?.firstName}
+                lastName={defaultBillingAddress?.lastName}
+                streetAddress1={defaultBillingAddress?.streetAddress1}
+                streetAddress2={defaultBillingAddress?.streetAddress2}
+                district={defaultBillingAddress?.city}
+                region={defaultBillingAddress?.countryArea}
+                country={defaultBillingAddress?.country.code}
+                action={changeBillingAddressAction}
+              />
+              <div className="mt-12 text-center">
+                <BackButton label={t('go-back')} />
+              </div>
             </div>
-          </div>
-        </Container>
-      </main>
+          </Container>
+        </main>
+      </EditAddressProvider>
     </AppThemeProvider>
   );
 }

@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import React from 'react';
 import Button from '../buttons/Button';
 import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
+import { useEditAddress } from '@/contexts/editAddress';
 
 interface IBillingAddressForm extends IPartialAddressForm {}
 
@@ -18,17 +19,34 @@ export default function BillingAddressForm({
   country,
   action,
 }: {
-  firstName: string;
-  lastName: string;
-  streetAddress1: string;
-  streetAddress2: string;
-  district: string;
-  region: string;
-  country: string;
+  firstName?: string;
+  lastName?: string;
+  streetAddress1?: string;
+  streetAddress2?: string;
+  district?: string;
+  region?: string;
+  country?: string;
   action(data: IBillingAddressForm): Promise<void>;
 }) {
   const t = useTranslations();
-  const ref = React.useRef<HTMLFormElement | null>(null);
+  const { isDeliveryUsAsBillingAddress: disabled } = useEditAddress();
+  const defaultValuesRef = React.useRef<{
+    firstName?: string;
+    lastName?: string;
+    streetAddress1?: string;
+    streetAddress2?: string;
+    district?: string;
+    region?: string;
+    country?: string;
+  }>({
+    firstName,
+    lastName,
+    streetAddress1,
+    streetAddress2,
+    district,
+    region,
+    country,
+  });
   const { control, handleSubmit, reset, watch } = useForm<IBillingAddressForm>({
     defaultValues: {
       firstName,
@@ -46,23 +64,24 @@ export default function BillingAddressForm({
     (values: IBillingAddressForm) => {
       startTransition(() => {
         action(values);
+        defaultValuesRef.current = values;
       });
     },
     [action]
   );
 
   const isSameAsDefaultValue =
-    watch('firstName') === firstName &&
-    watch('lastName') === lastName &&
-    watch('streetAddress1') === streetAddress1 &&
-    watch('streetAddress2') === streetAddress2 &&
-    watch('district') === district &&
-    watch('region') === region &&
-    watch('country') === country;
+    watch('firstName') === defaultValuesRef.current.firstName &&
+    watch('lastName') === defaultValuesRef.current.lastName &&
+    watch('streetAddress1') === defaultValuesRef.current.streetAddress1 &&
+    watch('streetAddress2') === defaultValuesRef.current.streetAddress2 &&
+    watch('district') === defaultValuesRef.current.district &&
+    watch('region') === defaultValuesRef.current.region &&
+    watch('country') === defaultValuesRef.current.country;
 
   return (
-    <form ref={ref} onSubmit={handleSubmit(onSubmit)}>
-      <PartialAddressForm control={control} watch={watch} />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <PartialAddressForm control={control} watch={watch} disabled={disabled} />
       <div className="-mx-2 mt-10 flex">
         <div className="w-1/2 px-2">
           <Button
@@ -79,13 +98,13 @@ export default function BillingAddressForm({
               })
             }
             reverse
-            disabled={isSameAsDefaultValue}
+            disabled={isSameAsDefaultValue || disabled}
           >
             {t('cancel')}
           </Button>
         </div>
         <div className="w-1/2 px-2">
-          <Button fullWidth disabled={pending || isSameAsDefaultValue}>
+          <Button fullWidth disabled={pending || isSameAsDefaultValue || disabled}>
             {t('save-changes')}
           </Button>
         </div>

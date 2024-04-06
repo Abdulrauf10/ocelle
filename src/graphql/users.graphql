@@ -147,7 +147,7 @@ mutation UpdateAddress(
   $streetAddress1: String!
   $streetAddress2: String!
   $city: String!
-  $cityArea: String!
+  $countryArea: String!
 ) {
   accountAddressUpdate(
     id: $id
@@ -157,7 +157,7 @@ mutation UpdateAddress(
       streetAddress1: $streetAddress1
       streetAddress2: $streetAddress2
       city: $city
-      cityArea: $cityArea
+      countryArea: $countryArea
       country: HK
     }
   ) {

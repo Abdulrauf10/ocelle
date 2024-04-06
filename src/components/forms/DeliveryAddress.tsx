@@ -6,6 +6,7 @@ import React, { useTransition } from 'react';
 import Button from '../buttons/Button';
 import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
 import RoundedCheckbox from '../controls/RoundedCheckbox';
+import { useEditAddress } from '@/contexts/editAddress';
 
 interface IDeliveryAddressForm extends IPartialAddressForm {
   isSameAsBillingAddress: boolean;
@@ -19,19 +20,40 @@ export default function DeliveryAddressForm({
   district,
   region,
   country,
+  isSameAsBillingAddress,
   action,
 }: {
-  firstName: string;
-  lastName: string;
-  streetAddress1: string;
-  streetAddress2: string;
-  district: string;
-  region: string;
-  country: string;
+  firstName?: string;
+  lastName?: string;
+  streetAddress1?: string;
+  streetAddress2?: string;
+  district?: string;
+  region?: string;
+  country?: string;
+  isSameAsBillingAddress?: boolean;
   action(data: IDeliveryAddressForm): Promise<void>;
 }) {
   const t = useTranslations();
-  const ref = React.useRef<HTMLFormElement | null>(null);
+  const { setIsDeliveryUsAsBillingAddress } = useEditAddress();
+  const defaultValuesRef = React.useRef<{
+    firstName?: string;
+    lastName?: string;
+    streetAddress1?: string;
+    streetAddress2?: string;
+    district?: string;
+    region?: string;
+    country?: string;
+    isSameAsBillingAddress?: boolean;
+  }>({
+    firstName,
+    lastName,
+    streetAddress1,
+    streetAddress2,
+    district,
+    region,
+    country,
+    isSameAsBillingAddress,
+  });
   const { control, handleSubmit, reset, watch } = useForm<IDeliveryAddressForm>({
     defaultValues: {
       firstName,
@@ -41,30 +63,38 @@ export default function DeliveryAddressForm({
       district,
       region,
       country,
+      isSameAsBillingAddress,
     },
   });
   const [pending, startTransition] = useTransition();
+  const currentIsSameAsBillingAddress = watch('isSameAsBillingAddress');
 
   const onSubmit = React.useCallback(
     (values: IDeliveryAddressForm) => {
       startTransition(() => {
         action(values);
+        defaultValuesRef.current = values;
       });
     },
     [action]
   );
 
+  React.useEffect(() => {
+    setIsDeliveryUsAsBillingAddress(currentIsSameAsBillingAddress);
+  }, [currentIsSameAsBillingAddress, setIsDeliveryUsAsBillingAddress]);
+
   const isSameAsDefaultValue =
-    watch('firstName') === firstName &&
-    watch('lastName') === lastName &&
-    watch('streetAddress1') === streetAddress1 &&
-    watch('streetAddress2') === streetAddress2 &&
-    watch('district') === district &&
-    watch('region') === region &&
-    watch('country') === country;
+    watch('firstName') === defaultValuesRef.current.firstName &&
+    watch('lastName') === defaultValuesRef.current.lastName &&
+    watch('streetAddress1') === defaultValuesRef.current.streetAddress1 &&
+    watch('streetAddress2') === defaultValuesRef.current.streetAddress2 &&
+    watch('district') === defaultValuesRef.current.district &&
+    watch('region') === defaultValuesRef.current.region &&
+    watch('country') === defaultValuesRef.current.country &&
+    watch('isSameAsBillingAddress') === defaultValuesRef.current.isSameAsBillingAddress;
 
   return (
-    <form ref={ref} onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)}>
       <PartialAddressForm control={control} watch={watch} />
       <div className="mt-4">
         <RoundedCheckbox
