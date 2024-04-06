@@ -6,6 +6,7 @@ import FreshPlan from '../FreshPlan';
 import Button from '../buttons/Button';
 import { MealPlan } from '@/enums';
 import { nativeRound } from '@/helpers/number';
+import useDefaultValues from '@/hooks/defaultValues';
 
 export default function FreshPlanForm({
   initialPlan,
@@ -19,10 +20,11 @@ export default function FreshPlanForm({
   action(data: { plan: MealPlan }): Promise<void>;
 }) {
   const t = useTranslations();
+  const { defaultValues, setDefaultValues } = useDefaultValues({ plan: initialPlan });
   const [pending, startTransition] = React.useTransition();
-  const [plan, setPlan] = React.useState<MealPlan>(initialPlan);
+  const [plan, setPlan] = React.useState<MealPlan>(defaultValues.plan);
 
-  const isSameAsDefaultValue = plan === initialPlan;
+  const isSameAsDefaultValue = plan === defaultValues.plan;
 
   return (
     <>
@@ -56,7 +58,7 @@ export default function FreshPlanForm({
           <div className="w-1/2 px-2">
             <Button
               fullWidth
-              onClick={() => setPlan(initialPlan)}
+              onClick={() => setPlan(defaultValues.plan)}
               reverse
               disabled={isSameAsDefaultValue}
             >
@@ -70,6 +72,7 @@ export default function FreshPlanForm({
               onClick={() =>
                 startTransition(() => {
                   action({ plan });
+                  setDefaultValues({ plan });
                 })
               }
             >

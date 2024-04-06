@@ -6,6 +6,7 @@ import React from 'react';
 import Button from '../buttons/Button';
 import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
 import { useEditAddress } from '@/contexts/editAddress';
+import useDefaultValues from '@/hooks/defaultValues';
 
 interface IBillingAddressForm extends IPartialAddressForm {}
 
@@ -30,15 +31,7 @@ export default function BillingAddressForm({
 }) {
   const t = useTranslations();
   const { isDeliveryUsAsBillingAddress: disabled } = useEditAddress();
-  const defaultValuesRef = React.useRef<{
-    firstName?: string;
-    lastName?: string;
-    streetAddress1?: string;
-    streetAddress2?: string;
-    district?: string;
-    region?: string;
-    country?: string;
-  }>({
+  const { defaultValues, setDefaultValues } = useDefaultValues({
     firstName,
     lastName,
     streetAddress1,
@@ -47,37 +40,27 @@ export default function BillingAddressForm({
     region,
     country,
   });
-  const { control, handleSubmit, reset, watch } = useForm<IBillingAddressForm>({
-    defaultValues: {
-      firstName,
-      lastName,
-      streetAddress1,
-      streetAddress2,
-      district,
-      region,
-      country,
-    },
-  });
+  const { control, handleSubmit, reset, watch } = useForm<IBillingAddressForm>({ defaultValues });
   const [pending, startTransition] = React.useTransition();
 
   const onSubmit = React.useCallback(
     (values: IBillingAddressForm) => {
       startTransition(() => {
         action(values);
-        defaultValuesRef.current = values;
+        setDefaultValues(values);
       });
     },
-    [action]
+    [action, setDefaultValues]
   );
 
   const isSameAsDefaultValue =
-    watch('firstName') === defaultValuesRef.current.firstName &&
-    watch('lastName') === defaultValuesRef.current.lastName &&
-    watch('streetAddress1') === defaultValuesRef.current.streetAddress1 &&
-    watch('streetAddress2') === defaultValuesRef.current.streetAddress2 &&
-    watch('district') === defaultValuesRef.current.district &&
-    watch('region') === defaultValuesRef.current.region &&
-    watch('country') === defaultValuesRef.current.country;
+    watch('firstName') === defaultValues.firstName &&
+    watch('lastName') === defaultValues.lastName &&
+    watch('streetAddress1') === defaultValues.streetAddress1 &&
+    watch('streetAddress2') === defaultValues.streetAddress2 &&
+    watch('district') === defaultValues.district &&
+    watch('region') === defaultValues.region &&
+    watch('country') === defaultValues.country;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -86,17 +69,7 @@ export default function BillingAddressForm({
         <div className="w-1/2 px-2">
           <Button
             fullWidth
-            onClick={() =>
-              reset({
-                firstName,
-                lastName,
-                streetAddress1,
-                streetAddress2,
-                district,
-                region,
-                country,
-              })
-            }
+            onClick={() => reset(defaultValues)}
             reverse
             disabled={isSameAsDefaultValue || disabled}
           >

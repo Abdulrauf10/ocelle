@@ -7,6 +7,7 @@ import Button from '../buttons/Button';
 import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
 import RoundedCheckbox from '../controls/RoundedCheckbox';
 import { useEditAddress } from '@/contexts/editAddress';
+import useDefaultValues from '@/hooks/defaultValues';
 
 interface IDeliveryAddressForm extends IPartialAddressForm {
   isSameAsBillingAddress: boolean;
@@ -35,16 +36,7 @@ export default function DeliveryAddressForm({
 }) {
   const t = useTranslations();
   const { setIsDeliveryUsAsBillingAddress } = useEditAddress();
-  const defaultValuesRef = React.useRef<{
-    firstName?: string;
-    lastName?: string;
-    streetAddress1?: string;
-    streetAddress2?: string;
-    district?: string;
-    region?: string;
-    country?: string;
-    isSameAsBillingAddress?: boolean;
-  }>({
+  const { defaultValues, setDefaultValues } = useDefaultValues({
     firstName,
     lastName,
     streetAddress1,
@@ -54,18 +46,7 @@ export default function DeliveryAddressForm({
     country,
     isSameAsBillingAddress,
   });
-  const { control, handleSubmit, reset, watch } = useForm<IDeliveryAddressForm>({
-    defaultValues: {
-      firstName,
-      lastName,
-      streetAddress1,
-      streetAddress2,
-      district,
-      region,
-      country,
-      isSameAsBillingAddress,
-    },
-  });
+  const { control, handleSubmit, reset, watch } = useForm<IDeliveryAddressForm>({ defaultValues });
   const [pending, startTransition] = useTransition();
   const currentIsSameAsBillingAddress = watch('isSameAsBillingAddress');
 
@@ -73,10 +54,10 @@ export default function DeliveryAddressForm({
     (values: IDeliveryAddressForm) => {
       startTransition(() => {
         action(values);
-        defaultValuesRef.current = values;
+        setDefaultValues(values);
       });
     },
-    [action]
+    [action, setDefaultValues]
   );
 
   React.useEffect(() => {
@@ -84,14 +65,14 @@ export default function DeliveryAddressForm({
   }, [currentIsSameAsBillingAddress, setIsDeliveryUsAsBillingAddress]);
 
   const isSameAsDefaultValue =
-    watch('firstName') === defaultValuesRef.current.firstName &&
-    watch('lastName') === defaultValuesRef.current.lastName &&
-    watch('streetAddress1') === defaultValuesRef.current.streetAddress1 &&
-    watch('streetAddress2') === defaultValuesRef.current.streetAddress2 &&
-    watch('district') === defaultValuesRef.current.district &&
-    watch('region') === defaultValuesRef.current.region &&
-    watch('country') === defaultValuesRef.current.country &&
-    watch('isSameAsBillingAddress') === defaultValuesRef.current.isSameAsBillingAddress;
+    watch('firstName') === defaultValues.firstName &&
+    watch('lastName') === defaultValues.lastName &&
+    watch('streetAddress1') === defaultValues.streetAddress1 &&
+    watch('streetAddress2') === defaultValues.streetAddress2 &&
+    watch('district') === defaultValues.district &&
+    watch('region') === defaultValues.region &&
+    watch('country') === defaultValues.country &&
+    watch('isSameAsBillingAddress') === defaultValues.isSameAsBillingAddress;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -107,17 +88,7 @@ export default function DeliveryAddressForm({
         <div className="w-1/2 px-2">
           <Button
             fullWidth
-            onClick={() =>
-              reset({
-                firstName,
-                lastName,
-                streetAddress1,
-                streetAddress2,
-                district,
-                region,
-                country,
-              })
-            }
+            onClick={() => reset(defaultValues)}
             reverse
             disabled={isSameAsDefaultValue}
           >

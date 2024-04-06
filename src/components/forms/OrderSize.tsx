@@ -5,6 +5,7 @@ import React from 'react';
 import { useTranslations } from 'next-intl';
 import { OrderSize } from '@/enums';
 import { nativeRound } from '@/helpers/number';
+import useDefaultValues from '@/hooks/defaultValues';
 
 export default function OrderSizeForm({
   initialSize,
@@ -18,10 +19,11 @@ export default function OrderSizeForm({
   action(data: { size: OrderSize }): Promise<void>;
 }) {
   const t = useTranslations();
+  const { defaultValues, setDefaultValues } = useDefaultValues({ size: initialSize });
   const [pending, startTransition] = React.useTransition();
-  const [size, setSize] = React.useState<OrderSize>(initialSize);
+  const [size, setSize] = React.useState<OrderSize>(defaultValues.size);
 
-  const isSameAsDefaultValue = size === initialSize;
+  const isSameAsDefaultValue = size === defaultValues.size;
 
   return (
     <>
@@ -91,7 +93,12 @@ export default function OrderSizeForm({
       <div className="mx-auto mt-8 max-w-[480px]">
         <div className="-mx-2 flex">
           <div className="w-1/2 px-2">
-            <Button fullWidth onClick={() => {}} reverse disabled={isSameAsDefaultValue}>
+            <Button
+              fullWidth
+              onClick={() => setSize(defaultValues.size)}
+              reverse
+              disabled={isSameAsDefaultValue}
+            >
               {t('cancel')}
             </Button>
           </div>
@@ -102,6 +109,7 @@ export default function OrderSizeForm({
               onClick={() => {
                 startTransition(() => {
                   action({ size });
+                  setDefaultValues({ size });
                 });
               }}
             >

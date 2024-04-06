@@ -5,6 +5,7 @@ import DateCalendar from '../controls/DateCalendar';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { startOfDay } from 'date-fns';
+import useDefaultValues from '@/hooks/defaultValues';
 
 interface IDeliveryDateForm {
   deliveryDate: Date;
@@ -21,25 +22,27 @@ export default function DeliveryDateForm({
 }) {
   const t = useTranslations();
   const ref = React.useRef<HTMLFormElement | null>(null);
-  const { control, watch, reset, handleSubmit } = useForm<IDeliveryDateForm>({
-    defaultValues: {
-      deliveryDate: startOfDay(initialDate),
-    },
+  const { defaultValues, setDefaultValues } = useDefaultValues({
+    deliveryDate: startOfDay(initialDate),
   });
+  const { control, watch, reset, handleSubmit } = useForm<IDeliveryDateForm>({ defaultValues });
   const [pending, startTransition] = React.useTransition();
 
   const onSubmit = React.useCallback(
     ({ deliveryDate }: IDeliveryDateForm) => {
       startTransition(() => {
-        action({ deliveryDate: startOfDay(deliveryDate) });
+        const values = { deliveryDate: startOfDay(deliveryDate) };
+        action(values);
+        setDefaultValues(values);
       });
       if (typeof onComplete === 'function') onComplete();
     },
-    [action, onComplete]
+    [action, setDefaultValues, onComplete]
   );
 
   const isSameAsDefaultValue =
-    startOfDay(watch('deliveryDate')).getTime() === startOfDay(initialDate).getTime();
+    startOfDay(watch('deliveryDate')).getTime() ===
+    startOfDay(defaultValues.deliveryDate).getTime();
 
   return (
     <form ref={ref} onSubmit={handleSubmit(onSubmit)}>
@@ -51,7 +54,7 @@ export default function DeliveryDateForm({
           {
             label: t('cancel'),
             disabled: isSameAsDefaultValue,
-            onClick: () => reset({ deliveryDate: startOfDay(initialDate) }),
+            onClick: () => reset(defaultValues),
           },
           {
             label: t('save-changes'),

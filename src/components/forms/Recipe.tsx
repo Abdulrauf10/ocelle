@@ -11,6 +11,7 @@ import React from 'react';
 import { arrayToRecipe, recipeToArray } from '@/helpers/form';
 import equal from 'deep-equal';
 import pluralize from 'pluralize';
+import useDefaultValues from '@/hooks/defaultValues';
 
 interface RecipeForm {
   recipe: boolean[];
@@ -34,27 +35,24 @@ export default function RecipeForm({
   action(data: { recipe1: Recipe; recipe2?: Recipe }): Promise<void>;
 }) {
   const t = useTranslations();
-  const [pending, startTransition] = React.useTransition();
-  const { control, reset, watch, handleSubmit } = useForm<RecipeForm>({
-    defaultValues: {
-      recipe: recipeToArray(initialRecipe1, initialRecipe2),
-    },
+  const { defaultValues, setDefaultValues } = useDefaultValues({
+    recipe: recipeToArray(initialRecipe1, initialRecipe2),
   });
+  const [pending, startTransition] = React.useTransition();
+  const { control, reset, watch, handleSubmit } = useForm<RecipeForm>({ defaultValues });
 
   const onSubmit = React.useCallback(
     ({ recipe }: RecipeForm) => {
       const { recipe1, recipe2 } = arrayToRecipe(recipe);
       startTransition(() => {
         action({ recipe1: recipe1!, recipe2 });
+        setDefaultValues({ recipe: recipeToArray(recipe1, recipe2) });
       });
     },
-    [action]
+    [action, setDefaultValues]
   );
 
-  const isSameAsDefaultValue = equal(
-    watch('recipe'),
-    recipeToArray(initialRecipe1, initialRecipe2)
-  );
+  const isSameAsDefaultValue = equal(watch('recipe'), defaultValues.recipe);
 
   const targetedNutrientBlendIngredients = [
     t('selenium-yeast'),
@@ -249,7 +247,7 @@ export default function RecipeForm({
           <div className="w-1/2 px-2">
             <Button
               fullWidth
-              onClick={() => reset({ recipe: recipeToArray(initialRecipe1, initialRecipe2) })}
+              onClick={() => reset(defaultValues)}
               reverse
               disabled={isSameAsDefaultValue}
             >
