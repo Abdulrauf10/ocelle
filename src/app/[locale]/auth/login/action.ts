@@ -1,5 +1,6 @@
 'use server';
 
+import { redirect } from '@/navigation';
 import saleorAuthClient from '@/saleorAuthClient';
 import Joi from 'joi';
 
@@ -30,8 +31,10 @@ export default async function loginAction(data: LoginAction) {
     { cache: 'no-store' }
   );
 
-  if (tokenCreate.errors) {
+  if (tokenCreate.errors.length > 0) {
     console.error(tokenCreate.errors);
     throw new Error('login failed');
   }
+
+  redirect('/account/plan');
 }

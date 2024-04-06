@@ -10,18 +10,7 @@ import { CurrentUserDocument } from './gql/graphql';
 
 // here for global actions
 
-const isDebugMode = true;
-
 export async function getLoginedMe() {
-  if (isDebugMode) {
-    return {
-      id: '1',
-      email: 'string',
-      firstName: 'Kevan',
-      lastName: 'Wong',
-    };
-  }
-
   const { me } = await executeGraphQL(CurrentUserDocument, {
     cache: 'no-cache',
   });
@@ -35,7 +24,7 @@ export async function getLoginedMe() {
 
 export async function logout() {
   saleorAuthClient.signOut();
-  redirect('/');
+  redirect('/auth/login');
 }
 
 /**
