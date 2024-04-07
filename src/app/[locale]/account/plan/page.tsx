@@ -11,8 +11,10 @@ import { MealPlan, OrderSize } from '@/enums';
 import { getRecipeSlug } from '@/helpers/dog';
 import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import { dogToSentence } from '@/helpers/translation';
+import { cookies } from 'next/headers';
 
 export default async function Plan() {
+  const cookie = cookies();
   const t = await getTranslations();
   const mbBoxClassName = clsx(
     'max-md:border-brown max-md:rounded-[30px] max-md:border max-md:bg-white max-md:p-6 max-md:shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] mx-auto'
@@ -39,7 +41,14 @@ export default async function Plan() {
               </p>
             </div>
             <div className="px-4 py-3">
-              <DogSwitch dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))} />
+              <DogSwitch
+                defaultDogId={
+                  cookie.has('CURRENT_DOG')
+                    ? parseInt(cookie.get('CURRENT_DOG')!.value)
+                    : dogs[0].id
+                }
+                dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}
+              />
             </div>
           </div>
           <div className="py-6"></div>

@@ -9,8 +9,10 @@ import BackButton from '@/components/buttons/BackButton';
 import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import { calculateRecipePerDayPrice } from '@/helpers/dog';
 import { MealPlan } from '@/enums';
+import { cookies } from 'next/headers';
 
 export default async function PlanMeal() {
+  const cookie = cookies();
   const t = await getTranslations();
   const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
   const { dogs, orderSize } = await getLoginedMe();
@@ -49,7 +51,12 @@ export default async function PlanMeal() {
       <main className="bg-gold bg-opacity-10 py-10">
         <Container>
           <div className="mx-auto flex max-w-[1120px] justify-end">
-            <DogSwitch dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))} />
+            <DogSwitch
+              defaultDogId={
+                cookie.has('CURRENT_DOG') ? parseInt(cookie.get('CURRENT_DOG')!.value) : dogs[0].id
+              }
+              dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}
+            />
           </div>
           <h1 className="heading-4 text-center font-bold text-primary max-lg:mt-6">
             {t('choose-{}-fresh-recipes', { name: dog.name })}

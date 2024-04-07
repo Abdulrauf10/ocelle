@@ -6,7 +6,13 @@ import { useTranslations } from 'next-intl';
 import { useRouter } from '@/navigation';
 import Cookies from 'js-cookie';
 
-export default function DogSwitch({ dogs }: { dogs: Array<{ id: number; name: string }> }) {
+export default function DogSwitch({
+  defaultDogId,
+  dogs,
+}: {
+  defaultDogId?: number;
+  dogs: Array<{ id: number; name: string }>;
+}) {
   const t = useTranslations();
   const router = useRouter();
 
@@ -15,9 +21,7 @@ export default function DogSwitch({ dogs }: { dogs: Array<{ id: number; name: st
       <div className="mb-2 whitespace-nowrap max-sm:mr-3">{t('view-info-for')}</div>
       <FormControl fullWidth>
         <Select
-          defaultValue={
-            Cookies.get('CURRENT_DOG') ? parseInt(Cookies.get('CURRENT_DOG')!) : dogs[0].id
-          }
+          defaultValue={defaultDogId}
           onChange={(event) => {
             Cookies.set('CURRENT_DOG', String(event.target.value), { sameSite: 'strict' });
             router.refresh();
