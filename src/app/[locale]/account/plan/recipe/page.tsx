@@ -7,6 +7,7 @@ import RecipeForm from '@/components/forms/Recipe';
 import setRecipeAction from './action';
 import BackButton from '@/components/buttons/BackButton';
 import { cookies } from 'next/headers';
+import { DOG_SELECT_COOKIE } from '@/consts';
 
 export default async function PlanRecipe() {
   const cookie = cookies();
@@ -24,7 +25,9 @@ export default async function PlanRecipe() {
           <div className="mx-auto flex max-w-[1120px] justify-end">
             <DogSwitch
               selectedDogId={
-                cookie.has('CURRENT_DOG') ? parseInt(cookie.get('CURRENT_DOG')!.value) : dogs[0].id
+                cookie.has(DOG_SELECT_COOKIE)
+                  ? parseInt(cookie.get(DOG_SELECT_COOKIE)!.value)
+                  : dogs[0].id
               }
               dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}
             />

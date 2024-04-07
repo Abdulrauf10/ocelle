@@ -10,6 +10,7 @@ import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import { calculateRecipePerDayPrice } from '@/helpers/dog';
 import { MealPlan } from '@/enums';
 import { cookies } from 'next/headers';
+import { DOG_SELECT_COOKIE } from '@/consts';
 
 export default async function PlanMeal() {
   const cookie = cookies();
@@ -53,7 +54,9 @@ export default async function PlanMeal() {
           <div className="mx-auto flex max-w-[1120px] justify-end">
             <DogSwitch
               selectedDogId={
-                cookie.has('CURRENT_DOG') ? parseInt(cookie.get('CURRENT_DOG')!.value) : dogs[0].id
+                cookie.has(DOG_SELECT_COOKIE)
+                  ? parseInt(cookie.get(DOG_SELECT_COOKIE)!.value)
+                  : dogs[0].id
               }
               dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}
             />

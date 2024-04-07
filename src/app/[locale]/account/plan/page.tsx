@@ -12,6 +12,7 @@ import { getRecipeSlug } from '@/helpers/dog';
 import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import { dogToSentence } from '@/helpers/translation';
 import { cookies } from 'next/headers';
+import { DOG_SELECT_COOKIE } from '@/consts';
 
 export default async function Plan() {
   const cookie = cookies();
@@ -43,8 +44,8 @@ export default async function Plan() {
             <div className="px-4 py-3">
               <DogSwitch
                 selectedDogId={
-                  cookie.has('CURRENT_DOG')
-                    ? parseInt(cookie.get('CURRENT_DOG')!.value)
+                  cookie.has(DOG_SELECT_COOKIE)
+                    ? parseInt(cookie.get(DOG_SELECT_COOKIE)!.value)
                     : dogs[0].id
                 }
                 dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}

@@ -5,6 +5,7 @@ import { FormControl, MenuItem, Select } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import { useRouter } from '@/navigation';
 import Cookies from 'js-cookie';
+import { DOG_SELECT_COOKIE } from '@/consts';
 
 export default function DogSwitch({
   selectedDogId,
@@ -23,7 +24,7 @@ export default function DogSwitch({
         <Select
           value={selectedDogId}
           onChange={(event) => {
-            Cookies.set('CURRENT_DOG', String(event.target.value), { sameSite: 'strict' });
+            Cookies.set(DOG_SELECT_COOKIE, String(event.target.value), { sameSite: 'strict' });
             router.refresh();
           }}
           sx={{

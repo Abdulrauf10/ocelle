@@ -10,6 +10,7 @@ import { GetCurrentUserDocument, GetCurrentUserFullSizeDocument } from './gql/gr
 import { cookies } from 'next/headers';
 import { executeQuery } from './helpers/queryRunner';
 import { User } from './entities';
+import { CART_COOKIE, CHECKOUT_COOKIE, DOG_SELECT_COOKIE } from './consts';
 
 // here for global actions
 
@@ -110,29 +111,29 @@ export async function getClosestDeliveryDate() {
 }
 
 export async function setCartCookie(value: string) {
-  return getNextServerCookiesStorage().setItem('cart', value);
+  return getNextServerCookiesStorage().setItem(CART_COOKIE, value);
 }
 
 export async function getCartCookie() {
-  return getNextServerCookiesStorage().getItem('cart');
+  return getNextServerCookiesStorage().getItem(CART_COOKIE);
 }
 
 export async function deleteCartCookie() {
-  return getNextServerCookiesStorage().removeItem('cart');
+  return getNextServerCookiesStorage().removeItem(CART_COOKIE);
 }
 
 export async function setCheckoutCookie(value: string) {
-  return getNextServerCookiesStorage().setItem('checkout', value);
+  return getNextServerCookiesStorage().setItem(CHECKOUT_COOKIE, value);
 }
 
 export async function getCheckoutCookie() {
-  return getNextServerCookiesStorage().getItem('checkout');
+  return getNextServerCookiesStorage().getItem(CHECKOUT_COOKIE);
 }
 
 export async function deleteCheckoutCookie() {
-  return getNextServerCookiesStorage().removeItem('checkout');
+  return getNextServerCookiesStorage().removeItem(CHECKOUT_COOKIE);
 }
 
 export async function getCurrentSelectedDogIdCookie() {
-  return cookies().get('CURRENT_DOG')?.value;
+  return cookies().get(DOG_SELECT_COOKIE)?.value;
 }
