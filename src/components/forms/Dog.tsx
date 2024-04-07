@@ -1,6 +1,5 @@
 'use client';
 
-import { Breed } from '@/entities';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -18,6 +17,8 @@ import { arrayToAllergies, foodAllergiesToArray, getFoodAllergiesOptions } from 
 import { DateOfBirthMethod, Gender } from '@/types/dog';
 import { intervalToDuration, startOfDay, subMonths, subYears } from 'date-fns';
 import { BreedDto } from '@/types/dto';
+import useDefaultValues from '@/hooks/defaultValues';
+import equal from 'deep-equal';
 
 interface EditDogBlockProps {
   title: string;
@@ -115,6 +116,37 @@ export default function DogForm({
 }) {
   const t = useTranslations();
   const dateOfBirthInterval = intervalToDuration({ start: dateOfBirth, end: new Date() });
+  const { defaultValues, setDefaultValues } = useDefaultValues<{
+    name: string;
+    breeds: BreedDto[];
+    gender: Gender;
+    isNeutered: 'Y' | 'N';
+    months?: number;
+    years?: number;
+    dateOfBirth?: Date;
+    weight: number;
+    bodyCondition: BodyCondition;
+    activityLevel: ActivityLevel;
+    allergies: Array<boolean | undefined>;
+    eating: CurrentlyEating;
+    amountOfTreats: AmountOfTreats;
+    pickiness: Pickiness;
+  }>({
+    name,
+    breeds,
+    gender,
+    isNeutered: isNeutered ? 'Y' : 'N',
+    months: dateOfBirthMethod === 'Manually' ? dateOfBirthInterval.months ?? 0 : undefined,
+    years: dateOfBirthMethod === 'Manually' ? dateOfBirthInterval.years ?? 0 : undefined,
+    dateOfBirth: dateOfBirthMethod === 'Calendar' ? dateOfBirth : undefined,
+    weight,
+    bodyCondition,
+    activityLevel,
+    allergies: foodAllergiesToArray(allergies),
+    eating,
+    amountOfTreats,
+    pickiness,
+  });
   const {
     control,
     handleSubmit,
@@ -123,24 +155,7 @@ export default function DogForm({
     getValues,
     reset,
     formState: { errors },
-  } = useForm<IDogForm>({
-    defaultValues: {
-      name,
-      breeds,
-      gender,
-      isNeutered: isNeutered ? 'Y' : 'N',
-      months: dateOfBirthMethod === 'Manually' ? dateOfBirthInterval.months ?? 0 : undefined,
-      years: dateOfBirthMethod === 'Manually' ? dateOfBirthInterval.years ?? 0 : undefined,
-      dateOfBirth: dateOfBirthMethod === 'Calendar' ? dateOfBirth : undefined,
-      weight,
-      bodyCondition,
-      activityLevel,
-      allergies: foodAllergiesToArray(allergies),
-      eating,
-      amountOfTreats,
-      pickiness,
-    },
-  });
+  } = useForm<IDogForm>({ defaultValues });
   const [pending, startTransition] = React.useTransition();
   const [breedLoading, setBreedLoading] = React.useState(true);
   const [breedOptions, setBreedOptions] = React.useState<BreedDto[] | undefined>(undefined);
@@ -160,45 +175,47 @@ export default function DogForm({
   }, [breedOptions]);
 
   const onSubmit = React.useCallback(
-    ({
-      name,
-      breeds,
-      gender,
-      isNeutered,
-      months,
-      years,
-      dateOfBirth,
-      weight,
-      bodyCondition,
-      activityLevel,
-      allergies,
-      eating,
-      amountOfTreats,
-      pickiness,
-    }: IDogForm) => {
-      startTransition(() => {
-        action({
-          name,
-          breeds: breeds.map((breed) => breed.id),
-          gender,
-          isNeutered: isNeutered === 'Y',
+    (values: IDogForm) => {
+      startTransition(async () => {
+        await action({
+          name: values.name,
+          breeds: values.breeds.map((breed) => breed.id),
+          gender: values.gender,
+          isNeutered: values.isNeutered === 'Y',
           dateOfBirthMethod: tab === 'Birthday' ? 'Calendar' : 'Manually',
           dateOfBirth:
             tab === 'Birthday'
-              ? dateOfBirth!
-              : subMonths(subYears(startOfDay(new Date()), years ?? 0), months ?? 0),
-          weight,
-          bodyCondition,
-          activityLevel,
-          allergies: arrayToAllergies(allergies),
-          eating,
-          amountOfTreats,
-          pickiness,
+              ? values.dateOfBirth!
+              : subMonths(subYears(startOfDay(new Date()), values.years ?? 0), values.months ?? 0),
+          weight: values.weight,
+          bodyCondition: values.bodyCondition,
+          activityLevel: values.activityLevel,
+          allergies: arrayToAllergies(values.allergies),
+          eating: values.eating,
+          amountOfTreats: values.amountOfTreats,
+          pickiness: values.pickiness,
         });
       });
+      setDefaultValues(values);
     },
-    [action, tab]
+    [action, setDefaultValues, tab]
   );
+
+  const isSameAsDefaultValue =
+    watch('name') === defaultValues.name &&
+    equal(watch('breeds'), defaultValues.breeds) &&
+    watch('gender') === defaultValues.gender &&
+    watch('isNeutered') === defaultValues.isNeutered &&
+    watch('years') === defaultValues.years &&
+    watch('months') === defaultValues.months &&
+    watch('dateOfBirth') === defaultValues.dateOfBirth &&
+    watch('weight') === defaultValues.weight &&
+    watch('bodyCondition') === defaultValues.bodyCondition &&
+    watch('activityLevel') === defaultValues.activityLevel &&
+    equal(watch('allergies'), defaultValues.allergies) &&
+    watch('eating') === defaultValues.eating &&
+    watch('amountOfTreats') === defaultValues.amountOfTreats &&
+    watch('pickiness') === defaultValues.pickiness;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -691,12 +708,17 @@ export default function DogForm({
       <div className="mx-auto mb-10 mt-20 max-w-[480px]">
         <div className="-mx-2 flex">
           <div className="w-1/2 px-2">
-            <Button fullWidth onClick={() => reset()} reverse>
+            <Button
+              fullWidth
+              onClick={() => reset(defaultValues)}
+              reverse
+              disabled={isSameAsDefaultValue}
+            >
               {t('cancel')}
             </Button>
           </div>
           <div className="w-1/2 px-2">
-            <Button fullWidth disabled={pending}>
+            <Button fullWidth disabled={pending || isSameAsDefaultValue}>
               {t('save-changes')}
             </Button>
           </div>

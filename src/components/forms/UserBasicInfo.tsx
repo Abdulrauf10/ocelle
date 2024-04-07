@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl';
 import React from 'react';
 import Button from '../buttons/Button';
 import { TextField } from '@mui/material';
+import useDefaultValues from '@/hooks/defaultValues';
 
 interface IUserBasicInfoForm {
   firstName: string;
@@ -29,30 +30,30 @@ export default function UserBasicInfoForm({
   action(data: IUserBasicInfoForm): Promise<void>;
 }) {
   const t = useTranslations();
-  const { control, reset, watch, handleSubmit } = useForm<IUserBasicInfoForm>({
-    defaultValues: {
-      firstName,
-      lastName,
-      email,
-      phone,
-    },
+  const { defaultValues, setDefaultValues } = useDefaultValues({
+    firstName,
+    lastName,
+    email,
+    phone,
   });
+  const { control, reset, watch, handleSubmit } = useForm<IUserBasicInfoForm>({ defaultValues });
   const [pending, startTransition] = React.useTransition();
 
   const onSubmit = React.useCallback(
     (values: IUserBasicInfoForm) => {
-      startTransition(() => {
-        action(values);
+      startTransition(async () => {
+        await action(values);
+        setDefaultValues(values);
       });
     },
-    [action]
+    [action, setDefaultValues]
   );
 
   const isSameAsDefaultValue =
-    watch('firstName') === firstName &&
-    watch('lastName') === lastName &&
-    watch('email') === email &&
-    watch('phone') === phone;
+    watch('firstName') === defaultValues.firstName &&
+    watch('lastName') === defaultValues.lastName &&
+    watch('email') === defaultValues.email &&
+    watch('phone') === defaultValues.phone;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -103,7 +104,7 @@ export default function UserBasicInfoForm({
         <div className="w-1/2 px-2">
           <Button
             fullWidth
-            onClick={() => reset({ firstName, lastName, email, phone })}
+            onClick={() => reset(defaultValues)}
             reverse
             disabled={isSameAsDefaultValue}
           >
