@@ -30,9 +30,9 @@ export default function DeliveryDateForm({
 
   const onSubmit = React.useCallback(
     ({ deliveryDate }: IDeliveryDateForm) => {
-      startTransition(() => {
+      startTransition(async () => {
         const values = { deliveryDate: startOfDay(deliveryDate) };
-        action(values);
+        await action(values);
         setDefaultValues(values);
       });
       if (typeof onComplete === 'function') onComplete();

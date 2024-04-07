@@ -23,6 +23,13 @@ export default function OrderSizeForm({
   const [pending, startTransition] = React.useTransition();
   const [size, setSize] = React.useState<OrderSize>(defaultValues.size);
 
+  const onSubmit = React.useCallback(() => {
+    startTransition(async () => {
+      await action({ size });
+      setDefaultValues({ size });
+    });
+  }, [action, setDefaultValues, size]);
+
   const isSameAsDefaultValue = size === defaultValues.size;
 
   return (
@@ -103,16 +110,7 @@ export default function OrderSizeForm({
             </Button>
           </div>
           <div className="w-1/2 px-2">
-            <Button
-              fullWidth
-              disabled={pending || isSameAsDefaultValue}
-              onClick={() => {
-                startTransition(() => {
-                  action({ size });
-                  setDefaultValues({ size });
-                });
-              }}
-            >
+            <Button fullWidth disabled={pending || isSameAsDefaultValue} onClick={onSubmit}>
               {t('save-changes')}
             </Button>
           </div>

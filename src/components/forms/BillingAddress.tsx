@@ -45,8 +45,8 @@ export default function BillingAddressForm({
 
   const onSubmit = React.useCallback(
     (values: IBillingAddressForm) => {
-      startTransition(() => {
-        action(values);
+      startTransition(async () => {
+        await action(values);
         setDefaultValues(values);
       });
     },

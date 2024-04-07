@@ -24,6 +24,13 @@ export default function FreshPlanForm({
   const [pending, startTransition] = React.useTransition();
   const [plan, setPlan] = React.useState<MealPlan>(defaultValues.plan);
 
+  const onSubmit = React.useCallback(() => {
+    startTransition(async () => {
+      await action({ plan });
+      setDefaultValues({ plan });
+    });
+  }, [action, setDefaultValues, plan]);
+
   const isSameAsDefaultValue = plan === defaultValues.plan;
 
   return (
@@ -66,16 +73,7 @@ export default function FreshPlanForm({
             </Button>
           </div>
           <div className="w-1/2 px-2">
-            <Button
-              fullWidth
-              disabled={pending || isSameAsDefaultValue}
-              onClick={() =>
-                startTransition(() => {
-                  action({ plan });
-                  setDefaultValues({ plan });
-                })
-              }
-            >
+            <Button fullWidth disabled={pending || isSameAsDefaultValue} onClick={onSubmit}>
               {t('save-changes')}
             </Button>
           </div>

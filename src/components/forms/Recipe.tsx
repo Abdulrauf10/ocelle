@@ -44,8 +44,8 @@ export default function RecipeForm({
   const onSubmit = React.useCallback(
     ({ recipe }: RecipeForm) => {
       const { recipe1, recipe2 } = arrayToRecipe(recipe);
-      startTransition(() => {
-        action({ recipe1: recipe1!, recipe2 });
+      startTransition(async () => {
+        await action({ recipe1: recipe1!, recipe2 });
         setDefaultValues({ recipe: recipeToArray(recipe1, recipe2) });
       });
     },

@@ -52,8 +52,8 @@ export default function DeliveryAddressForm({
 
   const onSubmit = React.useCallback(
     (values: IDeliveryAddressForm) => {
-      startTransition(() => {
-        action(values);
+      startTransition(async () => {
+        await action(values);
         setDefaultValues(values);
       });
     },
