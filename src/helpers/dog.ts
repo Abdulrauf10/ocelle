@@ -1,4 +1,3 @@
-import { Breed } from '@/entities';
 import { FoodAllergies, MealPlan, OrderSize, Recipe } from '@/enums';
 import { saleorSubscriptionProductUnitPrice, subscriptionProducts } from '@/products';
 import {
@@ -9,6 +8,7 @@ import {
   LifeStage,
   Pickiness,
 } from '@/types';
+import { BreedDto } from '@/types/dto';
 import {
   addDays,
   differenceInMonths,
@@ -145,18 +145,18 @@ export function calculateDeliveryDates(currentDate = new Date()) {
   //
 }
 
-function isExactSize(breeds: Breed[], sizes: Array<BreedSize>) {
+function isExactSize(breeds: BreedDto[], sizes: Array<BreedSize>) {
   return breeds.filter((x) => sizes.indexOf(x.size) > -1).length === breeds.length;
 }
 
-function isContainsSize(breeds: Breed[], sizes: Array<BreedSize>) {
+function isContainsSize(breeds: BreedDto[], sizes: Array<BreedSize>) {
   return breeds.filter((x) => sizes.indexOf(x.size) > -1).length > -1;
 }
 
 /**
  * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
-export function getLifeStage(breeds: Breed[], dateOfBirth: Date): LifeStage {
+export function getLifeStage(breeds: BreedDto[], dateOfBirth: Date): LifeStage {
   const ageM = differenceInMonths(dateOfBirth, new Date());
   const ageY = differenceInYears(dateOfBirth, new Date());
 
@@ -224,7 +224,7 @@ export function calculateIdealWeight(currentWeight: number, condition: BodyCondi
  * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
 export function getDerMultiplier(
-  breeds: Breed[],
+  breeds: BreedDto[],
   dateOfBirth: Date,
   neutered: boolean,
   activityLevel: ActivityLevel
@@ -449,7 +449,7 @@ export function isRecommendedRecipe(
  * Refer to `Excel: customization variables v1.01 > Price Matrix`
  */
 export function calculateRecipeTotalProtionsInBox(
-  breeds: Breed[],
+  breeds: BreedDto[],
   dateOfBirth: Date,
   neutered: boolean,
   currentWeight: number,
@@ -473,7 +473,7 @@ export function calculateRecipeTotalProtionsInBox(
 }
 
 export function calculateRecipeTotalPriceInBox(
-  breeds: Breed[],
+  breeds: BreedDto[],
   dateOfBirth: Date,
   neutered: boolean,
   currentWeight: number,
@@ -510,7 +510,7 @@ export function calculateRecipeTotalPriceInBox(
  * Refer to `Excel: customization variables v1.01 > Price Matrix`
  */
 export function calculateRecipePerDayPrice(
-  breeds: Breed[],
+  breeds: BreedDto[],
   dateOfBirth: Date,
   neutered: boolean,
   currentWeight: number,
