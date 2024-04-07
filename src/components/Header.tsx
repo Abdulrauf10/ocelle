@@ -7,24 +7,23 @@ import HamburgerMenu from './icons/HamburgerMenu';
 import { useAuth } from '@/contexts/auth';
 import { Link, usePathname } from '@/navigation';
 import { useLocale, useTranslations } from 'next-intl';
-import { logout } from '@/actions';
 
 interface HeaderProps {
   nav?: React.ReactNode;
+  loginButton?: React.ReactNode;
   disableMenuButton?: boolean;
   disableLanguageSwitch?: boolean;
   disableGetStartedButton?: boolean;
-  disableLoginButton?: boolean;
   startAdornment?: React.ReactNode;
   endAdornment?: React.ReactNode;
 }
 
 export default function Header({
   nav,
+  loginButton,
   disableMenuButton,
   disableLanguageSwitch,
   disableGetStartedButton,
-  disableLoginButton,
   startAdornment,
   endAdornment,
 }: HeaderProps) {
@@ -111,19 +110,7 @@ export default function Header({
             )}
           </div>
         </div>
-        {!disableLoginButton && (
-          <div className="relative z-10 px-2">
-            {auth.logined ? (
-              <button className="whitespace-nowrap hover:underline max-lg:mr-0" onClick={logout}>
-                {t('log-out')}
-              </button>
-            ) : (
-              <Link href="/auth/login" className="whitespace-nowrap hover:underline max-lg:mr-0">
-                {t('log-in')}
-              </Link>
-            )}
-          </div>
-        )}
+        {loginButton && <div className="relative z-10 px-2">{loginButton}</div>}
 
         {endAdornment}
       </div>

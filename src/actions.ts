@@ -13,6 +13,34 @@ import { User } from './entities';
 
 // here for global actions
 
+export async function getLoginedMeWithoutRedirect() {
+  const { me } = await executeGraphQL(GetCurrentUserDocument, {
+    cache: 'no-cache',
+  });
+
+  if (!me) {
+    return null;
+  }
+
+  const user = await executeQuery(async (queryRunner) => {
+    return queryRunner.manager.findOne(User, {
+      where: { id: me.id },
+      relations: {
+        dogs: {
+          plan: true,
+          breeds: { breed: true },
+        },
+      },
+    });
+  });
+
+  if (!user) {
+    return null;
+  }
+
+  return { ...user, ...me };
+}
+
 export async function getLoginedMe() {
   const { me } = await executeGraphQL(GetCurrentUserDocument, {
     cache: 'no-cache',
