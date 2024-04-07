@@ -39,7 +39,30 @@ export default function RecipeForm({
     recipe: recipeToArray(initialRecipe1, initialRecipe2),
   });
   const [pending, startTransition] = React.useTransition();
-  const { control, reset, watch, handleSubmit } = useForm<RecipeForm>({ defaultValues });
+  const {
+    formState: { errors },
+    control,
+    reset,
+    watch,
+    handleSubmit,
+    getValues,
+    trigger,
+  } = useForm<RecipeForm>({ defaultValues });
+
+  const validateRecipeCheckbox = () => {
+    const values = getValues('recipe');
+    if (!Array.isArray(values)) {
+      return false;
+    }
+    if (!values.some((value) => !!value)) {
+      // all elements are false
+      return 'you must select at least one recipe';
+    }
+    if (values.filter((value) => !!value).length > 2) {
+      return 'you must select not more than 2 recipes';
+    }
+    return true;
+  };
 
   const onSubmit = React.useCallback(
     ({ recipe }: RecipeForm) => {
@@ -86,6 +109,10 @@ export default function RecipeForm({
             description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
             name="recipe.0"
             control={control}
+            rules={{
+              validate: validateRecipeCheckbox,
+            }}
+            error={!!errors?.recipe}
             picture="/meal-plan/chicken.jpg"
             ingredients={[
               t('chicken-breast'),
@@ -110,6 +137,7 @@ export default function RecipeForm({
               foodAllergies!
             )}
             disabled={isAllergies(Recipe.Chicken, foodAllergies!)}
+            onChange={() => trigger('recipe')}
           />
         </div>
         <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
@@ -118,6 +146,10 @@ export default function RecipeForm({
             description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
             name="recipe.1"
             control={control}
+            rules={{
+              validate: validateRecipeCheckbox,
+            }}
+            error={!!errors?.recipe}
             picture="/meal-plan/pork.jpg"
             ingredients={[
               t('pork-loin'),
@@ -142,6 +174,7 @@ export default function RecipeForm({
               foodAllergies!
             )}
             disabled={isAllergies(Recipe.Pork, foodAllergies!)}
+            onChange={() => trigger('recipe')}
           />
         </div>
         <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
@@ -150,6 +183,10 @@ export default function RecipeForm({
             description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
             name="recipe.2"
             control={control}
+            rules={{
+              validate: validateRecipeCheckbox,
+            }}
+            error={!!errors?.recipe}
             picture="/meal-plan/duck.jpg"
             ingredients={[
               t('duck-breast'),
@@ -173,6 +210,7 @@ export default function RecipeForm({
               foodAllergies!
             )}
             disabled={isAllergies(Recipe.Duck, foodAllergies!)}
+            onChange={() => trigger('recipe')}
           />
         </div>
         <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
@@ -181,6 +219,10 @@ export default function RecipeForm({
             description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
             name="recipe.3"
             control={control}
+            rules={{
+              validate: validateRecipeCheckbox,
+            }}
+            error={!!errors?.recipe}
             picture="/meal-plan/beef.jpg"
             ingredients={[
               t('beef-chuck'),
@@ -205,6 +247,7 @@ export default function RecipeForm({
               foodAllergies!
             )}
             disabled={isAllergies(Recipe.Beef, foodAllergies!)}
+            onChange={() => trigger('recipe')}
           />
         </div>
         <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
@@ -213,6 +256,10 @@ export default function RecipeForm({
             description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
             name="recipe.4"
             control={control}
+            rules={{
+              validate: validateRecipeCheckbox,
+            }}
+            error={!!errors?.recipe}
             picture="/meal-plan/lamb.jpg"
             ingredients={[
               t('lamb-leg-boneless'),
@@ -236,6 +283,7 @@ export default function RecipeForm({
               foodAllergies!
             )}
             disabled={isAllergies(Recipe.Lamb, foodAllergies!)}
+            onChange={() => trigger('recipe')}
           />
         </div>
       </div>
