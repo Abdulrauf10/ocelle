@@ -1,3 +1,5 @@
+'use server';
+
 import { getLoginedMeWithoutRedirect } from '@/actions';
 import { Link } from '@/navigation';
 import { getTranslations } from 'next-intl/server';
