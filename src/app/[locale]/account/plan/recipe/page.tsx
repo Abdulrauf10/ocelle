@@ -23,7 +23,7 @@ export default async function PlanRecipe() {
         <Container>
           <div className="mx-auto flex max-w-[1120px] justify-end">
             <DogSwitch
-              defaultDogId={
+              selectedDogId={
                 cookie.has('CURRENT_DOG') ? parseInt(cookie.get('CURRENT_DOG')!.value) : dogs[0].id
               }
               dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}

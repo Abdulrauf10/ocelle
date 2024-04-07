@@ -42,7 +42,7 @@ export default async function Plan() {
             </div>
             <div className="px-4 py-3">
               <DogSwitch
-                defaultDogId={
+                selectedDogId={
                   cookie.has('CURRENT_DOG')
                     ? parseInt(cookie.get('CURRENT_DOG')!.value)
                     : dogs[0].id

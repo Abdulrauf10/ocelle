@@ -7,10 +7,10 @@ import { useRouter } from '@/navigation';
 import Cookies from 'js-cookie';
 
 export default function DogSwitch({
-  defaultDogId,
+  selectedDogId,
   dogs,
 }: {
-  defaultDogId?: number;
+  selectedDogId: number;
   dogs: Array<{ id: number; name: string }>;
 }) {
   const t = useTranslations();
@@ -21,7 +21,7 @@ export default function DogSwitch({
       <div className="mb-2 whitespace-nowrap max-sm:mr-3">{t('view-info-for')}</div>
       <FormControl fullWidth>
         <Select
-          defaultValue={defaultDogId}
+          value={selectedDogId}
           onChange={(event) => {
             Cookies.set('CURRENT_DOG', String(event.target.value), { sameSite: 'strict' });
             router.refresh();
