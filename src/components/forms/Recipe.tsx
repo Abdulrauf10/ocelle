@@ -47,7 +47,13 @@ export default function RecipeForm({
     handleSubmit,
     getValues,
     trigger,
+    setValue,
   } = useForm<RecipeForm>({ defaultValues });
+
+  React.useEffect(() => {
+    setValue('recipe', recipeToArray(initialRecipe1, initialRecipe2));
+    setDefaultValues({ recipe: recipeToArray(initialRecipe1, initialRecipe2) });
+  }, [initialRecipe1, initialRecipe2, setValue, setDefaultValues]);
 
   const validateRecipeCheckbox = () => {
     const values = getValues('recipe');

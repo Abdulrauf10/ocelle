@@ -24,6 +24,11 @@ export default function FreshPlanForm({
   const [pending, startTransition] = React.useTransition();
   const [plan, setPlan] = React.useState<MealPlan>(defaultValues.plan);
 
+  React.useEffect(() => {
+    setPlan(initialPlan);
+    setDefaultValues({ plan: initialPlan });
+  }, [initialPlan, setDefaultValues]);
+
   const onSubmit = React.useCallback(() => {
     startTransition(async () => {
       await action({ plan });
