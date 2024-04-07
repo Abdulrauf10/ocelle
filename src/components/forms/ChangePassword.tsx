@@ -18,7 +18,7 @@ export default function ChangePasswordForm({
   action(data: Omit<IChangePasswordForm, 'confirmNewPassword'>): Promise<void>;
 }) {
   const t = useTranslations();
-  const { control, reset, handleSubmit } = useForm<IChangePasswordForm>();
+  const { control, reset, handleSubmit, watch, getValues } = useForm<IChangePasswordForm>();
   const [pending, startTransition] = React.useTransition();
 
   const onSubmit = React.useCallback(
@@ -29,6 +29,8 @@ export default function ChangePasswordForm({
     },
     [action]
   );
+
+  const empty = Object.values(watch()).some((value) => value == null || value === '');
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -55,7 +57,14 @@ export default function ChangePasswordForm({
           <PasswordField
             name="confirmNewPassword"
             control={control}
-            rules={{ required: true }}
+            rules={{
+              required: true,
+              validate: (value) => {
+                return (
+                  getValues().newPassword === value || 'password should be same with new password'
+                );
+              },
+            }}
             label={t('confirm-{}', { value: t('new-password') })}
             fullWidth
           />
@@ -63,12 +72,12 @@ export default function ChangePasswordForm({
       </div>
       <div className="-mx-2 mt-10 flex">
         <div className="w-1/2 px-2">
-          <Button fullWidth onClick={() => reset()} reverse>
+          <Button fullWidth onClick={() => reset()} reverse disabled={empty}>
             {t('cancel')}
           </Button>
         </div>
         <div className="w-1/2 px-2">
-          <Button fullWidth disabled={pending}>
+          <Button fullWidth disabled={pending || empty}>
             {t('save-changes')}
           </Button>
         </div>
