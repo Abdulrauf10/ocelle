@@ -19,6 +19,7 @@ import { Initial1711481961068 } from '@/migrations/1711481961068-initial';
 import { AddBreedUid1711599966809 } from '@/migrations/1711599966809-add-breed-uid';
 import { RemoveBreedZhName1711601291423 } from '@/migrations/1711601291423-remove-breed-zh-name';
 import { AddIsDeliveryUsAsBillingAddress1712442568405 } from '@/migrations/1712442568405-addIsDeliveryUsAsBillingAddress';
+import { AddUserPhone1712471904950 } from '@/migrations/1712471904950-addUserPhone';
 
 dotenv.config();
 
@@ -51,6 +52,7 @@ const MySQL = new DataSource({
     AddBreedUid1711599966809,
     RemoveBreedZhName1711601291423,
     AddIsDeliveryUsAsBillingAddress1712442568405,
+    AddUserPhone1712471904950,
   ],
 });
 

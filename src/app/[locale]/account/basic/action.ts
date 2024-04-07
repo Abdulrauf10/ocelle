@@ -4,6 +4,8 @@ import { UpdateUserDocument } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
 import { getLoginedMe } from '@/actions';
 import Joi from 'joi';
+import { executeQuery } from '@/helpers/queryRunner';
+import { User } from '@/entities';
 
 interface UpdateBasicInfoAction {
   firstName: string;
@@ -32,9 +34,11 @@ export default async function updateBasicInfoAction(data: UpdateBasicInfoAction)
     throw new Error('cannot get the current user');
   }
 
-  // TODO: update user phone
-
   const { customerUpdate } = await executeGraphQL(UpdateUserDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
     variables: {
       id: me.id,
       firstName: value.firstName,
@@ -47,4 +51,8 @@ export default async function updateBasicInfoAction(data: UpdateBasicInfoAction)
     console.error(customerUpdate?.errors);
     throw new Error('update user failed');
   }
+
+  await executeQuery(async (queryRunner) => {
+    await queryRunner.manager.update(User, me.id, { phone: value.phone });
+  });
 }

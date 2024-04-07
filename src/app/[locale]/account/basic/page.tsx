@@ -6,19 +6,11 @@ import UserBasicInfoForm from '@/components/forms/UserBasicInfo';
 import { getTranslations } from 'next-intl/server';
 import updateBasicInfoAction from './action';
 import BackButton from '@/components/buttons/BackButton';
-
-async function getData() {
-  return {
-    firstName: 'Chan',
-    lastName: 'Tai Man',
-    email: 'email@example.com',
-    phone: '88888888',
-  };
-}
+import { getLoginedMe } from '@/actions';
 
 export default async function BasicInfo() {
   const t = await getTranslations();
-  const { firstName, lastName, email, phone } = await getData();
+  const { firstName, lastName, email, phone } = await getLoginedMe();
 
   return (
     <AppThemeProvider>

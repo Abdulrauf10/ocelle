@@ -345,50 +345,63 @@ async function findOrCreateUser(
   firstName: string,
   lastName: string,
   email: string,
+  phone: string,
   password: string,
+  isDeliveryUsAsBillingAddress: boolean,
   channel: string,
   redirectUrl: string
 ) {
-  const { user } = await executeGraphQL(FindUserDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: { email },
-  });
-
-  if (user) {
-    return user;
-  }
-
-  const { accountRegister } = await executeGraphQL(RegisterAccountDocument, {
-    variables: {
-      input: {
-        firstName,
-        lastName,
-        password,
-        email,
-        redirectUrl,
-        channel,
+  async function getSaleorUser() {
+    const { user } = await executeGraphQL(FindUserDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
       },
-    },
-  });
-
-  if (!accountRegister || accountRegister.errors.length > 0) {
-    accountRegister && console.error(accountRegister.errors);
-    throw new Error('failed to create a user for the checkout');
+      variables: { email },
+    });
+    if (user) {
+      return user;
+    }
+    const { accountRegister } = await executeGraphQL(RegisterAccountDocument, {
+      variables: {
+        input: {
+          firstName,
+          lastName,
+          password,
+          email,
+          redirectUrl,
+          channel,
+        },
+      },
+    });
+    if (!accountRegister || accountRegister.errors.length > 0) {
+      accountRegister && console.error(accountRegister.errors);
+      throw new Error('failed to create a user for the checkout');
+    }
+    return accountRegister.user!;
   }
+
+  const saleorUser = await getSaleorUser();
 
   await executeQuery(async (queryRunner) => {
-    const entity = queryRunner.manager.create(User, {
-      id: accountRegister.user!.id,
-      orderSize: OrderSize.TwoWeek,
-    });
+    const entity = await queryRunner.manager.findOne(User, { where: { id: saleorUser.id } });
 
-    await queryRunner.manager.save(entity);
+    if (!entity) {
+      await queryRunner.manager.save(
+        queryRunner.manager.create(User, {
+          id: saleorUser.id,
+          phone,
+          orderSize: OrderSize.TwoWeek,
+          isDeliveryUsAsBillingAddress,
+        })
+      );
+    } else {
+      entity.isDeliveryUsAsBillingAddress = isDeliveryUsAsBillingAddress;
+      await queryRunner.manager.save(entity);
+    }
   });
 
-  return accountRegister.user!;
+  return saleorUser;
 }
 
 interface Address {
@@ -468,7 +481,9 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
     value.firstName,
     value.lastName,
     value.email,
+    value.phone,
     value.password,
+    value.isSameBillingAddress,
     process.env.SALEOR_CHANNEL_SLUG,
     `${origin}/auth/verify-email`
   );
@@ -612,15 +627,13 @@ export async function finalizeCheckout() {
     }
 
     await executeQuery(async (queryRunner) => {
-      let user = await queryRunner.manager.findOne(User, {
+      // user should be created in update checkout data action
+      const user = await queryRunner.manager.findOne(User, {
         where: { id: checkout.user!.id },
       });
+
       if (!user) {
-        user = queryRunner.manager.create(User, {
-          id: checkout.user!.id,
-          orderSize: params.orderSize,
-        });
-        await queryRunner.manager.save(user);
+        throw new Error('user cannot find in database records');
       }
 
       // create dogs
@@ -638,7 +651,7 @@ export async function finalizeCheckout() {
           currentEating: dog.currentlyEating,
           amountOfTreats: dog.amountOfTreats,
           pickiness: dog.pickiness,
-          user: user!,
+          user,
         })
       );
       await queryRunner.manager.save(dogs);
