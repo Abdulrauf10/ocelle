@@ -420,8 +420,8 @@ interface UpdateCheckoutDataAction {
   email: string;
   password: string;
   phone: string;
-  receiveNews: boolean;
-  isSameBillingAddress: boolean;
+  receiveNews?: boolean;
+  isSameBillingAddress?: boolean;
   deliveryDate: Date;
   tnc: boolean;
   deliveryAddress: Address;
@@ -444,8 +444,8 @@ const schema = Joi.object<UpdateCheckoutDataAction>({
   email: Joi.string().required(),
   password: Joi.string().required(),
   phone: Joi.string().required(),
-  receiveNews: Joi.boolean().required(),
-  isSameBillingAddress: Joi.boolean().required(),
+  receiveNews: Joi.boolean().optional(),
+  isSameBillingAddress: Joi.boolean().optional(),
   deliveryDate: Joi.date().required(),
   tnc: Joi.boolean().required(),
   deliveryAddress: addressSchema.required(),
@@ -483,7 +483,7 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
     value.email,
     value.phone,
     value.password,
-    value.isSameBillingAddress,
+    value.isSameBillingAddress ?? false,
     process.env.SALEOR_CHANNEL_SLUG,
     `${origin}/auth/verify-email`
   );

@@ -199,8 +199,8 @@ interface UpdateCheckoutDataAction {
   lastName: string;
   email: string;
   phone: string;
-  receiveNews: boolean;
-  isSameBillingAddress: boolean;
+  receiveNews?: boolean;
+  isSameBillingAddress?: boolean;
   deliveryDate: Date;
   deliveryAddress: Address;
   billingAddress?: Address;
@@ -221,8 +221,8 @@ const schema = Joi.object<UpdateCheckoutDataAction>({
   lastName: Joi.string().required(),
   email: Joi.string().required(),
   phone: Joi.string().required(),
-  receiveNews: Joi.boolean().required(),
-  isSameBillingAddress: Joi.boolean().required(),
+  receiveNews: Joi.boolean().optional(),
+  isSameBillingAddress: Joi.boolean().optional(),
   deliveryDate: Joi.date().required(),
   deliveryAddress: addressSchema.required(),
   billingAddress: addressSchema,
