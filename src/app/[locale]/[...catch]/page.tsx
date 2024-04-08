@@ -1,7 +1,6 @@
 'use client';
 
 import Button from '@/components/buttons/Button';
-import LoginButton from '@/components/buttons/LoginButton';
 import Container from '@/components/Container';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
@@ -18,7 +17,7 @@ export default function NotFound() {
   return (
     <>
       <Notice />
-      <Header nav={<Navigator />} loginButton={<LoginButton />} />
+      <Header nav={<Navigator />} />
       <div className="bg-gold bg-opacity-20">
         <Container className="flex max-w-screen-xl items-end max-md:flex-col max-sm:items-center">
           <div className="w-full px-4 py-20 max-md:py-12 max-sm:py-8">

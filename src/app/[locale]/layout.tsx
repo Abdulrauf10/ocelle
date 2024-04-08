@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { AuthProvider } from '@/contexts/auth';
 import '../globals.css';
 import IntlProvider from '@/providers/intl';
+import { getLoginedMeOrNull } from '@/actions';
 
 const jost = Jost({ subsets: ['latin'], variable: '--font-jost' });
 const openSans = Open_Sans({
@@ -23,6 +24,8 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
+  const me = await getLoginedMeOrNull();
+
   let messages;
   try {
     messages = (await import(`../../../messages/${locale}.json`)).default;
@@ -35,7 +38,7 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={clsx(jost.className, jost.variable, openSans.variable)}>
         <IntlProvider locale={locale} messages={messages}>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider me={me}>{children}</AuthProvider>
         </IntlProvider>
       </body>
     </html>

@@ -53,7 +53,7 @@ export default async function Checkout() {
       }}
     >
       <Notice />
-      <Header disableLanguageSwitch disableGetStartedButton disableMenuButton />
+      <Header disableLanguageSwitch disableGetStartedButton disableMenuButton disableLoginButton />
       <CartContextProvider
         lines={checkout.lines}
         shippingPrice={checkout.shippingPrice.gross}

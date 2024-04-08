@@ -14,13 +14,13 @@ import { CART_COOKIE, CHECKOUT_COOKIE, DOG_SELECT_COOKIE } from './consts';
 
 // here for global actions
 
-export async function getLoginedMeWithoutRedirect() {
+export async function getLoginedMeOrNull() {
   const { me } = await executeGraphQL(GetCurrentUserDocument, {
     cache: 'no-cache',
   });
 
   if (!me) {
-    throw new Error('cannot find logined user');
+    return null;
   }
 
   const user = await executeQuery(async (queryRunner) => {
@@ -36,7 +36,7 @@ export async function getLoginedMeWithoutRedirect() {
   });
 
   if (!user) {
-    throw new Error('cannot find logined user');
+    return null;
   }
 
   return { ...user, ...me };

@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Stage from './Stage';
 import ProgressBar from './ProgressBar';
 import { useTranslations } from 'next-intl';
-import LoginButton from '@/components/buttons/LoginButton';
 
 function BackButton({
   show,
@@ -42,7 +41,6 @@ export default function View({ children }: React.PropsWithChildren) {
   return (
     <>
       <Header
-        loginButton={<LoginButton />}
         disableMenuButton
         disableLanguageSwitch
         disableGetStartedButton

@@ -1,32 +1,18 @@
 'use client';
 
+import { getLoginedMeOrNull } from '@/actions';
 import React from 'react';
 
+type LoginedMeReturn = Awaited<ReturnType<typeof getLoginedMeOrNull>>;
+
 interface AuthContextProps {
-  token?: string;
-  logined: boolean;
-  login(): void;
-  logout(): void;
+  me?: LoginedMeReturn;
 }
 
 const AuthContext = React.createContext<AuthContextProps | undefined>(undefined);
 
-export function AuthProvider({ children }: React.PropsWithChildren) {
-  const [token, setToken] = React.useState<string>();
-  const logined = React.useMemo(() => token != null, [token]);
-
-  const login = React.useCallback(() => {}, []);
-
-  const logout = React.useCallback(() => {}, []);
-
-  const values = React.useMemo(() => {
-    return {
-      token,
-      logined,
-      login,
-      logout,
-    };
-  }, [token, logined, login, logout]);
+export function AuthProvider({ me, children }: React.PropsWithChildren<{ me?: LoginedMeReturn }>) {
+  const values = React.useMemo(() => ({ me }), [me]);
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 }

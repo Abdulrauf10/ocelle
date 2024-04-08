@@ -10,7 +10,7 @@ import { useLocale, useTranslations } from 'next-intl';
 
 interface HeaderProps {
   nav?: React.ReactNode;
-  loginButton?: React.ReactNode;
+  disableLoginButton?: boolean;
   disableMenuButton?: boolean;
   disableLanguageSwitch?: boolean;
   disableGetStartedButton?: boolean;
@@ -20,7 +20,7 @@ interface HeaderProps {
 
 export default function Header({
   nav,
-  loginButton,
+  disableLoginButton,
   disableMenuButton,
   disableLanguageSwitch,
   disableGetStartedButton,
@@ -30,7 +30,7 @@ export default function Header({
   const locale = useLocale();
   const t = useTranslations();
   const pathname = usePathname();
-  const auth = useAuth();
+  const { me } = useAuth();
   const [isOpened, setIsOpened] = React.useState(false);
 
   React.useLayoutEffect(() => {
@@ -110,7 +110,19 @@ export default function Header({
             )}
           </div>
         </div>
-        {loginButton && <div className="relative z-10 px-2">{loginButton}</div>}
+        {!disableLoginButton && (
+          <div className="relative z-10 px-2">
+            {me ? (
+              <Link href="/account/plan" className="whitespace-nowrap hover:underline max-lg:mr-0">
+                {me.firstName}
+              </Link>
+            ) : (
+              <Link href="/auth/login" className="whitespace-nowrap hover:underline max-lg:mr-0">
+                {t('log-in')}
+              </Link>
+            )}
+          </div>
+        )}
 
         {endAdornment}
       </div>
