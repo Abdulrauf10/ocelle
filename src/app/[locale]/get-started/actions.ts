@@ -1,7 +1,7 @@
 'use server';
 
 import { deleteCheckoutCookie, getCheckoutCookie, setCheckoutCookie } from '@/actions';
-import { Breed, Dog, DogBreed, DogOrder, DogPlan, Order, User } from '@/entities';
+import { Breed, Dog, DogBreed, DogPlan, RecurringBox, Order, Shipment, User } from '@/entities';
 import { MealPlan, OrderSize } from '@/enums';
 import {
   AddPromoCodeDocument,
@@ -688,32 +688,38 @@ export async function finalizeCheckout() {
       }
       await queryRunner.manager.save(plans);
 
+      const shipment = queryRunner.manager.create(Shipment, {
+        deliveryDate: params.deliveryDate,
+      });
+      await queryRunner.manager.save(shipment);
+
       // create order
       const order = queryRunner.manager.create(Order, {
         id: checkoutComplete.order!.id,
-        orderSize: params.orderSize,
-        deliveryDate: params.deliveryDate,
         createdAt: new Date(checkoutComplete.order!.created),
       });
       await queryRunner.manager.save(order);
 
-      // create dog order
-      const dogOrders = [];
+      const recurringRecords = [];
       for (let i = 0; i < dogs.length; i++) {
         const dog = dogs[i];
         const paramsDog = params.dogs[i];
-        dogOrders.push(
-          queryRunner.manager.create(DogOrder, {
+        recurringRecords.push(
+          queryRunner.manager.create(RecurringBox, {
             mealPlan: paramsDog.mealPlan,
+            orderSize: params.orderSize,
             recipe1: paramsDog.recipe1,
             recipe2: paramsDog.recipe2,
             isTransitionPeriod: paramsDog.isEnabledTransitionPeriod,
+            startDate: addDays(startOfDay(new Date()), 1),
+            endDate: addDays(startOfDay(new Date()), 1 + 14), // must be two weeks box
             dog,
             order,
+            shipment,
           })
         );
       }
-      await queryRunner.manager.save(dogOrders);
+      await queryRunner.manager.save(recurringRecords);
     });
   } catch (e) {
     console.error(e);

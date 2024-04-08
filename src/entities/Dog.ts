@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   type Relation,
 } from 'typeorm';
-import { DogBreed, DogOrder, DogPlan, DogRecurringRecord, User } from '.';
+import { DogBreed, DogPlan, RecurringBox, User } from '.';
 import { FoodAllergies } from '@/enums';
 
 @Entity({ name: 'dog' })
@@ -54,15 +54,12 @@ export default class Dog {
   @OneToOne(() => DogPlan, (plan) => plan.dog)
   plan!: Relation<DogPlan>;
 
-  @OneToMany(() => DogRecurringRecord, (box) => box.dog)
-  recurringRecords!: Relation<DogRecurringRecord>[];
-
-  @ManyToOne(() => User, (user) => user.dogs)
-  user!: Relation<User>;
+  @OneToMany(() => RecurringBox, (box) => box.dog)
+  boxs!: Relation<RecurringBox>[];
 
   @OneToMany(() => DogBreed, (breed) => breed.dog)
   breeds!: Relation<DogBreed>[];
 
-  @OneToMany(() => DogOrder, (order) => order.dog)
-  orders!: Relation<DogOrder>[];
+  @ManyToOne(() => User, (user) => user.dogs)
+  user!: Relation<User>;
 }

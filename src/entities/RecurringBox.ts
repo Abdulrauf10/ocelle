@@ -1,16 +1,9 @@
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  type Relation,
-} from 'typeorm';
-import { Dog } from '.';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, type Relation } from 'typeorm';
+import { Dog, Order, Shipment } from '.';
 import { MealPlan, OrderSize, Recipe } from '@/enums';
 
-@Entity({ name: 'dog_recurring_record' })
-export default class DogRecurringRecord {
+@Entity({ name: 'recurring_box' })
+export default class RecurringBox {
   @PrimaryGeneratedColumn()
   id!: number;
 
@@ -35,10 +28,12 @@ export default class DogRecurringRecord {
   @Column()
   endDate!: Date;
 
-  @Column()
-  deliveryDate!: Date;
+  @ManyToOne(() => Order, (order) => order.boxs)
+  order!: Relation<Order>;
 
-  @ManyToOne(() => Dog, (dog: Dog) => dog.recurringRecords)
-  @JoinColumn()
+  @ManyToOne(() => Shipment, (shipment) => shipment.boxs)
+  shipment!: Relation<Shipment>;
+
+  @ManyToOne(() => Dog, (dog: Dog) => dog.boxs)
   dog!: Relation<Dog>;
 }

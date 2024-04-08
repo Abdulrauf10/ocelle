@@ -4,10 +4,10 @@ import CareerLine from './CareerLine';
 import CareerSubmission from './CareerSubmission';
 import Dog from './Dog';
 import DogBreed from './DogBreed';
-import DogOrder from './DogOrder';
 import DogPlan from './DogPlan';
-import DogRecurringRecord from './DogRecurringRecord';
 import Order from './Order';
+import RecurringBox from './RecurringBox';
+import Shipment from './Shipment';
 import User from './User';
 
 export {
@@ -17,9 +17,9 @@ export {
   CareerSubmission,
   Dog,
   DogBreed,
-  DogOrder,
   DogPlan,
-  DogRecurringRecord,
   Order,
+  RecurringBox,
+  Shipment,
   User,
 };
