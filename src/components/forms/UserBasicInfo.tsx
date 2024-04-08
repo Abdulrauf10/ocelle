@@ -1,11 +1,11 @@
 'use client';
 
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import Button from '../buttons/Button';
-import { TextField } from '@mui/material';
 import useDefaultValues from '@/hooks/defaultValues';
+import TextField from '../controls/TextField';
 
 interface IUserBasicInfoForm {
   firstName: string;
@@ -59,43 +59,39 @@ export default function UserBasicInfoForm({
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="-m-2 flex flex-wrap">
         <div className="w-1/2 p-2">
-          <Controller
+          <TextField
             name="firstName"
+            label={t('first-name')}
             control={control}
             rules={{ required: true }}
-            render={({ field, fieldState: { error } }) => (
-              <TextField {...field} label={t('first-name')} fullWidth error={!!error} />
-            )}
+            fullWidth
           />
         </div>
         <div className="w-1/2 p-2">
-          <Controller
+          <TextField
             name="lastName"
+            label={t('last-name')}
             control={control}
             rules={{ required: true }}
-            render={({ field, fieldState: { error } }) => (
-              <TextField {...field} label={t('last-name')} fullWidth error={!!error} />
-            )}
+            fullWidth
           />
         </div>
         <div className="w-1/2 p-2">
-          <Controller
+          <TextField
             name="email"
+            label={t('email')}
             control={control}
             rules={{ required: true }}
-            render={({ field, fieldState: { error } }) => (
-              <TextField {...field} label={t('email')} fullWidth error={!!error} />
-            )}
+            fullWidth
           />
         </div>
         <div className="w-1/2 p-2">
-          <Controller
+          <TextField
             name="phone"
+            label={t('phone-number')}
             control={control}
             rules={{ required: true }}
-            render={({ field, fieldState: { error } }) => (
-              <TextField {...field} label={t('phone-number')} fullWidth error={!!error} />
-            )}
+            fullWidth
           />
         </div>
       </div>

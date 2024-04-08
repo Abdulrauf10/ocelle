@@ -16,6 +16,7 @@ interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> 
   type?: React.InputHTMLAttributes<unknown>['type'];
   label?: string;
   className?: string;
+  placeholder?: string;
   inputProps?: InputBaseComponentProps;
   InputProps?: Partial<FilledInputProps> | Partial<OutlinedInputProps> | Partial<InputProps>;
   fullWidth?: boolean;
@@ -31,6 +32,7 @@ interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> 
 
 export default function TextField<T extends FieldValues>({
   name,
+  placeholder,
   rules,
   control,
   label,
@@ -50,10 +52,11 @@ export default function TextField<T extends FieldValues>({
         control={control}
         rules={rules}
         disabled={disabled}
-        render={({ field, fieldState: { error } }) => (
+        render={({ field: { value, ...field }, fieldState: { error } }) => (
           <MuiTextField
             {...field}
             type={type}
+            value={value ?? ''}
             label={label}
             fullWidth={fullWidth}
             error={!!error}

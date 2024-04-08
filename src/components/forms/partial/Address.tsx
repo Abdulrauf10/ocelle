@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import {
   Controller,
   type Control,
@@ -10,6 +10,7 @@ import {
   UseFormWatch,
 } from 'react-hook-form';
 import { useLocale, useTranslations } from 'next-intl';
+import TextField from '@/components/controls/TextField';
 
 export type IPartialAddressForm = {
   firstName: string;
@@ -66,71 +67,43 @@ export default function PartialAddressForm<T extends FieldValues>({
   return (
     <div className="-m-2 flex flex-wrap">
       <div className="w-1/2 p-2">
-        <Controller
+        <TextField
           name={getPath('firstName')}
+          label={t('first-name')}
           control={control}
           rules={{ required: !disabled }}
-          render={({ field: { value, ...field }, fieldState: { error } }) => (
-            <TextField
-              {...field}
-              label={t('first-name')}
-              fullWidth
-              error={!!error}
-              disabled={disabled}
-              value={value ?? ''}
-            />
-          )}
+          disabled={disabled}
+          fullWidth
         />
       </div>
       <div className="w-1/2 p-2">
-        <Controller
+        <TextField
           name={getPath('lastName')}
+          label={t('last-name')}
           control={control}
           rules={{ required: !disabled }}
-          render={({ field: { value, ...field }, fieldState: { error } }) => (
-            <TextField
-              {...field}
-              label={t('last-name')}
-              fullWidth
-              error={!!error}
-              disabled={disabled}
-              value={value ?? ''}
-            />
-          )}
+          disabled={disabled}
+          fullWidth
         />
       </div>
       <div className="w-full p-2">
-        <Controller
+        <TextField
           name={getPath('streetAddress1')}
+          label={t('address-line-1')}
           control={control}
           rules={{ required: !disabled }}
-          render={({ field: { value, ...field }, fieldState: { error } }) => (
-            <TextField
-              {...field}
-              label={t('address-line-1')}
-              fullWidth
-              error={!!error}
-              disabled={disabled}
-              value={value ?? ''}
-            />
-          )}
+          disabled={disabled}
+          fullWidth
         />
       </div>
       <div className="w-full p-2">
-        <Controller
+        <TextField
           name={getPath('streetAddress2')}
+          label={t('address-line-2')}
           control={control}
           rules={{ required: !disabled }}
-          render={({ field: { value, ...field }, fieldState: { error } }) => (
-            <TextField
-              {...field}
-              label={t('address-line-2')}
-              fullWidth
-              error={!!error}
-              disabled={disabled}
-              value={value ?? ''}
-            />
-          )}
+          disabled={disabled}
+          fullWidth
         />
       </div>
       <div className="w-1/3 p-2">

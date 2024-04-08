@@ -3,7 +3,6 @@
 import React from 'react';
 import clsx from 'clsx';
 import Container from '@/components/Container';
-import { TextField } from '@mui/material';
 import { Controller, useForm } from 'react-hook-form';
 import DateCalendar from '@/components/controls/DateCalendar';
 import Price from '@/components/Price';
@@ -21,6 +20,7 @@ import { addWeeks } from 'date-fns';
 import { formatDate } from '@/helpers/date';
 import { CalendarEvent } from '@/types';
 import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import TextField from '../controls/TextField';
 
 function Section({
   title,
@@ -201,36 +201,33 @@ export default function SubscriptionCheckoutForm({
             <Section dense title={t('user-account-information')}>
               <div className="-m-2 flex flex-wrap">
                 <div className="w-1/2 p-2">
-                  <Controller
+                  <TextField
                     name="firstName"
+                    label={t('first-name')}
                     control={control}
                     rules={{ required: true }}
                     disabled={isSubmitInProgress}
-                    render={({ field, fieldState: { error } }) => (
-                      <TextField {...field} label={t('first-name')} fullWidth error={!!error} />
-                    )}
+                    fullWidth
                   />
                 </div>
                 <div className="w-1/2 p-2">
-                  <Controller
+                  <TextField
                     name="lastName"
+                    label={t('last-name')}
                     control={control}
                     rules={{ required: true }}
                     disabled={isSubmitInProgress}
-                    render={({ field, fieldState: { error } }) => (
-                      <TextField {...field} label={t('last-name')} fullWidth error={!!error} />
-                    )}
+                    fullWidth
                   />
                 </div>
                 <div className="w-full p-2">
-                  <Controller
+                  <TextField
                     name="email"
+                    label={t('email')}
                     control={control}
                     rules={{ required: true }}
                     disabled={isSubmitInProgress}
-                    render={({ field, fieldState: { error } }) => (
-                      <TextField {...field} label={t('email')} fullWidth error={!!error} />
-                    )}
+                    fullWidth
                   />
                 </div>
                 <div className="w-1/2 p-2">
@@ -254,14 +251,13 @@ export default function SubscriptionCheckoutForm({
                   />
                 </div>
                 <div className="w-full p-2">
-                  <Controller
+                  <TextField
                     name="phone"
+                    label={t('phone-number')}
                     control={control}
                     rules={{ required: true }}
                     disabled={isSubmitInProgress}
-                    render={({ field, fieldState: { error } }) => (
-                      <TextField {...field} label={t('phone-number')} fullWidth error={!!error} />
-                    )}
+                    fullWidth
                   />
                 </div>
               </div>

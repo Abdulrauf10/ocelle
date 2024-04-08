@@ -1,11 +1,11 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import PasswordField from '../controls/PasswordField';
-import { TextField } from '@mui/material';
 import Button from '../buttons/Button';
 import React from 'react';
+import TextField from '../controls/TextField';
 
 interface ILoginForm {
   email: string;
@@ -40,13 +40,12 @@ export default function LoginForm({
 
   return (
     <form className="mx-auto mt-6" onSubmit={handleSubmit(onSubmit)}>
-      <Controller
+      <TextField
         name="email"
+        label={t('email')}
         control={control}
         rules={{ required: true }}
-        render={({ field, fieldState: { error } }) => (
-          <TextField error={!!error} label={t('email')} fullWidth {...field} />
-        )}
+        fullWidth
       />
       <div className="py-4"></div>
       <PasswordField

@@ -1,8 +1,7 @@
 import Button from '@/components/buttons/Button';
 import Container from '@/components/Container';
-import { TextField } from '@mui/material';
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import Section from '../Section';
 import SectionBreak from '../SectionBreak';
@@ -12,6 +11,7 @@ import { useSurvey } from '../SurveyContext';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
+import TextField from '@/components/controls/TextField';
 
 interface OwnerForm {
   firstName: string;
@@ -46,30 +46,29 @@ export default function OwnerFragment() {
         <form onSubmit={handleSubmit(onSubmit)} className="mt-12">
           <Section title={t('whats-your-name')}>
             <div className="mx-auto max-w-[320px]">
-              <Controller
+              <TextField
                 name="firstName"
+                placeholder={t('first-name')}
                 control={control}
                 rules={{ required: true }}
-                render={({ field, fieldState: { error } }) => (
-                  <TextField error={!!error} placeholder={t('first-name')} fullWidth {...field} />
-                )}
+                fullWidth
               />
               <div className="mt-5"></div>
-              <Controller
+              <TextField
                 name="lastName"
+                placeholder={t('last-name')}
                 control={control}
                 rules={{ required: true }}
-                render={({ field, fieldState: { error } }) => (
-                  <TextField error={!!error} placeholder={t('last-name')} fullWidth {...field} />
-                )}
+                fullWidth
               />
             </div>
           </Section>
           <SectionBreak />
           <Section title={t('whats-your-email-address')}>
             <div className="mx-auto max-w-[320px]">
-              <Controller
+              <TextField
                 name="email"
+                placeholder={t('email')}
                 control={control}
                 rules={{
                   required: true,
@@ -79,9 +78,7 @@ export default function OwnerFragment() {
                     message: '[This email doesn’t look correct, please update it.]',
                   },
                 }}
-                render={({ field, fieldState: { error } }) => (
-                  <TextField error={!!error} placeholder={t('email')} fullWidth {...field} />
-                )}
+                fullWidth
               />
             </div>
             {errors?.email?.message && (

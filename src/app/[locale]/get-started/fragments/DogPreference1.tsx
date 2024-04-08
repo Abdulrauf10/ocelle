@@ -1,8 +1,7 @@
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
-import { TextField } from '@mui/material';
 import Section from '../Section';
 import SectionBreak from '../SectionBreak';
 import PictureRadio from '@/components/controls/PictureRadio';
@@ -14,6 +13,7 @@ import { ActivityLevel, BodyCondition } from '@/types';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
+import TextField from '@/components/controls/TextField';
 
 interface DogPreference1Form {
   weight: number;
@@ -58,8 +58,9 @@ export default function DogPreference1Fragment() {
             )}
           >
             <div className="flex flex-wrap items-center justify-center">
-              <Controller
+              <TextField
                 name="weight"
+                type="number"
                 control={control}
                 rules={{
                   required: true,
@@ -72,15 +73,8 @@ export default function DogPreference1Fragment() {
                     message: t('ocelle-is-currently-available-to-dogs-between-05-to-50-kg'),
                   },
                 }}
-                render={({ field, fieldState: { error } }) => (
-                  <TextField
-                    type="number"
-                    className="mr-2 w-20"
-                    inputProps={{ min: 0, step: 0.1 }}
-                    {...field}
-                    error={!!error}
-                  />
-                )}
+                className="mr-2 w-20"
+                inputProps={{ min: 0, step: 0.1 }}
               />
               <span className="body-3 ml-2">kg</span>
               {errors?.weight?.message && (

@@ -1,8 +1,7 @@
 import Button from '@/components/buttons/Button';
 import Container from '@/components/Container';
-import { TextField } from '@mui/material';
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import Section from '../Section';
 import Stage from '../Stage';
@@ -11,6 +10,7 @@ import { useSurvey } from '../SurveyContext';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
+import TextField from '@/components/controls/TextField';
 
 interface DogForm {
   name: string;
@@ -37,13 +37,12 @@ export default function DogFragment() {
       <Container className="text-center">
         <Section title={t('whats-your-dogs-name')}>
           <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-8 max-w-[320px]">
-            <Controller
+            <TextField
               name="name"
+              placeholder={t('your-dogs-name')}
               control={control}
               rules={{ required: true }}
-              render={({ field, fieldState: { error } }) => (
-                <TextField error={!!error} placeholder={t('your-dogs-name')} fullWidth {...field} />
-              )}
+              fullWidth
             />
             <Button className="mt-10">{t('continue')}</Button>
           </form>
