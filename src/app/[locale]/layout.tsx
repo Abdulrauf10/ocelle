@@ -26,8 +26,6 @@ export default async function RootLayout({
 }) {
   const me = await getClientLoginedMe();
 
-  console.log(typeof me);
-
   let messages;
   try {
     messages = (await import(`../../../messages/${locale}.json`)).default;
