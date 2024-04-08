@@ -21,7 +21,12 @@ export default class DogSeeder extends Seeder {
     const dogRepository = queryRunner.manager.getRepository(Dog);
     const dogPlanRepository = queryRunner.manager.getRepository(DogPlan);
 
-    const user = userRepository.create({ orderSize: OrderSize.TwoWeek, id: '1' });
+    const user = userRepository.create({
+      orderSize: OrderSize.TwoWeek,
+      id: '1',
+      phone: '88888888',
+      isDeliveryUsAsBillingAddress: true,
+    });
 
     await userRepository.save(user);
 
