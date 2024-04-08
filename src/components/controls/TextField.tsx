@@ -35,6 +35,7 @@ export default function TextField<T extends FieldValues>({
   id,
   name,
   placeholder,
+  className,
   rules,
   control,
   label,
@@ -68,6 +69,7 @@ export default function TextField<T extends FieldValues>({
             InputLabelProps={InputLabelProps}
             inputProps={inputProps}
             InputProps={InputProps}
+            className={className}
           />
         )}
       />
