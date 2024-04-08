@@ -115,7 +115,7 @@ async function getCheckout(): Promise<CheckoutFragment> {
   return checkout;
 }
 
-export async function createCheckout(email: string, orderSize: OrderSize, dogs: DogDto[]) {
+export async function createCheckout(orderSize: OrderSize, dogs: DogDto[]) {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
   const { channel } = await executeGraphQL(GetChannelDocument, {
@@ -243,7 +243,6 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
     variables: {
       input: {
         channel: process.env.SALEOR_CHANNEL_SLUG,
-        email,
         lines,
       },
     },
@@ -261,7 +260,7 @@ export async function createCheckout(email: string, orderSize: OrderSize, dogs: 
     throw new Error('stripe is currently not available');
   }
 
-  await setSubscriptionCheckoutParameters(checkout.id, email, orderSize, dogs);
+  await setSubscriptionCheckoutParameters(checkout.id, orderSize, dogs);
 
   await setCheckoutCookie(checkout.id);
 
@@ -475,7 +474,10 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
     throw new Error('delivery date is unavailable');
   }
 
-  await upsertSubscriptionCheckoutParameters(checkout.id, { deliveryDate: value.deliveryDate });
+  await upsertSubscriptionCheckoutParameters(checkout.id, {
+    email: value.email,
+    deliveryDate: value.deliveryDate,
+  });
 
   const user = await findOrCreateUser(
     value.firstName,

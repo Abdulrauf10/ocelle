@@ -69,7 +69,6 @@ export default function ProcessingFragment() {
       setTranscation(null);
     } else {
       createCheckout(
-        owner.email,
         OrderSize.TwoWeek,
         dogs.map((dog) => {
           if (isIncompletedDogProfile(dog)) {

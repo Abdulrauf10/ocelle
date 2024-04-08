@@ -90,9 +90,9 @@ export async function getSubscriptionCheckoutParameters(checkoutId: string) {
 
 export async function setSubscriptionCheckoutParameters(
   checkoutId: string,
-  email: string,
   orderSize: OrderSize,
   dogs: DogDto[],
+  email?: string,
   deliveryDate?: Date
 ) {
   return createRedisClient().set(
@@ -123,14 +123,14 @@ export async function upsertSubscriptionCheckoutParameters(
   }
 ) {
   const values = await getSubscriptionCheckoutParameters(checkoutId);
-  if (!values && (email === undefined || orderSize === undefined || dogs === undefined)) {
+  if (!values && (orderSize === undefined || dogs === undefined)) {
     throw new Error('checkout not found, must set the values');
   }
   await setSubscriptionCheckoutParameters(
     checkoutId,
-    email ?? values!.email,
     orderSize ?? values!.orderSize,
     dogs ?? values!.dogs,
+    email ?? values!.email,
     deliveryDate ?? values!.deliveryDate
   );
 }
