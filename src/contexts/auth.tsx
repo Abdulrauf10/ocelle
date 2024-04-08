@@ -1,9 +1,9 @@
 'use client';
 
-import { getLoginedMeOrNull } from '@/actions';
+import { getClientLoginedMe } from '@/actions';
 import React from 'react';
 
-type LoginedMeReturn = Awaited<ReturnType<typeof getLoginedMeOrNull>>;
+type LoginedMeReturn = Awaited<ReturnType<typeof getClientLoginedMe>>;
 
 interface AuthContextProps {
   me?: LoginedMeReturn;
