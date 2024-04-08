@@ -1,12 +1,19 @@
-'use server';
+'use client';
 
 import { getLoginedMeWithoutRedirect } from '@/actions';
 import { Link } from '@/navigation';
-import { getTranslations } from 'next-intl/server';
+import { useTranslations } from 'next-intl';
+import React from 'react';
 
-export default async function LoginButton() {
-  const t = await getTranslations();
-  const me = await getLoginedMeWithoutRedirect();
+type LoginedMeReturn = Awaited<ReturnType<typeof getLoginedMeWithoutRedirect>>;
+
+export default function LoginButton() {
+  const t = useTranslations();
+  const [me, setMe] = React.useState<LoginedMeReturn | null>();
+
+  React.useEffect(() => {
+    getLoginedMeWithoutRedirect().then((me) => setMe(me));
+  }, []);
 
   if (!me) {
     return (
