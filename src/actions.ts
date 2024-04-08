@@ -20,7 +20,7 @@ export async function getLoginedMeWithoutRedirect() {
   });
 
   if (!me) {
-    return null;
+    throw new Error('cannot find logined user');
   }
 
   const user = await executeQuery(async (queryRunner) => {
@@ -36,7 +36,7 @@ export async function getLoginedMeWithoutRedirect() {
   });
 
   if (!user) {
-    return null;
+    throw new Error('cannot find logined user');
   }
 
   return { ...user, ...me };

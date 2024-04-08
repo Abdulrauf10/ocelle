@@ -12,7 +12,9 @@ export default function LoginButton() {
   const [me, setMe] = React.useState<LoginedMeReturn | null>();
 
   React.useEffect(() => {
-    getLoginedMeWithoutRedirect().then((me) => setMe(me));
+    getLoginedMeWithoutRedirect()
+      .then((me) => setMe(me))
+      .catch((e) => setMe(null));
   }, []);
 
   if (!me) {
