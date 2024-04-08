@@ -2,14 +2,14 @@
 
 import React from 'react';
 import Button from '@/components/buttons/Button';
-import { TextField } from '@mui/material';
-import { type FieldValues, useForm, useController, Controller } from 'react-hook-form';
+import { type FieldValues, useForm, useController } from 'react-hook-form';
 import { mergeRefs } from 'react-merge-refs';
 import Container from '@/components/Container';
 import Image from 'next/image';
 import Block from '@/components/layouts/Block';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import { InputControllerProps } from '@/types';
+import TextField from '../controls/TextField';
 
 interface FileInputProps<T extends FieldValues> extends InputControllerProps<T> {
   label: string;
@@ -139,20 +139,13 @@ export default function ApplyCareerForm({
                     <label htmlFor="firstName" className="body-3 mr-2 w-[95px] min-w-[95px]">
                       First Name<span className="relative top-[-2px] text-error">*</span>
                     </label>
-                    <Controller
+                    <TextField
+                      id="firstName"
                       name="firstName"
-                      defaultValue=""
-                      rules={{ required: true }}
+                      className="rounded-md bg-white"
                       control={control}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField
-                          className="rounded-md bg-white"
-                          id="firstName"
-                          fullWidth
-                          {...field}
-                          error={!!error}
-                        />
-                      )}
+                      rules={{ required: true }}
+                      fullWidth
                     />
                   </div>
                 </div>
@@ -161,20 +154,13 @@ export default function ApplyCareerForm({
                     <label htmlFor="lastName" className="body-3 mr-2 w-[95px] min-w-[95px]">
                       Last Name<span className="relative top-[-2px] text-error">*</span>
                     </label>
-                    <Controller
+                    <TextField
+                      id="lastName"
                       name="lastName"
-                      defaultValue=""
-                      rules={{ required: true }}
+                      className="rounded-md bg-white"
                       control={control}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField
-                          className="rounded-md bg-white"
-                          id="lastName"
-                          fullWidth
-                          {...field}
-                          error={!!error}
-                        />
-                      )}
+                      rules={{ required: true }}
+                      fullWidth
                     />
                   </div>
                 </div>
@@ -183,20 +169,13 @@ export default function ApplyCareerForm({
                     <label htmlFor="email" className="body-3 mr-2 w-[95px] min-w-[95px]">
                       Email<span className="relative top-[-2px] text-error">*</span>
                     </label>
-                    <Controller
+                    <TextField
+                      id="email"
                       name="email"
-                      defaultValue=""
-                      rules={{ required: true }}
+                      className="rounded-md bg-white"
                       control={control}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField
-                          className="rounded-md bg-white"
-                          id="email"
-                          fullWidth
-                          {...field}
-                          error={!!error}
-                        />
-                      )}
+                      rules={{ required: true }}
+                      fullWidth
                     />
                   </div>
                 </div>
@@ -205,21 +184,13 @@ export default function ApplyCareerForm({
                     <label htmlFor="phone" className="body-3 mr-2 w-[95px] min-w-[95px]">
                       Phone<span className="relative top-[-2px] text-error">*</span>
                     </label>
-                    <Controller
+                    <TextField
+                      id="phone"
                       name="phone"
-                      defaultValue=""
-                      rules={{ required: true }}
+                      className="rounded-md bg-white"
                       control={control}
-                      render={({ field, fieldState: { error } }) => (
-                        <TextField
-                          className="rounded-md bg-white"
-                          size="small"
-                          id="phone"
-                          fullWidth
-                          {...field}
-                          error={!!error}
-                        />
-                      )}
+                      rules={{ required: true }}
+                      fullWidth
                     />
                   </div>
                 </div>

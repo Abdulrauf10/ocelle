@@ -13,6 +13,7 @@ import MaskedInput, { type Mask } from 'react-text-mask';
 import { Controller, type FieldValues } from 'react-hook-form';
 
 interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> {
+  id?: string;
   type?: React.InputHTMLAttributes<unknown>['type'];
   label?: string;
   className?: string;
@@ -31,6 +32,7 @@ interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> 
 }
 
 export default function TextField<T extends FieldValues>({
+  id,
   name,
   placeholder,
   rules,
@@ -55,6 +57,8 @@ export default function TextField<T extends FieldValues>({
         render={({ field: { value, ...field }, fieldState: { error } }) => (
           <MuiTextField
             {...field}
+            id={id}
+            placeholder={placeholder}
             type={type}
             value={value ?? ''}
             label={label}
