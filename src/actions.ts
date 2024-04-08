@@ -10,7 +10,7 @@ import { GetCurrentUserDocument, GetCurrentUserFullSizeDocument } from './gql/gr
 import { cookies } from 'next/headers';
 import { executeQuery } from './helpers/queryRunner';
 import { User } from './entities';
-import { CART_COOKIE, CHECKOUT_COOKIE, DOG_SELECT_COOKIE } from './consts';
+import { CART_COOKIE, CHECKOUT_COOKIE, DOG_SELECT_COOKIE, LOGIN_PATH } from './consts';
 
 // here for global actions
 
@@ -40,7 +40,7 @@ export async function getLoginedMe() {
   });
 
   if (!me) {
-    throw redirect('/auth/login');
+    throw redirect(LOGIN_PATH);
   }
 
   const user = await executeQuery(async (queryRunner) => {
@@ -56,7 +56,7 @@ export async function getLoginedMe() {
   });
 
   if (!user) {
-    throw redirect('/auth/login');
+    throw redirect(LOGIN_PATH);
   }
 
   return { ...user, ...me };
@@ -68,7 +68,7 @@ export async function getLoginedMeFullSize() {
   });
 
   if (!me) {
-    throw redirect('/auth/login');
+    throw redirect(LOGIN_PATH);
   }
 
   const user = await executeQuery(async (queryRunner) => {
@@ -84,7 +84,7 @@ export async function getLoginedMeFullSize() {
   });
 
   if (!user) {
-    throw redirect('/auth/login');
+    throw redirect(LOGIN_PATH);
   }
 
   return { ...user, ...me };
@@ -92,7 +92,7 @@ export async function getLoginedMeFullSize() {
 
 export async function logout() {
   saleorAuthClient.signOut();
-  redirect('/auth/login');
+  redirect(LOGIN_PATH);
 }
 
 /**

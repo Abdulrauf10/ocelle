@@ -43,12 +43,18 @@ export default async function loginAction(data: LoginAction) {
   const { me } = await executeGraphQL(GetCurrentUserDocument, {});
 
   const user = await executeQuery(async (queryRunner) => {
-    return queryRunner.manager.findOne(User, { where: { id: me!.id } });
+    return queryRunner.manager.findOne(User, { where: { id: me!.id }, relations: { dogs: true } });
   });
 
   if (!user) {
     saleorAuthClient.signOut();
     throw new Error('cannot find the user in the database, login failed');
+  }
+
+  if (user.dogs.length === 0) {
+    // not yet completed any surveys
+    saleorAuthClient.signOut();
+    throw new Error('not yet completed any surveys, login failed');
   }
 
   redirect('/account/plan');
