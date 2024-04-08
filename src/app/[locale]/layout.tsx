@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { AuthProvider } from '@/contexts/auth';
 import '../globals.css';
 import IntlProvider from '@/providers/intl';
-import { getLoginedMeOrNull } from '@/actions';
+import { getClientLoginedMe } from '@/actions';
 
 const jost = Jost({ subsets: ['latin'], variable: '--font-jost' });
 const openSans = Open_Sans({
@@ -24,7 +24,9 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  const me = await getLoginedMeOrNull();
+  const me = await getClientLoginedMe();
+
+  console.log(typeof me);
 
   let messages;
   try {

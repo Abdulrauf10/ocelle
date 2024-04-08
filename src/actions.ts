@@ -14,7 +14,7 @@ import { CART_COOKIE, CHECKOUT_COOKIE, DOG_SELECT_COOKIE } from './consts';
 
 // here for global actions
 
-export async function getLoginedMeOrNull() {
+export async function getClientLoginedMe() {
   const { me } = await executeGraphQL(GetCurrentUserDocument, {
     cache: 'no-cache',
   });
@@ -24,15 +24,7 @@ export async function getLoginedMeOrNull() {
   }
 
   const user = await executeQuery(async (queryRunner) => {
-    return queryRunner.manager.findOne(User, {
-      where: { id: me.id },
-      relations: {
-        dogs: {
-          plan: true,
-          breeds: { breed: true },
-        },
-      },
-    });
+    return queryRunner.manager.findOne(User, { where: { id: me.id } });
   });
 
   if (!user) {
