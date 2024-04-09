@@ -32,8 +32,8 @@ function Block({ id, title, faqs }: BlockProps) {
 export default function FaQ() {
   return (
     <main>
-      <div className="bg-[url('/faq.jpg')] bg-[length:auto_100%] bg-[44%_center] bg-repeat-x py-24">
-        <Container>
+      <div className="bg-[url('/faq.jpg')] bg-[length:auto_100%] bg-[44%_center] bg-repeat-x py-[12em] max-2xl:py-[11%]">
+        <Container className="max-w-screen-xl">
           <h1 className="-ml-3 select-none text-[215px] font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] max-lg:text-[130px]">
             FAQ
           </h1>
@@ -60,7 +60,7 @@ export default function FaQ() {
         </Container>
       </div>
       <div className="bg-primary bg-opacity-20 py-8">
-        <Container>
+        <Container className="max-w-screen-xl">
           <div className="-m-2 flex flex-wrap items-center justify-between max-lg:justify-center max-sm:flex-col">
             <div className="p-2">
               <Link
@@ -106,7 +106,7 @@ export default function FaQ() {
         </Container>
       </div>
       <div className="bg-brown bg-opacity-10 py-16">
-        <Container className="-my-8">
+        <Container className="-my-8 max-w-screen-xl">
           <Block
             id="our-food"
             title="OUR FOOD"
