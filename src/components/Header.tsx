@@ -74,17 +74,15 @@ export default function Header({
                 <div className="-m-2 flex flex-nowrap items-center whitespace-nowrap max-lg:flex-col">
                   {!disableLanguageSwitch && (
                     <div className="p-2">
-                      <div className="-mx-3 max-lg:flex-col [&_a:hover]:text-primary [&_a:hover]:underline">
+                      <div className="-mx-3 flex [&_a:hover]:text-primary [&_a:hover]:underline">
                         <Link
-                          className={clsx(
-                            'border-r border-[#ccc] px-3',
-                            locale === 'en' && 'text-primary underline'
-                          )}
+                          className={clsx('px-3', locale === 'en' && 'text-primary underline')}
                           href={pathname}
                           locale="en"
                         >
                           EN
                         </Link>
+                        <div>|</div>
                         <Link
                           className={clsx('px-3', locale === 'zh' && 'text-primary underline')}
                           href={pathname}
@@ -99,7 +97,7 @@ export default function Header({
                     <div className="p-2">
                       <Link
                         href="/get-started"
-                        className="rounded-2xl bg-secondary px-4 py-0.5 text-white"
+                        className="rounded-2xl bg-secondary px-4 py-[5px] font-open-sans text-white hover:opacity-90"
                       >
                         {t('get-started')}
                       </Link>

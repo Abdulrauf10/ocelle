@@ -49,7 +49,7 @@ export default function NotFound() {
               </div>
             </div>
           </div>
-          <div className="w-[480px] min-w-[480px] px-4 pt-10">
+          <div className="w-full px-4 pt-10 xs:w-[480px] xs:min-w-[480px]">
             <div className="relative pt-[103.3%]">
               <Image src="/404.png" alt="404 dog" fill />
             </div>
