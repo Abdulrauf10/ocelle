@@ -11,20 +11,18 @@ export default function Block({
   styles,
   children,
 }: React.PropsWithChildren<BlockProps>) {
-  return (
-    <div
-      className={clsx(
-        styles === 'tight'
-          ? 'py-[2.4vw] max-xl:py-10'
-          : styles === 'normal'
-            ? 'py-[3.5vw] max-xl:py-10'
-            : styles === 'narrow'
-              ? 'py-4 max-xl:py-10'
-              : 'py-[3.5vw] max-xl:py-10',
-        className
-      )}
-    >
-      {children}
-    </div>
-  );
+  const getStyles = () => {
+    switch (styles) {
+      case 'tight':
+        return 'py-[2.4vw] max-xl:py-10';
+      case 'narrow':
+        return 'py-4 max-xl:py-10';
+      case 'normal':
+        return 'py-[3.5vw] max-xl:py-10';
+      case 'custom':
+        return undefined;
+    }
+  };
+
+  return <div className={clsx(getStyles(), className)}>{children}</div>;
 }
