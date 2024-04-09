@@ -47,6 +47,9 @@ function FileInput<T extends FieldValues>({
   const handleDetach = React.useCallback(() => {
     setFilename(undefined);
     onChange(undefined);
+    if (inputRef.current) {
+      inputRef.current.value = '';
+    }
   }, [setFilename, onChange]);
 
   return (
