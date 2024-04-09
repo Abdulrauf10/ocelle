@@ -461,5 +461,6 @@
   "submit-application": "Submit Application",
   "thank-you-for-applying": "Thank You For Applying!",
   "thank-you-for-applying:description": "Your application for the {title} role has been successfully submitted. We’re excited to learn more about you and will be in touch if you move forward in the process.",
-  "this-{}-doesn-t-look-correct-please-update-it": "This {name} doesn’t look correct, please update it."
+  "this-{}-doesn-t-look-correct-please-update-it": "This {name} doesn’t look correct, please update it.",
+  "please-enter-a-valid-{}": "Please enter a valid {name}."
 }

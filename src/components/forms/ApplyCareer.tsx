@@ -184,7 +184,7 @@ export default function ApplyCareerForm({
                         required: true,
                         pattern: {
                           value: EMAIL_REGEXP,
-                          message: t('this-{}-doesn-t-look-correct-please-update-it', {
+                          message: t('please-enter-a-valid-{}', {
                             name: t('email').toLowerCase(),
                           }),
                         },
@@ -208,7 +208,7 @@ export default function ApplyCareerForm({
                         required: true,
                         pattern: {
                           value: PHONE_REGEXP,
-                          message: t('this-{}-doesn-t-look-correct-please-update-it', {
+                          message: t('please-enter-a-valid-{}', {
                             name: t('phone').toLowerCase(),
                           }),
                         },
