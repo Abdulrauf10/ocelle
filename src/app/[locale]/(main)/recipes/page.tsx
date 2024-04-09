@@ -357,7 +357,7 @@ export default function RecipesPage() {
             of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a
             shiny coat.
           </p>
-          <p className="heading-4 mt-6 font-bold text-brown">{colon(t, 'ingredients')}</p>
+          <p className="heading-4 mt-6 font-bold text-gold">{colon(t, 'ingredients')}</p>
           <p className="body-1">
             {arrayToSentence(t, [
               t('chicken-breast'),
@@ -406,7 +406,7 @@ export default function RecipesPage() {
             antioxidant power, and superfoods to boost immunity. Hit the ground running with every
             bowl!
           </p>
-          <p className="heading-4 mt-6 font-bold text-brown">{colon(t, 'ingredients')}</p>
+          <p className="heading-4 mt-6 font-bold text-gold">{colon(t, 'ingredients')}</p>
           <p className="body-1">
             {arrayToSentence(t, [
               t('beef-chuck'),
@@ -457,7 +457,7 @@ export default function RecipesPage() {
             leafy greens for digestive ease, immune strength, and a coat that shines. Perfect for
             dogs with sensitive stomachs or allergies!
           </p>
-          <p className="heading-4 mt-6 font-bold text-brown">{colon(t, 'ingredients')}</p>
+          <p className="heading-4 mt-6 font-bold text-gold">{colon(t, 'ingredients')}</p>
           <p className="body-1">
             {arrayToSentence(t, [
               t('pork-loin'),
@@ -504,7 +504,7 @@ export default function RecipesPage() {
             A flavour and nutrient powerhouse, capable of satisfying even the pickiest of eaters.
             Crafted for muscle strength, immune support, radiant health, and a shiny coat!
           </p>
-          <p className="heading-4 mt-6 font-bold text-brown">{colon(t, 'ingredients')}</p>
+          <p className="heading-4 mt-6 font-bold text-gold">{colon(t, 'ingredients')}</p>
           <p className="body-1">
             {arrayToSentence(t, [
               t('lamb-leg-boneless'),
@@ -553,7 +553,7 @@ export default function RecipesPage() {
             vitality! Perfect for dogs seeking a unique and hypoallergenic dining experience without
             compromising on taste and health.
           </p>
-          <p className="heading-4 mt-6 font-bold text-brown">{colon(t, 'ingredients')}</p>
+          <p className="heading-4 mt-6 font-bold text-gold">{colon(t, 'ingredients')}</p>
           <p className="body-1">
             {arrayToSentence(t, [
               t('duck-breast'),
