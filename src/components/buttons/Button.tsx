@@ -13,6 +13,7 @@ interface ButtonBaseProps {
 
 interface ButtonProps extends ButtonBaseProps {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  onTouchEnd?: React.TouchEventHandler<HTMLButtonElement>;
   type?: 'submit' | 'reset' | 'button';
 }
 
@@ -20,6 +21,7 @@ interface LinkbuttonProps extends ButtonBaseProps {
   href: string;
   target?: React.HTMLAttributeAnchorTarget;
   onClick?: React.MouseEventHandler<HTMLAnchorElement>;
+  onTouchEnd?: React.TouchEventHandler<HTMLAnchorElement>;
 }
 
 function ButtonIcon() {
@@ -31,6 +33,7 @@ export default function Button({
   children,
   className,
   onClick,
+  onTouchEnd,
   reverse,
   fullWidth,
   disabled,
@@ -45,32 +48,32 @@ export default function Button({
   const primaryClasses = clsx(
     'border-primary',
     reverse
-      ? 'bg-white text-primary hover:bg-gray hover:bg-opacity-5 hover:border-gray'
-      : 'bg-primary text-white hover:opacity-85'
+      ? 'bg-white text-primary cursor-only:hover:bg-gray cursor-only:hover:bg-opacity-5 cursor-only:hover:border-gray'
+      : 'bg-primary text-white cursor-only:hover:opacity-85'
   );
   const secondaryClasses = clsx(
     'border-secondary',
     reverse
-      ? 'bg-white text-secondary hover:bg-gray hover:bg-opacity-5 hover:border-gray'
-      : 'bg-secondary text-white hover:opacity-85'
+      ? 'bg-white text-secondary cursor-only:hover:bg-gray cursor-only:hover:bg-opacity-5 cursor-only:hover:border-gray'
+      : 'bg-secondary text-white cursor-only:hover:opacity-85'
   );
   const redClasses = clsx(
     'border-how-it-works-red',
     reverse
-      ? 'bg-white text-how-it-works-red hover:bg-gray hover:bg-opacity-5 hover:border-gray'
-      : 'bg-how-it-works-red text-white hover:opacity-85'
+      ? 'bg-white text-how-it-works-red cursor-only:hover:bg-gray cursor-only:hover:bg-opacity-5 cursor-only:hover:border-gray'
+      : 'bg-how-it-works-red text-white cursor-only:hover:opacity-85'
   );
   const yellowClasses = clsx(
     'border-how-it-works-yellow',
     reverse
-      ? 'bg-white text-how-it-works-yellow hover:bg-gray hover:bg-opacity-5 hover:border-gray'
-      : 'bg-how-it-works-yellow text-white hover:opacity-85'
+      ? 'bg-white text-how-it-works-yellow cursor-only:hover:bg-gray cursor-only:hover:bg-opacity-5 cursor-only:hover:border-gray'
+      : 'bg-how-it-works-yellow text-white cursor-only:hover:opacity-85'
   );
   const greenClasses = clsx(
     'border-how-it-works-green',
     reverse
-      ? 'bg-white text-how-it-works-green hover:bg-gray hover:bg-opacity-5 hover:border-gray'
-      : 'bg-how-it-works-green text-white hover:opacity-85'
+      ? 'bg-white text-how-it-works-green cursor-only:hover:bg-gray cursor-only:hover:bg-opacity-5 cursor-only:hover:border-gray'
+      : 'bg-how-it-works-green text-white cursor-only:hover:opacity-85'
   );
   const classes = disabled
     ? clsx(
@@ -100,6 +103,7 @@ export default function Button({
         className={classes}
         target={linkProps.target}
         onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
+        onTouchEnd={onTouchEnd as React.TouchEventHandler<HTMLAnchorElement>}
       >
         {children}
         <ButtonIcon />
@@ -112,6 +116,7 @@ export default function Button({
       className={classes}
       type={buttonProps.type}
       onClick={onClick as React.MouseEventHandler<HTMLButtonElement>}
+      onTouchEnd={onTouchEnd as React.TouchEventHandler<HTMLButtonElement>}
       disabled={disabled}
     >
       {children}

@@ -1,5 +1,6 @@
 import type { Config } from 'tailwindcss';
 import defaultTheme from 'tailwindcss/defaultTheme';
+import plugin from 'tailwindcss/plugin';
 
 const config: Config = {
   content: [
@@ -48,6 +49,10 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ addVariant }) {
+      addVariant('mouse', '@media (hover: hover) and (pointer: fine)');
+    }),
+  ],
 };
 export default config;
