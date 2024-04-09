@@ -213,7 +213,7 @@ export default function Home() {
               link: (chunks) => {
                 return (
                   <Link
-                    href="/how-it-works/individual"
+                    href="/how-it-works/individual-pack"
                     className="font-normal text-secondary underline hover:underline"
                   >
                     {chunks}

@@ -13,7 +13,7 @@ export default function Navigator() {
           name={t('how-it-works')}
           items={[
             { name: t('subscription'), href: '/how-it-works/subscription' },
-            { name: t('individual-packs'), href: '/how-it-works/individual' },
+            { name: t('individual-packs'), href: '/how-it-works/individual-pack' },
           ]}
         />
       </li>

@@ -63,7 +63,7 @@ export default async function Checkout() {
           <div className="py-10">
             <Container className="mb-4 text-right">
               <UnderlineButton
-                href="/how-it-works/individual"
+                href="/how-it-works/individual-pack"
                 theme="primary"
                 label={t('continue-browsing')}
                 underline

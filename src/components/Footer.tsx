@@ -41,7 +41,7 @@ export default function Footer({ hideNav }: FooterProps) {
                 <FooterLink href="/how-it-works/subscription">
                   {t('how-it-works-subscription')}
                 </FooterLink>
-                <FooterLink href="/how-it-works/individual">
+                <FooterLink href="/how-it-works/individual-pack">
                   {t('how-it-works-individual')}
                 </FooterLink>
                 <FooterLink href="/recipes">{t('recipes')}</FooterLink>
