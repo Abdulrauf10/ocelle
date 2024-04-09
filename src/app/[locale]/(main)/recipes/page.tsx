@@ -119,6 +119,7 @@ export default function RecipesPage() {
         'Rich in antioxidants, cranberries can help support urinary tract health and may prevent urinary infections. They are also beneficial for dental health.',
     },
     flaxseed: {
+      className: 'translate-x-0.5',
       picture: '/recipes/ingredients/flaxseed.png',
       spacing: -20,
       title: t('flaxseed'),

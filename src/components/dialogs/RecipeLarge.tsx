@@ -9,6 +9,7 @@ import Image from 'next/image';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
+import clsx from 'clsx';
 
 function Hr() {
   return <hr className="my-10 border-t-2 border-primary"></hr>;
@@ -38,6 +39,7 @@ export default function RecipeLargeDialog({
     picture: string;
     title: string;
     description: string;
+    className?: string;
   }>;
   calorie: number;
   analysis: {
@@ -94,7 +96,7 @@ export default function RecipeLargeDialog({
                         alt={ingredient.title}
                         width={124 - (ingredient.spacing ?? 0)}
                         height={124 - (ingredient.spacing ?? 0)}
-                        className="absolute"
+                        className={clsx('absolute', ingredient.className)}
                       />
                     </div>
                     <strong className="heading-4 mt-6 block text-center text-primary">
