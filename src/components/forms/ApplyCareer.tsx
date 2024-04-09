@@ -12,6 +12,7 @@ import { InputControllerProps } from '@/types';
 import TextField from '../controls/TextField';
 import { useTranslations } from 'next-intl';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
+import Close from '../icons/Close';
 
 interface FileInputProps<T extends FieldValues> extends InputControllerProps<T> {
   label: string;
@@ -30,18 +31,26 @@ function FileInput<T extends FieldValues>({
   const inputRef = React.useRef<HTMLInputElement>();
   const [filename, setFilename] = React.useState<string | undefined>(undefined);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files?.length != 0) {
-      setFilename(e.target.files![0].name);
-      onChange(e.target.files![0]);
-    } else {
-      setFilename(undefined);
-      onChange(undefined);
-    }
-  };
+  const handleChange = React.useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files?.length != 0) {
+        setFilename(e.target.files![0].name);
+        onChange(e.target.files![0]);
+      } else {
+        setFilename(undefined);
+        onChange(undefined);
+      }
+    },
+    [setFilename, onChange]
+  );
+
+  const handleDetach = React.useCallback(() => {
+    setFilename(undefined);
+    onChange(undefined);
+  }, [setFilename, onChange]);
 
   return (
-    <div className="w-full">
+    <div className="w-full overflow-hidden">
       <input
         id={name}
         ref={mergeRefs([inputRef, ref])}
@@ -62,9 +71,14 @@ function FileInput<T extends FieldValues>({
         {label}
       </Button>
       {filename && (
-        <span className="body-4 mt-1 inline-block">
-          {label}: {filename}
-        </span>
+        <div className="mt-1 flex w-full items-center overflow-hidden">
+          <span className="body-4 mr-2 inline-block overflow-hidden text-ellipsis whitespace-nowrap">
+            {label}: {filename}
+          </span>
+          <button onClick={handleDetach}>
+            <Close className="w-3" />
+          </button>
+        </div>
       )}
     </div>
   );
