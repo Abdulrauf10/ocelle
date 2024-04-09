@@ -21,6 +21,7 @@ import { formatDate } from '@/helpers/date';
 import { CalendarEvent } from '@/types';
 import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import TextField from '../controls/TextField';
+import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 
 function Section({
   title,
@@ -225,7 +226,15 @@ export default function SubscriptionCheckoutForm({
                     name="email"
                     label={t('email')}
                     control={control}
-                    rules={{ required: true }}
+                    rules={{
+                      required: true,
+                      pattern: {
+                        value: EMAIL_REGEXP,
+                        message: t('this-{}-doesn-t-look-correct-please-update-it', {
+                          name: t('email').toLowerCase(),
+                        }),
+                      },
+                    }}
                     disabled={isSubmitInProgress}
                     fullWidth
                   />
@@ -255,7 +264,15 @@ export default function SubscriptionCheckoutForm({
                     name="phone"
                     label={t('phone-number')}
                     control={control}
-                    rules={{ required: true }}
+                    rules={{
+                      required: true,
+                      pattern: {
+                        value: PHONE_REGEXP,
+                        message: t('this-{}-doesn-t-look-correct-please-update-it', {
+                          name: t('phone-number').toLowerCase(),
+                        }),
+                      },
+                    }}
                     disabled={isSubmitInProgress}
                     fullWidth
                   />

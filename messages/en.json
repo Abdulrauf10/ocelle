@@ -232,6 +232,7 @@
   "user-account-information": "User Account Information",
   "password": "Password",
   "new-password": "New Password",
+  "phone": "Phone",
   "phone-number": "Phone Number",
   "keep-me-up-to-date-with-news-and-exclusive-offers-via-email-or-whatsApp": "Keep me up to date with news and exclusive offers via email or WhatsApp.",
   "payment-information": "Payment Information",
@@ -450,5 +451,15 @@
   "manganese-amino-acid-chelate": "Manganese Amino Acid Chelate",
   "copper-amino-acid-chelate": "Copper Amino Acid Chelate",
   "taurine": "Taurine",
-  "choline-bitartrate": "Choline Bitartrate"
+  "choline-bitartrate": "Choline Bitartrate",
+  "resume-cv": "Resume/CV",
+  "cover-letter": "Cover Letter",
+  "attach-{}": "Attach {value}",
+  "attached": "Attached",
+  "required": "Required",
+  "submit-your-application": "Submit Your Application",
+  "submit-application": "Submit Application",
+  "thank-you-for-applying": "Thank You For Applying!",
+  "thank-you-for-applying:description": "Your application for the {title} role has been successfully submitted. We’re excited to learn more about you and will be in touch if you move forward in the process.",
+  "this-{}-doesn-t-look-correct-please-update-it": "This {name} doesn’t look correct, please update it."
 }

@@ -21,6 +21,7 @@ import { useCart } from '@/contexts/cart';
 import CartRows from '../CartRows';
 import { CartReturn } from '@/types/dto';
 import { colon } from '@/helpers/translation';
+import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 
 function Section({
   title,
@@ -209,7 +210,15 @@ export default function GuestCheckoutForm({
                   <Controller
                     name="email"
                     control={control}
-                    rules={{ required: true }}
+                    rules={{
+                      required: true,
+                      pattern: {
+                        value: EMAIL_REGEXP,
+                        message: t('this-{}-doesn-t-look-correct-please-update-it', {
+                          name: t('email').toLowerCase(),
+                        }),
+                      },
+                    }}
                     disabled={isSubmitInProgress}
                     render={({ field, fieldState: { error } }) => (
                       <TextField {...field} label={t('email')} fullWidth error={!!error} />
@@ -220,7 +229,15 @@ export default function GuestCheckoutForm({
                   <Controller
                     name="phone"
                     control={control}
-                    rules={{ required: true }}
+                    rules={{
+                      required: true,
+                      pattern: {
+                        value: PHONE_REGEXP,
+                        message: t('this-{}-doesn-t-look-correct-please-update-it', {
+                          name: t('phone-number').toLowerCase(),
+                        }),
+                      },
+                    }}
                     disabled={isSubmitInProgress}
                     render={({ field, fieldState: { error } }) => (
                       <TextField {...field} label={t('phone-number')} fullWidth error={!!error} />

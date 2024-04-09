@@ -12,6 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
 import TextField from '@/components/controls/TextField';
+import { EMAIL_REGEXP } from '@/consts';
 
 interface OwnerForm {
   firstName: string;
@@ -73,9 +74,10 @@ export default function OwnerFragment() {
                 rules={{
                   required: true,
                   pattern: {
-                    value:
-                      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/,
-                    message: '[This email doesn’t look correct, please update it.]',
+                    value: EMAIL_REGEXP,
+                    message: t('this-{}-doesn-t-look-correct-please-update-it', {
+                      name: t('email').toLowerCase(),
+                    }),
                   },
                 }}
                 fullWidth
