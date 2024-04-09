@@ -39,9 +39,7 @@ export default function Home() {
         <div className="w-1/2 px-[4vw] text-xl max-md:w-full">
           <Block>
             <h2 className="heading-1 font-bold text-primary">
-              {t('more-years')}
-              <br className="hidden md:block xl:hidden" />
-              {t('happier-years')}
+              {t.rich('more-years-happier-years')}
               <br />
               {t('it-s-time-to-go-fresh')}
             </h2>
@@ -82,7 +80,9 @@ export default function Home() {
                   width={81}
                   height={70}
                 />
-                <h3 className="heading-4 mt-2 text-primary">{t('real-good-food-freshly-made')}</h3>
+                <h3 className="heading-4 mt-2 text-primary">
+                  {t.rich('real-good-food-freshly-made')}
+                </h3>
                 <p className="body-1 mt-2 xl:max-w-[320px]">
                   {t('real-good-food-freshly-made-content')}
                 </p>
@@ -98,31 +98,33 @@ export default function Home() {
                 <h3 className="heading-4 mt-2 text-primary">{t('customised-meal-plans')}</h3>
                 <p className="body-1 mt-2 xl:max-w-[320px]">{t('customised-meal-plans-content')}</p>
               </div>
-              <div className="ml-32 mt-[6%] flex flex-1 flex-wrap max-xl:-my-3">
-                <div className="w-full max-xl:py-3 md:w-1/2 xl:w-full xl:max-w-[300px]">
-                  <Image
-                    className="h-20 w-[114px]"
-                    alt="good food"
-                    src="/meal-plan/icon-3.svg"
-                    width={102}
-                    height={70}
-                  />
-                  <h3 className="heading-4 mt-2 text-primary">{t('delivered-within-days')}</h3>
-                  <p className="body-1 mt-2">{t('delivered-within-days-content')}</p>
-                </div>
-                <div className="w-full max-xl:mt-0 max-xl:py-3 md:w-1/2 xl:ml-[11%] xl:mt-[12%] xl:w-full xl:max-w-[320px]">
-                  <Image
-                    className="h-20 w-20"
-                    alt="good food"
-                    src="/meal-plan/icon-4.svg"
-                    width={67}
-                    height={70}
-                  />
-                  <h3 className="heading-4 mt-2 text-primary">{t('vet-approved')}</h3>
-                  <p className="body-1 mt-2">{t('vet-approved-content')}</p>
-                </div>
-                <div className="ml-[6%] mt-[21%] text-center max-xl:hidden">
-                  <Button href="/get-started">{t('see-your-recipes')}</Button>
+              <div className="ml-32 mt-[6%]">
+                <div className="flex flex-1 flex-wrap max-xl:-m-3">
+                  <div className="w-full max-xl:p-3 md:w-1/2 xl:w-full xl:max-w-[300px]">
+                    <Image
+                      className="h-20 w-[114px]"
+                      alt="good food"
+                      src="/meal-plan/icon-3.svg"
+                      width={102}
+                      height={70}
+                    />
+                    <h3 className="heading-4 mt-2 text-primary">{t('delivered-within-days')}</h3>
+                    <p className="body-1 mt-2">{t.rich('delivered-within-days-content')}</p>
+                  </div>
+                  <div className="w-full max-xl:mt-0 max-xl:p-3 md:w-1/2 xl:ml-[11%] xl:mt-[12%] xl:w-full xl:max-w-[320px]">
+                    <Image
+                      className="h-20 w-20"
+                      alt="good food"
+                      src="/meal-plan/icon-4.svg"
+                      width={67}
+                      height={70}
+                    />
+                    <h3 className="heading-4 mt-2 text-primary">{t('vet-approved')}</h3>
+                    <p className="body-1 mt-2">{t('vet-approved-content')}</p>
+                  </div>
+                  <div className="ml-[6%] mt-[21%] text-center max-xl:hidden">
+                    <Button href="/get-started">{t('see-your-recipes')}</Button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -207,17 +209,18 @@ export default function Home() {
             <Button href="/get-started">{t('build-my-plan')}</Button>
           </div>
           <p className="mt-[2.5vw] text-center text-[32px] font-normal text-gray max-md:text-[32px] max-sm:mt-8">
-            Not ready for a subscription? <br className="hidden max-xl:inline" />
-            No problem! Try our Not ready for a subscription?
-            <span className="whitespace-nowrap">
-              <Link
-                href="/how-it-works/individual"
-                className="font-normal text-secondary underline hover:underline"
-              >
-                individual packs first
-              </Link>
-              .
-            </span>
+            {t.rich('not-ready-for-a-subscription-no-problem-try-our', {
+              link: (chunks) => {
+                return (
+                  <Link
+                    href="/how-it-works/individual"
+                    className="font-normal text-secondary underline hover:underline"
+                  >
+                    {chunks}
+                  </Link>
+                );
+              },
+            })}
           </p>
         </Container>
       </Block>

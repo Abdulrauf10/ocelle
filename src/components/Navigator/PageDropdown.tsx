@@ -34,9 +34,12 @@ export default function PageDropdown({ name, items }: PageDropdownProps) {
   });
 
   return (
-    <div data-id={id} className="relative inline-block">
+    <div
+      data-id={id}
+      className="relative inline-block max-lg:flex max-lg:flex-col max-lg:items-center"
+    >
       <button
-        className="flex cursor-pointer items-center px-4 py-2 hover:text-primary hover:underline"
+        className="inline-flex cursor-pointer items-center px-4 py-2 hover:text-primary hover:underline"
         onClick={() => setOpen(!open)}
       >
         {name}
@@ -50,7 +53,7 @@ export default function PageDropdown({ name, items }: PageDropdownProps) {
                 <li key={idx} className="py-0.5 max-lg:py-1">
                   <Link
                     href={item.href}
-                    className="block whitespace-nowrap hover:text-primary hover:underline"
+                    className="block whitespace-nowrap hover:text-primary hover:underline max-lg:rounded-full max-lg:bg-white max-lg:px-4"
                   >
                     {item.name}
                   </Link>

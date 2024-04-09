@@ -48,7 +48,7 @@ export default function Header({
             </button>
           </div>
         )}
-        <Link href="/" className="relative z-10 mx-auto px-2">
+        <Link href="/" className="relative z-10 mx-auto px-2" onClick={() => setIsOpened(false)}>
           <Image
             alt="Ocelle"
             src="/ocelle-logo.png"

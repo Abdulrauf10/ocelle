@@ -1,5 +1,6 @@
 'use client';
 
+import defaultTranslationValues from '@/defaultTranslationValues';
 import { AbstractIntlMessages, NextIntlClientProvider } from 'next-intl';
 
 export default function IntlProvider({
@@ -15,9 +16,7 @@ export default function IntlProvider({
       locale={locale}
       messages={messages}
       timeZone="Asia/Hong_Kong"
-      defaultTranslationValues={{
-        important: (chunks) => <b>{chunks}</b>,
-      }}
+      defaultTranslationValues={defaultTranslationValues}
     >
       {children}
     </NextIntlClientProvider>
