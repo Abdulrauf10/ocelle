@@ -454,9 +454,7 @@ export default function SubscriptionCheckoutForm({
                   {t('every-{}', { value: t('{}-weeks', { value: 2 }) })}
                 </p>
               </div>
-              <p className="body-3 mt-4">
-                {t.rich('subscription:description', { br: () => <br /> })}
-              </p>
+              <p className="body-3 mt-4">{t.rich('subscription:description')}</p>
             </div>
           </div>
         </div>

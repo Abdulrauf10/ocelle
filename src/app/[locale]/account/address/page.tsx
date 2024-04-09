@@ -29,7 +29,6 @@ export default async function Addresses() {
                   {
                     stage: 'next',
                     date: '29th of December 2023',
-                    strong: (chunks) => <strong>{chunks}</strong>,
                   }
                 )}
               </p>

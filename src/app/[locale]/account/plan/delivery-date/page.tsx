@@ -19,14 +19,12 @@ export default async function PlanDeliveryDate() {
         <p className="mx-auto mt-4 max-w-[620px] text-center">
           {t.rich('your-upcoming-box-is-arriving-on-the-{}', {
             date: '[15th of December 2023]',
-            strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
           })}{' '}
           It contains [Charlie]&apos;s and [Muffin]’s fresh food.
         </p>
         <p className="mx-auto mt-4 max-w-[620px] text-center">
           {t.rich('unfortunately-you-can-no-longer-make-changes-to-your-upcoming-box', {
             date: '[29th of December 2023]',
-            strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
           })}
         </p>
         <div className="mt-8 text-center">

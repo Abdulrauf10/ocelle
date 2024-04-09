@@ -68,14 +68,10 @@ export default async function PlanMeal() {
             {t.rich('{}-upcoming-box-is-scheduled-for-the-{}', {
               name: dog.name,
               date: '15th of December 2023',
-              strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
             })}
           </p>
           <p className="mx-auto mt-4 max-w-[620px] text-center">
-            {t.rich('you-can-make-changes-until-the-{}', {
-              date: '15th of December 2023',
-              strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
-            })}
+            {t.rich('you-can-make-changes-until-the-{}', { date: '15th of December 2023' })}
           </p>
           <FreshPlanForm
             initialPlan={dog.plan.mealPlan}

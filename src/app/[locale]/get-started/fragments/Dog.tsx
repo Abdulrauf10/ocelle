@@ -52,12 +52,7 @@ export default function DogFragment() {
             label={t('i-have-more-dogs')}
           />
           {showMoreDogs && (
-            <p className="body-3 mt-5 italic text-primary">
-              {t.rich('i-have-more-dogs:reply', {
-                br: () => <br />,
-                strong: (chunks) => <strong>{chunks}</strong>,
-              })}
-            </p>
+            <p className="body-3 mt-5 italic text-primary">{t.rich('i-have-more-dogs:reply')}</p>
           )}
         </Section>
       </Container>

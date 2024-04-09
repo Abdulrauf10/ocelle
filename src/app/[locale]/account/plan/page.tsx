@@ -121,9 +121,7 @@ export default async function Plan() {
                     <p className="mt-3">
                       {t.rich('you-can-make-changes-until-the-{}', {
                         date: '10th of December 2023',
-                        strong: (chunks) => (
-                          <strong className="whitespace-nowrap text-brown">{chunks}</strong>
-                        ),
+                        b: (chunks) => <b className="text-brown">{chunks}</b>,
                       })}
                     </p>
                   </div>
@@ -243,7 +241,7 @@ export default async function Plan() {
                 <h2 className="heading-4 font-bold">
                   {t.rich('know-more-dog-people-refer-a-friend-earn-{}', {
                     value: '[$50]',
-                    strong: (chunks) => <strong className="text-[1.1em]">{chunks}</strong>,
+                    b: (chunks) => <b className="text-[1.1em]">{chunks}</b>,
                   })}
                 </h2>
                 <p className="mt-3">
@@ -251,7 +249,7 @@ export default async function Plan() {
                     'refer-your-friends-to-try-ocelle-with-a-special-discount-code-and-get-{}-off-your-next-box',
                     {
                       value: '[$50]',
-                      strong: (chunks) => <strong className="text-[1.4em]">{chunks}</strong>,
+                      b: (chunks) => <b className="text-[1.4em]">{chunks}</b>,
                     }
                   )}
                 </p>

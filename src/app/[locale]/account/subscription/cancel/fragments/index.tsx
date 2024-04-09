@@ -15,7 +15,7 @@ export default function IndexFragment() {
         {t('cancel-my-subscription')}
       </h1>
       <p className="mx-auto mt-4 max-w-[680px] text-center">
-        {t.rich('cancel-my-subscription:description', { br: () => <br /> })}
+        {t.rich('cancel-my-subscription:description')}
       </p>
       <div className="mt-6 text-center">
         <Button href="/account/pause-delivery">{t('pause-all-deliveries')}</Button>

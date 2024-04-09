@@ -64,12 +64,7 @@ export default function DogPreference2Fragment() {
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <Container className="text-center">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Section
-            title={t.rich('does-{}-have-any-food-allergies-or-sensitivities', {
-              name,
-              br: () => <br className="max-md:hidden" />,
-            })}
-          >
+          <Section title={t.rich('does-{}-have-any-food-allergies-or-sensitivities', { name })}>
             <div className="mx-auto -mt-4 flex max-w-[360px] flex-wrap justify-center">
               <div className="mt-4 px-3">
                 <InteractiveBlock

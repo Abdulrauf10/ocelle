@@ -29,7 +29,6 @@ export default function PauseDelivery() {
             <h1 className="heading-4 mt-2 text-center font-bold text-primary">{t('done')}</h1>
             <p className="mx-auto mt-4 max-w-[360px] text-center">
               {t.rich('your-orders-are-now-paused-delivery-will-resume-on-the-{}', {
-                strong: (chunks) => <strong className="whitespace-nowrap">{chunks}</strong>,
                 date: '[23rd of February 2024]',
               })}
             </p>
