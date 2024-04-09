@@ -124,13 +124,13 @@ export default function ApplyCareerForm({
     return (
       <Block styles="tight" className="bg-gold bg-opacity-10 text-center text-primary">
         <Container className="max-w-screen-lg">
-          <Image
+          {/* <Image
             src="/ocelle-logo.png"
             width={180}
             height={54}
             alt="ocelle logo"
             className="mx-auto"
-          />
+          /> */}
           <p className="heading-4 mt-8 font-bold">{t('thank-you-for-applying')}</p>
           <p className="body-3 mt-4">{t('thank-you-for-applying:description', { title })}</p>
         </Container>
