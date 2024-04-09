@@ -123,7 +123,7 @@ export default function ApplyCareerForm({
   if (completed) {
     return (
       <Block styles="tight" className="bg-gold bg-opacity-10 text-center text-primary">
-        <Container className="max-w-screen-lg">
+        <Container className="max-w-screen-md">
           {/* <Image
             src="/ocelle-logo.png"
             width={180}
