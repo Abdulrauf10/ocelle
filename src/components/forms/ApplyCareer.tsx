@@ -87,6 +87,7 @@ export default function ApplyCareerForm({
   action(formData: FormData): Promise<void>;
 }) {
   const {
+    watch,
     control,
     formState: { isValid },
   } = useForm<IApplyCareerForm>();
@@ -204,7 +205,7 @@ export default function ApplyCareerForm({
                     <FileInput
                       control={control}
                       name="resume"
-                      label="Attached"
+                      label={watch('resume') ? 'Attached' : 'Attach Resume/CV'}
                       rules={{ required: true }}
                     />
                   </div>
@@ -214,7 +215,11 @@ export default function ApplyCareerForm({
                     <div className="body-3 mb-5 mr-2 flex h-[40px] w-[95px] min-w-[95px] items-center">
                       <label htmlFor="coverLetter">Cover Letter</label>
                     </div>
-                    <FileInput control={control} name="coverLetter" label="Attached" />
+                    <FileInput
+                      control={control}
+                      name="coverLetter"
+                      label={watch('coverLetter') ? 'Attached' : 'Attach Cover Letter'}
+                    />
                   </div>
                 </div>
                 <div className="w-full px-4 py-4 text-center">
