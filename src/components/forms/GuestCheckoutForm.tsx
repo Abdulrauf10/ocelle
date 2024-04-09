@@ -3,8 +3,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import Container from '@/components/Container';
-import { Controller, useForm } from 'react-hook-form';
-import DateCalendar from '@/components/controls/DateCalendar';
+import { useForm } from 'react-hook-form';
 import Price from '@/components/Price';
 import Button from '@/components/buttons/Button';
 import PartialCardStripeForm from './partial/CardStripe';
@@ -22,6 +21,7 @@ import { CartReturn } from '@/types/dto';
 import { colon } from '@/helpers/translation';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 import TextField from '../controls/TextField';
+import DatePickerForm from './DatePicker';
 
 function Section({
   title,
@@ -96,6 +96,7 @@ export default function GuestCheckoutForm({
   const t = useTranslations();
   const {
     control,
+    setValue,
     handleSubmit,
     formState: { errors },
     watch,
@@ -105,6 +106,7 @@ export default function GuestCheckoutForm({
       deliveryDate: closestDeliveryDate,
     },
   });
+  const [openDeliveryDate, setOpenDeliveryDate] = React.useState(false);
   const [updatingCart, setUpdatingCart] = React.useState(false);
   const [isSubmitInProgress, setIsSubmitInProgress] = React.useState(false);
 
@@ -283,20 +285,22 @@ export default function GuestCheckoutForm({
                 {t.rich('your-order-will-be-delivered-on-the-{}', {
                   date: formatDate(t, watch('deliveryDate'), true),
                 })}{' '}
-                <EditButton onClick={() => {}} />
+                <EditButton onClick={() => setOpenDeliveryDate(true)} />
               </p>
-              <div className="mt-4 w-fit">
-                <DateCalendar
-                  name="deliveryDate"
-                  control={control}
-                  minDate={closestDeliveryDate}
-                  shouldDisableDate={(day) => isUnavailableDeliveryDate(day, calendarEvents)}
-                  actions={[
-                    { label: t('cancel'), onClick: () => {} },
-                    { label: t('save-changes'), onClick: () => {} },
-                  ]}
-                />
-              </div>
+              {openDeliveryDate && (
+                <div className="mt-4 w-fit">
+                  <DatePickerForm
+                    initialDate={watch('deliveryDate')}
+                    minDate={closestDeliveryDate}
+                    shouldDisableDate={(day) => isUnavailableDeliveryDate(day, calendarEvents)}
+                    onCancel={() => setOpenDeliveryDate(false)}
+                    action={async ({ date }) => {
+                      setValue('deliveryDate', date);
+                      setOpenDeliveryDate(false);
+                    }}
+                  />
+                </div>
+              )}
             </Section>
           </div>
           <div className="w-1/3 px-6 max-lg:w-2/5 max-lg:px-3 max-md:mt-8 max-md:w-full">
