@@ -50,7 +50,7 @@ function FileInput<T extends FieldValues>({
   }, [setFilename, onChange]);
 
   return (
-    <div className="w-full overflow-hidden">
+    <div className="w-full">
       <input
         id={name}
         ref={mergeRefs([inputRef, ref])}
@@ -71,8 +71,8 @@ function FileInput<T extends FieldValues>({
         {label}
       </Button>
       {filename && (
-        <div className="mt-1 flex w-full items-center overflow-hidden">
-          <span className="body-4 mr-2 inline-block overflow-hidden text-ellipsis whitespace-nowrap">
+        <div className="mt-1 flex w-full items-center">
+          <span className="body-4 mr-2 inline-block break-all">
             {label}: {filename}
           </span>
           <button onClick={handleDetach}>
