@@ -54,7 +54,7 @@ export default async function CareerView({ params }: { params: { id: string } })
   return (
     <main>
       <Title career={career} />
-      <Block styles="tight" className="bg-gold bg-opacity-10">
+      <Block styles="custom" className="bg-gold bg-opacity-10 py-6">
         <Container className="max-w-screen-lg">
           <p className="body-3">
             OCELLE was born with the mission of improving the lives of pets and pet parents

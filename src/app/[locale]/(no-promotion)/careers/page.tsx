@@ -89,7 +89,7 @@ export default async function Careers() {
           </p>
         </Container>
       </Block>
-      <Block styles="narrow" className="bg-gold bg-opacity-10">
+      <Block styles="custom" className="bg-gold bg-opacity-10 pb-6 pt-4 max-xl:py-10">
         <Container className="max-w-screen-lg">
           {count > 0 ? (
             <div className="-my-10">

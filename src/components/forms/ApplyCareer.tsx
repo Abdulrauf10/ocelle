@@ -7,7 +7,6 @@ import { mergeRefs } from 'react-merge-refs';
 import Container from '@/components/Container';
 import Image from 'next/image';
 import Block from '@/components/layouts/Block';
-import AppThemeProvider from '@/components/AppThemeProvider';
 import { InputControllerProps } from '@/types';
 import TextField from '../controls/TextField';
 import { useTranslations } from 'next-intl';
@@ -29,6 +28,7 @@ function FileInput<T extends FieldValues>({
     field: { ref, onChange, value, ...field },
   } = useController({ control, name, rules });
   const inputRef = React.useRef<HTMLInputElement>();
+  const focusRef = React.useRef<HTMLDivElement | null>(null);
   const [filename, setFilename] = React.useState<string | undefined>(undefined);
 
   const handleChange = React.useCallback(
@@ -51,6 +51,7 @@ function FileInput<T extends FieldValues>({
 
   return (
     <div className="w-full">
+      <div ref={focusRef} tabIndex={0}></div>
       <input
         id={name}
         ref={mergeRefs([inputRef, ref])}
@@ -66,7 +67,11 @@ function FileInput<T extends FieldValues>({
         type="button"
         reverse
         fullWidth
-        onClick={() => inputRef.current?.click()}
+        onClick={() => {
+          inputRef.current?.click();
+          focusRef.current?.focus();
+        }}
+        onTouchEnd={() => focusRef.current?.focus()}
       >
         {label}
       </Button>
@@ -129,7 +134,7 @@ export default function ApplyCareerForm({
   }
 
   return (
-    <AppThemeProvider>
+    <>
       {startAdornment}
       <Block styles="tight" className="bg-gold bg-opacity-10">
         <Container className="max-w-screen-lg">
@@ -137,7 +142,8 @@ export default function ApplyCareerForm({
             {t('submit-your-application')}
           </div>
           <div className="body-3">
-            <span className="text-error">*</span> {t('required')}
+            <span className="text-error">*</span>
+            {t('required')}
           </div>
           <div className="mt-6">
             <form
@@ -273,6 +279,6 @@ export default function ApplyCareerForm({
           </div>
         </Container>
       </Block>
-    </AppThemeProvider>
+    </>
   );
 }
