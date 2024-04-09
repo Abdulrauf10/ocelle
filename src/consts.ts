@@ -8,3 +8,5 @@ export const EMAIL_REGEXP =
   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
 
 export const PHONE_REGEXP = /^(852)?[0-9]{8}$/;
+
+export const MAX_FILE_SIZE_MB = 5;

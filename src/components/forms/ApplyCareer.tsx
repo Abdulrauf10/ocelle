@@ -10,22 +10,17 @@ import Block from '@/components/layouts/Block';
 import { InputControllerProps } from '@/types';
 import TextField from '../controls/TextField';
 import { useTranslations } from 'next-intl';
-import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
+import { EMAIL_REGEXP, MAX_FILE_SIZE_MB, PHONE_REGEXP } from '@/consts';
 import Close from '../icons/Close';
 
 interface FileInputProps<T extends FieldValues> extends InputControllerProps<T> {
   label: string;
 }
 
-function FileInput<T extends FieldValues>({
-  control,
-  label,
-  name,
-  rules,
-  error,
-}: FileInputProps<T>) {
+function FileInput<T extends FieldValues>({ control, label, name, rules }: FileInputProps<T>) {
   const {
     field: { ref, onChange, value, ...field },
+    fieldState: { error },
   } = useController({ control, name, rules });
   const inputRef = React.useRef<HTMLInputElement>();
   const focusRef = React.useRef<HTMLDivElement | null>(null);
@@ -60,6 +55,7 @@ function FileInput<T extends FieldValues>({
         ref={mergeRefs([inputRef, ref])}
         type="file"
         className="hidden"
+        accept="application/pdf"
         onChange={(e) => {
           handleChange(e);
         }}
@@ -78,14 +74,20 @@ function FileInput<T extends FieldValues>({
       >
         {label}
       </Button>
-      {filename && (
+      {(filename || !!error) && (
         <div className="mt-1 flex w-full items-center">
-          <span className="body-4 mr-2 inline-block break-all">
-            {label}: {filename}
-          </span>
-          <button onClick={handleDetach}>
-            <Close className="w-3" />
-          </button>
+          {error ? (
+            <span className="body-4 text-error">{error.message}</span>
+          ) : (
+            <>
+              <span className="body-4 mr-2 inline-block break-all">
+                {label}: {filename}
+              </span>
+              <button onClick={handleDetach}>
+                <Close className="w-3" />
+              </button>
+            </>
+          )}
         </div>
       )}
     </div>
@@ -114,8 +116,8 @@ export default function ApplyCareerForm({
   const {
     watch,
     control,
-    formState: { isValid },
-  } = useForm<IApplyCareerForm>();
+    formState: { isValid, errors },
+  } = useForm<IApplyCareerForm>({ mode: 'all' });
   const [completed, setCompleted] = React.useState(false);
 
   if (completed) {
@@ -254,7 +256,20 @@ export default function ApplyCareerForm({
                       label={
                         watch('resume') ? t('attached') : t('attach-{}', { value: t('resume-cv') })
                       }
-                      rules={{ required: true }}
+                      rules={{
+                        required: true,
+                        validate: (file) => {
+                          if (!file || !(file instanceof File)) {
+                            return t('please-enter-a-valid-{}', {
+                              name: t('resume-cv').toLowerCase(),
+                            });
+                          }
+                          return (
+                            file.size < 1048576 * MAX_FILE_SIZE_MB ||
+                            t('file-size-cannot-exceed-{}-mb', { value: MAX_FILE_SIZE_MB })
+                          );
+                        },
+                      }}
                     />
                   </div>
                 </div>
@@ -271,6 +286,22 @@ export default function ApplyCareerForm({
                           ? t('attached')
                           : t('attach-{}', { value: t('cover-letter') })
                       }
+                      rules={{
+                        validate: (file) => {
+                          if (!file) {
+                            return true;
+                          }
+                          if (!(file instanceof File)) {
+                            return t('please-enter-a-valid-{}', {
+                              name: t('resume-cv').toLowerCase(),
+                            });
+                          }
+                          return (
+                            file.size < 1048576 * MAX_FILE_SIZE_MB ||
+                            t('file-size-cannot-exceed-{}-mb', { value: MAX_FILE_SIZE_MB })
+                          );
+                        },
+                      }}
                     />
                   </div>
                 </div>
