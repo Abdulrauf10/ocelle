@@ -48,32 +48,32 @@ export default function Button({
   const primaryClasses = clsx(
     'border-primary',
     reverse
-      ? 'bg-white text-primary cursor-only:hover:bg-gray cursor-only:hover:bg-opacity-5 cursor-only:hover:border-gray'
-      : 'bg-primary text-white cursor-only:hover:opacity-85'
+      ? 'bg-white text-primary mouse:hover:bg-gray mouse:hover:bg-opacity-5 mouse:hover:border-gray'
+      : 'bg-primary text-white mouse:hover:opacity-85'
   );
   const secondaryClasses = clsx(
     'border-secondary',
     reverse
-      ? 'bg-white text-secondary cursor-only:hover:bg-gray cursor-only:hover:bg-opacity-5 cursor-only:hover:border-gray'
-      : 'bg-secondary text-white cursor-only:hover:opacity-85'
+      ? 'bg-white text-secondary mouse:hover:bg-gray mouse:hover:bg-opacity-5 mouse:hover:border-gray'
+      : 'bg-secondary text-white mouse:hover:opacity-85'
   );
   const redClasses = clsx(
     'border-how-it-works-red',
     reverse
-      ? 'bg-white text-how-it-works-red cursor-only:hover:bg-gray cursor-only:hover:bg-opacity-5 cursor-only:hover:border-gray'
-      : 'bg-how-it-works-red text-white cursor-only:hover:opacity-85'
+      ? 'bg-white text-how-it-works-red mouse:hover:bg-gray mouse:hover:bg-opacity-5 mouse:hover:border-gray'
+      : 'bg-how-it-works-red text-white mouse:hover:opacity-85'
   );
   const yellowClasses = clsx(
     'border-how-it-works-yellow',
     reverse
-      ? 'bg-white text-how-it-works-yellow cursor-only:hover:bg-gray cursor-only:hover:bg-opacity-5 cursor-only:hover:border-gray'
-      : 'bg-how-it-works-yellow text-white cursor-only:hover:opacity-85'
+      ? 'bg-white text-how-it-works-yellow mouse:hover:bg-gray mouse:hover:bg-opacity-5 mouse:hover:border-gray'
+      : 'bg-how-it-works-yellow text-white mouse:hover:opacity-85'
   );
   const greenClasses = clsx(
     'border-how-it-works-green',
     reverse
-      ? 'bg-white text-how-it-works-green cursor-only:hover:bg-gray cursor-only:hover:bg-opacity-5 cursor-only:hover:border-gray'
-      : 'bg-how-it-works-green text-white cursor-only:hover:opacity-85'
+      ? 'bg-white text-how-it-works-green mouse:hover:bg-gray mouse:hover:bg-opacity-5 mouse:hover:border-gray'
+      : 'bg-how-it-works-green text-white mouse:hover:opacity-85'
   );
   const classes = disabled
     ? clsx(
