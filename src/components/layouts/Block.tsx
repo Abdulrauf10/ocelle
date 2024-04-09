@@ -17,10 +17,11 @@ export default function Block({
         return 'py-[2.4vw] max-xl:py-10';
       case 'narrow':
         return 'py-4 max-xl:py-10';
-      case 'normal':
-        return 'py-[3.5vw] max-xl:py-10';
       case 'custom':
         return undefined;
+      case 'normal':
+      default:
+        return 'py-[3.5vw] max-xl:py-10';
     }
   };
 
