@@ -4,7 +4,7 @@ import { Link, usePathname } from '@/navigation';
 import Container from './Container';
 import { useTranslations } from 'next-intl';
 
-export default function Notice() {
+export default function Promotion() {
   const t = useTranslations();
   const pathname = usePathname();
 

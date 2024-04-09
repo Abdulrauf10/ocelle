@@ -1,6 +1,6 @@
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import Notice from '@/components/Notice';
+import Promotion from '@/components/Promotion';
 import Navigator from '@/components/Navigator';
 import Sticky from '@/components/Sticky';
 
@@ -8,7 +8,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
   return (
     <>
       <Sticky>
-        <Notice />
+        <Promotion />
         <Header nav={<Navigator />} />
       </Sticky>
       {children}

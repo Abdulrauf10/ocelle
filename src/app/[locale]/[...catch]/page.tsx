@@ -5,7 +5,7 @@ import Container from '@/components/Container';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import Navigator from '@/components/Navigator';
-import Notice from '@/components/Notice';
+import Promotion from '@/components/Promotion';
 import { useRouter } from '@/navigation';
 import Image from 'next/image';
 import { useTranslations } from 'use-intl';
@@ -16,7 +16,7 @@ export default function NotFound() {
 
   return (
     <>
-      <Notice />
+      <Promotion />
       <Header nav={<Navigator />} />
       <div className="bg-gold bg-opacity-20">
         <Container className="flex max-w-screen-xl items-end max-md:flex-col max-sm:items-center">

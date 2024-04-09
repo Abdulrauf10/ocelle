@@ -18,7 +18,7 @@ import StripeLoader from '@/components/StripeLoader';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { getTranslations } from 'next-intl/server';
 import Container from '@/components/Container';
-import Notice from '@/components/Notice';
+import Promotion from '@/components/Promotion';
 import Header from '@/components/Header';
 
 export default async function Checkout() {
@@ -52,7 +52,7 @@ export default async function Checkout() {
         },
       }}
     >
-      <Notice />
+      <Promotion />
       <Header disableLanguageSwitch disableGetStartedButton disableMenuButton disableLoginButton />
       <CartContextProvider
         lines={checkout.lines}
