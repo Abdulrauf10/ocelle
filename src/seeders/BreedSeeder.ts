@@ -342,7 +342,7 @@ export default class BreedSeeder extends Seeder {
       breedRepository.create({ name: 'Chien de Franche-Comte', size: 'Medium', uid: '401 - B' }),
       breedRepository.create({ name: 'Chihuahua', size: 'Small', uid: '159' }),
       breedRepository.create({ name: 'Chilean Fox Terrier', size: 'Small', uid: '160 - A' }),
-      breedRepository.create({ name: 'Chilean Fox Terrier', size: 'Small', uid: '160 - B' }),
+      breedRepository.create({ name: 'Chilean Terrier', size: 'Small', uid: '160 - B' }),
       breedRepository.create({ name: 'Chimeranian', size: 'Small', uid: '9981 - B' }),
       breedRepository.create({ name: 'Chinese Crested Dog', size: 'Small', uid: '161' }),
       breedRepository.create({
