@@ -23,7 +23,7 @@ export default function CartDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent>
+      <DialogContent className="w-full">
         <div className="flex h-screen w-full items-start justify-end p-3">
           <div className="relative w-full max-w-[380px] rounded-[26px] border-2 border-primary bg-white text-left shadow-[7px_7px_15px_rgba(0,0,0,0.05)]">
             <div className="px-8 py-6">
