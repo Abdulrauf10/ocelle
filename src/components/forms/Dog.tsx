@@ -618,12 +618,16 @@ export default function DogForm({
         </div>
         {Array.isArray(errors.allergies) && errors.allergies.some((x) => x.type === 'conflict') && (
           <p className="mt-3 text-sm text-error">
-            You’ve indicated that [Charlie] has no allergies (“None!”) as well as allergies to [
-            {getValues('allergies')
-              .map((v: unknown, i: number) => (v ? allergiesOptions[i].label : v))
-              .filter((v: unknown, i: number) => !!v && i !== 0)
-              .join(', ')}
-            ]. Please recheck and re-enter your selection.
+            {t(
+              'You-ve-indicated-that-{}-has-no-allergies-None-as-well-as-allergies-to-{}-please-recheck-and-re-enter-your-selection',
+              {
+                name: watch('name'),
+                value: getValues('allergies')
+                  .map((v: unknown, i: number) => (v ? allergiesOptions[i].label : v))
+                  .filter((v: unknown, i: number) => !!v && i !== 0)
+                  .join(', '),
+              }
+            )}
           </p>
         )}
       </EditDogBlock>

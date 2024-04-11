@@ -112,13 +112,16 @@ export default function DogPreference2Fragment() {
             {Array.isArray(errors.allergies) &&
               errors.allergies.some((x) => x.type === 'conflict') && (
                 <p className="body-4 mx-auto mt-3 max-w-[360px] text-error">
-                  You’ve indicated that [Charlie] has no allergies (“None!”) as well as allergies to
-                  [
-                  {getValues('allergies')
-                    .map((v: unknown, i: number) => (v ? options[i].label : v))
-                    .filter((v: unknown, i: number) => !!v && i !== 0)
-                    .join(', ')}
-                  ]. Please recheck and re-enter your selection.
+                  {t(
+                    'You-ve-indicated-that-{}-has-no-allergies-None-as-well-as-allergies-to-{}-please-recheck-and-re-enter-your-selection',
+                    {
+                      name,
+                      value: getValues('allergies')
+                        .map((v: unknown, i: number) => (v ? options[i].label : v))
+                        .filter((v: unknown, i: number) => !!v && i !== 0)
+                        .join(', '),
+                    }
+                  )}
                 </p>
               )}
           </Section>

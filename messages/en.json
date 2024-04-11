@@ -463,5 +463,6 @@
   "thank-you-for-applying:description": "Your application for the {title} role has been successfully submitted. We’re excited to learn more about you and will be in touch if you move forward in the process.",
   "this-{}-doesn-t-look-correct-please-update-it": "This {name} doesn’t look correct, please update it.",
   "please-enter-a-valid-{}": "Please enter a valid {name}.",
-  "file-size-cannot-exceed-{}-mb": "File size cannot exceed {value} MB"
+  "file-size-cannot-exceed-{}-mb": "File size cannot exceed {value} MB",
+  "You-ve-indicated-that-{}-has-no-allergies-None-as-well-as-allergies-to-{}-please-recheck-and-re-enter-your-selection": "You’ve indicated that {name} has no allergies (“None!”) as well as allergies to {value}. Please recheck and re-enter your selection."
 }
