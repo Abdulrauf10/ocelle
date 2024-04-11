@@ -208,7 +208,7 @@ export default function DogForm({
     watch('isNeutered') === defaultValues.isNeutered &&
     watch('years') === defaultValues.years &&
     watch('months') === defaultValues.months &&
-    watch('dateOfBirth') === defaultValues.dateOfBirth &&
+    watch('dateOfBirth')?.getTime() === defaultValues.dateOfBirth?.getTime() &&
     watch('weight') === defaultValues.weight &&
     watch('bodyCondition') === defaultValues.bodyCondition &&
     watch('activityLevel') === defaultValues.activityLevel &&
