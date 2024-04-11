@@ -70,7 +70,7 @@ export function dogToSentence(t: useTranslationsReturn, dog: Dog) {
   return new Intl.ListFormat('en-US').format(strings) + t('dot');
 }
 
-export function AddressToSentence(t: useTranslationsReturn, address: UserAddressFragment) {
+export function addressToSentence(t: useTranslationsReturn, address: UserAddressFragment) {
   return [
     address.streetAddress1,
     address.streetAddress2,

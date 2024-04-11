@@ -6,11 +6,11 @@ import Button from '@/components/buttons/Button';
 import SectionBlock from './SectionBlock';
 import SectionHr from './SectionHr';
 import CollapseBlock from './CollapseBlock';
-import { getLoginedMe } from '@/actions';
+import { getLoginedMeFullSize } from '@/actions';
 import { getTranslations } from 'next-intl/server';
 import { MealPlan, OrderSize } from '@/enums';
 import { getRecipeSlug } from '@/helpers/dog';
-import { dogToSentence } from '@/helpers/translation';
+import { addressToSentence, dogToSentence } from '@/helpers/translation';
 
 function SectionTitle({ children }: React.PropsWithChildren) {
   return <strong className="text-lg text-gold">{children}</strong>;
@@ -18,7 +18,8 @@ function SectionTitle({ children }: React.PropsWithChildren) {
 
 export default async function Reactivate() {
   const t = await getTranslations();
-  const { orderSize, dogs } = await getLoginedMe();
+  const { orderSize, dogs, defaultShippingAddress, defaultBillingAddress } =
+    await getLoginedMeFullSize();
 
   return (
     <main className="bg-gold bg-opacity-10 py-10">
@@ -90,10 +91,10 @@ export default async function Reactivate() {
           </div>
           <SectionHr />
           <SectionTitle>{t('delivery')}</SectionTitle>
-          <p>[20/F, Golden Star Building, 20-24 Lockhart Road, Wanchai, Hong Kong]</p>
+          <p>{addressToSentence(t, defaultShippingAddress!)}</p>
           <SectionHr />
           <SectionTitle>{t('billing')}</SectionTitle>
-          <p>[20/F, Golden Star Building, 20-24 Lockhart Road, Wanchai, Hong Kong]</p>
+          <p>{addressToSentence(t, defaultBillingAddress!)}</p>
         </SectionBlock>
         <SectionBlock className="mt-8">
           <div className="item-center -mx-2 flex">

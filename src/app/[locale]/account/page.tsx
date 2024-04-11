@@ -10,7 +10,7 @@ import ClickableBlock from './ClickableBlock';
 import { getTranslations } from 'next-intl/server';
 import { getLoginedMeFullSize } from '@/actions';
 import clsx from 'clsx';
-import { AddressToSentence } from '@/helpers/translation';
+import { addressToSentence } from '@/helpers/translation';
 
 export default async function Account() {
   const t = await getTranslations();
@@ -49,13 +49,13 @@ export default async function Account() {
               <strong className="min-w-[82px] text-gold">
                 {t('{}-colon', { value: t('delivery') })}
               </strong>
-              <span className="w-full">{AddressToSentence(t, defaultShippingAddress!)}</span>
+              <span className="w-full">{addressToSentence(t, defaultShippingAddress!)}</span>
             </div>
             <div className="mt-3 flex max-xs:flex-wrap">
               <strong className="min-w-[82px] text-gold">
                 {t('{}-colon', { value: t('billing') })}
               </strong>
-              <span className="w-full">{AddressToSentence(t, defaultBillingAddress!)}</span>
+              <span className="w-full">{addressToSentence(t, defaultBillingAddress!)}</span>
             </div>
           </ClickableBlock>
           <ClickableBlock
