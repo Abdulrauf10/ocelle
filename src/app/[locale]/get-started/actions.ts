@@ -24,7 +24,7 @@ import {
 } from '@/gql/graphql';
 import { getCalendarEvents } from '@/helpers/calendar';
 import {
-  calculateRecipePerDayPrice,
+  calculateTotalPerDayPrice,
   calculateRecipeTotalPriceInBox,
   getClosestOrderDeliveryDate,
   getLifeStage,
@@ -66,26 +66,26 @@ export async function getMinPerDayPrice(
         })
       : [];
   return {
-    halfPlan: calculateRecipePerDayPrice(
+    halfPlan: calculateTotalPerDayPrice(
       breeds,
       new Date(dog.dateOfBirth),
       dog.isNeutered,
       dog.weight,
       dog.bodyCondition,
       dog.activityLevel,
-      { recipeToBeCalcuate: getTheCheapestRecipe() },
+      { recipe1: getTheCheapestRecipe() },
       MealPlan.Half,
       OrderSize.TwoWeek,
       true
     ),
-    fullPlan: calculateRecipePerDayPrice(
+    fullPlan: calculateTotalPerDayPrice(
       breeds,
       new Date(dog.dateOfBirth),
       dog.isNeutered,
       dog.weight,
       dog.bodyCondition,
       dog.activityLevel,
-      { recipeToBeCalcuate: getTheCheapestRecipe() },
+      { recipe1: getTheCheapestRecipe() },
       MealPlan.Full,
       OrderSize.TwoWeek,
       true
