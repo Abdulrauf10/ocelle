@@ -194,9 +194,9 @@ export default async function Plan() {
                           </div>
                           <div className="px-2 py-4">
                             <Image
-                              src={`/meal-plan/${getRecipeSlug(dog.plan.recipe1)}.jpg`}
+                              src={`/meal-plan/${getRecipeSlug(dog.plan.recipe2)}.jpg`}
                               alt={t('fresh-{}-recipe', {
-                                value: t(getRecipeSlug(dog.plan.recipe1)),
+                                value: t(getRecipeSlug(dog.plan.recipe2)),
                               })}
                               width={195}
                               height={195}
@@ -204,7 +204,7 @@ export default async function Plan() {
                             />
                             <p className="mt-2 text-center">
                               {t('fresh-{}-recipe', {
-                                value: t(getRecipeSlug(dog.plan.recipe1)),
+                                value: t(getRecipeSlug(dog.plan.recipe2)),
                               })}
                             </p>
                           </div>
