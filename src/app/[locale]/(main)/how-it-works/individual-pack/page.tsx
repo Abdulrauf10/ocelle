@@ -3,15 +3,11 @@ import Button from '@/components/buttons/Button';
 import Container from '@/components/Container';
 import Image from 'next/image';
 import Product from './Product';
-import { IndividualRecipePack, Recipe } from '@/enums';
+import { IndividualRecipePack } from '@/enums';
 import { getCartOrCheckout, getProducts } from './actions';
 import { getTranslations } from 'next-intl/server';
 import CartSection from './CartSection';
 import { CartContextProvider } from '@/contexts/cart';
-import { freshRecipe } from '@/helpers/translation';
-import { weightToGrams } from '@/helpers/saleor';
-import { ProductFragment } from '@/gql/graphql';
-import RecipeMediumDialog from '@/components/dialogs/RecipeMedium';
 import pluralize from 'pluralize';
 
 export default async function HowItWorksIndividual() {

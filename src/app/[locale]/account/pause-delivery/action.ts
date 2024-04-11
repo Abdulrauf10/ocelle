@@ -7,11 +7,11 @@ import { startOfDay } from 'date-fns';
 import Joi from 'joi';
 
 interface PauseDeliveriesAction {
-  deliveryDate: Date;
+  date: Date;
 }
 
 const schema = Joi.object<PauseDeliveriesAction>({
-  deliveryDate: Joi.date().required(),
+  date: Joi.date().required(),
 });
 
 export default async function pauseDeliveriesAction(data: PauseDeliveriesAction) {
@@ -21,7 +21,7 @@ export default async function pauseDeliveriesAction(data: PauseDeliveriesAction)
     throw new Error('schema is not valid');
   }
 
-  const deliveryDate = startOfDay(value.deliveryDate);
+  const deliveryDate = startOfDay(value.date);
   const me = await getLoginedMe();
 
   await executeQuery(async (queryRunner) => {

@@ -293,7 +293,6 @@ export default function GuestCheckoutForm({
                     initialDate={watch('deliveryDate')}
                     minDate={closestDeliveryDate}
                     shouldDisableDate={(day) => isUnavailableDeliveryDate(day, calendarEvents)}
-                    onCancel={() => setOpenDeliveryDate(false)}
                     action={async ({ date }) => {
                       setValue('deliveryDate', date);
                       setOpenDeliveryDate(false);

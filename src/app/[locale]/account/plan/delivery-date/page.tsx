@@ -1,14 +1,19 @@
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import { getTranslations } from 'next-intl/server';
-import DeliveryDateForm from '@/components/forms/DeliveryDate';
 import setDeliveryDateAction from './action';
 import BackButton from '@/components/buttons/BackButton';
 import { getLoginedMe } from '@/actions';
+import { getCalendarEvents } from '@/helpers/calendar';
+import { getClosestOrderDeliveryDate } from '@/helpers/dog';
+import DeliveryDatePickerForm from '@/components/forms/DeliveryDatePicker';
+import DeliveryDatePickerDialog from '@/components/dialogs/DeliveryDatePicker';
 
 export default async function PlanDeliveryDate() {
   const { dogs } = await getLoginedMe();
   const t = await getTranslations();
+  const calendarEvents = await getCalendarEvents();
+  const closestDeliveryDate = getClosestOrderDeliveryDate(calendarEvents);
 
   return (
     <main className="bg-gold bg-opacity-10 py-10">
@@ -28,10 +33,14 @@ export default async function PlanDeliveryDate() {
           })}
         </p>
         <div className="mt-8 text-center">
-          <Button>{t('reschedule-next-box')}</Button>
-        </div>
-        <div className="mt-8">
-          <DeliveryDateForm initialDate={new Date()} action={setDeliveryDateAction} />
+          <DeliveryDatePickerDialog
+            initialDate={new Date()}
+            minDate={closestDeliveryDate}
+            calendarEvents={calendarEvents}
+            action={setDeliveryDateAction}
+          >
+            <Button>{t('reschedule-next-box')}</Button>
+          </DeliveryDatePickerDialog>
         </div>
         <div className="mt-8 text-center">
           <BackButton label={t('go-back')} />
