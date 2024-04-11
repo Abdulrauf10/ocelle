@@ -2,7 +2,7 @@ import React from 'react';
 import Stage from '../Stage';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import { applyCoupon, finalizeCheckout, updateCheckoutData } from '../actions';
-import SubscriptionCheckoutForm from '@/components/forms/SubscriptionCheckoutForm';
+import SubscriptionCheckoutForm from '@/components/forms/SubscriptionCheckout';
 import { useSurvey } from '../SurveyContext';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
