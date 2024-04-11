@@ -541,3 +541,106 @@ export function calculateRecipePerDayPrice(
   console.log('recipeTotalPriceInBox', recipeTotalPriceInBox);
   return recipeTotalPriceInBox / (transitionPeriodDays + normalDays);
 }
+
+export function calculateTotalPriceInBox(
+  breeds: BreedDto[],
+  dateOfBirth: Date,
+  neutered: boolean,
+  currentWeight: number,
+  condition: BodyCondition,
+  activityLevel: ActivityLevel,
+  recipes: { recipe1: Recipe; recipe2?: Recipe },
+  plan: MealPlan,
+  orderSize: OrderSize,
+  transitionPeriod: boolean
+) {
+  const recipe1Price = calculateRecipeTotalPriceInBox(
+    breeds,
+    dateOfBirth,
+    neutered,
+    currentWeight,
+    condition,
+    activityLevel,
+    { recipeToBeCalcuate: recipes.recipe1, recipeReference: recipes.recipe2 },
+    plan,
+    orderSize,
+    transitionPeriod
+  );
+  if (!recipes.recipe2) {
+    return recipe1Price;
+  }
+  return (
+    recipe1Price +
+    calculateRecipeTotalPriceInBox(
+      breeds,
+      dateOfBirth,
+      neutered,
+      currentWeight,
+      condition,
+      activityLevel,
+      { recipeToBeCalcuate: recipes.recipe2, recipeReference: recipes.recipe1 },
+      plan,
+      orderSize,
+      transitionPeriod
+    )
+  );
+}
+
+export function calculateTotalPerDayPrice(
+  breeds: BreedDto[],
+  dateOfBirth: Date,
+  neutered: boolean,
+  currentWeight: number,
+  condition: BodyCondition,
+  activityLevel: ActivityLevel,
+  recipes: { recipe1: Recipe; recipe2?: Recipe },
+  plan: MealPlan,
+  orderSize: OrderSize,
+  transitionPeriod: boolean
+) {
+  const recipe1Days = calculateTotalDaysInBox(
+    { recipeToBeCalcuate: recipes.recipe1, recipeReference: recipes.recipe2 },
+    orderSize,
+    transitionPeriod
+  );
+  const recipe1TotalPriceInBox = calculateRecipeTotalPriceInBox(
+    breeds,
+    dateOfBirth,
+    neutered,
+    currentWeight,
+    condition,
+    activityLevel,
+    { recipeToBeCalcuate: recipes.recipe1, recipeReference: recipes.recipe2 },
+    plan,
+    orderSize,
+    transitionPeriod
+  );
+  const recipe1PerDayPrice =
+    recipe1TotalPriceInBox / (recipe1Days.transitionPeriodDays + recipe1Days.normalDays);
+
+  if (!recipes.recipe2) {
+    return recipe1PerDayPrice;
+  }
+
+  const recipe2Days = calculateTotalDaysInBox(
+    { recipeToBeCalcuate: recipes.recipe2, recipeReference: recipes.recipe1 },
+    orderSize,
+    transitionPeriod
+  );
+  const recipe2TotalPriceInBox = calculateRecipeTotalPriceInBox(
+    breeds,
+    dateOfBirth,
+    neutered,
+    currentWeight,
+    condition,
+    activityLevel,
+    { recipeToBeCalcuate: recipes.recipe2, recipeReference: recipes.recipe1 },
+    plan,
+    orderSize,
+    transitionPeriod
+  );
+  const recipe2PerDayPrice =
+    recipe1TotalPriceInBox / (recipe2Days.transitionPeriodDays + recipe2Days.normalDays);
+
+  return recipe1PerDayPrice + recipe2PerDayPrice;
+}

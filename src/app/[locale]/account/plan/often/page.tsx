@@ -5,7 +5,7 @@ import { getLoginedMe } from '@/actions';
 import setOrderSizeAction from './action';
 import OrderSizeForm from '@/components/forms/OrderSize';
 import BackButton from '@/components/buttons/BackButton';
-import { calculateRecipePerDayPrice } from '@/helpers/dog';
+import { calculateTotalPerDayPrice } from '@/helpers/dog';
 import { OrderSize } from '@/enums';
 
 export default async function PlanOften() {
@@ -16,14 +16,14 @@ export default async function PlanOften() {
     dogs.reduce((price, dog) => {
       return (
         price +
-        calculateRecipePerDayPrice(
+        calculateTotalPerDayPrice(
           dog.breeds.map(({ breed }) => breed),
           new Date(dog.dateOfBirth),
           dog.isNeutered,
           dog.weight,
           dog.bodyCondition,
           dog.activityLevel,
-          { recipeToBeCalcuate: dog.plan.recipe1, recipeReference: dog.plan.recipe2 },
+          { recipe1: dog.plan.recipe1, recipe2: dog.plan.recipe2 },
           dog.plan.mealPlan,
           OrderSize.OneWeek,
           false
@@ -35,14 +35,14 @@ export default async function PlanOften() {
     dogs.reduce((price, dog) => {
       return (
         price +
-        calculateRecipePerDayPrice(
+        calculateTotalPerDayPrice(
           dog.breeds.map(({ breed }) => breed),
           new Date(dog.dateOfBirth),
           dog.isNeutered,
           dog.weight,
           dog.bodyCondition,
           dog.activityLevel,
-          { recipeToBeCalcuate: dog.plan.recipe1, recipeReference: dog.plan.recipe2 },
+          { recipe1: dog.plan.recipe1, recipe2: dog.plan.recipe2 },
           dog.plan.mealPlan,
           OrderSize.TwoWeek,
           false
