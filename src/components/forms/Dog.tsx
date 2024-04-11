@@ -248,6 +248,8 @@ export default function DogForm({
               loading={breedLoading}
               onOpen={fetchBreeds}
               getOptionLabel={(option) => option.name}
+              freeSolo={false}
+              getOptionDisabled={(option) => watch('breeds').length > 1}
               isOptionEqualToValue={(option, value) => option.id === value.id}
               renderInput={(params) => (
                 <TextField
@@ -615,7 +617,7 @@ export default function DogForm({
           })}
         </div>
         {Array.isArray(errors.allergies) && errors.allergies.some((x) => x.type === 'conflict') && (
-          <p className="mx-auto mt-3 max-w-[360px] text-sm text-error">
+          <p className="mt-3 text-sm text-error">
             You’ve indicated that [Charlie] has no allergies (“None!”) as well as allergies to [
             {getValues('allergies')
               .map((v: unknown, i: number) => (v ? allergiesOptions[i].label : v))
