@@ -134,7 +134,7 @@ export const DialogContent = React.forwardRef<HTMLDivElement, React.HTMLProps<HT
             <div
               ref={ref}
               {...context.getFloatingProps(baseProps)}
-              className={clsx('mx-auto inline-block w-full align-middle', className)}
+              className={clsx('mx-auto inline-block max-w-full align-middle', className)}
             >
               {children}
             </div>

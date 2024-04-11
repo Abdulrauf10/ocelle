@@ -49,7 +49,7 @@ export default function DeliveryDatePickerDialog({
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="w-auto">
+      <DialogContent>
         <PickerWrapper
           initialDate={initialDate}
           minDate={minDate}
