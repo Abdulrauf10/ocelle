@@ -30,6 +30,12 @@ interface DogDto {
   isEnabledTransitionPeriod: boolean;
 }
 
+interface DogPlanDto {
+  id: number;
+  name: string;
+  enabled: boolean;
+}
+
 interface MinPricesDto {
   halfPlan: number;
   fullPlan: number;
@@ -47,4 +53,4 @@ interface BreedDto {
   uid: string;
 }
 
-export type { DogDto, MinPricesDto, CartReturn, BreedDto };
+export type { DogDto, MinPricesDto, CartReturn, BreedDto, DogPlanDto };
