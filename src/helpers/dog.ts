@@ -100,12 +100,10 @@ export function getClosestDeliveryDateByDate(currentDate = new Date(), events: C
     1, // D + delivery
   ];
 
-  // production as a block
   while (isNotProductionDate(addDays(currentDate, dates[0]), events)) {
     dates[0] += 1;
   }
 
-  // production as a block
   while (isNotProductionDate(addDays(currentDate, dates[0] + dates[1]), events)) {
     dates[1] += 1;
   }
