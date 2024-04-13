@@ -15,6 +15,7 @@ import {
   differenceInYears,
   getDay,
   startOfDay,
+  subDays,
   subMonths,
   subYears,
 } from 'date-fns';
@@ -135,12 +136,45 @@ export function getClosestOrderDeliveryDate(events: CalendarEvent[]) {
   return getClosestDeliveryDateByDate(addDays(new Date(), 1), events);
 }
 
-export function getEditableDeliveryDateDeadline(orderDate: Date) {
-  //
-}
+export function getEditableRecurringBoxDeadline(
+  events: CalendarEvent[],
+  scheduledDeliveryDate: Date
+) {
+  const dates = [
+    1, // The box should be delivered before one day of the holiday / the next box start date
+    1, // D + delivery
+    1, // D + pick up
+    1, // D + production
+    1, // D + production
+  ];
 
-export function calculateDeliveryDates(currentDate = new Date()) {
-  //
+  while (isNotProductionDate(subDays(scheduledDeliveryDate, dates[0]), events)) {
+    dates[0] += 1;
+  }
+
+  // pick up + delivery stick together
+  while (
+    isNotProductionDate(subDays(scheduledDeliveryDate, dates[0] + dates[1] + dates[2]), events)
+  ) {
+    dates[2] += 1;
+  }
+
+  const _days = dates[0] + dates[1] + dates[2];
+
+  while (isUnavailableDeliveryDate(subDays(scheduledDeliveryDate, _days + dates[3]), events)) {
+    dates[3] += 1;
+  }
+
+  while (isUnavailableDeliveryDate(subDays(scheduledDeliveryDate, _days + dates[4]), events)) {
+    dates[4] += 1;
+  }
+
+  console.debug('get editable recurring box deadline', dates);
+
+  return subDays(
+    startOfDay(scheduledDeliveryDate),
+    dates.reduce((sum, a) => sum + a, 0)
+  );
 }
 
 function isExactSize(breeds: BreedDto[], sizes: Array<BreedSize>) {
