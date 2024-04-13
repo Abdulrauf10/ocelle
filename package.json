@@ -22,7 +22,7 @@
     "migration:revert": "npm run typeorm:mysql -- migration:revert"
   },
   "dependencies": {
-    "@dotenvx/dotenvx": "^0.26.0",
+    "@dotenvx/dotenvx": "^0.32.0",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@floating-ui/react": "^0.26.5",
