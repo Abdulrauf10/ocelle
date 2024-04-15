@@ -8,11 +8,16 @@ import DogSwitch from '../DogSwitch';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import { getTranslations } from 'next-intl/server';
 import { MealPlan, OrderSize } from '@/enums';
-import { getRecipeSlug } from '@/helpers/dog';
+import { getEditableRecurringBoxDeadline, getRecipeSlug } from '@/helpers/dog';
 import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import { dogToSentence } from '@/helpers/translation';
 import { cookies } from 'next/headers';
 import { DOG_SELECT_COOKIE } from '@/consts';
+import { executeQuery } from '@/helpers/queryRunner';
+import { RecurringBox } from '@/entities';
+import { IsNull, Not } from 'typeorm';
+import { formatDate } from '@/helpers/date';
+import { getCalendarEvents } from '@/helpers/calendar';
 
 export default async function Plan() {
   const cookie = cookies();
@@ -21,10 +26,28 @@ export default async function Plan() {
     'max-md:border-brown max-md:rounded-[30px] max-md:border max-md:bg-white max-md:p-6 max-md:shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] mx-auto'
   );
   const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
+  const calendarEvents = await getCalendarEvents();
   const { dogs, firstName, orderSize } = await getLoginedMe();
   const dog = currentSelectedDogId
     ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
     : dogs[0];
+  const { upcomingBox } = await executeQuery(async (queryRunner) => {
+    return {
+      upcomingBox: await queryRunner.manager.findOne(RecurringBox, {
+        where: {
+          dog: { id: dog.id },
+          order: Not(IsNull()),
+        },
+        relations: {
+          shipment: true,
+        },
+      }),
+    };
+  });
+
+  if (!upcomingBox) {
+    throw new Error('upcoming box not found');
+  }
 
   return (
     <AppThemeProvider>
@@ -105,7 +128,7 @@ export default async function Plan() {
                   <div className="max-w-[280px]">
                     <p className="mt-3">
                       {t.rich('upcoming-box-arrives-by-the-{}', {
-                        date: '[15th of December 2023]',
+                        date: formatDate(t, upcomingBox.shipment.deliveryDate, true),
                         span: (chunks) => (
                           <span className="whitespace-nowrap font-bold text-brown">{chunks}</span>
                         ),
@@ -120,7 +143,14 @@ export default async function Plan() {
                     </div>
                     <p className="mt-3">
                       {t.rich('you-can-make-changes-until-the-{}', {
-                        date: '10th of December 2023',
+                        date: formatDate(
+                          t,
+                          getEditableRecurringBoxDeadline(
+                            calendarEvents,
+                            upcomingBox.shipment.deliveryDate
+                          ),
+                          true
+                        ),
                         b: (chunks) => <b className="text-brown">{chunks}</b>,
                       })}
                     </p>

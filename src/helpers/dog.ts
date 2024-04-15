@@ -141,6 +141,37 @@ export function getEditableRecurringBoxDeadline(
   scheduledDeliveryDate: Date
 ) {
   const dates = [
+    1, // D + delivery
+    1, // D + pick up
+    1, // D + production
+    1, // D + production
+  ];
+
+  // pick up + delivery stick together
+  while (isNotProductionDate(subDays(scheduledDeliveryDate, dates[0] + dates[1]), events)) {
+    dates[1] += 1;
+  }
+
+  const _days = dates[0] + dates[1];
+
+  while (isUnavailableDeliveryDate(subDays(scheduledDeliveryDate, _days + dates[2]), events)) {
+    dates[2] += 1;
+  }
+
+  while (isUnavailableDeliveryDate(subDays(scheduledDeliveryDate, _days + dates[3]), events)) {
+    dates[3] += 1;
+  }
+
+  console.debug('get editable recurring box deadline', dates);
+
+  return subDays(
+    startOfDay(scheduledDeliveryDate),
+    dates.reduce((sum, a) => sum + a, 0)
+  );
+}
+
+export function getEditableRecurringBoxDeadlineByBox(events: CalendarEvent[], boxStartDate: Date) {
+  const dates = [
     1, // The box should be delivered before one day of the holiday / the next box start date
     1, // D + delivery
     1, // D + pick up
@@ -148,31 +179,29 @@ export function getEditableRecurringBoxDeadline(
     1, // D + production
   ];
 
-  while (isNotProductionDate(subDays(scheduledDeliveryDate, dates[0]), events)) {
+  while (isNotProductionDate(subDays(boxStartDate, dates[0]), events)) {
     dates[0] += 1;
   }
 
   // pick up + delivery stick together
-  while (
-    isNotProductionDate(subDays(scheduledDeliveryDate, dates[0] + dates[1] + dates[2]), events)
-  ) {
+  while (isNotProductionDate(subDays(boxStartDate, dates[0] + dates[1] + dates[2]), events)) {
     dates[2] += 1;
   }
 
   const _days = dates[0] + dates[1] + dates[2];
 
-  while (isUnavailableDeliveryDate(subDays(scheduledDeliveryDate, _days + dates[3]), events)) {
+  while (isUnavailableDeliveryDate(subDays(boxStartDate, _days + dates[3]), events)) {
     dates[3] += 1;
   }
 
-  while (isUnavailableDeliveryDate(subDays(scheduledDeliveryDate, _days + dates[4]), events)) {
+  while (isUnavailableDeliveryDate(subDays(boxStartDate, _days + dates[4]), events)) {
     dates[4] += 1;
   }
 
-  console.debug('get editable recurring box deadline', dates);
+  console.debug('get editable recurring box deadline (box start date)', dates);
 
   return subDays(
-    startOfDay(scheduledDeliveryDate),
+    startOfDay(boxStartDate),
     dates.reduce((sum, a) => sum + a, 0)
   );
 }
