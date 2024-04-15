@@ -7,12 +7,20 @@ type LoginedMeReturn = Awaited<ReturnType<typeof getClientLoginedMe>>;
 
 interface AuthContextProps {
   me?: LoginedMeReturn;
+  logout(): Promise<void>;
 }
 
 const AuthContext = React.createContext<AuthContextProps | undefined>(undefined);
 
-export function AuthProvider({ me, children }: React.PropsWithChildren<{ me?: LoginedMeReturn }>) {
-  const values = React.useMemo(() => ({ me }), [me]);
+export function AuthProvider({
+  me,
+  logout,
+  children,
+}: React.PropsWithChildren<{
+  me?: LoginedMeReturn;
+  logout(): Promise<void>;
+}>) {
+  const values = React.useMemo(() => ({ me, logout }), [me, logout]);
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 }

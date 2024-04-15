@@ -30,7 +30,7 @@ export default function Header({
   const locale = useLocale();
   const t = useTranslations();
   const pathname = usePathname();
-  const { me } = useAuth();
+  const { me, logout } = useAuth();
   const [isOpened, setIsOpened] = React.useState(false);
 
   React.useLayoutEffect(() => {
@@ -72,6 +72,16 @@ export default function Header({
             {(!disableLanguageSwitch || !disableGetStartedButton) && (
               <div className="relative z-10 px-2">
                 <div className="-m-2 flex flex-nowrap items-center whitespace-nowrap max-lg:flex-col">
+                  {!disableLoginButton && me && (
+                    <div className="p-2 lg:hidden">
+                      <button
+                        className="whitespace-nowrap hover:underline"
+                        onClick={() => logout()}
+                      >
+                        {t('log-out')}
+                      </button>
+                    </div>
+                  )}
                   {!disableLanguageSwitch && (
                     <div className="p-2">
                       <div className="-mx-3 flex [&_a:hover]:text-primary [&_a:hover]:underline">
@@ -119,6 +129,13 @@ export default function Header({
                 {t('log-in')}
               </Link>
             )}
+          </div>
+        )}
+        {!disableLoginButton && me && (
+          <div className="px-2 max-lg:hidden">
+            <button className="whitespace-nowrap hover:underline" onClick={() => logout()}>
+              {t('log-out')}
+            </button>
           </div>
         )}
 

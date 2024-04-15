@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { AuthProvider } from '@/contexts/auth';
 import '../globals.css';
 import IntlProvider from '@/providers/intl';
-import { getClientLoginedMe } from '@/actions';
+import { getClientLoginedMe, logout } from '@/actions';
 
 const jost = Jost({ subsets: ['latin'], variable: '--font-jost' });
 const openSans = Open_Sans({
@@ -38,7 +38,9 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={clsx(jost.className, jost.variable, openSans.variable)}>
         <IntlProvider locale={locale} messages={messages}>
-          <AuthProvider me={me}>{children}</AuthProvider>
+          <AuthProvider me={me} logout={logout}>
+            {children}
+          </AuthProvider>
         </IntlProvider>
       </body>
     </html>
