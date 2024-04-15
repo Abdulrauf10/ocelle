@@ -29,7 +29,7 @@ export default class RecurringBox {
   endDate!: Date;
 
   @ManyToOne(() => Order, (order) => order.boxs)
-  order!: Relation<Order>;
+  order?: Relation<Order>;
 
   @ManyToOne(() => Shipment, (shipment) => shipment.boxs)
   shipment!: Relation<Shipment>;
