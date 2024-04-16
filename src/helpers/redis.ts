@@ -117,7 +117,7 @@ export async function getCheckoutPaymentIntent(checkoutId: string) {
   return value;
 }
 
-export async function setCheckoutPaymentIntent(checkoutId: string, paymentIntent: string) {
+export async function setCheckoutPaymentIntent(checkoutId: string, paymentIntent?: string) {
   const k = `${process.env.REDIS_PREFIX}:checkout:paymentIntent:${checkoutId}`;
   if (!paymentIntent) {
     return createRedisClient().del(k);
