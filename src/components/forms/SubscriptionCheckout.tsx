@@ -106,7 +106,7 @@ export default function SubscriptionCheckoutForm({
   onEditRecipes(): void;
   onEditTransitionPeriod(): void;
   onBeforeTransaction(data: ISubscriptionCheckoutFormAction): Promise<void>;
-  onCompleteTransaction(): Promise<void>;
+  onCompleteTransaction(paymentMethodId: string): Promise<void>;
 }) {
   const stripe = useStripe();
   const elements = useElements();
@@ -153,7 +153,7 @@ export default function SubscriptionCheckoutForm({
           throw new Error('cannot find card element');
         }
         const address = values.isSameBillingAddress ? values.deliveryAddress : billingAddress!;
-        const { error } = await stripe.confirmCardPayment(clientSecret, {
+        const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
           payment_method: {
             card,
             billing_details: {
@@ -186,7 +186,11 @@ export default function SubscriptionCheckoutForm({
           }
           return;
         }
-        await onCompleteTransaction();
+        const paymentMethodId =
+          typeof paymentIntent.payment_method === 'string'
+            ? paymentIntent.payment_method
+            : paymentIntent.payment_method!.id;
+        await onCompleteTransaction(paymentMethodId);
       } catch (e) {
         console.error(e);
       } finally {

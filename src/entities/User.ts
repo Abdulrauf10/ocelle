@@ -16,6 +16,12 @@ export default class User {
   @Column()
   isDeliveryUsAsBillingAddress!: boolean;
 
+  @Column({ nullable: true })
+  stripe?: string; // linked stripe customer id
+
+  @Column({ nullable: true })
+  stripePaymentMethod?: string; // linked stripe payment method id
+
   @OneToMany(() => Dog, (dog) => dog.user)
   dogs!: Relation<Dog>[];
 }

@@ -16,6 +16,7 @@ import {
 import { DataSource } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { Initial1712556909513 } from '@/migrations/1712556909513-initial';
+import { StripeIntegration1713263142208 } from '@/migrations/1713263142208-stripe-integration';
 
 dotenv.config();
 
@@ -43,7 +44,7 @@ const MySQL = new DataSource({
     Shipment,
     User,
   ],
-  migrations: [Initial1712556909513],
+  migrations: [Initial1712556909513, StripeIntegration1713263142208],
 });
 
 export default MySQL;

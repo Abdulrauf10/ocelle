@@ -58,6 +58,7 @@
     "reflect-metadata": "^0.2.1",
     "sharp": "^0.33.2",
     "store2": "^2.14.3",
+    "stripe": "^15.1.0",
     "swiper": "^11.0.5",
     "ts-invariant": "^0.10.3",
     "typeorm": "^0.3.19",

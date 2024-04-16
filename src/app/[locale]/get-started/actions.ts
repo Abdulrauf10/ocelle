@@ -40,11 +40,19 @@ import {
   getCheckoutDeliveryDate,
   getCheckoutDogs,
   getCheckoutOrderSize,
+  getCheckoutPaymentIntent,
   setCheckoutDeliveryDate,
   setCheckoutDogs,
   setCheckoutEmail,
   setCheckoutOrderSize,
+  setCheckoutPaymentIntent,
 } from '@/helpers/redis';
+import {
+  attachPaymentMethod,
+  createCustomer,
+  retrivePaymentIntent,
+  updatePaymentIntent,
+} from '@/helpers/stripe';
 import { redirect } from '@/navigation';
 import { subscriptionProducts } from '@/products';
 import { DogDto, MinPricesDto } from '@/types/dto';
@@ -327,7 +335,16 @@ export async function initializeStripeTranscation() {
     throw new Error('cannot initialize transaction');
   }
 
-  return transactionInitialize.data;
+  const data = transactionInitialize.data as {
+    paymentIntent: { client_secret: string };
+    publishableKey: string;
+  };
+
+  const paymentIntent = await retrivePaymentIntent(data.paymentIntent.client_secret);
+
+  await setCheckoutPaymentIntent(checkout.id, paymentIntent.id);
+
+  return data;
 }
 
 export async function applyCoupon({ coupon }: { coupon: string }) {
@@ -388,25 +405,26 @@ async function findOrCreateUser(
 
   const saleorUser = await getSaleorUser();
 
-  await executeQuery(async (queryRunner) => {
+  const user = await executeQuery(async (queryRunner) => {
     const entity = await queryRunner.manager.findOne(User, { where: { id: saleorUser.id } });
 
     if (!entity) {
-      await queryRunner.manager.save(
-        queryRunner.manager.create(User, {
-          id: saleorUser.id,
-          phone,
-          orderSize: OrderSize.TwoWeek,
-          isDeliveryUsAsBillingAddress,
-        })
-      );
+      const user = queryRunner.manager.create(User, {
+        id: saleorUser.id,
+        phone,
+        orderSize: OrderSize.TwoWeek,
+        isDeliveryUsAsBillingAddress,
+      });
+      await queryRunner.manager.save(user);
+      return user;
     } else {
       entity.isDeliveryUsAsBillingAddress = isDeliveryUsAsBillingAddress;
       await queryRunner.manager.save(entity);
+      return entity;
     }
   });
 
-  return saleorUser;
+  return { ...saleorUser, ...user };
 }
 
 interface Address {
@@ -470,8 +488,13 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
   }
 
   const checkout = await getCheckout();
+  const paymentIntent = await getCheckoutPaymentIntent(checkout.id);
 
   const calendarEvents = await getCalendarEvents();
+
+  if (!paymentIntent) {
+    throw new Error('payment intent not found');
+  }
 
   if (
     isUnavailableDeliveryDate(value.deliveryDate, calendarEvents) ||
@@ -559,9 +582,19 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
     checkoutBillingAddressUpdate && console.error(checkoutBillingAddressUpdate.errors);
     throw new Error('checkout address update failed');
   }
+
+  // link stripe customer to user
+  if (user.stripe) {
+    await updatePaymentIntent(paymentIntent, { customer: user.stripe });
+  } else {
+    const cus = await createCustomer({ email: value.email });
+    await executeQuery(async (queryRunner) => {
+      await queryRunner.manager.update(User, user.id, { stripe: cus.id });
+    });
+  }
 }
 
-export async function finalizeCheckout() {
+export async function finalizeCheckout(paymentMethodId: string) {
   try {
     const checkout = await getCheckout();
     const orderSize = await getCheckoutOrderSize(checkout.id);
@@ -639,6 +672,14 @@ export async function finalizeCheckout() {
       if (!user) {
         throw new Error('user cannot find in database records');
       }
+
+      if (!user.stripe) {
+        throw new Error('user is not linked with stripe');
+      }
+
+      await attachPaymentMethod(paymentMethodId, user.stripe);
+
+      await queryRunner.manager.update(User, user.id, { stripePaymentMethod: paymentMethodId });
 
       // create dogs
       const dogs = surveyDogs.map((dog) =>
