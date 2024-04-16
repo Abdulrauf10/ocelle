@@ -36,9 +36,13 @@ import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
 import {
-  getSubscriptionCheckoutParameters,
-  setSubscriptionCheckoutParameters,
-  upsertSubscriptionCheckoutParameters,
+  getCheckoutDeliveryDate,
+  getCheckoutDogs,
+  getCheckoutOrderSize,
+  setCheckoutDeliveryDate,
+  setCheckoutDogs,
+  setCheckoutEmail,
+  setCheckoutOrderSize,
 } from '@/helpers/redis';
 import { redirect } from '@/navigation';
 import { subscriptionProducts } from '@/products';
@@ -260,7 +264,8 @@ export async function createCheckout(orderSize: OrderSize, dogs: DogDto[]) {
     throw new Error('stripe is currently not available');
   }
 
-  await setSubscriptionCheckoutParameters(checkout.id, orderSize, dogs);
+  await setCheckoutOrderSize(checkout.id, orderSize);
+  await setCheckoutDogs(checkout.id, dogs);
 
   await setCheckoutCookie(checkout.id);
 
@@ -474,10 +479,8 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
     throw new Error('delivery date is unavailable');
   }
 
-  await upsertSubscriptionCheckoutParameters(checkout.id, {
-    email: value.email,
-    deliveryDate: value.deliveryDate,
-  });
+  await setCheckoutEmail(checkout.id, value.email);
+  await setCheckoutDeliveryDate(checkout.id, value.deliveryDate);
 
   const user = await findOrCreateUser(
     value.firstName,
@@ -560,7 +563,9 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
 export async function finalizeCheckout() {
   try {
     const checkout = await getCheckout();
-    const params = await getSubscriptionCheckoutParameters(checkout.id);
+    const orderSize = await getCheckoutOrderSize(checkout.id);
+    const surveyDogs = await getCheckoutDogs(checkout.id);
+    const deliveryDate = await getCheckoutDeliveryDate(checkout.id);
 
     console.dir(checkout, { depth: null });
 
@@ -568,14 +573,10 @@ export async function finalizeCheckout() {
       throw new Error('there have no available shipping method');
     }
 
-    if (
-      // checkout.authorizeStatus !== CheckoutAuthorizeStatusEnum.Full ||
-      params === null ||
-      params.deliveryDate === undefined
-    ) {
+    if (orderSize === null || deliveryDate === null || surveyDogs === null) {
       throw new Error(
         'receive incompleted checkout, reason: ' +
-          (params === null || params.deliveryDate === undefined
+          (orderSize === null || deliveryDate === null || surveyDogs === null
             ? 'params not available'
             : 'checkout is not authorized')
       );
@@ -639,7 +640,7 @@ export async function finalizeCheckout() {
       }
 
       // create dogs
-      const dogs = params.dogs.map((dog) =>
+      const dogs = surveyDogs.map((dog) =>
         queryRunner.manager.create(Dog, {
           name: dog.name,
           sex: dog.gender,
@@ -662,8 +663,8 @@ export async function finalizeCheckout() {
       const breeds = [];
       for (let i = 0; i < dogs.length; i++) {
         const dog = dogs[i];
-        if (params.dogs[i].breeds) {
-          for (const breed of params.dogs[i].breeds!) {
+        if (surveyDogs[i].breeds) {
+          for (const breed of surveyDogs[i].breeds!) {
             breeds.push(queryRunner.manager.create(DogBreed, { dog, breedId: breed }));
           }
         }
@@ -674,15 +675,14 @@ export async function finalizeCheckout() {
       const plans = [];
       for (let i = 0; i < dogs.length; i++) {
         const dog = dogs[i];
-        const paramsDog = params.dogs[i];
         plans.push(
           queryRunner.manager.create(DogPlan, {
-            mealPlan: paramsDog.mealPlan,
-            recipe1: paramsDog.recipe1,
-            recipe2: paramsDog.recipe2,
-            isEnabledTransitionPeriod: paramsDog.isEnabledTransitionPeriod,
+            mealPlan: surveyDogs[i].mealPlan,
+            recipe1: surveyDogs[i].recipe1,
+            recipe2: surveyDogs[i].recipe2,
+            isEnabledTransitionPeriod: surveyDogs[i].isEnabledTransitionPeriod,
             startDate: addDays(startOfDay(new Date()), 1),
-            lastDeliveryDate: params.deliveryDate,
+            lastDeliveryDate: deliveryDate,
             isEnabled: true,
             dog,
           })
@@ -690,9 +690,7 @@ export async function finalizeCheckout() {
       }
       await queryRunner.manager.save(plans);
 
-      const shipment = queryRunner.manager.create(Shipment, {
-        deliveryDate: params.deliveryDate,
-      });
+      const shipment = queryRunner.manager.create(Shipment, { deliveryDate });
       await queryRunner.manager.save(shipment);
 
       // create order
@@ -705,14 +703,13 @@ export async function finalizeCheckout() {
       const recurringRecords = [];
       for (let i = 0; i < dogs.length; i++) {
         const dog = dogs[i];
-        const paramsDog = params.dogs[i];
         recurringRecords.push(
           queryRunner.manager.create(RecurringBox, {
-            mealPlan: paramsDog.mealPlan,
-            orderSize: params.orderSize,
-            recipe1: paramsDog.recipe1,
-            recipe2: paramsDog.recipe2,
-            isTransitionPeriod: paramsDog.isEnabledTransitionPeriod,
+            mealPlan: surveyDogs[i].mealPlan,
+            orderSize: orderSize,
+            recipe1: surveyDogs[i].recipe1,
+            recipe2: surveyDogs[i].recipe2,
+            isTransitionPeriod: surveyDogs[i].isEnabledTransitionPeriod,
             startDate: addDays(startOfDay(new Date()), 1),
             endDate: addDays(startOfDay(new Date()), 1 + 14), // must be two weeks box
             dog,
@@ -739,13 +736,9 @@ export async function getDeliveryDate() {
     return undefined;
   }
 
-  const params = await getSubscriptionCheckoutParameters(id);
+  const deliveryDate = await getCheckoutDeliveryDate(id);
 
-  if (!params) {
-    return undefined;
-  }
-
-  return params.deliveryDate;
+  return deliveryDate ?? undefined;
 }
 
 export async function dropCheckoutSession() {

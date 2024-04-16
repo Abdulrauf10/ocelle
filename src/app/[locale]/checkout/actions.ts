@@ -20,7 +20,7 @@ import { getCalendarEvents } from '@/helpers/calendar';
 import { getClosestOrderDeliveryDate, isUnavailableDeliveryDate } from '@/helpers/dog';
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
-import { getIndividualCheckoutParameters, setIndividualCheckoutParameters } from '@/helpers/redis';
+import { getCheckoutDeliveryDate, setCheckoutDeliveryDate } from '@/helpers/redis';
 import { redirect } from '@/navigation';
 import { CartReturn } from '@/types/dto';
 import { startOfDay } from 'date-fns';
@@ -249,7 +249,7 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
     throw new Error('delivery date is unavailable');
   }
 
-  await setIndividualCheckoutParameters(checkout.id, value.deliveryDate);
+  await setCheckoutDeliveryDate(checkout.id, value.deliveryDate);
 
   const { checkoutEmailUpdate } = await executeGraphQL(UpdateCheckoutEmailDocument, {
     variables: {
@@ -353,13 +353,13 @@ export async function getDeliveryDate() {
     return undefined;
   }
 
-  const params = await getIndividualCheckoutParameters(id);
+  const deliveryDate = await getCheckoutDeliveryDate(id);
 
-  if (!params) {
+  if (!deliveryDate) {
     return undefined;
   }
 
-  return params.deliveryDate;
+  return deliveryDate;
 }
 
 export async function dropCheckoutSession() {
