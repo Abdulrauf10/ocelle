@@ -124,3 +124,11 @@ export async function setCheckoutPaymentIntent(checkoutId: string, paymentIntent
   }
   return createRedisClient().set(k, paymentIntent, 'EX', CHECKOUT_PARAMS_EX);
 }
+
+export async function deleteCheckoutKeys(checkoutId: string) {
+  await setCheckoutEmail(checkoutId);
+  await setCheckoutDogs(checkoutId);
+  await setCheckoutDeliveryDate(checkoutId);
+  await setCheckoutOrderSize(checkoutId);
+  await setCheckoutPaymentIntent(checkoutId);
+}

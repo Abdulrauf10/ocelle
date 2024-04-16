@@ -36,6 +36,7 @@ import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
 import {
+  deleteCheckoutKeys,
   getCheckoutDeliveryDate,
   getCheckoutDogs,
   getCheckoutOrderSize,
@@ -737,6 +738,8 @@ export async function getDeliveryDate() {
   }
 
   const deliveryDate = await getCheckoutDeliveryDate(id);
+
+  await deleteCheckoutKeys(id);
 
   return deliveryDate ?? undefined;
 }
