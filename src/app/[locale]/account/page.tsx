@@ -11,11 +11,29 @@ import { getTranslations } from 'next-intl/server';
 import { getLoginedMeFullSize } from '@/actions';
 import clsx from 'clsx';
 import { addressToSentence } from '@/helpers/translation';
+import { retrieveCustomerPaymentMethod } from '@/helpers/stripe';
 
 export default async function Account() {
   const t = await getTranslations();
-  const { dogs, defaultShippingAddress, defaultBillingAddress, orders, email } =
-    await getLoginedMeFullSize();
+  const {
+    dogs,
+    defaultShippingAddress,
+    defaultBillingAddress,
+    orders,
+    email,
+    stripe,
+    stripePaymentMethod,
+  } = await getLoginedMeFullSize();
+
+  if (!stripe || !stripePaymentMethod) {
+    throw new Error('stripe is not configurated');
+  }
+
+  const { card } = await retrieveCustomerPaymentMethod(stripePaymentMethod, stripe);
+
+  if (!card) {
+    throw new Error('unknown error in stripe');
+  }
 
   return (
     <main className="bg-gold bg-opacity-10 py-10">
@@ -65,16 +83,25 @@ export default async function Account() {
             href="/account/payment"
           >
             <div className="mt-4 flex items-center">
-              [
-              <Image
-                src="/payments/mc.svg"
-                alt="Master Card Icon"
-                className="inline-block"
-                width={28}
-                height={18}
-              />
+              {card.brand === 'visa' ? (
+                <Image
+                  src="/payments/visa.svg"
+                  alt="Master Card Icon"
+                  className="inline-block"
+                  width={28}
+                  height={18}
+                />
+              ) : (
+                <Image
+                  src="/payments/mc.svg"
+                  alt="Master Card Icon"
+                  className="inline-block"
+                  width={28}
+                  height={18}
+                />
+              )}
               &nbsp;
-              <span className="relative top-0.5">**** **** ****</span>&nbsp;1234]
+              <span className="relative top-0.5">**** **** ****</span>&nbsp;{card.last4}
             </div>
           </ClickableBlock>
           <ClickableBlock

@@ -1,20 +1,17 @@
 'use server';
 
 import { getLoginedMe } from '@/actions';
+import { User } from '@/entities';
+import { executeQuery } from '@/helpers/queryRunner';
+import { attachPaymentMethod, detachPaymentMethod, retrievePaymentMethod } from '@/helpers/stripe';
 import Joi from 'joi';
 
 interface UpdateCreditCardAction {
-  cardName: string;
-  cardNo: string;
-  cardExp: string;
-  cardCvc: string;
+  paymentMethodId: string;
 }
 
 const schema = Joi.object<UpdateCreditCardAction>({
-  cardName: Joi.string().required(),
-  cardNo: Joi.string().required(),
-  cardExp: Joi.string().required(),
-  cardCvc: Joi.string().required(),
+  paymentMethodId: Joi.string().required(),
 });
 
 export default async function updateCreditCardAction(data: UpdateCreditCardAction) {
@@ -26,5 +23,24 @@ export default async function updateCreditCardAction(data: UpdateCreditCardActio
 
   const me = await getLoginedMe();
 
-  // TODO: update credit card
+  if (!me.stripe || !me.stripePaymentMethod) {
+    throw new Error('stripe is not yet configurated');
+  }
+
+  const paymentMethod = await retrievePaymentMethod(value.paymentMethodId);
+
+  // TODO: 3D secure handler while updating card, default cannot handle auto payment
+
+  await attachPaymentMethod(paymentMethod.id, me.stripe);
+
+  await executeQuery(async (queryRunner) => {
+    await queryRunner.manager.update(User, me.id, { stripePaymentMethod: paymentMethod.id });
+  });
+
+  try {
+    // slient mode
+    await detachPaymentMethod(me.stripePaymentMethod);
+  } catch (e) {
+    console.error(e);
+  }
 }

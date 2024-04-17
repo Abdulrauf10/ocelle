@@ -24,8 +24,12 @@ export async function updateCustomer(id: string, params?: Stripe.CustomerUpdateP
   return stripe.customers.update(id, params);
 }
 
-export async function getPaymentMethod(id: string, cusId: string) {
+export async function retrieveCustomerPaymentMethod(id: string, cusId: string) {
   return stripe.customers.retrievePaymentMethod(cusId, id);
+}
+
+export async function retrievePaymentMethod(id: string) {
+  return stripe.paymentMethods.retrieve(id);
 }
 
 export async function updatePaymentMethod(id: string, params?: Stripe.PaymentMethodUpdateParams) {
@@ -34,4 +38,8 @@ export async function updatePaymentMethod(id: string, params?: Stripe.PaymentMet
 
 export async function attachPaymentMethod(id: string, cusId: string) {
   return stripe.paymentMethods.attach(id, { customer: cusId });
+}
+
+export async function detachPaymentMethod(id: string) {
+  return stripe.paymentMethods.detach(id);
 }

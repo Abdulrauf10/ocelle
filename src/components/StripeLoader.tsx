@@ -8,7 +8,7 @@ export default function StripeLoader({
   clientSecret,
   publishableKey,
   children,
-}: React.PropsWithChildren<{ clientSecret: string; publishableKey: string }>) {
+}: React.PropsWithChildren<{ clientSecret?: string; publishableKey: string }>) {
   const stripePromise = React.useMemo(() => loadStripe(publishableKey), [publishableKey]);
 
   return (

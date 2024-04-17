@@ -5,19 +5,16 @@ import CardForm from '@/components/forms/Card';
 import { getTranslations } from 'next-intl/server';
 import updateCreditCardAction from './action';
 import BackButton from '@/components/buttons/BackButton';
+import StripeLoader from '@/components/StripeLoader';
+import invariant from 'ts-invariant';
 
-async function getData() {
-  return {
-    name: 'Chan Tai Man',
-    cardNo: '3320202020200201',
-    cardExp: '10/26',
-    cvc: '102',
-  };
-}
+invariant(
+  process.env.STRIPE_PUBLISHABLE_KEY,
+  'Missing STRIPE_PUBLISHABLE_KEY environment variable'
+);
 
 export default async function Payments() {
   const t = await getTranslations();
-  const { name, cardNo, cardExp, cvc } = await getData();
 
   return (
     <AppThemeProvider>
@@ -26,13 +23,9 @@ export default async function Payments() {
           <div className="mx-auto max-w-[520px]">
             <h1 className="heading-4 text-center font-bold text-primary">{t('payment-info')}</h1>
             <div className="py-4"></div>
-            <CardForm
-              name={name}
-              cardNo={cardNo}
-              cardExp={cardExp}
-              cvc={cvc}
-              action={updateCreditCardAction}
-            />
+            <StripeLoader publishableKey={process.env.STRIPE_PUBLISHABLE_KEY!}>
+              <CardForm action={updateCreditCardAction} />
+            </StripeLoader>
             <div className="mt-12 text-center">
               <BackButton label={t('go-back')} />
             </div>
