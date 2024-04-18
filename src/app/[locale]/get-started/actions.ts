@@ -272,7 +272,7 @@ export async function initializeStripeTranscation() {
 
   const { transactionInitialize } = await executeGraphQL(InitializeTransactionDocument, {
     variables: {
-      checkoutId: checkout.id,
+      checkoutOrOrderId: checkout.id,
       paymentGateway: {
         id: getStripeAppId(),
         data: {

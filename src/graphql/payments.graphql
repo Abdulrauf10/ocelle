@@ -31,13 +31,13 @@ mutation InitializePaymentGateways(
 }
 
 mutation InitializeTransaction(
-  $checkoutId: ID!
+  $checkoutOrOrderId: ID!
   $action: TransactionFlowStrategyEnum
   $paymentGateway: PaymentGatewayToInitialize!
   $amount: PositiveDecimal
 ) {
   transactionInitialize(
-    id: $checkoutId
+    id: $checkoutOrOrderId
     action: $action
     paymentGateway: $paymentGateway
     amount: $amount
