@@ -1,9 +1,15 @@
+'use server';
+
 import Stripe from 'stripe';
 import invariant from 'ts-invariant';
 
 invariant(process.env.STRIPE_API_KEY, 'Missing STRIPE_API_KEY environment variable');
 
 const stripe = new Stripe(process.env.STRIPE_API_KEY);
+
+export async function createSetupIntent(params?: Stripe.SetupIntentCreateParams) {
+  return stripe.setupIntents.create(params);
+}
 
 export async function retrivePaymentIntent(clientSecret: string) {
   if (clientSecret.indexOf('_secret_') === -1) {

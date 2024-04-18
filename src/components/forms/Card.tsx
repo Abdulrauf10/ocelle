@@ -13,8 +13,10 @@ import {
 } from '@stripe/react-stripe-js';
 
 export default function CardForm({
+  clientSecret,
   action,
 }: {
+  clientSecret: string;
   action(data: { paymentMethodId: string }): Promise<void>;
 }) {
   const t = useTranslations();
@@ -47,7 +49,11 @@ export default function CardForm({
         if (!card) {
           throw new Error('cannot find card element');
         }
-        const { paymentMethod, error } = await stripe.createPaymentMethod({ type: 'card', card });
+        const { setupIntent, error } = await stripe.confirmCardSetup(clientSecret, {
+          payment_method: {
+            card,
+          },
+        });
         if (error) {
           console.log(error);
           // This point will only be reached if there is an immediate error when
@@ -62,8 +68,11 @@ export default function CardForm({
           }
           return;
         }
-        console.log(paymentMethod);
-        await action({ paymentMethodId: paymentMethod.id });
+        const paymentMethodId =
+          typeof setupIntent.payment_method === 'string'
+            ? setupIntent.payment_method
+            : setupIntent.payment_method!.id;
+        await action({ paymentMethodId });
         handleClearForm();
       } catch (e) {
         console.error(e);
@@ -71,7 +80,7 @@ export default function CardForm({
         setIsSubmitInProgress(false);
       }
     },
-    [isSubmitInProgress, elements, stripe, action, handleClearForm]
+    [isSubmitInProgress, elements, stripe, clientSecret, action, handleClearForm]
   );
 
   React.useEffect(() => {
