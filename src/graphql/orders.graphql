@@ -1,41 +1,84 @@
-fragment OrderDetails on Order {
+fragment OrderLine on OrderLine {
+  variant {
+    id
+    sku
+    product {
+      ...Product
+    }
+  }
+  quantity
+  totalPrice {
+    gross {
+      ...Money
+    }
+  }
+}
+
+fragment Order on Order {
   id
+  userEmail
   number
   created
+  shippingAddress {
+    ...UserAddress
+  }
+  billingAddress {
+    ...UserAddress
+  }
+  paymentStatus
+  authorizeStatus
+  chargeStatus
+  isShippingRequired
+  user {
+    id
+    email
+  }
+  shippingMethods {
+    ...ShippingMethod
+  }
+  shippingPrice {
+    gross {
+      ...Money
+    }
+  }
   total {
     gross {
-      amount
-      currency
+      ...Money
     }
   }
   lines {
-    variant {
-      id
-      name
-      product {
-        id
-        name
-        description
-        slug
-        thumbnail {
-          url
-          alt
-        }
-        category {
-          id
-          name
-        }
-      }
-      pricing {
-        price {
-          gross {
-            amount
-            currency
-          }
-        }
-      }
-    }
-    quantity
+    ...OrderLine
   }
-  paymentStatus
+}
+
+mutation CreateDraftOrder($input: DraftOrderCreateInput!) {
+  draftOrderCreate(input: $input) {
+    errors {
+      field
+      message
+      code
+    }
+    order {
+      ...Order
+    }
+  }
+}
+
+mutation CompleteDraftOrder($id: ID!) {
+  draftOrderComplete(id: $id) {
+    errors {
+      field
+      message
+      code
+    }
+    order {
+      ...Order
+    }
+  }
+}
+
+query GetOrder($id: ID!) {
+  order(id: $id) {
+    ...Order
+  }
 }

@@ -95,7 +95,7 @@ query GetCurrentUserFullSize {
     orders(first: 1) {
       edges {
         node {
-          ...OrderDetails
+          ...Order
         }
       }
     }
@@ -108,7 +108,7 @@ query CurrentUserOrderList {
     orders(first: 10) {
       edges {
         node {
-          ...OrderDetails
+          ...Order
         }
       }
     }
