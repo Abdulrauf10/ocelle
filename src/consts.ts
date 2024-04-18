@@ -1,3 +1,9 @@
+export const DEFAULT_CATEGORY_SLUG = 'ocelle';
+export const DEFAULT_WAREHOUSE = 'Ocelle Warehouse';
+export const DEFUALT_SHIPPING_ZONE = 'Ocelle Shipping Zone';
+export const SHIPPING_METHOD_SF_EXPRESS_FREE = 'SF Express (Free)';
+export const SHIPPING_METHOD_SF_EXPRESS_FIXED = 'SF Express (Fixed)';
+
 export const DOG_SELECT_COOKIE = 'CURRENT_DOG';
 export const CART_COOKIE = 'cart';
 export const CHECKOUT_COOKIE = 'checkout';

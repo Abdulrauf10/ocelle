@@ -43,11 +43,13 @@ import {
   saleorSubscriptionProductUnitPrice,
   subscriptionProductsValues,
 } from './products';
-
-enum SFExpressShippingMethod {
-  Free = 'SF Express (Free)',
-  Fixed = 'SF Express (Fixed)',
-}
+import {
+  DEFAULT_CATEGORY_SLUG,
+  DEFAULT_WAREHOUSE,
+  DEFUALT_SHIPPING_ZONE,
+  SHIPPING_METHOD_SF_EXPRESS_FIXED,
+  SHIPPING_METHOD_SF_EXPRESS_FREE,
+} from './consts';
 
 async function prugeDefaultChannel() {
   console.log('execute pruge the default channel...');
@@ -313,7 +315,7 @@ async function findOrCreateCategory(): Promise<CategoryFragment> {
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
-      slug: 'ocelle',
+      slug: DEFAULT_CATEGORY_SLUG,
     },
   });
 
@@ -329,7 +331,7 @@ async function findOrCreateCategory(): Promise<CategoryFragment> {
     },
     variables: {
       name: 'Ocelle',
-      slug: 'ocelle',
+      slug: DEFAULT_CATEGORY_SLUG,
     },
   });
 
@@ -351,7 +353,7 @@ async function findOrCreateWarehouse(): Promise<WarehouseFragment> {
     },
     variables: {
       filter: {
-        search: 'Ocelle Warehouse',
+        search: DEFAULT_WAREHOUSE,
       },
     },
   });
@@ -368,7 +370,7 @@ async function findOrCreateWarehouse(): Promise<WarehouseFragment> {
     },
     variables: {
       input: {
-        name: 'Ocelle Warehouse',
+        name: DEFAULT_WAREHOUSE,
         address: {
           streetAddress1: 'Fake address of OCELLE warehouse',
           city: 'Lai Chi Kok',
@@ -477,7 +479,7 @@ async function findOrCreateShippingZone(
     },
     variables: {
       filter: {
-        search: 'Ocelle Shipping Zone',
+        search: DEFUALT_SHIPPING_ZONE,
       },
     },
   });
@@ -494,7 +496,7 @@ async function findOrCreateShippingZone(
     },
     variables: {
       input: {
-        name: 'Ocelle Shipping Zone',
+        name: DEFUALT_SHIPPING_ZONE,
         default: true,
         countries: [CountryCode.Hk],
         addChannels: [channel.id],
@@ -794,13 +796,13 @@ async function setup() {
   const freeShippingMethod = await findOrCreateShippingMethod(
     shippingZone,
     channel,
-    SFExpressShippingMethod.Free,
+    SHIPPING_METHOD_SF_EXPRESS_FREE,
     0
   );
   const fixedShippingMethod = await findOrCreateShippingMethod(
     shippingZone,
     channel,
-    SFExpressShippingMethod.Fixed,
+    SHIPPING_METHOD_SF_EXPRESS_FIXED,
     60
   );
 
