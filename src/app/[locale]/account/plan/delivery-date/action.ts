@@ -1,10 +1,11 @@
 'use server';
 
-import { User } from '@/entities';
+import { RecurringBox, Shipment, User } from '@/entities';
 import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 import { startOfDay } from 'date-fns';
 import { getLoginedMe } from '@/actions';
+import { In, IsNull } from 'typeorm';
 
 interface SetDeliveryDateAction {
   date: Date;
@@ -25,19 +26,39 @@ export default async function setDeliveryDateAction(data: SetDeliveryDateAction)
   const me = await getLoginedMe();
 
   await executeQuery(async (queryRunner) => {
-    const data = await queryRunner.manager.findOne(User, {
+    const data = await queryRunner.manager.find(Shipment, {
       where: {
-        id: me.id,
+        boxs: {
+          order: IsNull(),
+          dog: {
+            user: {
+              id: me.id,
+            },
+          },
+        },
+      },
+      relations: {
+        boxs: {
+          dog: true,
+        },
       },
     });
 
-    if (!data) {
-      throw new Error('user not found');
+    if (data.length === 0) {
+      throw new Error('shipments not found');
     }
 
-    // TODO: set delivery date
-    console.log(deliveryDate);
+    const shipment = data[0];
 
-    await queryRunner.manager.save(data);
+    if (data.length > 1) {
+      // merge all shipment into single one
+      const boxIds = [];
+      for (const shipment of data) {
+        boxIds.indexOf(shipment.boxs.id) === -1 && boxIds.push(shipment.boxs.id);
+      }
+      await queryRunner.manager.update(RecurringBox, { id: In(boxIds) }, { shipment });
+    }
+
+    await queryRunner.manager.update(Shipment, shipment.id, { deliveryDate });
   });
 }

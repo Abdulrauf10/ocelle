@@ -1,11 +1,14 @@
 'use server';
 
 import { getLoginedMe } from '@/actions';
-import { User } from '@/entities';
+import { RecurringBox, User } from '@/entities';
 import { OrderSize } from '@/enums';
 import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getNumericEnumValues } from '@/helpers/enum';
+import { isImmutableBox } from '@/helpers/dog';
+import { getCalendarEvents } from '@/helpers/calendar';
+import { In, IsNull } from 'typeorm';
 
 interface SetOrderSizeAction {
   size: OrderSize;
@@ -22,12 +25,34 @@ export default async function setOrderSizeAction(data: SetOrderSizeAction) {
     throw new Error('schema is not valid');
   }
 
+  const events = await getCalendarEvents();
   const me = await getLoginedMe();
 
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.findOne(User, {
       where: {
         id: me.id,
+        dogs: {
+          boxs: {
+            order: IsNull(),
+          },
+        },
+      },
+      relations: {
+        dogs: {
+          boxs: {
+            shipment: true,
+          },
+        },
+      },
+      order: {
+        dogs: {
+          boxs: {
+            shipment: {
+              deliveryDate: -1,
+            },
+          },
+        },
       },
     });
 
@@ -36,6 +61,18 @@ export default async function setOrderSizeAction(data: SetOrderSizeAction) {
     }
 
     data.orderSize = value.size;
+
+    const updatableBoxIds = [];
+    for (const dog of data.dogs) {
+      if (!isImmutableBox(events, dog.boxs[0].shipment.deliveryDate)) {
+        updatableBoxIds.push(dog.boxs[0].id);
+      }
+    }
+    await queryRunner.manager.update(
+      RecurringBox,
+      { id: In(updatableBoxIds) },
+      { orderSize: value.size }
+    );
 
     await queryRunner.manager.save(data);
   });

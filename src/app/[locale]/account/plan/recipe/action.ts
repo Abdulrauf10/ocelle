@@ -1,11 +1,14 @@
 'use server';
 
 import { getLoginedMe } from '@/actions';
-import { DogPlan } from '@/entities';
+import { Dog, DogPlan, RecurringBox } from '@/entities';
 import { Recipe } from '@/enums';
 import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getNumericEnumValues } from '@/helpers/enum';
+import { isImmutableBox } from '@/helpers/dog';
+import { getCalendarEvents } from '@/helpers/calendar';
+import { IsNull } from 'typeorm';
 
 interface SetRecipeAction {
   id: number;
@@ -26,12 +29,27 @@ export default async function setRecipeAction(data: SetRecipeAction) {
     throw new Error('schema is not valid');
   }
 
+  const events = await getCalendarEvents();
   const me = await getLoginedMe();
 
   await executeQuery(async (queryRunner) => {
-    const data = await queryRunner.manager.findOne(DogPlan, {
+    const data = await queryRunner.manager.findOne(Dog, {
       where: {
-        dog: { id: value.id, user: { id: me.id } },
+        id: value.id,
+        user: { id: me.id },
+        boxs: {
+          order: IsNull(),
+        },
+      },
+      relations: {
+        boxs: {
+          shipment: true,
+        },
+      },
+      order: {
+        boxs: {
+          shipment: -1,
+        },
       },
     });
 
@@ -39,9 +57,16 @@ export default async function setRecipeAction(data: SetRecipeAction) {
       throw new Error('data not found');
     }
 
-    data.recipe1 = value.recipe1;
-    data.recipe2 = value.recipe2;
+    if (!isImmutableBox(events, data.boxs[0].shipment.deliveryDate)) {
+      await queryRunner.manager.update(RecurringBox, data.boxs[0].id, {
+        recipe1: value.recipe1,
+        recipe2: value.recipe2,
+      });
+    }
 
-    await queryRunner.manager.save(data);
+    await queryRunner.manager.update(DogPlan, data.plan.id, {
+      recipe1: value.recipe1,
+      recipe2: value.recipe2,
+    });
   });
 }
