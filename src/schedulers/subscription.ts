@@ -7,6 +7,7 @@ import {
   CreateDraftOrderDocument,
   FindProductsDocument,
   FindShippingZonesDocument,
+  GetChannelDocument,
   GetOrderDocument,
   InitializeTransactionDocument,
   OrderAuthorizeStatusEnum,
@@ -37,7 +38,6 @@ async function findSubscriptionShippingMethod() {
     variables: {
       filter: {
         search: DEFUALT_SHIPPING_ZONE,
-        channels: [process.env.SALEOR_CHANNEL_SLUG],
       },
     },
   });
@@ -60,8 +60,21 @@ async function findSubscriptionShippingMethod() {
 }
 
 export default async function subscriptionScheduler() {
+  invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
   const events = await getCalendarEvents();
   const shippingMethod = await findSubscriptionShippingMethod();
+  const { channel } = await executeGraphQL(GetChannelDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      slug: process.env.SALEOR_CHANNEL_SLUG,
+    },
+  });
+  if (!channel) {
+    throw new Error('channel not found');
+  }
   const { products: _products } = await executeGraphQL(FindProductsDocument, {
     withAuth: false,
     headers: {
@@ -70,17 +83,35 @@ export default async function subscriptionScheduler() {
     variables: {},
   });
   const products = _products?.edges.map((edge) => edge.node) || [];
+  // const users = await executeQuery(async (queryRunner) => {
+  //   return queryRunner.manager.find(User, {
+  //     where: {
+  //       dogs: {
+  //         boxs: {
+  //           order: IsNull(),
+  //           shipment: {
+  //             deliveryDate: LessThanOrEqual(getClosestOrderDeliveryDate(events)),
+  //           },
+  //         },
+  //       },
+  //     },
+  //     relations: {
+  //       dogs: {
+  //         breeds: {
+  //           breed: true,
+  //         },
+  //         plan: true,
+  //         boxs: {
+  //           shipment: true,
+  //         },
+  //       },
+  //     },
+  //   });
+  // });
   const users = await executeQuery(async (queryRunner) => {
     return queryRunner.manager.find(User, {
       where: {
-        dogs: {
-          boxs: {
-            order: IsNull(),
-            shipment: {
-              deliveryDate: LessThanOrEqual(getClosestOrderDeliveryDate(events)),
-            },
-          },
-        },
+        id: 'VXNlcjoy',
       },
       relations: {
         dogs: {
@@ -154,10 +185,14 @@ export default async function subscriptionScheduler() {
       }
 
       const { draftOrderCreate } = await executeGraphQL(CreateDraftOrderDocument, {
+        withAuth: false,
+        headers: {
+          Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+        },
         variables: {
           input: {
             user: user.id,
-            channelId: process.env.SALEOR_CHANNEL_SLUG,
+            channelId: channel.id,
             shippingMethod: shippingMethod.id,
             lines,
           },
@@ -232,44 +267,46 @@ export default async function subscriptionScheduler() {
         throw new Error('complete draft order failed');
       }
 
-      await executeQuery(async (queryRunner) => {
-        const order = queryRunner.manager.create(Order, {
-          id: draftOrderComplete!.order!.id,
-          createdAt: new Date(),
-        });
-        await queryRunner.manager.save(order);
+      console.log(draftOrderComplete!.order);
 
-        await queryRunner.manager.update(
-          RecurringBox,
-          { id: In(boxs.map((box) => box.id)) },
-          { order }
-        );
+      // await executeQuery(async (queryRunner) => {
+      //   const order = queryRunner.manager.create(Order, {
+      //     id: draftOrderComplete!.order!.id,
+      //     createdAt: new Date(),
+      //   });
+      //   await queryRunner.manager.save(order);
 
-        const nextBoxs = boxs.map((box) => {
-          return queryRunner.manager.create(RecurringBox, {
-            mealPlan: box.mealPlan,
-            orderSize: box.orderSize,
-            recipe1: box.recipe1,
-            recipe2: box.recipe2,
-            isTransitionPeriod: false,
-            startDate: addDays(box.endDate, 1),
-            endDate: addDays(box.endDate, 1 + (box.orderSize === OrderSize.OneWeek ? 7 : 14)),
-            dog: box.dog,
-          });
-        });
-        await queryRunner.manager.save(nextBoxs);
+      //   await queryRunner.manager.update(
+      //     RecurringBox,
+      //     { id: In(boxs.map((box) => box.id)) },
+      //     { order }
+      //   );
 
-        const shipment = queryRunner.manager.create(Shipment, {
-          deliveryDate: getClosestOrderDeliveryDate(events),
-        });
-        await queryRunner.manager.save(shipment);
+      //   const nextBoxs = boxs.map((box) => {
+      //     return queryRunner.manager.create(RecurringBox, {
+      //       mealPlan: box.mealPlan,
+      //       orderSize: box.orderSize,
+      //       recipe1: box.recipe1,
+      //       recipe2: box.recipe2,
+      //       isTransitionPeriod: false,
+      //       startDate: addDays(box.endDate, 1),
+      //       endDate: addDays(box.endDate, 1 + (box.orderSize === OrderSize.OneWeek ? 7 : 14)),
+      //       dog: box.dog,
+      //     });
+      //   });
+      //   await queryRunner.manager.save(nextBoxs);
 
-        await queryRunner.manager.update(
-          RecurringBox,
-          { id: In(nextBoxs.map((box) => box.id)) },
-          { shipment }
-        );
-      });
+      //   const shipment = queryRunner.manager.create(Shipment, {
+      //     deliveryDate: getClosestOrderDeliveryDate(events),
+      //   });
+      //   await queryRunner.manager.save(shipment);
+
+      //   await queryRunner.manager.update(
+      //     RecurringBox,
+      //     { id: In(nextBoxs.map((box) => box.id)) },
+      //     { shipment }
+      //   );
+      // });
     } catch (e) {
       console.error(e);
     }
