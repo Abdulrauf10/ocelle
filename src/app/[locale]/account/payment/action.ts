@@ -2,6 +2,7 @@
 
 import { getLoginedMe } from '@/actions';
 import { User } from '@/entities';
+import StripeNotReadyError from '@/errors/StripeNotReadyError';
 import { executeQuery } from '@/helpers/queryRunner';
 import { attachPaymentMethod, detachPaymentMethod, retrievePaymentMethod } from '@/helpers/stripe';
 import Joi from 'joi';
@@ -24,7 +25,7 @@ export default async function updateCreditCardAction(data: UpdateCreditCardActio
   const me = await getLoginedMe();
 
   if (!me.stripe || !me.stripePaymentMethod) {
-    throw new Error('stripe is not yet configurated');
+    throw new StripeNotReadyError(me.id);
   }
 
   const paymentMethod = await retrievePaymentMethod(value.paymentMethodId);
