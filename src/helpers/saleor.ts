@@ -1,4 +1,8 @@
-import { WeightFragment, WeightUnitsEnum } from '@/gql/graphql';
+import { Recipe } from '@/enums';
+import { ProductFragment, WeightFragment, WeightUnitsEnum } from '@/gql/graphql';
+import { BreedDto } from '@/types/dto';
+import { getLifeStage } from './dog';
+import { subscriptionProducts } from '@/products';
 
 export function weightToGrams(weight: WeightFragment) {
   switch (weight.unit) {
@@ -15,4 +19,24 @@ export function weightToGrams(weight: WeightFragment) {
     default:
       throw new Error('cannot convert weight to grams, unknown weight unit');
   }
+}
+
+export function recipeToVariant(
+  products: ProductFragment[],
+  breeds: BreedDto[],
+  dateOfBirth: Date,
+  recipe: Recipe
+) {
+  const lifeStage = getLifeStage(breeds, dateOfBirth);
+  const subscriptionRecipe = subscriptionProducts[recipe];
+  const product = products.find((product) => product.slug === subscriptionRecipe.slug);
+  if (!product) {
+    throw new Error('product not found');
+  }
+  if (!product.variants) {
+    throw new Error('product variants is null or undefined');
+  }
+  return product.variants.find(
+    (variant) => variant.sku === subscriptionRecipe.variants[lifeStage].sku
+  );
 }

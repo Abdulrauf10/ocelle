@@ -16,7 +16,6 @@ import {
   FindUserDocument,
   GetChannelDocument,
   GetCheckoutDocument,
-  InitializePaymentGatewaysDocument,
   InitializeTransactionDocument,
   RegisterAccountDocument,
   UpdateCheckoutAddressDocument,
@@ -27,7 +26,6 @@ import {
   calculateTotalPerDayPrice,
   calculateRecipeTotalPriceInBox,
   getClosestOrderDeliveryDate,
-  getLifeStage,
   getSubscriptionProductActuallyQuanlityInSaleor,
   getTheCheapestRecipe,
   isUnavailableDeliveryDate,
@@ -47,6 +45,7 @@ import {
   setCheckoutOrderSize,
   setCheckoutPaymentIntent,
 } from '@/helpers/redis';
+import { recipeToVariant } from '@/helpers/saleor';
 import {
   attachPaymentMethod,
   createCustomer,
@@ -194,16 +193,9 @@ export async function createCheckout(orderSize: OrderSize, dogs: DogDto[]) {
           })
         : [];
     const dateOfBirth = new Date(dog.dateOfBirth);
-    const lifeStage = getLifeStage(breeds, dateOfBirth);
-    const subscriptionRecipe1 = subscriptionProducts[dog.recipe1];
-    const product1 = products.find((product) => product.slug === subscriptionRecipe1.slug)!;
-    const recipe1Variant = product1.variants!.find(
-      (variant) => variant.sku === subscriptionRecipe1.variants[lifeStage].sku
-    );
+    const recipe1Variant = recipeToVariant(products, breeds, dateOfBirth, dog.recipe1);
     if (!recipe1Variant) {
-      throw new Error(
-        `failed to add recipe 1 to checkout, variant not found (${subscriptionRecipe1.variants[lifeStage].sku})`
-      );
+      throw new Error('failed to add recipe 1 to checkout, variant not found');
     }
     const recipe1TotalPrice = calculateRecipeTotalPriceInBox(
       breeds,
@@ -222,15 +214,9 @@ export async function createCheckout(orderSize: OrderSize, dogs: DogDto[]) {
       quantity: getSubscriptionProductActuallyQuanlityInSaleor(recipe1TotalPrice),
     });
     if (dog.recipe2) {
-      const subscriptionRecipe2 = subscriptionProducts[dog.recipe2];
-      const product2 = products.find((product) => product.slug === subscriptionRecipe2.slug)!;
-      const recipe2Variant = product2.variants!.find(
-        (variant) => variant.sku === subscriptionRecipe2.variants[lifeStage].sku
-      );
+      const recipe2Variant = recipeToVariant(products, breeds, dateOfBirth, dog.recipe2);
       if (!recipe2Variant) {
-        throw new Error(
-          `failed to add recipe 2 to checkout, variant not found (${subscriptionRecipe2.variants[lifeStage].sku})`
-        );
+        throw new Error('failed to add recipe 2 to checkout, variant not found');
       }
       const recipe2TotalPrice = calculateRecipeTotalPriceInBox(
         breeds,
@@ -278,38 +264,7 @@ export async function createCheckout(orderSize: OrderSize, dogs: DogDto[]) {
 
   await setCheckoutCookie(checkout.id);
 
-  console.log('checkout debug');
-  console.dir(checkout, { depth: null });
-
-  const { paymentGatewayInitialize } = await executeGraphQL(InitializePaymentGatewaysDocument, {
-    variables: {
-      checkoutId: checkout.id,
-      paymentGateways: checkout.availablePaymentGateways.map(({ config, id }) => ({
-        id,
-        data: config,
-      })),
-    },
-  });
-
-  if (!paymentGatewayInitialize || paymentGatewayInitialize.errors.length > 0) {
-    paymentGatewayInitialize && console.error(paymentGatewayInitialize.errors);
-    throw new Error('failed to initialize payment gateways');
-  }
-
-  if (
-    !paymentGatewayInitialize.gatewayConfigs ||
-    paymentGatewayInitialize.gatewayConfigs.find(
-      (config) => config.errors && config.errors.length > 0
-    )
-  ) {
-    console.error(paymentGatewayInitialize.gatewayConfigs);
-    throw new Error('no available payment gateways');
-  }
-
-  return {
-    checkout: checkoutCreate.checkout!,
-    gateways: paymentGatewayInitialize.gatewayConfigs,
-  };
+  return checkoutCreate.checkout!;
 }
 
 export async function initializeStripeTranscation() {
