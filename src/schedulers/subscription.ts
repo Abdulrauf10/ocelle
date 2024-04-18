@@ -189,13 +189,15 @@ export default async function subscriptionScheduler() {
         },
       });
 
+      //TODO: get status of payment intent using transactionInitialize.transaction.pspReference
+
       if (!transactionInitialize || transactionInitialize.errors.length > 0) {
         transactionInitialize && console.error(transactionInitialize);
         // TODO: delete draft order when payment failed?
         throw new Error('cannot initialize transaction');
       }
 
-      // we need to wait for the payment hook to be called before completing the checkout
+      // we need to wait for the payment hook to be called before completing the draft order
       for (let i = 0; i < 30; i++) {
         const { order } = await executeGraphQL(GetOrderDocument, {
           withAuth: false,
