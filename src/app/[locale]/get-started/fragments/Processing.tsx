@@ -95,7 +95,8 @@ export default function ProcessingFragment() {
           };
         })
       )
-        .then(async ({ checkout, gateways }) => {
+        .then(async (checkout) => {
+          console.debug(checkout);
           try {
             const data = await initializeStripeTranscation();
             setTranscation(data);
