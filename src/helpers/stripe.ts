@@ -14,7 +14,6 @@ export async function createSetupIntent(params?: Stripe.SetupIntentCreateParams)
 export async function retrivePaymentIntent(id: string) {
   return stripe.paymentIntents.retrieve(id);
 }
-}
 
 export async function updatePaymentIntent(id: string, params?: Stripe.PaymentIntentUpdateParams) {
   return stripe.paymentIntents.update(id, params);
