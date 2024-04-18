@@ -45,6 +45,7 @@ mutation InitializeTransaction(
     transaction {
       id
       actions
+      pspReference
     }
     transactionEvent {
       message

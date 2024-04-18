@@ -290,16 +290,14 @@ export async function initializeStripeTranscation() {
     throw new Error('cannot initialize transaction');
   }
 
-  const data = transactionInitialize.data as {
-    paymentIntent: { client_secret: string };
-    publishableKey: string;
-  };
-
-  const paymentIntent = await retrivePaymentIntent(data.paymentIntent.client_secret);
+  const paymentIntent = await retrivePaymentIntent(transactionInitialize.transaction!.pspReference);
 
   await setCheckoutPaymentIntent(checkout.id, paymentIntent.id);
 
-  return data;
+  return transactionInitialize.data as {
+    paymentIntent: { client_secret: string };
+    publishableKey: string;
+  };
 }
 
 export async function applyCoupon({ coupon }: { coupon: string }) {

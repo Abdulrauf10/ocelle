@@ -11,11 +11,9 @@ export async function createSetupIntent(params?: Stripe.SetupIntentCreateParams)
   return stripe.setupIntents.create(params);
 }
 
-export async function retrivePaymentIntent(clientSecret: string) {
-  if (clientSecret.indexOf('_secret_') === -1) {
-    throw new Error('invalid client_secret of stripe');
-  }
-  return stripe.paymentIntents.retrieve(clientSecret.split('_secret_')[0]);
+export async function retrivePaymentIntent(id: string) {
+  return stripe.paymentIntents.retrieve(id);
+}
 }
 
 export async function updatePaymentIntent(id: string, params?: Stripe.PaymentIntentUpdateParams) {
