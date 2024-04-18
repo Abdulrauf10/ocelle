@@ -83,35 +83,17 @@ export default async function subscriptionScheduler() {
     variables: {},
   });
   const products = _products?.edges.map((edge) => edge.node) || [];
-  // const users = await executeQuery(async (queryRunner) => {
-  //   return queryRunner.manager.find(User, {
-  //     where: {
-  //       dogs: {
-  //         boxs: {
-  //           order: IsNull(),
-  //           shipment: {
-  //             deliveryDate: LessThanOrEqual(getClosestOrderDeliveryDate(events)),
-  //           },
-  //         },
-  //       },
-  //     },
-  //     relations: {
-  //       dogs: {
-  //         breeds: {
-  //           breed: true,
-  //         },
-  //         plan: true,
-  //         boxs: {
-  //           shipment: true,
-  //         },
-  //       },
-  //     },
-  //   });
-  // });
   const users = await executeQuery(async (queryRunner) => {
     return queryRunner.manager.find(User, {
       where: {
-        id: 'VXNlcjoy',
+        dogs: {
+          boxs: {
+            order: IsNull(),
+            shipment: {
+              deliveryDate: LessThanOrEqual(getClosestOrderDeliveryDate(events)),
+            },
+          },
+        },
       },
       relations: {
         dogs: {
@@ -269,44 +251,44 @@ export default async function subscriptionScheduler() {
 
       console.log(draftOrderComplete!.order);
 
-      // await executeQuery(async (queryRunner) => {
-      //   const order = queryRunner.manager.create(Order, {
-      //     id: draftOrderComplete!.order!.id,
-      //     createdAt: new Date(),
-      //   });
-      //   await queryRunner.manager.save(order);
+      await executeQuery(async (queryRunner) => {
+        const order = queryRunner.manager.create(Order, {
+          id: draftOrderComplete!.order!.id,
+          createdAt: new Date(),
+        });
+        await queryRunner.manager.save(order);
 
-      //   await queryRunner.manager.update(
-      //     RecurringBox,
-      //     { id: In(boxs.map((box) => box.id)) },
-      //     { order }
-      //   );
+        await queryRunner.manager.update(
+          RecurringBox,
+          { id: In(boxs.map((box) => box.id)) },
+          { order }
+        );
 
-      //   const nextBoxs = boxs.map((box) => {
-      //     return queryRunner.manager.create(RecurringBox, {
-      //       mealPlan: box.mealPlan,
-      //       orderSize: box.orderSize,
-      //       recipe1: box.recipe1,
-      //       recipe2: box.recipe2,
-      //       isTransitionPeriod: false,
-      //       startDate: addDays(box.endDate, 1),
-      //       endDate: addDays(box.endDate, 1 + (box.orderSize === OrderSize.OneWeek ? 7 : 14)),
-      //       dog: box.dog,
-      //     });
-      //   });
-      //   await queryRunner.manager.save(nextBoxs);
+        const nextBoxs = boxs.map((box) => {
+          return queryRunner.manager.create(RecurringBox, {
+            mealPlan: box.mealPlan,
+            orderSize: box.orderSize,
+            recipe1: box.recipe1,
+            recipe2: box.recipe2,
+            isTransitionPeriod: false,
+            startDate: addDays(box.endDate, 1),
+            endDate: addDays(box.endDate, 1 + (box.orderSize === OrderSize.OneWeek ? 7 : 14)),
+            dog: box.dog,
+          });
+        });
+        await queryRunner.manager.save(nextBoxs);
 
-      //   const shipment = queryRunner.manager.create(Shipment, {
-      //     deliveryDate: getClosestOrderDeliveryDate(events),
-      //   });
-      //   await queryRunner.manager.save(shipment);
+        const shipment = queryRunner.manager.create(Shipment, {
+          deliveryDate: getClosestOrderDeliveryDate(events),
+        });
+        await queryRunner.manager.save(shipment);
 
-      //   await queryRunner.manager.update(
-      //     RecurringBox,
-      //     { id: In(nextBoxs.map((box) => box.id)) },
-      //     { shipment }
-      //   );
-      // });
+        await queryRunner.manager.update(
+          RecurringBox,
+          { id: In(nextBoxs.map((box) => box.id)) },
+          { shipment }
+        );
+      });
     } catch (e) {
       console.error(e);
     }
