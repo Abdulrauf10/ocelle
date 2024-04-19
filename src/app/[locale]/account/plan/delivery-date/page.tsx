@@ -62,7 +62,9 @@ export default async function PlanDeliveryDate() {
             date: formatDate(t, shipable.deliveryDate, true),
           })}{' '}
           {t('it-contains-{}-fresh-food', {
-            value: shipable.boxs.map((box) => `${box.dog.name}’s`).join(' and '),
+            value: new Intl.ListFormat('en-HK').format(
+              shipable.boxs.map((box) => t('{}-apostrophe', { value: box.dog.name }))
+            ),
           })}
         </p>
         {!prevShipmentEditable && nextShipmentEditable && (
