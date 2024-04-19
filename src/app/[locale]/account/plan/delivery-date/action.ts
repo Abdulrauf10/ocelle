@@ -54,7 +54,9 @@ export default async function setDeliveryDateAction(data: SetDeliveryDateAction)
       // merge all shipment into single one
       const boxIds = [];
       for (const shipment of data) {
-        boxIds.indexOf(shipment.boxs.id) === -1 && boxIds.push(shipment.boxs.id);
+        for (const box of shipment.boxs) {
+          boxIds.indexOf(box.id) === -1 && boxIds.push(box.id);
+        }
       }
       await queryRunner.manager.update(RecurringBox, { id: In(boxIds) }, { shipment });
     }

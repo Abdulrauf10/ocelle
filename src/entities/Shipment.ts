@@ -10,5 +10,5 @@ export default class Shipment {
   deliveryDate!: Date;
 
   @OneToMany(() => RecurringBox, (record) => record.shipment)
-  boxs!: Relation<RecurringBox>;
+  boxs!: Relation<RecurringBox>[];
 }
