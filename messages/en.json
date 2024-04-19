@@ -335,6 +335,7 @@
   "after-reactivating-you-can-adjust-your-delivery-date-until-the-{}": "After reactivating, you can adjust your delivery date until the {date} 11:59PM.",
   "reactivate-plan": "Reactivate Plan",
   "your-upcoming-box-is-arriving-on-the-{}": "Your upcoming box is arriving on the <nowrap><b>{date}</b></nowrap>.",
+  "it-contains-{}-fresh-food": "It contains {value} fresh food.",
   "unfortunately-you-can-no-longer-make-changes-to-your-upcoming-box": "Unfortunately, you can no longer make changes to your upcoming box. However, you can reschedule your next box, scheduled for the <nowrap><b>{date}</b></nowrap>.",
   "reschedule-next-box": "Reschedule Next Box",
   "choose-{}-fresh-recipes": "Choose {name}'s Fresh Recipes",
