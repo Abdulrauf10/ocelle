@@ -5,7 +5,7 @@ import setDeliveryDateAction from './action';
 import BackButton from '@/components/buttons/BackButton';
 import { getLoginedMe } from '@/actions';
 import { getCalendarEvents } from '@/helpers/calendar';
-import { getClosestOrderDeliveryDate, isImmutableBox } from '@/helpers/dog';
+import { getClosestOrderDeliveryDate, isDeliveredBox, isImmutableBox } from '@/helpers/dog';
 import DeliveryDatePickerDialog from '@/components/dialogs/DeliveryDatePicker';
 import { executeQuery } from '@/helpers/queryRunner';
 import { Shipment } from '@/entities';
@@ -40,7 +40,10 @@ export default async function PlanDeliveryDate() {
 
   // TODO: should hide upcoming box when the delivery completed and no more shipment eg. pause plan
 
-  const shipable = shipments.find((shipment) => shipment.boxs.every((box) => !!box.order));
+  const shipable = shipments.find(
+    (shipment) =>
+      !isDeliveredBox(shipment.deliveryDate) && shipment.boxs.every((box) => !!box.order)
+  );
 
   if (!shipable) {
     throw new Error('should have shipment available to upcoming boxs');

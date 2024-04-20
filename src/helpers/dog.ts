@@ -210,6 +210,10 @@ export function getEditableRecurringBoxDeadlineByBox(events: CalendarEvent[], bo
   );
 }
 
+export function isDeliveredBox(deliveryDate: Date) {
+  return startOfDay(deliveryDate) < startOfDay(new Date());
+}
+
 function isExactSize(breeds: BreedDto[], sizes: Array<BreedSize>) {
   return breeds.filter((x) => sizes.indexOf(x.size) > -1).length === breeds.length;
 }
