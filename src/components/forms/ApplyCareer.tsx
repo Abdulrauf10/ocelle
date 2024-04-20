@@ -5,7 +5,6 @@ import Button from '@/components/buttons/Button';
 import { type FieldValues, useForm, useController } from 'react-hook-form';
 import { mergeRefs } from 'react-merge-refs';
 import Container from '@/components/Container';
-import Image from 'next/image';
 import Block from '@/components/layouts/Block';
 import { InputControllerProps } from '@/types';
 import TextField from '../controls/TextField';
@@ -15,9 +14,16 @@ import Close from '../icons/Close';
 
 interface FileInputProps<T extends FieldValues> extends InputControllerProps<T> {
   label: string;
+  helperText?: string;
 }
 
-function FileInput<T extends FieldValues>({ control, label, name, rules }: FileInputProps<T>) {
+function FileInput<T extends FieldValues>({
+  helperText,
+  control,
+  label,
+  name,
+  rules,
+}: FileInputProps<T>) {
   const {
     field: { ref, onChange, value, ...field },
     fieldState: { error },
@@ -55,7 +61,7 @@ function FileInput<T extends FieldValues>({ control, label, name, rules }: FileI
         ref={mergeRefs([inputRef, ref])}
         type="file"
         className="hidden"
-        accept="application/pdf"
+        accept=".rtf,.doc,.docx,.pdf,.txt"
         onChange={(e) => {
           handleChange(e);
         }}
@@ -74,18 +80,19 @@ function FileInput<T extends FieldValues>({ control, label, name, rules }: FileI
       >
         {label}
       </Button>
+      {helperText && <div className="body-4 mt-1">{helperText}</div>}
       {(filename || !!error) && (
         <div className="mt-1 flex w-full items-center">
           {error ? (
             <span className="body-4 text-error">{error.message}</span>
           ) : (
             <>
-              <span className="body-4 mr-2 inline-block break-all">
-                {label}: {filename}
-              </span>
               <button onClick={handleDetach}>
                 <Close className="w-3" />
               </button>
+              <span className="body-4 ml-2 inline-block break-all">
+                {label}: {filename}
+              </span>
             </>
           )}
         </div>
@@ -114,7 +121,6 @@ export default function ApplyCareerForm({
 }) {
   const t = useTranslations();
   const {
-    watch,
     control,
     formState: { isValid, errors },
   } = useForm<IApplyCareerForm>({ mode: 'all' });
@@ -253,9 +259,7 @@ export default function ApplyCareerForm({
                     <FileInput
                       control={control}
                       name="resume"
-                      label={
-                        watch('resume') ? t('attached') : t('attach-{}', { value: t('resume-cv') })
-                      }
+                      label={t('attach-{}', { value: t('resume-cv') })}
                       rules={{
                         required: true,
                         validate: (file) => {
@@ -270,6 +274,10 @@ export default function ApplyCareerForm({
                           );
                         },
                       }}
+                      helperText={t('file-types-{}-{}mb-limit', {
+                        value: 'pdf, doc, docx, txt, rtf',
+                        mb: 5,
+                      })}
                     />
                   </div>
                 </div>
@@ -281,11 +289,7 @@ export default function ApplyCareerForm({
                     <FileInput
                       control={control}
                       name="coverLetter"
-                      label={
-                        watch('coverLetter')
-                          ? t('attached')
-                          : t('attach-{}', { value: t('cover-letter') })
-                      }
+                      label={t('attach-{}', { value: t('cover-letter') })}
                       rules={{
                         validate: (file) => {
                           if (!file) {
@@ -302,6 +306,10 @@ export default function ApplyCareerForm({
                           );
                         },
                       }}
+                      helperText={t('file-types-{}-{}mb-limit', {
+                        value: 'pdf, doc, docx, txt, rtf',
+                        mb: 5,
+                      })}
                     />
                   </div>
                 </div>
