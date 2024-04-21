@@ -166,6 +166,9 @@ export async function createCheckout(orderSize: OrderSize, dogs: DogDto[]) {
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
+      filter: {
+        channel: process.env.SALEOR_CHANNEL_SLUG,
+      },
       where: {
         slug: {
           oneOf: productSlugsToBeAddToLine,
