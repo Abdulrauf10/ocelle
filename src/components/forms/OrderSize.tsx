@@ -11,11 +11,13 @@ export default function OrderSizeForm({
   initialSize,
   oneWeekPrice,
   twoWeekPrice,
+  endAdornment,
   action,
 }: {
   initialSize: OrderSize;
   oneWeekPrice: number;
   twoWeekPrice: number;
+  endAdornment?: React.ReactNode;
   action(data: { size: OrderSize }): Promise<void>;
 }) {
   const t = useTranslations();
@@ -84,17 +86,7 @@ export default function OrderSizeForm({
           </div>
         </div>
       </div>
-      <p className="mx-auto mt-8 max-w-[620px] text-center">
-        {t.rich('your-upcoming-box-is-arriving-on-the-{}', {
-          date: '[15th of December 2023]',
-        })}{' '}
-        It contains [Charlie]&apos;s and [Muffin]’s fresh food.
-      </p>
-      <p className="mx-auto mt-4 max-w-[620px] text-center">
-        {t.rich('unfortunately-you-can-no-longer-make-changes-to-your-upcoming-box', {
-          date: '[29th of December 2023]',
-        })}
-      </p>
+      {endAdornment && <div className="mt-8">{endAdornment}</div>}
       <div className="mx-auto mt-8 max-w-[480px]">
         <div className="-mx-2 flex">
           <div className="w-1/2 px-2">
