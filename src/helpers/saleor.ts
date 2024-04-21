@@ -1,8 +1,18 @@
 import { Recipe } from '@/enums';
-import { ProductFragment, WeightFragment, WeightUnitsEnum } from '@/gql/graphql';
+import {
+  ChannelFragment,
+  FindProductsDocument,
+  FindProductsQueryVariables,
+  GetChannelDocument,
+  ProductFragment,
+  WeightFragment,
+  WeightUnitsEnum,
+} from '@/gql/graphql';
 import { BreedDto } from '@/types/dto';
 import { getLifeStage } from './dog';
 import { subscriptionProducts } from '@/products';
+import { executeGraphQL } from './graphql';
+import invariant from 'ts-invariant';
 
 export function weightToGrams(weight: WeightFragment) {
   switch (weight.unit) {
@@ -39,4 +49,35 @@ export function recipeToVariant(
   return product.variants.find(
     (variant) => variant.sku === subscriptionRecipe.variants[lifeStage].sku
   );
+}
+
+export async function getThrowableChannel() {
+  invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
+
+  const { channel } = await executeGraphQL(GetChannelDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      slug: process.env.SALEOR_CHANNEL_SLUG,
+    },
+  });
+
+  if (!channel) {
+    throw new Error('channel not found');
+  }
+
+  return channel;
+}
+
+export async function findProducts(variables?: FindProductsQueryVariables) {
+  const { products } = await executeGraphQL(FindProductsDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: variables ?? {},
+  });
+  return products?.edges.map((edge) => edge.node) || [];
 }

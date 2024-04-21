@@ -5,9 +5,7 @@ import StripeNotReadyError from '@/errors/StripeNotReadyError';
 import {
   CompleteDraftOrderDocument,
   CreateDraftOrderDocument,
-  FindProductsDocument,
   FindShippingZonesDocument,
-  GetChannelDocument,
   GetOrderDocument,
   InitializeTransactionDocument,
   OrderAuthorizeStatusEnum,
@@ -24,7 +22,7 @@ import {
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
-import { recipeToVariant } from '@/helpers/saleor';
+import { findProducts, getThrowableChannel, recipeToVariant } from '@/helpers/saleor';
 import { addDays, startOfDay } from 'date-fns';
 import invariant from 'ts-invariant';
 import { In, IsNull, LessThan } from 'typeorm';
@@ -66,26 +64,8 @@ export default async function subscriptionScheduler() {
   const today = startOfDay(new Date());
   const events = await getCalendarEvents();
   const shippingMethod = await findSubscriptionShippingMethod();
-  const { channel } = await executeGraphQL(GetChannelDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: {
-      slug: process.env.SALEOR_CHANNEL_SLUG,
-    },
-  });
-  if (!channel) {
-    throw new Error('channel not found');
-  }
-  const { products: _products } = await executeGraphQL(FindProductsDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: {},
-  });
-  const products = _products?.edges.map((edge) => edge.node) || [];
+  const channel = await getThrowableChannel();
+  const products = await findProducts();
   const users = await executeQuery(async (queryRunner) => {
     return queryRunner.manager.find(User, {
       where: {
