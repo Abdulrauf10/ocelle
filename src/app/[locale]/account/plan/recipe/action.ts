@@ -8,7 +8,8 @@ import { executeQuery } from '@/helpers/queryRunner';
 import { getNumericEnumValues } from '@/helpers/enum';
 import { isImmutableBox } from '@/helpers/dog';
 import { getCalendarEvents } from '@/helpers/calendar';
-import { IsNull } from 'typeorm';
+import { MoreThanOrEqual } from 'typeorm';
+import { startOfDay } from 'date-fns';
 
 interface SetRecipeAction {
   id: number;
@@ -31,6 +32,7 @@ export default async function setRecipeAction(data: SetRecipeAction) {
 
   const events = await getCalendarEvents();
   const me = await getLoginedMe();
+  const today = startOfDay(new Date());
 
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.findOne(Dog, {
@@ -38,7 +40,9 @@ export default async function setRecipeAction(data: SetRecipeAction) {
         id: value.id,
         user: { id: me.id },
         boxs: {
-          order: IsNull(),
+          shipment: {
+            lockBoxDate: MoreThanOrEqual(today),
+          },
         },
       },
       relations: {

@@ -26,7 +26,7 @@ import { executeQuery } from '@/helpers/queryRunner';
 import { recipeToVariant } from '@/helpers/saleor';
 import { addDays, startOfDay } from 'date-fns';
 import invariant from 'ts-invariant';
-import { In, IsNull, LessThanOrEqual } from 'typeorm';
+import { In, IsNull, LessThan } from 'typeorm';
 
 async function findSubscriptionShippingMethod() {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
@@ -62,7 +62,7 @@ async function findSubscriptionShippingMethod() {
 
 export default async function subscriptionScheduler() {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
-  const refDate = startOfDay(new Date());
+  const today = startOfDay(new Date());
   const events = await getCalendarEvents();
   const shippingMethod = await findSubscriptionShippingMethod();
   const { channel } = await executeGraphQL(GetChannelDocument, {
@@ -92,7 +92,7 @@ export default async function subscriptionScheduler() {
           boxs: {
             order: IsNull(),
             shipment: {
-              lockBoxDate: LessThanOrEqual(refDate),
+              lockBoxDate: LessThan(today),
             },
           },
         },
@@ -208,7 +208,7 @@ export default async function subscriptionScheduler() {
         },
       });
 
-      //TODO: get status of payment intent using transactionInitialize.transaction.pspReference
+      //TODO: get status of payment intent using transactionInitialize.transaction.pspReference, possible 3D secure
 
       if (!transactionInitialize || transactionInitialize.errors.length > 0) {
         transactionInitialize && console.error(transactionInitialize);

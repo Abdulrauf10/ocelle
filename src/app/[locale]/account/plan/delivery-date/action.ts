@@ -1,11 +1,11 @@
 'use server';
 
-import { RecurringBox, Shipment, User } from '@/entities';
+import { RecurringBox, Shipment } from '@/entities';
 import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 import { startOfDay } from 'date-fns';
 import { getLoginedMe } from '@/actions';
-import { In, IsNull } from 'typeorm';
+import { In, MoreThanOrEqual } from 'typeorm';
 import { getEditableRecurringBoxDeadline } from '@/helpers/dog';
 import { getCalendarEvents } from '@/helpers/calendar';
 
@@ -27,12 +27,18 @@ export default async function setDeliveryDateAction(data: SetDeliveryDateAction)
   const deliveryDate = startOfDay(value.date);
   const me = await getLoginedMe();
   const events = await getCalendarEvents();
+  const today = startOfDay(new Date());
+  const lockBoxDate = getEditableRecurringBoxDeadline(events, deliveryDate);
+
+  if (lockBoxDate < today) {
+    throw new Error('lock box date cannot before today');
+  }
 
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.find(Shipment, {
       where: {
+        lockBoxDate: MoreThanOrEqual(today),
         boxs: {
-          order: IsNull(),
           dog: {
             user: {
               id: me.id,
@@ -64,9 +70,6 @@ export default async function setDeliveryDateAction(data: SetDeliveryDateAction)
       await queryRunner.manager.update(RecurringBox, { id: In(boxIds) }, { shipment });
     }
 
-    await queryRunner.manager.update(Shipment, shipment.id, {
-      deliveryDate,
-      lockBoxDate: getEditableRecurringBoxDeadline(events, deliveryDate),
-    });
+    await queryRunner.manager.update(Shipment, shipment.id, { deliveryDate, lockBoxDate });
   });
 }

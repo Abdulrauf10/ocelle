@@ -8,7 +8,8 @@ import { executeQuery } from '@/helpers/queryRunner';
 import { getNumericEnumValues } from '@/helpers/enum';
 import { isImmutableBox } from '@/helpers/dog';
 import { getCalendarEvents } from '@/helpers/calendar';
-import { In, IsNull } from 'typeorm';
+import { In, MoreThanOrEqual } from 'typeorm';
+import { startOfDay } from 'date-fns';
 
 interface SetOrderSizeAction {
   size: OrderSize;
@@ -27,6 +28,7 @@ export default async function setOrderSizeAction(data: SetOrderSizeAction) {
 
   const events = await getCalendarEvents();
   const me = await getLoginedMe();
+  const today = startOfDay(new Date());
 
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.findOne(User, {
@@ -34,7 +36,9 @@ export default async function setOrderSizeAction(data: SetOrderSizeAction) {
         id: me.id,
         dogs: {
           boxs: {
-            order: IsNull(),
+            shipment: {
+              lockBoxDate: MoreThanOrEqual(today),
+            },
           },
         },
       },

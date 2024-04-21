@@ -7,7 +7,7 @@ export default class Shipment {
   id!: number;
 
   @Column()
-  lockBoxDate!: Date;
+  lockBoxDate!: Date; // after the lock box date, not more changes will be apply to the shipment with boxs
 
   @Column()
   deliveryDate!: Date;
