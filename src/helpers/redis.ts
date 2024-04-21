@@ -52,7 +52,7 @@ export async function getCheckoutDeliveryDate(checkoutId: string) {
   if (value === null) {
     return value;
   }
-  return typeof value === 'string' ? new Date(value) : (value as undefined);
+  return typeof value === 'string' ? new Date(value) : value;
 }
 
 export async function setCheckoutDeliveryDate(checkoutId: string, deliveryDate?: Date) {
