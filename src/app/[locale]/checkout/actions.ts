@@ -16,6 +16,7 @@ import {
   UpdateCheckoutLinesDocument,
   UpdateCheckoutShippingMethodDocument,
 } from '@/gql/graphql';
+import { awaitable } from '@/helpers/async';
 import { getCalendarEvents } from '@/helpers/calendar';
 import { getClosestOrderDeliveryDate, isUnavailableDeliveryDate } from '@/helpers/dog';
 import { getStripeAppId } from '@/helpers/env';
@@ -319,17 +320,12 @@ export async function finalizeCheckout() {
   }
 
   // we need to wait for the payment hook to be called before completing the checkout
-  for (let i = 0; i < 90; i++) {
-    const _checkout = await getCartOrCheckout();
-    if (
-      _checkout.authorizeStatus !== CheckoutAuthorizeStatusEnum.None &&
-      _checkout.chargeStatus !== CheckoutChargeStatusEnum.None
-    ) {
-      break;
-    }
-    // wait for 2 seconds to continue
-    await new Promise((resolve) => setTimeout(resolve, 1000 * 2));
-  }
+  await awaitable(
+    getCartOrCheckout,
+    ({ authorizeStatus, chargeStatus }) =>
+      authorizeStatus !== CheckoutAuthorizeStatusEnum.None &&
+      chargeStatus !== CheckoutChargeStatusEnum.None
+  );
 
   const { checkoutComplete } = await executeGraphQL(CompleteCheckoutDocument, {
     variables: {

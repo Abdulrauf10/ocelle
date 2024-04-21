@@ -21,6 +21,7 @@ import {
   UpdateCheckoutAddressDocument,
   UpdateCheckoutShippingMethodDocument,
 } from '@/gql/graphql';
+import { awaitable } from '@/helpers/async';
 import { getCalendarEvents } from '@/helpers/calendar';
 import {
   calculateTotalPerDayPrice,
@@ -595,17 +596,12 @@ export async function finalizeCheckout(paymentMethodId: string) {
     }
 
     // we need to wait for the payment hook to be called before completing the checkout
-    for (let i = 0; i < 90; i++) {
-      const _checkout = await getCheckout();
-      if (
-        _checkout.authorizeStatus !== CheckoutAuthorizeStatusEnum.None &&
-        _checkout.chargeStatus !== CheckoutChargeStatusEnum.None
-      ) {
-        break;
-      }
-      // wait for 2 seconds to continue
-      await new Promise((resolve) => setTimeout(resolve, 1000 * 2));
-    }
+    await awaitable(
+      getCheckout,
+      ({ authorizeStatus, chargeStatus }) =>
+        authorizeStatus !== CheckoutAuthorizeStatusEnum.None &&
+        chargeStatus !== CheckoutChargeStatusEnum.None
+    );
 
     const { checkoutComplete } = await executeGraphQL(CompleteCheckoutDocument, {
       variables: {
