@@ -1,5 +1,5 @@
 import { DEFUALT_SHIPPING_ZONE, SHIPPING_METHOD_SF_EXPRESS_FREE } from '@/consts';
-import { Order, RecurringBox, Shipment, User } from '@/entities';
+import { DogPlan, Order, RecurringBox, Shipment, User } from '@/entities';
 import { OrderSize } from '@/enums';
 import StripeNotReadyError from '@/errors/StripeNotReadyError';
 import {
@@ -116,15 +116,11 @@ export default async function subscriptionScheduler() {
       if (!user.stripe || !user.stripePaymentMethod) {
         throw new StripeNotReadyError(user.id);
       }
-      const boxs: RecurringBox[] = [];
+      const records: Array<{ plan: DogPlan; box: RecurringBox }> = [];
       const lines = [];
       for (const dog of user.dogs) {
+        const box = dog.boxs[0];
         const breeds = dog.breeds.map((x) => x.breed);
-        const box = dog.boxs.find((box) => box.order === undefined);
-        if (!box) {
-          throw new Error("dog don't contains box to be the order");
-        }
-        boxs.push(box);
         const recipe1Variant = recipeToVariant(products, breeds, dog.dateOfBirth, box.recipe1);
         if (!recipe1Variant) {
           throw new Error('recipe1 variant not found in saleor');
@@ -167,6 +163,7 @@ export default async function subscriptionScheduler() {
             quantity: getSubscriptionProductActuallyQuanlityInSaleor(recipe2TotalPrice),
           });
         }
+        records.push({ plan: dog.plan, box });
       }
 
       const { draftOrderCreate } = await executeGraphQL(CreateDraftOrderDocument, {
@@ -261,12 +258,14 @@ export default async function subscriptionScheduler() {
 
         await queryRunner.manager.update(
           RecurringBox,
-          { id: In(boxs.map((box) => box.id)) },
+          { id: In(records.map(({ box }) => box.id)) },
           { order }
         );
 
-        const nextBoxs = boxs.map((box) => {
-          return queryRunner.manager.create(RecurringBox, {
+        const planActiveRecords = records.filter(({ plan }) => plan.isEnabled);
+
+        const nextBoxs = planActiveRecords.map(({ box }) =>
+          queryRunner.manager.create(RecurringBox, {
             mealPlan: box.mealPlan,
             orderSize: box.orderSize,
             recipe1: box.recipe1,
@@ -275,8 +274,8 @@ export default async function subscriptionScheduler() {
             startDate: addDays(box.endDate, 1),
             endDate: addDays(box.endDate, 1 + (box.orderSize === OrderSize.OneWeek ? 7 : 14)),
             dog: box.dog,
-          });
-        });
+          })
+        );
         await queryRunner.manager.save(nextBoxs);
 
         const deliveryDate = getClosestOrderDeliveryDate(events);
