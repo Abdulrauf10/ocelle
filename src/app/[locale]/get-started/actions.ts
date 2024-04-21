@@ -595,7 +595,7 @@ export async function finalizeCheckout(paymentMethodId: string) {
     }
 
     // we need to wait for the payment hook to be called before completing the checkout
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 90; i++) {
       const _checkout = await getCheckout();
       if (
         _checkout.authorizeStatus !== CheckoutAuthorizeStatusEnum.None &&
@@ -603,8 +603,8 @@ export async function finalizeCheckout(paymentMethodId: string) {
       ) {
         break;
       }
-      // wait for 8 seconds to continue
-      await new Promise((resolve) => setTimeout(resolve, 1000 * 8));
+      // wait for 2 seconds to continue
+      await new Promise((resolve) => setTimeout(resolve, 1000 * 2));
     }
 
     const { checkoutComplete } = await executeGraphQL(CompleteCheckoutDocument, {

@@ -217,7 +217,7 @@ export default async function subscriptionScheduler() {
       }
 
       // we need to wait for the payment hook to be called before completing the draft order
-      for (let i = 0; i < 30; i++) {
+      for (let i = 0; i < 90; i++) {
         const { order } = await executeGraphQL(GetOrderDocument, {
           withAuth: false,
           headers: {
@@ -234,8 +234,8 @@ export default async function subscriptionScheduler() {
         ) {
           break;
         }
-        // wait for 8 seconds to continue
-        await new Promise((resolve) => setTimeout(resolve, 1000 * 8));
+        // wait for 2 seconds to continue
+        await new Promise((resolve) => setTimeout(resolve, 1000 * 2));
       }
 
       const { draftOrderComplete } = await executeGraphQL(CompleteDraftOrderDocument, {
