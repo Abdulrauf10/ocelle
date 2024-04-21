@@ -7,6 +7,9 @@ export default class Shipment {
   id!: number;
 
   @Column()
+  lockBoxDate!: Date;
+
+  @Column()
   deliveryDate!: Date;
 
   @OneToMany(() => RecurringBox, (record) => record.shipment)

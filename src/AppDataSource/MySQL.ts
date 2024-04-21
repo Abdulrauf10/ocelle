@@ -17,6 +17,8 @@ import { DataSource } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 import { Initial1712556909513 } from '@/migrations/1712556909513-initial';
 import { StripeIntegration1713263142208 } from '@/migrations/1713263142208-stripe-integration';
+import { AddLockBoxDate1713677342953 } from '@/migrations/1713677342953-add-lock-box-date';
+import { RemoveLockDateDefaultValue1713677413178 } from '@/migrations/1713677413178-remove-lock-date-default-value';
 
 dotenv.config();
 
@@ -44,7 +46,12 @@ const MySQL = new DataSource({
     Shipment,
     User,
   ],
-  migrations: [Initial1712556909513, StripeIntegration1713263142208],
+  migrations: [
+    Initial1712556909513,
+    StripeIntegration1713263142208,
+    AddLockBoxDate1713677342953,
+    RemoveLockDateDefaultValue1713677413178,
+  ],
 });
 
 export default MySQL;

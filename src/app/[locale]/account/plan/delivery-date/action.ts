@@ -6,6 +6,8 @@ import { executeQuery } from '@/helpers/queryRunner';
 import { startOfDay } from 'date-fns';
 import { getLoginedMe } from '@/actions';
 import { In, IsNull } from 'typeorm';
+import { getEditableRecurringBoxDeadline } from '@/helpers/dog';
+import { getCalendarEvents } from '@/helpers/calendar';
 
 interface SetDeliveryDateAction {
   date: Date;
@@ -24,6 +26,7 @@ export default async function setDeliveryDateAction(data: SetDeliveryDateAction)
 
   const deliveryDate = startOfDay(value.date);
   const me = await getLoginedMe();
+  const events = await getCalendarEvents();
 
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.find(Shipment, {
@@ -61,6 +64,9 @@ export default async function setDeliveryDateAction(data: SetDeliveryDateAction)
       await queryRunner.manager.update(RecurringBox, { id: In(boxIds) }, { shipment });
     }
 
-    await queryRunner.manager.update(Shipment, shipment.id, { deliveryDate });
+    await queryRunner.manager.update(Shipment, shipment.id, {
+      deliveryDate,
+      lockBoxDate: getEditableRecurringBoxDeadline(events, deliveryDate),
+    });
   });
 }

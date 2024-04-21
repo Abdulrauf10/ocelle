@@ -29,6 +29,7 @@ import {
   getSubscriptionProductActuallyQuanlityInSaleor,
   getTheCheapestRecipe,
   isUnavailableDeliveryDate,
+  getEditableRecurringBoxDeadline,
 } from '@/helpers/dog';
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
@@ -549,6 +550,7 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
 
 export async function finalizeCheckout(paymentMethodId: string) {
   try {
+    const events = await getCalendarEvents();
     const checkout = await getCheckout();
     const orderSize = await getCheckoutOrderSize(checkout.id);
     const surveyDogs = await getCheckoutDogs(checkout.id);
@@ -685,7 +687,10 @@ export async function finalizeCheckout(paymentMethodId: string) {
       }
       await queryRunner.manager.save(plans);
 
-      const shipment = queryRunner.manager.create(Shipment, { deliveryDate });
+      const shipment = queryRunner.manager.create(Shipment, {
+        deliveryDate,
+        lockBoxDate: getEditableRecurringBoxDeadline(events, deliveryDate),
+      });
       await queryRunner.manager.save(shipment);
 
       // create order
