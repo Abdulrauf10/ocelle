@@ -17,13 +17,14 @@ import { getCalendarEvents } from '@/helpers/calendar';
 import {
   calculateRecipeTotalPriceInBox,
   getClosestOrderDeliveryDate,
+  getEditableRecurringBoxDeadline,
   getSubscriptionProductActuallyQuanlityInSaleor,
 } from '@/helpers/dog';
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
 import { recipeToVariant } from '@/helpers/saleor';
-import { addDays } from 'date-fns';
+import { addDays, startOfDay } from 'date-fns';
 import invariant from 'ts-invariant';
 import { In, IsNull, LessThanOrEqual } from 'typeorm';
 
@@ -61,6 +62,7 @@ async function findSubscriptionShippingMethod() {
 
 export default async function subscriptionScheduler() {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
+  const refDate = startOfDay(new Date());
   const events = await getCalendarEvents();
   const shippingMethod = await findSubscriptionShippingMethod();
   const { channel } = await executeGraphQL(GetChannelDocument, {
@@ -90,7 +92,7 @@ export default async function subscriptionScheduler() {
           boxs: {
             order: IsNull(),
             shipment: {
-              deliveryDate: LessThanOrEqual(getClosestOrderDeliveryDate(events)),
+              lockBoxDate: LessThanOrEqual(refDate),
             },
           },
         },
@@ -278,8 +280,11 @@ export default async function subscriptionScheduler() {
         });
         await queryRunner.manager.save(nextBoxs);
 
+        const deliveryDate = getClosestOrderDeliveryDate(events);
+
         const shipment = queryRunner.manager.create(Shipment, {
-          deliveryDate: getClosestOrderDeliveryDate(events),
+          lockBoxDate: getEditableRecurringBoxDeadline(events, deliveryDate),
+          deliveryDate,
         });
         await queryRunner.manager.save(shipment);
 
