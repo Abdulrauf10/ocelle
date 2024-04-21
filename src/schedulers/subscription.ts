@@ -11,6 +11,7 @@ import {
   OrderAuthorizeStatusEnum,
   OrderChargeStatusEnum,
 } from '@/gql/graphql';
+import { findProducts, getThrowableChannel } from '@/helpers/api';
 import { awaitable } from '@/helpers/async';
 import { getCalendarEvents } from '@/helpers/calendar';
 import {
@@ -22,7 +23,7 @@ import {
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
-import { findProducts, getThrowableChannel, recipeToVariant } from '@/helpers/saleor';
+import { recipeToVariant } from '@/helpers/saleor';
 import { addDays, startOfDay } from 'date-fns';
 import invariant from 'ts-invariant';
 import { In, IsNull, LessThan } from 'typeorm';
