@@ -12,9 +12,7 @@ import {
   CompleteCheckoutDocument,
   CountryCode,
   CreateCheckoutDocument,
-  FindProductsDocument,
   FindUserDocument,
-  GetChannelDocument,
   GetCheckoutDocument,
   InitializeTransactionDocument,
   RegisterAccountDocument,
@@ -48,6 +46,7 @@ import {
   setCheckoutPaymentIntent,
 } from '@/helpers/redis';
 import { recipeToVariant } from '@/helpers/saleor';
+import { findProducts } from '@/helpers/api';
 import {
   attachPaymentMethod,
   createCustomer,
@@ -132,18 +131,6 @@ async function getCheckout(): Promise<CheckoutFragment> {
 export async function createCheckout(orderSize: OrderSize, dogs: DogDto[]) {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
-  const { channel } = await executeGraphQL(GetChannelDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: { slug: process.env.SALEOR_CHANNEL_SLUG },
-  });
-
-  if (!channel) {
-    throw new Error('channel not found');
-  }
-
   const productSlugsToBeAddToLine = [];
 
   for (const dog of dogs) {
@@ -160,24 +147,16 @@ export async function createCheckout(orderSize: OrderSize, dogs: DogDto[]) {
   }
 
   // make sure the settings of saleor is ready for create checkout
-  const { products: _products } = await executeGraphQL(FindProductsDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+  const products = await findProducts({
+    filter: {
+      channel: process.env.SALEOR_CHANNEL_SLUG,
     },
-    variables: {
-      filter: {
-        channel: process.env.SALEOR_CHANNEL_SLUG,
-      },
-      where: {
-        slug: {
-          oneOf: productSlugsToBeAddToLine,
-        },
+    where: {
+      slug: {
+        oneOf: productSlugsToBeAddToLine,
       },
     },
   });
-
-  const products = _products?.edges.map((edge) => edge.node) || [];
 
   if (products.length !== productSlugsToBeAddToLine.length) {
     throw new Error('cannot find the products to process the checkout action');

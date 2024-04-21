@@ -1,20 +1,19 @@
 'use server';
 
 import { getCartCookie, setCartCookie } from '@/actions';
-import { IndividualRecipePack, Recipe } from '@/enums';
+import { IndividualRecipePack } from '@/enums';
 import {
   AddCheckoutLinesDocument,
   CheckoutFragment,
   CountryCode,
   CreateCheckoutDocument,
   FindProductDocument,
-  FindProductsDocument,
-  GetChannelDocument,
   GetCheckoutDocument,
   RemoveCheckoutLinesDocument,
   UpdateCheckoutLinesDocument,
 } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
+import { findProducts } from '@/helpers/api';
 import { individualPackProducts, individualPackProductsValues } from '@/products';
 import { CartReturn } from '@/types/dto';
 import invariant from 'ts-invariant';
@@ -22,44 +21,34 @@ import invariant from 'ts-invariant';
 export async function getProducts() {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
-  const { products } = await executeGraphQL(FindProductsDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: {
-      channel: process.env.SALEOR_CHANNEL_SLUG,
-      where: {
-        slug: {
-          oneOf: individualPackProductsValues.map((product) => product.slug),
-        },
+  const products = await findProducts({
+    channel: process.env.SALEOR_CHANNEL_SLUG,
+    where: {
+      slug: {
+        oneOf: individualPackProductsValues.map((product) => product.slug),
       },
     },
   });
 
-  if (!products) {
-    throw new Error('cannot find products');
-  }
-
   return {
-    [IndividualRecipePack.Bundle]: products.edges.find(
-      (edge) => edge.node.slug === individualPackProducts[IndividualRecipePack.Bundle].slug
-    )!.node,
-    [IndividualRecipePack.Chicken]: products.edges.find(
-      (edge) => edge.node.slug === individualPackProducts[IndividualRecipePack.Chicken].slug
-    )!.node,
-    [IndividualRecipePack.Beef]: products.edges.find(
-      (edge) => edge.node.slug === individualPackProducts[IndividualRecipePack.Beef].slug
-    )!.node,
-    [IndividualRecipePack.Duck]: products.edges.find(
-      (edge) => edge.node.slug === individualPackProducts[IndividualRecipePack.Duck].slug
-    )!.node,
-    [IndividualRecipePack.Lamb]: products.edges.find(
-      (edge) => edge.node.slug === individualPackProducts[IndividualRecipePack.Lamb].slug
-    )!.node,
-    [IndividualRecipePack.Pork]: products.edges.find(
-      (edge) => edge.node.slug === individualPackProducts[IndividualRecipePack.Pork].slug
-    )!.node,
+    [IndividualRecipePack.Bundle]: products.find(
+      (product) => product.slug === individualPackProducts[IndividualRecipePack.Bundle].slug
+    )!,
+    [IndividualRecipePack.Chicken]: products.find(
+      (product) => product.slug === individualPackProducts[IndividualRecipePack.Chicken].slug
+    )!,
+    [IndividualRecipePack.Beef]: products.find(
+      (product) => product.slug === individualPackProducts[IndividualRecipePack.Beef].slug
+    )!,
+    [IndividualRecipePack.Duck]: products.find(
+      (product) => product.slug === individualPackProducts[IndividualRecipePack.Duck].slug
+    )!,
+    [IndividualRecipePack.Lamb]: products.find(
+      (product) => product.slug === individualPackProducts[IndividualRecipePack.Lamb].slug
+    )!,
+    [IndividualRecipePack.Pork]: products.find(
+      (product) => product.slug === individualPackProducts[IndividualRecipePack.Pork].slug
+    )!,
   };
 }
 
@@ -88,17 +77,6 @@ export async function getCartOrCheckout(
   }
 
   // create cart or checkout if not exists
-  const { channel } = await executeGraphQL(GetChannelDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: { slug: process.env.SALEOR_CHANNEL_SLUG },
-  });
-
-  if (!channel) {
-    throw new Error('channel not found');
-  }
 
   const { checkoutCreate } = await executeGraphQL(CreateCheckoutDocument, {
     variables: {

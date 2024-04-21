@@ -21,7 +21,6 @@ import {
   ExcludeShippingPriceProductsDocument,
   FindProductCategoryDocument,
   FindProductTypesDocument,
-  FindProductsDocument,
   FindShippingZonesDocument,
   FindWarehousesDocument,
   GetChannelDocument,
@@ -50,6 +49,7 @@ import {
   SHIPPING_METHOD_SF_EXPRESS_FIXED,
   SHIPPING_METHOD_SF_EXPRESS_FREE,
 } from './consts';
+import { findProducts } from './helpers/api';
 
 async function prugeDefaultChannel() {
   console.log('execute pruge the default channel...');
@@ -543,27 +543,19 @@ async function setupSubscriptionProducts(
   console.log('setup subscription products...');
 
   // create placeholder product if not exists
-  const { products } = await executeGraphQL(FindProductsDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: {
-      where: {
-        slug: {
-          oneOf: subscriptionProductsValues.map((product) => product.slug),
-        },
+  const products = await findProducts({
+    where: {
+      slug: {
+        oneOf: subscriptionProductsValues.map((product) => product.slug),
       },
     },
   });
 
-  const existingProducts = products?.edges.map((edge) => edge.node) || [];
-
-  if (existingProducts.length === subscriptionProductsValues.length) {
-    return existingProducts;
+  if (products.length === subscriptionProductsValues.length) {
+    return products;
   }
 
-  const existingProductSlugs = existingProducts.map((product) => product.slug);
+  const existingProductSlugs = products.map((product) => product.slug);
 
   const productsToBeCreate = subscriptionProductsValues.filter(
     (product) => existingProductSlugs.indexOf(product.slug) === -1
@@ -633,7 +625,7 @@ async function setupSubscriptionProducts(
     throw new Error('failed to create subscription product');
   }
 
-  return [...existingProducts, ...productBulkCreate.results.map((result) => result.product!)];
+  return [...products, ...productBulkCreate.results.map((result) => result.product!)];
 }
 
 async function setupIndividualProducts(
@@ -644,27 +636,19 @@ async function setupIndividualProducts(
 ): Promise<ProductFragment[]> {
   console.log('setup individual products...');
 
-  const { products } = await executeGraphQL(FindProductsDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: {
-      where: {
-        slug: {
-          oneOf: individualPackProductsValues.map((product) => product.slug),
-        },
+  const products = await findProducts({
+    where: {
+      slug: {
+        oneOf: individualPackProductsValues.map((product) => product.slug),
       },
     },
   });
 
-  const existingProducts = products?.edges.map((edge) => edge.node) || [];
-
-  if (existingProducts.length === individualPackProductsValues.length) {
-    return existingProducts;
+  if (products.length === individualPackProductsValues.length) {
+    return products;
   }
 
-  const existingProductSlugs = existingProducts.map((product) => product.slug);
+  const existingProductSlugs = products.map((product) => product.slug);
 
   const productsToBeCreate = individualPackProductsValues.filter(
     (product) => existingProductSlugs.indexOf(product.slug) === -1
@@ -735,7 +719,7 @@ async function setupIndividualProducts(
     throw new Error('failed to create individual product');
   }
 
-  return [...existingProducts, ...productBulkCreate.results.map((result) => result.product!)];
+  return [...products, ...productBulkCreate.results.map((result) => result.product!)];
 }
 
 async function setupExcludeShippingMethodProducts(
