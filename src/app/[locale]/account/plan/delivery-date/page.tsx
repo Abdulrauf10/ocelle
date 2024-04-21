@@ -10,6 +10,8 @@ import DeliveryDatePickerDialog from '@/components/dialogs/DeliveryDatePicker';
 import { executeQuery } from '@/helpers/queryRunner';
 import { Shipment } from '@/entities';
 import { formatDate } from '@/helpers/date';
+import { ShippableNote } from '@/components/ShippableNote';
+import { startOfDay } from 'date-fns';
 
 export default async function PlanDeliveryDate() {
   const { dogs, id } = await getLoginedMe();
@@ -38,46 +40,16 @@ export default async function PlanDeliveryDate() {
     });
   });
 
-  // TODO: should hide upcoming box when the delivery completed and no more shipment eg. pause plan
-
-  const shipable = shipments.find(
-    (shipment) =>
-      !isDeliveredBox(shipment.deliveryDate) && shipment.boxs.every((box) => !!box.order)
-  );
-
-  if (!shipable) {
-    throw new Error('should have shipment available to upcoming boxs');
-  }
-
-  const prevShipmentEditable =
-    shipments[1] && !isImmutableBox(calendarEvents, shipments[1].deliveryDate);
-  const nextShipmentEditable =
-    shipments[0] && !isImmutableBox(calendarEvents, shipments[0].deliveryDate);
-
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
         <h1 className="heading-4 text-center font-bold text-primary">
           {t('change-{}', { value: t('delivery-date') })}
         </h1>
-        <p className="mx-auto mt-4 max-w-[620px] text-center">
-          {t.rich('your-upcoming-box-is-arriving-on-the-{}', {
-            date: formatDate(t, shipable.deliveryDate, true),
-          })}{' '}
-          {t('it-contains-{}-fresh-food', {
-            value: new Intl.ListFormat('en-HK').format(
-              shipable.boxs.map((box) => t('{}-apostrophe', { value: box.dog.name }))
-            ),
-          })}
-        </p>
-        {!prevShipmentEditable && nextShipmentEditable && (
-          <p className="mx-auto mt-4 max-w-[620px] text-center">
-            {t.rich('unfortunately-you-can-no-longer-make-changes-to-your-upcoming-box', {
-              date: formatDate(t, shipments[0].deliveryDate, true),
-            })}
-          </p>
-        )}
-        {nextShipmentEditable && (
+        <div className="mx-auto mt-4 max-w-[620px] text-center">
+          <ShippableNote shipments={shipments} />
+        </div>
+        {shipments[0].lockBoxDate > startOfDay(new Date()) && (
           <div className="mt-8 text-center">
             <DeliveryDatePickerDialog
               initialDate={shipments[0].deliveryDate}

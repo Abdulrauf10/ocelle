@@ -11,6 +11,9 @@ import { calculateTotalPerDayPrice } from '@/helpers/dog';
 import { MealPlan } from '@/enums';
 import { cookies } from 'next/headers';
 import { DOG_SELECT_COOKIE } from '@/consts';
+import { DogBoxNote } from '@/components/DogBoxNote';
+import { executeQuery } from '@/helpers/queryRunner';
+import { RecurringBox } from '@/entities';
 
 export default async function PlanMeal() {
   const cookie = cookies();
@@ -20,6 +23,16 @@ export default async function PlanMeal() {
   const dog = currentSelectedDogId
     ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
     : dogs[0];
+  const boxs = await executeQuery(async (queryRunner) => {
+    return queryRunner.manager.find(RecurringBox, {
+      where: {
+        dog: { id: dog.id },
+      },
+      relations: {
+        shipment: true,
+      },
+    });
+  });
 
   const fullPlanPerDayPrice = calculateTotalPerDayPrice(
     dog.breeds.map(({ breed }) => breed),
@@ -64,15 +77,9 @@ export default async function PlanMeal() {
           <h1 className="heading-4 text-center font-bold text-primary max-lg:mt-6">
             {t('choose-{}-fresh-recipes', { name: dog.name })}
           </h1>
-          <p className="mx-auto mt-4 max-w-[620px] text-center">
-            {t.rich('{}-upcoming-box-is-scheduled-for-the-{}', {
-              name: dog.name,
-              date: '15th of December 2023',
-            })}
-          </p>
-          <p className="mx-auto mt-4 max-w-[620px] text-center">
-            {t.rich('you-can-make-changes-until-the-{}', { date: '15th of December 2023' })}
-          </p>
+          <div className="mx-auto mt-4 max-w-[620px] text-center">
+            <DogBoxNote name={dog.name} boxs={boxs} />
+          </div>
           <FreshPlanForm
             initialPlan={dog.plan.mealPlan}
             fullPlanPrice={fullPlanPerDayPrice}

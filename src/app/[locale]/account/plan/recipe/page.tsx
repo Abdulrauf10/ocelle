@@ -8,6 +8,9 @@ import setRecipeAction from './action';
 import BackButton from '@/components/buttons/BackButton';
 import { cookies } from 'next/headers';
 import { DOG_SELECT_COOKIE } from '@/consts';
+import { executeQuery } from '@/helpers/queryRunner';
+import { RecurringBox } from '@/entities';
+import { DogBoxNote } from '@/components/DogBoxNote';
 
 export default async function PlanRecipe() {
   const cookie = cookies();
@@ -17,6 +20,16 @@ export default async function PlanRecipe() {
   const dog = currentSelectedDogId
     ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
     : dogs[0];
+  const boxs = await executeQuery(async (queryRunner) => {
+    return queryRunner.manager.find(RecurringBox, {
+      where: {
+        dog: { id: dog.id },
+      },
+      relations: {
+        shipment: true,
+      },
+    });
+  });
 
   return (
     <AppThemeProvider>
@@ -35,15 +48,9 @@ export default async function PlanRecipe() {
           <h1 className="heading-4 text-center font-bold text-primary max-lg:mt-6">
             {t('choose-{}-fresh-recipes', { name: dog.name })}
           </h1>
-          <p className="mx-auto mt-4 max-w-[620px] text-center">
-            {t.rich('{}-upcoming-box-is-scheduled-for-the-{}', {
-              name: dog.name,
-              date: '15th of December 2023',
-            })}
-          </p>
-          <p className="mx-auto mt-4 max-w-[620px] text-center">
-            {t.rich('you-can-make-changes-until-the-{}', { date: '10th of December 2023' })}
-          </p>
+          <div className="mx-auto mt-4 max-w-[620px] text-center">
+            <DogBoxNote name={dog.name} boxs={boxs} />
+          </div>
           <p className="mx-auto mt-4 max-w-[620px] text-center text-primary">
             {t('select-up-to-{}-suitable-recipes-below', { value: 2 })}
           </p>
