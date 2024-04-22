@@ -60,7 +60,7 @@ import { addDays, startOfDay } from 'date-fns';
 import Joi from 'joi';
 import { headers } from 'next/headers';
 import invariant from 'ts-invariant';
-import { In } from 'typeorm';
+import { In, MoreThanOrEqual } from 'typeorm';
 
 export async function getMinPerDayPrice(
   dog: Pick<
@@ -468,6 +468,7 @@ export async function finalizeCheckout(paymentMethodId: string) {
     const orderSize = await getCheckoutOrderSize(checkout.id);
     const surveyDogs = await getCheckoutDogs(checkout.id);
     const deliveryDate = await getCheckoutDeliveryDate(checkout.id);
+    const today = startOfDay(new Date());
 
     console.dir(checkout, { depth: null });
 
@@ -530,6 +531,11 @@ export async function finalizeCheckout(paymentMethodId: string) {
       // user should be created in update checkout data action
       const user = await queryRunner.manager.findOne(User, {
         where: { id: checkout.user!.id },
+        relations: {
+          dogs: {
+            boxs: true,
+          },
+        },
       });
 
       if (!user) {
@@ -595,11 +601,27 @@ export async function finalizeCheckout(paymentMethodId: string) {
       }
       await queryRunner.manager.save(plans);
 
-      const shipment = queryRunner.manager.create(Shipment, {
-        deliveryDate,
-        lockBoxDate: getEditableRecurringBoxDeadline(events, deliveryDate),
+      let shipment = await queryRunner.manager.findOne(Shipment, {
+        where: {
+          boxs: {
+            dog: {
+              user: { id: user.id },
+            },
+          },
+          lockBoxDate: MoreThanOrEqual(today),
+        },
+        relations: {
+          boxs: true,
+        },
       });
-      await queryRunner.manager.save(shipment);
+
+      if (!shipment) {
+        shipment = queryRunner.manager.create(Shipment, {
+          deliveryDate,
+          lockBoxDate: getEditableRecurringBoxDeadline(events, deliveryDate),
+        });
+        await queryRunner.manager.save(shipment);
+      }
 
       // create order
       const order = queryRunner.manager.create(Order, {
@@ -607,6 +629,10 @@ export async function finalizeCheckout(paymentMethodId: string) {
         createdAt: new Date(checkoutComplete.order!.created),
       });
       await queryRunner.manager.save(order);
+
+      // try to sync with existing box if exists
+      const startDate = addDays(shipment?.boxs[0].startDate ?? startOfDay(new Date()), 1);
+      const endDate = addDays(startDate, user.orderSize === OrderSize.OneWeek ? 7 : 14);
 
       const recurringRecords = [];
       for (let i = 0; i < dogs.length; i++) {
@@ -618,8 +644,8 @@ export async function finalizeCheckout(paymentMethodId: string) {
             recipe1: surveyDogs[i].recipe1,
             recipe2: surveyDogs[i].recipe2,
             isTransitionPeriod: surveyDogs[i].isEnabledTransitionPeriod,
-            startDate: addDays(startOfDay(new Date()), 1),
-            endDate: addDays(startOfDay(new Date()), 1 + 14), // must be two weeks box
+            startDate,
+            endDate,
             dog,
             order,
             shipment,

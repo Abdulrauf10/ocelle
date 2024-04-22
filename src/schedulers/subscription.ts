@@ -97,7 +97,7 @@ export default async function subscriptionScheduler() {
       if (!user.stripe || !user.stripePaymentMethod) {
         throw new StripeNotReadyError(user.id);
       }
-      const records: Array<{ plan: DogPlan; box: RecurringBox }> = [];
+      const records: Array<{ user: User; plan: DogPlan; box: RecurringBox }> = [];
       const lines = [];
       for (const dog of user.dogs) {
         const box = dog.boxs[0];
@@ -144,7 +144,7 @@ export default async function subscriptionScheduler() {
             quantity: getSubscriptionProductActuallyQuanlityInSaleor(recipe2TotalPrice),
           });
         }
-        records.push({ plan: dog.plan, box });
+        records.push({ user, plan: dog.plan, box });
       }
 
       const { draftOrderCreate } = await executeGraphQL(CreateDraftOrderDocument, {
@@ -245,18 +245,19 @@ export default async function subscriptionScheduler() {
 
         const planActiveRecords = records.filter(({ plan }) => plan.isEnabled);
 
-        const nextBoxs = planActiveRecords.map(({ box }) =>
-          queryRunner.manager.create(RecurringBox, {
+        const nextBoxs = planActiveRecords.map(({ user, box }) => {
+          const startDate = addDays(box.endDate, 1);
+          return queryRunner.manager.create(RecurringBox, {
             mealPlan: box.mealPlan,
             orderSize: box.orderSize,
             recipe1: box.recipe1,
             recipe2: box.recipe2,
             isTransitionPeriod: false,
-            startDate: addDays(box.endDate, 1),
-            endDate: addDays(box.endDate, 1 + (box.orderSize === OrderSize.OneWeek ? 7 : 14)),
+            startDate: startDate,
+            endDate: addDays(startDate, user.orderSize === OrderSize.OneWeek ? 7 : 14),
             dog: box.dog,
-          })
-        );
+          });
+        });
         await queryRunner.manager.save(nextBoxs);
 
         const deliveryDate = getClosestOrderDeliveryDate(events);
