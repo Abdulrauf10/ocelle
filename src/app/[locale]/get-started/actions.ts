@@ -46,7 +46,7 @@ import {
   setCheckoutPaymentIntent,
 } from '@/helpers/redis';
 import { recipeToVariant } from '@/helpers/saleor';
-import { findProducts } from '@/helpers/api';
+import { findProducts, updateAddress, upsertUser } from '@/helpers/api';
 import {
   attachPaymentMethod,
   createCustomer,
@@ -310,37 +310,7 @@ async function findOrCreateUser(
   channel: string,
   redirectUrl: string
 ) {
-  async function getSaleorUser() {
-    const { user } = await executeGraphQL(FindUserDocument, {
-      withAuth: false,
-      headers: {
-        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-      },
-      variables: { email },
-    });
-    if (user) {
-      return user;
-    }
-    const { accountRegister } = await executeGraphQL(RegisterAccountDocument, {
-      variables: {
-        input: {
-          firstName,
-          lastName,
-          password,
-          email,
-          redirectUrl,
-          channel,
-        },
-      },
-    });
-    if (!accountRegister || accountRegister.errors.length > 0) {
-      accountRegister && console.error(accountRegister.errors);
-      throw new Error('failed to create a user for the checkout');
-    }
-    return accountRegister.user!;
-  }
-
-  const saleorUser = await getSaleorUser();
+  const saleorUser = await upsertUser(firstName, lastName, email, password, channel, redirectUrl);
 
   const user = await executeQuery(async (queryRunner) => {
     const entity = await queryRunner.manager.findOne(User, { where: { id: saleorUser.id } });
@@ -474,51 +444,11 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
     throw new Error('incorrect user id of current checkout');
   }
 
-  const shippingAddress = {
-    firstName: value.deliveryAddress.firstName,
-    lastName: value.deliveryAddress.lastName,
-    streetAddress1: value.deliveryAddress.streetAddress1,
-    streetAddress2: value.deliveryAddress.streetAddress2,
-    city: value.deliveryAddress.district,
-    countryArea: value.deliveryAddress.region,
-    country: CountryCode.Hk,
-  };
-
-  const { checkoutShippingAddressUpdate, checkoutBillingAddressUpdate } = await executeGraphQL(
-    UpdateCheckoutAddressDocument,
-    {
-      withAuth: false,
-      headers: {
-        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-      },
-      variables: {
-        checkoutId: checkout.id,
-        shippingAddress,
-        billingAddress: value.isSameBillingAddress
-          ? shippingAddress
-          : {
-              firstName: value.billingAddress!.firstName,
-              lastName: value.billingAddress!.lastName,
-              streetAddress1: value.billingAddress!.streetAddress1,
-              streetAddress2: value.billingAddress!.streetAddress2,
-              city: value.billingAddress!.district,
-              countryArea: value.billingAddress!.region,
-              country: CountryCode.Hk,
-            },
-      },
-    }
+  await updateAddress(
+    checkout.id,
+    value.deliveryAddress,
+    value.isSameBillingAddress ? undefined : value.billingAddress!
   );
-
-  if (
-    !checkoutShippingAddressUpdate ||
-    !checkoutBillingAddressUpdate ||
-    checkoutShippingAddressUpdate.errors.length > 0 ||
-    checkoutBillingAddressUpdate.errors.length > 0
-  ) {
-    checkoutShippingAddressUpdate && console.error(checkoutShippingAddressUpdate.errors);
-    checkoutBillingAddressUpdate && console.error(checkoutBillingAddressUpdate.errors);
-    throw new Error('checkout address update failed');
-  }
 
   // link stripe customer to user
   if (user.stripe) {
