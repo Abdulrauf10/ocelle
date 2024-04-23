@@ -32,7 +32,11 @@ function Block({ id, title, faqs }: BlockProps) {
 export default function FaQ() {
   return (
     <main>
-      <div className="bg-[url('/faq.jpg')] bg-[length:auto_100%] bg-[44%_center] bg-repeat-x py-[12em] max-2xl:py-[11%]">
+      <div
+        className="bg-[url('/faq.jpg')] bg-[length:auto_100%] bg-[44%_center] bg-repeat-x py-[12em] max-2xl:py-[11%] 
+                  max-md:min-h-[800px] max-md:bg-[url('/ocelle-faq-mb-bg.jpg')] max-md:bg-[length:768px_960px] max-md:bg-[bottom_center]  max-md:bg-no-repeat max-md:pb-8
+                  max-md:pt-4"
+      >
         <Container className="max-w-screen-xl">
           <h1 className="-ml-3 select-none text-[215px] font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] max-lg:text-[130px]">
             FAQ
@@ -61,7 +65,7 @@ export default function FaQ() {
       </div>
       <div className="bg-primary bg-opacity-20 py-8">
         <Container className="max-w-screen-xl">
-          <div className="-m-2 flex flex-wrap items-center justify-between max-lg:justify-center max-sm:flex-col">
+          <div className="-m-2 flex flex-wrap items-center justify-between max-xl:justify-center max-xl:px-4 max-[1085px]:px-48 max-lg:justify-center max-lg:px-44 max-md:px-4 max-sm:flex-col">
             <div className="p-2">
               <Link
                 href="#our-food"
