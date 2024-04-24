@@ -36,7 +36,7 @@ export default async function CareerApply({ params }: { params: { id: string } }
             MuiOutlinedInput: {
               styleOverrides: {
                 input: {
-                  padding: '10px 14.5px',
+                  padding: '6px 14.5px',
                 },
               },
             },

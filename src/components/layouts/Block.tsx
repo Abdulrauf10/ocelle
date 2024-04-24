@@ -20,6 +20,7 @@ export default function Block({
       case 'custom':
         return undefined;
       case 'normal':
+        return '';
       default:
         return 'py-[3.5vw] max-xl:py-10';
     }

@@ -87,12 +87,12 @@ function FileInput<T extends FieldValues>({
             <span className="body-4 text-error">{error.message}</span>
           ) : (
             <>
+              <span className="body-4 mr-2 inline-block break-all">
+                {label}: {filename}
+              </span>
               <button onClick={handleDetach}>
                 <Close className="w-3" />
               </button>
-              <span className="body-4 ml-2 inline-block break-all">
-                {label}: {filename}
-              </span>
             </>
           )}
         </div>
@@ -128,19 +128,24 @@ export default function ApplyCareerForm({
 
   if (completed) {
     return (
-      <Block styles="tight" className="bg-gold bg-opacity-10 text-center text-primary">
-        <Container className="max-w-screen-md">
-          {/* <Image
+      <div className="h-[calc(100vh_-_72px)] bg-gold bg-opacity-10 pb-[72px]">
+        <Block
+          styles="normal"
+          className="flex h-full flex-col justify-center text-center text-primary"
+        >
+          <Container className="max-w-[700px]">
+            {/* <Image
             src="/ocelle-logo.png"
             width={180}
             height={54}
             alt="ocelle logo"
             className="mx-auto"
           /> */}
-          <p className="heading-4 mt-8 font-bold">{t('thank-you-for-applying')}</p>
-          <p className="body-3 mt-4">{t('thank-you-for-applying:description', { title })}</p>
-        </Container>
-      </Block>
+            <p className="heading-4 font-bold">{t('thank-you-for-applying')}</p>
+            <p className="body-3 mt-4">{t('thank-you-for-applying:description', { title })}</p>
+          </Container>
+        </Block>
+      </div>
     );
   }
 
@@ -153,8 +158,8 @@ export default function ApplyCareerForm({
             {t('submit-your-application')}
           </div>
           <div className="body-3">
-            <span className="text-error">*</span>
             {t('required')}
+            <span className="text-error">*</span>
           </div>
           <div className="mt-6">
             <form
@@ -274,9 +279,8 @@ export default function ApplyCareerForm({
                           );
                         },
                       }}
-                      helperText={t('file-types-{}-{}mb-limit', {
-                        value: 'pdf, doc, docx, txt, rtf',
-                        mb: 5,
+                      helperText={t('file-types-{}', {
+                        value: 'PDF, doc, docx, txt, rtf',
                       })}
                     />
                   </div>
@@ -306,9 +310,8 @@ export default function ApplyCareerForm({
                           );
                         },
                       }}
-                      helperText={t('file-types-{}-{}mb-limit', {
-                        value: 'pdf, doc, docx, txt, rtf',
-                        mb: 5,
+                      helperText={t('file-types-{}', {
+                        value: 'PDF, doc, docx, txt, rtf',
                       })}
                     />
                   </div>

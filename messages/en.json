@@ -467,5 +467,5 @@
   "please-enter-a-valid-{}": "Please enter a valid {name}.",
   "file-size-cannot-exceed-{}-mb": "File size cannot exceed {value} MB",
   "You-ve-indicated-that-{}-has-no-allergies-None-as-well-as-allergies-to-{}-please-recheck-and-re-enter-your-selection": "You’ve indicated that {name} has no allergies (“None!”) as well as allergies to {value}. Please recheck and re-enter your selection.",
-  "file-types-{}-{}mb-limit": "File Types: {value} ({mb}MB limit)"
+  "file-types-{}": "File Types: {value} "
 }

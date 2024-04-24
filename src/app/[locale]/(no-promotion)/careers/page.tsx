@@ -60,7 +60,7 @@ function CareerBlock({ career }: { career: Career }) {
             )}
           </div>
         </div>
-        <div className="px-3 py-2">
+        <div className="mx-auto px-3 py-2">
           <Button
             theme="primary"
             href={`./careers/${career.id}`}
