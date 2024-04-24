@@ -195,7 +195,7 @@ export default async function HowItWorksIndividual() {
           analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
         />
         <Block className="bg-gray bg-opacity-20">
-          <Container className="max-w-screen-xl text-center">
+          <Container className="max-w-screen-lg text-center">
             <h2 className="heading-1 font-bold text-gray">Your Dog Deserves A Fresh Start</h2>
             <div className="mt-10">
               <div className="-mx-4 -my-4 flex flex-wrap">

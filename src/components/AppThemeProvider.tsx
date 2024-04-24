@@ -18,7 +18,7 @@ function PopupIcon() {
 
 function DropdownIcon() {
   return (
-    <div className="mr-2 [&_polyline]:stroke-slate-500">
+    <div className="pointer-events-none absolute right-0 mr-2 [&_polyline]:stroke-slate-500">
       <PopupIcon />
     </div>
   );

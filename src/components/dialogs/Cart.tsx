@@ -36,7 +36,13 @@ export default function CartDialog({
                 <div>{colon(t, 'subtotal')}</div>
                 <div>HK${subtotal}</div>
               </div>
-              <Button fullWidth className="my-2" onClick={onCheckoutClick} disabled={disabled}>
+              <Button
+                fontSize="small"
+                fullWidth
+                className="my-2"
+                onClick={onCheckoutClick}
+                disabled={disabled}
+              >
                 {t('continue-to-checkout')}
               </Button>
             </div>

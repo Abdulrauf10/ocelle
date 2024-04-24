@@ -6,21 +6,19 @@ import useDefaultValues from '@/hooks/defaultValues';
 import DateCalendar from '../inputs/DateCalendar';
 import { startOfDay } from 'date-fns';
 
-export default function DatePickerForm({
-  initialDate,
-  minDate,
-  disabled,
-  shouldDisableDate,
-  onComplete,
-  action,
-}: {
+type T = {
   initialDate: Date;
   minDate?: Date;
   disabled?: boolean;
   shouldDisableDate?(date: Date): boolean;
   onComplete?(): void;
   action(data: { date: Date }): Promise<void>;
-}) {
+};
+
+export default React.forwardRef<HTMLDivElement, T>(function DatePickerForm(
+  { initialDate, minDate, disabled, shouldDisableDate, onComplete, action }: T,
+  ref
+) {
   const t = useTranslations();
   const { defaultValues, setDefaultValues } = useDefaultValues({ date: startOfDay(initialDate) });
   const [pending, startTransition] = React.useTransition();
@@ -46,6 +44,7 @@ export default function DatePickerForm({
 
   return (
     <DateCalendar
+      ref={ref}
       value={date}
       disabled={disabled}
       disableHighlightToday
@@ -66,4 +65,4 @@ export default function DatePickerForm({
       onChange={setDate}
     />
   );
-}
+});

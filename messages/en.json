@@ -240,7 +240,7 @@
   "payment-information": "Payment Information",
   "name-on-card": "Name On Card",
   "card-number": "Card Number",
-  "card-expiration-date": "Card Expiration Date",
+  "expiration-date": "Expiration Date",
   "cvc": "CVC",
   "delivery-date": "Delivery Date",
   "{}-{}-week-starter-box-will-be-delivered-on-the-{}": "{name}’s {week}-week starter box will be delivered on the {date}.",

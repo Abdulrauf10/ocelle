@@ -6,7 +6,7 @@ import { Link } from '@/navigation';
 interface EditButtonProps {
   href?: string;
   className?: string;
-  onClick?(): void;
+  onClick?(e: React.MouseEvent<HTMLElement>): void;
 }
 
 export default function EditButton({ className, href, onClick }: EditButtonProps) {

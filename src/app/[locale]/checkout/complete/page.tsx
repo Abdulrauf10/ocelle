@@ -64,7 +64,7 @@ export default function CompletePage() {
       </Link>
       <h1 className="heading-4 mt-6 font-bold text-primary">{t('thank-you-for-your-order')}</h1>
       <p className="mt-4 text-primary">
-        {t('your-{}-will-be-delivered-on-the-{}', {
+        {t.rich('your-{}-will-be-delivered-on-the-{}', {
           value: t('order').toLowerCase(),
           date: formatDate(t, deliveryDate, true),
         })}
