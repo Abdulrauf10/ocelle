@@ -6,10 +6,9 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
 import TrashBin from './icons/TrashBin';
-import Sub from './icons/Sub';
-import Plus from './icons/Plus';
 import { individualPackProducts } from '@/products';
 import { weightToGrams } from '@/helpers/saleor';
+import NumberInput from './inputs/Number';
 
 export default function CartRows({
   lines,
@@ -50,10 +49,10 @@ export default function CartRows({
   return lines.map((line, idx) => {
     const content = line.variant.sku ? contents[line.variant.sku] : undefined;
     if (!content) {
-      return <React.Fragment key={idx}></React.Fragment>;
+      return <React.Fragment key={line.id}></React.Fragment>;
     }
     return (
-      <React.Fragment key={idx}>
+      <React.Fragment key={line.id}>
         <div className="-mx-2 flex">
           <div className="px-2">
             <div className="relative h-24 w-24 overflow-hidden rounded-md">
@@ -81,25 +80,12 @@ export default function CartRows({
             </div>
             <div className="-mx-2 mt-2 flex items-center justify-between">
               <div className="px-2">
-                <div className="relative flex w-16 items-center justify-center rounded-md border border-brown bg-white py-1">
-                  <button
-                    type="button"
-                    className="absolute left-0 px-2 py-1"
-                    onClick={() => onUpdateClick(line.id, line.quantity - 1)}
-                    disabled={disabled}
-                  >
-                    <Sub className="w-2" />
-                  </button>
-                  <span className="body-3">{line.quantity}</span>
-                  <button
-                    type="button"
-                    className="absolute right-0 px-2 py-1"
-                    onClick={() => onUpdateClick(line.id, line.quantity + 1)}
-                    disabled={disabled}
-                  >
-                    <Plus className="w-2" />
-                  </button>
-                </div>
+                <NumberInput
+                  className={{ root: 'border-brown', input: 'body-3' }}
+                  min={0}
+                  value={line.quantity}
+                  onChange={(value) => onUpdateClick(line.id, value)}
+                />
               </div>
               <div className="px-2">${line.totalPrice.gross.amount.toFixed(2)}</div>
             </div>

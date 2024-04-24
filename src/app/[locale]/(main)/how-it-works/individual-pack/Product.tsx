@@ -16,6 +16,7 @@ import { ProductFragment } from '@/gql/graphql';
 import RecipeMediumDialog from '@/components/dialogs/RecipeMedium';
 import { weightToGrams } from '@/helpers/saleor';
 import xss from 'xss';
+import NumberInput from '@/components/inputs/Number';
 
 const parser = edjsHTML();
 
@@ -33,7 +34,7 @@ export default function Product({
 }: {
   picture: string;
   reverse?: boolean;
-  theme?: 'primary' | 'secondary' | 'red' | 'yellow' | 'green';
+  theme?: 'primary' | 'secondary' | 'red' | 'yellow' | 'green' | 'dark-green';
   className: {
     root?: string;
     title?: string;
@@ -73,7 +74,7 @@ export default function Product({
 
   return (
     <Block className={className.root}>
-      <Container className="max-w-screen-lg overflow-hidden">
+      <Container className="max-w-screen-lg">
         <div
           className={clsx(
             '-mx-6 -my-4 flex max-md:flex-col max-md:items-center max-md:text-center',
@@ -92,7 +93,7 @@ export default function Product({
           </div>
           <div className="w-full px-6 py-4">
             <h2 className={clsx('heading-2 font-bold', className.title)}>
-              {product.name} – {t('{}-g', { value: getWeight(product) })}
+              {product.name} ({t('{}-g', { value: getWeight(product) })})
             </h2>
             <p className={clsx('mt-4 text-[30px]', className.title)}>${getPrice(product)}</p>
             <div className={clsx('body-1 mt-4', className.content)}>
@@ -127,14 +128,15 @@ export default function Product({
               <span className={clsx('body-1 mr-3 inline-block font-bold', className.content)}>
                 {colon(t, 'quantity')}
               </span>
-              <input
-                type="number"
-                name="quantity"
-                className="w-20 rounded-lg border border-brown px-3 py-2 text-center"
-                value={quantity}
-                step={1}
+              <NumberInput
+                className={{
+                  root: 'w-20 border-brown',
+                  input: 'body-1 w-[78px] px-4 py-1',
+                  icon: 'w-2.5',
+                }}
                 min={1}
-                onChange={({ target }) => setQuantity(parseInt(target.value))}
+                value={quantity}
+                onChange={setQuantity}
               />
             </label>
             <div className="mt-6">

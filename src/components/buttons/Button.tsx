@@ -4,7 +4,7 @@ import DogFoot from '../icons/DogFoot';
 import { Link } from '@/navigation';
 
 interface ButtonBaseProps {
-  theme?: 'primary' | 'secondary' | 'red' | 'yellow' | 'green';
+  theme?: 'primary' | 'secondary' | 'red' | 'yellow' | 'green' | 'dark-green';
   className?: string;
   reverse?: boolean;
   fullWidth?: boolean;
@@ -76,6 +76,12 @@ export default function Button({
       ? clsx(reverseBaseClasses, 'bg-white text-how-it-works-green')
       : 'bg-how-it-works-green text-white mouse:hover:opacity-85'
   );
+  const darkGreenClasses = clsx(
+    'border-how-it-works-dark-green',
+    reverse
+      ? clsx(reverseBaseClasses, 'bg-white text-how-it-works-dark-green')
+      : 'bg-how-it-works-dark-green text-white mouse:hover:opacity-85'
+  );
   const classes = disabled
     ? clsx(
         baseClasses,
@@ -85,15 +91,17 @@ export default function Button({
     : clsx(
         baseClasses,
         'cursor-pointer transition-all duration-300 ease-in-out',
-        theme === 'green'
-          ? greenClasses
-          : theme === 'yellow'
-            ? yellowClasses
-            : theme === 'red'
-              ? redClasses
-              : theme === 'primary'
-                ? primaryClasses
-                : secondaryClasses,
+        theme === 'dark-green'
+          ? darkGreenClasses
+          : theme === 'green'
+            ? greenClasses
+            : theme === 'yellow'
+              ? yellowClasses
+              : theme === 'red'
+                ? redClasses
+                : theme === 'primary'
+                  ? primaryClasses
+                  : secondaryClasses,
         className
       );
 

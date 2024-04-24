@@ -5,6 +5,7 @@ import DateCalendarInput from '../inputs/DateCalendar';
 interface DateCalendarProps<T extends FieldValues> extends InputControllerProps<T> {
   defaultValue?: PathValue<T, Path<T>>;
   shouldDisableDate?(day: Date): boolean;
+  shouldDisableYear?(year: Date): boolean;
   minDate?: Date;
   maxDate?: Date;
   actions?: Array<{ label: string; disabled?: boolean; onClick(): void }>;
@@ -17,6 +18,7 @@ export default function DateCalendar<T extends FieldValues>({
   rules,
   defaultValue,
   shouldDisableDate,
+  shouldDisableYear,
   minDate,
   maxDate,
   actions,
@@ -34,6 +36,7 @@ export default function DateCalendar<T extends FieldValues>({
       maxDate={maxDate}
       onChange={(value) => onChange(value)}
       disableHighlightToday
+      shouldDisableYear={shouldDisableYear}
       shouldDisableDate={shouldDisableDate}
       actions={actions}
     />

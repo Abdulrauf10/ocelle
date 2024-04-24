@@ -3,7 +3,7 @@ import IconProps from './Icon';
 export default function Cart({ className, count }: IconProps & { count: number }) {
   return (
     <svg viewBox="0 0 70 70" className={className}>
-      <circle className="fill-primary stroke-0" cx="35" cy="35" r="35" />
+      <circle className="fill-secondary stroke-0" cx="35" cy="35" r="35" />
       <path
         className="fill-white stroke-0"
         d="M23.82,46.32c-2.44,0-4.41,1.98-4.41,4.42s1.98,4.42,4.41,4.42,4.42-1.98,4.42-4.42-1.98-4.42-4.42-4.42Z"

@@ -184,7 +184,7 @@ export default function GuestCheckoutForm({
       <Container>
         <div className="-mx-6 flex flex-wrap max-lg:-mx-3">
           <div className="flex-1 px-6 max-lg:px-3">
-            <Section dense title={t('customer-details')}>
+            <Section dense title={t('customer-info')}>
               <div className="-m-2 flex flex-wrap">
                 <div className="w-1/2 p-2">
                   <TextField
