@@ -148,9 +148,7 @@ export async function createCheckout(orderSize: OrderSize, dogs: DogDto[]) {
 
   // make sure the settings of saleor is ready for create checkout
   const products = await findProducts({
-    filter: {
-      channel: process.env.SALEOR_CHANNEL_SLUG,
-    },
+    channel: process.env.SALEOR_CHANNEL_SLUG,
     where: {
       slug: {
         oneOf: productSlugsToBeAddToLine,
