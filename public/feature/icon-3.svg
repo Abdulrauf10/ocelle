@@ -1,1 +1,27 @@
-<?xml version="1.0" encoding="UTF-8"?><svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 37.3 37.3"><defs><style>.cls-1{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.3px;}</style></defs><g id="Design"><line class="cls-1" x1="3.13" y1="5.62" x2="3.13" y2="14.93"/><line class="cls-1" x1="5.62" y1="5.62" x2="5.62" y2="14.93"/><path class="cls-1" d="M8.1,5.62v6.21c0,.78-.37,1.52-.99,1.99l-1.49,1.12h-2.48l-1.49-1.12c-.63-.47-.99-1.2-.99-1.99v-6.21"/><path class="cls-1" d="M4.37,34.17h0c-.69,0-1.24-.56-1.24-1.24V14.93h2.48v18c0,.69-.56,1.24-1.24,1.24Z"/><path class="cls-1" d="M36.65,24.24h-4.97c-1.37,0-2.48-1.11-2.48-2.48v-7.66c0-5.76,3.96-9.02,7.45-9.72h0v19.86Z"/><polygon class="cls-1" points="32.93 24.24 32.93 31.68 31.68 31.68 31.68 34.17 36.65 34.17 36.65 31.68 36.65 24.24 32.93 24.24"/><circle class="cls-1" cx="18.65" cy="18.65" r="8.07"/><path class="cls-1" d="M9.52,34.17c2.68,1.58,5.8,2.48,9.13,2.48s6.45-.9,9.13-2.48"/><path class="cls-1" d="M27.77,3.13c-2.68-1.58-5.79-2.48-9.12-2.48s-6.45.9-9.13,2.48"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="_圖層_2" data-name="圖層 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34.21 34.21">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #fff;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.19px;
+      }
+    </style>
+  </defs>
+  <g id="_圖層_1-2" data-name="圖層 1">
+    <g>
+      <line class="cls-1" x1="2.87" y1="5.15" x2="2.87" y2="13.69"/>
+      <line class="cls-1" x1="5.15" y1="5.15" x2="5.15" y2="13.69"/>
+      <path class="cls-1" d="M7.43,5.15v5.69c0,.72-.34,1.39-.91,1.82l-1.37,1.02h-2.28l-1.37-1.02c-.57-.43-.91-1.1-.91-1.82v-5.69"/>
+      <path class="cls-1" d="M4.01,31.34h0c-.63,0-1.14-.51-1.14-1.14V13.69h2.28v16.51c0,.63-.51,1.14-1.14,1.14Z"/>
+      <path class="cls-1" d="M33.61,22.23h-4.55c-1.26,0-2.28-1.02-2.28-2.28v-7.02c0-5.29,3.63-8.28,6.83-8.92h0v18.22Z"/>
+      <polygon class="cls-1" points="30.2 22.23 30.2 29.06 29.06 29.06 29.06 31.34 33.61 31.34 33.61 29.06 33.61 22.23 30.2 22.23"/>
+      <circle class="cls-1" cx="17.11" cy="17.11" r="7.4"/>
+      <path class="cls-1" d="M8.73,31.34c2.45,1.45,5.32,2.28,8.37,2.28s5.92-.83,8.37-2.28"/>
+      <path class="cls-1" d="M25.47,2.87c-2.45-1.45-5.31-2.27-8.37-2.27s-5.92.83-8.37,2.28"/>
+    </g>
+  </g>
+</svg>
