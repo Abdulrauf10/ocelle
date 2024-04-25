@@ -67,7 +67,7 @@ export default function PartialAddressForm<T extends FieldValues>({
 
   return (
     <div className="-m-2 flex flex-wrap">
-      <div className="w-1/2 p-2">
+      <div className="w-1/2 p-2 max-sm:w-full">
         <TextField
           name={getPath('firstName')}
           label={t('first-name')}
@@ -77,7 +77,7 @@ export default function PartialAddressForm<T extends FieldValues>({
           fullWidth
         />
       </div>
-      <div className="w-1/2 p-2">
+      <div className="w-1/2 p-2 max-sm:w-full">
         <TextField
           name={getPath('lastName')}
           label={t('last-name')}
@@ -107,7 +107,7 @@ export default function PartialAddressForm<T extends FieldValues>({
           fullWidth
         />
       </div>
-      <div className="w-1/3 p-2">
+      <div className="w-1/3 p-2 max-sm:w-full">
         <Controller
           name={getPath('region')}
           control={control}
@@ -133,7 +133,7 @@ export default function PartialAddressForm<T extends FieldValues>({
           }}
         />
       </div>
-      <div className="w-1/3 p-2">
+      <div className="w-1/3 p-2 max-sm:w-full">
         <Controller
           name={getPath('district')}
           control={control}
@@ -159,7 +159,7 @@ export default function PartialAddressForm<T extends FieldValues>({
           )}
         />
       </div>
-      <div className="w-1/3 p-2">
+      <div className="w-1/3 p-2 max-sm:w-full">
         <Controller
           defaultValue={'HK' as PathValue<T, FieldPath<T>>}
           name={getPath('country')}

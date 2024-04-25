@@ -24,7 +24,6 @@ import {
   calculateRecipeTotalPriceInBox,
   getSubscriptionProductActuallyQuanlityInSaleor,
 } from './dog';
-import { OrderSize } from '@/enums';
 import { recipeToVariant } from './saleor';
 import { Dog, User } from '@/entities';
 import { DEFUALT_SHIPPING_ZONE, SHIPPING_METHOD_SF_EXPRESS_FREE } from '@/consts';

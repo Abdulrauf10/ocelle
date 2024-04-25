@@ -222,7 +222,7 @@ export default function SubscriptionCheckoutForm({
           <div className="flex-1 px-6 max-lg:px-3">
             <Section dense title={t('user-account-information')}>
               <div className="-m-2 flex flex-wrap">
-                <div className="w-1/2 p-2">
+                <div className="w-1/2 p-2 max-sm:w-full">
                   <TextField
                     name="firstName"
                     label={t('first-name')}
@@ -232,7 +232,7 @@ export default function SubscriptionCheckoutForm({
                     fullWidth
                   />
                 </div>
-                <div className="w-1/2 p-2">
+                <div className="w-1/2 p-2 max-sm:w-full">
                   <TextField
                     name="lastName"
                     label={t('last-name')}
@@ -260,7 +260,7 @@ export default function SubscriptionCheckoutForm({
                     fullWidth
                   />
                 </div>
-                <div className="w-1/2 p-2">
+                <div className="w-1/2 p-2 max-sm:w-full">
                   <PasswordField
                     name="password"
                     control={control}
@@ -270,7 +270,7 @@ export default function SubscriptionCheckoutForm({
                     disabled={isSubmitInProgress}
                   />
                 </div>
-                <div className="w-1/2 p-2">
+                <div className="w-1/2 p-2 max-sm:w-full">
                   <PasswordField
                     name="confirmPassword"
                     control={control}

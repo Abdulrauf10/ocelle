@@ -81,7 +81,7 @@ export default function PartialCardStripeForm() {
               }}
             />
           </div>
-          <div className="w-1/2 p-2">
+          <div className="w-1/2 p-2 max-sm:w-full">
             <StripeTextFieldExpiry
               label={t('expiration-date')}
               InputProps={{
@@ -98,7 +98,7 @@ export default function PartialCardStripeForm() {
               }}
             />
           </div>
-          <div className="w-1/2 p-2">
+          <div className="w-1/2 p-2 max-sm:w-full">
             <StripeTextFieldCVC
               label={t('cvc')}
               InputProps={{

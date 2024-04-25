@@ -6,11 +6,9 @@ import { getCalendarEvents } from '@/helpers/calendar';
 import { getClosestOrderDeliveryDate, getEditableRecurringBoxDeadline } from '@/helpers/dog';
 import { executeQuery } from '@/helpers/queryRunner';
 import { addDays, startOfDay } from 'date-fns';
-import invariant from 'ts-invariant';
 import { In, IsNull, LessThan } from 'typeorm';
 
 export default async function subscriptionScheduler() {
-  invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
   const today = startOfDay(new Date());
   const events = await getCalendarEvents();
   const users = await executeQuery(async (queryRunner) => {

@@ -201,7 +201,7 @@ export default function GuestCheckoutForm({
           <div className="flex-1 px-6 max-lg:px-3">
             <Section dense title={t('customer-info')}>
               <div className="-m-2 flex flex-wrap">
-                <div className="w-1/2 p-2">
+                <div className="w-1/2 p-2 max-sm:w-full">
                   <TextField
                     name="firstName"
                     label={t('first-name')}
@@ -211,7 +211,7 @@ export default function GuestCheckoutForm({
                     fullWidth
                   />
                 </div>
-                <div className="w-1/2 p-2">
+                <div className="w-1/2 p-2 max-sm:w-full">
                   <TextField
                     name="lastName"
                     label={t('last-name')}

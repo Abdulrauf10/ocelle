@@ -43,7 +43,7 @@ export default function CouponForm({ action }: CouponFormProps) {
             name="coupon"
             control={control}
             rules={{ required: true }}
-            inputProps={{ className: 'bg-white' }}
+            inputProps={{ className: '!bg-white' }}
             fullWidth
           />
         </div>
