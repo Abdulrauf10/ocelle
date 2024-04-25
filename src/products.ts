@@ -106,7 +106,7 @@ export const subscriptionProductsValues = Object.values(subscriptionProducts);
 
 export const individualPackProducts = {
   [IndividualRecipePack.Bundle]: {
-    name: 'Test Bundle',
+    name: 'Tester Bundle',
     slug: 'bundle-pack',
     description: [
       'A complete assortment of nutrient-packed, freshly made food for your dog to sample.',
@@ -118,7 +118,7 @@ export const individualPackProducts = {
       price: 150,
     },
     zhHant: {
-      name: 'Test Bundle',
+      name: 'Tester Bundle',
       description: [
         'A complete assortment of nutrient-packed, freshly made food for your dog to sample.',
         '5 Fresh Recipes: Chicken (100g), Beef (100g), Pork (100g), Lamb (100g), Duck (100g).',

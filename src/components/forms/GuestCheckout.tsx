@@ -106,9 +106,17 @@ export default function GuestCheckoutForm({
       deliveryDate: closestDeliveryDate,
     },
   });
+  const datePickerRef = React.useRef<HTMLDivElement | null>(null);
   const [openDeliveryDate, setOpenDeliveryDate] = React.useState(false);
   const [updatingCart, setUpdatingCart] = React.useState(false);
   const [isSubmitInProgress, setIsSubmitInProgress] = React.useState(false);
+
+  const handleWindowClick = React.useCallback((e: MouseEvent) => {
+    if (datePickerRef.current && datePickerRef.current.contains(e.target as Node)) {
+      return;
+    }
+    setOpenDeliveryDate(false);
+  }, []);
 
   const onSubmit = React.useCallback(
     async ({ billingAddress, ...values }: IGuestCheckoutForm) => {
@@ -179,14 +187,21 @@ export default function GuestCheckoutForm({
     [stripe, elements, isSubmitInProgress, clientSecret, onBeforeTransaction, onCompleteTransaction]
   );
 
+  React.useEffect(() => {
+    window.addEventListener('click', handleWindowClick);
+    return () => {
+      window.removeEventListener('click', handleWindowClick);
+    };
+  }, [handleWindowClick]);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Container>
         <div className="-mx-6 flex flex-wrap max-lg:-mx-3">
           <div className="flex-1 px-6 max-lg:px-3">
-            <Section dense title={t('customer-details')}>
+            <Section dense title={t('customer-info')}>
               <div className="-m-2 flex flex-wrap">
-                <div className="w-1/2 p-2">
+                <div className="w-1/2 p-2 max-sm:w-full">
                   <TextField
                     name="firstName"
                     label={t('first-name')}
@@ -196,7 +211,7 @@ export default function GuestCheckoutForm({
                     fullWidth
                   />
                 </div>
-                <div className="w-1/2 p-2">
+                <div className="w-1/2 p-2 max-sm:w-full">
                   <TextField
                     name="lastName"
                     label={t('last-name')}
@@ -267,15 +282,19 @@ export default function GuestCheckoutForm({
               </div>
             </Section>
             <div className="mt-10"></div>
-            <Section dense title={t('billing-address')}>
-              <PartialAddressForm
-                control={control}
-                watch={watch}
-                prefix="billingAddress"
-                disabled={watch('isSameBillingAddress') || isSubmitInProgress}
-              />
-            </Section>
-            <div className="mt-10"></div>
+            {!watch('isSameBillingAddress') && (
+              <>
+                <Section dense title={t('billing-address')}>
+                  <PartialAddressForm
+                    control={control}
+                    watch={watch}
+                    prefix="billingAddress"
+                    disabled={isSubmitInProgress}
+                  />
+                </Section>
+                <div className="mt-10"></div>
+              </>
+            )}
             <Section dense title={t('payment-information')}>
               <PartialCardStripeForm />
             </Section>
@@ -285,10 +304,15 @@ export default function GuestCheckoutForm({
                 {t.rich('your-order-will-be-delivered-on-the-{}', {
                   date: formatDate(t, watch('deliveryDate'), true),
                 })}{' '}
-                <EditButton onClick={() => setOpenDeliveryDate(true)} />
+                <EditButton
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setOpenDeliveryDate(true);
+                  }}
+                />
               </p>
               {openDeliveryDate && (
-                <div className="mt-4 w-fit">
+                <div ref={datePickerRef} className="mt-4 w-fit">
                   <DatePickerForm
                     initialDate={watch('deliveryDate')}
                     minDate={closestDeliveryDate}

@@ -22,6 +22,7 @@ const config: Config = {
         'how-it-works-red': '#E9545D',
         'how-it-works-yellow': '#FCBB00',
         'how-it-works-green': '#93D06D',
+        'how-it-works-dark-green': '#269D9E',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

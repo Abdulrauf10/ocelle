@@ -4,7 +4,8 @@ import DogFoot from '../icons/DogFoot';
 import { Link } from '@/navigation';
 
 interface ButtonBaseProps {
-  theme?: 'primary' | 'secondary' | 'red' | 'yellow' | 'green';
+  fontSize?: 'normal' | 'small';
+  theme?: 'primary' | 'secondary' | 'red' | 'yellow' | 'green' | 'dark-green';
   className?: string;
   reverse?: boolean;
   fullWidth?: boolean;
@@ -29,6 +30,7 @@ function ButtonIcon() {
 }
 
 export default function Button({
+  fontSize,
   theme,
   children,
   className,
@@ -42,7 +44,8 @@ export default function Button({
   const buttonProps = props as ButtonProps;
   const linkProps = props as LinkbuttonProps;
   const baseClasses = clsx(
-    'font-open-sans items-center justify-center rounded-[30px] py-1.5 px-6 text-center text-xl font-bold border-2 select-none',
+    'font-open-sans items-center justify-center rounded-[30px] py-1.5 px-6 text-center font-bold border-2 select-none',
+    !fontSize || fontSize === 'normal' ? 'body-1' : 'body-2',
     fullWidth ? 'flex w-full' : 'inline-flex'
   );
   const reverseBaseClasses = clsx('mouse:hover:border-gray');
@@ -76,6 +79,12 @@ export default function Button({
       ? clsx(reverseBaseClasses, 'bg-white text-how-it-works-green')
       : 'bg-how-it-works-green text-white mouse:hover:opacity-85'
   );
+  const darkGreenClasses = clsx(
+    'border-how-it-works-dark-green',
+    reverse
+      ? clsx(reverseBaseClasses, 'bg-white text-how-it-works-dark-green')
+      : 'bg-how-it-works-dark-green text-white mouse:hover:opacity-85'
+  );
   const classes = disabled
     ? clsx(
         baseClasses,
@@ -85,15 +94,17 @@ export default function Button({
     : clsx(
         baseClasses,
         'cursor-pointer transition-all duration-300 ease-in-out',
-        theme === 'green'
-          ? greenClasses
-          : theme === 'yellow'
-            ? yellowClasses
-            : theme === 'red'
-              ? redClasses
-              : theme === 'primary'
-                ? primaryClasses
-                : secondaryClasses,
+        theme === 'dark-green'
+          ? darkGreenClasses
+          : theme === 'green'
+            ? greenClasses
+            : theme === 'yellow'
+              ? yellowClasses
+              : theme === 'red'
+                ? redClasses
+                : theme === 'primary'
+                  ? primaryClasses
+                  : secondaryClasses,
         className
       );
 

@@ -124,8 +124,16 @@ export default function SubscriptionCheckoutForm({
       deliveryDate: closestDeliveryDate,
     },
   });
+  const datePickerRef = React.useRef<HTMLDivElement | null>(null);
   const [openDeliveryDate, setOpenDeliveryDate] = React.useState(false);
   const [isSubmitInProgress, setIsSubmitInProgress] = React.useState(false);
+
+  const handleWindowClick = React.useCallback((e: MouseEvent) => {
+    if (datePickerRef.current && datePickerRef.current.contains(e.target as Node)) {
+      return;
+    }
+    setOpenDeliveryDate(false);
+  }, []);
 
   const onSubmit = React.useCallback(
     async ({ billingAddress, confirmPassword, ...values }: ISubscriptionCheckoutForm) => {
@@ -200,6 +208,13 @@ export default function SubscriptionCheckoutForm({
     [clientSecret, stripe, elements, isSubmitInProgress, onBeforeTransaction, onCompleteTransaction]
   );
 
+  React.useEffect(() => {
+    window.addEventListener('click', handleWindowClick);
+    return () => {
+      window.removeEventListener('click', handleWindowClick);
+    };
+  }, [handleWindowClick]);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Container>
@@ -207,7 +222,7 @@ export default function SubscriptionCheckoutForm({
           <div className="flex-1 px-6 max-lg:px-3">
             <Section dense title={t('user-account-information')}>
               <div className="-m-2 flex flex-wrap">
-                <div className="w-1/2 p-2">
+                <div className="w-1/2 p-2 max-sm:w-full">
                   <TextField
                     name="firstName"
                     label={t('first-name')}
@@ -217,7 +232,7 @@ export default function SubscriptionCheckoutForm({
                     fullWidth
                   />
                 </div>
-                <div className="w-1/2 p-2">
+                <div className="w-1/2 p-2 max-sm:w-full">
                   <TextField
                     name="lastName"
                     label={t('last-name')}
@@ -245,7 +260,7 @@ export default function SubscriptionCheckoutForm({
                     fullWidth
                   />
                 </div>
-                <div className="w-1/2 p-2">
+                <div className="w-1/2 p-2 max-sm:w-full">
                   <PasswordField
                     name="password"
                     control={control}
@@ -255,7 +270,7 @@ export default function SubscriptionCheckoutForm({
                     disabled={isSubmitInProgress}
                   />
                 </div>
-                <div className="w-1/2 p-2">
+                <div className="w-1/2 p-2 max-sm:w-full">
                   <PasswordField
                     name="confirmPassword"
                     control={control}
@@ -308,15 +323,19 @@ export default function SubscriptionCheckoutForm({
               </div>
             </Section>
             <div className="mt-10"></div>
-            <Section dense title={t('billing-address')}>
-              <PartialAddressForm
-                control={control}
-                watch={watch}
-                prefix="billingAddress"
-                disabled={watch('isSameBillingAddress') || isSubmitInProgress}
-              />
-            </Section>
-            <div className="mt-10"></div>
+            {!watch('isSameBillingAddress') && (
+              <>
+                <Section dense title={t('billing-address')}>
+                  <PartialAddressForm
+                    control={control}
+                    watch={watch}
+                    prefix="billingAddress"
+                    disabled={isSubmitInProgress}
+                  />
+                </Section>
+                <div className="mt-10"></div>
+              </>
+            )}
             <Section dense title={t('payment-information')}>
               <PartialCardStripeForm />
             </Section>
@@ -328,7 +347,12 @@ export default function SubscriptionCheckoutForm({
                   week: 2,
                   date: formatDate(t, watch('deliveryDate'), true),
                 })}{' '}
-                <EditButton onClick={() => setOpenDeliveryDate(true)} />
+                <EditButton
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setOpenDeliveryDate(true);
+                  }}
+                />
               </p>
               <p className="body-3 mt-3">
                 {t('after-checkout-you-can-adjust-your-delivery-date-until-the-{}', {
@@ -336,7 +360,7 @@ export default function SubscriptionCheckoutForm({
                 })}
               </p>
               {openDeliveryDate && (
-                <div className="mt-4 w-fit">
+                <div ref={datePickerRef} className="mt-4 w-fit">
                   <DatePickerForm
                     initialDate={watch('deliveryDate')}
                     minDate={closestDeliveryDate}

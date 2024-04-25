@@ -6,8 +6,9 @@ import {
   Controller,
   type Control,
   type FieldValues,
-  FieldPath,
-  UseFormWatch,
+  type FieldPath,
+  type UseFormWatch,
+  type PathValue,
 } from 'react-hook-form';
 import { useLocale, useTranslations } from 'next-intl';
 import TextField from '@/components/controls/TextField';
@@ -66,7 +67,7 @@ export default function PartialAddressForm<T extends FieldValues>({
 
   return (
     <div className="-m-2 flex flex-wrap">
-      <div className="w-1/2 p-2">
+      <div className="w-1/2 p-2 max-sm:w-full">
         <TextField
           name={getPath('firstName')}
           label={t('first-name')}
@@ -76,7 +77,7 @@ export default function PartialAddressForm<T extends FieldValues>({
           fullWidth
         />
       </div>
-      <div className="w-1/2 p-2">
+      <div className="w-1/2 p-2 max-sm:w-full">
         <TextField
           name={getPath('lastName')}
           label={t('last-name')}
@@ -106,7 +107,33 @@ export default function PartialAddressForm<T extends FieldValues>({
           fullWidth
         />
       </div>
-      <div className="w-1/3 p-2">
+      <div className="w-1/3 p-2 max-sm:w-full">
+        <Controller
+          name={getPath('region')}
+          control={control}
+          rules={{ required: !disabled }}
+          render={({ field: { value, ...field }, fieldState: { error } }) => {
+            return (
+              <FormControl fullWidth disabled={disabled || pending}>
+                <InputLabel id={`${id}-region-label`}>{t('region')}</InputLabel>
+                <Select
+                  {...field}
+                  labelId={`${id}-region-label`}
+                  label={t('region')}
+                  fullWidth
+                  error={!!error}
+                  value={value ?? ''}
+                >
+                  <MenuItem value="Hong Kong Island">{t('hong-kong-island')}</MenuItem>
+                  <MenuItem value="Kowloon">{t('kowloon')}</MenuItem>
+                  <MenuItem value="New Territories">{t('new-territories')}</MenuItem>
+                </Select>
+              </FormControl>
+            );
+          }}
+        />
+      </div>
+      <div className="w-1/3 p-2 max-sm:w-full">
         <Controller
           name={getPath('district')}
           control={control}
@@ -132,34 +159,9 @@ export default function PartialAddressForm<T extends FieldValues>({
           )}
         />
       </div>
-      <div className="w-1/3 p-2">
+      <div className="w-1/3 p-2 max-sm:w-full">
         <Controller
-          name={getPath('region')}
-          control={control}
-          rules={{ required: !disabled }}
-          render={({ field: { value, ...field }, fieldState: { error } }) => {
-            return (
-              <FormControl fullWidth disabled={disabled || pending}>
-                <InputLabel id={`${id}-region-label`}>{t('region')}</InputLabel>
-                <Select
-                  {...field}
-                  labelId={`${id}-region-label`}
-                  label={t('region')}
-                  fullWidth
-                  error={!!error}
-                  value={value ?? ''}
-                >
-                  <MenuItem value="Kowloon">{t('kowloon')}</MenuItem>
-                  <MenuItem value="New Territories">{t('new-territories')}</MenuItem>
-                  <MenuItem value="Hong Kong Island">{t('hong-kong-island')}</MenuItem>
-                </Select>
-              </FormControl>
-            );
-          }}
-        />
-      </div>
-      <div className="w-1/3 p-2">
-        <Controller
+          defaultValue={'HK' as PathValue<T, FieldPath<T>>}
           name={getPath('country')}
           control={control}
           rules={{ required: !disabled }}

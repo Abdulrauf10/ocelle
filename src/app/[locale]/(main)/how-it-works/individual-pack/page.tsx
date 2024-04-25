@@ -9,6 +9,7 @@ import { getTranslations } from 'next-intl/server';
 import CartSection from './CartSection';
 import { CartContextProvider } from '@/contexts/cart';
 import pluralize from 'pluralize';
+import Newsletter from '@/components/Newsletter';
 
 export default async function HowItWorksIndividual() {
   const t = await getTranslations();
@@ -41,23 +42,27 @@ export default async function HowItWorksIndividual() {
   return (
     <CartContextProvider lines={cart ? cart.lines : []} totalPrice={cart?.totalPrice.gross}>
       <main>
-        <Block className="bg-primary bg-opacity-10 text-center">
-          <Container>
-            <h1 className="heading-1 font-bold text-primary">Feeding Fresh Is Easy With OCELLE</h1>
-            <p className="body-2 mt-4 text-secondary">
+        <div className="relative flex items-center bg-[url('./individual-pack-bg.jpg')] bg-[length:auto_100%] bg-[center_50%] bg-repeat-x">
+          <div className="w-full pt-[36.5%]"></div>
+          <div className="absolute w-full px-[2vw] py-[4vw] text-xl text-white max-lg:w-full lg:pr-0">
+            <h1 className="heading-headline font-bold">
+              Feeding Fresh Is <br />
+              Easy With OCELLE
+            </h1>
+            <p className="body-1 mt-4 max-w-[45%]">
               If you’re not ready for a subscription, our individual packs come in set weights and
               can be ordered anytime.
             </p>
-          </Container>
-        </Block>
+          </div>
+        </div>
         <Product
           product={products[IndividualRecipePack.Bundle]}
           picture="/recipes/individual/bundle.jpg"
           pack={IndividualRecipePack.Bundle}
           className={{
-            root: 'bg-[#A98D72]',
-            title: 'text-white',
-            content: 'text-white',
+            root: 'bg-[#E1D7CE]',
+            title: 'text-[#907861]',
+            content: 'text-[#907861]',
           }}
           ingredients={[]}
           targetedNutrientBlendIngredients={[]}
@@ -67,10 +72,10 @@ export default async function HowItWorksIndividual() {
         <Product
           product={products[IndividualRecipePack.Chicken]}
           picture="/recipes/individual/chicken.jpg"
-          theme="yellow"
+          theme="dark-green"
           className={{
-            root: 'bg-how-it-works-yellow bg-opacity-[8%]',
-            title: 'text-how-it-works-yellow',
+            root: 'bg-how-it-works-dark-green bg-opacity-[8%]',
+            title: 'text-how-it-works-dark-green',
           }}
           reverse
           pack={IndividualRecipePack.Chicken}
@@ -190,7 +195,7 @@ export default async function HowItWorksIndividual() {
           analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
         />
         <Block className="bg-gray bg-opacity-20">
-          <Container className="max-w-screen-xl text-center">
+          <Container className="max-w-screen-lg text-center">
             <h2 className="heading-1 font-bold text-gray">Your Dog Deserves A Fresh Start</h2>
             <div className="mt-10">
               <div className="-mx-4 -my-4 flex flex-wrap">
@@ -248,7 +253,7 @@ export default async function HowItWorksIndividual() {
               </div>
             </div>
             <div className="mt-10">
-              <Button>{t('learn-more')}</Button>
+              <Button href="/why-fresh">{t('learn-more')}</Button>
             </div>
           </Container>
         </Block>
@@ -259,10 +264,11 @@ export default async function HowItWorksIndividual() {
               Get fresh food conveniently delivered with our customised meal plans.
             </p>
             <div className="mt-8">
-              <Button>Try It Today</Button>
+              <Button href="/get-started">Try It Today</Button>
             </div>
           </Container>
         </Block>
+        <Newsletter />
       </main>
       <CartSection />
     </CartContextProvider>

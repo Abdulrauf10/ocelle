@@ -43,7 +43,7 @@ export default function CouponForm({ action }: CouponFormProps) {
             name="coupon"
             control={control}
             rules={{ required: true }}
-            inputProps={{ className: 'bg-white' }}
+            inputProps={{ className: '!bg-white' }}
             fullWidth
           />
         </div>
@@ -51,7 +51,7 @@ export default function CouponForm({ action }: CouponFormProps) {
           <button
             type="button"
             disabled={pending}
-            className="rounded-lg bg-secondary px-6 py-[9.5px] font-bold text-white"
+            className="rounded-lg bg-secondary px-6 py-[9.5px] font-open-sans font-bold text-white"
             onClick={() => handleSubmit(onSubmit)()}
           >
             {t('apply')}

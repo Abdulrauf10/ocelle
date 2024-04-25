@@ -53,8 +53,8 @@ export default function CartSection() {
       onCheckoutClick={() => router.push('/checkout')}
       disabled={pending}
     >
-      <button type="button" className="fixed bottom-8 right-8">
-        <Cart className="w-16" count={lines.length} />
+      <button type="button" className="fixed right-8 top-36">
+        <Cart className="w-16" count={lines.reduce((count, line) => line.quantity + count, 0)} />
       </button>
     </CartDialog>
   );
