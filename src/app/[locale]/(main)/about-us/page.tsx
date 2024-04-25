@@ -91,36 +91,11 @@ export default function OurStory() {
               <br />
               {t.rich('block-4-title-1-2')}
             </h2>
-            <p className="body-1 mt-8">
-              {t('block-4-content-1')}
-              That&apos;s how OCELLE was born. Our philosophy is straightforward: Real, nourishing
-              food isn&apos;t a pet&apos;s privilege; it&apos;s their right. We believe in the
-              connection between diet and well-being, mirroring the importance of food in all our
-              lives. No one should have to rely on the same processed foods, day in, day out, all
-              year round.
-            </p>
-            <p className="body-1 mt-4">
-              {t('block-4-content-2-1')}
-              OCELLE isn&apos;t just about providing dog food; we&apos;re redefining what pet
-              nutrition actually means, and how we can all apply it in our homes, with ease.
-            </p>
-            <p className="body-1 mt-4">
-              {t('block-4-content-3')}
-              After extensive research into pet nutrition, with insights from leading Vet
-              Nutritionists, we’ve developed a range of fresh, convenient pet food solutions, that
-              are both innovative and ground-breaking!
-            </p>
-            <p className="body-1 mt-4">
-              {t('block-4-content-4')}
-              Our recipes aren&apos;t just human-grade in quality; they&apos;re meticulously crafted
-              to promote your dog&apos;s health and happiness, with the same love and care you’d put
-              into creating a family meal.
-            </p>
-            <p className="body-1 mt-4">
-              {t('block-4-content-5')}
-              Welcome to OCELLE, where your dog’s well-being isn&apos;t just our business—it&apos;s
-              our heartfelt commitment.
-            </p>
+            <p className="body-1 mt-8">{t('block-4-content-1')}</p>
+            <p className="body-1 mt-4">{t('block-4-content-2')}</p>
+            <p className="body-1 mt-4">{t('block-4-content-3')}</p>
+            <p className="body-1 mt-4">{t('block-4-content-4')}</p>
+            <p className="body-1 mt-4">{t('block-4-content-5')}</p>
           </Block>
         </div>
         <div className="flex min-h-[380px] w-1/2 items-end bg-secondary bg-opacity-80 max-lg:w-full">
@@ -134,8 +109,9 @@ export default function OurStory() {
       <Block styles="normal" className="h-[280px] bg-dark-green py-10">
         <Container className="text-center text-white" screen>
           <h2 className="heading-1 font-bold">
-            Powered By Science, <br />
-            We Turn Love Into Uncomplicated Care!
+            {t('block-5-title-1-1')}
+            <br />
+            {t('block-5-title-1-2')}
           </h2>
           <div className="mb-1 mt-10">
             <Button href="/get-started">Start Your Fresh Journey</Button>
@@ -146,14 +122,11 @@ export default function OurStory() {
         <Container className="text-center text-primary">
           <h2 className="heading-1 font-bold">Our Community</h2>
           <p className="body-1 mx-auto mt-6 max-w-4xl">
-            Are you as passionate as we are about giving your dog(s) the best? We&apos;re firm
-            believers in the strength of community to bring about real transformation. If
-            you&apos;re interested in helping us spread our mission to make a <i>paws-itive</i>{' '}
-            impact on canine lives,{' '}
+            {t('block-6-content-1-1')}
             <Link href="/affiliate-program" className="text-secondary hover:underline">
-              apply here
-            </Link>{' '}
-            to become an OCELLE Affiliate.
+              {t('block-6-content-1-2')}
+            </Link>
+            {t('block-6-content-1-3')}
           </p>
           <div className="relative -z-10 -mx-32 -mt-[5%] flex justify-center overflow-hidden max-2xl:mx-0">
             <div className="w-full max-md:min-w-[110%]">
