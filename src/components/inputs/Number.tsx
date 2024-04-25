@@ -36,10 +36,13 @@ export default function NumberInput({
     [min, max]
   );
 
-  const handleChange = React.useCallback((value: number) => {
-    const _value = minMax(value);
-    onChange(_value);
-  }, []);
+  const handleChange = React.useCallback(
+    (value: number) => {
+      const _value = minMax(value);
+      onChange(_value);
+    },
+    [minMax, onChange]
+  );
 
   return (
     <div
