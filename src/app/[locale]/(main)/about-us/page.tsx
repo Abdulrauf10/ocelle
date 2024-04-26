@@ -11,44 +11,70 @@ export default function OurStory() {
   const t = useTranslations('AboutUs');
   return (
     <main>
-      <Block styles="normal" className="bg-gold bg-opacity-10 py-[92.5px] max-xl:pt-5">
+      <Block
+        styles="normal"
+        className=" flex min-h-[600px] flex-col justify-center bg-gold bg-opacity-10 py-4"
+      >
         <Container>
           <h1 className="heading-1 text-center font-bold text-primary">{t('we-do-it-for-them')}</h1>
           <div className="mx-auto mt-10 rounded-[30px] border border-primary bg-white p-12 text-[1.6vw] leading-[1.2] max-3xl:text-[2.4vw] max-2xl:text-[2.8vw] max-xl:mt-5 max-xl:p-10 max-xl:text-[3.4vw] max-lg:text-[3.8vw] max-md:p-8 max-md:text-[4.8vw] max-sm:text-[36px] max-xs:p-6 max-xs:text-[32px]">
             <strong className="flex items-center text-[1em] leading-[1.5em] text-primary">
-              <span>Ocelle | oh-chell-i |</span>
-              <Sound className="ml-[.8vw] inline-block w-[.8em] max-md:hidden" />
+              <span>
+                Ocelle | oh-chell-i |
+                <Sound className="ml-[.8vw] inline-block w-[.8em]" />
+              </span>
             </strong>
             <p className="mt-[.6em] text-[.73em] text-primary">
-              <Sound className="mr-3 inline-block w-[1.2em] md:hidden" />
+              {/* <Sound className="mr-3 inline-block w-[1.2em] max-sm:hidden" /> */}
               noun。Latin
             </p>
-            <div className="mt-[.1em]">
-              <strong className="text-[.6em] font-bold text-primary ">
-                1. {t('block-1-title-1')}:
-              </strong>
-              <p className="ml-[22px] mt-3 flex text-[.5em]">
-                <strong className="mr-2">a.</strong>
-                {t.rich('block-1-content-1')}
-                <br />
-                {t.rich('block-1-content-2')}
-              </p>
-              <p className="ml-[1.2vw] mt-3 flex text-[.5em] max-3xl:ml-[1.75vw] max-xl:ml-[2.5vw] max-md:ml-[3.2vw] max-sm:ml-6">
-                <strong className="mr-2">b.</strong>
-                {t.rich('block-1-content-3')}
-              </p>
-            </div>
-            <div className="mt-[.1em]">
-              <strong className="text-[.6em] font-bold text-primary">
-                2. {t('block-1-title-2')}:
-              </strong>
-              &nbsp;<span className="text-[.5em]"> {t.rich('block-1-content-4')}</span>
-            </div>
+            <table className=" text-left">
+              <tbody>
+                <tr>
+                  <th>
+                    <strong className="text-[.6em] font-bold text-primary ">1.</strong>
+                  </th>
+                  <th>
+                    <strong className="text-[.6em] font-bold text-primary ">
+                      {t('block-1-title-1')}:
+                    </strong>
+                  </th>
+                </tr>
+                <tr>
+                  <th></th>
+                  <th>
+                    <p className="mt-3 flex text-[.5em]">
+                      <strong className="mr-2">a.</strong>
+                      {t.rich('block-1-content-1')}
+                      <br />
+                      {t.rich('block-1-content-2')}
+                    </p>
+                    <p className="mt-3 flex text-[.5em] ">
+                      <strong className="mr-2">b.</strong>
+                      {t.rich('block-1-content-3')}
+                    </p>
+                  </th>
+                </tr>
+                <tr>
+                  <th>
+                    <div className="mt-[.1em]">
+                      <strong className="text-[.6em] font-bold text-primary">2. </strong>
+                    </div>
+                  </th>
+                  <th>
+                    <strong className="text-[.6em] font-bold text-primary">
+                      {t('block-1-title-2')}:
+                    </strong>
+                    <span className="text-[.5em]"> {t.rich('block-1-content-4')}</span>
+                  </th>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </Container>
       </Block>
       <div className="flex flex-wrap md:flex-row-reverse xl:h-[655px]">
-        <div className="min-h-[380px] w-1/2 bg-[url('./charlie.jpg')] bg-[length:auto_100%] bg-[center_left] max-md:w-full"></div>
+        <div className="min-h-[380px] w-1/2 bg-[length:auto_100%] max-md:min-h-[100vw] max-md:w-full max-md:bg-[url('./charlie-center.jpg')]  md:bg-[url('./charlie.jpg')]"></div>
         <div className="w-1/2 bg-brown pl-[8vw] pr-[4vw] text-white max-md:w-full max-md:px-4">
           <Block>
             <h2 className="heading-1 font-bold">
@@ -122,7 +148,7 @@ export default function OurStory() {
         <Container className="text-center text-primary">
           <h2 className="heading-1 font-bold">Our Community</h2>
           <p className="body-1 mx-auto mt-6 max-w-4xl">
-            {t('block-6-content-1-1')}
+            {t.rich('block-6-content-1-1')}
             <Link href="/affiliate-program" className="text-secondary hover:underline">
               {t('block-6-content-1-2')}
             </Link>
