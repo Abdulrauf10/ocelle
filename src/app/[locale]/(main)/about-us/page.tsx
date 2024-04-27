@@ -10,7 +10,7 @@ import { useTranslations } from 'next-intl';
 export default function OurStory() {
   const t = useTranslations('AboutUs');
   return (
-    <main>
+    <main className="overflow-x-hidden">
       <Block
         styles="normal"
         className=" flex min-h-[600px] flex-col justify-center bg-gold bg-opacity-10 py-4"
@@ -87,8 +87,32 @@ export default function OurStory() {
           </Block>
         </div>
       </div>
-      <div className="flex items-center bg-primary bg-[url('./about-us-bg.svg')] bg-cover bg-center bg-repeat-x max-md:flex-col-reverse xl:h-[680px] ">
-        <div className="flex w-1/2 justify-end max-md:w-full max-md:justify-center">
+      <div className="relative z-0 flex items-center bg-primary bg-cover bg-center bg-repeat-x max-md:flex-col-reverse md:bg-[url('./about-us-bg.svg')] xl:h-[680px]">
+        <Image
+          src="/food-1.png"
+          alt="food-1"
+          width={300}
+          height={250}
+          className="clip-path: inset(0 40% 0 0) absolute -left-[50px] bottom-[10%] md:hidden"
+        />
+        <Image
+          src="/food-2.png"
+          alt="food-2"
+          width={320}
+          height={220}
+          className="left-30 clip-path: inset(0 40% 0 0) absolute -right-[60px] bottom-[15%] md:hidden"
+          style={{
+            clipPath: 'inset(0 19% 0 0)',
+          }}
+        />
+        <Image
+          src="/food-3.png"
+          alt="food-3"
+          width={220}
+          height={220}
+          className="left-30 absolute -right-[40px] -top-[40px] [clip-path:inset(0_19%_0_0)] md:hidden"
+        />
+        <div className="z-40 flex w-1/2 justify-end max-md:w-full max-md:justify-center">
           <div className="mr-8 w-full max-w-[380px] pt-10 max-md:mx-4">
             <div className="relative pt-[168%]">
               <Image src="/dog-with-owner.png" alt="Dog with owner" fill />
@@ -96,7 +120,7 @@ export default function OurStory() {
           </div>
         </div>
         <div className="relative -left-6 w-1/2 text-white max-md:left-0 max-md:w-full max-md:px-4">
-          <div className="absolute left-16 -translate-y-full max-md:static max-md:mt-8 max-md:translate-y-0">
+          <div className="absolute left-16 -translate-y-full max-md:static max-md:mt-12 max-md:translate-y-0">
             <Image
               src="/inspire.svg"
               alt="Inspire"
@@ -112,9 +136,8 @@ export default function OurStory() {
       <div className="flex flex-wrap xl:h-[794px]">
         <div className="w-1/2 bg-secondary bg-opacity-20 pl-[8vw] pr-[4vw] max-lg:w-full max-lg:px-4">
           <Block>
-            <h2 className="heading-1 font-bold text-secondary">
+            <h2 className="heading-1 inline-block font-bold text-secondary max-[300px]:block">
               {t('block-4-title-1-1')}
-              <br />
               {t.rich('block-4-title-1-2')}
             </h2>
             <p className="body-1 mt-8">{t('block-4-content-1')}</p>
