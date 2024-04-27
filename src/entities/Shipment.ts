@@ -1,5 +1,12 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn, type Relation } from 'typeorm';
-import { RecurringBox } from '.';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  type Relation,
+} from 'typeorm';
+import { RecurringBox, User } from '.';
 
 @Entity({ name: 'shipment' })
 export default class Shipment {
@@ -14,4 +21,7 @@ export default class Shipment {
 
   @OneToMany(() => RecurringBox, (record) => record.shipment)
   boxs!: Relation<RecurringBox>[];
+
+  @ManyToOne(() => User, (user) => user.shipements)
+  user!: Relation<User>;
 }

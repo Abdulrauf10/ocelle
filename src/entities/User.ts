@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryColumn, type Relation } from 'typeorm';
-import { Dog } from '.';
+import { Dog, Shipment } from '.';
 import { OrderSize } from '@/enums';
 
 @Entity({ name: 'user' })
@@ -24,4 +24,7 @@ export default class User {
 
   @OneToMany(() => Dog, (dog) => dog.user)
   dogs!: Relation<Dog>[];
+
+  @OneToMany(() => Shipment, (shipment) => shipment.user)
+  shipements!: Relation<Shipment>[];
 }

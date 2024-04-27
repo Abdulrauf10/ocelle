@@ -41,7 +41,10 @@ export default async function subscriptionScheduler() {
       if (!user.stripe || !user.stripePaymentMethod) {
         throw new StripeNotReadyError(user.id);
       }
-      const { order: _order } = await orderRecurringBox(user, user.dogs);
+      const { order: _order } = await orderRecurringBox(
+        user,
+        user.dogs.map((dog) => ({ dog, box: dog.boxs[0] }))
+      );
 
       await executeQuery(async (queryRunner) => {
         const order = queryRunner.manager.create(Order, {
@@ -79,6 +82,7 @@ export default async function subscriptionScheduler() {
         const shipment = queryRunner.manager.create(Shipment, {
           lockBoxDate: getEditableRecurringBoxDeadline(events, deliveryDate),
           deliveryDate,
+          user,
         });
         await queryRunner.manager.save(shipment);
 

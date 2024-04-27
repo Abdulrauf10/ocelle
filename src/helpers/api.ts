@@ -25,7 +25,7 @@ import {
   getSubscriptionProductActuallyQuanlityInSaleor,
 } from './dog';
 import { recipeToVariant } from './saleor';
-import { Dog, User } from '@/entities';
+import { Dog, RecurringBox, User } from '@/entities';
 import { DEFUALT_SHIPPING_ZONE, SHIPPING_METHOD_SF_EXPRESS_FREE } from '@/consts';
 
 export async function getThrowableChannel() {
@@ -190,13 +190,12 @@ async function findSubscriptionShippingMethod() {
   return shippingMethod;
 }
 
-export async function orderRecurringBox(user: User, dogs: Dog[]) {
+export async function orderRecurringBox(user: User, items: Array<{ dog: Dog; box: RecurringBox }>) {
   const shippingMethod = await findSubscriptionShippingMethod();
   const channel = await getThrowableChannel();
   const products = await findProducts();
   const lines = [];
-  for (const dog of dogs) {
-    const box = dog.boxs[0];
+  for (const { dog, box } of items) {
     const breeds = dog.breeds.map((x) => x.breed);
     const recipe1Variant = recipeToVariant(products, breeds, dog.dateOfBirth, box.recipe1);
     if (!recipe1Variant) {

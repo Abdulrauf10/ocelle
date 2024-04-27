@@ -61,6 +61,7 @@ import Joi from 'joi';
 import { headers } from 'next/headers';
 import invariant from 'ts-invariant';
 import { In, MoreThanOrEqual } from 'typeorm';
+import { findMostMatchBoxStartDate, getBoxShipmentRecord } from '@/helpers/db';
 
 export async function getMinPerDayPrice(
   dog: Pick<
@@ -599,27 +600,7 @@ export async function finalizeCheckout(paymentMethodId: string) {
       }
       await queryRunner.manager.save(plans);
 
-      let shipment = await queryRunner.manager.findOne(Shipment, {
-        where: {
-          boxs: {
-            dog: {
-              user: { id: user.id },
-            },
-          },
-          lockBoxDate: MoreThanOrEqual(today),
-        },
-        relations: {
-          boxs: true,
-        },
-      });
-
-      if (!shipment) {
-        shipment = queryRunner.manager.create(Shipment, {
-          deliveryDate,
-          lockBoxDate: getEditableRecurringBoxDeadline(events, deliveryDate),
-        });
-        await queryRunner.manager.save(shipment);
-      }
+      const shipment = await getBoxShipmentRecord(queryRunner, user.id, deliveryDate);
 
       // create order
       const order = queryRunner.manager.create(Order, {
@@ -628,8 +609,13 @@ export async function finalizeCheckout(paymentMethodId: string) {
       });
       await queryRunner.manager.save(order);
 
+      // no any dog configurations
+      const defaultStartDate = addDays(startOfDay(deliveryDate), 1);
+
       // try to sync with existing box if exists
-      const startDate = addDays(shipment?.boxs[0].startDate ?? startOfDay(new Date()), 1);
+      const startDate =
+        shipment.boxs.length > 0 ? findMostMatchBoxStartDate(shipment.boxs) : defaultStartDate;
+
       const endDate = addDays(startDate, user.orderSize === OrderSize.OneWeek ? 7 : 14);
 
       const recurringRecords = [];
