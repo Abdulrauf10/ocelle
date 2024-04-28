@@ -21,7 +21,7 @@ import { getCalendarEvents } from '@/services/calendar';
 import { getClosestOrderDeliveryDate, isUnavailableDeliveryDate } from '@/helpers/dog';
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
-import { getCheckoutDeliveryDate, setCheckoutDeliveryDate } from '@/helpers/redis';
+import { getCheckoutDeliveryDate, setCheckoutDeliveryDate } from '@/services/redis';
 import { redirect } from '@/navigation';
 import { CartReturn } from '@/types/dto';
 import { startOfDay } from 'date-fns';

@@ -39,7 +39,7 @@ import {
   setCheckoutEmail,
   setCheckoutOrderSize,
   setCheckoutPaymentIntent,
-} from '@/helpers/redis';
+} from '@/services/redis';
 import { recipeToVariant } from '@/helpers/saleor';
 import { findProducts, updateAddress, upsertUser } from '@/services/api';
 import {

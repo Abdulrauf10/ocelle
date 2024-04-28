@@ -1,6 +1,6 @@
 import { CalendarEvent } from '@/types';
 import { zonedTimeToUtc } from 'date-fns-tz';
-import { get1823PublicHolidays, set1823PublicHolidays } from '../helpers/redis';
+import { get1823PublicHolidays, set1823PublicHolidays } from './redis';
 
 async function getCalendar() {
   const calendar = await get1823PublicHolidays();
