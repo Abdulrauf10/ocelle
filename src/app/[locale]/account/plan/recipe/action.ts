@@ -1,13 +1,13 @@
 'use server';
 
+import { isBefore, startOfDay } from 'date-fns';
+import Joi from 'joi';
+
 import { getLoginedMe } from '@/actions';
 import { Dog, DogPlan, RecurringBox } from '@/entities';
 import { Recipe } from '@/enums';
-import Joi from 'joi';
-import { executeQuery } from '@/helpers/queryRunner';
 import { getNumericEnumValues } from '@/helpers/enum';
-import { getCalendarEvents } from '@/services/calendar';
-import { isBefore, startOfDay } from 'date-fns';
+import { executeQuery } from '@/helpers/queryRunner';
 
 interface SetRecipeAction {
   id: number;
@@ -28,7 +28,6 @@ export default async function setRecipeAction(data: SetRecipeAction) {
     throw new Error('schema is not valid');
   }
 
-  const events = await getCalendarEvents();
   const me = await getLoginedMe();
   const today = startOfDay(new Date());
 
@@ -39,6 +38,7 @@ export default async function setRecipeAction(data: SetRecipeAction) {
         user: { id: me.id },
       },
       relations: {
+        plan: true,
         boxs: {
           shipment: true,
         },

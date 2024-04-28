@@ -1,10 +1,13 @@
 'use client';
 
-import React from 'react';
-import { useTranslations } from 'next-intl';
-import useDefaultValues from '@/hooks/defaultValues';
-import DateCalendar from '../inputs/DateCalendar';
 import { startOfDay } from 'date-fns';
+import { useTranslations } from 'next-intl';
+import React from 'react';
+import { toast } from 'react-toastify';
+
+import DateCalendar from '../inputs/DateCalendar';
+
+import useDefaultValues from '@/hooks/defaultValues';
 
 type T = {
   initialDate: Date;
@@ -35,6 +38,7 @@ export default React.forwardRef<HTMLDivElement, T>(function DatePickerForm(
       const values = { date: startOfDay(date) };
       await action(values);
       setDefaultValues(values);
+      toast('The delivery date for your next box has been successfully updated.');
     });
     if (typeof onComplete === 'function') onComplete();
   }, [action, setDefaultValues, onComplete, date]);

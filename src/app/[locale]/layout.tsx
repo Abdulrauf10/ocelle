@@ -6,7 +6,6 @@ import { notFound } from 'next/navigation';
 import '../globals.css';
 
 import { getClientLoginedMe, logout } from '@/actions';
-import Toast from '@/components/Toast';
 import { AuthProvider } from '@/contexts/auth';
 import IntlProvider from '@/providers/intl';
 
@@ -44,7 +43,6 @@ export default async function RootLayout({
           <AuthProvider me={me} logout={logout}>
             {children}
           </AuthProvider>
-          <Toast />
         </IntlProvider>
       </body>
     </html>

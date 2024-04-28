@@ -37,7 +37,7 @@ export default function LoginForm({
         try {
           await action(values);
         } catch (e) {
-          e instanceof Error && toast(e.message);
+          e instanceof Error && toast.error(e.message);
         }
       });
     },

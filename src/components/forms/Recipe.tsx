@@ -1,23 +1,27 @@
 'use client';
 
-import { FoodAllergies, Recipe } from '@/enums';
-import { useForm } from 'react-hook-form';
-import RecipeCheckbox from '../controls/RecipeCheckbox';
-import Button from '../buttons/Button';
-import { useTranslations } from 'next-intl';
-import { isAllergies, isRecommendedRecipe } from '@/helpers/dog';
-import { ActivityLevel, BodyCondition, Pickiness } from '@/types';
-import React from 'react';
-import { arrayToRecipe, recipeToArray } from '@/helpers/form';
 import equal from 'deep-equal';
+import { useTranslations } from 'next-intl';
 import pluralize from 'pluralize';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+
+import Button from '../buttons/Button';
+import RecipeCheckbox from '../controls/RecipeCheckbox';
+
+import { FoodAllergies, Recipe } from '@/enums';
+import { isAllergies, isRecommendedRecipe } from '@/helpers/dog';
+import { arrayToRecipe, recipeToArray } from '@/helpers/form';
 import useDefaultValues from '@/hooks/defaultValues';
+import { ActivityLevel, BodyCondition, Pickiness } from '@/types';
 
 interface RecipeForm {
   recipe: boolean[];
 }
 
 export default function RecipeForm({
+  name,
   pickiness,
   activityLevel,
   bodyCondition,
@@ -26,6 +30,7 @@ export default function RecipeForm({
   initialRecipe2,
   action,
 }: {
+  name: string;
   pickiness: Pickiness;
   activityLevel: ActivityLevel;
   bodyCondition: BodyCondition;
@@ -76,9 +81,12 @@ export default function RecipeForm({
       startTransition(async () => {
         await action({ recipe1: recipe1!, recipe2 });
         setDefaultValues({ recipe: recipeToArray(recipe1, recipe2) });
+        toast.success(
+          `Your recipe selection for ${name}’s upcoming box has been successfully updated.`
+        );
       });
     },
-    [action, setDefaultValues]
+    [name, action, setDefaultValues]
   );
 
   const isSameAsDefaultValue = equal(watch('recipe'), defaultValues.recipe);
