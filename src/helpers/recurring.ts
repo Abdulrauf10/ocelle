@@ -183,6 +183,13 @@ export async function handleRecurringBox(id: string) {
           },
         },
       },
+      order: {
+        dogs: {
+          boxs: {
+            startDate: -1,
+          },
+        },
+      },
     });
 
     if (!user) {
@@ -320,6 +327,7 @@ async function resumeDogBox(
   userId: string,
   preferDeliveryDate: Date
 ) {
+  const today = startOfDay(new Date());
   const user = await queryRunner.manager.findOne(User, {
     where: {
       id: userId,
@@ -350,6 +358,10 @@ async function resumeDogBox(
     throw new Error('dog plan is already resume');
   }
   const prevBox = dog.boxs[0];
+  // prevent too erarly to send the next recurring box
+  if (isBefore(startOfDay(prevBox.startDate), today)) {
+    return;
+  }
   const defaultStartDate = addDays(startOfDay(preferDeliveryDate), 1);
   const startDate =
     prevBox && isBefore(defaultStartDate, prevBox.endDate)
@@ -395,12 +407,4 @@ export async function resumeRecurringBox(
       await resumeDogBox(queryRunner, dog.id, userId, preferDeliveryDate);
     }
   });
-}
-
-export async function cancelRecurringBox(userId: string) {
-  //
-}
-
-export async function reactivteRecurringBox(userId: string, preferDeliveryDate: Date) {
-  //
 }
