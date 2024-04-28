@@ -1,5 +1,9 @@
 'use server';
 
+import { startOfDay } from 'date-fns';
+import Joi from 'joi';
+import invariant from 'ts-invariant';
+
 import { deleteCartCookie, getCartCookie } from '@/actions';
 import {
   AddPromoCodeDocument,
@@ -17,16 +21,13 @@ import {
   UpdateCheckoutShippingMethodDocument,
 } from '@/gql/graphql';
 import { awaitable } from '@/helpers/async';
-import { getCalendarEvents } from '@/services/calendar';
 import { getClosestOrderDeliveryDate, isUnavailableDeliveryDate } from '@/helpers/dog';
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
-import { getCheckoutDeliveryDate, setCheckoutDeliveryDate } from '@/services/redis';
 import { redirect } from '@/navigation';
+import { getCalendarEvents } from '@/services/calendar';
+import { getCheckoutDeliveryDate, setCheckoutDeliveryDate } from '@/services/redis';
 import { CartReturn } from '@/types/dto';
-import { startOfDay } from 'date-fns';
-import Joi from 'joi';
-import invariant from 'ts-invariant';
 
 export async function getCartOrCheckout(): Promise<CheckoutFragment> {
   const cartOrCheckoutId = await getCartCookie();
@@ -70,6 +71,10 @@ export async function initializeCheckout() {
   const { checkoutDeliveryMethodUpdate } = await executeGraphQL(
     UpdateCheckoutShippingMethodDocument,
     {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
       variables: {
         checkoutId: checkout.id,
         shippingMethodId: shippingMethod.id,
