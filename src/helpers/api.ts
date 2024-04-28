@@ -190,12 +190,15 @@ async function findSubscriptionShippingMethod() {
   return shippingMethod;
 }
 
-export async function orderRecurringBox(user: User, items: Array<{ dog: Dog; box: RecurringBox }>) {
+export async function orderRecurringBox(
+  user: User,
+  orderLines: Array<{ dog: Dog; box: RecurringBox }>
+) {
   const shippingMethod = await findSubscriptionShippingMethod();
   const channel = await getThrowableChannel();
   const products = await findProducts();
   const lines = [];
-  for (const { dog, box } of items) {
+  for (const { dog, box } of orderLines) {
     const breeds = dog.breeds.map((x) => x.breed);
     const recipe1Variant = recipeToVariant(products, breeds, dog.dateOfBirth, box.recipe1);
     if (!recipe1Variant) {

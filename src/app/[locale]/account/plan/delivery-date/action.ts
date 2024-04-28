@@ -28,23 +28,19 @@ export default async function setDeliveryDateAction(data: SetDeliveryDateAction)
   const me = await getLoginedMe();
   const events = await getCalendarEvents();
   const today = startOfDay(new Date());
-  const lockBoxDate = getEditableRecurringBoxDeadline(events, deliveryDate);
+  const editableDeadline = getEditableRecurringBoxDeadline(events, deliveryDate);
 
-  if (lockBoxDate < today) {
-    throw new Error('lock box date cannot before today');
+  if (editableDeadline < today) {
+    throw new Error('delivery date is unavailable');
   }
 
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.find(Shipment, {
       where: {
-        lockBoxDate: MoreThanOrEqual(today),
-        boxs: {
-          dog: {
-            user: {
-              id: me.id,
-            },
-          },
+        user: {
+          id: me.id,
         },
+        editableDeadline: MoreThanOrEqual(today),
       },
       relations: {
         boxs: {
@@ -60,7 +56,7 @@ export default async function setDeliveryDateAction(data: SetDeliveryDateAction)
     const shipment = data[0];
 
     if (data.length > 1) {
-      // merge all shipment into single one
+      // merge all shipments into single one
       const boxIds = [];
       for (const shipment of data) {
         for (const box of shipment.boxs) {
@@ -70,6 +66,9 @@ export default async function setDeliveryDateAction(data: SetDeliveryDateAction)
       await queryRunner.manager.update(RecurringBox, { id: In(boxIds) }, { shipment });
     }
 
-    await queryRunner.manager.update(Shipment, shipment.id, { deliveryDate, lockBoxDate });
+    await queryRunner.manager.update(Shipment, shipment.id, {
+      deliveryDate,
+      editableDeadline,
+    });
   });
 }

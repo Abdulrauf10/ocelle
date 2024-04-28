@@ -6,10 +6,9 @@ import { OrderSize } from '@/enums';
 import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getNumericEnumValues } from '@/helpers/enum';
-import { isImmutableBox } from '@/helpers/dog';
 import { getCalendarEvents } from '@/helpers/calendar';
-import { In, MoreThanOrEqual } from 'typeorm';
-import { startOfDay } from 'date-fns';
+import { In } from 'typeorm';
+import { isBefore, startOfDay } from 'date-fns';
 
 interface SetOrderSizeAction {
   size: OrderSize;
@@ -34,13 +33,6 @@ export default async function setOrderSizeAction(data: SetOrderSizeAction) {
     const data = await queryRunner.manager.findOne(User, {
       where: {
         id: me.id,
-        dogs: {
-          boxs: {
-            shipment: {
-              lockBoxDate: MoreThanOrEqual(today),
-            },
-          },
-        },
       },
       relations: {
         dogs: {
@@ -68,8 +60,11 @@ export default async function setOrderSizeAction(data: SetOrderSizeAction) {
 
     const updatableBoxIds = [];
     for (const dog of data.dogs) {
-      if (!isImmutableBox(events, dog.boxs[0].shipment.deliveryDate)) {
-        updatableBoxIds.push(dog.boxs[0].id);
+      const editableBox = dog.boxs.find(
+        (box) => box.order === undefined && !isBefore(today, box.shipment.editableDeadline)
+      );
+      if (editableBox) {
+        updatableBoxIds.push(editableBox.id);
       }
     }
     await queryRunner.manager.update(

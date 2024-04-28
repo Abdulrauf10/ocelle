@@ -213,8 +213,7 @@ mutation CompleteCheckout($checkoutId: ID!) {
       code
     }
     order {
-      id
-      created
+      ...Order
     }
   }
 }

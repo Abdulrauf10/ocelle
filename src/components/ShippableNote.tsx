@@ -11,7 +11,7 @@ export function ShippableNote({ shipments }: { shipments: Shipment[] }) {
   shipments.sort((a, b) => b.deliveryDate.getTime() - a.deliveryDate.getTime());
 
   const shipable = shipments.find(
-    (shipment) => !isDeliveredBox(shipment.deliveryDate) && shipment.lockBoxDate <= refDate
+    (shipment) => !isDeliveredBox(shipment.deliveryDate) && shipment.editableDeadline <= refDate
   );
 
   if (!shipable) {
@@ -32,7 +32,7 @@ export function ShippableNote({ shipments }: { shipments: Shipment[] }) {
           ),
         })}
       </p>
-      {shipments[0].lockBoxDate > refDate && (
+      {shipments[0].editableDeadline >= refDate && (
         <p className="mt-4">
           {t.rich('unfortunately-you-can-no-longer-make-changes-to-your-upcoming-box', {
             date: formatDate(t, shipments[0].deliveryDate, true),

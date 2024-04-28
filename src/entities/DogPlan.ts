@@ -32,9 +32,6 @@ export default class DogPlan {
   @Column()
   startDate!: Date;
 
-  @Column()
-  lastDeliveryDate!: Date;
-
   @OneToOne(() => Dog, (dog: Dog) => dog.plan)
   @JoinColumn()
   dog!: Relation<Dog>;

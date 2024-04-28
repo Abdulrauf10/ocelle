@@ -6,10 +6,8 @@ import { Recipe } from '@/enums';
 import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getNumericEnumValues } from '@/helpers/enum';
-import { isImmutableBox } from '@/helpers/dog';
 import { getCalendarEvents } from '@/helpers/calendar';
-import { MoreThanOrEqual } from 'typeorm';
-import { startOfDay } from 'date-fns';
+import { isBefore, startOfDay } from 'date-fns';
 
 interface SetRecipeAction {
   id: number;
@@ -39,11 +37,6 @@ export default async function setRecipeAction(data: SetRecipeAction) {
       where: {
         id: value.id,
         user: { id: me.id },
-        boxs: {
-          shipment: {
-            lockBoxDate: MoreThanOrEqual(today),
-          },
-        },
       },
       relations: {
         boxs: {
@@ -61,8 +54,12 @@ export default async function setRecipeAction(data: SetRecipeAction) {
       throw new Error('data not found');
     }
 
-    if (!isImmutableBox(events, data.boxs[0].shipment.deliveryDate)) {
-      await queryRunner.manager.update(RecurringBox, data.boxs[0].id, {
+    const editableBox = data.boxs.find(
+      (box) => box.order === undefined && !isBefore(today, box.shipment.editableDeadline)
+    );
+
+    if (editableBox) {
+      await queryRunner.manager.update(RecurringBox, editableBox.id, {
         recipe1: value.recipe1,
         recipe2: value.recipe2,
       });

@@ -71,7 +71,6 @@ export default class DogSeeder extends Seeder {
       isEnabledTransitionPeriod: true,
       isEnabled: true,
       startDate: new Date(),
-      lastDeliveryDate: new Date(),
       dog: dog1,
     });
 
@@ -81,7 +80,6 @@ export default class DogSeeder extends Seeder {
       isEnabledTransitionPeriod: true,
       isEnabled: true,
       startDate: new Date(),
-      lastDeliveryDate: new Date(),
       dog: dog2,
     });
 

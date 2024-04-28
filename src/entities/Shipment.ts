@@ -13,8 +13,8 @@ export default class Shipment {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column()
-  lockBoxDate!: Date; // after the lock box date, not more changes will be apply to the shipment with boxs
+  @Column({ name: 'lock_box_date' })
+  editableDeadline!: Date; // after the deadline, not more changes will be apply to the shipment
 
   @Column()
   deliveryDate!: Date;

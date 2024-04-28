@@ -1,16 +1,11 @@
-import { Order, RecurringBox, Shipment, User } from '@/entities';
-import { OrderSize } from '@/enums';
-import StripeNotReadyError from '@/errors/StripeNotReadyError';
-import { orderRecurringBox } from '@/helpers/api';
-import { getCalendarEvents } from '@/helpers/calendar';
-import { getClosestOrderDeliveryDate, getEditableRecurringBoxDeadline } from '@/helpers/dog';
+import { User } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
-import { addDays, startOfDay } from 'date-fns';
-import { In, IsNull, LessThan } from 'typeorm';
+import { handleRecurringBox } from '@/helpers/recurring';
+import { startOfDay } from 'date-fns';
+import { IsNull, LessThan } from 'typeorm';
 
 export default async function subscriptionScheduler() {
   const today = startOfDay(new Date());
-  const events = await getCalendarEvents();
   const users = await executeQuery(async (queryRunner) => {
     return queryRunner.manager.find(User, {
       where: {
@@ -18,7 +13,7 @@ export default async function subscriptionScheduler() {
           boxs: {
             order: IsNull(),
             shipment: {
-              lockBoxDate: LessThan(today),
+              editableDeadline: LessThan(today),
             },
           },
         },
@@ -38,61 +33,9 @@ export default async function subscriptionScheduler() {
   });
   for (const user of users) {
     try {
-      if (!user.stripe || !user.stripePaymentMethod) {
-        throw new StripeNotReadyError(user.id);
-      }
-      const { order: _order } = await orderRecurringBox(
-        user,
-        user.dogs.map((dog) => ({ dog, box: dog.boxs[0] }))
-      );
-
-      await executeQuery(async (queryRunner) => {
-        const order = queryRunner.manager.create(Order, {
-          id: _order.id,
-          createdAt: new Date(),
-        });
-        await queryRunner.manager.save(order);
-
-        await queryRunner.manager.update(
-          RecurringBox,
-          { id: In(user.dogs.map((dog) => dog.boxs[0].id)) },
-          { order }
-        );
-
-        const planActiveDogs = user.dogs.filter((dog) => dog.plan.isEnabled);
-
-        const nextBoxs = planActiveDogs.map((dog) => {
-          const box = dog.boxs[0];
-          const startDate = addDays(box.endDate, 1);
-          return queryRunner.manager.create(RecurringBox, {
-            mealPlan: box.mealPlan,
-            orderSize: box.orderSize,
-            recipe1: box.recipe1,
-            recipe2: box.recipe2,
-            isTransitionPeriod: false,
-            startDate: startDate,
-            endDate: addDays(startDate, user.orderSize === OrderSize.OneWeek ? 7 : 14),
-            dog: box.dog,
-          });
-        });
-        await queryRunner.manager.save(nextBoxs);
-
-        const deliveryDate = getClosestOrderDeliveryDate(events);
-
-        const shipment = queryRunner.manager.create(Shipment, {
-          lockBoxDate: getEditableRecurringBoxDeadline(events, deliveryDate),
-          deliveryDate,
-          user,
-        });
-        await queryRunner.manager.save(shipment);
-
-        await queryRunner.manager.update(
-          RecurringBox,
-          { id: In(nextBoxs.map((box) => box.id)) },
-          { shipment }
-        );
-      });
+      await handleRecurringBox(user.id);
     } catch (e) {
+      console.error('failed to handle subscription recurring box, user id: %s', user.id);
       console.error(e);
     }
   }

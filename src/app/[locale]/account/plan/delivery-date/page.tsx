@@ -5,11 +5,10 @@ import setDeliveryDateAction from './action';
 import BackButton from '@/components/buttons/BackButton';
 import { getLoginedMe } from '@/actions';
 import { getCalendarEvents } from '@/helpers/calendar';
-import { getClosestOrderDeliveryDate, isDeliveredBox, isImmutableBox } from '@/helpers/dog';
+import { getClosestOrderDeliveryDate } from '@/helpers/dog';
 import DeliveryDatePickerDialog from '@/components/dialogs/DeliveryDatePicker';
 import { executeQuery } from '@/helpers/queryRunner';
 import { Shipment } from '@/entities';
-import { formatDate } from '@/helpers/date';
 import { ShippableNote } from '@/components/ShippableNote';
 import { startOfDay } from 'date-fns';
 
@@ -49,7 +48,7 @@ export default async function PlanDeliveryDate() {
         <div className="mx-auto mt-4 max-w-[620px] text-center">
           <ShippableNote shipments={shipments} />
         </div>
-        {shipments[0].lockBoxDate > startOfDay(new Date()) && (
+        {shipments[0].editableDeadline > startOfDay(new Date()) && (
           <div className="mt-8 text-center">
             <DeliveryDatePickerDialog
               initialDate={shipments[0].deliveryDate}

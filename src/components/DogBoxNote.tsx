@@ -1,4 +1,4 @@
-import type { RecurringBox, Shipment } from '@/entities';
+import type { RecurringBox } from '@/entities';
 import { formatDate } from '@/helpers/date';
 import { isDeliveredBox } from '@/helpers/dog';
 import { startOfDay } from 'date-fns';
@@ -11,7 +11,10 @@ export function DogBoxNote({ name, boxs }: { name: string; boxs: RecurringBox[] 
   boxs.sort((a, b) => b.shipment.deliveryDate.getTime() - a.shipment.deliveryDate.getTime());
 
   const shipableBox = boxs.find(
-    (box) => !isDeliveredBox(box.shipment.deliveryDate) && box.shipment.lockBoxDate <= refDate
+    (box) =>
+      box.order === undefined &&
+      !isDeliveredBox(box.shipment.deliveryDate) &&
+      box.shipment.editableDeadline <= refDate
   );
 
   if (!shipableBox) {
@@ -30,7 +33,7 @@ export function DogBoxNote({ name, boxs }: { name: string; boxs: RecurringBox[] 
       </p>
       <p className="mt-4">
         {t.rich('you-can-make-changes-until-the-{}', {
-          date: formatDate(t, shipableBox.shipment.lockBoxDate, true),
+          date: formatDate(t, shipableBox.shipment.editableDeadline, true),
         })}
       </p>
     </>

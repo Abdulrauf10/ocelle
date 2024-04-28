@@ -1,7 +1,7 @@
 'use server';
 
 import { deleteCheckoutCookie, getCheckoutCookie, setCheckoutCookie } from '@/actions';
-import { Breed, Dog, DogBreed, DogPlan, RecurringBox, Order, Shipment, User } from '@/entities';
+import { Breed, User } from '@/entities';
 import { MealPlan, OrderSize } from '@/enums';
 import {
   AddPromoCodeDocument,
@@ -10,13 +10,9 @@ import {
   CheckoutChargeStatusEnum,
   CheckoutFragment,
   CompleteCheckoutDocument,
-  CountryCode,
   CreateCheckoutDocument,
-  FindUserDocument,
   GetCheckoutDocument,
   InitializeTransactionDocument,
-  RegisterAccountDocument,
-  UpdateCheckoutAddressDocument,
   UpdateCheckoutShippingMethodDocument,
 } from '@/gql/graphql';
 import { awaitable } from '@/helpers/async';
@@ -28,7 +24,6 @@ import {
   getSubscriptionProductActuallyQuanlityInSaleor,
   getTheCheapestRecipe,
   isUnavailableDeliveryDate,
-  getEditableRecurringBoxDeadline,
 } from '@/helpers/dog';
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
@@ -56,12 +51,12 @@ import {
 import { redirect } from '@/navigation';
 import { subscriptionProducts } from '@/products';
 import { DogDto, MinPricesDto } from '@/types/dto';
-import { addDays, startOfDay } from 'date-fns';
+import { startOfDay } from 'date-fns';
 import Joi from 'joi';
 import { headers } from 'next/headers';
 import invariant from 'ts-invariant';
-import { In, MoreThanOrEqual } from 'typeorm';
-import { findMostMatchBoxStartDate, getBoxShipmentRecord } from '@/helpers/db';
+import { In } from 'typeorm';
+import { setupRecurringBox } from '@/helpers/recurring';
 
 export async function getMinPerDayPrice(
   dog: Pick<
@@ -462,12 +457,10 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
 
 export async function finalizeCheckout(paymentMethodId: string) {
   try {
-    const events = await getCalendarEvents();
     const checkout = await getCheckout();
     const orderSize = await getCheckoutOrderSize(checkout.id);
     const surveyDogs = await getCheckoutDogs(checkout.id);
     const deliveryDate = await getCheckoutDeliveryDate(checkout.id);
-    const today = startOfDay(new Date());
 
     console.dir(checkout, { depth: null });
 
@@ -526,7 +519,7 @@ export async function finalizeCheckout(paymentMethodId: string) {
       throw new Error('checkout cannot completed');
     }
 
-    await executeQuery(async (queryRunner) => {
+    const user = await executeQuery(async (queryRunner) => {
       // user should be created in update checkout data action
       const user = await queryRunner.manager.findOne(User, {
         where: { id: checkout.user!.id },
@@ -536,108 +529,18 @@ export async function finalizeCheckout(paymentMethodId: string) {
           },
         },
       });
-
       if (!user) {
         throw new Error('user cannot find in database records');
       }
-
       if (!user.stripe) {
         throw new Error('user is not linked with stripe');
       }
-
       await attachPaymentMethod(paymentMethodId, user.stripe);
-
       await queryRunner.manager.update(User, user.id, { stripePaymentMethod: paymentMethodId });
-
-      // create dogs
-      const dogs = surveyDogs.map((dog) =>
-        queryRunner.manager.create(Dog, {
-          name: dog.name,
-          sex: dog.gender,
-          isNeutered: dog.isNeutered,
-          dateOfBirthMethod: dog.dateOfBirthMethod,
-          dateOfBirth: dog.dateOfBirth,
-          weight: dog.weight,
-          bodyCondition: dog.bodyCondition,
-          activityLevel: dog.activityLevel,
-          foodAllergies: dog.foodAllergies,
-          currentEating: dog.currentlyEating,
-          amountOfTreats: dog.amountOfTreats,
-          pickiness: dog.pickiness,
-          user,
-        })
-      );
-      await queryRunner.manager.save(dogs);
-
-      // create dogs breeds
-      const breeds = [];
-      for (let i = 0; i < dogs.length; i++) {
-        const dog = dogs[i];
-        if (surveyDogs[i].breeds) {
-          for (const breed of surveyDogs[i].breeds!) {
-            breeds.push(queryRunner.manager.create(DogBreed, { dog, breedId: breed }));
-          }
-        }
-      }
-      await queryRunner.manager.save(breeds);
-
-      // create dogs plan
-      const plans = [];
-      for (let i = 0; i < dogs.length; i++) {
-        const dog = dogs[i];
-        plans.push(
-          queryRunner.manager.create(DogPlan, {
-            mealPlan: surveyDogs[i].mealPlan,
-            recipe1: surveyDogs[i].recipe1,
-            recipe2: surveyDogs[i].recipe2,
-            isEnabledTransitionPeriod: surveyDogs[i].isEnabledTransitionPeriod,
-            startDate: addDays(startOfDay(new Date()), 1),
-            lastDeliveryDate: deliveryDate,
-            isEnabled: true,
-            dog,
-          })
-        );
-      }
-      await queryRunner.manager.save(plans);
-
-      const shipment = await getBoxShipmentRecord(queryRunner, user.id, deliveryDate);
-
-      // create order
-      const order = queryRunner.manager.create(Order, {
-        id: checkoutComplete.order!.id,
-        createdAt: new Date(checkoutComplete.order!.created),
-      });
-      await queryRunner.manager.save(order);
-
-      // no any dog configurations
-      const defaultStartDate = addDays(startOfDay(deliveryDate), 1);
-
-      // try to sync with existing box if exists
-      const startDate =
-        shipment.boxs.length > 0 ? findMostMatchBoxStartDate(shipment.boxs) : defaultStartDate;
-
-      const endDate = addDays(startDate, user.orderSize === OrderSize.OneWeek ? 7 : 14);
-
-      const recurringRecords = [];
-      for (let i = 0; i < dogs.length; i++) {
-        const dog = dogs[i];
-        recurringRecords.push(
-          queryRunner.manager.create(RecurringBox, {
-            mealPlan: surveyDogs[i].mealPlan,
-            orderSize: orderSize,
-            recipe1: surveyDogs[i].recipe1,
-            recipe2: surveyDogs[i].recipe2,
-            isTransitionPeriod: surveyDogs[i].isEnabledTransitionPeriod,
-            startDate,
-            endDate,
-            dog,
-            order,
-            shipment,
-          })
-        );
-      }
-      await queryRunner.manager.save(recurringRecords);
+      return user;
     });
+
+    await setupRecurringBox(user.id, surveyDogs, deliveryDate, checkoutComplete.order!);
   } catch (e) {
     console.error(e);
     redirect('/get-started');

@@ -6,10 +6,7 @@ import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getNumericEnumValues } from '@/helpers/enum';
 import { getLoginedMe } from '@/actions';
-import { getCalendarEvents } from '@/helpers/calendar';
-import { isImmutableBox } from '@/helpers/dog';
-import { MoreThanOrEqual } from 'typeorm';
-import { startOfDay } from 'date-fns';
+import { isBefore, startOfDay } from 'date-fns';
 
 interface SetMealPlanAction {
   id: number;
@@ -28,7 +25,6 @@ export default async function setMealPlanAction(data: SetMealPlanAction) {
     throw new Error('schema is not valid');
   }
 
-  const events = await getCalendarEvents();
   const me = await getLoginedMe();
   const today = startOfDay(new Date());
 
@@ -37,14 +33,10 @@ export default async function setMealPlanAction(data: SetMealPlanAction) {
       where: {
         id: value.id,
         user: { id: me.id },
-        boxs: {
-          shipment: {
-            lockBoxDate: MoreThanOrEqual(today),
-          },
-        },
       },
       relations: {
         boxs: {
+          order: true,
           shipment: true,
         },
       },
@@ -59,8 +51,12 @@ export default async function setMealPlanAction(data: SetMealPlanAction) {
       throw new Error('dog not found');
     }
 
-    if (!isImmutableBox(events, data.boxs[0].shipment.deliveryDate)) {
-      await queryRunner.manager.update(RecurringBox, data.boxs[0].id, { mealPlan: value.plan });
+    const editableBox = data.boxs.find(
+      (box) => box.order === undefined && !isBefore(today, box.shipment.editableDeadline)
+    );
+
+    if (editableBox) {
+      await queryRunner.manager.update(RecurringBox, editableBox.id, { mealPlan: value.plan });
     }
 
     await queryRunner.manager.update(DogPlan, data.plan.id, { mealPlan: value.plan });
