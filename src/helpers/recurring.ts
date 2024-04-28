@@ -77,6 +77,9 @@ export async function setupRecurringBox(
     const order = queryRunner.manager.create(Order, {
       id: saleorOrder.id,
       createdAt: new Date(saleorOrder.created),
+      user: {
+        id: userId,
+      },
     });
     await queryRunner.manager.save(order);
     const dbDogs = dogs.map((dog) =>
@@ -219,6 +222,7 @@ export async function handleRecurringBox(id: string) {
     const order = queryRunner.manager.create(Order, {
       id: _order.id,
       createdAt: new Date(),
+      user,
     });
     await queryRunner.manager.save(order);
 

@@ -170,10 +170,6 @@ export function getEditableRecurringBoxDeadline(
   );
 }
 
-export function isImmutableBox(events: CalendarEvent[], deliveryDate: Date) {
-  return getEditableRecurringBoxDeadline(events, deliveryDate) <= new Date();
-}
-
 export function getEditableRecurringBoxDeadlineByBox(events: CalendarEvent[], boxStartDate: Date) {
   const dates = [
     1, // The box should be delivered before one day of the holiday / the next box start date

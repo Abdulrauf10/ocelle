@@ -1,5 +1,5 @@
-import { Column, Entity, OneToMany, PrimaryColumn, type Relation } from 'typeorm';
-import { RecurringBox } from '.';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn, type Relation } from 'typeorm';
+import { RecurringBox, User } from '.';
 
 @Entity({ name: 'order' })
 export default class Order {
@@ -10,5 +10,8 @@ export default class Order {
   createdAt!: Date;
 
   @OneToMany(() => RecurringBox, (record) => record.order)
-  boxs!: Relation<RecurringBox>;
+  boxs!: Relation<RecurringBox>[];
+
+  @ManyToOne(() => User, (user) => user.orders)
+  user!: Relation<User>;
 }

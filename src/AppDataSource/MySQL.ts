@@ -21,6 +21,7 @@ import { AddLockBoxDate1713677342953 } from '@/migrations/1713677342953-add-lock
 import { RemoveLockDateDefaultValue1713677413178 } from '@/migrations/1713677413178-remove-lock-date-default-value';
 import { AddShipmentUserId1714285714324 } from '@/migrations/1714285714324-add-shipment-user-id';
 import { DropLastDeliveryDate1714285758775 } from '@/migrations/1714285758775-drop-last-delivery-date';
+import { AddOrderUserId1714286728753 } from '@/migrations/1714286728753-add-order-user-id';
 
 dotenv.config();
 
@@ -55,6 +56,7 @@ const MySQL = new DataSource({
     RemoveLockDateDefaultValue1713677413178,
     AddShipmentUserId1714285714324,
     DropLastDeliveryDate1714285758775,
+    AddOrderUserId1714286728753,
   ],
 });
 
