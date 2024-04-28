@@ -1,16 +1,17 @@
 'use server';
 
-import { getCalendarEvents } from './services/calendar';
+import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
+import { cookies } from 'next/headers';
+
+import { CART_COOKIE, CHECKOUT_COOKIE, DOG_SELECT_COOKIE, LOGIN_PATH } from './consts';
+import { User } from './entities';
+import { GetCurrentUserDocument, GetCurrentUserFullSizeDocument } from './gql/graphql';
+import { getClosestOrderDeliveryDate } from './helpers/dog';
+import { executeGraphQL } from './helpers/graphql';
+import { executeQuery } from './helpers/queryRunner';
 import { redirect } from './navigation';
 import saleorAuthClient from './saleorAuthClient';
-import { getClosestOrderDeliveryDate } from './helpers/dog';
-import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
-import { executeGraphQL } from './helpers/graphql';
-import { GetCurrentUserDocument, GetCurrentUserFullSizeDocument } from './gql/graphql';
-import { cookies } from 'next/headers';
-import { executeQuery } from './helpers/queryRunner';
-import { User } from './entities';
-import { CART_COOKIE, CHECKOUT_COOKIE, DOG_SELECT_COOKIE, LOGIN_PATH } from './consts';
+import { getCalendarEvents } from './services/calendar';
 
 // here for global actions
 

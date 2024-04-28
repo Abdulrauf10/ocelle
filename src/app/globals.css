@@ -9,6 +9,8 @@
   --swiper-theme-color: #be873b !important;
   --swiper-pagination-bullet-size: 18px;
   --swiper-pagination-bullet-horizontal-gap: 6px;
+
+  --toastify-toast-top: 96px !important;
 }
 
 body {
