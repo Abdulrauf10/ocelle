@@ -1,41 +1,28 @@
-import { User } from '@/entities';
+import { startOfDay } from 'date-fns';
+import { LessThan, MoreThan } from 'typeorm';
+
+import { Shipment } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
 import { handleRecurringBox } from '@/services/recurring';
-import { startOfDay } from 'date-fns';
-import { IsNull, LessThan } from 'typeorm';
 
 export default async function subscriptionScheduler() {
   const today = startOfDay(new Date());
-  const users = await executeQuery(async (queryRunner) => {
-    return queryRunner.manager.find(User, {
+  const shipments = await executeQuery(async (queryRunner) => {
+    return queryRunner.manager.find(Shipment, {
       where: {
-        dogs: {
-          boxs: {
-            order: IsNull(),
-            shipment: {
-              editableDeadline: LessThan(today),
-            },
-          },
-        },
+        editableDeadline: LessThan(today),
+        deliveryDate: MoreThan(today),
       },
       relations: {
-        dogs: {
-          breeds: {
-            breed: true,
-          },
-          plan: true,
-          boxs: {
-            shipment: true,
-          },
-        },
+        user: true,
       },
     });
   });
-  for (const user of users) {
+  for (const shipment of shipments) {
     try {
-      await handleRecurringBox(user.id);
+      await handleRecurringBox(shipment.user.id);
     } catch (e) {
-      console.error('failed to handle subscription recurring box, user id: %s', user.id);
+      console.error('failed to handle subscription recurring box, user id: %s', shipment.user.id);
       console.error(e);
     }
   }
