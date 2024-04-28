@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import setDeliveryDateAction from './action';
 import BackButton from '@/components/buttons/BackButton';
 import { getLoginedMe } from '@/actions';
-import { getCalendarEvents } from '@/helpers/calendar';
+import { getCalendarEvents } from '@/services/calendar';
 import { getClosestOrderDeliveryDate } from '@/helpers/dog';
 import DeliveryDatePickerDialog from '@/components/dialogs/DeliveryDatePicker';
 import { executeQuery } from '@/helpers/queryRunner';

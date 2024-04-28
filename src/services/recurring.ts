@@ -7,8 +7,8 @@ import {
   getClosestOrderDeliveryDate,
   getEditableRecurringBoxDeadline,
   isDeliveredBox,
-} from './dog';
-import { executeQuery } from './queryRunner';
+} from '../helpers/dog';
+import { executeQuery } from '../helpers/queryRunner';
 import StripeNotReadyError from '@/errors/StripeNotReadyError';
 import { orderRecurringBox } from './api';
 import { OrderSize } from '@/enums';

@@ -16,7 +16,7 @@ import {
   UpdateCheckoutShippingMethodDocument,
 } from '@/gql/graphql';
 import { awaitable } from '@/helpers/async';
-import { getCalendarEvents } from '@/helpers/calendar';
+import { getCalendarEvents } from '@/services/calendar';
 import {
   calculateTotalPerDayPrice,
   calculateRecipeTotalPriceInBox,
@@ -41,13 +41,13 @@ import {
   setCheckoutPaymentIntent,
 } from '@/helpers/redis';
 import { recipeToVariant } from '@/helpers/saleor';
-import { findProducts, updateAddress, upsertUser } from '@/helpers/api';
+import { findProducts, updateAddress, upsertUser } from '@/services/api';
 import {
   attachPaymentMethod,
   createCustomer,
   retrivePaymentIntent,
   updatePaymentIntent,
-} from '@/helpers/stripe';
+} from '@/services/stripe';
 import { redirect } from '@/navigation';
 import { subscriptionProducts } from '@/products';
 import { DogDto, MinPricesDto } from '@/types/dto';
@@ -56,7 +56,7 @@ import Joi from 'joi';
 import { headers } from 'next/headers';
 import invariant from 'ts-invariant';
 import { In } from 'typeorm';
-import { setupRecurringBox } from '@/helpers/recurring';
+import { setupRecurringBox } from '@/services/recurring';
 
 export async function getMinPerDayPrice(
   dog: Pick<

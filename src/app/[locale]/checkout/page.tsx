@@ -3,7 +3,7 @@ import { getClosestOrderDeliveryDate } from '@/helpers/dog';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import CouponForm from '@/components/forms/Coupon';
 import GuestCheckoutForm from '@/components/forms/GuestCheckout';
-import { getCalendarEvents } from '@/helpers/calendar';
+import { getCalendarEvents } from '@/services/calendar';
 import {
   applyCoupon,
   deleteCartLine,

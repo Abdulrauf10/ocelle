@@ -7,7 +7,7 @@ import updateCreditCardAction from './action';
 import BackButton from '@/components/buttons/BackButton';
 import StripeLoader from '@/components/StripeLoader';
 import invariant from 'ts-invariant';
-import { createSetupIntent } from '@/helpers/stripe';
+import { createSetupIntent } from '@/services/stripe';
 import { getLoginedMe } from '@/actions';
 
 invariant(

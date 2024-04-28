@@ -1,6 +1,6 @@
 'use server';
 
-import { getCalendarEvents } from './helpers/calendar';
+import { getCalendarEvents } from './services/calendar';
 import { redirect } from './navigation';
 import saleorAuthClient from './saleorAuthClient';
 import { getClosestOrderDeliveryDate } from './helpers/dog';

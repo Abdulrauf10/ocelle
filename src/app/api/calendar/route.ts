@@ -1,4 +1,4 @@
-import { getCalendarEvents } from '@/helpers/calendar';
+import { getCalendarEvents } from '@/services/calendar';
 import { NextResponse } from 'next/server';
 
 export async function GET() {

@@ -49,7 +49,7 @@ import {
   SHIPPING_METHOD_SF_EXPRESS_FIXED,
   SHIPPING_METHOD_SF_EXPRESS_FREE,
 } from './consts';
-import { findProducts } from './helpers/api';
+import { findProducts } from './services/api';
 
 async function prugeDefaultChannel() {
   console.log('execute pruge the default channel...');

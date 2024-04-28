@@ -17,7 +17,7 @@ import {
   UpdateCheckoutShippingMethodDocument,
 } from '@/gql/graphql';
 import { awaitable } from '@/helpers/async';
-import { getCalendarEvents } from '@/helpers/calendar';
+import { getCalendarEvents } from '@/services/calendar';
 import { getClosestOrderDeliveryDate, isUnavailableDeliveryDate } from '@/helpers/dog';
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';

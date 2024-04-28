@@ -11,7 +11,7 @@ import { getTranslations } from 'next-intl/server';
 import { getLoginedMeFullSize } from '@/actions';
 import clsx from 'clsx';
 import { addressToSentence } from '@/helpers/translation';
-import { retrieveCustomerPaymentMethod } from '@/helpers/stripe';
+import { retrieveCustomerPaymentMethod } from '@/services/stripe';
 import StripeNotReadyError from '@/errors/StripeNotReadyError';
 
 export default async function Account() {

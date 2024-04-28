@@ -4,7 +4,7 @@ import { getLoginedMe } from '@/actions';
 import { User } from '@/entities';
 import StripeNotReadyError from '@/errors/StripeNotReadyError';
 import { executeQuery } from '@/helpers/queryRunner';
-import { attachPaymentMethod, detachPaymentMethod, retrievePaymentMethod } from '@/helpers/stripe';
+import { attachPaymentMethod, detachPaymentMethod, retrievePaymentMethod } from '@/services/stripe';
 import Joi from 'joi';
 
 interface UpdateCreditCardAction {

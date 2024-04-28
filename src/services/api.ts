@@ -14,17 +14,17 @@ import {
   RegisterAccountDocument,
   UpdateCheckoutAddressDocument,
 } from '@/gql/graphql';
-import { executeGraphQL } from './graphql';
+import { executeGraphQL } from '../helpers/graphql';
 import invariant from 'ts-invariant';
 import CreateUserError from '@/errors/api/CreateUserError';
 import UpdateAddressError from '@/errors/api/UpdateAddressError';
-import { awaitable } from './async';
-import { getStripeAppId } from './env';
+import { awaitable } from '../helpers/async';
+import { getStripeAppId } from '../helpers/env';
 import {
   calculateRecipeTotalPriceInBox,
   getSubscriptionProductActuallyQuanlityInSaleor,
-} from './dog';
-import { recipeToVariant } from './saleor';
+} from '../helpers/dog';
+import { recipeToVariant } from '../helpers/saleor';
 import { Dog, RecurringBox, User } from '@/entities';
 import { DEFUALT_SHIPPING_ZONE, SHIPPING_METHOD_SF_EXPRESS_FREE } from '@/consts';
 

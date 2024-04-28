@@ -7,7 +7,7 @@ import { startOfDay } from 'date-fns';
 import { getLoginedMe } from '@/actions';
 import { In, MoreThanOrEqual } from 'typeorm';
 import { getEditableRecurringBoxDeadline } from '@/helpers/dog';
-import { getCalendarEvents } from '@/helpers/calendar';
+import { getCalendarEvents } from '@/services/calendar';
 
 interface SetDeliveryDateAction {
   date: Date;

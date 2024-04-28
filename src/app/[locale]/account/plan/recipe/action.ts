@@ -6,7 +6,7 @@ import { Recipe } from '@/enums';
 import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getNumericEnumValues } from '@/helpers/enum';
-import { getCalendarEvents } from '@/helpers/calendar';
+import { getCalendarEvents } from '@/services/calendar';
 import { isBefore, startOfDay } from 'date-fns';
 
 interface SetRecipeAction {

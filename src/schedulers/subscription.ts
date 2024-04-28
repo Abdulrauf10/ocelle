@@ -1,6 +1,6 @@
 import { User } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
-import { handleRecurringBox } from '@/helpers/recurring';
+import { handleRecurringBox } from '@/services/recurring';
 import { startOfDay } from 'date-fns';
 import { IsNull, LessThan } from 'typeorm';
 

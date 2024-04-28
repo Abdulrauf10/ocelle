@@ -13,7 +13,7 @@ import {
   UpdateCheckoutLinesDocument,
 } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
-import { findProducts } from '@/helpers/api';
+import { findProducts } from '@/services/api';
 import { individualPackProducts, individualPackProductsValues } from '@/products';
 import { CartReturn } from '@/types/dto';
 import invariant from 'ts-invariant';

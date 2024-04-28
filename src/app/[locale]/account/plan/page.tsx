@@ -17,7 +17,7 @@ import { executeQuery } from '@/helpers/queryRunner';
 import { RecurringBox } from '@/entities';
 import { IsNull, Not } from 'typeorm';
 import { formatDate } from '@/helpers/date';
-import { getCalendarEvents } from '@/helpers/calendar';
+import { getCalendarEvents } from '@/services/calendar';
 
 export default async function Plan() {
   const cookie = cookies();

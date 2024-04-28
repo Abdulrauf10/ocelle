@@ -6,7 +6,7 @@ import { OrderSize } from '@/enums';
 import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getNumericEnumValues } from '@/helpers/enum';
-import { getCalendarEvents } from '@/helpers/calendar';
+import { getCalendarEvents } from '@/services/calendar';
 import { In } from 'typeorm';
 import { isBefore, startOfDay } from 'date-fns';
 
