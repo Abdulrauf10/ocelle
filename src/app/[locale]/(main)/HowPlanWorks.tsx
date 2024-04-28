@@ -1,6 +1,8 @@
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 export default function HowPlanWorks() {
+  const t = useTranslations('Home');
   return (
     <div className="flex flex-row flex-wrap">
       <div className="w-1/3 px-8 py-5 text-center max-md:w-full">
@@ -14,11 +16,8 @@ export default function HowPlanWorks() {
         <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
           1
         </div>
-        <h3 className="heading-4 mt-2 text-gray">Introduce your dog</h3>
-        <p className="body-1 mt-2">
-          Complete our short quiz so we can get to know your dog! We’ll help build a uniquely
-          crafted meal plan, just for them.
-        </p>
+        <h3 className="heading-4 mt-2 text-gray">{t('block-5-item-1-title')}</h3>
+        <p className="body-1 mt-2">{t('block-5-item-1-content')}</p>
       </div>
       <div className=" w-1/3 px-8 py-5 text-center max-md:w-full">
         <Image
@@ -31,11 +30,8 @@ export default function HowPlanWorks() {
         <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
           2
         </div>
-        <h3 className="heading-4 mt-2 text-gray">Get your starter box</h3>
-        <p className="body-1 mt-2">
-          Your starer box contains a two-week supply of freshly prepared meals, to let your dog do
-          the all-important taste testing!
-        </p>
+        <h3 className="heading-4 mt-2 text-gray">{t('block-5-item-2-title')}</h3>
+        <p className="body-1 mt-2">{t('block-5-item-2-content')}</p>
       </div>
       <div className="w-1/3 px-8 py-5 text-center max-md:w-full">
         <Image
@@ -48,11 +44,8 @@ export default function HowPlanWorks() {
         <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
           3
         </div>
-        <h3 className="heading-4 mt-2 text-gray">Real, good food, regularly delivered</h3>
-        <p className="body-1 mt-2">
-          Ultra-Convenience: Our meals are delivered direct to your door, fresh and bursting with
-          flavour and nutrients.
-        </p>
+        <h3 className="heading-4 mt-2 text-gray">{t('block-5-item-3-title')}</h3>
+        <p className="body-1 mt-2">{t('block-5-item-3-content')}</p>
       </div>
     </div>
   );

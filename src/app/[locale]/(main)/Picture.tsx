@@ -9,7 +9,8 @@ import Image from 'next/image';
 import React from 'react';
 
 export default function Picture() {
-  const t = useTranslations();
+  const t = useTranslations('Home');
+  const b = useTranslations('Button');
   const dogRef = React.useRef<HTMLDivElement>(null);
   const isInView = useInView(dogRef, { once: true });
 
@@ -18,8 +19,8 @@ export default function Picture() {
       <div className="flex flex-wrap items-center max-md:flex-col-reverse">
         <div className="relative w-3/5 px-[2vw] py-[5vw] pr-0 text-primary max-md:w-full max-md:border-t-[10px] max-md:border-primary max-md:p-[30px]">
           <h1 className="heading-headline font-bold">
-            Nutrition They Need. <br />
-            Food They Want.
+            {t('block-1-title-1')} <br />
+            {t('block-1-title-2')}
           </h1>
           <div className="my-5 text-xl">
             <List
@@ -30,16 +31,16 @@ export default function Picture() {
               }
               className={{ listItem: 'py-1' }}
               items={[
-                'Tasty fresh food delivered to your door',
-                'Meals customised to your dog’s specific nutritional needs',
-                'Vet developed formula',
-                'Easier for you, better for them!',
+                t('block-1-content-1'),
+                t('block-1-content-2'),
+                t('block-1-content-3'),
+                t('block-1-content-4'),
               ]}
             />
           </div>
           <div className="flex justify-center sm:justify-start ">
             <Button className="mt-4" href="/get-started">
-              {t('get-started')}
+              {b('get-started')}
             </Button>
           </div>
         </div>

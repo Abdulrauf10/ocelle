@@ -13,24 +13,22 @@ import { useTranslations } from 'next-intl';
 import Marquee from '@/components/Marquee';
 
 export default function Home() {
-  const t = useTranslations();
-
+  const t = useTranslations('Home');
+  const b = useTranslations('Button');
   return (
-    <main>
+    <main className="overflow-x-hidden">
       <Picture />
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center text-white">
           <h1 className="heading-1 font-bold">
-            {t('they-re-my-dogs')}
+            {t('block-2-title-1')}
             <br className="md:hidden" />
-            {t('they-re-my-family')}
+            {t('block-2-title-2')}
           </h1>
           <p className="body-1 mt-8">
-            {t(
-              'trade-guesswork-for-peace-of-mind-relax-knowing-that-your-dog-is-getting-the-highest-quality'
-            )}
+            {t('blcok-2-content-1')}
             <br className="max-lg:hidden" />
-            {t('nutrition-for-a-longer-and-more-vibrant-life-it-s-science-and-it-s-delicious')}
+            {t('blcok-2-content-2')}
           </p>
         </Container>
       </Block>
@@ -39,26 +37,26 @@ export default function Home() {
         <div className="w-1/2 pl-[2vw] pr-[1vw] text-xl max-md:w-full">
           <Block>
             <h2 className="heading-1 font-bold text-primary">
-              {t.rich('more-years-happier-years')}
+              {t.rich('block-3-title-1')}
               <br />
-              {t('it-s-time-to-go-fresh')}
+              {t('block-3-title-2')}
             </h2>
             <div className="mt-[2vw]">
               <List
                 picture={<Tickbox className="mr-4 mt-1 h-5 w-5" />}
                 className={{ listItem: 'py-0.5' }}
                 items={[
-                  t('increased-lifespan'),
-                  t('delayed-onset-of-chronic-disease'),
-                  t('reduced-likelihood-of-obesity'),
-                  t('increased-bio-health-and-food-safety'),
-                  t('increased-vitality-and-happiness'),
+                  t('block-3-content-1'),
+                  t('block-3-content-2'),
+                  t('block-3-content-3'),
+                  t('block-3-content-4'),
+                  t('block-3-content-5'),
                 ]}
               />
             </div>
             <div className="mb-5 mt-[2vw]"></div>
             <div className="flex justify-center md:justify-start">
-              <Button href="/why-fresh">{t('learn-more')}</Button>
+              <Button href="/why-fresh">{b('learn-more')}</Button>
             </div>
           </Block>
         </div>
@@ -66,9 +64,9 @@ export default function Home() {
       <Block className="bg-primary bg-opacity-15">
         <Container>
           <h2 className="heading-1 text-center font-bold text-primary">
-            {t('we-re-powered-by-science')}
+            {t('block-4-title-1')}
             <br className="hidden lg:block" />
-            {t('customised-meal-plans-for-your-dogs')}
+            {t('block-4-title-2')}
           </h2>
           <div className="relative mt-10 flex-col-reverse items-center max-xl:flex">
             <div className="pb-0 max-xl:flex max-xl:flex-wrap [&>*]:max-xl:m-0 [&>*]:max-xl:mt-3 [&>*]:max-xl:max-w-none [&>*]:max-xl:px-4 [&>*]:max-xl:py-3 [&>*]:max-xl:text-center [&>*]:max-sm:w-full [&_img]:max-xl:inline">
@@ -80,12 +78,8 @@ export default function Home() {
                   width={81}
                   height={70}
                 />
-                <h3 className="heading-4 mt-2 text-primary">
-                  {t.rich('real-good-food-freshly-made')}
-                </h3>
-                <p className="body-1 mt-2 xl:max-w-[320px]">
-                  {t('real-good-food-freshly-made-content')}
-                </p>
+                <h3 className="heading-4 mt-2 text-primary">{t.rich('block-4-item-1-title')}</h3>
+                <p className="body-1 mt-2 xl:max-w-[320px]">{t('block-4-item-1-content')}</p>
               </div>
               <div className="mt-[6%] md:w-1/2 xl:w-full">
                 <Image
@@ -95,8 +89,8 @@ export default function Home() {
                   width={74}
                   height={70}
                 />
-                <h3 className="heading-4 mt-2 text-primary">{t('customised-meal-plans')}</h3>
-                <p className="body-1 mt-2 xl:max-w-[320px]">{t('customised-meal-plans-content')}</p>
+                <h3 className="heading-4 mt-2 text-primary">{t('block-4-item-2-title')}</h3>
+                <p className="body-1 mt-2 xl:max-w-[320px]">{t('block-4-item-2-content')}</p>
               </div>
               <div className="ml-32 mt-[6%]">
                 <div className="flex flex-1 flex-wrap max-xl:-m-3">
@@ -108,8 +102,8 @@ export default function Home() {
                       width={102}
                       height={70}
                     />
-                    <h3 className="heading-4 mt-2 text-primary">{t('delivered-within-days')}</h3>
-                    <p className="body-1 mt-2">{t.rich('delivered-within-days-content')}</p>
+                    <h3 className="heading-4 mt-2 text-primary">{t('block-4-item-3-title')}</h3>
+                    <p className="body-1 mt-2">{t.rich('block-4-item-3-content')}</p>
                   </div>
                   <div className="w-full max-xl:mt-0 max-xl:p-3 md:w-1/2 xl:ml-[11%] xl:mt-[12%] xl:w-full xl:max-w-[320px]">
                     <Image
@@ -119,11 +113,11 @@ export default function Home() {
                       width={67}
                       height={70}
                     />
-                    <h3 className="heading-4 mt-2 text-primary">{t('vet-approved')}</h3>
-                    <p className="body-1 mt-2">{t('vet-approved-content')}</p>
+                    <h3 className="heading-4 mt-2 text-primary">{t('block-4-item-4-title')}</h3>
+                    <p className="body-1 mt-2">{t('block-4-item-4-content')}</p>
                   </div>
                   <div className="ml-[6%] mt-[21%] text-center max-xl:hidden">
-                    <Button href="/get-started">{t('see-your-recipes')}</Button>
+                    <Button href="/get-started">{b('see-your-recipes')}</Button>
                   </div>
                 </div>
               </div>
@@ -135,7 +129,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-8 text-center xl:hidden">
-            <Button href="/get-started">{t('see-your-recipes')}</Button>
+            <Button href="/get-started">{b('see-your-recipes')}</Button>
           </div>
         </Container>
       </Block>
@@ -201,15 +195,15 @@ export default function Home() {
       />
       <Block className="bg-gray bg-opacity-20">
         <Container>
-          <h2 className="heading-1 text-center font-bold text-gray">How Your Plan Works</h2>
+          <h2 className="heading-1 text-center font-bold text-gray">{t('block-5-title')}</h2>
           <div className="mt-6">
             <HowPlanWorks />
           </div>
           <div className="mt-2 text-center">
-            <Button href="/get-started">{t('build-my-plan')}</Button>
+            <Button href="/get-started">{b('build-my-plan')}</Button>
           </div>
           <p className="mt-[2.5vw] text-center text-[32px] font-normal text-gray max-md:text-[32px] max-sm:mt-8">
-            {t.rich('not-ready-for-a-subscription-no-problem-try-our', {
+            {t.rich('block-5-content', {
               link: (chunks) => {
                 return (
                   <Link
@@ -226,27 +220,21 @@ export default function Home() {
       </Block>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <h2 className="heading-1 text-center font-black text-gold">Proof Is In The Eating</h2>
-          <p className="body-1 mx-auto mt-5 max-w-screen-md text-center text-gold">
-            Choose OCELLE and watch your dog thrive – from better gut health (cleaner poops!) and
-            luxurious fur, to optimised energy for life. But you don&apos;t have to take our word
-            for it:
-          </p>
+          <h2 className="heading-1 text-center font-black text-gold">{t('block-6-title')}</h2>
+          <p className="body-1 mx-auto mt-5 max-w-screen-md text-center text-gold"></p>
           <CaseSwiper />
           <div className="mt-8 text-center">
-            <Button href="/get-started">{t('see-my-plan')}</Button>
+            <Button href="/get-started">{b('see-my-plan')}</Button>
           </div>
         </Container>
       </Block>
       <div className="bg-[url('./recommended-plan-bg.jpg')] bg-cover bg-center py-40 max-md:py-16">
         <Container>
           <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-8 py-12 text-center sm:p-16 md:px-[140px]">
-            <strong className="heading-3 text-primary">See Your Dog’s Recommended Plan!</strong>
-            <p className="body-1 mt-5">
-              Get fresh food conveniently delivered with our customised meal plans.
-            </p>
+            <strong className="heading-3 text-primary">{t('block-7-title')}</strong>
+            <p className="body-1 mt-5">{t('block-7-content')}</p>
             <div className="mt-8 text-center">
-              <Button href="/get-started">{t('create-your-plan')}</Button>
+              <Button href="/get-started">{b('create-your-plan')}</Button>
             </div>
           </div>
         </Container>
