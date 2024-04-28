@@ -48,6 +48,7 @@ export async function getLoginedMe() {
     return queryRunner.manager.findOne(User, {
       where: { id: me.id },
       relations: {
+        orders: true,
         dogs: {
           plan: true,
           breeds: { breed: true },
@@ -76,6 +77,7 @@ export async function getLoginedMeFullSize() {
     return queryRunner.manager.findOne(User, {
       where: { id: me.id },
       relations: {
+        orders: true,
         dogs: {
           plan: true,
           breeds: { breed: true },

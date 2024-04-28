@@ -92,13 +92,6 @@ query GetCurrentUserFullSize {
     defaultShippingAddress {
       ...UserAddress
     }
-    orders(first: 1) {
-      edges {
-        node {
-          ...Order
-        }
-      }
-    }
   }
 }
 
