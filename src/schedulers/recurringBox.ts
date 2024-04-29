@@ -5,7 +5,7 @@ import { Shipment } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
 import { handleRecurringBox } from '@/services/recurring';
 
-export default async function subscriptionScheduler() {
+export default async function recurringBoxScheduler() {
   console.log('[Recurring Box] Start: %s', new Date());
   const today = startOfDay(new Date());
   const shipments = await executeQuery(async (queryRunner) => {
