@@ -2,12 +2,13 @@ import { startOfDay } from 'date-fns';
 import { useTranslations } from 'next-intl';
 
 import type { Shipment } from '@/entities';
-import { formatDate } from '@/helpers/date';
 import { isDeliveredBox } from '@/helpers/dog';
+import useSentence from '@/hooks/useSentence';
 
 export function ShippableNote({ shipments }: { shipments: Shipment[] }) {
   const refDate = startOfDay(new Date());
   const t = useTranslations();
+  const sentence = useSentence();
 
   shipments.sort((a, b) => b.deliveryDate.getTime() - a.deliveryDate.getTime());
 
@@ -22,7 +23,7 @@ export function ShippableNote({ shipments }: { shipments: Shipment[] }) {
       {shipable && (
         <p>
           {t.rich('your-upcoming-box-is-arriving-on-the-{}', {
-            date: formatDate(t, shipable.deliveryDate, true),
+            date: sentence.date(shipable.deliveryDate, true),
           })}{' '}
           {t('it-contains-{}-fresh-food', {
             value: new Intl.ListFormat('en-HK').format(
@@ -34,7 +35,7 @@ export function ShippableNote({ shipments }: { shipments: Shipment[] }) {
       {shipments[0].editableDeadline >= refDate && (
         <p className="mt-4">
           {t.rich('unfortunately-you-can-no-longer-make-changes-to-your-upcoming-box', {
-            date: formatDate(t, shipments[0].deliveryDate, true),
+            date: sentence.date(shipments[0].deliveryDate, true),
           })}
         </p>
       )}

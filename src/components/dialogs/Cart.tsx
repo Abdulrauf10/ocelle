@@ -35,7 +35,7 @@ export default function CartDialog({
             </div>
             <div className="bg-gold bg-opacity-10 px-8 py-6">
               <div className="body-2 mb-4 flex justify-between font-bold">
-                <div>{colon(t, 'subtotal')}</div>
+                <div>{t('{}-colon', { value: t('subtotal') })}</div>
                 <div>HK${subtotal}</div>
               </div>
               <Button

@@ -12,7 +12,7 @@ import Button from '@/components/buttons/Button';
 import EditButton from '@/components/buttons/EditButton';
 import { MealPlan, OrderSize } from '@/enums';
 import { getRecipeSlug } from '@/helpers/dog';
-import { addressToSentence, dogToSentence } from '@/helpers/translation';
+import getSentence from '@/servers/getSentence';
 
 function SectionTitle({ children }: React.PropsWithChildren) {
   return <strong className="text-lg text-gold">{children}</strong>;
@@ -20,6 +20,7 @@ function SectionTitle({ children }: React.PropsWithChildren) {
 
 export default async function Reactivate() {
   const t = await getTranslations();
+  const sentence = await getSentence();
   const { orderSize, dogs, defaultShippingAddress, defaultBillingAddress } =
     await getLoginedMeFullSize();
 
@@ -44,7 +45,7 @@ export default async function Reactivate() {
               <div className="-mx-2 flex items-center">
                 <div className="flex-1 px-2">
                   <SectionTitle>{t('dogs-information')}</SectionTitle>
-                  <p>{t('{}-is-{}', { name: dog.name, value: dogToSentence(t, dog) })}</p>
+                  <p>{t('{}-is-{}', { name: dog.name, value: sentence.dog(dog) })}</p>
                 </div>
                 <div className="px-2">
                   <EditButton href={`/account/dog/${dog.id}`} />
@@ -93,10 +94,10 @@ export default async function Reactivate() {
           </div>
           <SectionHr />
           <SectionTitle>{t('delivery')}</SectionTitle>
-          <p>{addressToSentence(t, defaultShippingAddress!)}</p>
+          <p>{sentence.address(defaultShippingAddress!)}</p>
           <SectionHr />
           <SectionTitle>{t('billing')}</SectionTitle>
-          <p>{addressToSentence(t, defaultBillingAddress!)}</p>
+          <p>{sentence.address(defaultBillingAddress!)}</p>
         </SectionBlock>
         <SectionBlock className="mt-8">
           <div className="item-center -mx-2 flex">

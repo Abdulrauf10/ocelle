@@ -19,9 +19,8 @@ import EditButton from '@/components/buttons/EditButton';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 import { useCart } from '@/contexts/cart';
-import { formatDate } from '@/helpers/date';
 import { isUnavailableDeliveryDate } from '@/helpers/dog';
-import { colon } from '@/helpers/translation';
+import useSentence from '@/hooks/useSentence';
 import { CalendarEvent } from '@/types';
 import { CartReturn } from '@/types/dto';
 
@@ -94,6 +93,7 @@ export default function GuestCheckoutForm({
 }) {
   const stripe = useStripe();
   const elements = useElements();
+  const sentence = useSentence();
   const { lines, shippingPrice, totalPrice, setLines, setTotalPrice } = useCart();
   const t = useTranslations();
   const {
@@ -304,7 +304,7 @@ export default function GuestCheckoutForm({
             <Section dense title={t('delivery-date')}>
               <p className="body-3">
                 {t.rich('your-order-will-be-delivered-on-the-{}', {
-                  date: formatDate(t, watch('deliveryDate'), true),
+                  date: sentence.date(watch('deliveryDate'), true),
                 })}{' '}
                 <EditButton
                   onClick={(e) => {
@@ -356,7 +356,9 @@ export default function GuestCheckoutForm({
                   }}
                 />
               </SummaryBlock>
-              <SummaryBlock title={colon(t, 'promo-code')}>{couponForm}</SummaryBlock>
+              <SummaryBlock title={t('{}-colon', { value: t('promo-code') })}>
+                {couponForm}
+              </SummaryBlock>
               <SummaryBlock>
                 <div className="body-3 -mx-1 mt-2 flex flex-wrap justify-between">
                   <div className="px-1">{t('promo-code')}</div>

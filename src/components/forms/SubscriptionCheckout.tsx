@@ -21,8 +21,8 @@ import PasswordField from '@/components/controls/PasswordField';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 import { MealPlan, Recipe } from '@/enums';
-import { formatDate } from '@/helpers/date';
 import { getRecipeSlug, isUnavailableDeliveryDate } from '@/helpers/dog';
+import useSentence from '@/hooks/useSentence';
 import { CalendarEvent } from '@/types';
 
 function Section({
@@ -113,6 +113,7 @@ export default function SubscriptionCheckoutForm({
   const stripe = useStripe();
   const elements = useElements();
   const t = useTranslations();
+  const sentence = useSentence();
   const {
     control,
     setValue,
@@ -347,7 +348,7 @@ export default function SubscriptionCheckoutForm({
                 {t('{}-{}-week-starter-box-will-be-delivered-on-the-{}', {
                   name: dogs[0].name,
                   week: 2,
-                  date: formatDate(t, watch('deliveryDate'), true),
+                  date: sentence.date(watch('deliveryDate'), true),
                 })}{' '}
                 <EditButton
                   onClick={(e) => {
@@ -358,7 +359,7 @@ export default function SubscriptionCheckoutForm({
               </p>
               <p className="body-3 mt-3">
                 {t('after-checkout-you-can-adjust-your-delivery-date-until-the-{}', {
-                  date: formatDate(t, new Date()),
+                  date: sentence.date(new Date()),
                 })}
               </p>
               {openDeliveryDate && (
@@ -497,7 +498,7 @@ export default function SubscriptionCheckoutForm({
               <div className="mt-4 text-gold">
                 <p>
                   {t('{}-colon', { value: t('next-order') })}
-                  {formatDate(t, addWeeks(new Date(), 2), true)}
+                  {sentence.date(addWeeks(new Date(), 2), true)}
                 </p>
                 <p className="body-3 mt-3">
                   {t('{}-colon', { value: t('delivery-cycle') })}

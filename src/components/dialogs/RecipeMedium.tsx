@@ -8,7 +8,7 @@ import React from 'react';
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '../Dialog';
 import CloseCircle from '../icons/CloseCircle';
 
-import { arrayToSentence } from '@/helpers/translation';
+import useSentence from '@/hooks/useSentence';
 
 export default function RecipeMediumDialog({
   name,
@@ -37,6 +37,7 @@ export default function RecipeMediumDialog({
   const i = useTranslations('Ingredients');
   const r = useTranslations('Recipes');
   const b = useTranslations('Button');
+  const sentence = useSentence();
   const [tab, setTab] = React.useState<'Ingredients' | 'Nutrition'>('Ingredients');
 
   return (
@@ -82,12 +83,12 @@ export default function RecipeMediumDialog({
                 <p className="mt-3 leading-tight">
                   <strong>{t('{}-colon', { value: r('ingredients') })}</strong>
                   <br />
-                  {arrayToSentence(i, ingredients)}
+                  {sentence.array(ingredients)}
                 </p>
                 <p className="mt-3 leading-tight">
                   <strong>{t('{}-colon', { value: i('ocelle-targeted-nutrient-blend') })}</strong>
                   <br />
-                  {arrayToSentence(i, targetedNutrientBlendIngredients)}
+                  {sentence.array(targetedNutrientBlendIngredients)}
                 </p>
               </>
             )}

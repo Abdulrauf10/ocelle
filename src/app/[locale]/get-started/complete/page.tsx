@@ -8,12 +8,13 @@ import Benefits from '../Benefits';
 import { dropCheckoutSession, getDeliveryDate } from '../actions';
 
 import Container from '@/components/Container';
-import { formatDate } from '@/helpers/date';
 import { getSurveySessionStore } from '@/helpers/session';
+import useSentence from '@/hooks/useSentence';
 import { Link, useRouter } from '@/navigation';
 
 export default function ThankYouPage() {
   const t = useTranslations();
+  const sentence = useSentence();
   const router = useRouter();
   const [ran, setRan] = React.useState(false);
   const [deliveryDate, setDeliveryDate] = React.useState<Date>();
@@ -71,7 +72,7 @@ export default function ThankYouPage() {
       <p className="mt-4 text-primary">
         {t('your-{}-will-be-delivered-on-the-{}', {
           value: t('starter-box').toLowerCase(),
-          date: formatDate(t, deliveryDate, true),
+          date: sentence.date(deliveryDate, true),
         })}
       </p>
       <Benefits />

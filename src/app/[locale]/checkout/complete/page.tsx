@@ -7,11 +7,12 @@ import React from 'react';
 import { dropCheckoutSession, getDeliveryDate } from '../actions';
 
 import Container from '@/components/Container';
-import { formatDate } from '@/helpers/date';
+import useSentence from '@/hooks/useSentence';
 import { Link, useRouter } from '@/navigation';
 
 export default function CompletePage() {
   const t = useTranslations();
+  const sentence = useSentence();
   const router = useRouter();
   const [ran, setRan] = React.useState(false);
   const [deliveryDate, setDeliveryDate] = React.useState<Date>();
@@ -68,7 +69,7 @@ export default function CompletePage() {
       <p className="mt-4 text-primary">
         {t.rich('your-{}-will-be-delivered-on-the-{}', {
           value: t('order').toLowerCase(),
-          date: formatDate(t, deliveryDate, true),
+          date: sentence.date(deliveryDate, true),
         })}
       </p>
     </Container>

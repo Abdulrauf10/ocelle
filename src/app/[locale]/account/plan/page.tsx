@@ -15,15 +15,15 @@ import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { DOG_SELECT_COOKIE } from '@/consts';
 import { RecurringBox } from '@/entities';
 import { MealPlan, OrderSize } from '@/enums';
-import { formatDate } from '@/helpers/date';
 import { getEditableRecurringBoxDeadline, getRecipeSlug } from '@/helpers/dog';
 import { executeQuery } from '@/helpers/queryRunner';
-import { dogToSentence } from '@/helpers/translation';
+import getSentence from '@/servers/getSentence';
 import { getCalendarEvents } from '@/services/calendar';
 
 export default async function Plan() {
   const cookie = cookies();
   const t = await getTranslations();
+  const sentence = await getSentence();
   const mbBoxClassName = clsx(
     'max-md:border-brown max-md:rounded-[30px] max-md:border max-md:bg-white max-md:p-6 max-md:shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] mx-auto'
   );
@@ -95,7 +95,7 @@ export default async function Plan() {
                     })}
                   </div>
                 )}
-                <div className="mt-3">{dogToSentence(t, dog)}</div>
+                <div className="mt-3">{sentence.dog(dog)}</div>
                 <div className="mt-3">
                   <UnderlineButton label={t('view-{}-feeding-guidelines', { name: dog.name })} />
                 </div>
@@ -130,7 +130,7 @@ export default async function Plan() {
                   <div className="max-w-[280px]">
                     <p className="mt-3">
                       {t.rich('upcoming-box-arrives-by-the-{}', {
-                        date: formatDate(t, upcomingBox.shipment.deliveryDate, true),
+                        date: sentence.date(upcomingBox.shipment.deliveryDate, true),
                         span: (chunks) => (
                           <span className="whitespace-nowrap font-bold text-brown">{chunks}</span>
                         ),
@@ -145,8 +145,7 @@ export default async function Plan() {
                     </div>
                     <p className="mt-3">
                       {t.rich('you-can-make-changes-until-the-{}', {
-                        date: formatDate(
-                          t,
+                        date: sentence.date(
                           getEditableRecurringBoxDeadline(
                             calendarEvents,
                             upcomingBox.shipment.deliveryDate

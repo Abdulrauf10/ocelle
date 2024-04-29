@@ -42,7 +42,7 @@ export default function RecipeBenefits() {
         description: r('block-7-content-7'),
       },
     ];
-  }, []);
+  }, [r]);
   const [opened, setOpened] = React.useState(false);
 
   return (

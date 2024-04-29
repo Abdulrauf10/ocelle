@@ -15,11 +15,12 @@ import User from '@/components/icons/User';
 import StripeNotReadyError from '@/errors/StripeNotReadyError';
 import { GetOrderDocument } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
-import { addressToSentence } from '@/helpers/translation';
+import getSentence from '@/servers/getSentence';
 import { retrieveCustomerPaymentMethod } from '@/services/stripe';
 
 export default async function Account() {
   const t = await getTranslations();
+  const sentence = await getSentence();
   const {
     id,
     dogs,
@@ -87,13 +88,13 @@ export default async function Account() {
               <strong className="min-w-[82px] text-gold">
                 {t('{}-colon', { value: t('delivery') })}
               </strong>
-              <span className="w-full">{addressToSentence(t, defaultShippingAddress!)}</span>
+              <span className="w-full">{sentence.address(defaultShippingAddress!)}</span>
             </div>
             <div className="mt-3 flex max-xs:flex-wrap">
               <strong className="min-w-[82px] text-gold">
                 {t('{}-colon', { value: t('billing') })}
               </strong>
-              <span className="w-full">{addressToSentence(t, defaultBillingAddress!)}</span>
+              <span className="w-full">{sentence.address(defaultBillingAddress!)}</span>
             </div>
           </ClickableBlock>
           <ClickableBlock

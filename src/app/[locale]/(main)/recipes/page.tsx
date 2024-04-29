@@ -12,7 +12,7 @@ import Block from '@/components/layouts/Block';
 import ImageContentBlock from '@/components/layouts/ImageContentBlock';
 import { Recipe } from '@/enums';
 import { getRecipeSlug } from '@/helpers/dog';
-import { arrayToSentence, colon, freshRecipe } from '@/helpers/translation';
+import useSentence from '@/hooks/useSentence';
 
 function EndAdornment({
   recipe,
@@ -37,13 +37,14 @@ function EndAdornment({
 }) {
   const r = useTranslations('Recipes');
   const b = useTranslations('Button');
+  const sentence = useSentence();
 
   return (
     <div className="mx-auto mt-10 max-w-[480px]">
       <div className="-m-2 flex flex-wrap">
         <div className="w-1/2 p-2 text-center max-xs:w-full">
           <RecipeLargeDialog
-            recipe={freshRecipe(r, recipe)}
+            recipe={sentence.recipe(recipe)}
             recipePicture={`/recipes/dispersion/${getRecipeSlug(recipe)}.jpg`}
             ingredients={ingredients}
             calorie={calorie}
@@ -70,6 +71,7 @@ export default function RecipesPage() {
   const m = useTranslations('Marquee');
   const b = useTranslations('Button');
   const i = useTranslations('Ingredients');
+  const sentence = useSentence();
   const className = {
     container: 'lg:px-20',
     image: 'pt-[80.6%] shadow-[7px_7px_15px_rgba(0,0,0,0.05)]',
@@ -304,7 +306,7 @@ export default function RecipesPage() {
           block: 'bg-primary bg-opacity-10',
         }}
         image={`/recipes/${getRecipeSlug(Recipe.Chicken)}.jpg`}
-        alt={freshRecipe(t, Recipe.Chicken)}
+        alt={sentence.recipe(Recipe.Chicken)}
         endAdornment={
           <EndAdornment
             recipe={Recipe.Chicken}
@@ -326,11 +328,13 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary">{freshRecipe(r, Recipe.Chicken)}</h2>
+          <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Chicken)}</h2>
           <p className="body-1 mt-4">{r('block-2-content')}</p>
-          <p className="heading-4 mt-6 font-bold text-gold">{colon(r, 'ingredients')}</p>
+          <p className="heading-4 mt-6 font-bold text-gold">
+            {t('{}-colon', { value: t('Recipes.ingredients') })}
+          </p>
           <p className="body-1">
-            {arrayToSentence(i, [
+            {sentence.array([
               i('chicken-breast'),
               i('chicken-liver'),
               i('whole-grain-rice'),
@@ -348,7 +352,7 @@ export default function RecipesPage() {
       <ImageContentBlock
         className={className}
         image={`/recipes/${getRecipeSlug(Recipe.Beef)}.jpg`}
-        alt={freshRecipe(r, Recipe.Beef)}
+        alt={sentence.recipe(Recipe.Beef)}
         reverse
         endAdornment={
           <EndAdornment
@@ -371,11 +375,13 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary">{freshRecipe(r, Recipe.Beef)}</h2>
+          <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Beef)}</h2>
           <p className="body-1 mt-4">{r('block-3-content')}</p>
-          <p className="heading-4 mt-6 font-bold text-gold">{colon(r, 'ingredients')}</p>
+          <p className="heading-4 mt-6 font-bold text-gold">
+            {t('{}-colon', { value: t('Recipes.ingredients') })}
+          </p>
           <p className="body-1">
-            {arrayToSentence(i, [
+            {sentence.array([
               i('beef-chuck'),
               i('beef-liver'),
               pluralize.plural(i('potato')),
@@ -396,7 +402,7 @@ export default function RecipesPage() {
           block: 'bg-gold bg-opacity-10',
         }}
         image={`/recipes/${getRecipeSlug(Recipe.Pork)}.jpg`}
-        alt={freshRecipe(r, Recipe.Pork)}
+        alt={sentence.recipe(Recipe.Pork)}
         endAdornment={
           <EndAdornment
             recipe={Recipe.Pork}
@@ -418,11 +424,13 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary">{freshRecipe(r, Recipe.Pork)}</h2>
+          <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Pork)}</h2>
           <p className="body-1 mt-4">{r('block-3-content')}</p>
-          <p className="heading-4 mt-6 font-bold text-gold">{colon(r, 'ingredients')}</p>
+          <p className="heading-4 mt-6 font-bold text-gold">
+            {t('{}-colon', { value: t('Recipes.ingredients') })}
+          </p>
           <p className="body-1">
-            {arrayToSentence(i, [
+            {sentence.array([
               i('pork-loin'),
               i('pork-liver'),
               i('celery'),
@@ -440,7 +448,7 @@ export default function RecipesPage() {
       <ImageContentBlock
         className={className}
         image={`/recipes/${getRecipeSlug(Recipe.Lamb)}.jpg`}
-        alt={freshRecipe(r, Recipe.Lamb)}
+        alt={sentence.recipe(Recipe.Lamb)}
         reverse
         endAdornment={
           <EndAdornment
@@ -462,11 +470,13 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary">{freshRecipe(r, Recipe.Lamb)}</h2>
+          <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Lamb)}</h2>
           <p className="body-1 mt-4">{r('block-4-content')}</p>
-          <p className="heading-4 mt-6 font-bold text-gold">{colon(r, 'ingredients')}</p>
+          <p className="heading-4 mt-6 font-bold text-gold">
+            {t('{}-colon', { value: t('Recipes.ingredients') })}
+          </p>
           <p className="body-1">
-            {arrayToSentence(i, [
+            {sentence.array([
               i('lamb-leg-boneless'),
               i('beef-liver'),
               i('whole-grain-rice'),
@@ -486,7 +496,7 @@ export default function RecipesPage() {
           block: 'bg-primary bg-opacity-10',
         }}
         image={`/recipes/${getRecipeSlug(Recipe.Duck)}.jpg`}
-        alt={freshRecipe(r, Recipe.Duck)}
+        alt={sentence.recipe(Recipe.Duck)}
         endAdornment={
           <EndAdornment
             recipe={Recipe.Duck}
@@ -507,11 +517,13 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary">{freshRecipe(r, Recipe.Duck)}</h2>
+          <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Duck)}</h2>
           <p className="body-1 mt-4">{r('block-5-content')}</p>
-          <p className="heading-4 mt-6 font-bold text-gold">{colon(r, 'ingredients')}</p>
+          <p className="heading-4 mt-6 font-bold text-gold">
+            {t('{}-colon', { value: t('Recipes.ingredients') })}
+          </p>
           <p className="body-1">
-            {arrayToSentence(i, [
+            {sentence.array([
               i('duck-breast'),
               i('chicken-liver'),
               i('whole-grain-pasta'),

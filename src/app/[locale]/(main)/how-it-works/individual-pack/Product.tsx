@@ -18,7 +18,6 @@ import { useCart } from '@/contexts/cart';
 import { IndividualRecipePack } from '@/enums';
 import { ProductFragment } from '@/gql/graphql';
 import { weightToGrams } from '@/helpers/saleor';
-import { colon } from '@/helpers/translation';
 
 const parser = edjsHTML();
 
@@ -128,7 +127,7 @@ export default function Product({
             )}
             <label className="mt-6 block">
               <span className={clsx('body-1 mr-3 inline-block font-bold', className.content)}>
-                {colon(t, 'quantity')}
+                {t('{}-colon', { value: t('quantity') })}
               </span>
               <NumberInput
                 className={{
