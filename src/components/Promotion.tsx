@@ -5,7 +5,8 @@ import Container from './Container';
 import { useTranslations } from 'next-intl';
 
 export default function Promotion() {
-  const t = useTranslations();
+  const t = useTranslations('Promotion');
+  const b = useTranslations('Button');
   const pathname = usePathname();
 
   if (pathname === '/get-started/complete') {
@@ -15,9 +16,9 @@ export default function Promotion() {
   return (
     <div className="bg-primary py-2 text-center text-xl text-white max-xl:text-base">
       <Container>
-        {t('get-50%-off-your-starter-box')}
+        {t('content-1')}
         <Link href="/get-started" className="font-bold underline">
-          {t('order-now')}
+          {t('content-2')}
         </Link>
         !
       </Container>

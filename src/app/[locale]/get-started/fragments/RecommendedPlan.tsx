@@ -26,6 +26,7 @@ interface RecommendedPlanForm {
 
 export default function RecommendedPlanFragment() {
   const t = useTranslations();
+  const i = useTranslations('Ingredients');
   const navigate = useNavigate();
   const location = useLocation();
   const { getDog, setDog, nextDog } = useSurvey();
@@ -154,16 +155,16 @@ export default function RecommendedPlanFragment() {
                         error={!!errors?.recipe}
                         picture="/meal-plan/chicken.jpg"
                         ingredients={[
-                          t('chicken-breast'),
-                          t('chicken-liver'),
-                          t('whole-grain-rice'),
-                          pluralize.plural(t('shiitake-mushroom')),
-                          t('spinach'),
-                          t('peas'),
-                          pluralize.plural(t('cranberry')),
-                          t('flaxseed'),
-                          t('salmon-oil'),
-                          t('ocelle-targeted-nutrient-blend'),
+                          i('chicken-breast'),
+                          i('chicken-liver'),
+                          i('whole-grain-rice'),
+                          pluralize.plural(i('shiitake-mushroom')),
+                          i('spinach'),
+                          i('peas'),
+                          pluralize.plural(i('cranberry')),
+                          i('flaxseed'),
+                          i('salmon-oil'),
+                          i('ocelle-targeted-nutrient-blend'),
                         ]}
                         targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                         calorie={1540}
@@ -191,16 +192,16 @@ export default function RecommendedPlanFragment() {
                         error={!!errors?.recipe}
                         picture="/meal-plan/pork.jpg"
                         ingredients={[
-                          t('pork-loin'),
-                          t('pork-liver'),
-                          t('celery'),
-                          pluralize.plural(t('potato')),
-                          t('spinach'),
-                          t('peas'),
-                          pluralize.plural(t('blueberry')),
-                          t('flaxseed'),
-                          t('salmon-oil'),
-                          t('ocelle-targeted-nutrient-blend'),
+                          i('pork-loin'),
+                          i('pork-liver'),
+                          i('celery'),
+                          pluralize.plural(i('potato')),
+                          i('spinach'),
+                          i('peas'),
+                          pluralize.plural(i('blueberry')),
+                          i('flaxseed'),
+                          i('salmon-oil'),
+                          i('ocelle-targeted-nutrient-blend'),
                         ]}
                         targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                         calorie={1540}
@@ -228,15 +229,15 @@ export default function RecommendedPlanFragment() {
                         error={!!errors?.recipe}
                         picture="/meal-plan/duck.jpg"
                         ingredients={[
-                          t('duck-breast'),
-                          t('chicken-liver'),
-                          t('whole-grain-pasta'),
-                          t('winter-melon'),
-                          t('peas'),
-                          pluralize.plural(t('goji-berry')),
-                          t('flaxseed'),
-                          t('salmon-oil'),
-                          t('ocelle-targeted-nutrient-blend'),
+                          i('duck-breast'),
+                          i('chicken-liver'),
+                          i('whole-grain-pasta'),
+                          i('winter-melon'),
+                          i('peas'),
+                          pluralize.plural(i('goji-berry')),
+                          i('flaxseed'),
+                          i('salmon-oil'),
+                          i('ocelle-targeted-nutrient-blend'),
                         ]}
                         targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                         calorie={1540}
@@ -264,16 +265,16 @@ export default function RecommendedPlanFragment() {
                         error={!!errors?.recipe}
                         picture="/meal-plan/beef.jpg"
                         ingredients={[
-                          t('beef-chuck'),
-                          t('beef-liver'),
-                          pluralize.plural(t('potato')),
-                          pluralize.plural(t('carrot')),
-                          t('kale'),
-                          t('peas'),
-                          pluralize.plural(t('blueberry')),
-                          t('flaxseed'),
-                          t('salmon-oil'),
-                          t('ocelle-targeted-nutrient-blend'),
+                          i('beef-chuck'),
+                          i('beef-liver'),
+                          pluralize.plural(i('potato')),
+                          pluralize.plural(i('carrot')),
+                          i('kale'),
+                          i('peas'),
+                          pluralize.plural(i('blueberry')),
+                          i('flaxseed'),
+                          i('salmon-oil'),
+                          i('ocelle-targeted-nutrient-blend'),
                         ]}
                         targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                         calorie={1540}
@@ -301,15 +302,15 @@ export default function RecommendedPlanFragment() {
                         error={!!errors?.recipe}
                         picture="/meal-plan/lamb.jpg"
                         ingredients={[
-                          t('lamb-leg-boneless'),
-                          t('beef-liver'),
-                          t('whole-grain-rice'),
-                          t('peas'),
-                          t('spinach'),
-                          pluralize.plural(t('blueberry')),
-                          t('flaxseed'),
-                          t('salmon-oil'),
-                          t('ocelle-targeted-nutrient-blend'),
+                          i('lamb-leg-boneless'),
+                          i('beef-liver'),
+                          i('whole-grain-rice'),
+                          i('peas'),
+                          i('spinach'),
+                          pluralize.plural(i('blueberry')),
+                          i('flaxseed'),
+                          i('salmon-oil'),
+                          i('ocelle-targeted-nutrient-blend'),
                         ]}
                         targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                         calorie={1540}

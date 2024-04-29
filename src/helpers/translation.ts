@@ -11,53 +11,57 @@ export function freshRecipe(t: useTranslationsReturn, recipe: Recipe) {
   return t('fresh-{}-recipe', { value: t(getRecipeSlug(recipe)) });
 }
 
+//TODO
 export function colon(
   t: useTranslationsReturn,
-  key: keyof IntlMessages,
+  key: keyof IntlMessages | any,
   values?: TranslationValues
 ) {
-  return t('{}-colon', { value: t(key, values) });
+  const g = useTranslations();
+  return g('{}-colon', { value: t(key, values) });
 }
 
 export function arrayToSentence(t: useTranslationsReturn, array: string[]) {
-  return array.join(t('comma')) + t('dot');
+  const g = useTranslations();
+  return array.join(g('comma')) + g('dot');
 }
 
 export function dogToSentence(t: useTranslationsReturn, dog: Dog) {
   const strings = [];
+  const g = useTranslations();
   // render age
   const diffInYears = differenceInYears(new Date(), dog.dateOfBirth);
   const diffInMonths = differenceInMonths(subYears(new Date(), diffInYears), dog.dateOfBirth);
   if (diffInYears > 0) {
-    strings.push(t('{}-years-and-{}-months-old', { years: diffInYears, months: diffInMonths }));
+    strings.push(g('{}-years-and-{}-months-old', { years: diffInYears, months: diffInMonths }));
   } else {
-    strings.push(t('{}-months-old', { months: diffInMonths }));
+    strings.push(g('{}-months-old', { months: diffInMonths }));
   }
 
   // render kg
-  strings.push(t('{}-kg', { value: dog.weight }));
+  strings.push(g('{}-kg', { value: dog.weight }));
 
   // render activity level
   switch (dog.activityLevel) {
     case 'Mellow':
-      strings.push(t('mellow').toLowerCase());
+      strings.push(g('mellow').toLowerCase());
       break;
     case 'Active':
-      strings.push(t('active').toLowerCase());
+      strings.push(g('active').toLowerCase());
       break;
     case 'VeryActive':
-      strings.push(t('very-active').toLowerCase());
+      strings.push(g('very-active').toLowerCase());
       break;
   }
 
   // render spayed / not spayed
   if (dog.sex === 'M') {
     strings.push(
-      t('is-{}', { value: dog.isNeutered ? t('neutered') : t('not-neutered') }).toLowerCase()
+      g('is-{}', { value: dog.isNeutered ? g('neutered') : g('not-neutered') }).toLowerCase()
     );
   } else {
     strings.push(
-      t('is-{}', { value: dog.isNeutered ? t('spayed') : t('not-spayed') }).toLowerCase()
+      g('is-{}', { value: dog.isNeutered ? g('spayed') : g('not-spayed') }).toLowerCase()
     );
   }
 
@@ -67,15 +71,16 @@ export function dogToSentence(t: useTranslationsReturn, dog: Dog) {
     strings.push(t('has-allergies-food-sensitivities'));
   }
 
-  return new Intl.ListFormat('en-US').format(strings) + t('dot');
+  return new Intl.ListFormat('en-US').format(strings) + g('dot');
 }
 
 export function addressToSentence(t: useTranslationsReturn, address: UserAddressFragment) {
+  const g = useTranslations();
   return [
     address.streetAddress1,
     address.streetAddress2,
     address.city,
     address.countryArea,
     address.country.country,
-  ].join(t('comma'));
+  ].join(g('comma'));
 }

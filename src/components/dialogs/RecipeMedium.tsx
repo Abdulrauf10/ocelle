@@ -32,6 +32,9 @@ export default function RecipeMediumDialog({
   };
 }>) {
   const t = useTranslations();
+  const i = useTranslations('Ingredients');
+  const r = useTranslations('Recipes');
+  const b = useTranslations('Button');
   const [tab, setTab] = React.useState<'Ingredients' | 'Nutrition'>('Ingredients');
 
   return (
@@ -59,7 +62,7 @@ export default function RecipeMediumDialog({
                 type="button"
                 onClick={() => setTab('Ingredients')}
               >
-                {t('ingredients')}
+                {r('ingredients')}
               </button>
               <button
                 className={clsx(
@@ -69,20 +72,20 @@ export default function RecipeMediumDialog({
                 type="button"
                 onClick={() => setTab('Nutrition')}
               >
-                {t('nutrition')}
+                {b('nutrition')}
               </button>
             </div>
             {tab === 'Ingredients' && (
               <>
                 <p className="mt-3 leading-tight">
-                  <strong>{t('{}-colon', { value: t('ingredients') })}</strong>
+                  <strong>{t('{}-colon', { value: r('ingredients') })}</strong>
                   <br />
-                  {arrayToSentence(t, ingredients)}
+                  {arrayToSentence(i, ingredients)}
                 </p>
                 <p className="mt-3 leading-tight">
-                  <strong>{t('{}-colon', { value: t('ocelle-targeted-nutrient-blend') })}</strong>
+                  <strong>{t('{}-colon', { value: i('ocelle-targeted-nutrient-blend') })}</strong>
                   <br />
-                  {arrayToSentence(t, targetedNutrientBlendIngredients)}
+                  {arrayToSentence(i, targetedNutrientBlendIngredients)}
                 </p>
               </>
             )}
@@ -90,41 +93,41 @@ export default function RecipeMediumDialog({
               <>
                 <div className="mt-2 flex flex-wrap justify-between">
                   <strong className="uppercase">
-                    {t('{}-colon', { value: t('calorie-content') })}
+                    {t('{}-colon', { value: r('calorie-content') })}
                   </strong>
                   <span>{t('{}-kcal-per-kg', { value: calorie })}</span>
                 </div>
                 <div className="mt-1">
                   <strong className="uppercase">
-                    {t('{}-colon', { value: t('guarenteed-analysis') })}
+                    {t('{}-colon', { value: r('guarenteed-analysis') })}
                   </strong>
                   <div className="mt-2 flex flex-wrap justify-between">
-                    <span>{t('crude-protein')}</span>
-                    <span>{t('{}-pct-min', { value: analysis.protein })}</span>
+                    <span>{r('crude-protein')}</span>
+                    <span>{r('{}-pct-min', { value: analysis.protein })}</span>
                   </div>
                   <div className="my-1">
                     <div className="dotted dotted-black" />
                   </div>
                   <div className="flex flex-wrap justify-between">
-                    <span>{t('crude-fat')}</span>
-                    <span>{t('{}-pct-min', { value: analysis.fat })}</span>
+                    <span>{r('crude-fat')}</span>
+                    <span>{r('{}-pct-min', { value: analysis.fat })}</span>
                   </div>
                   <div className="my-1">
                     <div className="dotted dotted-black" />
                   </div>
                   <div className="flex flex-wrap justify-between">
-                    <span>{t('crude-firbe')}</span>
-                    <span>{t('{}-pct-max', { value: analysis.fibre })}</span>
+                    <span>{r('crude-firbe')}</span>
+                    <span>{r('{}-pct-max', { value: analysis.fibre })}</span>
                   </div>
                   <div className="my-1">
                     <div className="dotted dotted-black" />
                   </div>
                   <div className="flex flex-wrap justify-between">
-                    <span>{t('moisture')}</span>
-                    <span>{t('{}-pct-max', { value: analysis.moisture })}</span>
+                    <span>{r('moisture')}</span>
+                    <span>{r('{}-pct-max', { value: analysis.moisture })}</span>
                   </div>
                   <p className="mt-3 leading-tight">
-                    {t('our-{}-for-dogs-is-formulated-to-meet-the-nutritional-levels', { name })}
+                    {r('our-{}-for-dogs-is-formulated-to-meet-the-nutritional-levels', { name })}
                   </p>
                 </div>
               </>

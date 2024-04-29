@@ -29,7 +29,7 @@ function FooterLink({ href, children }: React.PropsWithChildren<{ href: string }
 
 export default function Footer({ hideNav }: FooterProps) {
   const t = useTranslations();
-
+  const n = useTranslations('Navigator');
   return (
     <footer className="bg-primary pb-16 pt-8 text-white max-md:pb-12 max-md:pt-4">
       <Container>
@@ -39,14 +39,14 @@ export default function Footer({ hideNav }: FooterProps) {
               <FooterHead>{t('product')}</FooterHead>
               <ul className="list-none">
                 <FooterLink href="/how-it-works/subscription">
-                  {t('how-it-works-subscription')}
+                  {n('how-it-works-subscription')}
                 </FooterLink>
                 <FooterLink href="/how-it-works/individual-pack">
-                  {t('how-it-works-individual')}
+                  {n('how-it-works-individual')}
                 </FooterLink>
-                <FooterLink href="/recipes">{t('recipes')}</FooterLink>
+                <FooterLink href="/recipes">{n('recipes')}</FooterLink>
                 <FooterLink href="/faq">
-                  <span className="uppercase">{t('faq')}</span>
+                  <span className="uppercase">{n('faq')}</span>
                 </FooterLink>
                 <FooterLink href="/faq#deliveries">{t('deliveries')}</FooterLink>
                 {/* <FooterLink href="#">{t('reviews')}</FooterLink> */}
@@ -55,7 +55,7 @@ export default function Footer({ hideNav }: FooterProps) {
             <div className="py-5 max-sm:w-2/5 max-sm:px-2 [&_a:hover]:underline">
               <FooterHead>{t('about')}</FooterHead>
               <ul className="list-none">
-                <FooterLink href="/why-fresh">{t('why-fresh')}</FooterLink>
+                <FooterLink href="/why-fresh">{n('why-fresh')}</FooterLink>
                 <FooterLink href="/about-us">{t('our-story')}</FooterLink>
                 <FooterLink href="/account/plan">{t('my-account')}</FooterLink>
                 <FooterLink href="/careers">{t('careers')}</FooterLink>

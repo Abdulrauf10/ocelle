@@ -33,27 +33,28 @@ function EndAdornment({
     moisture: number;
   };
 }) {
-  const t = useTranslations();
+  const r = useTranslations('Recipes');
+  const b = useTranslations('Button');
 
   return (
     <div className="mx-auto mt-10 max-w-[480px]">
       <div className="-m-2 flex flex-wrap">
         <div className="w-1/2 p-2 text-center max-xs:w-full">
           <RecipeLargeDialog
-            recipe={freshRecipe(t, recipe)}
+            recipe={freshRecipe(r, recipe)}
             recipePicture={`/recipes/dispersion/${getRecipeSlug(recipe)}.jpg`}
             ingredients={ingredients}
             calorie={calorie}
             analysis={analysis}
           >
             <Button className="w-[232px]" reverse>
-              {t('learn-more')}
+              {b('learn-more')}
             </Button>
           </RecipeLargeDialog>
         </div>
         <div className="w-1/2 p-2 text-center max-xs:w-full">
           <Button className="w-[232px]" href="/get-started">
-            {t('build-my-plan')}
+            {b('build-my-plan')}
           </Button>
         </div>
       </div>
@@ -63,6 +64,10 @@ function EndAdornment({
 
 export default function RecipesPage() {
   const t = useTranslations();
+  const r = useTranslations('Recipes');
+  const m = useTranslations('Marquee');
+  const b = useTranslations('Button');
+  const i = useTranslations('Ingredients');
   const className = {
     container: 'lg:px-20',
     image: 'pt-[80.6%] shadow-[7px_7px_15px_rgba(0,0,0,0.05)]',
@@ -72,194 +77,162 @@ export default function RecipesPage() {
     'chicken-breast': {
       picture: '/recipes/ingredients/chicken-breast.png',
       spacing: 15,
-      title: t('chicken-breast'),
-      description:
-        'A lean source of high-quality protein, essential for muscle growth and repair. It also supplies glucosamine and chondroitin, the building blocks of joint cartilage, tendons, and ligaments.',
+      title: i('chicken-breast'),
+      description: i('chicken-brest-description'),
     },
     'chicken-liver': {
       picture: '/recipes/ingredients/chicken-liver.png',
       spacing: -10,
-      title: t('chicken-liver'),
-      description:
-        'A nutrient powerhouse, packed with iron for healthy blood, vitamin A for sharp vision, B vitamins for energy metabolism, and choline for healthy brain function.',
+      title: i('chicken-liver'),
+      description: i('chicken-liver-description'),
     },
     'whole-grain-rice': {
       picture: '/recipes/ingredients/whole-grain-rice.png',
       spacing: -20,
-      title: t('whole-grain-rice'),
-      description:
-        "A wholesome source of complex carbohydrates, whole-grain rice provides dogs with sustained energy. It's also gentle on the digestive system, making it a good choice for dogs with sensitive stomachs.",
+      title: i('whole-grain-rice'),
+      description: i('whole-grain-rice-description'),
     },
     'shiitake-mushroom': {
       picture: '/recipes/ingredients/mushroom.png',
       spacing: -20,
-      title: pluralize.plural(t('shiitake-mushroom')),
-      description:
-        'Shiitake mushrooms are known for their immune-boosting properties and are also a good source of B vitamins.',
+      title: pluralize.plural(i('shiitake-mushroom')),
+      description: i('shiitake-mushroom-description'),
     },
     spinach: {
       picture: '/recipes/ingredients/spinach.png',
       spacing: -15,
-      title: t('spinach'),
-      description:
-        'Spinach is packed with vitamins A, C, and K, and are also a good source of iron and antioxidants. It supports immune health and provides anti-inflammatory benefits.',
+      title: i('spinach'),
+      description: i('spinach-description'),
     },
     peas: {
       picture: '/recipes/ingredients/peas.png',
       spacing: -10,
-      title: t('peas'),
-      description:
-        'Peas are low in calories and are a great source of plant-based protein and fibre, which can aid in digestion and nutrient absorption. They also contain essential vitamins and minerals like vitamin K, manganese, and folate.',
+      title: i('peas'),
+      description: i('peas-description'),
     },
     cranberry: {
       picture: '/recipes/ingredients/cranberry.png',
       spacing: -30,
-      title: pluralize.plural(t('cranberry')),
-      description:
-        'Rich in antioxidants, cranberries can help support urinary tract health and may prevent urinary infections. They are also beneficial for dental health.',
+      title: pluralize.plural(i('cranberry')),
+      description: i('cranberry-description'),
     },
     flaxseed: {
       className: 'translate-x-0.5',
       picture: '/recipes/ingredients/flaxseed.png',
       spacing: -20,
-      title: t('flaxseed'),
-      description:
-        'Flaxseeds are an excellent source of essential fatty acids and fibre, promoting better skin, glossy coats, healthier brains, stronger hearts, pain-free joints, reduced inflammation, and improved digestion.',
+      title: i('flaxseed'),
+      description: i('flaxseed-description'),
     },
     'salmon-oil': {
       picture: '/recipes/ingredients/salmon-oil.png',
       spacing: 16,
-      title: t('salmon-oil'),
-      description:
-        'High in omega-3 fatty acids, salmon oil helps in reducing inflammation, supporting joint health, and maintaining a healthy, shiny coat.',
+      title: i('salmon-oil'),
+      description: i('salmon-oil-description'),
     },
     'ocelle-targeted-nutrient-blend': {
       picture: '/recipes/ingredients/targeted-nutrient-blend.png',
       spacing: 70,
-      title: t('ocelle-targeted-nutrient-blend'),
-      description:
-        'Each recipe contains a specific formulation of vitamins and minerals, designed to synergize with our carefully chosen ingredients, ensuring that meals are packed with the life-stage-specific nutrients needed to thrive.',
+      title: i('ocelle-targeted-nutrient-blend'),
+      description: i('ocelle-targeted-nutrient-blend-description'),
     },
     'beef-chuck': {
       picture: '/recipes/ingredients/beef-chuck.png',
       spacing: 15,
-      title: t('beef-chuck'),
-      description:
-        "Lean beef chuck is an excellent source of high-quality protein, crucial for muscle maintenance and overall body functions. It's also rich in minerals and essential nutrients, like iron and zinc, which are important for healthier immune systems, stronger bones, and wound healing.",
+      title: i('beef-chuck'),
+      description: i('beef-chuck-description'),
     },
     'beef-liver': {
       picture: '/recipes/ingredients/beef-liver.png',
-      title: t('beef-liver'),
-      description:
-        'Beef liver is extremely nutrient-dense, offering a rich source of vitamin A for eye health, iron for healthy blood cells, and B vitamins for energy production.',
+      title: i('beef-liver'),
+      description: i('beef-liver-description'),
     },
     carrot: {
       picture: '/recipes/ingredients/carrot.png',
       spacing: 20,
-      title: pluralize.plural(t('carrot')),
-      description:
-        "Carrots are high in beta-carotene, which converts to vitamin A and supports vision health. They're also a good source of fibre, aiding in digestive health, and have antioxidants for immune support.",
+      title: pluralize.plural(i('carrot')),
+      description: i('carrot-description'),
     },
     kale: {
       picture: '/recipes/ingredients/kale.png',
       spacing: 15,
-      title: t('kale'),
-      description:
-        'This leafy green is packed with vitamins A, C, and K, along with antioxidants and iron. It supports immune health, vision, and overall wellness.',
+      title: i('kale'),
+      description: i('kale-description'),
     },
     potato: {
       picture: '/recipes/ingredients/potato.png',
       spacing: -20,
-      title: pluralize.plural(t('potato')),
-      description:
-        'Potatoes are a good source of carbohydrates, potassium, and vitamins C and B6. They provide energy and are easily digestible, making them suitable for sensitive stomachs.',
+      title: pluralize.plural(i('potato')),
+      description: i('potato-description'),
     },
     blueberry: {
       picture: '/recipes/ingredients/blueberry.png',
       spacing: 30,
-      title: pluralize.plural(t('blueberry')),
-      description:
-        'Blueberries are superfoods for dogs, rich in antioxidants, vitamins C and K, and fibre. They support urinary tract health and can contribute to overall cellular health and cognitive function.',
+      title: pluralize.plural(i('blueberry')),
+      description: i('blueberry-description'),
     },
     'pork-loin': {
       picture: '/recipes/ingredients/pork-loin.png',
       spacing: 20,
-      title: t('pork-loin'),
-      description:
-        "Pork is lean and a novel protein for most dogs, providing high-quality nutrients for muscle development and overall body function. It's also a good source of B vitamins, particularly B1 (thiamine), which is crucial for carbohydrate metabolism.",
+      title: i('pork-loin'),
+      description: i('peas-description'),
     },
     'pork-liver': {
       picture: '/recipes/ingredients/pork-liver.png',
       spacing: 10,
-      title: t('pork-liver'),
-      description:
-        'Pork liver is nutrient rich, offering high levels of iron and vitamins A and B. These nutrients are key for maintaining healthy vision, blood health, and energy levels.',
+      title: i('pork-liver'),
+      description: i('pork-liver-description'),
     },
     celery: {
       picture: '/recipes/ingredients/celery.png',
       spacing: 20,
-      title: t('celery'),
-      description:
-        'Water spinach is a beneficial leafy green, offering vitamins A and C, iron, and antioxidants. It supports immune health, digestive wellness, and provides anti-inflammatory benefits.',
+      title: i('celery'),
+      description: i('celery-description'),
     },
     'lamb-leg': {
       picture: '/recipes/ingredients/lamb-leg.png',
       spacing: 16,
-      title: t('lamb-leg'),
-      description:
-        "Lamb is a highly palatable meat and an excellent source of quality protein and essential fats, which help with energy levels, proper growth, and overall health. It's also a good source of iron and zinc, which are crucial for immune function and skin health.",
+      title: i('lamb-leg'),
+      description: i('lamb-leg-description'),
     },
     'duck-breast': {
       picture: '/recipes/ingredients/duck-breast.png',
-      title: t('duck-breast'),
-      description:
-        'Duck is lean and packed with essential amino acids, vitamins, and antioxidants to promote good health. It’s also a novel protein for many dogs, making it suitable for those with sensitivities or allergies.',
+      title: i('duck-breast'),
+      description: i('duck-breast-description'),
     },
     'winter-melon': {
       picture: '/recipes/ingredients/winter-melon.png',
       spacing: 14,
-      title: t('winter-melon'),
-      description:
-        "Winter melon is very low in calories and high in fibre, aiding in digestion. It's also hydrating and can be beneficial for dogs with kidney issues or those needing a low-fat diet.",
+      title: i('winter-melon'),
+      description: i('winter-melon-description'),
     },
     'goji-berry': {
       picture: '/recipes/ingredients/goji-berry.png',
       spacing: -15,
-      title: pluralize.plural(t('goji-berry')),
-      description:
-        'Goji berries are known for their high antioxidant content, supporting immune health, vision, and overall cellular function.',
+      title: pluralize.plural(i('goji-berry')),
+      description: i('goji-berry-description'),
     },
     'whole-grain-pasta': {
       picture: '/recipes/ingredients/whole-grain-pasta.png',
       spacing: 20,
-      title: t('whole-grain-pasta'),
-      description:
-        'A source of complex carbohydrates, whole grain pasta provides sustained energy. It is also a good source of fibre, which aids in digestion, and B vitamins for energy metabolism.',
+      title: i('whole-grain-pasta'),
+      description: i('whole-grain-pasta-description'),
     },
   };
 
   return (
-    <main>
+    <main className="overflow-x-hidden">
       <div className="bg-[url('./recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-repeat-x py-10 max-lg:pb-[70%] lg:bg-[url('./recipes-bg.jpg')] lg:bg-[length:auto_100%] lg:bg-center">
         <div className="px-[2vw] py-[4vw] text-xl text-white max-lg:w-full lg:pr-0">
-          <h1 className="heading-headline font-bold">
-            Real Food.
-            <br />
-            That’s Our Secret.
+          <h1 className="heading-headline grid font-bold">
+            <span>{r('block-1-title-1')}</span>
+            <span>{r('block-1-title-2')}</span>
           </h1>
           <div className="w-full lg:w-1/3">
-            <p className="body-1 mt-5">
-              Crafted to human-grade standards, our recipes are skilfully balanced for total
-              nutrition. We use quality proteins and vegetables, combined with targeted vitamins and
-              minerals to nourish your dog at every stage of life.
-            </p>
-            <p className="body-1 mt-3">
-              No heat-blasted ingredients. No preservatives. No fillers. No nonsense. Just wholesome
-              food that&apos;s as appetizing as it looks.
-            </p>
+            <p className="body-1 mt-5">{r('block-1-content-1')}</p>
+            <p className="body-1 mt-3">{r('block-1-content-2')}</p>
           </div>
           <div className="mt-5">
-            <Button href="/get-started">{t('get-started')}</Button>
+            <Button href="/get-started">{b('get-started')}</Button>
           </div>
         </div>
       </div>
@@ -267,59 +240,59 @@ export default function RecipesPage() {
         items={[
           {
             icon: '/feature/icon-1.svg',
-            alt: t('real-good-food'),
+            alt: m('real-good-food'),
             width: 50,
             height: 50,
-            title: t('real-good-food'),
+            title: m('real-good-food'),
           },
           {
             icon: '/feature/icon-2.svg',
-            alt: t('vet-approved'),
+            alt: m('vet-approved'),
             width: 50,
             height: 50,
-            title: t('vet-approved'),
+            title: m('vet-approved'),
           },
           {
             icon: '/feature/icon-3.svg',
-            alt: t('human-grade'),
+            alt: m('human-grade'),
             width: 50,
             height: 50,
-            title: t('human-grade'),
+            title: m('human-grade'),
           },
           {
             icon: '/feature/icon-4.svg',
-            alt: t('made-fresh'),
+            alt: m('made-fresh'),
             width: 50,
             height: 50,
-            title: t('made-fresh'),
+            title: m('made-fresh'),
           },
           {
             icon: '/feature/icon-5.svg',
-            alt: t('high-quality-ingredients'),
+            alt: m('high-quality-ingredients'),
             width: 50,
             height: 50,
-            title: t('high-quality-ingredients'),
+            title: m('high-quality-ingredients'),
           },
           {
             icon: '/feature/icon-6.svg',
-            alt: t('no-fillers'),
+            alt: m('no-fillers'),
             width: 50,
             height: 50,
-            title: t('no-fillers'),
+            title: m('no-fillers'),
           },
           {
             icon: '/feature/icon-7.svg',
-            alt: t('no-preservatives'),
+            alt: m('no-preservatives'),
             width: 50,
             height: 50,
-            title: t('no-preservatives'),
+            title: m('no-preservatives'),
           },
           {
             icon: '/feature/icon-8.svg',
-            alt: t('no-artificial-flavours'),
+            alt: m('no-artificial-flavours'),
             width: 50,
             height: 50,
-            title: t('no-artificial-flavours'),
+            title: m('no-artificial-flavours'),
           },
         ]}
       />
@@ -351,25 +324,21 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary">{freshRecipe(t, Recipe.Chicken)}</h2>
-          <p className="body-1 mt-4">
-            A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend
-            of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a
-            shiny coat.
-          </p>
-          <p className="heading-4 mt-6 font-bold text-gold">{colon(t, 'ingredients')}</p>
+          <h2 className="heading-3 font-bold text-primary">{freshRecipe(r, Recipe.Chicken)}</h2>
+          <p className="body-1 mt-4">{r('block-2-content')}</p>
+          <p className="heading-4 mt-6 font-bold text-gold">{colon(r, 'ingredients')}</p>
           <p className="body-1">
-            {arrayToSentence(t, [
-              t('chicken-breast'),
-              t('chicken-liver'),
-              t('whole-grain-rice'),
-              pluralize.plural(t('shiitake-mushroom')),
-              t('spinach'),
-              t('peas'),
-              pluralize.plural(t('cranberry')),
-              t('flaxseed'),
-              t('salmon-oil'),
-              t('ocelle-targeted-nutrient-blend'),
+            {arrayToSentence(i, [
+              i('chicken-breast'),
+              i('chicken-liver'),
+              i('whole-grain-rice'),
+              pluralize.plural(i('shiitake-mushroom')),
+              i('spinach'),
+              i('peas'),
+              pluralize.plural(i('cranberry')),
+              i('flaxseed'),
+              i('salmon-oil'),
+              i('ocelle-targeted-nutrient-blend'),
             ])}
           </p>
         </div>
@@ -377,7 +346,7 @@ export default function RecipesPage() {
       <ImageContentBlock
         className={className}
         image={`/recipes/${getRecipeSlug(Recipe.Beef)}.jpg`}
-        alt={freshRecipe(t, Recipe.Beef)}
+        alt={freshRecipe(r, Recipe.Beef)}
         reverse
         endAdornment={
           <EndAdornment
@@ -400,25 +369,21 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary">{freshRecipe(t, Recipe.Beef)}</h2>
-          <p className="body-1 mt-4">
-            This hearty meal delivers high-quality beef for strength, a rainbow of veggies for
-            antioxidant power, and superfoods to boost immunity. Hit the ground running with every
-            bowl!
-          </p>
-          <p className="heading-4 mt-6 font-bold text-gold">{colon(t, 'ingredients')}</p>
+          <h2 className="heading-3 font-bold text-primary">{freshRecipe(r, Recipe.Beef)}</h2>
+          <p className="body-1 mt-4">{r('block-3-content')}</p>
+          <p className="heading-4 mt-6 font-bold text-gold">{colon(r, 'ingredients')}</p>
           <p className="body-1">
-            {arrayToSentence(t, [
-              t('beef-chuck'),
-              t('beef-liver'),
-              pluralize.plural(t('potato')),
-              pluralize.plural(t('carrot')),
-              t('kale'),
-              t('peas'),
-              pluralize.plural(t('blueberry')),
-              t('flaxseed'),
-              t('salmon-oil'),
-              t('ocelle-targeted-nutrient-blend'),
+            {arrayToSentence(i, [
+              i('beef-chuck'),
+              i('beef-liver'),
+              pluralize.plural(i('potato')),
+              pluralize.plural(i('carrot')),
+              i('kale'),
+              i('peas'),
+              pluralize.plural(i('blueberry')),
+              i('flaxseed'),
+              i('salmon-oil'),
+              i('ocelle-targeted-nutrient-blend'),
             ])}
           </p>
         </div>
@@ -429,7 +394,7 @@ export default function RecipesPage() {
           block: 'bg-gold bg-opacity-10',
         }}
         image={`/recipes/${getRecipeSlug(Recipe.Pork)}.jpg`}
-        alt={freshRecipe(t, Recipe.Pork)}
+        alt={freshRecipe(r, Recipe.Pork)}
         endAdornment={
           <EndAdornment
             recipe={Recipe.Pork}
@@ -451,25 +416,21 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary">{freshRecipe(t, Recipe.Pork)}</h2>
-          <p className="body-1 mt-4">
-            Embrace gentle nutrition with this hypoallergenic feast. It combines novel proteins with
-            leafy greens for digestive ease, immune strength, and a coat that shines. Perfect for
-            dogs with sensitive stomachs or allergies!
-          </p>
-          <p className="heading-4 mt-6 font-bold text-gold">{colon(t, 'ingredients')}</p>
+          <h2 className="heading-3 font-bold text-primary">{freshRecipe(r, Recipe.Pork)}</h2>
+          <p className="body-1 mt-4">{r('block-3-content')}</p>
+          <p className="heading-4 mt-6 font-bold text-gold">{colon(r, 'ingredients')}</p>
           <p className="body-1">
-            {arrayToSentence(t, [
-              t('pork-loin'),
-              t('pork-liver'),
-              t('celery'),
-              pluralize.plural(t('potato')),
-              t('spinach'),
-              t('peas'),
-              pluralize.plural(t('blueberry')),
-              t('flaxseed'),
-              t('salmon-oil'),
-              t('ocelle-targeted-nutrient-blend'),
+            {arrayToSentence(i, [
+              i('pork-loin'),
+              i('pork-liver'),
+              i('celery'),
+              pluralize.plural(i('potato')),
+              i('spinach'),
+              i('peas'),
+              pluralize.plural(i('blueberry')),
+              i('flaxseed'),
+              i('salmon-oil'),
+              i('ocelle-targeted-nutrient-blend'),
             ])}
           </p>
         </div>
@@ -477,7 +438,7 @@ export default function RecipesPage() {
       <ImageContentBlock
         className={className}
         image={`/recipes/${getRecipeSlug(Recipe.Lamb)}.jpg`}
-        alt={freshRecipe(t, Recipe.Lamb)}
+        alt={freshRecipe(r, Recipe.Lamb)}
         reverse
         endAdornment={
           <EndAdornment
@@ -499,23 +460,20 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary">{freshRecipe(t, Recipe.Lamb)}</h2>
-          <p className="body-1 mt-4">
-            A flavour and nutrient powerhouse, capable of satisfying even the pickiest of eaters.
-            Crafted for muscle strength, immune support, radiant health, and a shiny coat!
-          </p>
-          <p className="heading-4 mt-6 font-bold text-gold">{colon(t, 'ingredients')}</p>
+          <h2 className="heading-3 font-bold text-primary">{freshRecipe(r, Recipe.Lamb)}</h2>
+          <p className="body-1 mt-4">{r('block-4-content')}</p>
+          <p className="heading-4 mt-6 font-bold text-gold">{colon(r, 'ingredients')}</p>
           <p className="body-1">
-            {arrayToSentence(t, [
-              t('lamb-leg-boneless'),
-              t('beef-liver'),
-              t('whole-grain-rice'),
-              t('peas'),
-              t('spinach'),
-              pluralize.plural(t('blueberry')),
-              t('flaxseed'),
-              t('salmon-oil'),
-              t('ocelle-targeted-nutrient-blend'),
+            {arrayToSentence(i, [
+              i('lamb-leg-boneless'),
+              i('beef-liver'),
+              i('whole-grain-rice'),
+              i('peas'),
+              i('spinach'),
+              pluralize.plural(i('blueberry')),
+              i('flaxseed'),
+              i('salmon-oil'),
+              i('ocelle-targeted-nutrient-blend'),
             ])}
           </p>
         </div>
@@ -526,7 +484,7 @@ export default function RecipesPage() {
           block: 'bg-primary bg-opacity-10',
         }}
         image={`/recipes/${getRecipeSlug(Recipe.Duck)}.jpg`}
-        alt={freshRecipe(t, Recipe.Duck)}
+        alt={freshRecipe(r, Recipe.Duck)}
         endAdornment={
           <EndAdornment
             recipe={Recipe.Duck}
@@ -547,24 +505,20 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary">{freshRecipe(t, Recipe.Duck)}</h2>
-          <p className="body-1 mt-4">
-            A wholesome feast, tailored for digestive health, luxurious coats, and improved
-            vitality! Perfect for dogs seeking a unique and hypoallergenic dining experience without
-            compromising on taste and health.
-          </p>
-          <p className="heading-4 mt-6 font-bold text-gold">{colon(t, 'ingredients')}</p>
+          <h2 className="heading-3 font-bold text-primary">{freshRecipe(r, Recipe.Duck)}</h2>
+          <p className="body-1 mt-4">{r('block-5-content')}</p>
+          <p className="heading-4 mt-6 font-bold text-gold">{colon(r, 'ingredients')}</p>
           <p className="body-1">
-            {arrayToSentence(t, [
-              t('duck-breast'),
-              t('chicken-liver'),
-              t('whole-grain-pasta'),
-              t('winter-melon'),
-              t('peas'),
-              pluralize.plural(t('goji-berry')),
-              t('flaxseed'),
-              t('salmon-oil'),
-              t('ocelle-targeted-nutrient-blend'),
+            {arrayToSentence(i, [
+              i('duck-breast'),
+              i('chicken-liver'),
+              i('whole-grain-pasta'),
+              i('winter-melon'),
+              i('peas'),
+              pluralize.plural(i('goji-berry')),
+              i('flaxseed'),
+              i('salmon-oil'),
+              i('ocelle-targeted-nutrient-blend'),
             ])}
           </p>
         </div>
@@ -576,14 +530,10 @@ export default function RecipesPage() {
       </Block>
       <Block>
         <Container className="text-center">
-          <h2 className="heading-3 font-bold text-primary">
-            Freshen Up With A Science First Approach To Pet Food
-          </h2>
-          <p className="body-1 mt-6">
-            Get fresh food conveniently delivered with our customised meal plans.
-          </p>
+          <h2 className="heading-3 font-bold text-primary">{r('block-8-title')}</h2>
+          <p className="body-1 mt-6">{r('block-8-content')}</p>
           <Button className="mt-6" href="/get-started">
-            {t('create-your-plan')}
+            {b('create-your-plan')}
           </Button>
         </Container>
       </Block>

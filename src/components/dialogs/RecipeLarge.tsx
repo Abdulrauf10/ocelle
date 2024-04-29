@@ -50,7 +50,8 @@ export default function RecipeLargeDialog({
   };
 }>) {
   const t = useTranslations();
-
+  const m = useTranslations('Marquee');
+  const r = useTranslations('Recipes');
   return (
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
@@ -115,48 +116,48 @@ export default function RecipeLargeDialog({
                 <Image
                   className="mx-auto"
                   src="/recipes/not-inside/colours.svg"
-                  alt={t('no-colours')}
+                  alt={m('no-colours')}
                   width={80}
                   height={80}
                 />
                 <strong className="heading-4 mt-2 block text-center font-bold text-primary">
-                  {t('no-colours')}
+                  {m('no-colours')}
                 </strong>
               </div>
               <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                 <Image
                   className="mx-auto"
                   src="/recipes/not-inside/filters.svg"
-                  alt={t('no-fillers')}
+                  alt={m('no-fillers')}
                   width={80}
                   height={80}
                 />
                 <strong className="heading-4 mt-2 block text-center font-bold text-primary">
-                  {t('no-fillers')}
+                  {m('no-fillers')}
                 </strong>
               </div>
               <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                 <Image
                   className="mx-auto"
                   src="/recipes/not-inside/flavourings.svg"
-                  alt={t('no-flavourings')}
+                  alt={m('no-flavourings')}
                   width={80}
                   height={80}
                 />
                 <strong className="heading-4 mt-2 block text-center font-bold text-primary">
-                  {t('no-flavourings')}
+                  {m('no-flavourings')}
                 </strong>
               </div>
               <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                 <Image
                   className="mx-auto"
                   src="/recipes/not-inside/preservatives.svg"
-                  alt={t('no-preservatives')}
+                  alt={m('no-preservatives')}
                   width={80}
                   height={80}
                 />
                 <strong className="heading-4 mt-2 block text-center font-bold text-primary">
-                  {t('no-preservatives')}
+                  {m('no-preservatives')}
                 </strong>
               </div>
               <div className="w-full max-lg:hidden"></div>
@@ -164,36 +165,36 @@ export default function RecipeLargeDialog({
                 <Image
                   className="mx-auto"
                   src="/recipes/not-inside/additives.svg"
-                  alt={t('no-additives')}
+                  alt={m('no-additives')}
                   width={80}
                   height={80}
                 />
                 <strong className="heading-4 mt-2 block text-center font-bold text-primary">
-                  {t('no-additives')}
+                  {m('no-additives')}
                 </strong>
               </div>
               <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                 <Image
                   className="mx-auto"
                   src="/recipes/not-inside/artificial-ingredients.svg"
-                  alt={t('no-artificial-flavours')}
+                  alt={m('no-artificial-flavours')}
                   width={80}
                   height={80}
                 />
                 <strong className="heading-4 mt-2 block text-center font-bold text-primary">
-                  {t('no-artificial-flavours')}
+                  {m('no-artificial-flavours')}
                 </strong>
               </div>
               <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                 <Image
                   className="mx-auto"
                   src="/recipes/not-inside/hormones.svg"
-                  alt={t('no-hormones')}
+                  alt={m('no-hormones')}
                   width={80}
                   height={80}
                 />
                 <strong className="heading-4 mt-2 block text-center font-bold text-primary">
-                  {t('no-hormones')}
+                  {m('no-hormones')}
                 </strong>
               </div>
             </div>
@@ -204,44 +205,44 @@ export default function RecipeLargeDialog({
               <div className="w-1/2 px-6 py-3 max-md:w-full">
                 <div className="body-1 mt-2 flex flex-wrap justify-between">
                   <strong className="uppercase">
-                    {t('{}-colon', { value: t('calorie-content') })}
+                    {t('{}-colon', { value: r('calorie-content') })}
                   </strong>
                   <span>{t('{}-kcal-per-kg', { value: calorie })}</span>
                 </div>
                 <div className="body-1 mt-2">
                   <strong className="uppercase">
-                    {t('{}-colon', { value: t('guarenteed-analysis') })}
+                    {t('{}-colon', { value: r('guarenteed-analysis') })}
                   </strong>
                   <div className="mt-2 flex flex-wrap justify-between">
-                    <span>{t('crude-protein')}</span>
-                    <span>{t('{}-pct-min', { value: analysis.protein })}</span>
+                    <span>{r('crude-protein')}</span>
+                    <span>{r('{}-pct-min', { value: analysis.protein })}</span>
                   </div>
                   <div className="my-1">
                     <div className="dotted dotted-black" />
                   </div>
                   <div className="flex flex-wrap justify-between">
-                    <span>{t('crude-fat')}</span>
-                    <span>{t('{}-pct-min', { value: analysis.fat })}</span>
+                    <span>{r('crude-fat')}</span>
+                    <span>{r('{}-pct-min', { value: analysis.fat })}</span>
                   </div>
                   <div className="my-1">
                     <div className="dotted dotted-black" />
                   </div>
                   <div className="flex flex-wrap justify-between">
-                    <span>{t('crude-firbe')}</span>
-                    <span>{t('{}-pct-max', { value: analysis.fibre })}</span>
+                    <span>{r('crude-firbe')}</span>
+                    <span>{r('{}-pct-max', { value: analysis.fibre })}</span>
                   </div>
                   <div className="my-1">
                     <div className="dotted dotted-black" />
                   </div>
                   <div className="flex flex-wrap justify-between">
-                    <span>{t('moisture')}</span>
-                    <span>{t('{}-pct-max', { value: analysis.moisture })}</span>
+                    <span>{r('moisture')}</span>
+                    <span>{r('{}-pct-max', { value: analysis.moisture })}</span>
                   </div>
                 </div>
               </div>
               <div className="w-1/2 px-6 py-3 max-md:w-full">
                 <div className="body-1 flex h-full items-center rounded-3xl border-[3px] p-4 text-primary">
-                  {t('our-{}-for-dogs-is-formulated-to-meet-the-nutritional-levels', {
+                  {r('our-{}-for-dogs-is-formulated-to-meet-the-nutritional-levels', {
                     name: recipe,
                   })}
                 </div>

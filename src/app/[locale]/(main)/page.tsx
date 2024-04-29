@@ -15,6 +15,7 @@ import Marquee from '@/components/Marquee';
 export default function Home() {
   const t = useTranslations('Home');
   const b = useTranslations('Button');
+  const m = useTranslations('Marquee');
   return (
     <main className="overflow-x-hidden">
       <Picture />
@@ -137,59 +138,59 @@ export default function Home() {
         items={[
           {
             icon: '/feature/icon-1.svg',
-            alt: t('real-good-food'),
+            alt: m('real-good-food'),
             width: 50,
             height: 50,
-            title: t('real-good-food'),
+            title: m('real-good-food'),
           },
           {
             icon: '/feature/icon-2.svg',
-            alt: t('vet-approved'),
+            alt: m('vet-approved'),
             width: 50,
             height: 50,
-            title: t('vet-approved'),
+            title: m('vet-approved'),
           },
           {
             icon: '/feature/icon-3.svg',
-            alt: t('human-grade'),
+            alt: m('human-grade'),
             width: 50,
             height: 50,
-            title: t('human-grade'),
+            title: m('human-grade'),
           },
           {
             icon: '/feature/icon-4.svg',
-            alt: t('made-fresh'),
+            alt: m('made-fresh'),
             width: 50,
             height: 50,
-            title: t('made-fresh'),
+            title: m('made-fresh'),
           },
           {
             icon: '/feature/icon-5.svg',
-            alt: t('high-quality-ingredients'),
+            alt: m('high-quality-ingredients'),
             width: 50,
             height: 50,
-            title: t('high-quality-ingredients'),
+            title: m('high-quality-ingredients'),
           },
           {
             icon: '/feature/icon-6.svg',
-            alt: t('no-fillers'),
+            alt: m('no-fillers'),
             width: 50,
             height: 50,
-            title: t('no-fillers'),
+            title: m('no-fillers'),
           },
           {
             icon: '/feature/icon-7.svg',
-            alt: t('no-preservatives'),
+            alt: m('no-preservatives'),
             width: 50,
             height: 50,
-            title: t('no-preservatives'),
+            title: m('no-preservatives'),
           },
           {
             icon: '/feature/icon-8.svg',
-            alt: t('no-artificial-flavours'),
+            alt: m('no-artificial-flavours'),
             width: 50,
             height: 50,
-            title: t('no-artificial-flavours'),
+            title: m('no-artificial-flavours'),
           },
         ]}
       />
