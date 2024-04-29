@@ -10,6 +10,7 @@
     "start:direct": "next start -p 80",
     "generate:gql": "graphql-codegen --config .graphqlrc.ts",
     "lint": "next lint",
+    "prettier": "prettier --write \"./**/*.{ts,tsx}\"",
     "ts-node": "dotenvx run --env-file=.env --env-file=.env.local -- ts-node -r tsconfig-paths/register",
     "setup": "npm run ts-node -- src/setup.ts",
     "cron": "npm run ts-node -- src/cron.ts",
