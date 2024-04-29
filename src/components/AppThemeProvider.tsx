@@ -1,6 +1,6 @@
 'use client';
 
-import { createTheme, ThemeProvider, ThemeOptions } from '@mui/material';
+import { ThemeOptions, ThemeProvider, createTheme } from '@mui/material';
 import React from 'react';
 
 function PopupIcon() {

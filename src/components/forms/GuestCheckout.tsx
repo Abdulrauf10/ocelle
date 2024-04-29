@@ -1,27 +1,29 @@
 'use client';
 
-import React from 'react';
-import clsx from 'clsx';
-import Container from '@/components/Container';
-import { useForm } from 'react-hook-form';
-import Price from '@/components/Price';
-import Button from '@/components/buttons/Button';
-import PartialCardStripeForm from './partial/CardStripe';
-import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
-import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
-import EditButton from '@/components/buttons/EditButton';
-import { useTranslations } from 'next-intl';
-import { isUnavailableDeliveryDate } from '@/helpers/dog';
-import { formatDate } from '@/helpers/date';
-import { CalendarEvent } from '@/types';
 import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import { useCart } from '@/contexts/cart';
+import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
+import React from 'react';
+import { useForm } from 'react-hook-form';
+
 import CartRows from '../CartRows';
-import { CartReturn } from '@/types/dto';
-import { colon } from '@/helpers/translation';
-import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 import TextField from '../controls/TextField';
 import DatePickerForm from './DatePicker';
+import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
+import PartialCardStripeForm from './partial/CardStripe';
+
+import Container from '@/components/Container';
+import Price from '@/components/Price';
+import Button from '@/components/buttons/Button';
+import EditButton from '@/components/buttons/EditButton';
+import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
+import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
+import { useCart } from '@/contexts/cart';
+import { formatDate } from '@/helpers/date';
+import { isUnavailableDeliveryDate } from '@/helpers/dog';
+import { colon } from '@/helpers/translation';
+import { CalendarEvent } from '@/types';
+import { CartReturn } from '@/types/dto';
 
 function Section({
   title,

@@ -1,13 +1,15 @@
-import React from 'react';
-import Image from 'next/image';
-import Container from '@/components/Container';
-import Stage from '../Stage';
-import { useTranslations } from 'next-intl';
-import { useSurvey } from '../SurveyContext';
-import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { pageVariants } from '../transition';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import Stage from '../Stage';
+import { useSurvey } from '../SurveyContext';
 import { getMinPerDayPrice } from '../actions';
+import { pageVariants } from '../transition';
+
+import Container from '@/components/Container';
 import { getDateOfBirth } from '@/helpers/dog';
 import { getSurveySessionStore } from '@/helpers/session';
 import { MinPricesDto } from '@/types/dto';

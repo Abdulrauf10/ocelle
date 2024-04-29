@@ -1,8 +1,9 @@
 'use server';
 
+import Joi from 'joi';
+
 import { getLoginedMe } from '@/actions';
 import { User } from '@/entities';
-import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
 import { DogPlanDto } from '@/types/dto';
 

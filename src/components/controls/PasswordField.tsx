@@ -1,12 +1,14 @@
 'use client';
 
-import React from 'react';
-import { InputControllerProps } from '@/types';
-import { type FieldValues } from 'react-hook-form';
-import TextField from './TextField';
 import { IconButton, InputAdornment } from '@mui/material';
-import VisibilityOff from '../icons/VisibilityOff';
+import React from 'react';
+import { type FieldValues } from 'react-hook-form';
+
 import Visibility from '../icons/Visibility';
+import VisibilityOff from '../icons/VisibilityOff';
+import TextField from './TextField';
+
+import { InputControllerProps } from '@/types';
 
 interface PasswordFieldProps<T extends FieldValues> extends InputControllerProps<T> {
   label: string;

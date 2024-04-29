@@ -1,14 +1,16 @@
 'use client';
 
-import { IndividualRecipePack } from '@/enums';
-import { CheckoutLineFragment } from '@/gql/graphql';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
+
 import TrashBin from './icons/TrashBin';
-import { individualPackProducts } from '@/products';
-import { weightToGrams } from '@/helpers/saleor';
 import NumberInput from './inputs/Number';
+
+import { IndividualRecipePack } from '@/enums';
+import { CheckoutLineFragment } from '@/gql/graphql';
+import { weightToGrams } from '@/helpers/saleor';
+import { individualPackProducts } from '@/products';
 
 export default function CartRows({
   lines,

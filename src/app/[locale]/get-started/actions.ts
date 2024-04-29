@@ -1,5 +1,11 @@
 'use server';
 
+import { startOfDay } from 'date-fns';
+import Joi from 'joi';
+import { headers } from 'next/headers';
+import invariant from 'ts-invariant';
+import { In } from 'typeorm';
+
 import { deleteCheckoutCookie, getCheckoutCookie, setCheckoutCookie } from '@/actions';
 import { Breed, User } from '@/entities';
 import { MealPlan, OrderSize } from '@/enums';
@@ -16,10 +22,9 @@ import {
   UpdateCheckoutShippingMethodDocument,
 } from '@/gql/graphql';
 import { awaitable } from '@/helpers/async';
-import { getCalendarEvents } from '@/services/calendar';
 import {
-  calculateTotalPerDayPrice,
   calculateRecipeTotalPriceInBox,
+  calculateTotalPerDayPrice,
   getClosestOrderDeliveryDate,
   getSubscriptionProductActuallyQuanlityInSaleor,
   getTheCheapestRecipe,
@@ -28,6 +33,12 @@ import {
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
+import { recipeToVariant } from '@/helpers/saleor';
+import { redirect } from '@/navigation';
+import { subscriptionProducts } from '@/products';
+import { findProducts, updateAddress, upsertUser } from '@/services/api';
+import { getCalendarEvents } from '@/services/calendar';
+import { setupRecurringBox } from '@/services/recurring';
 import {
   deleteCheckoutKeys,
   getCheckoutDeliveryDate,
@@ -40,23 +51,13 @@ import {
   setCheckoutOrderSize,
   setCheckoutPaymentIntent,
 } from '@/services/redis';
-import { recipeToVariant } from '@/helpers/saleor';
-import { findProducts, updateAddress, upsertUser } from '@/services/api';
 import {
   attachPaymentMethod,
   createCustomer,
   retrivePaymentIntent,
   updatePaymentIntent,
 } from '@/services/stripe';
-import { redirect } from '@/navigation';
-import { subscriptionProducts } from '@/products';
 import { DogDto, MinPricesDto } from '@/types/dto';
-import { startOfDay } from 'date-fns';
-import Joi from 'joi';
-import { headers } from 'next/headers';
-import invariant from 'ts-invariant';
-import { In } from 'typeorm';
-import { setupRecurringBox } from '@/services/recurring';
 
 export async function getMinPerDayPrice(
   dog: Pick<

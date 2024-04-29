@@ -1,4 +1,4 @@
-import type { Control, FieldValues, FieldPath, RegisterOptions } from 'react-hook-form';
+import type { Control, FieldPath, FieldValues, RegisterOptions } from 'react-hook-form';
 
 interface InputControllerProps<
   TFieldValues extends FieldValues,

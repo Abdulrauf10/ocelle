@@ -1,9 +1,5 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-import React from 'react';
-import PartialCardForm from './partial/CardStripe';
-import Button from '../buttons/Button';
 import {
   CardCvcElement,
   CardExpiryElement,
@@ -11,6 +7,11 @@ import {
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js';
+import { useTranslations } from 'next-intl';
+import React from 'react';
+
+import Button from '../buttons/Button';
+import PartialCardForm from './partial/CardStripe';
 
 export default function CardForm({
   clientSecret,

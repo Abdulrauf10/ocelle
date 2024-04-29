@@ -1,6 +1,7 @@
-import { Link } from '@/navigation';
 import clsx from 'clsx';
 import React from 'react';
+
+import { Link } from '@/navigation';
 
 interface UnderlineButtonBaseProps {
   theme?: 'primary' | 'secondary';

@@ -1,13 +1,14 @@
-import { InputControllerProps } from '@/types';
 import clsx from 'clsx';
 import React from 'react';
 import {
-  type FieldValues,
   type FieldPath,
   type FieldPathValue,
-  useController,
+  type FieldValues,
   UseFormWatch,
+  useController,
 } from 'react-hook-form';
+
+import { InputControllerProps } from '@/types';
 
 interface RadioProps<T extends FieldValues> extends InputControllerProps<T> {
   label: React.ReactNode;

@@ -1,6 +1,9 @@
+import cloneDeep from 'clone-deep';
 import React from 'react';
-import { FoodAllergies, MealPlan, Recipe } from '@/enums';
+
 import { Breed } from '@/entities';
+import { FoodAllergies, MealPlan, Recipe } from '@/enums';
+import { getSurveySessionStore } from '@/helpers/session';
 import {
   ActivityLevel,
   AmountOfTreats,
@@ -9,8 +12,6 @@ import {
   Gender,
   Pickiness,
 } from '@/types';
-import cloneDeep from 'clone-deep';
-import { getSurveySessionStore } from '@/helpers/session';
 
 export interface Dog {
   name?: string;

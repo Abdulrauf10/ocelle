@@ -1,14 +1,16 @@
-import React from 'react';
-import Container from '@/components/Container';
-import AppThemeProvider from '@/components/AppThemeProvider';
-import CardForm from '@/components/forms/Card';
 import { getTranslations } from 'next-intl/server';
-import updateCreditCardAction from './action';
-import BackButton from '@/components/buttons/BackButton';
-import StripeLoader from '@/components/StripeLoader';
+import React from 'react';
 import invariant from 'ts-invariant';
-import { createSetupIntent } from '@/services/stripe';
+
+import updateCreditCardAction from './action';
+
 import { getLoginedMe } from '@/actions';
+import AppThemeProvider from '@/components/AppThemeProvider';
+import Container from '@/components/Container';
+import StripeLoader from '@/components/StripeLoader';
+import BackButton from '@/components/buttons/BackButton';
+import CardForm from '@/components/forms/Card';
+import { createSetupIntent } from '@/services/stripe';
 
 invariant(
   process.env.STRIPE_PUBLISHABLE_KEY,

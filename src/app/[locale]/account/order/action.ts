@@ -1,11 +1,12 @@
 'use server';
 
+import invariant from 'ts-invariant';
+
 import { getLoginedMe } from '@/actions';
 import { Order } from '@/entities';
 import { FindOrdersDocument } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
-import invariant from 'ts-invariant';
 
 export default async function getOrders() {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');

@@ -1,10 +1,11 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
-import TextField from '../controls/TextField';
-import CircleTick from '../icons/CircleTick';
 import { useTranslations } from 'next-intl';
 import React from 'react';
+import { useForm } from 'react-hook-form';
+
+import TextField from '../controls/TextField';
+import CircleTick from '../icons/CircleTick';
 
 interface ICouponForm {
   coupon: string;

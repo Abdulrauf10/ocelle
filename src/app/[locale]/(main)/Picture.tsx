@@ -1,12 +1,13 @@
 'use client';
 
-import Button from '@/components/buttons/Button';
-import DogFoot from '@/components/icons/DogFoot';
-import List from '@/components/List';
 import { motion, useInView } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
+
+import List from '@/components/List';
+import Button from '@/components/buttons/Button';
+import DogFoot from '@/components/icons/DogFoot';
 
 export default function Picture() {
   const t = useTranslations('Home');

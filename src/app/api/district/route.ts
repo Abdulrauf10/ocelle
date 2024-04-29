@@ -1,7 +1,8 @@
-import { AddressValidationRulesDocument } from '@/gql/graphql';
-import { executeGraphQL } from '@/helpers/graphql';
 import { NextResponse } from 'next/server';
 import invariant from 'ts-invariant';
+
+import { AddressValidationRulesDocument } from '@/gql/graphql';
+import { executeGraphQL } from '@/helpers/graphql';
 
 export async function GET(request: Request) {
   const language = request.headers.get('x-language');

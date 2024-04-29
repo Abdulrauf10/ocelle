@@ -1,4 +1,3 @@
-import { FoodAllergies, MealPlan, Recipe } from '@/enums';
 import {
   ActivityLevel,
   AmountOfTreats,
@@ -8,6 +7,8 @@ import {
   Pickiness,
 } from '.';
 import { DateOfBirthMethod } from './dog';
+
+import { FoodAllergies, MealPlan, Recipe } from '@/enums';
 import { CheckoutLineFragment, MoneyFragment } from '@/gql/graphql';
 
 interface DogDto {

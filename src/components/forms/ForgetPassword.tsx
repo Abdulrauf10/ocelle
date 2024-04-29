@@ -1,9 +1,10 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useForm } from 'react-hook-form';
-import Button from '../buttons/Button';
 import React from 'react';
+import { useForm } from 'react-hook-form';
+
+import Button from '../buttons/Button';
 import TextField from '../controls/TextField';
 
 interface IForgetPasswordForm {

@@ -1,11 +1,13 @@
 import clsx from 'clsx';
 import {
-  type FieldValues,
   type FieldPath,
   type FieldPathValue,
+  type FieldValues,
   useController,
 } from 'react-hook-form';
+
 import Tick from '../icons/Tick';
+
 import { InputControllerProps } from '@/types';
 
 interface RoundedCheckboxProps<

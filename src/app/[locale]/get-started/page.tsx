@@ -1,24 +1,26 @@
 'use client';
 
 import React from 'react';
+import { MemoryRouter, Route } from 'react-router-dom';
+
 import Stage from './Stage';
-import WelcomeFragment from './fragments/Welcome';
-import DogAgeFragment from './fragments/DogAge';
+import { SurveyContextProvider } from './SurveyContext';
+import View from './View';
+import CalculatingFragment from './fragments/Calculating';
+import CheckoutFragment from './fragments/Checkout';
+import ChoosePlanFragment from './fragments/ChoosePlan';
 import DogFragment from './fragments/Dog';
+import DogAgeFragment from './fragments/DogAge';
 import DogBasicFragment from './fragments/DogBasic';
 import DogPreference1Fragment from './fragments/DogPreference1';
 import DogPreference2Fragment from './fragments/DogPreference2';
 import OwnerFragment from './fragments/Owner';
-import CalculatingFragment from './fragments/Calculating';
-import ChoosePlanFragment from './fragments/ChoosePlan';
-import RecommendedPlanFragment from './fragments/RecommendedPlan';
 import ProcessingFragment from './fragments/Processing';
-import CheckoutFragment from './fragments/Checkout';
-import { SurveyContextProvider } from './SurveyContext';
-import AppThemeProvider from '@/components/AppThemeProvider';
-import { MemoryRouter, Route } from 'react-router-dom';
+import RecommendedPlanFragment from './fragments/RecommendedPlan';
+import WelcomeFragment from './fragments/Welcome';
+
 import AnimateRoutes from '@/components/AnimateRoutes';
-import View from './View';
+import AppThemeProvider from '@/components/AppThemeProvider';
 
 export default function GetStarted() {
   return (

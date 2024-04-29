@@ -1,10 +1,12 @@
-import AppThemeProvider from '@/components/AppThemeProvider';
-import Button from '@/components/buttons/Button';
-import Container from '@/components/Container';
-import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { useTranslations } from 'next-intl';
 import React from 'react';
+
 import loginAction from './action';
+
+import AppThemeProvider from '@/components/AppThemeProvider';
+import Container from '@/components/Container';
+import Button from '@/components/buttons/Button';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import LoginForm from '@/components/forms/Login';
 
 export default function Login() {

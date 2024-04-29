@@ -1,8 +1,10 @@
-import React from 'react';
-import Container from '@/components/Container';
 import { useTranslations } from 'next-intl';
-import AppThemeProvider from '@/components/AppThemeProvider';
+import React from 'react';
+
 import resetPasswordAction from './action';
+
+import AppThemeProvider from '@/components/AppThemeProvider';
+import Container from '@/components/Container';
 import ResetPasswordForm from '@/components/forms/ResetPassword';
 import { redirect } from '@/navigation';
 

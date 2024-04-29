@@ -1,8 +1,10 @@
 'use client';
 
-import { Link, usePathname } from '@/navigation';
-import Container from './Container';
 import { useTranslations } from 'next-intl';
+
+import Container from './Container';
+
+import { Link, usePathname } from '@/navigation';
 
 export default function Promotion() {
   const t = useTranslations();

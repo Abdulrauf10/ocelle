@@ -1,7 +1,8 @@
 'use server';
 
-import saleorAuthClient from '@/saleorAuthClient';
 import Joi from 'joi';
+
+import saleorAuthClient from '@/saleorAuthClient';
 
 interface ResetPasswordAction {
   email: string;

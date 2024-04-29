@@ -1,10 +1,12 @@
 'use client';
 
 import React from 'react';
-import Plus from '@/components/icons/Plus';
-import Sub from '@/components/icons/Sub';
+
 import SectionBlock from './SectionBlock';
 import SectionHr from './SectionHr';
+
+import Plus from '@/components/icons/Plus';
+import Sub from '@/components/icons/Sub';
 
 interface SectionBlockProps {
   className?: string;

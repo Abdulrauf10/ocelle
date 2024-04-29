@@ -1,14 +1,14 @@
 'use client';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination, Autoplay } from 'swiper/modules';
+import { motion, useInView } from 'framer-motion';
 import Image from 'next/image';
-import List from '@/components/List';
-
+import React from 'react';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import React from 'react';
-import { motion, useInView } from 'framer-motion';
+import { Autoplay, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import List from '@/components/List';
 
 interface SlideProps {
   dog: string;

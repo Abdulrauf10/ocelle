@@ -1,11 +1,12 @@
-import { InputControllerProps } from '@/types';
 import clsx from 'clsx';
 import {
-  type FieldValues,
-  type FieldPathValue,
   type FieldPath,
+  type FieldPathValue,
+  type FieldValues,
   useController,
 } from 'react-hook-form';
+
+import { InputControllerProps } from '@/types';
 
 interface InteractiveBlockBase<
   TFieldValues extends FieldValues,

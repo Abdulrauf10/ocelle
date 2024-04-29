@@ -1,6 +1,8 @@
-import { Dog, DogPlan, User } from '@/entities';
-import Seeder from './Seeder';
 import { QueryRunner } from 'typeorm';
+
+import Seeder from './Seeder';
+
+import { Dog, DogPlan, User } from '@/entities';
 import { FoodAllergies, MealPlan, OrderSize, Recipe } from '@/enums';
 
 export default class DogSeeder extends Seeder {

@@ -1,7 +1,9 @@
-import Stripe from '../../icons/Stripe';
-import Lock from '../../icons/Lock';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+
+import Lock from '../../icons/Lock';
+import Stripe from '../../icons/Stripe';
+
 import {
   StripeTextFieldCVC,
   StripeTextFieldExpiry,

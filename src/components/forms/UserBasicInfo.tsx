@@ -1,11 +1,13 @@
 'use client';
 
-import { useForm } from 'react-hook-form';
 import { useTranslations } from 'next-intl';
 import React from 'react';
+import { useForm } from 'react-hook-form';
+
 import Button from '../buttons/Button';
-import useDefaultValues from '@/hooks/defaultValues';
 import TextField from '../controls/TextField';
+
+import useDefaultValues from '@/hooks/defaultValues';
 
 interface IUserBasicInfoForm {
   firstName: string;

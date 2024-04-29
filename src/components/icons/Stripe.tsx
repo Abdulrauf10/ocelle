@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+
 import IconProps from './Icon';
 
 export default function Stripe({ className }: IconProps) {

@@ -1,10 +1,12 @@
+import { useTranslations } from 'next-intl';
+import React from 'react';
+
+import forgotPasswordAction from './action';
+
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
-import React from 'react';
-import forgotPasswordAction from './action';
 import ForgetPasswordForm from '@/components/forms/ForgetPassword';
-import { useTranslations } from 'next-intl';
 
 export default function ForgotPassword() {
   const t = useTranslations();

@@ -1,8 +1,9 @@
 import clsx from 'clsx';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+
 import Price from './Price';
 import CircleTick from './icons/CircleTick';
-import { useTranslations } from 'next-intl';
 
 interface FreshPlanProps {
   title: string;

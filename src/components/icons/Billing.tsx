@@ -20,7 +20,7 @@ export default function Billing({ className }: IconProps) {
         points="5.77 23.54 5.77 25.14 30.02 25.14 30.02 23.54 5.77 23.54 5.77 23.54"
       />
       <text
-        className="fill-brown font-jost stroke-0 text-[12.64px] font-bold"
+        className="fill-brown stroke-0 font-jost text-[12.64px] font-bold"
         transform="translate(5.68 19.47)"
       >
         <tspan x="0" y="0">

@@ -1,10 +1,11 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+import React from 'react';
+
 import Button from '@/components/buttons/Button';
 import Plus from '@/components/icons/Plus';
 import Sub from '@/components/icons/Sub';
-import { useTranslations } from 'next-intl';
-import React from 'react';
 
 export default function RecipeBenefits() {
   const t = useTranslations();

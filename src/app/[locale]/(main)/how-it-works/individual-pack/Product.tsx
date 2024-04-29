@@ -1,22 +1,24 @@
 'use client';
 
-import Button from '@/components/buttons/Button';
-import Container from '@/components/Container';
-import Block from '@/components/layouts/Block';
-import { IndividualRecipePack } from '@/enums';
-import { colon } from '@/helpers/translation';
 import clsx from 'clsx';
+import edjsHTML from 'editorjs-html';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
-import { addToCart } from './actions';
-import { useCart } from '@/contexts/cart';
-import edjsHTML from 'editorjs-html';
-import { ProductFragment } from '@/gql/graphql';
-import RecipeMediumDialog from '@/components/dialogs/RecipeMedium';
-import { weightToGrams } from '@/helpers/saleor';
 import xss from 'xss';
+
+import { addToCart } from './actions';
+
+import Container from '@/components/Container';
+import Button from '@/components/buttons/Button';
+import RecipeMediumDialog from '@/components/dialogs/RecipeMedium';
 import NumberInput from '@/components/inputs/Number';
+import Block from '@/components/layouts/Block';
+import { useCart } from '@/contexts/cart';
+import { IndividualRecipePack } from '@/enums';
+import { ProductFragment } from '@/gql/graphql';
+import { weightToGrams } from '@/helpers/saleor';
+import { colon } from '@/helpers/translation';
 
 const parser = edjsHTML();
 

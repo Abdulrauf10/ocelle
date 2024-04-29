@@ -1,11 +1,13 @@
-import React from 'react';
-import Image from 'next/image';
-import type { FieldValues } from 'react-hook-form';
 import clsx from 'clsx';
-import RoundedCheckbox from './RoundedCheckbox';
 import { useTranslations } from 'next-intl';
-import { InputControllerProps } from '@/types';
+import Image from 'next/image';
+import React from 'react';
+import type { FieldValues } from 'react-hook-form';
+
 import RecipeMediumDialog from '../dialogs/RecipeMedium';
+import RoundedCheckbox from './RoundedCheckbox';
+
+import { InputControllerProps } from '@/types';
 
 interface RecipeCheckboxProps<T extends FieldValues> extends InputControllerProps<T> {
   title: string;

@@ -1,10 +1,12 @@
 'use client';
 
-import { colon } from '@/helpers/translation';
-import Button from '../buttons/Button';
-import { Dialog, DialogClose, DialogContent, DialogTrigger } from '../Dialog';
-import Close from '../icons/Close';
 import { useTranslations } from 'next-intl';
+
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from '../Dialog';
+import Button from '../buttons/Button';
+import Close from '../icons/Close';
+
+import { colon } from '@/helpers/translation';
 
 export default function CartDialog({
   lines,

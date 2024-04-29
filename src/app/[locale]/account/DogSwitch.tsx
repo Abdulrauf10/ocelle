@@ -1,11 +1,12 @@
 'use client';
 
-import React from 'react';
 import { FormControl, MenuItem, Select } from '@mui/material';
-import { useTranslations } from 'next-intl';
-import { useRouter } from '@/navigation';
 import Cookies from 'js-cookie';
+import { useTranslations } from 'next-intl';
+import React from 'react';
+
 import { DOG_SELECT_COOKIE } from '@/consts';
+import { useRouter } from '@/navigation';
 
 export default function DogSwitch({
   selectedDogId,

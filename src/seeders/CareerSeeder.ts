@@ -1,8 +1,10 @@
-import Seeder from './Seeder';
-import { CareerLineType, Classification, WorkPattern, WorkType } from '@/enums';
-import { Career, CareerLine } from '@/entities';
 import { addDays } from 'date-fns';
 import { QueryRunner, Repository } from 'typeorm';
+
+import Seeder from './Seeder';
+
+import { Career, CareerLine } from '@/entities';
+import { CareerLineType, Classification, WorkPattern, WorkType } from '@/enums';
 
 export default class CareerSeeder extends Seeder {
   private getLines(careerLineRepository: Repository<CareerLine>, career: Career) {

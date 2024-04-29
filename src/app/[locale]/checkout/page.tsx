@@ -1,9 +1,6 @@
+import { getTranslations } from 'next-intl/server';
 import React from 'react';
-import { getClosestOrderDeliveryDate } from '@/helpers/dog';
-import AppThemeProvider from '@/components/AppThemeProvider';
-import CouponForm from '@/components/forms/Coupon';
-import GuestCheckoutForm from '@/components/forms/GuestCheckout';
-import { getCalendarEvents } from '@/services/calendar';
+
 import {
   applyCoupon,
   deleteCartLine,
@@ -13,13 +10,18 @@ import {
   updateCartLine,
   updateCheckoutData,
 } from './actions';
-import { CartContextProvider } from '@/contexts/cart';
+
+import AppThemeProvider from '@/components/AppThemeProvider';
+import Container from '@/components/Container';
+import Header from '@/components/Header';
+import Promotion from '@/components/Promotion';
 import StripeLoader from '@/components/StripeLoader';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
-import { getTranslations } from 'next-intl/server';
-import Container from '@/components/Container';
-import Promotion from '@/components/Promotion';
-import Header from '@/components/Header';
+import CouponForm from '@/components/forms/Coupon';
+import GuestCheckoutForm from '@/components/forms/GuestCheckout';
+import { CartContextProvider } from '@/contexts/cart';
+import { getClosestOrderDeliveryDate } from '@/helpers/dog';
+import { getCalendarEvents } from '@/services/calendar';
 
 export default async function Checkout() {
   const t = await getTranslations();

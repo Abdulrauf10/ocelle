@@ -1,20 +1,22 @@
+import { Autocomplete, Chip, TextField } from '@mui/material';
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import Container from '@/components/Container';
-import Button from '@/components/buttons/Button';
-import { Autocomplete, Chip, TextField } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
 import Section from '../Section';
 import SectionBreak from '../SectionBreak';
-import { Breed } from '@/entities';
-import InteractiveBlock from '@/components/controls/InteractiveBlock';
-import CircleCheckbox from '@/components/controls/CircleCheckbox';
 import Stage from '../Stage';
-import { useTranslations } from 'next-intl';
 import { useSurvey } from '../SurveyContext';
-import { booleanToString, stringToBoolean } from '@/helpers/string';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
+
+import Container from '@/components/Container';
+import Button from '@/components/buttons/Button';
+import CircleCheckbox from '@/components/controls/CircleCheckbox';
+import InteractiveBlock from '@/components/controls/InteractiveBlock';
+import { Breed } from '@/entities';
+import { booleanToString, stringToBoolean } from '@/helpers/string';
 
 interface DogBasicForm {
   breeds: Breed[];

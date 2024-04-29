@@ -1,7 +1,8 @@
 'use client';
 
-import { useRouter } from '@/navigation';
 import clsx from 'clsx';
+
+import { useRouter } from '@/navigation';
 
 export default function ClickableBlock({
   className,

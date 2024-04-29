@@ -1,13 +1,15 @@
-import Button from '@/components/buttons/Button';
-import Newsletter from '@/components/Newsletter';
-import Container from '@/components/Container';
-import RecipeBenefits from './Benefits';
 import { useTranslations } from 'next-intl';
-import Block from '@/components/layouts/Block';
-import Marquee from '@/components/Marquee';
 import pluralize from 'pluralize';
-import ImageContentBlock from '@/components/layouts/ImageContentBlock';
+
+import RecipeBenefits from './Benefits';
+
+import Container from '@/components/Container';
+import Marquee from '@/components/Marquee';
+import Newsletter from '@/components/Newsletter';
+import Button from '@/components/buttons/Button';
 import RecipeLargeDialog from '@/components/dialogs/RecipeLarge';
+import Block from '@/components/layouts/Block';
+import ImageContentBlock from '@/components/layouts/ImageContentBlock';
 import { Recipe } from '@/enums';
 import { getRecipeSlug } from '@/helpers/dog';
 import { arrayToSentence, colon, freshRecipe } from '@/helpers/translation';

@@ -1,7 +1,9 @@
 'use client';
 
 import React from 'react';
+
 import ArrowDown from '../icons/ArrowDown';
+
 import { Link, usePathname } from '@/navigation';
 
 interface PageDropdownProps {

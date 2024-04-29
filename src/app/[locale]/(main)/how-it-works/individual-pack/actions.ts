@@ -1,5 +1,7 @@
 'use server';
 
+import invariant from 'ts-invariant';
+
 import { getCartCookie, setCartCookie } from '@/actions';
 import { IndividualRecipePack } from '@/enums';
 import {
@@ -13,10 +15,9 @@ import {
   UpdateCheckoutLinesDocument,
 } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
-import { findProducts } from '@/services/api';
 import { individualPackProducts, individualPackProductsValues } from '@/products';
+import { findProducts } from '@/services/api';
 import { CartReturn } from '@/types/dto';
-import invariant from 'ts-invariant';
 
 export async function getProducts() {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');

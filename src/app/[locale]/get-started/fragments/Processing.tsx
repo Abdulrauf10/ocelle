@@ -1,17 +1,19 @@
-import React from 'react';
-import Image from 'next/image';
-import Container from '@/components/Container';
-import Stage from '../Stage';
+import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import Stage from '../Stage';
 import { Dog, useSurvey } from '../SurveyContext';
 import { createCheckout, initializeStripeTranscation } from '../actions';
-import { OrderSize } from '@/enums';
-import { CalendarEvent } from '@/types';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
-import { getDateOfBirth } from '@/helpers/dog';
+
 import { getClosestDeliveryDate } from '@/actions';
+import Container from '@/components/Container';
+import { OrderSize } from '@/enums';
+import { getDateOfBirth } from '@/helpers/dog';
+import { CalendarEvent } from '@/types';
 
 function isIncompletedDogProfile(dog: Dog) {
   return (

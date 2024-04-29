@@ -1,10 +1,12 @@
-import Button from '@/components/buttons/Button';
-import Image from 'next/image';
-import HowPlanWorks from '../../HowPlanWorks';
-import Container from '@/components/Container';
-import Block from '@/components/layouts/Block';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+
+import HowPlanWorks from '../../HowPlanWorks';
+
+import Container from '@/components/Container';
 import Newsletter from '@/components/Newsletter';
+import Button from '@/components/buttons/Button';
+import Block from '@/components/layouts/Block';
 import ImageContentBlock from '@/components/layouts/ImageContentBlock';
 
 export default function HowItWorksSubscription() {

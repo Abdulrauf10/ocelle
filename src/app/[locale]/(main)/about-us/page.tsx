@@ -1,11 +1,12 @@
-import Block from '@/components/layouts/Block';
-import Button from '@/components/buttons/Button';
-import Container from '@/components/Container';
-import Sound from '@/components/icons/Sound';
-import Newsletter from '@/components/Newsletter';
-import { Link } from '@/navigation';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+
+import Container from '@/components/Container';
+import Newsletter from '@/components/Newsletter';
+import Button from '@/components/buttons/Button';
+import Sound from '@/components/icons/Sound';
+import Block from '@/components/layouts/Block';
+import { Link } from '@/navigation';
 
 export default function OurStory() {
   const t = useTranslations('AboutUs');

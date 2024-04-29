@@ -1,13 +1,15 @@
 'use client';
 
+import { Switch, ThemeProvider, createTheme } from '@mui/material';
+import cloneDeep from 'clone-deep';
+import equal from 'deep-equal';
 import { useTranslations } from 'next-intl';
 import React from 'react';
+
 import Button from '../buttons/Button';
+
 import useDefaultValues from '@/hooks/defaultValues';
-import equal from 'deep-equal';
-import { Switch, ThemeProvider, createTheme } from '@mui/material';
 import { DogPlanDto } from '@/types/dto';
-import cloneDeep from 'clone-deep';
 
 export default function DogPlanForm({
   initialPlans,

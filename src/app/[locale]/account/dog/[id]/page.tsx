@@ -1,11 +1,13 @@
-import React from 'react';
-import Container from '@/components/Container';
-import AppThemeProvider from '@/components/AppThemeProvider';
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import DogForm from '@/components/forms/Dog';
+import React from 'react';
+
 import updateDogAction from './action';
+
 import { getLoginedMe } from '@/actions';
+import AppThemeProvider from '@/components/AppThemeProvider';
+import Container from '@/components/Container';
+import DogForm from '@/components/forms/Dog';
 
 export default async function EditDog({ params }: { params: { id: string } }) {
   const t = await getTranslations();

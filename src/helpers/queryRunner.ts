@@ -1,5 +1,6 @@
-import AppDataSource from '@/AppDataSource';
 import { QueryRunner } from 'typeorm';
+
+import AppDataSource from '@/AppDataSource';
 
 type Executable<T> = (queryRunner: QueryRunner) => Promise<T>;
 

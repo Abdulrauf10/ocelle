@@ -1,11 +1,12 @@
-import Block from '@/components/layouts/Block';
-import Button from '@/components/buttons/Button';
-import Container from '@/components/Container';
-import Newsletter from '@/components/Newsletter';
-import UnderlineButton from '@/components/buttons/UnderlineButton';
-import { Link } from '@/navigation';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+
+import Container from '@/components/Container';
+import Newsletter from '@/components/Newsletter';
+import Button from '@/components/buttons/Button';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
+import Block from '@/components/layouts/Block';
+import { Link } from '@/navigation';
 
 export default function AffiliateProgram() {
   const t = useTranslations();

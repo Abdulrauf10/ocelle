@@ -1,15 +1,15 @@
 'use client';
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Pagination } from 'swiper/modules';
+import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
-import { Dialog, DialogClose, DialogContent, DialogTrigger } from '../Dialog';
-import CloseCircle from '../icons/CloseCircle';
 import Image from 'next/image';
-
 import 'swiper/css';
 import 'swiper/css/pagination';
-import clsx from 'clsx';
+import { Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import { Dialog, DialogClose, DialogContent, DialogTrigger } from '../Dialog';
+import CloseCircle from '../icons/CloseCircle';
 
 function Hr() {
   return <hr className="my-10 border-t-2 border-primary"></hr>;

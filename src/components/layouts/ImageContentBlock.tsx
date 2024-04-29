@@ -1,7 +1,8 @@
-import Block from './Block';
-import Container from '../Container';
 import clsx from 'clsx';
 import Image from 'next/image';
+
+import Container from '../Container';
+import Block from './Block';
 
 export default function ImageContentBlock({
   image,

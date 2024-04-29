@@ -1,12 +1,14 @@
-import React from 'react';
-import Container from '@/components/Container';
-import UnderlineButton from '@/components/buttons/UnderlineButton';
-import AppThemeProvider from '@/components/AppThemeProvider';
-import UserBasicInfoForm from '@/components/forms/UserBasicInfo';
 import { getTranslations } from 'next-intl/server';
+import React from 'react';
+
 import updateBasicInfoAction from './action';
-import BackButton from '@/components/buttons/BackButton';
+
 import { getLoginedMe } from '@/actions';
+import AppThemeProvider from '@/components/AppThemeProvider';
+import Container from '@/components/Container';
+import BackButton from '@/components/buttons/BackButton';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
+import UserBasicInfoForm from '@/components/forms/UserBasicInfo';
 
 export default async function BasicInfo() {
   const t = await getTranslations();

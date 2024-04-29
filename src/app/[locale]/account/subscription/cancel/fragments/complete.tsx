@@ -1,8 +1,9 @@
-import Container from '@/components/Container';
-import CircleTick from '@/components/icons/CircleTick';
-import UnderlineButton from '@/components/buttons/UnderlineButton';
-import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+
+import Container from '@/components/Container';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
+import CircleTick from '@/components/icons/CircleTick';
 
 export default function CompleteFragment() {
   const t = useTranslations();

@@ -1,18 +1,20 @@
+import clsx from 'clsx';
+import { subDays } from 'date-fns';
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+
+import Section from '../Section';
+import Stage from '../Stage';
+import { useSurvey } from '../SurveyContext';
+import { pageVariants } from '../transition';
+
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
-import Section from '../Section';
 import DateCalendar from '@/components/controls/DateCalendar';
-import clsx from 'clsx';
-import Stage from '../Stage';
-import { useTranslations } from 'next-intl';
-import { useSurvey } from '../SurveyContext';
-import { subDays } from 'date-fns';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { pageVariants } from '../transition';
 import TextField from '@/components/controls/TextField';
 
 interface DogAgeForm {

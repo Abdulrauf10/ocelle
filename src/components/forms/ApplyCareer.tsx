@@ -1,16 +1,18 @@
 'use client';
 
-import React from 'react';
-import Button from '@/components/buttons/Button';
-import { type FieldValues, useForm, useController } from 'react-hook-form';
-import { mergeRefs } from 'react-merge-refs';
-import Container from '@/components/Container';
-import Block from '@/components/layouts/Block';
-import { InputControllerProps } from '@/types';
-import TextField from '../controls/TextField';
 import { useTranslations } from 'next-intl';
-import { EMAIL_REGEXP, MAX_FILE_SIZE_MB, PHONE_REGEXP } from '@/consts';
+import React from 'react';
+import { type FieldValues, useController, useForm } from 'react-hook-form';
+import { mergeRefs } from 'react-merge-refs';
+
+import TextField from '../controls/TextField';
 import Close from '../icons/Close';
+
+import Container from '@/components/Container';
+import Button from '@/components/buttons/Button';
+import Block from '@/components/layouts/Block';
+import { EMAIL_REGEXP, MAX_FILE_SIZE_MB, PHONE_REGEXP } from '@/consts';
+import { InputControllerProps } from '@/types';
 
 interface FileInputProps<T extends FieldValues> extends InputControllerProps<T> {
   label: string;

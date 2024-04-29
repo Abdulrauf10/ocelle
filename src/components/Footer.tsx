@@ -1,13 +1,15 @@
 import clsx from 'clsx';
-import React from 'react';
-import Container from './Container';
-import Whatsapp from './icons/Whatsapp';
-import Email from './icons/Email';
-import Phone from './icons/Phone';
 import { useTranslations } from 'next-intl';
-import { Link } from '@/navigation';
-import Instagram from './icons/Instagram';
+import React from 'react';
+
+import Container from './Container';
+import Email from './icons/Email';
 import Facebook from './icons/Facebook';
+import Instagram from './icons/Instagram';
+import Phone from './icons/Phone';
+import Whatsapp from './icons/Whatsapp';
+
+import { Link } from '@/navigation';
 
 function FooterHead({ children }: React.PropsWithChildren) {
   return <div className="font-bold uppercase">{children}</div>;

@@ -1,7 +1,8 @@
 'use client';
 
-import defaultTranslationValues from '@/defaultTranslationValues';
 import { AbstractIntlMessages, NextIntlClientProvider } from 'next-intl';
+
+import defaultTranslationValues from '@/defaultTranslationValues';
 
 export default function IntlProvider({
   locale,

@@ -1,20 +1,22 @@
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import Container from '@/components/Container';
-import Button from '@/components/buttons/Button';
+import { useNavigate } from 'react-router-dom';
+
 import Section from '../Section';
 import SectionBreak from '../SectionBreak';
-import InteractiveBlock from '@/components/controls/InteractiveBlock';
-import Image from 'next/image';
-import PictureRadio from '@/components/controls/PictureRadio';
 import Stage from '../Stage';
-import { useTranslations } from 'next-intl';
 import { useSurvey } from '../SurveyContext';
-import { AmountOfTreats, CurrentlyEating, Pickiness } from '@/types';
-import { arrayToAllergies, foodAllergiesToArray, getFoodAllergiesOptions } from '@/helpers/form';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
+
+import Container from '@/components/Container';
+import Button from '@/components/buttons/Button';
+import InteractiveBlock from '@/components/controls/InteractiveBlock';
+import PictureRadio from '@/components/controls/PictureRadio';
+import { arrayToAllergies, foodAllergiesToArray, getFoodAllergiesOptions } from '@/helpers/form';
+import { AmountOfTreats, CurrentlyEating, Pickiness } from '@/types';
 
 interface DogPreference2Form {
   allergies: Array<boolean | undefined>;

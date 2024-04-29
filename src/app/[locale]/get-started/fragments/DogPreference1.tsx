@@ -1,19 +1,21 @@
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import Container from '@/components/Container';
-import Button from '@/components/buttons/Button';
+import { useNavigate } from 'react-router-dom';
+
 import Section from '../Section';
 import SectionBreak from '../SectionBreak';
-import PictureRadio from '@/components/controls/PictureRadio';
-import Image from 'next/image';
 import Stage from '../Stage';
-import { useTranslations } from 'next-intl';
 import { useSurvey } from '../SurveyContext';
-import { ActivityLevel, BodyCondition } from '@/types';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
+
+import Container from '@/components/Container';
+import Button from '@/components/buttons/Button';
+import PictureRadio from '@/components/controls/PictureRadio';
 import TextField from '@/components/controls/TextField';
+import { ActivityLevel, BodyCondition } from '@/types';
 
 interface DogPreference1Form {
   weight: number;

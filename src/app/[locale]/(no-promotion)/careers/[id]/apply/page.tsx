@@ -1,11 +1,13 @@
 import { notFound } from 'next/navigation';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
+
 import Title from '../Title';
+import { applyCareerAction } from './action';
+
+import AppThemeProvider from '@/components/AppThemeProvider';
+import ApplyCareerForm from '@/components/forms/ApplyCareer';
 import { Career } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
-import ApplyCareerForm from '@/components/forms/ApplyCareer';
-import { applyCareerAction } from './action';
-import AppThemeProvider from '@/components/AppThemeProvider';
 
 async function fetchData(id: number) {
   return executeQuery(async (queryRunner) => {

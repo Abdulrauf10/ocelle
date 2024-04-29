@@ -1,7 +1,12 @@
-import seeders from '@/seeders';
-import AppDataSource from '@/AppDataSource';
-import { executeQuery } from './helpers/queryRunner';
-import { executeGraphQL } from './helpers/graphql';
+import invariant from 'ts-invariant';
+
+import {
+  DEFAULT_CATEGORY_SLUG,
+  DEFAULT_WAREHOUSE,
+  DEFUALT_SHIPPING_ZONE,
+  SHIPPING_METHOD_SF_EXPRESS_FIXED,
+  SHIPPING_METHOD_SF_EXPRESS_FREE,
+} from './consts';
 import {
   CategoryFragment,
   ChannelFragment,
@@ -36,20 +41,17 @@ import {
   WarehouseFragment,
   WeightUnitsEnum,
 } from './gql/graphql';
-import invariant from 'ts-invariant';
+import { executeGraphQL } from './helpers/graphql';
+import { executeQuery } from './helpers/queryRunner';
 import {
   individualPackProductsValues,
   saleorSubscriptionProductUnitPrice,
   subscriptionProductsValues,
 } from './products';
-import {
-  DEFAULT_CATEGORY_SLUG,
-  DEFAULT_WAREHOUSE,
-  DEFUALT_SHIPPING_ZONE,
-  SHIPPING_METHOD_SF_EXPRESS_FIXED,
-  SHIPPING_METHOD_SF_EXPRESS_FREE,
-} from './consts';
 import { findProducts } from './services/api';
+
+import AppDataSource from '@/AppDataSource';
+import seeders from '@/seeders';
 
 async function prugeDefaultChannel() {
   console.log('execute pruge the default channel...');

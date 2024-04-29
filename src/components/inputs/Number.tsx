@@ -1,9 +1,10 @@
 'use client';
 
-import React from 'react';
-import Sub from '../icons/Sub';
-import Plus from '../icons/Plus';
 import clsx from 'clsx';
+import React from 'react';
+
+import Plus from '../icons/Plus';
+import Sub from '../icons/Sub';
 
 export default function NumberInput({
   className,

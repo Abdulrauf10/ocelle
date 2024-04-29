@@ -1,5 +1,6 @@
-import { UpdateCheckoutAddressMutation } from '@/gql/graphql';
 import APIError from './APIError';
+
+import { UpdateCheckoutAddressMutation } from '@/gql/graphql';
 
 type T =
   | UpdateCheckoutAddressMutation['checkoutShippingAddressUpdate']
