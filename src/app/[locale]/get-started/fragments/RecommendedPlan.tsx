@@ -1,23 +1,25 @@
-import React from 'react';
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import Container from '@/components/Container';
+import pluralize from 'pluralize';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import InteractiveBlock from '@/components/controls/InteractiveBlock';
-import Price from '@/components/Price';
-import Button from '@/components/buttons/Button';
-import RecipeCheckbox from '@/components/controls/RecipeCheckbox';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import Section from '../Section';
 import Stage from '../Stage';
-import { useTranslations } from 'next-intl';
 import { useSurvey } from '../SurveyContext';
-import { booleanToString, stringToBoolean } from '@/helpers/string';
+import { pageVariants } from '../transition';
+
+import Container from '@/components/Container';
+import Price from '@/components/Price';
+import Button from '@/components/buttons/Button';
+import InteractiveBlock from '@/components/controls/InteractiveBlock';
+import RecipeCheckbox from '@/components/controls/RecipeCheckbox';
 import { Recipe } from '@/enums';
 import { isAllergies, isRecommendedRecipe } from '@/helpers/dog';
 import { arrayToRecipe, recipeToArray } from '@/helpers/form';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { pageVariants } from '../transition';
-import pluralize from 'pluralize';
+import { booleanToString, stringToBoolean } from '@/helpers/string';
 
 interface RecommendedPlanForm {
   transition: 'Y' | 'N';

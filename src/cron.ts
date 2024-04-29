@@ -1,12 +1,13 @@
 import { CronJob } from 'cron';
-import subscriptionScheduler from './schedulers/subscription';
+
+import recurringBoxScheduler from './schedulers/recurringBox';
 
 function cron() {
   new CronJob(
-    '1 0 0 * * *', // run every day at 00:01
-    subscriptionScheduler, // onTick
-    () => console.log(`compeleted subscription scheduler at ${new Date().toISOString()}`),
-    true, // start
+    '0 0 0 * * *', // run every day at 00:00
+    recurringBoxScheduler,
+    undefined,
+    true, // start on init
     process.env.TZ, // timeZone
     undefined,
     true

@@ -1,15 +1,17 @@
-import Container from '@/components/Container';
-import React from 'react';
 import { getTranslations } from 'next-intl/server';
-import { getLoginedMe } from '@/actions';
+import React from 'react';
+
 import setOrderSizeAction from './action';
-import OrderSizeForm from '@/components/forms/OrderSize';
-import BackButton from '@/components/buttons/BackButton';
-import { calculateTotalPerDayPrice } from '@/helpers/dog';
-import { OrderSize } from '@/enums';
-import { executeQuery } from '@/helpers/queryRunner';
-import { Shipment } from '@/entities';
+
+import { getLoginedMe } from '@/actions';
+import Container from '@/components/Container';
 import { ShippableNote } from '@/components/ShippableNote';
+import BackButton from '@/components/buttons/BackButton';
+import OrderSizeForm from '@/components/forms/OrderSize';
+import { Shipment } from '@/entities';
+import { OrderSize } from '@/enums';
+import { calculateTotalPerDayPrice } from '@/helpers/dog';
+import { executeQuery } from '@/helpers/queryRunner';
 
 export default async function PlanOften() {
   const t = await getTranslations();

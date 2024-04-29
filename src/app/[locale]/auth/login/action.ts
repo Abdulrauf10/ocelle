@@ -1,12 +1,13 @@
 'use server';
 
+import Joi from 'joi';
+
 import { User } from '@/entities';
 import { GetCurrentUserDocument } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
 import { redirect } from '@/navigation';
 import saleorAuthClient from '@/saleorAuthClient';
-import Joi from 'joi';
 
 interface LoginAction {
   email: string;
@@ -37,7 +38,7 @@ export default async function loginAction(data: LoginAction) {
 
   if (tokenCreate.errors.length > 0) {
     console.error(tokenCreate.errors);
-    throw new Error('login failed');
+    throw new Error('email or password is invaild');
   }
 
   const { me } = await executeGraphQL(GetCurrentUserDocument, {});

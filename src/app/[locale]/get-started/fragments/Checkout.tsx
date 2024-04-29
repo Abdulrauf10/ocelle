@@ -1,14 +1,16 @@
-import React from 'react';
-import Stage from '../Stage';
-import AppThemeProvider from '@/components/AppThemeProvider';
-import { applyCoupon, finalizeCheckout, updateCheckoutData } from '../actions';
-import SubscriptionCheckoutForm from '@/components/forms/SubscriptionCheckout';
-import { useSurvey } from '../SurveyContext';
-import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import React from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import Stage from '../Stage';
+import { useSurvey } from '../SurveyContext';
+import { applyCoupon, finalizeCheckout, updateCheckoutData } from '../actions';
 import { pageVariants } from '../transition';
-import CouponForm from '@/components/forms/Coupon';
+
+import AppThemeProvider from '@/components/AppThemeProvider';
 import StripeLoader from '@/components/StripeLoader';
+import CouponForm from '@/components/forms/Coupon';
+import SubscriptionCheckoutForm from '@/components/forms/SubscriptionCheckout';
 
 export default function CheckoutFragment() {
   const { dogs } = useSurvey();

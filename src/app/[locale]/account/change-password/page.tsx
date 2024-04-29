@@ -1,10 +1,12 @@
-import React from 'react';
-import Container from '@/components/Container';
 import { useTranslations } from 'next-intl';
-import AppThemeProvider from '@/components/AppThemeProvider';
-import ChangePasswordForm from '@/components/forms/ChangePassword';
+import React from 'react';
+
 import changePasswordAction from './action';
+
+import AppThemeProvider from '@/components/AppThemeProvider';
+import Container from '@/components/Container';
 import BackButton from '@/components/buttons/BackButton';
+import ChangePasswordForm from '@/components/forms/ChangePassword';
 
 export default function ChangePassword() {
   const t = useTranslations();

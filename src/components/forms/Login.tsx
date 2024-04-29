@@ -1,10 +1,12 @@
 'use client';
 
 import { useTranslations } from 'next-intl';
-import { useForm } from 'react-hook-form';
-import PasswordField from '../controls/PasswordField';
-import Button from '../buttons/Button';
 import React from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+
+import Button from '../buttons/Button';
+import PasswordField from '../controls/PasswordField';
 import TextField from '../controls/TextField';
 
 interface ILoginForm {
@@ -31,8 +33,12 @@ export default function LoginForm({
 
   const onSubmit = React.useCallback(
     (values: ILoginForm) => {
-      startTransition(() => {
-        action(values);
+      startTransition(async () => {
+        try {
+          await action(values);
+        } catch (e) {
+          e instanceof Error && toast.error(e.message);
+        }
       });
     },
     [action]

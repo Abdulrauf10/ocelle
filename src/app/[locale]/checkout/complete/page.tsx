@@ -1,12 +1,14 @@
 'use client';
 
-import Container from '@/components/Container';
 import { useTranslations } from 'next-intl';
-import { Link, useRouter } from '@/navigation';
 import Image from 'next/image';
-import { dropCheckoutSession, getDeliveryDate } from '../actions';
-import { formatDate } from '@/helpers/date';
 import React from 'react';
+
+import { dropCheckoutSession, getDeliveryDate } from '../actions';
+
+import Container from '@/components/Container';
+import { formatDate } from '@/helpers/date';
+import { Link, useRouter } from '@/navigation';
 
 export default function CompletePage() {
   const t = useTranslations();

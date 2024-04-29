@@ -1,7 +1,8 @@
 'use client';
 
-import { CheckoutLineFragment, MoneyFragment } from '@/gql/graphql';
 import React from 'react';
+
+import { CheckoutLineFragment, MoneyFragment } from '@/gql/graphql';
 
 interface CartContextProps {
   lines: CheckoutLineFragment[];

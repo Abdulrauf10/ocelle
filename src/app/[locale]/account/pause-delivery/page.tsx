@@ -1,14 +1,16 @@
 'use client';
 
-import React from 'react';
-import Container from '@/components/Container';
-import UnderlineButton from '@/components/buttons/UnderlineButton';
-import CircleTick from '@/components/icons/CircleTick';
 import { useTranslations } from 'next-intl';
-import AppThemeProvider from '@/components/AppThemeProvider';
+import React from 'react';
+
 import pauseDeliveriesAction from './action';
+
+import AppThemeProvider from '@/components/AppThemeProvider';
+import Container from '@/components/Container';
 import BackButton from '@/components/buttons/BackButton';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import DatePickerForm from '@/components/forms/DatePicker';
+import CircleTick from '@/components/icons/CircleTick';
 
 export default function PauseDelivery() {
   const t = useTranslations();

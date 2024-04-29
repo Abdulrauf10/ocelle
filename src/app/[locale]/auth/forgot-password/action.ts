@@ -1,9 +1,10 @@
 'use server';
 
-import { RequestPasswordResetDocument } from '@/gql/graphql';
-import { executeGraphQL } from '@/helpers/graphql';
 import Joi from 'joi';
 import { headers } from 'next/headers';
+
+import { RequestPasswordResetDocument } from '@/gql/graphql';
+import { executeGraphQL } from '@/helpers/graphql';
 
 interface ForgotPasswordAction {
   email: string;

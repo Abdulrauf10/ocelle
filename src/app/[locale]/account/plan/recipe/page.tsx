@@ -1,16 +1,18 @@
-import Container from '@/components/Container';
-import DogSwitch from '../../DogSwitch';
-import AppThemeProvider from '@/components/AppThemeProvider';
-import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import { getTranslations } from 'next-intl/server';
-import RecipeForm from '@/components/forms/Recipe';
-import setRecipeAction from './action';
-import BackButton from '@/components/buttons/BackButton';
 import { cookies } from 'next/headers';
-import { DOG_SELECT_COOKIE } from '@/consts';
-import { executeQuery } from '@/helpers/queryRunner';
-import { RecurringBox } from '@/entities';
+
+import DogSwitch from '../../DogSwitch';
+import setRecipeAction from './action';
+
+import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
+import AppThemeProvider from '@/components/AppThemeProvider';
+import Container from '@/components/Container';
 import { DogBoxNote } from '@/components/DogBoxNote';
+import BackButton from '@/components/buttons/BackButton';
+import RecipeForm from '@/components/forms/Recipe';
+import { DOG_SELECT_COOKIE } from '@/consts';
+import { RecurringBox } from '@/entities';
+import { executeQuery } from '@/helpers/queryRunner';
 
 export default async function PlanRecipe() {
   const cookie = cookies();
@@ -56,6 +58,7 @@ export default async function PlanRecipe() {
           </p>
           <div className="mt-5">
             <RecipeForm
+              name={dog.name}
               pickiness={dog.pickiness}
               activityLevel={dog.activityLevel}
               bodyCondition={dog.bodyCondition}

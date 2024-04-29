@@ -1,16 +1,18 @@
-import Button from '@/components/buttons/Button';
-import Container from '@/components/Container';
-import Newsletter from '@/components/Newsletter';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+
 import CaseSwiper from './CaseSwiper';
 import HowPlanWorks from './HowPlanWorks';
-import Block from '@/components/layouts/Block';
 import Picture from './Picture';
+
+import Container from '@/components/Container';
 import List from '@/components/List';
-import Tickbox from '@/components/icons/Tickbox';
-import { Link } from '@/navigation';
-import { useTranslations } from 'next-intl';
 import Marquee from '@/components/Marquee';
+import Newsletter from '@/components/Newsletter';
+import Button from '@/components/buttons/Button';
+import Tickbox from '@/components/icons/Tickbox';
+import Block from '@/components/layouts/Block';
+import { Link } from '@/navigation';
 
 export default function Home() {
   const t = useTranslations('Home');

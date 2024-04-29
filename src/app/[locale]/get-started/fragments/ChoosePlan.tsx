@@ -1,15 +1,17 @@
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import React from 'react';
-import Container from '@/components/Container';
-import Button from '@/components/buttons/Button';
-import FreshPlan from '@/components/FreshPlan';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 import Section from '../Section';
 import Stage from '../Stage';
-import { useTranslations } from 'next-intl';
 import { useSurvey } from '../SurveyContext';
-import { MealPlan } from '@/enums';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
+
+import Container from '@/components/Container';
+import FreshPlan from '@/components/FreshPlan';
+import Button from '@/components/buttons/Button';
+import { MealPlan } from '@/enums';
 import { getSurveySessionStore } from '@/helpers/session';
 import { MinPricesDto } from '@/types/dto';
 

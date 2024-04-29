@@ -1,6 +1,6 @@
 import clsx from 'clsx';
-import { ReactNode } from 'react';
 import { useTranslations } from 'next-intl';
+import { ReactNode } from 'react';
 
 interface ListProps {
   className?: {

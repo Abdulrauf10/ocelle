@@ -1,8 +1,9 @@
-import Block from '@/components/layouts/Block';
+import { useTranslations } from 'next-intl';
+
 import Container from '@/components/Container';
+import Block from '@/components/layouts/Block';
 import { Career } from '@/entities';
 import { WorkPattern, WorkType } from '@/enums';
-import { useTranslations } from 'next-intl';
 
 export default function Title({ career }: { career: Career }) {
   const t = useTranslations();

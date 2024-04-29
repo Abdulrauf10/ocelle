@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+
 import { Breed } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
 

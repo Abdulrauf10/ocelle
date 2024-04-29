@@ -1,11 +1,13 @@
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { Jost, Open_Sans } from 'next/font/google';
 import clsx from 'clsx';
-import { AuthProvider } from '@/contexts/auth';
+import type { Metadata } from 'next';
+import { Jost, Open_Sans } from 'next/font/google';
+import { notFound } from 'next/navigation';
+
 import '../globals.css';
-import IntlProvider from '@/providers/intl';
+
 import { getClientLoginedMe, logout } from '@/actions';
+import { AuthProvider } from '@/contexts/auth';
+import IntlProvider from '@/providers/intl';
 
 const jost = Jost({ subsets: ['latin'], variable: '--font-jost' });
 const openSans = Open_Sans({

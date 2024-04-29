@@ -9,6 +9,12 @@
   --swiper-theme-color: #be873b !important;
   --swiper-pagination-bullet-size: 18px;
   --swiper-pagination-bullet-horizontal-gap: 6px;
+
+  --toastify-toast-width: 100% !important;
+  --toastify-toast-bd-radius: 10px !important;
+  --toastify-color-success: #269D9E !important;
+  --toastify-text-color-success: #fff !important;
+  --toastify-font-family: var(--font-jost) !important;
 }
 
 body {

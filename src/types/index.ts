@@ -1,15 +1,15 @@
 import InputControllerProps from './InputControllerProps';
-import {
-  BreedSize,
-  Gender,
-  BodyCondition,
-  ActivityLevel,
-  CurrentlyEating,
-  AmountOfTreats,
-  Pickiness,
-  LifeStage,
-} from './dog';
 import { CalendarEvent } from './calendar';
+import {
+  ActivityLevel,
+  AmountOfTreats,
+  BodyCondition,
+  BreedSize,
+  CurrentlyEating,
+  Gender,
+  LifeStage,
+  Pickiness,
+} from './dog';
 
 export type {
   InputControllerProps,

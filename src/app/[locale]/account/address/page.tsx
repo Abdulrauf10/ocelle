@@ -1,12 +1,14 @@
-import React from 'react';
-import Container from '@/components/Container';
-import AppThemeProvider from '@/components/AppThemeProvider';
-import BackButton from '@/components/buttons/BackButton';
 import { getTranslations } from 'next-intl/server';
-import { getLoginedMeFullSize } from '@/actions';
-import DeliveryAddressForm from '@/components/forms/DeliveryAddress';
-import BillingAddressForm from '@/components/forms/BillingAddress';
+import React from 'react';
+
 import { changeBillingAddressAction, changeShippingAddressAction } from './actions';
+
+import { getLoginedMeFullSize } from '@/actions';
+import AppThemeProvider from '@/components/AppThemeProvider';
+import Container from '@/components/Container';
+import BackButton from '@/components/buttons/BackButton';
+import BillingAddressForm from '@/components/forms/BillingAddress';
+import DeliveryAddressForm from '@/components/forms/DeliveryAddress';
 import { EditAddressProvider } from '@/contexts/editAddress';
 
 export default async function Addresses() {

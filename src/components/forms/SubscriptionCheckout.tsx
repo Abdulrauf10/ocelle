@@ -1,27 +1,29 @@
 'use client';
 
-import React from 'react';
+import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import clsx from 'clsx';
-import Container from '@/components/Container';
+import { addWeeks } from 'date-fns';
+import { useTranslations } from 'next-intl';
+import React from 'react';
 import { useForm } from 'react-hook-form';
+
+import TextField from '../controls/TextField';
+import DatePickerForm from './DatePicker';
+import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
+import PartialCardStripeForm from './partial/CardStripe';
+
+import Container from '@/components/Container';
 import Price from '@/components/Price';
 import Button from '@/components/buttons/Button';
-import PartialCardStripeForm from './partial/CardStripe';
-import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
-import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import EditButton from '@/components/buttons/EditButton';
-import { useTranslations } from 'next-intl';
-import PasswordField from '@/components/controls/PasswordField';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
-import { MealPlan, Recipe } from '@/enums';
-import { getRecipeSlug, isUnavailableDeliveryDate } from '@/helpers/dog';
-import { addWeeks } from 'date-fns';
-import { formatDate } from '@/helpers/date';
-import { CalendarEvent } from '@/types';
-import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import TextField from '../controls/TextField';
+import PasswordField from '@/components/controls/PasswordField';
+import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
-import DatePickerForm from './DatePicker';
+import { MealPlan, Recipe } from '@/enums';
+import { formatDate } from '@/helpers/date';
+import { getRecipeSlug, isUnavailableDeliveryDate } from '@/helpers/dog';
+import { CalendarEvent } from '@/types';
 
 function Section({
   title,

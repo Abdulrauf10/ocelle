@@ -1,11 +1,12 @@
 'use server';
 
+import Joi from 'joi';
+
 import { getLoginedMeFullSize } from '@/actions';
 import { User } from '@/entities';
 import { UpdateAddressDocument } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
-import Joi from 'joi';
 
 interface ChangeShippingAddressAction {
   firstName: string;

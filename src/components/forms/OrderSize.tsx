@@ -1,8 +1,10 @@
 'use client';
 
-import Button from '@/components/buttons/Button';
-import React from 'react';
 import { useTranslations } from 'next-intl';
+import React from 'react';
+import { toast } from 'react-toastify';
+
+import Button from '@/components/buttons/Button';
 import { OrderSize } from '@/enums';
 import { nativeRound } from '@/helpers/number';
 import useDefaultValues from '@/hooks/defaultValues';
@@ -29,6 +31,7 @@ export default function OrderSizeForm({
     startTransition(async () => {
       await action({ size });
       setDefaultValues({ size });
+      toast.success('Your desired delivery frequency has been successfully updated.');
     });
   }, [action, setDefaultValues, size]);
 

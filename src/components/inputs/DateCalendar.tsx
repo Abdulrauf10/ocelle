@@ -1,17 +1,18 @@
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { alpha } from '@mui/material';
+import { DateView } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DateCalendar as MuiDateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { dateCalendarClasses } from '@mui/x-date-pickers/DateCalendar/dateCalendarClasses';
 import { dayPickerClasses } from '@mui/x-date-pickers/DateCalendar/dayCalendarClasses';
-import { pickersDayClasses } from '@mui/x-date-pickers/PickersDay/pickersDayClasses';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { pickersCalendarHeaderClasses } from '@mui/x-date-pickers/PickersCalendarHeader/pickersCalendarHeaderClasses';
-import { alpha } from '@mui/material';
-import DogFoot from '../icons/DogFoot';
-import clsx from 'clsx';
-import AppThemeProvider from '../AppThemeProvider';
+import { pickersDayClasses } from '@mui/x-date-pickers/PickersDay/pickersDayClasses';
 import { PickerSelectionState } from '@mui/x-date-pickers/internals';
-import { DateView } from '@mui/x-date-pickers';
+import clsx from 'clsx';
 import React from 'react';
+
+import AppThemeProvider from '../AppThemeProvider';
+import DogFoot from '../icons/DogFoot';
 
 interface DateCalendarProps {
   defaultValue?: Date | null;

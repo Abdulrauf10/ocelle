@@ -10,6 +10,7 @@
     "start:direct": "next start -p 80",
     "generate:gql": "graphql-codegen --config .graphqlrc.ts",
     "lint": "next lint",
+    "prettier": "prettier --write \"./**/*.{ts,tsx}\"",
     "ts-node": "dotenvx run --env-file=.env --env-file=.env.local -- ts-node -r tsconfig-paths/register",
     "setup": "npm run ts-node -- src/setup.ts",
     "cron": "npm run ts-node -- src/cron.ts",
@@ -55,6 +56,7 @@
     "react-merge-refs": "^2.1.1",
     "react-router-dom": "^6.22.3",
     "react-text-mask": "^5.5.0",
+    "react-toastify": "^10.0.5",
     "reflect-metadata": "^0.2.1",
     "sharp": "^0.33.2",
     "store2": "^2.14.3",
@@ -68,6 +70,7 @@
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.2",
     "@next/bundle-analyzer": "^14.1.0",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/clone-deep": "^4.0.4",
     "@types/deep-equal": "^1.0.4",
     "@types/js-cookie": "^3.0.6",

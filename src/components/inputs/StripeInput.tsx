@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { alpha, useTheme } from '@mui/material/styles';
 import { InputBaseComponentProps } from '@mui/material/InputBase';
+import { alpha, useTheme } from '@mui/material/styles';
+import * as React from 'react';
 
 const StripeInput = React.forwardRef<any, InputBaseComponentProps>(
   function StripeInput(props, ref) {

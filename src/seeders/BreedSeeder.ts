@@ -1,6 +1,8 @@
-import { Breed } from '@/entities';
-import Seeder from './Seeder';
 import { QueryRunner } from 'typeorm';
+
+import Seeder from './Seeder';
+
+import { Breed } from '@/entities';
 
 export default class BreedSeeder extends Seeder {
   /**

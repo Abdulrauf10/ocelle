@@ -1,6 +1,8 @@
 import clsx from 'clsx';
-import Pen from '../icons/Pen';
 import { useTranslations } from 'next-intl';
+
+import Pen from '../icons/Pen';
+
 import { Link } from '@/navigation';
 
 interface EditButtonProps {

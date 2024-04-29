@@ -1,10 +1,12 @@
+import { getTranslations } from 'next-intl/server';
+
+import updateSubscriptionAction from './action';
+
+import { getLoginedMe } from '@/actions';
 import Container from '@/components/Container';
+import BackButton from '@/components/buttons/BackButton';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import DogPlanForm from '@/components/forms/DogPlan';
-import { getTranslations } from 'next-intl/server';
-import BackButton from '@/components/buttons/BackButton';
-import { getLoginedMe } from '@/actions';
-import updateSubscriptionAction from './action';
 
 export default async function Subscriptions() {
   const t = await getTranslations();

@@ -1,8 +1,10 @@
-import { FoodAllergies, Recipe } from '@/enums';
-import { TranslationValues, useTranslations } from 'next-intl';
-import { getRecipeSlug } from './dog';
-import { Dog } from '@/entities';
 import { differenceInMonths, differenceInYears, subYears } from 'date-fns';
+import { TranslationValues, useTranslations } from 'next-intl';
+
+import { getRecipeSlug } from './dog';
+
+import { Dog } from '@/entities';
+import { FoodAllergies, Recipe } from '@/enums';
 import { UserAddressFragment } from '@/gql/graphql';
 
 type useTranslationsReturn = ReturnType<typeof useTranslations>;

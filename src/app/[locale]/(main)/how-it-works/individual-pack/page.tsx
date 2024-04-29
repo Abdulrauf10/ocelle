@@ -1,15 +1,17 @@
-import Block from '@/components/layouts/Block';
-import Button from '@/components/buttons/Button';
-import Container from '@/components/Container';
-import Image from 'next/image';
-import Product from './Product';
-import { IndividualRecipePack } from '@/enums';
-import { getCartOrCheckout, getProducts } from './actions';
 import { getTranslations } from 'next-intl/server';
-import CartSection from './CartSection';
-import { CartContextProvider } from '@/contexts/cart';
+import Image from 'next/image';
 import pluralize from 'pluralize';
+
+import CartSection from './CartSection';
+import Product from './Product';
+import { getCartOrCheckout, getProducts } from './actions';
+
+import Container from '@/components/Container';
 import Newsletter from '@/components/Newsletter';
+import Button from '@/components/buttons/Button';
+import Block from '@/components/layouts/Block';
+import { CartContextProvider } from '@/contexts/cart';
+import { IndividualRecipePack } from '@/enums';
 
 export default async function HowItWorksIndividual() {
   const t = await getTranslations();

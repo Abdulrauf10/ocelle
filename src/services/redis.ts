@@ -1,7 +1,8 @@
-import { OrderSize } from '@/enums';
-import { DogDto } from '@/types/dto';
 import { Redis } from 'ioredis';
 import invariant from 'ts-invariant';
+
+import { OrderSize } from '@/enums';
+import { DogDto } from '@/types/dto';
 
 invariant(process.env.REDIS_PREFIX, 'Missing REDIS_PREFIX env variable');
 

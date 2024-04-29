@@ -1,12 +1,14 @@
 'use client';
 
 import clsx from 'clsx';
+import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
+
 import HamburgerMenu from './icons/HamburgerMenu';
+
 import { useAuth } from '@/contexts/auth';
 import { Link, usePathname } from '@/navigation';
-import { useLocale, useTranslations } from 'next-intl';
 
 interface HeaderProps {
   nav?: React.ReactNode;

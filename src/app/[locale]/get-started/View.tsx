@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
-import Header from '@/components/Header';
-import { useLocation, useNavigate } from 'react-router-dom';
-import Stage from './Stage';
-import ProgressBar from './ProgressBar';
 import { useTranslations } from 'next-intl';
+import { useLocation, useNavigate } from 'react-router-dom';
+
+import ProgressBar from './ProgressBar';
+import Stage from './Stage';
+
+import Header from '@/components/Header';
 
 function BackButton({
   show,

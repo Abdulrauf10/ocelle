@@ -1,18 +1,22 @@
-import React from 'react';
+import clsx from 'clsx';
+import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
+import React from 'react';
+
+import ClickableBlock from './ClickableBlock';
+
+import { getLoginedMeFullSize } from '@/actions';
 import Container from '@/components/Container';
+import Bell from '@/components/icons/Bell';
+import Billing from '@/components/icons/Billing';
+import HomeAddress from '@/components/icons/HomeAddress';
 import Unbox from '@/components/icons/Unbox';
 import User from '@/components/icons/User';
-import HomeAddress from '@/components/icons/HomeAddress';
-import Billing from '@/components/icons/Billing';
-import Bell from '@/components/icons/Bell';
-import ClickableBlock from './ClickableBlock';
-import { getTranslations } from 'next-intl/server';
-import { getLoginedMeFullSize } from '@/actions';
-import clsx from 'clsx';
-import { addressToSentence } from '@/helpers/translation';
-import { retrieveCustomerPaymentMethod } from '@/helpers/stripe';
 import StripeNotReadyError from '@/errors/StripeNotReadyError';
+import { GetOrderDocument } from '@/gql/graphql';
+import { executeGraphQL } from '@/helpers/graphql';
+import { addressToSentence } from '@/helpers/translation';
+import { retrieveCustomerPaymentMethod } from '@/services/stripe';
 
 export default async function Account() {
   const t = await getTranslations();
@@ -37,6 +41,20 @@ export default async function Account() {
     throw new Error('unknown error in stripe');
   }
 
+  const { order } = await executeGraphQL(GetOrderDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      id: orders[0].id,
+    },
+  });
+
+  if (!order) {
+    throw new Error('order is not sync with api');
+  }
+
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
@@ -48,7 +66,7 @@ export default async function Account() {
             icon={<Unbox className="w-16" />}
             title={t('orders')}
             description={t('current-{}', {
-              value: t('order-id-{}', { id: orders!.edges[0].node.number }),
+              value: t('order-id-{}', { id: order.number }),
             })}
             href="/account/order"
           />

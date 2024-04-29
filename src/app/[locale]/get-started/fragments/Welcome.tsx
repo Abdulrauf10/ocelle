@@ -1,13 +1,15 @@
-import Button from '@/components/buttons/Button';
-import Container from '@/components/Container';
+import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import { useNavigate } from 'react-router-dom';
+
 import Benefits from '../Benefits';
 import Section from '../Section';
 import Stage from '../Stage';
-import { useTranslations } from 'next-intl';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
 import { pageVariants } from '../transition';
+
+import Container from '@/components/Container';
+import Button from '@/components/buttons/Button';
 
 export default function WelcomeFragment() {
   const navigate = useNavigate();

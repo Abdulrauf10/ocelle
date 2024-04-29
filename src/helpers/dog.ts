@@ -1,3 +1,14 @@
+import {
+  addDays,
+  differenceInMonths,
+  differenceInYears,
+  getDay,
+  startOfDay,
+  subDays,
+  subMonths,
+  subYears,
+} from 'date-fns';
+
 import { FoodAllergies, MealPlan, OrderSize, Recipe } from '@/enums';
 import { saleorSubscriptionProductUnitPrice, subscriptionProducts } from '@/products';
 import {
@@ -9,16 +20,6 @@ import {
   Pickiness,
 } from '@/types';
 import { BreedDto } from '@/types/dto';
-import {
-  addDays,
-  differenceInMonths,
-  differenceInYears,
-  getDay,
-  startOfDay,
-  subDays,
-  subMonths,
-  subYears,
-} from 'date-fns';
 
 /**
  * Refer to `Excel: customization variables v1.01 > Price Matrix`
@@ -168,10 +169,6 @@ export function getEditableRecurringBoxDeadline(
     startOfDay(scheduledDeliveryDate),
     dates.reduce((sum, a) => sum + a, 0)
   );
-}
-
-export function isImmutableBox(events: CalendarEvent[], deliveryDate: Date) {
-  return getEditableRecurringBoxDeadline(events, deliveryDate) <= new Date();
 }
 
 export function getEditableRecurringBoxDeadlineByBox(events: CalendarEvent[], boxStartDate: Date) {

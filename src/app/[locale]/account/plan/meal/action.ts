@@ -1,12 +1,13 @@
 'use server';
 
+import { isBefore, startOfDay } from 'date-fns';
+import Joi from 'joi';
+
+import { getLoginedMe } from '@/actions';
 import { Dog, DogPlan, RecurringBox } from '@/entities';
 import { MealPlan } from '@/enums';
-import Joi from 'joi';
-import { executeQuery } from '@/helpers/queryRunner';
 import { getNumericEnumValues } from '@/helpers/enum';
-import { getLoginedMe } from '@/actions';
-import { isBefore, startOfDay } from 'date-fns';
+import { executeQuery } from '@/helpers/queryRunner';
 
 interface SetMealPlanAction {
   id: number;
@@ -35,6 +36,7 @@ export default async function setMealPlanAction(data: SetMealPlanAction) {
         user: { id: me.id },
       },
       relations: {
+        plan: true,
         boxs: {
           order: true,
           shipment: true,

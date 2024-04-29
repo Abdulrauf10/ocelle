@@ -1,11 +1,12 @@
 'use server';
 
+import Joi from 'joi';
+
+import { getLoginedMe } from '@/actions';
+import { User } from '@/entities';
 import { UpdateUserDocument } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
-import { getLoginedMe } from '@/actions';
-import Joi from 'joi';
 import { executeQuery } from '@/helpers/queryRunner';
-import { User } from '@/entities';
 
 interface UpdateBasicInfoAction {
   firstName: string;

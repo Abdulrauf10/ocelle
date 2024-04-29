@@ -1,4 +1,4 @@
-import React from 'react';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
 import {
   AuBankAccountElement,
   CardCvcElement,
@@ -8,9 +8,10 @@ import {
   IbanElement,
   IdealBankElement,
 } from '@stripe/react-stripe-js';
-import TextField, { TextFieldProps } from '@mui/material/TextField';
-import StripeInput from '../inputs/StripeInput';
 import { StripeElementChangeEvent } from '@stripe/stripe-js';
+import React from 'react';
+
+import StripeInput from '../inputs/StripeInput';
 
 type StripeElement =
   | typeof AuBankAccountElement

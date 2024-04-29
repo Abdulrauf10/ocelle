@@ -1,11 +1,13 @@
 'use client';
 
+import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
+import React from 'react';
+
 import { Dialog, DialogClose, DialogContent, DialogTrigger } from '../Dialog';
 import CloseCircle from '../icons/CloseCircle';
-import Image from 'next/image';
-import clsx from 'clsx';
-import React from 'react';
+
 import { arrayToSentence } from '@/helpers/translation';
 
 export default function RecipeMediumDialog({

@@ -1,5 +1,5 @@
-import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import Header from '@/components/Header';
 import Navigator from '@/components/Navigator';
 import Sticky from '@/components/Sticky';
 

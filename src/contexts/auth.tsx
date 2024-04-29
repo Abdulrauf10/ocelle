@@ -1,7 +1,8 @@
 'use client';
 
-import { getClientLoginedMe } from '@/actions';
 import React from 'react';
+
+import { getClientLoginedMe } from '@/actions';
 
 type LoginedMeReturn = Awaited<ReturnType<typeof getClientLoginedMe>>;
 

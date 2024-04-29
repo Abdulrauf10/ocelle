@@ -1,23 +1,25 @@
-import React from 'react';
 import clsx from 'clsx';
+import { getTranslations } from 'next-intl/server';
+import { cookies } from 'next/headers';
+import Image from 'next/image';
+import React from 'react';
+import { IsNull, Not } from 'typeorm';
+
+import DogSwitch from '../DogSwitch';
+
+import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
+import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
-import Image from 'next/image';
-import DogSwitch from '../DogSwitch';
-import AppThemeProvider from '@/components/AppThemeProvider';
-import { getTranslations } from 'next-intl/server';
-import { MealPlan, OrderSize } from '@/enums';
-import { getEditableRecurringBoxDeadline, getRecipeSlug } from '@/helpers/dog';
-import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
-import { dogToSentence } from '@/helpers/translation';
-import { cookies } from 'next/headers';
 import { DOG_SELECT_COOKIE } from '@/consts';
-import { executeQuery } from '@/helpers/queryRunner';
 import { RecurringBox } from '@/entities';
-import { IsNull, Not } from 'typeorm';
+import { MealPlan, OrderSize } from '@/enums';
 import { formatDate } from '@/helpers/date';
-import { getCalendarEvents } from '@/helpers/calendar';
+import { getEditableRecurringBoxDeadline, getRecipeSlug } from '@/helpers/dog';
+import { executeQuery } from '@/helpers/queryRunner';
+import { dogToSentence } from '@/helpers/translation';
+import { getCalendarEvents } from '@/services/calendar';
 
 export default async function Plan() {
   const cookie = cookies();

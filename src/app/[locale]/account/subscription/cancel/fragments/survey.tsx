@@ -1,10 +1,11 @@
+import { useTranslations } from 'next-intl';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import Container from '@/components/Container';
-import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
-import Button from '@/components/buttons/Button';
-import { useTranslations } from 'next-intl';
 import { useNavigate } from 'react-router-dom';
+
+import Container from '@/components/Container';
+import Button from '@/components/buttons/Button';
+import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 
 export default function SurveyFragment() {
   const t = useTranslations();

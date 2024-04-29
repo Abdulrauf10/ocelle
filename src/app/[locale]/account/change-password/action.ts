@@ -1,8 +1,9 @@
 'use server';
 
+import Joi from 'joi';
+
 import { ChangePasswordDocument } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
-import Joi from 'joi';
 
 interface ChangePasswordAction {
   currentPassword: string;

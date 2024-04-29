@@ -1,13 +1,15 @@
-import React from 'react';
-import Container from '@/components/Container';
-import EditButton from '@/components/buttons/EditButton';
+import { getTranslations } from 'next-intl/server';
 import Image from 'next/image';
-import Button from '@/components/buttons/Button';
+import React from 'react';
+
+import CollapseBlock from './CollapseBlock';
 import SectionBlock from './SectionBlock';
 import SectionHr from './SectionHr';
-import CollapseBlock from './CollapseBlock';
+
 import { getLoginedMeFullSize } from '@/actions';
-import { getTranslations } from 'next-intl/server';
+import Container from '@/components/Container';
+import Button from '@/components/buttons/Button';
+import EditButton from '@/components/buttons/EditButton';
 import { MealPlan, OrderSize } from '@/enums';
 import { getRecipeSlug } from '@/helpers/dog';
 import { addressToSentence, dogToSentence } from '@/helpers/translation';

@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl';
+
 import Stage from './Stage';
 
 function isCheckoutStage(stage: Stage) {

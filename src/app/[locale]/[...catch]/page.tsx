@@ -1,14 +1,15 @@
 'use client';
 
-import Button from '@/components/buttons/Button';
+import Image from 'next/image';
+import { useTranslations } from 'use-intl';
+
 import Container from '@/components/Container';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import Navigator from '@/components/Navigator';
 import Promotion from '@/components/Promotion';
+import Button from '@/components/buttons/Button';
 import { useRouter } from '@/navigation';
-import Image from 'next/image';
-import { useTranslations } from 'use-intl';
 
 export default function NotFound() {
   const t = useTranslations();

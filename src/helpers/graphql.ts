@@ -1,5 +1,7 @@
 import { invariant } from 'ts-invariant';
+
 import { type TypedDocumentString } from '../gql/graphql';
+
 import saleorAuthClient from '@/saleorAuthClient';
 
 type GraphQLErrorResponse = {

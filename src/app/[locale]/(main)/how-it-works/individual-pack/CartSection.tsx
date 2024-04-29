@@ -1,10 +1,12 @@
 'use client';
 
+import React from 'react';
+
+import { deleteCartLine, updateCartLine } from './actions';
+
+import CartRows from '@/components/CartRows';
 import CartDialog from '@/components/dialogs/Cart';
 import Cart from '@/components/icons/Cart';
-import CartRows from '@/components/CartRows';
-import React from 'react';
-import { deleteCartLine, updateCartLine } from './actions';
 import { useCart } from '@/contexts/cart';
 import { useRouter } from '@/navigation';
 

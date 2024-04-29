@@ -1,13 +1,13 @@
 import {
-  useFloating,
-  useClick,
-  useDismiss,
-  useRole,
-  useInteractions,
-  useMergeRefs,
-  FloatingPortal,
   FloatingFocusManager,
   FloatingOverlay,
+  FloatingPortal,
+  useClick,
+  useDismiss,
+  useFloating,
+  useInteractions,
+  useMergeRefs,
+  useRole,
 } from '@floating-ui/react';
 import clsx from 'clsx';
 import React from 'react';

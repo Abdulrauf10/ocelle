@@ -1,19 +1,21 @@
-import React from 'react';
-import Container from '@/components/Container';
-import DogSwitch from '../../DogSwitch';
-import AppThemeProvider from '@/components/AppThemeProvider';
 import { getTranslations } from 'next-intl/server';
-import FreshPlanForm from '@/components/forms/FreshPlan';
-import setMealPlanAction from './action';
-import BackButton from '@/components/buttons/BackButton';
-import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
-import { calculateTotalPerDayPrice } from '@/helpers/dog';
-import { MealPlan } from '@/enums';
 import { cookies } from 'next/headers';
-import { DOG_SELECT_COOKIE } from '@/consts';
+import React from 'react';
+
+import DogSwitch from '../../DogSwitch';
+import setMealPlanAction from './action';
+
+import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
+import AppThemeProvider from '@/components/AppThemeProvider';
+import Container from '@/components/Container';
 import { DogBoxNote } from '@/components/DogBoxNote';
-import { executeQuery } from '@/helpers/queryRunner';
+import BackButton from '@/components/buttons/BackButton';
+import FreshPlanForm from '@/components/forms/FreshPlan';
+import { DOG_SELECT_COOKIE } from '@/consts';
 import { RecurringBox } from '@/entities';
+import { MealPlan } from '@/enums';
+import { calculateTotalPerDayPrice } from '@/helpers/dog';
+import { executeQuery } from '@/helpers/queryRunner';
 
 export default async function PlanMeal() {
   const cookie = cookies();

@@ -1,13 +1,17 @@
-'use client';
+import { format, isBefore, startOfDay } from 'date-fns';
+import { getTranslations } from 'next-intl/server';
 
-import { useRouter } from '@/navigation';
+import getOrders from './action';
+
 import Container from '@/components/Container';
+import BackButton from '@/components/buttons/BackButton';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
-import { useTranslations } from 'next-intl';
+import { isDeliveredBox } from '@/helpers/dog';
 
-export default function Orders() {
-  const t = useTranslations();
-  const router = useRouter();
+export default async function Orders() {
+  const t = await getTranslations();
+  const orders = await getOrders();
+  const today = startOfDay(new Date());
 
   return (
     <main className="bg-gold bg-opacity-10 py-10">
@@ -25,33 +29,25 @@ export default function Orders() {
               </tr>
             </thead>
             <tbody className="bg-white text-center">
-              <tr>
-                <td className="px-2 py-3">[R1234]</td>
-                <td className="px-2 py-3">[DD/MM/YY]</td>
-                <td className="px-2 py-3">[Order Scheduled]</td>
-                <td className="px-2 py-3">[$500]</td>
-                <td className="px-2 py-3">
-                  <UnderlineButton label={t('see-details')} />
-                </td>
-              </tr>
-              <tr className="border-t border-t-gray">
-                <td className="px-2 py-3">[R1234]</td>
-                <td className="px-2 py-3">[DD/MM/YY]</td>
-                <td className="px-2 py-3">[Order Processing]</td>
-                <td className="px-2 py-3">[$500]</td>
-                <td className="px-2 py-3">
-                  <UnderlineButton label={t('see-details')} />
-                </td>
-              </tr>
-              <tr className="border-t border-t-gray">
-                <td className="px-2 py-3">[R1234]</td>
-                <td className="px-2 py-3">[DD/MM/YY]</td>
-                <td className="px-2 py-3">[Delivered]</td>
-                <td className="px-2 py-3">[$500]</td>
-                <td className="px-2 py-3">
-                  <UnderlineButton label={t('see-details')} />
-                </td>
-              </tr>
+              {orders.map(({ order, shipment }) => {
+                return (
+                  <tr key={order.id}>
+                    <td className="px-2 py-3">{order.number}</td>
+                    <td className="px-2 py-3">{format(shipment.deliveryDate, 'dd/MM/yy')}</td>
+                    <td className="px-2 py-3">
+                      {isDeliveredBox(shipment.deliveryDate)
+                        ? t('delivered')
+                        : isBefore(today, startOfDay(shipment.editableDeadline))
+                          ? t('order-processing')
+                          : t('order-scheduled')}
+                    </td>
+                    <td className="px-2 py-3">${order.total.gross.amount}</td>
+                    <td className="px-2 py-3">
+                      <UnderlineButton label={t('see-details')} />
+                    </td>
+                  </tr>
+                );
+              })}
               <tr className="border-t border-t-gray">
                 <td colSpan={5} className="px-2 py-3">
                   <UnderlineButton theme="primary" label={t('load-more')} />
@@ -61,7 +57,7 @@ export default function Orders() {
           </table>
         </div>
         <div className="mt-8 text-center">
-          <UnderlineButton type="button" onClick={() => router.back()} label={t('go-back')} />
+          <BackButton label={t('go-back')} />
         </div>
       </Container>
     </main>

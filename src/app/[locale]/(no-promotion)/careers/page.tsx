@@ -1,13 +1,14 @@
-import React from 'react';
-import Button from '@/components/buttons/Button';
-import Container from '@/components/Container';
-import { Career } from '@/entities';
-import { Classification, WorkPattern, WorkType } from '@/enums';
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
-import UnderlineButton from '@/components/buttons/UnderlineButton';
+import React from 'react';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
+
+import Container from '@/components/Container';
+import Button from '@/components/buttons/Button';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import Block from '@/components/layouts/Block';
+import { Career } from '@/entities';
+import { Classification, WorkPattern, WorkType } from '@/enums';
 import { executeQuery } from '@/helpers/queryRunner';
 
 async function fetchData() {

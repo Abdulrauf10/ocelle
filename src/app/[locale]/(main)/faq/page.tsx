@@ -1,10 +1,12 @@
+import Link from 'next/link';
 import React from 'react';
+
+import QuestionAnswerBlock from './QuestionAnswerBlock';
+
 import Container from '@/components/Container';
 import Newsletter from '@/components/Newsletter';
 import Email from '@/components/icons/Email';
 import Whatsapp from '@/components/icons/Whatsapp';
-import Link from 'next/link';
-import QuestionAnswerBlock from './QuestionAnswerBlock';
 
 interface BlockProps {
   id: string;

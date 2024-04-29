@@ -2,8 +2,10 @@
 
 import { useTranslations } from 'next-intl';
 import React from 'react';
+
 import FreshPlan from '../FreshPlan';
 import Button from '../buttons/Button';
+
 import { MealPlan } from '@/enums';
 import { nativeRound } from '@/helpers/number';
 import useDefaultValues from '@/hooks/defaultValues';

@@ -1,24 +1,26 @@
 'use client';
 
+import { Autocomplete, Chip, TextField } from '@mui/material';
+import clsx from 'clsx';
+import { intervalToDuration, startOfDay, subMonths, subYears } from 'date-fns';
+import equal from 'deep-equal';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Autocomplete, Chip, TextField } from '@mui/material';
-import InteractiveBlock from '../controls/InteractiveBlock';
-import UnderlineButton from '../buttons/UnderlineButton';
-import clsx from 'clsx';
-import DateCalendar from '../controls/DateCalendar';
-import Image from 'next/image';
-import PictureRadio from '../controls/PictureRadio';
+
 import Button from '../buttons/Button';
-import { ActivityLevel, AmountOfTreats, BodyCondition, CurrentlyEating, Pickiness } from '@/types';
+import UnderlineButton from '../buttons/UnderlineButton';
+import DateCalendar from '../controls/DateCalendar';
+import InteractiveBlock from '../controls/InteractiveBlock';
+import PictureRadio from '../controls/PictureRadio';
+
 import { FoodAllergies } from '@/enums';
 import { arrayToAllergies, foodAllergiesToArray, getFoodAllergiesOptions } from '@/helpers/form';
-import { DateOfBirthMethod, Gender } from '@/types/dog';
-import { intervalToDuration, startOfDay, subMonths, subYears } from 'date-fns';
-import { BreedDto } from '@/types/dto';
 import useDefaultValues from '@/hooks/defaultValues';
-import equal from 'deep-equal';
+import { ActivityLevel, AmountOfTreats, BodyCondition, CurrentlyEating, Pickiness } from '@/types';
+import { DateOfBirthMethod, Gender } from '@/types/dog';
+import { BreedDto } from '@/types/dto';
 
 interface EditDogBlockProps {
   title: string;

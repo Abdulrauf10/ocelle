@@ -1,12 +1,13 @@
 'use server';
 
-import { Dog, DogBreed } from '@/entities';
 import Joi from 'joi';
+
+import { getLoginedMe } from '@/actions';
+import { Dog, DogBreed } from '@/entities';
+import { FoodAllergies } from '@/enums';
 import { executeQuery } from '@/helpers/queryRunner';
 import { ActivityLevel, AmountOfTreats, BodyCondition, CurrentlyEating, Pickiness } from '@/types';
 import { DateOfBirthMethod, Gender } from '@/types/dog';
-import { FoodAllergies } from '@/enums';
-import { getLoginedMe } from '@/actions';
 
 interface UpdateDogAction {
   id: number;

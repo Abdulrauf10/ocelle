@@ -1,4 +1,3 @@
-import { InputControllerProps } from '@/types';
 import {
   FilledInputProps,
   InputBaseComponentProps,
@@ -9,8 +8,10 @@ import {
   SxProps,
   Theme,
 } from '@mui/material';
-import MaskedInput, { type Mask } from 'react-text-mask';
 import { Controller, type FieldValues } from 'react-hook-form';
+import MaskedInput, { type Mask } from 'react-text-mask';
+
+import { InputControllerProps } from '@/types';
 
 interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> {
   id?: string;

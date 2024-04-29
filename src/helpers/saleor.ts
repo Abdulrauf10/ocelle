@@ -1,8 +1,9 @@
+import { getLifeStage } from './dog';
+
 import { Recipe } from '@/enums';
 import { ProductFragment, WeightFragment, WeightUnitsEnum } from '@/gql/graphql';
-import { BreedDto } from '@/types/dto';
-import { getLifeStage } from './dog';
 import { subscriptionProducts } from '@/products';
+import { BreedDto } from '@/types/dto';
 
 export function weightToGrams(weight: WeightFragment) {
   switch (weight.unit) {
