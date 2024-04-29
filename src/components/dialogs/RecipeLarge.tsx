@@ -72,7 +72,7 @@ export default function RecipeLargeDialog({
             </div>
           </div>
           <Hr />
-          <DialogBlock title={t('whats-inside')}>
+          <DialogBlock title={r('whats-inside')}>
             <Swiper
               slidesPerView={1}
               spaceBetween={50}
@@ -110,7 +110,7 @@ export default function RecipeLargeDialog({
             </Swiper>
           </DialogBlock>
           <Hr />
-          <DialogBlock title={t('whats-not-inside')}>
+          <DialogBlock title={r('whats-not-inside')}>
             <div className="flex flex-wrap justify-evenly max-lg:justify-start">
               <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
                 <Image
@@ -200,7 +200,7 @@ export default function RecipeLargeDialog({
             </div>
           </DialogBlock>
           <Hr />
-          <DialogBlock title={t('nutrition-profile')}>
+          <DialogBlock title={r('nutrition-profile')}>
             <div className="-mx-6 -my-3 flex flex-wrap">
               <div className="w-1/2 px-6 py-3 max-md:w-full">
                 <div className="body-1 mt-2 flex flex-wrap justify-between">

@@ -9,7 +9,7 @@ import Block from '@/components/layouts/Block';
 import { Link } from '@/navigation';
 
 export default function OurStory() {
-  const t = useTranslations('AboutUs');
+  const a = useTranslations('AboutUs');
   return (
     <main className="overflow-x-hidden">
       <Block
@@ -17,7 +17,7 @@ export default function OurStory() {
         className=" flex min-h-[600px] flex-col justify-center bg-gold bg-opacity-10 py-4"
       >
         <Container>
-          <h1 className="heading-1 text-center font-bold text-primary">{t('we-do-it-for-them')}</h1>
+          <h1 className="heading-1 text-center font-bold text-primary">{a('we-do-it-for-them')}</h1>
           <div className="mx-auto mt-10 rounded-[30px] border border-primary bg-white p-12 text-[1.6vw] leading-[1.2] max-3xl:text-[2.4vw] max-2xl:text-[2.8vw] max-xl:mt-5 max-xl:p-10 max-xl:text-[3.4vw] max-lg:text-[3.8vw] max-md:p-8 max-md:text-[4.8vw] max-sm:text-[36px] max-xs:p-6 max-xs:text-[32px]">
             <strong className="flex items-center text-[1em] leading-[1.5em] text-primary">
               <span>
@@ -37,7 +37,7 @@ export default function OurStory() {
                   </th>
                   <th>
                     <strong className="text-[.6em] font-bold text-primary ">
-                      {t('block-1-title-1')}:
+                      {a('block-1-title-1')}:
                     </strong>
                   </th>
                 </tr>
@@ -46,13 +46,13 @@ export default function OurStory() {
                   <th>
                     <p className="mt-3 flex text-[.5em]">
                       <strong className="mr-2">a.</strong>
-                      {t.rich('block-1-content-1')}
+                      {a.rich('block-1-content-1')}
                       <br />
-                      {t.rich('block-1-content-2')}
+                      {a.rich('block-1-content-2')}
                     </p>
                     <p className="mt-3 flex text-[.5em] ">
                       <strong className="mr-2">b.</strong>
-                      {t.rich('block-1-content-3')}
+                      {a.rich('block-1-content-3')}
                     </p>
                   </th>
                 </tr>
@@ -64,9 +64,9 @@ export default function OurStory() {
                   </th>
                   <th>
                     <strong className="text-[.6em] font-bold text-primary">
-                      {t('block-1-title-2')}:
+                      {a('block-1-title-2')}:
                     </strong>
-                    <span className="text-[.5em]"> {t.rich('block-1-content-4')}</span>
+                    <span className="text-[.5em]"> {a.rich('block-1-content-4')}</span>
                   </th>
                 </tr>
               </tbody>
@@ -79,12 +79,12 @@ export default function OurStory() {
         <div className="w-1/2 bg-brown pl-[8vw] pr-[4vw] text-white max-md:w-full max-md:px-4">
           <Block>
             <h2 className="heading-1 font-bold">
-              {t.rich('block-2-title-1-1')}
-              <span className="block"> {t.rich('block-2-title-1-2')}</span>
+              {a.rich('block-2-title-1-1')}
+              <span className="block"> {a.rich('block-2-title-1-2')}</span>
             </h2>
-            <p className="body-1 mt-8">{t('block-2-content-1')}</p>
-            <p className="body-1 mt-4">{t('block-2-content-2')}</p>
-            <p className="body-1 mt-4">{t('block-2-content-3')}</p>
+            <p className="body-1 mt-8">{a('block-2-content-1')}</p>
+            <p className="body-1 mt-4">{a('block-2-content-2')}</p>
+            <p className="body-1 mt-4">{a('block-2-content-3')}</p>
           </Block>
         </div>
       </div>
@@ -94,16 +94,16 @@ export default function OurStory() {
           alt="food-1"
           width={300}
           height={250}
-          className="clip-path: inset(0 40% 0 0) absolute -left-[50px] bottom-[10%] md:hidden"
+          className="clip-path: insea(0 40% 0 0) absolute -left-[50px] bottom-[10%] md:hidden"
         />
         <Image
           src="/food-2.png"
           alt="food-2"
           width={320}
           height={220}
-          className="left-30 clip-path: inset(0 40% 0 0) absolute -right-[60px] bottom-[15%] md:hidden"
+          className="left-30 clip-path: insea(0 40% 0 0) absolute -right-[60px] bottom-[15%] md:hidden"
           style={{
-            clipPath: 'inset(0 19% 0 0)',
+            clipPath: 'insea(0 19% 0 0)',
           }}
         />
         <Image
@@ -111,7 +111,7 @@ export default function OurStory() {
           alt="food-3"
           width={220}
           height={220}
-          className="left-30 absolute -right-[40px] -top-[40px] [clip-path:inset(0_19%_0_0)] md:hidden"
+          className="left-30 absolute -right-[40px] -top-[40px] [clip-path:insea(0_19%_0_0)] md:hidden"
         />
         <div className="z-40 flex w-1/2 justify-end max-md:w-full max-md:justify-center">
           <div className="mr-8 w-full max-w-[380px] pt-10 max-md:mx-4">
@@ -130,22 +130,22 @@ export default function OurStory() {
               className="max-md:mx-auto"
             />
           </div>
-          <h2 className="heading-1 pt-6 font-bold max-md:text-center">{t('block-3-title-1')}</h2>
-          <p className="body-1 mt-4 w-2/3 max-xl:w-full">{t('block-3-content-1')}</p>
+          <h2 className="heading-1 pt-6 font-bold max-md:text-center">{a('block-3-title-1')}</h2>
+          <p className="body-1 mt-4 w-2/3 max-xl:w-full">{a('block-3-content-1')}</p>
         </div>
       </div>
       <div className="flex flex-wrap xl:h-[794px]">
         <div className="w-1/2 bg-secondary bg-opacity-20 pl-[8vw] pr-[4vw] max-lg:w-full max-lg:px-4">
           <Block>
             <h2 className="heading-1 inline-block font-bold text-secondary max-[300px]:block">
-              {t('block-4-title-1-1')}
-              {t.rich('block-4-title-1-2')}
+              {a('block-4-title-1-1')}
+              {a.rich('block-4-title-1-2')}
             </h2>
-            <p className="body-1 mt-8">{t('block-4-content-1')}</p>
-            <p className="body-1 mt-4">{t('block-4-content-2')}</p>
-            <p className="body-1 mt-4">{t('block-4-content-3')}</p>
-            <p className="body-1 mt-4">{t('block-4-content-4')}</p>
-            <p className="body-1 mt-4">{t('block-4-content-5')}</p>
+            <p className="body-1 mt-8">{a('block-4-content-1')}</p>
+            <p className="body-1 mt-4">{a('block-4-content-2')}</p>
+            <p className="body-1 mt-4">{a('block-4-content-3')}</p>
+            <p className="body-1 mt-4">{a('block-4-content-4')}</p>
+            <p className="body-1 mt-4">{a('block-4-content-5')}</p>
           </Block>
         </div>
         <div className="flex min-h-[380px] w-1/2 items-end bg-secondary bg-opacity-80 max-lg:w-full">
@@ -159,9 +159,9 @@ export default function OurStory() {
       <Block styles="normal" className="h-[280px] bg-dark-green py-10">
         <Container className="text-center text-white" screen>
           <h2 className="heading-1 font-bold">
-            {t('block-5-title-1-1')}
+            {a('block-5-title-1-1')}
             <br />
-            {t('block-5-title-1-2')}
+            {a('block-5-title-1-2')}
           </h2>
           <div className="mb-1 mt-10">
             <Button href="/get-started">Start Your Fresh Journey</Button>
@@ -172,11 +172,11 @@ export default function OurStory() {
         <Container className="text-center text-primary">
           <h2 className="heading-1 font-bold">Our Community</h2>
           <p className="body-1 mx-auto mt-6 max-w-4xl">
-            {t.rich('block-6-content-1-1')}
+            {a.rich('block-6-content-1-1')}
             <Link href="/affiliate-program" className="text-secondary hover:underline">
-              {t('block-6-content-1-2')}
+              {a('block-6-content-1-2')}
             </Link>
-            {t('block-6-content-1-3')}
+            {a('block-6-content-1-3')}
           </p>
           <div className="relative -z-10 -mx-32 -mt-[5%] flex justify-center overflow-hidden max-2xl:mx-0">
             <div className="w-full max-md:min-w-[110%]">

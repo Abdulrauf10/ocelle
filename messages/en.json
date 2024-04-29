@@ -169,7 +169,6 @@
   "dehydrated": "Dehydrated",
   "fresh": "Fresh",
   "fresh-{}": "Fresh {value}",
-
   "homemade": "Homemade",
   "other": "Other",
   "how-many-treats-or-table-scraps-does-{}-normally-get": "How many treats or table scraps <br></br>does {name} normally get?",
@@ -452,7 +451,10 @@
     "crude-protein": "Crude Protein",
     "crude-fat": "Crude Fat",
     "crude-firbe": "Crude Firbe",
-    "moisture": "Moisture"
+    "moisture": "Moisture",
+    "whats-inside": "What’s Inside?",
+    "whats-not-inside": "What’s Not Inside?",
+    "nutrition-profile": "Nutrition Profile"
   },
   "Ingredients": {
     "chicken-breast": "Chicken Breast",
@@ -504,12 +506,9 @@
     "whole-grain-pasta": "Whole-Grain Pasta",
     "whole-grain-pasta-description": "A source of complex carbohydrates, whole grain pasta provides sustained energy. It is also a good source of fibre, which aids in digestion, and B vitamins for energy metabolism.",
     "lamb-leg-boneless": "Lamb Leg (Boneless)",
-    "lamb-leg-boneless-description": ""
+    "lamb-leg-boneless-description": "Lamb is a highly palatable meat and an excellent source of quality protein and essential fats, which help with energy levels, proper growth, and overall health. It's also a good source of iron and zinc, which are crucial for immune function and skin health."
   },
 
-  "whats-inside": "What’s Inside?",
-  "whats-not-inside": "What’s Not Inside?",
-  "nutrition-profile": "Nutrition Profile",
   "see-my-recipes": "See My Recipes",
   "your-order-will-be-delivered-on-the-{}": "Your order will be delivered on the <b>{date}</b>.",
   "your-cart": "Your Cart",
