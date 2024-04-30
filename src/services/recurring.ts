@@ -1,5 +1,5 @@
 import { addDays, startOfDay } from 'date-fns';
-import { In, LessThan, MoreThan, MoreThanOrEqual, QueryRunner } from 'typeorm';
+import { In, IsNull, LessThan, MoreThan, MoreThanOrEqual, QueryRunner } from 'typeorm';
 
 import { orderRecurringBox } from './api';
 import { getCalendarEvents } from './calendar';
@@ -189,16 +189,14 @@ export async function handleRecurringBox(id: string) {
         user: {
           id,
         },
+        boxs: {
+          prevBox: IsNull(),
+        },
       },
       relations: {
         breeds: { breed: true },
         plan: true,
         boxs: true,
-      },
-      order: {
-        boxs: {
-          startDate: -1,
-        },
       },
     });
 
@@ -261,6 +259,7 @@ export async function handleRecurringBox(id: string) {
         endDate: addDays(startDate, user.orderSize === OrderSize.OneWeek ? 7 : 14),
         dog,
         shipment,
+        prevBox,
       });
       orderLines.push({ dog, box });
     }

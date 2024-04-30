@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, type Relation } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, TreeChildren, TreeParent, type Relation } from 'typeorm';
 import { Dog, Order, Shipment } from '.';
 import { MealPlan, OrderSize, Recipe } from '@/enums';
 
@@ -36,4 +36,11 @@ export default class RecurringBox {
 
   @ManyToOne(() => Dog, (dog: Dog) => dog.boxs)
   dog!: Relation<Dog>;
+
+  @OneToOne(() => RecurringBox, (box) => box.nextBox)
+  @JoinColumn()
+  prevBox?: RecurringBox;
+
+  @OneToOne(() => RecurringBox, (box) => box.prevBox)
+  nextBox?: RecurringBox;
 }
