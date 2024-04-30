@@ -74,6 +74,12 @@ export async function setupRecurringBox(
       throw new Error('user not found');
     }
     const shipment = await upsertEditableShipmentRecord(queryRunner, id, preferDeliveryDate);
+    // no any dog configurations
+    const defaultStartDate = addDays(startOfDay(preferDeliveryDate), 1);
+    // try to sync with existing box if exists
+    const startDate =
+      shipment.boxs.length > 0 ? findMostMatchBoxStartDate(shipment.boxs) : defaultStartDate;
+    const endDate = addDays(startDate, user.orderSize === OrderSize.OneWeek ? 7 : 14);
     const order = queryRunner.manager.create(Order, {
       id: saleorOrder.id,
       createdAt: new Date(saleorOrder.created),
@@ -121,19 +127,13 @@ export async function setupRecurringBox(
           recipe1: dogs[i].recipe1,
           recipe2: dogs[i].recipe2,
           isEnabledTransitionPeriod: dogs[i].isEnabledTransitionPeriod,
-          startDate: addDays(startOfDay(new Date()), 1),
+          startDate,
           isEnabled: true,
           dog,
         })
       );
     }
     await queryRunner.manager.save(plans);
-    // no any dog configurations
-    const defaultStartDate = addDays(startOfDay(preferDeliveryDate), 1);
-    // try to sync with existing box if exists
-    const startDate =
-      shipment.boxs.length > 0 ? findMostMatchBoxStartDate(shipment.boxs) : defaultStartDate;
-    const endDate = addDays(startDate, user.orderSize === OrderSize.OneWeek ? 7 : 14);
     const recurringRecords = [];
     for (let i = 0; i < dogs.length; i++) {
       const dog = dbDogs[i];
