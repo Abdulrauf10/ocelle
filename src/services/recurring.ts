@@ -213,8 +213,28 @@ export async function handleRecurringBox(id: string) {
       }
     }
 
+    if (!shipment) {
+      // shipment not exists due to errors, re-create the shipment and re-run on next day
+      if (minEndDate) {
+        const deliveryDate = getEditableRecurringBoxDeadlineByStartDate(
+          events,
+          addDays(minEndDate, 1)
+        );
+        await queryRunner.manager.save(
+          queryRunner.manager.create(Shipment, {
+            editableDeadline: getEditableRecurringBoxDeadline(events, deliveryDate),
+            deliveryDate,
+            user: {
+              id,
+            },
+          })
+        );
+      }
+      return;
+    }
+
     // shipment already bind with the boxs
-    if (!shipment || shipment.boxs.length > 0) {
+    if (shipment.boxs.length > 0) {
       return;
     }
 
