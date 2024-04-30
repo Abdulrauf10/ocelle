@@ -11,7 +11,7 @@ import ImageContentBlock from '@/components/layouts/ImageContentBlock';
 
 export default function HowItWorksSubscription() {
   const t = useTranslations();
-
+  const b = useTranslations('Button');
   return (
     <main>
       <div className="bg-[#E8E4DB]">
@@ -28,7 +28,7 @@ export default function HowItWorksSubscription() {
               your dog&apos;s health goals and ongoing needs.
             </p>
             <div className="mt-5 max-lg:flex max-lg:justify-center">
-              <Button href="/get-started">{t('get-started')}</Button>
+              <Button href="/get-started">{b('get-started')}</Button>
             </div>
           </div>
           <div className="w-3/5 self-start pb-[2vw] max-lg:w-full">
@@ -45,7 +45,7 @@ export default function HowItWorksSubscription() {
             <HowPlanWorks />
           </div>
           <div className="mt-2 text-center">
-            <Button href="/get-started">{t('build-my-plan')}</Button>
+            <Button href="/get-started">{b('build-my-plan')}</Button>
           </div>
         </Container>
       </Block>
@@ -87,7 +87,7 @@ export default function HowItWorksSubscription() {
             </div>
           </div>
           <div className="mt-5 text-center">
-            <Button href="/get-started">{t('see-my-plan')}</Button>
+            <Button href="/get-started">{b('see-my-plan')}</Button>
           </div>
         </Container>
       </Block>
@@ -111,7 +111,7 @@ export default function HowItWorksSubscription() {
             needs. After all, you know your dog best of all!
           </p>
           <div className="mt-5 max-lg:flex max-lg:justify-center">
-            <Button href="/get-started">{t('see-my-recipes')}</Button>
+            <Button href="/get-started">{b('see-my-recipes')}</Button>
           </div>
         </div>
       </ImageContentBlock>
@@ -127,7 +127,7 @@ export default function HowItWorksSubscription() {
             evolve with your dog, delivering maximum benefits at every bowl.
           </p>
           <div className="mt-5 max-lg:flex max-lg:justify-center">
-            <Button href="/get-started">{t('build-my-plan')}</Button>
+            <Button href="/get-started">{b('build-my-plan')}</Button>
           </div>
         </div>
       </ImageContentBlock>
@@ -161,7 +161,7 @@ export default function HowItWorksSubscription() {
             Dinner is served!
           </p>
           <div className="mt-5 max-lg:flex max-lg:justify-center">
-            <Button href="/get-started">{t('get-started')}</Button>
+            <Button href="/get-started">{b('get-started')}</Button>
           </div>
         </div>
       </ImageContentBlock>
@@ -201,7 +201,7 @@ export default function HowItWorksSubscription() {
             </div>
             <div className="text-center">
               <Button href="/get-started" className="mt-8">
-                Try It Today
+                {b('try-it-today')}
               </Button>
             </div>
           </div>

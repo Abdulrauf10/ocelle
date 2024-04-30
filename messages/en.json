@@ -55,7 +55,7 @@
   "save-changes": "Save Changes",
   "continue": "Continue",
   "continue-to-{}": "Continue To {name}",
-  "see-details": "See Details",
+
   "first-name": "First Name",
   "last-name": "Last Name",
   "email": "Email",
@@ -348,7 +348,13 @@
     "see-your-recipes": "See Your Recipes",
     "build-my-plan": "Build My Plan",
     "create-your-plan": "Create Your Plan",
-    "nutrition": "Nutrition"
+    "see-details": "See Details",
+    "nutrition": "Nutrition",
+    "apply": "apply",
+    "see-my-recipes": "See My Recipes",
+    "try-it-today": "Try It Today",
+
+    "submit-application": "Submit Application"
   },
   "Home": {
     "block-1-title-1": "Nutrition They Need.",
@@ -533,20 +539,15 @@
   "copper-amino-acid-chelate": "Copper Amino Acid Chelate",
   "taurine": "Taurine",
   "choline-bitartrate": "Choline Bitartrate",
-  "resume-cv": "Resume/CV",
   "cover-letter": "Cover Letter",
-  "attach-{}": "Attach {value}",
   "attached": "Attached",
   "required": "Required",
   "submit-your-application": "Submit Your Application",
-  "submit-application": "Submit Application",
   "thank-you-for-applying": "Thank You For Applying!",
   "thank-you-for-applying:description": "Your application for the {title} role has been successfully submitted. We’re excited to learn more about you and will be in touch if you move forward in the process.",
   "this-{}-doesn-t-look-correct-please-update-it": "This {name} doesn’t look correct, please update it.",
-  "please-enter-a-valid-{}": "Please enter a valid {name}.",
-  "file-size-cannot-exceed-{}-mb": "File size cannot exceed {value} MB",
   "You-ve-indicated-that-{}-has-no-allergies-None-as-well-as-allergies-to-{}-please-recheck-and-re-enter-your-selection": "You’ve indicated that {name} has no allergies (“None!”) as well as allergies to {value}. Please recheck and re-enter your selection.",
-  "file-types-{}": "File Types: {value} ",
+  "please-enter-a-valid-{}": "Please enter a valid {name}.",
   "AboutUs": {
     "we-do-it-for-them": "We Do It For Them",
     "block-1-title-1": "Figurative",
@@ -574,5 +575,25 @@
     "block-6-content-1-1": "Are you as passionate as we are about giving your dog(s) the best? We’re firm believers in the strength of community to bring about real transformation. If you&apos;re interested in helping us spread our mission to make a <i>paws-itive</i> impact on canine lives,",
     "block-6-content-1-2": " apply here ",
     "block-6-content-1-3": "to become an OCELLE Affiliate."
+  },
+  "Careers": {
+    "what-you’ll-do": "What You’ll Do:",
+    "what-you’ll-need": "What You’ll Need:",
+    "benefits": "Benefits:",
+    "block-1-title": "Dog People Wanted",
+    "block-1-content": "Make a living helping dogs live happier, healthier lives.",
+    "block-2-content-1": "While we don't currently have any positions open, we're always on the lookout for talented individuals who share our love for wagging tails and healthy dogs.",
+    "block-2-content-2": "If you're eager to make a difference, please send your resume to ",
+    "block-2-content-3": ". You never know, the paw-fect opportunity might just arise!",
+    "block-2-content-4": "We look forward to hearing from you!",
+    "detail-content-1": "OCELLE was born with the mission of improving the lives of pets and pet parents nationwide. We make human-grade pet food, tailored for each dog’s nutritional needs, and deliver directly to our customers’ doors. Through OCELLE’s carefully crafted meals and health services for members, dogs can truly live their healthiest, happiest lives.",
+    "detail-content-2": "As a member of our growing team, you’ll take part in a company culture that cares deeply about its work and its team members. We move fast, value autonomy and ownership, and are always looking for new ideas.",
+    "detail-content-3": "At OCELLE we know that people are the heart of the business, and we prioritise their welfare. OCELLE embraces diversity and equal opportunity. We're committed to building a team that represents a variety of backgrounds, perspectives, and skills. OCELLE is an equal opportunity employer and does not discriminate on the basis of race, national origin, gender, gender identity, sexual orientation, disability, age, or other legally protected status. For individuals with disabilities who would like to request an accommodation, please include that in your application.",
+    "file-types-{}": "File Types: {value} ",
+
+    "file-size-cannot-exceed-{}-mb": "File size cannot exceed {value} MB",
+    "resume-cv": "Resume/CV",
+
+    "attach-{}": "Attach {value}"
   }
 }
