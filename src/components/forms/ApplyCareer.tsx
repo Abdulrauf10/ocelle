@@ -122,6 +122,8 @@ export default function ApplyCareerForm({
   action(formData: FormData): Promise<void>;
 }) {
   const t = useTranslations();
+  const c = useTranslations('Careers');
+  const b = useTranslations('Button');
   const {
     control,
     formState: { isValid, errors },
@@ -259,29 +261,29 @@ export default function ApplyCareerForm({
                   <div className="flex items-start">
                     <div className="body-3 mb-5 mr-2 flex h-[40px] w-[95px] min-w-[95px] items-center">
                       <label htmlFor="resume">
-                        {t('resume-cv')}
+                        {c('resume-cv')}
                         <span className="relative top-[-2px] text-error">*</span>
                       </label>
                     </div>
                     <FileInput
                       control={control}
                       name="resume"
-                      label={t('attach-{}', { value: t('resume-cv') })}
+                      label={c('attach-{}', { value: c('resume-cv') })}
                       rules={{
                         required: true,
                         validate: (file) => {
                           if (!file || !(file instanceof File)) {
                             return t('please-enter-a-valid-{}', {
-                              name: t('resume-cv').toLowerCase(),
+                              name: c('resume-cv').toLowerCase(),
                             });
                           }
                           return (
                             file.size < 1048576 * MAX_FILE_SIZE_MB ||
-                            t('file-size-cannot-exceed-{}-mb', { value: MAX_FILE_SIZE_MB })
+                            c('file-size-cannot-exceed-{}-mb', { value: MAX_FILE_SIZE_MB })
                           );
                         },
                       }}
-                      helperText={t('file-types-{}', {
+                      helperText={c('file-types-{}', {
                         value: 'PDF, doc, docx, txt, rtf',
                       })}
                     />
@@ -295,7 +297,7 @@ export default function ApplyCareerForm({
                     <FileInput
                       control={control}
                       name="coverLetter"
-                      label={t('attach-{}', { value: t('cover-letter') })}
+                      label={c('attach-{}', { value: t('cover-letter') })}
                       rules={{
                         validate: (file) => {
                           if (!file) {
@@ -303,23 +305,23 @@ export default function ApplyCareerForm({
                           }
                           if (!(file instanceof File)) {
                             return t('please-enter-a-valid-{}', {
-                              name: t('resume-cv').toLowerCase(),
+                              name: c('resume-cv').toLowerCase(),
                             });
                           }
                           return (
                             file.size < 1048576 * MAX_FILE_SIZE_MB ||
-                            t('file-size-cannot-exceed-{}-mb', { value: MAX_FILE_SIZE_MB })
+                            c('file-size-cannot-exceed-{}-mb', { value: MAX_FILE_SIZE_MB })
                           );
                         },
                       }}
-                      helperText={t('file-types-{}', {
+                      helperText={c('file-types-{}', {
                         value: 'PDF, doc, docx, txt, rtf',
                       })}
                     />
                   </div>
                 </div>
                 <div className="w-full px-4 py-4 text-center">
-                  <Button disabled={!isValid}>{t('submit-application')}</Button>
+                  <Button disabled={!isValid}>{b('submit-application')}</Button>
                 </div>
               </div>
             </form>

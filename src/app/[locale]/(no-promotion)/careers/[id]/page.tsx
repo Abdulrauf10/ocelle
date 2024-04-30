@@ -47,8 +47,8 @@ function CareerBlock({ title, lines }: { title: string; lines: CareerLine[] }) {
 
 export default async function CareerView({ params }: { params: { id: string } }) {
   const career = await fetchData(parseInt(params.id));
-  const t = await getTranslations();
-
+  const c = await getTranslations('Careers');
+  const b = await getTranslations('Button');
   if (!career) {
     notFound();
   }
@@ -58,47 +58,30 @@ export default async function CareerView({ params }: { params: { id: string } })
       <Title career={career} />
       <Block styles="custom" className="bg-gold bg-opacity-10 py-6">
         <Container className="max-w-screen-lg">
-          <p className="body-3">
-            OCELLE was born with the mission of improving the lives of pets and pet parents
-            nationwide. We make human-grade pet food, tailored for each dog’s nutritional needs, and
-            deliver directly to our customers’ doors. Through OCELLE’s carefully crafted meals and
-            health services for members, dogs can truly live their healthiest, happiest lives.
-          </p>
-          <p className="body-3 mt-6">
-            As a member of our growing team, you’ll take part in a company culture that cares deeply
-            about its work and its team members. We move fast, value autonomy and ownership, and are
-            always looking for new ideas.
-          </p>
+          <p className="body-3">{c('detail-content-1')}</p>
+          <p className="body-3 mt-6">{c('detail-content-2')}</p>
           <div className="mt-6">
             <CareerBlock
-              title="What You’ll Do:"
+              title={c('what-you’ll-do')}
               lines={career.lines.filter((line) => line.lineType === CareerLineType.Responsibility)}
             />
           </div>
           <div className="mt-6">
             <CareerBlock
-              title="What You’ll Need:"
+              title={c('what-you’ll-need')}
               lines={career.lines.filter((line) => line.lineType === CareerLineType.Requirement)}
             />
           </div>
           <div className="mt-6">
             <CareerBlock
-              title="Benefits:"
+              title={c('benefits')}
               lines={career.lines.filter((line) => line.lineType === CareerLineType.Benefit)}
             />
           </div>
-          <p className="body-3 mt-6 italic">
-            At OCELLE we know that people are the heart of the business, and we prioritise their
-            welfare. OCELLE embraces diversity and equal opportunity. We&apos;re committed to
-            building a team that represents a variety of backgrounds, perspectives, and skills.
-            OCELLE is an equal opportunity employer and does not discriminate on the basis of race,
-            national origin, gender, gender identity, sexual orientation, disability, age, or other
-            legally protected status. For individuals with disabilities who would like to request an
-            accommodation, please include that in your application.
-          </p>
+          <p className="body-3 mt-6 italic">{c('detail-content-3')}</p>
           <div className="mt-6 text-center">
             <Button className="min-w-[180px]" href={`./${params.id}/apply`}>
-              {t('apply')}
+              {b('apply')}
             </Button>
           </div>
         </Container>

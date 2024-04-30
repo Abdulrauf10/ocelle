@@ -37,7 +37,7 @@ async function fetchData() {
 
 function CareerBlock({ career }: { career: Career }) {
   const t = useTranslations();
-
+  const b = useTranslations('Button');
   return (
     <div className="mt-4 rounded-2xl bg-white px-10 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-sm:px-4 max-sm:py-6">
       <div className="-mx-3 -my-2 flex items-center max-xs:flex-wrap">
@@ -67,7 +67,7 @@ function CareerBlock({ career }: { career: Career }) {
             href={`./careers/${career.id}`}
             className="whitespace-nowrap !text-base"
           >
-            {t('see-details')}
+            {b('see-details')}
           </Button>
         </div>
       </div>
@@ -79,15 +79,13 @@ export default async function Careers() {
   const { count, operations, marketing, financeAndAccounting, technology, sales } =
     await fetchData();
   const t = await getTranslations();
-
+  const c = await getTranslations('Careers');
   return (
     <main>
       <Block styles="narrow" className="bg-primary bg-opacity-10">
         <Container>
-          <h1 className="heading-2 text-center font-bold text-primary">Dog People Wanted</h1>
-          <p className="body-3 mt-2 text-center text-secondary">
-            Make a living helping dogs live happier, healthier lives.
-          </p>
+          <h1 className="heading-2 text-center font-bold text-primary">{c('block-1-title')}</h1>
+          <p className="body-3 mt-2 text-center text-secondary">{c('block-1-content')}</p>
         </Container>
       </Block>
       <Block styles="custom" className="bg-gold bg-opacity-10 pb-6 pt-4 max-xl:py-10">
@@ -139,23 +137,17 @@ export default async function Careers() {
             </div>
           ) : (
             <div className="body-3 mx-auto max-w-[640px] text-center">
-              <p>
-                While we don&apos;t currently have any positions open, we&apos;re always on the
-                lookout for talented individuals who share our love for wagging tails and healthy
-                dogs.
-              </p>
+              <p>{c('block-2-content-1')}</p>
               <p className="mt-4">
-                If you&apos;re eager to make a difference, please send your resume to&nbsp;
+                {c('block-2-content-2')}
                 <UnderlineButton
                   label="careers@ocelle.dog"
                   theme="primary"
                   href="mailto:careers@ocelle.dog"
                 />
-                . You never know, the paw-fect opportunity might just arise!
+                {c('block-2-content-3')}
               </p>
-              <p className="mt-6 font-bold italic text-primary">
-                We look forward to hearing from you!
-              </p>
+              <p className="mt-6 font-bold italic text-primary">{c('block-2-content-4')}</p>
             </div>
           )}
         </Container>
