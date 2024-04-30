@@ -1,4 +1,4 @@
-import { addDays, isBefore, minTime, startOfDay } from 'date-fns';
+import { addDays, startOfDay } from 'date-fns';
 import { In, LessThan, MoreThan, MoreThanOrEqual, QueryRunner } from 'typeorm';
 
 import { orderRecurringBox } from './api';
@@ -9,7 +9,6 @@ import { OrderSize } from '@/enums';
 import StripeNotReadyError from '@/errors/StripeNotReadyError';
 import { OrderFragment } from '@/gql/graphql';
 import {
-  getClosestOrderDeliveryDate,
   getEditableRecurringBoxDeadline,
   getEditableRecurringBoxDeadlineByStartDate,
 } from '@/helpers/dog';

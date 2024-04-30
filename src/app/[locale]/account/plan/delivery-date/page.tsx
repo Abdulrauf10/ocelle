@@ -15,24 +15,14 @@ import { executeQuery } from '@/helpers/queryRunner';
 import { getCalendarEvents } from '@/services/calendar';
 
 export default async function PlanDeliveryDate() {
-  const { dogs, id } = await getLoginedMe();
+  const { id } = await getLoginedMe();
   const t = await getTranslations();
   const calendarEvents = await getCalendarEvents();
   const closestDeliveryDate = getClosestOrderDeliveryDate(calendarEvents);
   const shipments = await executeQuery(async (queryRunner) => {
     return await queryRunner.manager.find(Shipment, {
       where: {
-        boxs: {
-          dog: {
-            user: { id },
-          },
-        },
-      },
-      relations: {
-        boxs: {
-          dog: true,
-          order: true,
-        },
+        user: { id },
       },
       order: {
         deliveryDate: -1,

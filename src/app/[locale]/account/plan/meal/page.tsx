@@ -12,10 +12,8 @@ import BackButton from '@/components/buttons/BackButton';
 import FreshPlanForm from '@/components/forms/FreshPlan';
 import RecurringBoxNote from '@/components/notes/RecurringBox';
 import { DOG_SELECT_COOKIE } from '@/consts';
-import { RecurringBox } from '@/entities';
 import { MealPlan } from '@/enums';
 import { calculateTotalPerDayPrice } from '@/helpers/dog';
-import { executeQuery } from '@/helpers/queryRunner';
 
 export default async function PlanMeal() {
   const cookie = cookies();
@@ -25,16 +23,6 @@ export default async function PlanMeal() {
   const dog = currentSelectedDogId
     ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
     : dogs[0];
-  const boxs = await executeQuery(async (queryRunner) => {
-    return queryRunner.manager.find(RecurringBox, {
-      where: {
-        dog: { id: dog.id },
-      },
-      relations: {
-        shipment: true,
-      },
-    });
-  });
 
   const fullPlanPerDayPrice = calculateTotalPerDayPrice(
     dog.breeds.map(({ breed }) => breed),

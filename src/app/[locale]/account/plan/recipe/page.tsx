@@ -11,8 +11,6 @@ import BackButton from '@/components/buttons/BackButton';
 import RecipeForm from '@/components/forms/Recipe';
 import RecurringBoxNote from '@/components/notes/RecurringBox';
 import { DOG_SELECT_COOKIE } from '@/consts';
-import { RecurringBox } from '@/entities';
-import { executeQuery } from '@/helpers/queryRunner';
 
 export default async function PlanRecipe() {
   const cookie = cookies();
@@ -22,16 +20,6 @@ export default async function PlanRecipe() {
   const dog = currentSelectedDogId
     ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
     : dogs[0];
-  const boxs = await executeQuery(async (queryRunner) => {
-    return queryRunner.manager.find(RecurringBox, {
-      where: {
-        dog: { id: dog.id },
-      },
-      relations: {
-        shipment: true,
-      },
-    });
-  });
 
   return (
     <AppThemeProvider>
