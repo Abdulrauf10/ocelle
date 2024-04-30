@@ -4,11 +4,14 @@ import { In, IsNull, LessThan, MoreThan, MoreThanOrEqual, QueryRunner } from 'ty
 import { orderRecurringBox } from './api';
 import { getCalendarEvents } from './calendar';
 
+import { getClosestDeliveryDate } from '@/actions';
 import { Dog, DogBreed, DogPlan, Order, RecurringBox, Shipment, User } from '@/entities';
 import { OrderSize } from '@/enums';
 import StripeNotReadyError from '@/errors/StripeNotReadyError';
 import { OrderFragment } from '@/gql/graphql';
+import { maxDate } from '@/helpers/date';
 import {
+  getClosestOrderDeliveryDate,
   getEditableRecurringBoxDeadline,
   getEditableRecurringBoxDeadlineByStartDate,
 } from '@/helpers/dog';
@@ -206,16 +209,16 @@ export async function handleRecurringBox(id: string) {
         throw new Error('dog do not have starter box');
       }
       if (dog.plan.isEnabled && (!minEndDate || dog.boxs[0].endDate < minEndDate)) {
-        minEndDate = dog.boxs[0].startDate;
+        minEndDate = dog.boxs[0].endDate;
       }
     }
 
     if (!shipment) {
       // shipment not exists due to errors, re-create the shipment and re-run on next day
       if (minEndDate) {
-        const deliveryDate = getEditableRecurringBoxDeadlineByStartDate(
-          events,
-          addDays(minEndDate, 1)
+        const deliveryDate = maxDate(
+          getEditableRecurringBoxDeadlineByStartDate(events, addDays(minEndDate, 1)),
+          getClosestOrderDeliveryDate(events)
         );
         await queryRunner.manager.save(
           queryRunner.manager.create(Shipment, {
@@ -283,9 +286,9 @@ export async function handleRecurringBox(id: string) {
     }
 
     if (minEndDate) {
-      const deliveryDate = getEditableRecurringBoxDeadlineByStartDate(
-        events,
-        addDays(minEndDate, 1)
+      const deliveryDate = maxDate(
+        getEditableRecurringBoxDeadlineByStartDate(events, addDays(minEndDate, 1)),
+        getClosestOrderDeliveryDate(events)
       );
       await queryRunner.manager.save(
         queryRunner.manager.create(Shipment, {
