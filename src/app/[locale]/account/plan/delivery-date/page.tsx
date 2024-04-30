@@ -5,10 +5,10 @@ import setDeliveryDateAction from './action';
 
 import { getLoginedMe } from '@/actions';
 import Container from '@/components/Container';
-import { ShippableNote } from '@/components/ShippableNote';
 import BackButton from '@/components/buttons/BackButton';
 import Button from '@/components/buttons/Button';
 import DeliveryDatePickerDialog from '@/components/dialogs/DeliveryDatePicker';
+import ShippableNote from '@/components/notes/Shippable';
 import { Shipment } from '@/entities';
 import { getClosestOrderDeliveryDate } from '@/helpers/dog';
 import { executeQuery } from '@/helpers/queryRunner';
@@ -48,7 +48,7 @@ export default async function PlanDeliveryDate() {
           {t('change-{}', { value: t('delivery-date') })}
         </h1>
         <div className="mx-auto mt-4 max-w-[620px] text-center">
-          <ShippableNote shipments={shipments} />
+          <ShippableNote />
         </div>
         {shipments[0].editableDeadline > startOfDay(new Date()) && (
           <div className="mt-8 text-center">

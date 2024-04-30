@@ -8,9 +8,9 @@ import setMealPlanAction from './action';
 import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
-import { DogBoxNote } from '@/components/DogBoxNote';
 import BackButton from '@/components/buttons/BackButton';
 import FreshPlanForm from '@/components/forms/FreshPlan';
+import RecurringBoxNote from '@/components/notes/RecurringBox';
 import { DOG_SELECT_COOKIE } from '@/consts';
 import { RecurringBox } from '@/entities';
 import { MealPlan } from '@/enums';
@@ -80,7 +80,7 @@ export default async function PlanMeal() {
             {t('choose-{}-fresh-recipes', { name: dog.name })}
           </h1>
           <div className="mx-auto mt-4 max-w-[620px] text-center">
-            <DogBoxNote name={dog.name} boxs={boxs} />
+            <RecurringBoxNote id={dog.id} />
           </div>
           <FreshPlanForm
             initialPlan={dog.plan.mealPlan}

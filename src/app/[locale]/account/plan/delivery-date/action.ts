@@ -2,10 +2,10 @@
 
 import { startOfDay } from 'date-fns';
 import Joi from 'joi';
-import { In, MoreThanOrEqual } from 'typeorm';
+import { MoreThanOrEqual } from 'typeorm';
 
 import { getLoginedMe } from '@/actions';
-import { RecurringBox, Shipment } from '@/entities';
+import { Shipment } from '@/entities';
 import { getEditableRecurringBoxDeadline } from '@/helpers/dog';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getCalendarEvents } from '@/services/calendar';
@@ -36,35 +36,17 @@ export default async function setDeliveryDateAction(data: SetDeliveryDateAction)
   }
 
   await executeQuery(async (queryRunner) => {
-    const data = await queryRunner.manager.find(Shipment, {
+    const shipment = await queryRunner.manager.findOne(Shipment, {
       where: {
         user: {
           id: me.id,
         },
         editableDeadline: MoreThanOrEqual(today),
       },
-      relations: {
-        boxs: {
-          dog: true,
-        },
-      },
     });
 
-    if (data.length === 0) {
-      throw new Error('shipments not found');
-    }
-
-    const shipment = data[0];
-
-    if (data.length > 1) {
-      // merge all shipments into single one
-      const boxIds = [];
-      for (const shipment of data) {
-        for (const box of shipment.boxs) {
-          boxIds.indexOf(box.id) === -1 && boxIds.push(box.id);
-        }
-      }
-      await queryRunner.manager.update(RecurringBox, { id: In(boxIds) }, { shipment });
+    if (!shipment) {
+      throw new Error('shipment not found');
     }
 
     await queryRunner.manager.update(Shipment, shipment.id, {

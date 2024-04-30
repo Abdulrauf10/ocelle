@@ -29,7 +29,7 @@ export default class RecurringBox {
   endDate!: Date;
 
   @ManyToOne(() => Order, (order) => order.boxs)
-  order?: Relation<Order>; // box will auto lock after order has been set
+  order!: Relation<Order>;
 
   @ManyToOne(() => Shipment, (shipment) => shipment.boxs)
   shipment!: Relation<Shipment>;

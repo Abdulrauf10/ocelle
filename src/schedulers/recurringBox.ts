@@ -1,27 +1,32 @@
-import { startOfDay } from 'date-fns';
-import { LessThan, MoreThan } from 'typeorm';
-
-import { Shipment } from '@/entities';
+import { Shipment, User } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
 import { handleRecurringBox } from '@/services/recurring';
 
 export default async function recurringBoxScheduler() {
   console.log('[Recurring Box] Start: %s', new Date());
-  const today = startOfDay(new Date());
+  console.log();
   const shipments = await executeQuery(async (queryRunner) => {
-    return queryRunner.manager.find(Shipment, {
-      where: {
-        editableDeadline: LessThan(today),
-        deliveryDate: MoreThan(today),
-      },
-      relations: {
-        user: true,
-      },
-      order: {
-        deliveryDate: -1,
-      },
-    });
+    const query = queryRunner.manager
+      .getRepository(Shipment)
+      .createQueryBuilder('s')
+      .setFindOptions({
+        loadEagerRelations: true,
+      })
+      .leftJoinAndSelect('s.user', 'k', 's.user_id = k.id')
+      .where(
+        (qb) =>
+          's.id = ' +
+          qb
+            .subQuery()
+            .select('id')
+            .from(Shipment, 'v')
+            .where('s.user_id = v.user_id')
+            .orderBy('v.delivery_date', 'DESC')
+            .getQuery()
+      );
+    return query.getMany();
   });
+  console.log(shipments);
   console.log('[Recurring Box] Total Shipments: %s', shipments.length);
   for (const shipment of shipments) {
     try {

@@ -5,38 +5,15 @@ import setOrderSizeAction from './action';
 
 import { getLoginedMe } from '@/actions';
 import Container from '@/components/Container';
-import { ShippableNote } from '@/components/ShippableNote';
 import BackButton from '@/components/buttons/BackButton';
 import OrderSizeForm from '@/components/forms/OrderSize';
-import { Shipment } from '@/entities';
+import ShippableNote from '@/components/notes/Shippable';
 import { OrderSize } from '@/enums';
 import { calculateTotalPerDayPrice } from '@/helpers/dog';
-import { executeQuery } from '@/helpers/queryRunner';
 
 export default async function PlanOften() {
   const t = await getTranslations();
-  const { orderSize, dogs, id } = await getLoginedMe();
-  const shipments = await executeQuery(async (queryRunner) => {
-    return await queryRunner.manager.find(Shipment, {
-      where: {
-        boxs: {
-          dog: {
-            user: { id },
-          },
-        },
-      },
-      relations: {
-        boxs: {
-          dog: true,
-          order: true,
-        },
-      },
-      order: {
-        deliveryDate: -1,
-      },
-      take: 2,
-    });
-  });
+  const { orderSize, dogs } = await getLoginedMe();
 
   const oneWeekPrice =
     dogs.reduce((price, dog) => {
@@ -88,7 +65,7 @@ export default async function PlanOften() {
           twoWeekPrice={twoWeekPrice}
           endAdornment={
             <div className="mx-auto max-w-[620px] text-center">
-              <ShippableNote shipments={shipments} />
+              <ShippableNote />
             </div>
           }
           action={setOrderSizeAction}

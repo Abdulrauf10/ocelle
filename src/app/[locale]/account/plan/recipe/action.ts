@@ -1,10 +1,9 @@
 'use server';
 
-import { isBefore, startOfDay } from 'date-fns';
 import Joi from 'joi';
 
 import { getLoginedMe } from '@/actions';
-import { Dog, DogPlan, RecurringBox } from '@/entities';
+import { Dog, DogPlan } from '@/entities';
 import { Recipe } from '@/enums';
 import { getNumericEnumValues } from '@/helpers/enum';
 import { executeQuery } from '@/helpers/queryRunner';
@@ -29,7 +28,6 @@ export default async function setRecipeAction(data: SetRecipeAction) {
   }
 
   const me = await getLoginedMe();
-  const today = startOfDay(new Date());
 
   await executeQuery(async (queryRunner) => {
     const data = await queryRunner.manager.findOne(Dog, {
@@ -39,30 +37,11 @@ export default async function setRecipeAction(data: SetRecipeAction) {
       },
       relations: {
         plan: true,
-        boxs: {
-          shipment: true,
-        },
-      },
-      order: {
-        boxs: {
-          shipment: -1,
-        },
       },
     });
 
     if (!data) {
       throw new Error('data not found');
-    }
-
-    const editableBox = data.boxs.find(
-      (box) => box.order === undefined && !isBefore(today, box.shipment.editableDeadline)
-    );
-
-    if (editableBox) {
-      await queryRunner.manager.update(RecurringBox, editableBox.id, {
-        recipe1: value.recipe1,
-        recipe2: value.recipe2,
-      });
     }
 
     await queryRunner.manager.update(DogPlan, data.plan.id, {

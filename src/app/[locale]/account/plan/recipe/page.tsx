@@ -7,9 +7,9 @@ import setRecipeAction from './action';
 import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
-import { DogBoxNote } from '@/components/DogBoxNote';
 import BackButton from '@/components/buttons/BackButton';
 import RecipeForm from '@/components/forms/Recipe';
+import RecurringBoxNote from '@/components/notes/RecurringBox';
 import { DOG_SELECT_COOKIE } from '@/consts';
 import { RecurringBox } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
@@ -51,7 +51,7 @@ export default async function PlanRecipe() {
             {t('choose-{}-fresh-recipes', { name: dog.name })}
           </h1>
           <div className="mx-auto mt-4 max-w-[620px] text-center">
-            <DogBoxNote name={dog.name} boxs={boxs} />
+            <RecurringBoxNote id={dog.id} />
           </div>
           <p className="mx-auto mt-4 max-w-[620px] text-center text-primary">
             {t('select-up-to-{}-suitable-recipes-below', { value: 2 })}
