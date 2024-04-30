@@ -26,7 +26,6 @@ export default async function recurringBoxScheduler() {
       );
     return query.getMany();
   });
-  console.log(shipments);
   console.log('[Recurring Box] Total Shipments: %s', shipments.length);
   for (const shipment of shipments) {
     try {

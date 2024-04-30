@@ -171,7 +171,10 @@ export function getEditableRecurringBoxDeadline(
   );
 }
 
-export function getEditableRecurringBoxDeadlineByBox(events: CalendarEvent[], boxStartDate: Date) {
+export function getEditableRecurringBoxDeadlineByStartDate(
+  events: CalendarEvent[],
+  boxStartDate: Date
+) {
   const dates = [
     1, // The box should be delivered before one day of the holiday / the next box start date
     1, // D + delivery

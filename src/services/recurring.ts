@@ -1,4 +1,4 @@
-import { addDays, isBefore, startOfDay } from 'date-fns';
+import { addDays, isBefore, minTime, startOfDay } from 'date-fns';
 import { In, LessThan, MoreThan, MoreThanOrEqual, QueryRunner } from 'typeorm';
 
 import { orderRecurringBox } from './api';
@@ -8,7 +8,11 @@ import { Dog, DogBreed, DogPlan, Order, RecurringBox, Shipment, User } from '@/e
 import { OrderSize } from '@/enums';
 import StripeNotReadyError from '@/errors/StripeNotReadyError';
 import { OrderFragment } from '@/gql/graphql';
-import { getClosestOrderDeliveryDate, getEditableRecurringBoxDeadline } from '@/helpers/dog';
+import {
+  getClosestOrderDeliveryDate,
+  getEditableRecurringBoxDeadline,
+  getEditableRecurringBoxDeadlineByStartDate,
+} from '@/helpers/dog';
 import { executeQuery } from '@/helpers/queryRunner';
 import { isOrderableDog } from '@/helpers/shipment';
 import { DogDto } from '@/types/dto';
@@ -199,6 +203,16 @@ export async function handleRecurringBox(id: string) {
       },
     });
 
+    let minEndDate: Date | undefined = undefined;
+    for (const dog of dogs) {
+      if (!dog.boxs[0]) {
+        throw new Error('dog do not have starter box');
+      }
+      if (dog.plan.isEnabled && (!minEndDate || dog.boxs[0].endDate < minEndDate)) {
+        minEndDate = dog.boxs[0].startDate;
+      }
+    }
+
     // shipment already bind with the boxs
     if (!shipment || shipment.boxs.length > 0) {
       return;
@@ -250,8 +264,11 @@ export async function handleRecurringBox(id: string) {
       await queryRunner.manager.save(boxs);
     }
 
-    if (dogs.some((dog) => dog.plan.isEnabled)) {
-      const deliveryDate = getClosestOrderDeliveryDate(events);
+    if (minEndDate) {
+      const deliveryDate = getEditableRecurringBoxDeadlineByStartDate(
+        events,
+        addDays(minEndDate, 1)
+      );
       await queryRunner.manager.save(
         queryRunner.manager.create(Shipment, {
           editableDeadline: getEditableRecurringBoxDeadline(events, deliveryDate),
