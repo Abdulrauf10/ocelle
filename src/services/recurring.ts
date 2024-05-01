@@ -4,7 +4,6 @@ import { In, IsNull, LessThan, MoreThan, MoreThanOrEqual, QueryRunner } from 'ty
 import { orderRecurringBox } from './api';
 import { getCalendarEvents } from './calendar';
 
-import { getClosestDeliveryDate } from '@/actions';
 import { Dog, DogBreed, DogPlan, Order, RecurringBox, Shipment, User } from '@/entities';
 import { OrderSize } from '@/enums';
 import StripeNotReadyError from '@/errors/StripeNotReadyError';
@@ -26,7 +25,8 @@ import { DogDto } from '@/types/dto';
 export async function upsertEditableShipmentRecord(
   queryRunner: QueryRunner,
   id: string,
-  preferDeliveryDate: Date
+  preferDeliveryDate: Date,
+  noBufferZone?: boolean
 ) {
   const events = await getCalendarEvents();
   const today = startOfDay(new Date());
@@ -47,7 +47,7 @@ export async function upsertEditableShipmentRecord(
 
   const shipment = queryRunner.manager.create(Shipment, {
     deliveryDate: preferDeliveryDate,
-    editableDeadline: getEditableRecurringBoxDeadline(events, preferDeliveryDate),
+    editableDeadline: getEditableRecurringBoxDeadline(events, preferDeliveryDate, noBufferZone),
     user: {
       id,
     },
@@ -76,7 +76,7 @@ export async function setupRecurringBox(
     if (!user) {
       throw new Error('user not found');
     }
-    const shipment = await upsertEditableShipmentRecord(queryRunner, id, preferDeliveryDate);
+    const shipment = await upsertEditableShipmentRecord(queryRunner, id, preferDeliveryDate, true);
     // no any dog configurations
     const defaultStartDate = addDays(startOfDay(preferDeliveryDate), 1);
     // try to sync with existing box if exists

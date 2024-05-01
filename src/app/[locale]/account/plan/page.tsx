@@ -42,6 +42,7 @@ export default async function Plan() {
         },
         relations: {
           shipment: true,
+          prevBox: true,
         },
       }),
     };
@@ -148,7 +149,8 @@ export default async function Plan() {
                         date: sentence.date(
                           getEditableRecurringBoxDeadline(
                             calendarEvents,
-                            upcomingBox.shipment.deliveryDate
+                            upcomingBox.shipment.deliveryDate,
+                            !upcomingBox.prevBox
                           ),
                           true
                         ),
