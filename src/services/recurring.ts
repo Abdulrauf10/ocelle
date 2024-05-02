@@ -251,6 +251,7 @@ export async function handleRecurringBox(id: string) {
       if (!isOrderableDog(dog.plan, prevBox)) {
         continue;
       }
+      // TODO: reactive plan have interrupted start date
       const startDate = addDays(prevBox.endDate, 1);
       const box = queryRunner.manager.create(RecurringBox, {
         mealPlan: dog.plan.mealPlan,
