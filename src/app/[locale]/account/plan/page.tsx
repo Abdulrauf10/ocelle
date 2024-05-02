@@ -23,6 +23,8 @@ import { getCalendarEvents } from '@/services/calendar';
 export default async function Plan() {
   const cookie = cookies();
   const t = await getTranslations();
+  const b = await getTranslations('Button');
+  const r = await getTranslations('Recipes');
   const sentence = await getSentence();
   const mbBoxClassName = clsx(
     'max-md:border-brown max-md:rounded-[30px] max-md:border max-md:bg-white max-md:p-6 max-md:shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:max-w-[520px] mx-auto'
@@ -192,12 +194,12 @@ export default async function Plan() {
                   <hr className="my-3 border-gray max-sm:my-6" />
                   <div className="-mx-1 -my-2 flex flex-wrap justify-between max-sm:mb-2">
                     <div className="flex-1 px-1 py-2 text-lg font-bold text-brown">
-                      {dog.plan.recipe2 == null ? 1 : 2} {t('fresh-{}', { value: t('recipes') })}
+                      {dog.plan.recipe2 == null ? 1 : 2} {t('fresh-{}', { value: b('recipes') })}
                     </div>
                     <div className="whitespace-nowrap px-1 py-2 max-sm:w-full">
                       <UnderlineButton
                         theme="primary"
-                        label={t('manage-{}', { value: t('recipes') })}
+                        label={t('manage-{}', { value: b('recipes') })}
                         href="/account/plan/recipe"
                       />
                     </div>
@@ -207,7 +209,7 @@ export default async function Plan() {
                       <div className="px-2 py-4">
                         <Image
                           src={`/meal-plan/${getRecipeSlug(dog.plan.recipe1)}.jpg`}
-                          alt={t('fresh-{}-recipe', {
+                          alt={r('fresh-{}-recipe', {
                             value: t(getRecipeSlug(dog.plan.recipe1)),
                           })}
                           width={195}
@@ -215,7 +217,7 @@ export default async function Plan() {
                           className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                         />
                         <p className="mt-2 text-center">
-                          {t('fresh-{}-recipe', {
+                          {r('fresh-{}-recipe', {
                             value: t(getRecipeSlug(dog.plan.recipe1)),
                           })}
                         </p>
@@ -228,7 +230,7 @@ export default async function Plan() {
                           <div className="px-2 py-4">
                             <Image
                               src={`/meal-plan/${getRecipeSlug(dog.plan.recipe2)}.jpg`}
-                              alt={t('fresh-{}-recipe', {
+                              alt={r('fresh-{}-recipe', {
                                 value: t(getRecipeSlug(dog.plan.recipe2)),
                               })}
                               width={195}
@@ -236,7 +238,7 @@ export default async function Plan() {
                               className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                             />
                             <p className="mt-2 text-center">
-                              {t('fresh-{}-recipe', {
+                              {r('fresh-{}-recipe', {
                                 value: t(getRecipeSlug(dog.plan.recipe2)),
                               })}
                             </p>
@@ -286,7 +288,7 @@ export default async function Plan() {
                     }
                   )}
                 </p>
-                <Button className="mt-6">{t('refer-a-friend')}</Button>
+                <Button className="mt-6">{b('refer-a-friend')}</Button>
               </div>
             </div>
           </div>

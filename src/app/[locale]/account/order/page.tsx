@@ -10,6 +10,7 @@ import { isDeliveredBox } from '@/helpers/dog';
 
 export default async function Orders() {
   const t = await getTranslations();
+  const b = await getTranslations('Button');
   const orders = await getOrders();
   const today = startOfDay(new Date());
 
@@ -43,7 +44,7 @@ export default async function Orders() {
                     </td>
                     <td className="px-2 py-3">${order.total.gross.amount}</td>
                     <td className="px-2 py-3">
-                      <UnderlineButton label={t('see-details')} />
+                      <UnderlineButton label={b('see-details')} />
                     </td>
                   </tr>
                 );

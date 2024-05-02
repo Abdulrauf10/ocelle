@@ -82,6 +82,7 @@
   "remote": "Remote",
   "apply": "Apply",
   "home": "Home",
+  "my-info": "My Info",
   "Navigator": {
     "how-it-works": "How It Works",
     "how-it-works-subscription": "How It Works: Subscription",
@@ -92,7 +93,10 @@
     "why-fresh": "Why Fresh?",
     "faq": "Faq",
     "reviews": "Reviews",
-    "about-us": "About Us"
+    "about-us": "About Us",
+    "my-plan": "My Plan",
+    "my-info": "My Info",
+    "refer-a-friend": "Refer a Friend"
   },
   "shipping-and-deliveries": "Shipping & Deliveries",
   "our-story": "Our Story",
@@ -106,9 +110,7 @@
   "privacy-policy": "Privacy Policy",
   "terms-and-conditions": "Terms & Conditions",
   "edit": "Edit",
-  "my-plan": "My Plan",
-  "my-info": "My Info",
-  "refer-a-friend": "Refer a Friend",
+
   "recommended": "Recommended",
   "log-in": "Log In",
   "log-out": "Log Out",
@@ -353,8 +355,9 @@
     "apply": "apply",
     "see-my-recipes": "See My Recipes",
     "try-it-today": "Try It Today",
-
-    "submit-application": "Submit Application"
+    "submit-application": "Submit Application",
+    "refer-a-friend": "refer-a-friend",
+    "recipes": "Recipes"
   },
   "Home": {
     "block-1-title-1": "Nutrition They Need.",

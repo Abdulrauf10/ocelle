@@ -54,6 +54,7 @@ export default function Product({
   };
 }) {
   const t = useTranslations();
+  const b = useTranslations('Button');
   const { setLines, setTotalPrice } = useCart();
   const [quantity, setQuantity] = React.useState(1);
 
@@ -120,7 +121,7 @@ export default function Product({
                   analysis={analysis}
                 >
                   <Button theme={theme} reverse>
-                    {t('see-details')}
+                    {b('see-details')}
                   </Button>
                 </RecipeMediumDialog>
               </div>
