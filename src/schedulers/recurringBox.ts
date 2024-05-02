@@ -12,7 +12,7 @@ export default async function recurringBoxScheduler() {
       .setFindOptions({
         loadEagerRelations: true,
       })
-      .leftJoinAndSelect('s.user', 'k', 's.user_id = k.id')
+      .leftJoinAndSelect('s.user', 'k')
       .where(
         (qb) =>
           's.id = ' +
@@ -22,6 +22,7 @@ export default async function recurringBoxScheduler() {
             .from(Shipment, 'v')
             .where('s.user_id = v.user_id')
             .orderBy('v.delivery_date', 'DESC')
+            .limit(1)
             .getQuery()
       );
     return query.getMany();
