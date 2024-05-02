@@ -1,8 +1,8 @@
 import { getLoginedMe } from '@/actions';
-import { cancelRecurringBox } from '@/services/recurring';
+import { pauseRecurringBox } from '@/services/recurring';
 
 export default async function cancelSubscription() {
   const me = await getLoginedMe();
 
-  await cancelRecurringBox(me.id);
+  await pauseRecurringBox(me.id);
 }
