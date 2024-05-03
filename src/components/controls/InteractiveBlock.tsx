@@ -70,7 +70,7 @@ export default function InteractiveBlock<
     >
       <div
         className={clsx(
-          'relative mr-2 h-[13px] w-[13px] rounded-full border-2',
+          'relative mr-2 h-[13px] w-[13px] rounded-full ',
           isSelected ? 'border-white bg-secondary' : 'border-brown bg-white'
         )}
       >
@@ -88,7 +88,7 @@ export default function InteractiveBlock<
           checked={type === 'checkbox' && !!field.value}
         />
       </div>
-      <span className="body-3">{label}</span>
+      <span className="body-3 min-w-[55px]">{label}</span>
     </label>
   );
 }

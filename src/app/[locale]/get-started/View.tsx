@@ -28,7 +28,7 @@ function BackButton({
       transition={{ duration: 0.1 }}
       className={className}
     >
-      <button className="flex select-none items-center text-lg text-primary" onClick={onClick}>
+      <button className="mt-1 flex select-none items-center text-lg text-primary" onClick={onClick}>
         <i className="relative -top-px mr-1 inline-block rotate-[135deg] border-[length:0_1px_1px_0] border-primary p-1"></i>
         {t('back')}
       </button>
@@ -47,7 +47,7 @@ export default function View({ children }: React.PropsWithChildren) {
         disableLanguageSwitch
         disableGetStartedButton
         startAdornment={
-          <div className="hidden px-2 max-lg:block">
+          <div className="mt-1 hidden px-2 max-lg:block">
             <BackButton
               show={
                 location.pathname !== Stage.Welcome &&
@@ -61,7 +61,7 @@ export default function View({ children }: React.PropsWithChildren) {
         endAdornment={
           !(location.pathname === Stage.Calculating || location.pathname === Stage.Processing) && (
             <div className="w-full max-lg:px-2">
-              <div className="flex w-full justify-center max-lg:mt-8 lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 lg:px-[280px]">
+              <div className="flex w-full justify-center max-lg:mt-2 lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 lg:px-[280px]">
                 <div className="relative w-full max-w-[460px]">
                   <BackButton
                     className="absolute -left-[80px] -top-px select-none max-lg:hidden"
@@ -75,7 +75,7 @@ export default function View({ children }: React.PropsWithChildren) {
           )
         }
       />
-      <main className="py-[3vw] max-sm:py-8">{children}</main>
+      <main className="py-[3vw] max-sm:py-0">{children}</main>
     </>
   );
 }

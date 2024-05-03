@@ -33,7 +33,7 @@ export default function Footer({ hideNav }: FooterProps) {
   const t = useTranslations();
   const n = useTranslations('Navigator');
   return (
-    <footer className="bg-primary pb-16 pt-8 text-white max-md:pb-12 max-md:pt-4">
+    <footer className="bg-primary pb-16 pt-4 text-white max-md:pb-12 max-md:pt-4">
       <Container>
         {!hideNav && (
           <div className="flex flex-wrap items-start justify-between gap-8 max-sm:-mx-2 max-sm:gap-0">

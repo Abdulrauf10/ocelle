@@ -113,6 +113,7 @@ export default function SubscriptionCheckoutForm({
   const stripe = useStripe();
   const elements = useElements();
   const t = useTranslations();
+  const n = useTranslations('Navigator');
   const sentence = useSentence();
   const {
     control,
@@ -414,7 +415,7 @@ export default function SubscriptionCheckoutForm({
                       </div>
                     </div>
                     <div className="body-3 -mx-1 mt-2 flex flex-wrap justify-between">
-                      <div className="px-1">{t('{}-colon', { value: t('recipes') })}</div>
+                      <div className="px-1">{t('{}-colon', { value: n('recipes') })}</div>
                       <div className="px-1">
                         <strong className="mr-1.5">
                           {dog.recipe1 != null && t(getRecipeSlug(dog.recipe1))}
@@ -494,7 +495,7 @@ export default function SubscriptionCheckoutForm({
               </SummaryBlock>
             </div>
             <div className="mt-10 rounded-3xl bg-gold bg-opacity-10 px-6 py-10">
-              <h2 className="heading-4 font-bold text-gold">{t('subscription')}</h2>
+              <h2 className="heading-4 font-bold text-gold">{n('subscription')}</h2>
               <div className="mt-4 text-gold">
                 <p>
                   {t('{}-colon', { value: t('next-order') })}

@@ -6,8 +6,6 @@ import { Dialog, DialogClose, DialogContent, DialogTrigger } from '../Dialog';
 import Button from '../buttons/Button';
 import Close from '../icons/Close';
 
-import { colon } from '@/helpers/translation';
-
 export default function CartDialog({
   lines,
   subtotal,

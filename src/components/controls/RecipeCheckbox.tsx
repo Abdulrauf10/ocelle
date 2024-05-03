@@ -44,7 +44,7 @@ export default function RecipeCheckbox<T extends FieldValues>({
   onChange,
 }: RecipeCheckboxProps<T>) {
   const t = useTranslations();
-
+  const b = useTranslations('Button');
   return (
     <div
       className={clsx(
@@ -96,7 +96,7 @@ export default function RecipeCheckbox<T extends FieldValues>({
             analysis={analysis}
           >
             <button type="button" className="font-light underline">
-              {t('see-details')}
+              {b('see-details')}
             </button>
           </RecipeMediumDialog>
         </div>

@@ -21,6 +21,7 @@ function SectionTitle({ children }: React.PropsWithChildren) {
 export default async function Reactivate() {
   const t = await getTranslations();
   const sentence = await getSentence();
+  const n = await getTranslations('Navigator');
   const { orderSize, dogs, defaultShippingAddress, defaultBillingAddress } =
     await getLoginedMeFullSize();
 
@@ -66,7 +67,7 @@ export default async function Reactivate() {
               <SectionHr />
               <div className="-mx-2 flex items-center">
                 <div className="flex-1 px-2">
-                  <SectionTitle>{t('fresh-{}', { value: t('recipes') })}</SectionTitle>
+                  <SectionTitle>{t('fresh-{}', { value: n('recipes') })}</SectionTitle>
                   <p>
                     {t('fresh-{}', { value: t(getRecipeSlug(dog.plan.recipe1)) })}
                     {dog.plan.recipe2 && (
@@ -184,7 +185,7 @@ export default async function Reactivate() {
                       </div>
                       <div className="my-2 flex items-center">
                         <div className="min-w-[150px] text-xl font-bold text-brown">
-                          {t('{}-colon', { value: t('recipes') })}
+                          {t('{}-colon', { value: n('recipes') })}
                         </div>
                         <div className="flex-1 text-right">
                           {t('fresh-{}', { value: t(getRecipeSlug(dog.plan.recipe1)) })}

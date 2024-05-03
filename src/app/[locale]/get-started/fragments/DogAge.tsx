@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { subDays } from 'date-fns';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,10 +28,14 @@ export default function DogAgeFragment() {
   const navigate = useNavigate();
   const { getDog, setDog } = useSurvey();
   const { name, age } = getDog();
+  const [pending, startTransition] = React.useTransition();
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    watch,
+    setValue,
+    trigger,
+    formState: { errors, isValid },
   } = useForm<DogAgeForm>({
     defaultValues:
       typeof age === 'string'
@@ -53,7 +57,17 @@ export default function DogAgeFragment() {
     },
     [navigate, setDog, tab]
   );
-
+  const years = watch('years');
+  const months = watch('months');
+  useEffect(() => {
+    // If years is set and months is untouched or empty, set months to zero
+    if (years && (months === 0 || months === undefined)) {
+      setValue('months', 0, { shouldValidate: true });
+    }
+    if (months && (years === 0 || years === undefined)) {
+      setValue('years', 0, { shouldValidate: true });
+    }
+  }, [years, months, setValue]);
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <Container className="text-center">
@@ -65,13 +79,27 @@ export default function DogAgeFragment() {
             <UnderlineButton
               underline={tab === 'Age'}
               className={clsx('text-lg', tab === 'Age' ? 'font-bold' : '')}
-              onClick={() => setTab('Age')}
+              onClick={() => {
+                setTab('Age');
+                setValue('months', undefined, { shouldValidate: true });
+                setValue('birthday', undefined, { shouldValidate: true });
+                setValue('years', undefined, { shouldValidate: true });
+                trigger('months');
+                trigger('years');
+              }}
               label={t('enter-age')}
             />
             <UnderlineButton
               underline={tab === 'Birthday'}
               className={clsx('text-lg', tab === 'Birthday' ? 'font-bold' : '')}
-              onClick={() => setTab('Birthday')}
+              onClick={() => {
+                setTab('Birthday');
+                setValue('months', undefined, { shouldValidate: true });
+                setValue('birthday', undefined, { shouldValidate: true });
+                setValue('years', undefined, { shouldValidate: true });
+                trigger('months');
+                trigger('years');
+              }}
               label={t('select-birthday')}
             />
           </div>
@@ -83,9 +111,19 @@ export default function DogAgeFragment() {
                     name="years"
                     type="number"
                     control={control}
-                    rules={{ required: tab === 'Age' }}
-                    inputProps={{ min: 0 }}
-                    className="mr-2 w-20"
+                    rules={{
+                      required: 'Years or months must be specified',
+                      validate: {
+                        isAtLeastOneNonZero: () => {
+                          const formData = control._formValues;
+                          return formData.years > 0 || formData.months > 0;
+                        },
+                      },
+                      min: 0,
+                      max: 35 || 'years and months cannot be zero',
+                    }}
+                    inputProps={{ min: 0, max: 35 }}
+                    className="mr-2 w-20 [&_input]:text-center"
                   />
                   <span className="body-3 ml-2">{t('years')}</span>
                 </div>
@@ -94,9 +132,13 @@ export default function DogAgeFragment() {
                     name="months"
                     type="number"
                     control={control}
-                    rules={{ required: tab === 'Age' }}
-                    inputProps={{ min: 0 }}
-                    className="mr-2 w-20"
+                    rules={{
+                      required: tab === 'Age',
+                      min: 0,
+                      max: 11,
+                    }}
+                    inputProps={{ min: 0, max: 11 }}
+                    className="mr-2 w-20 [&_input]:text-center"
                   />
                   <span className="body-3 ml-2">{t('months')}</span>
                 </div>
@@ -106,12 +148,16 @@ export default function DogAgeFragment() {
               <DateCalendar
                 control={control}
                 name="birthday"
-                rules={{ required: tab === 'Birthday' }}
+                rules={{
+                  required: tab === 'Birthday',
+                }}
                 error={!!errors.birthday}
                 maxDate={subDays(new Date(), 1)}
               />
             )}
-            <Button className="mt-8">{t('continue')}</Button>
+            <Button className="mt-8" disabled={!isValid || pending}>
+              {t('continue')}
+            </Button>
           </form>
         </Section>
       </Container>

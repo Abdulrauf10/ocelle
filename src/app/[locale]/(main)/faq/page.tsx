@@ -39,7 +39,7 @@ export default function FaQ() {
                   max-md:min-h-[800px] max-md:bg-[url('/ocelle-faq-mb-bg.jpg')] max-md:bg-[length:768px_960px] max-md:bg-[bottom_center]  max-md:bg-no-repeat max-md:pb-8
                   max-md:pt-4"
       >
-        <Container className="max-w-screen-xl">
+        <div className="max-w-8xl px-4">
           <h1 className="-ml-3 select-none text-[215px] font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] max-lg:text-[130px]">
             FAQ
           </h1>
@@ -63,7 +63,7 @@ export default function FaQ() {
               <span className="body-1 ml-3 font-bold">9226 7236</span>
             </Link>
           </div>
-        </Container>
+        </div>
       </div>
       <div className="bg-primary bg-opacity-20 py-8">
         <Container className="max-w-screen-xl">

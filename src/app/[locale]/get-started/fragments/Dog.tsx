@@ -23,7 +23,12 @@ export default function DogFragment() {
   const navigate = useNavigate();
   const { setDog, getDog } = useSurvey();
   const { name } = getDog();
-  const { handleSubmit, control } = useForm<DogForm>({ defaultValues: { name } });
+  const [pending, startTransition] = React.useTransition();
+  const {
+    handleSubmit,
+    control,
+    formState: { isValid },
+  } = useForm<DogForm>({ defaultValues: { name } });
   const [showMoreDogs, setShowMoreDogs] = React.useState(false);
 
   const onSubmit = React.useCallback(
@@ -33,7 +38,6 @@ export default function DogFragment() {
     },
     [navigate, setDog]
   );
-
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <Container className="text-center">
@@ -46,15 +50,17 @@ export default function DogFragment() {
               rules={{ required: true }}
               fullWidth
             />
-            <Button className="mt-10">{t('continue')}</Button>
+            <Button className="mt-10" disabled={!isValid || pending}>
+              {t('continue')}
+            </Button>
           </form>
           <UnderlineButton
             className="body-2 mt-10"
-            onClick={() => setShowMoreDogs(true)}
+            onClick={() => setShowMoreDogs(!showMoreDogs)}
             label={t('i-have-more-dogs')}
           />
           {showMoreDogs && (
-            <p className="body-3 mt-5 italic text-primary">{t.rich('i-have-more-dogs:reply')}</p>
+            <p className="body-3 mt-3 italic text-primary">{t.rich('i-have-more-dogs:reply')}</p>
           )}
         </Section>
       </Container>

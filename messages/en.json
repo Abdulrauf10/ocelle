@@ -130,16 +130,16 @@
   "name": "Name",
   "your-dogs-name": "Your Dog’s Name",
   "i-have-more-dogs": "I Have More Dogs",
-  "i-have-more-dogs:reply": "Great! After you have finalised the order details for your first dog,<br></br>you can click ‘<b>+ Add Another Dog</b>’ later in this quiz or in youraccount.<br></br>We’ll conduct the nutritional consultation for your other dog(s), as nutrition is not aone-size-fits-all affair...<br></br>and that is of course, reflected in their personalised meal plans.",
+  "i-have-more-dogs:reply": "Great! After you have finalised the details for your first dog,<br></br>you can click ‘<b>+ Add Another Dog</b>’ later in this quiz or in your account.<br></br>We’ll independently conduct the nutritional consultation for your other dog(s), as nutrition is not a one-size-fits-all affair...<br></br>and that is of course, reflected in their personalised meal plans.",
   "what-breed-is": "What breed is {name}?",
   "if-{}-is-a-mix-you-can-select-multiple-breeds": "If {name} is a mix, you can select multiple breeds.",
   "if-theyre-a-mix-you-can-select-multiple-breeds": "If they’re are a mix, you can select multiple breeds.",
   "start-typing-the-breed": "Start Typing The Breed",
   "dont-know-the-breed": "Don’t Know The Breed",
-  "{}-is-a-": "{name} is a ...",
+  "{}-is-": "{name} is ...",
   "boy": "Boy",
   "girl": "Girl",
-  "is-{}-": "Is {name} ...",
+  "is-{}-": "Is {name}...",
   "spayed-and-neutered-dogs-require-fewer-calories": "Spayed and neutered dogs require fewer calories.",
   "how-old-is-{}": "How old is {name}?",
   "enter-age": "Enter Age",
@@ -598,5 +598,9 @@
     "resume-cv": "Resume/CV",
 
     "attach-{}": "Attach {value}"
-  }
+  },
+  "hong-kong-island": "Hong Kong Island",
+  "kowloon": "Kowloon",
+  "new-territories": "New Territories",
+  "hong-kong": "Hong Kong"
 }

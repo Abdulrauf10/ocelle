@@ -30,11 +30,13 @@ export default function DogBasicFragment() {
   const navigate = useNavigate();
   const { getDog, setDog } = useSurvey();
   const { name, breeds, gender, isNeutered, isUnknownBreed } = getDog();
+  const [pending, startTransition] = React.useTransition();
   const {
     handleSubmit,
     control,
     watch,
-    formState: { errors },
+    setValue,
+    formState: { errors, isValid },
   } = useForm<DogBasicForm>({
     defaultValues: {
       breeds: breeds || [],
@@ -94,7 +96,7 @@ export default function DogBasicFragment() {
                     renderInput={(params) => (
                       <TextField
                         {...params}
-                        placeholder={t('start-typing-the-breed')}
+                        placeholder={watch('breeds').length == 0 ? t('start-typing-the-breed') : ''}
                         error={!!errors.breeds}
                       />
                     )}
@@ -118,12 +120,14 @@ export default function DogBasicFragment() {
                   control={control}
                   name="isUnknownBreed"
                   label={t('dont-know-the-breed')}
+                  //TODO need to clear the breeds`
+                  onClick={() => {}}
                 />
               </div>
             </div>
           </Section>
           <SectionBreak />
-          <Section title={t('{}-is-a-', { name })}>
+          <Section title={t('{}-is-', { name })}>
             <div className="flex justify-center">
               <div className="px-3">
                 <InteractiveBlock
@@ -181,7 +185,9 @@ export default function DogBasicFragment() {
               {t('spayed-and-neutered-dogs-require-fewer-calories')}
             </p>
           </Section>
-          <Button className="mt-10">{t('continue')}</Button>
+          <Button className="mt-10" disabled={!isValid || pending}>
+            {t('continue')}
+          </Button>
         </form>
       </Container>
     </motion.div>

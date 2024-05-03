@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { MouseEventHandler } from 'react';
 import { type FieldValues, useController } from 'react-hook-form';
 
 import { InputControllerProps } from '@/types';
@@ -6,6 +7,7 @@ import { InputControllerProps } from '@/types';
 interface CircleCheckboxProps<T extends FieldValues> extends InputControllerProps<T> {
   label: string;
   className?: string;
+  onClick: any;
 }
 
 export default function CircleCheckbox<T extends FieldValues>({
@@ -15,9 +17,9 @@ export default function CircleCheckbox<T extends FieldValues>({
   rules,
   error,
   className,
+  onClick,
 }: CircleCheckboxProps<T>) {
   const { field } = useController({ name, control, rules });
-
   return (
     <label
       className={clsx(
@@ -37,6 +39,7 @@ export default function CircleCheckbox<T extends FieldValues>({
           type="checkbox"
           className="absolute bottom-0 left-0 right-0 top-0 opacity-0 [&:checked+*]:block"
           checked={!!field.value}
+          onClick={onClick}
         />
         <div className="ml-[1.5px] mt-[1.5px] hidden h-[7px] w-[7px] rounded-full bg-brown"></div>
       </div>

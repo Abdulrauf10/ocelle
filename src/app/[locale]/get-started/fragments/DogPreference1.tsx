@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,6 +32,7 @@ export default function DogPreference1Fragment() {
     handleSubmit,
     control,
     watch,
+    setError,
     formState: { errors },
   } = useForm<DogPreference1Form>({
     defaultValues: {
@@ -40,7 +41,7 @@ export default function DogPreference1Fragment() {
       activityLevel,
     },
   });
-
+  const weightInput = watch('weight');
   const onSubmit = React.useCallback(
     ({ weight, bodyCondition, activityLevel }: DogPreference1Form) => {
       setDog({ weight, bodyCondition, activityLevel });
@@ -48,7 +49,7 @@ export default function DogPreference1Fragment() {
     },
     [navigate, setDog]
   );
-
+  useEffect(() => {}, [weightInput]);
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <Container className="text-center">
@@ -76,9 +77,9 @@ export default function DogPreference1Fragment() {
                   },
                 }}
                 className="mr-2 w-20"
-                inputProps={{ min: 0, step: 0.1 }}
+                inputProps={{ min: 0.5, step: 0.5 }}
               />
-              <span className="body-3 ml-2">kg</span>
+              <span className="body-3 ml-2">KG</span>
               {errors?.weight?.message && (
                 <p className="body-4 mt-3 w-full text-error">{String(errors?.weight?.message)}</p>
               )}
