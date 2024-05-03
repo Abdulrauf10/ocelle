@@ -21,6 +21,7 @@ interface DateCalendarProps {
   disableHighlightToday?: boolean;
   shouldDisableYear?(year: Date): boolean;
   shouldDisableDate?(day: Date): boolean;
+  view?: readonly DateView[];
   disabled?: boolean;
   minDate?: Date;
   maxDate?: Date;
@@ -41,6 +42,7 @@ export default React.forwardRef<HTMLDivElement, DateCalendarProps>(function Date
     disableHighlightToday,
     shouldDisableYear,
     shouldDisableDate,
+    view,
     minDate,
     maxDate,
     actions,
@@ -68,7 +70,7 @@ export default React.forwardRef<HTMLDivElement, DateCalendarProps>(function Date
           maxDate={maxDate}
           onChange={onChange}
           disableHighlightToday={disableHighlightToday}
-          views={['day']}
+          views={view}
           shouldDisableYear={shouldDisableYear}
           shouldDisableDate={shouldDisableDate}
           sx={{

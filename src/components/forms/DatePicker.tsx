@@ -1,5 +1,6 @@
 'use client';
 
+import { DateView } from '@mui/x-date-pickers';
 import { startOfDay } from 'date-fns';
 import { useTranslations } from 'next-intl';
 import React from 'react';
@@ -13,13 +14,14 @@ type T = {
   initialDate: Date;
   minDate?: Date;
   disabled?: boolean;
+  view?: readonly DateView[];
   shouldDisableDate?(date: Date): boolean;
   onComplete?(): void;
   action(data: { date: Date }): Promise<void>;
 };
 
 export default React.forwardRef<HTMLDivElement, T>(function DatePickerForm(
-  { initialDate, minDate, disabled, shouldDisableDate, onComplete, action }: T,
+  { initialDate, minDate, view, disabled, shouldDisableDate, onComplete, action }: T,
   ref
 ) {
   const t = useTranslations();
@@ -53,6 +55,7 @@ export default React.forwardRef<HTMLDivElement, T>(function DatePickerForm(
       disabled={disabled}
       disableHighlightToday
       minDate={minDate}
+      view={view}
       shouldDisableDate={shouldDisableDate}
       actions={[
         {

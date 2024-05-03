@@ -27,6 +27,7 @@ export default function DeliveryDatePickerForm({
       initialDate={initialDate}
       disabled={disabled}
       minDate={minDate}
+      view={['day']}
       shouldDisableDate={(day) => isUnavailableDeliveryDate(day, calendarEvents)}
       onComplete={onComplete}
       action={action}
