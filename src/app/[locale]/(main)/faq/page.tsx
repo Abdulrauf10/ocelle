@@ -39,8 +39,8 @@ export default function FaQ() {
                   max-md:min-h-[800px] max-md:bg-[url('/ocelle-faq-mb-bg.jpg')] max-md:bg-[length:768px_960px] max-md:bg-[bottom_center]  max-md:bg-no-repeat max-md:pb-8
                   max-md:pt-4"
       >
-        <div className="max-w-8xl px-4">
-          <h1 className="-ml-3 select-none text-[215px] font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] max-lg:text-[130px]">
+        <div className="max-w-8xl px-[2vw] py-3 max-lg:px-4">
+          <h1 className="-ml-3 select-none text-[215px]  font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] max-lg:text-[130px]">
             FAQ
           </h1>
           <p className="body-2 text-white">
@@ -67,43 +67,43 @@ export default function FaQ() {
       </div>
       <div className="bg-primary bg-opacity-20 py-8">
         <Container className="max-w-screen-xl">
-          <div className="-m-2 flex flex-wrap items-center justify-between max-xl:justify-center max-xl:px-4 max-[1085px]:px-48 max-lg:justify-center max-lg:px-44 max-md:px-4 max-sm:flex-col">
-            <div className="p-2">
+          <div className="-m-2 flex flex-wrap items-center justify-between max-xl:justify-center max-xl:px-4 max-lg:justify-center max-sm:flex-col">
+            <div className="flex justify-center p-2 md:flex-[1_1_30%] xl:flex-1">
               <Link
                 href="#our-food"
-                className="heading-4 block whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90 max-sm:w-[220px]"
+                className="heading-4 block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90"
               >
                 Our Food
               </Link>
             </div>
-            <div className="p-2">
+            <div className="flex justify-center p-2 md:flex-[1_1_30%] xl:flex-1">
               <Link
                 href="#our-quiz"
-                className="heading-4 block whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90 max-sm:w-[220px]"
+                className="heading-4 block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90"
               >
                 Our Quiz
               </Link>
             </div>
-            <div className="p-2">
+            <div className="flex justify-center p-2 md:flex-[1_1_30%] xl:flex-1">
               <Link
                 href="#subscription"
-                className="heading-4 block whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90 max-sm:w-[220px]"
+                className="heading-4 block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90"
               >
                 Subscription
               </Link>
             </div>
-            <div className="p-2">
+            <div className="flex justify-center p-2 md:flex-[1_1_40%] xl:flex-1">
               <Link
                 href="#deliveries"
-                className="heading-4 block whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90 max-sm:w-[220px]"
+                className="heading-4 block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90"
               >
                 Deliveries
               </Link>
             </div>
-            <div className="p-2">
+            <div className="flex justify-center p-2 md:flex-[1_1_40%] xl:flex-1">
               <Link
                 href="#payment"
-                className="heading-4 block whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90 max-sm:w-[220px]"
+                className="heading-4 block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90"
               >
                 Payment
               </Link>
