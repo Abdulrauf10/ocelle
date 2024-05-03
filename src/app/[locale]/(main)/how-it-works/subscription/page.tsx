@@ -16,7 +16,7 @@ export default function HowItWorksSubscription() {
     <main>
       <div className="bg-[#E8E4DB]">
         <div className="flex flex-wrap items-center max-lg:flex-col-reverse max-lg:items-center">
-          <div className="w-2/5 px-[2vw] py-[4vw] text-xl text-primary max-lg:w-full">
+          <div className="w-2/5 px-[clamp(16px,2vw,100px)] py-[4vw] text-xl text-primary max-lg:w-full">
             <h1 className="heading-headline font-bold max-lg:text-center">
               Get Personal With An Expert
             </h1>

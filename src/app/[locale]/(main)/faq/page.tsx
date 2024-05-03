@@ -39,8 +39,8 @@ export default function FaQ() {
                   max-md:min-h-[800px] max-md:bg-[url('/ocelle-faq-mb-bg.jpg')] max-md:bg-[length:768px_960px] max-md:bg-[bottom_center]  max-md:bg-no-repeat max-md:pb-8
                   max-md:pt-4"
       >
-        <div className="max-w-8xl px-[2vw] py-3 max-lg:px-4">
-          <h1 className="-ml-3 select-none text-[215px]  font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] max-lg:text-[130px]">
+        <div className="max-w-8xl px-[clamp(16px,2vw,100px)] py-3 max-lg:px-4">
+          <h1 className="-ml-[9px] select-none text-[215px] font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] max-lg:text-[130px]">
             FAQ
           </h1>
           <p className="body-2 text-white">
