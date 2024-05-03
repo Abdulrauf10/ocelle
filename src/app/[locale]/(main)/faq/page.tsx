@@ -35,7 +35,7 @@ export default function FaQ() {
   return (
     <main>
       <div
-        className="bg-[url('/faq.jpg')] bg-[length:auto_100%] bg-[44%_center] bg-repeat-x py-[12em] max-2xl:py-[11%] 
+        className="bg-[#4b8dbd] bg-[url('/faq.jpg')] bg-[length:auto_100%] bg-[44%_center] bg-repeat-x py-[12em] max-2xl:py-[11%] 
                   max-md:min-h-[800px] max-md:bg-[url('/ocelle-faq-mb-bg.jpg')] max-md:bg-[length:768px_960px] max-md:bg-[bottom_center]  max-md:bg-no-repeat max-md:pb-8
                   max-md:pt-4"
       >
