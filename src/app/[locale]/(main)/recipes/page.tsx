@@ -42,7 +42,7 @@ function EndAdornment({
   return (
     <div className="mx-auto mt-10 max-w-[480px]">
       <div className="-m-2 flex flex-wrap">
-        <div className="w-1/2 p-2 text-center max-xs:w-full">
+        <div className="flex-1 p-2 text-center">
           <RecipeLargeDialog
             recipe={sentence.recipe(recipe)}
             recipePicture={`/recipes/dispersion/${getRecipeSlug(recipe)}.jpg`}
@@ -55,7 +55,7 @@ function EndAdornment({
             </Button>
           </RecipeLargeDialog>
         </div>
-        <div className="w-1/2 p-2 text-center max-xs:w-full">
+        <div className="flex-1 p-2 text-center">
           <Button className="w-[232px]" href="/get-started">
             {b('build-my-plan')}
           </Button>
