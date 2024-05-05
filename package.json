@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run generate:gql && next build",
+    "build": "rimraf .next && npm run generate:gql && next build",
     "build:analyzer": "ANALYZE=true next build",
     "start": "next start",
     "start:direct": "next start -p 80",
@@ -86,6 +86,7 @@
     "postcss": "^8",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.14",
+    "rimraf": "^5.0.5",
     "tailwindcss": "^3.4.3",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5"
