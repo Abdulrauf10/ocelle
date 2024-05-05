@@ -12,6 +12,7 @@ interface ButtonBaseProps {
   reverse?: boolean;
   fullWidth?: boolean;
   disabled?: boolean;
+  iconNotNeed?: boolean;
 }
 
 interface ButtonProps extends ButtonBaseProps {
@@ -44,6 +45,8 @@ export default function Button({
   ...props
 }: React.PropsWithChildren<ButtonProps | LinkbuttonProps>) {
   const buttonProps = props as ButtonProps;
+  // check if icon is needed.
+  let iconNeed = true;
   const linkProps = props as LinkbuttonProps;
   const baseClasses = clsx(
     'font-open-sans items-center justify-center rounded-[30px] py-1.5 px-6 text-center font-bold border-2 select-none',
@@ -110,6 +113,9 @@ export default function Button({
         className
       );
 
+  if (buttonProps.iconNotNeed) {
+    iconNeed = false;
+  }
   if (linkProps.href) {
     return (
       <Link
@@ -120,7 +126,7 @@ export default function Button({
         onTouchEnd={onTouchEnd as React.TouchEventHandler<HTMLAnchorElement>}
       >
         {children}
-        <ButtonIcon />
+        {iconNeed && <ButtonIcon />}
       </Link>
     );
   }
@@ -134,7 +140,7 @@ export default function Button({
       disabled={disabled}
     >
       {children}
-      <ButtonIcon />
+      {iconNeed && <ButtonIcon />}
     </button>
   );
 }

@@ -69,34 +69,38 @@ function FileInput<T extends FieldValues>({
         }}
         {...field}
       />
-      <Button
-        className="!text-base"
-        type="button"
-        reverse
-        fullWidth
-        onClick={() => {
-          inputRef.current?.click();
-          focusRef.current?.focus();
-        }}
-        onTouchEnd={() => focusRef.current?.focus()}
-      >
-        {label}
-      </Button>
-      {helperText && <div className="body-4 mt-1">{helperText}</div>}
+      {filename && !error ? (
+        <>
+          <div className="flex flex-row items-start">
+            <span className="body-2 mr-2 mt-2 inline-block break-all">
+              {/* {label}: {filename} */}
+              <b> Attached </b>: {filename}
+            </span>
+            <button className=" mt-2 h-6" onClick={handleDetach}>
+              <Close className="w-3" />
+            </button>
+          </div>
+        </>
+      ) : (
+        <Button
+          className="!text-base"
+          type="button"
+          reverse
+          fullWidth
+          onClick={() => {
+            inputRef.current?.click();
+            focusRef.current?.focus();
+          }}
+          onTouchEnd={() => focusRef.current?.focus()}
+        >
+          {label}
+        </Button>
+      )}
+
+      {helperText && !(filename && !error) && <div className="body-4 mt-1">{helperText}</div>}
       {(filename || !!error) && (
         <div className="mt-1 flex w-full items-center">
-          {error ? (
-            <span className="body-4 text-error">{error.message}</span>
-          ) : (
-            <>
-              <span className="body-4 mr-2 inline-block break-all">
-                {label}: {filename}
-              </span>
-              <button onClick={handleDetach}>
-                <Close className="w-3" />
-              </button>
-            </>
-          )}
+          {error ? <span className="body-4 text-error">{error.message}</span> : <></>}
         </div>
       )}
     </div>
@@ -132,7 +136,7 @@ export default function ApplyCareerForm({
 
   if (completed) {
     return (
-      <div className="h-[calc(100vh_-_72px)] bg-gold bg-opacity-10 pb-[72px]">
+      <div className=" bg-gold bg-opacity-10">
         <Block
           styles="normal"
           className="flex h-full flex-col justify-center text-center text-primary"
@@ -154,7 +158,7 @@ export default function ApplyCareerForm({
   }
 
   return (
-    <>
+    <div className="">
       {startAdornment}
       <Block styles="tight" className="bg-gold bg-opacity-10">
         <Container className="max-w-screen-lg">
@@ -162,8 +166,8 @@ export default function ApplyCareerForm({
             {t('submit-your-application')}
           </div>
           <div className="body-3">
-            {t('required')}
             <span className="text-error">*</span>
+            {t('required')}
           </div>
           <div className="mt-6">
             <form
@@ -284,7 +288,7 @@ export default function ApplyCareerForm({
                         },
                       }}
                       helperText={c('file-types-{}', {
-                        value: 'PDF, doc, docx, txt, rtf',
+                        value: 'pdf, doc, docx, txt, rtf',
                       })}
                     />
                   </div>
@@ -315,7 +319,7 @@ export default function ApplyCareerForm({
                         },
                       }}
                       helperText={c('file-types-{}', {
-                        value: 'PDF, doc, docx, txt, rtf',
+                        value: 'pdf, doc, docx, txt, rtf',
                       })}
                     />
                   </div>
@@ -328,6 +332,6 @@ export default function ApplyCareerForm({
           </div>
         </Container>
       </Block>
-    </>
+    </div>
   );
 }
