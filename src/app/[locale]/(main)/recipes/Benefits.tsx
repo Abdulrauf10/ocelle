@@ -70,7 +70,7 @@ export default function RecipeBenefits() {
         );
       })}
       <div className="mt-6 text-center">
-        <Button href="/why-fresh">{t('learn-more')}</Button>
+        <Button href="/why-fresh/benefits-of-fresh-dog-food">{t('learn-more')}</Button>
       </div>
     </div>
   );

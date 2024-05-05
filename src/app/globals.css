@@ -40,11 +40,11 @@ span.swiper-pagination-bullet-active {
 }
 
 .heading-headline {
-  @apply text-[5vw] leading-[6.2vw] max-sm:text-[40px] max-sm:leading-[46px];
+  @apply text-[clamp(40px,5vw,68px)] leading-[clamp(46px,6.2vw,84px)];
 }
 
 .heading-1 {
-  @apply text-[3vw] leading-[1.2em] max-3xl:text-[3.2vw] max-xl:text-[3.6vw] max-lg:text-[4.2vw] max-md:text-[36px] max-xs:text-[32px];
+  @apply text-[clamp(32px,3vw,58px)] leading-[1.2em];
 }
 
 .heading-2 {
@@ -52,7 +52,7 @@ span.swiper-pagination-bullet-active {
 }
 
 .heading-3 {
-  @apply text-[32px] leading-[38px];
+  @apply text-[32px] leading-[40px];
 }
 
 .heading-4 {

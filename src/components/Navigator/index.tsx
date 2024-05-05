@@ -22,7 +22,7 @@ export default function Navigator() {
         <PageLink href="/recipes" name={t('recipes')} />
       </li>
       <li>
-        <PageLink href="/why-fresh" name={t('why-fresh')} />
+        <PageLink href="/why-fresh/benefits-of-fresh-dog-food" name={t('why-fresh')} />
       </li>
       <li className="uppercase">
         <PageLink href="/faq" name={t('faq')} />

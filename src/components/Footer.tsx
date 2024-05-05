@@ -57,7 +57,9 @@ export default function Footer({ hideNav }: FooterProps) {
             <div className="py-5 max-sm:w-2/5 max-sm:px-2 [&_a:hover]:underline">
               <FooterHead>{t('about')}</FooterHead>
               <ul className="list-none">
-                <FooterLink href="/why-fresh">{n('why-fresh')}</FooterLink>
+                <FooterLink href="/why-fresh/benefits-of-fresh-dog-food">
+                  {n('why-fresh')}
+                </FooterLink>
                 <FooterLink href="/about-us">{t('our-story')}</FooterLink>
                 <FooterLink href="/account/plan">{t('my-account')}</FooterLink>
                 <FooterLink href="/careers">{t('careers')}</FooterLink>

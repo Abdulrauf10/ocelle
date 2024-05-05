@@ -256,7 +256,7 @@ export default async function HowItWorksIndividual() {
               </div>
             </div>
             <div className="mt-10">
-              <Button href="/why-fresh">{t('learn-more')}</Button>
+              <Button href="/why-fresh/benefits-of-fresh-dog-food">{t('learn-more')}</Button>
             </div>
           </Container>
         </Block>

@@ -59,7 +59,7 @@ export default function Home() {
             </div>
             <div className="mb-5 mt-[2vw]"></div>
             <div className="flex justify-center md:justify-start">
-              <Button href="/why-fresh">{b('learn-more')}</Button>
+              <Button href="/why-fresh/benefits-of-fresh-dog-food">{b('learn-more')}</Button>
             </div>
           </Block>
         </div>
