@@ -40,7 +40,7 @@ function CareerBlock({ career }: { career: Career }) {
   const b = useTranslations('Button');
   return (
     <div className="mt-4 rounded-2xl bg-white px-10 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-sm:px-4 max-sm:py-6">
-      <div className="-mx-3 -my-2 flex items-center max-xs:flex-wrap">
+      <div className="-mx-3 -my-2 flex items-start max-xs:flex-wrap">
         <div className="w-full px-3 py-2">
           <h3 className="body-1 font-bold text-brown">{career.name}</h3>
           <div className="body-3 mt-1">
@@ -61,7 +61,17 @@ function CareerBlock({ career }: { career: Career }) {
             )}
           </div>
         </div>
-        <div className="mx-auto px-3 py-2">
+        <div className="mx-auto block px-3 pb-2 md:hidden">
+          <Button
+            theme="primary"
+            href={`./careers/${career.id}`}
+            className="whitespace-nowrap !text-base"
+            iconNotNeed
+          >
+            {b('see-details')}
+          </Button>
+        </div>
+        <div className="mx-auto hidden px-3 py-2 md:block">
           <Button
             theme="primary"
             href={`./careers/${career.id}`}
@@ -88,7 +98,7 @@ export default async function Careers() {
           <p className="body-3 mt-2 text-center text-secondary">{c('block-1-content')}</p>
         </Container>
       </Block>
-      <Block styles="custom" className="bg-gold bg-opacity-10 pb-6 pt-4 max-xl:py-10">
+      <Block styles="custom" className="pb-6 pt-4 max-xl:py-10">
         <Container className="max-w-screen-lg">
           {count > 0 ? (
             <div className="-my-10">
