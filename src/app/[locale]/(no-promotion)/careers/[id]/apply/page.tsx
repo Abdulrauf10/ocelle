@@ -31,7 +31,7 @@ export default async function CareerApply({ params }: { params: { id: string } }
   }
 
   return (
-    <main>
+    <main className="flex grow flex-col">
       <AppThemeProvider
         theme={{
           components: {

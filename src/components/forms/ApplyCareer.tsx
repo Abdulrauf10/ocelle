@@ -136,7 +136,7 @@ export default function ApplyCareerForm({
 
   if (completed) {
     return (
-      <div className=" bg-gold bg-opacity-10">
+      <div className=" grow bg-gold bg-opacity-10 py-10">
         <Block
           styles="normal"
           className="flex h-full flex-col justify-center text-center text-primary"
@@ -158,9 +158,9 @@ export default function ApplyCareerForm({
   }
 
   return (
-    <div className="">
+    <div className="flex grow flex-col">
       {startAdornment}
-      <Block styles="tight" className="bg-gold bg-opacity-10">
+      <Block styles="tight" className="grow bg-gold bg-opacity-10">
         <Container className="max-w-screen-lg">
           <div className="body-1 font-bold uppercase text-primary">
             {t('submit-your-application')}

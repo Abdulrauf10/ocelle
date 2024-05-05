@@ -6,7 +6,7 @@ import Sticky from '@/components/Sticky';
 export default function NoPromotionLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div className="min-h-screen">
+      <div className="flex min-h-screen flex-col ">
         <Sticky>
           <Header nav={<Navigator />} />
         </Sticky>

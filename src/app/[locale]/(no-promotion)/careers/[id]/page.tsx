@@ -54,7 +54,7 @@ export default async function CareerView({ params }: { params: { id: string } })
   }
 
   return (
-    <main>
+    <main className="flex grow flex-col">
       <Title career={career} />
       <Block styles="custom" className="bg-gold bg-opacity-10 py-6">
         <Container className="max-w-screen-lg">
