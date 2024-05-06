@@ -40,7 +40,7 @@ function CareerBlock({ career }: { career: Career }) {
   const b = useTranslations('Button');
   return (
     <div className="mt-4 rounded-2xl bg-white px-10 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-sm:px-4 max-sm:py-6">
-      <div className="-mx-3 -my-2 flex items-start max-xs:flex-wrap">
+      <div className="-mx-3 -my-2 flex items-start ">
         <div className="w-full px-3 py-2">
           <h3 className="body-1 font-bold text-brown">{career.name}</h3>
           <div className="body-3 mt-1">
@@ -61,7 +61,7 @@ function CareerBlock({ career }: { career: Career }) {
             )}
           </div>
         </div>
-        <div className="mx-auto block px-3 pb-2 md:hidden">
+        <div className="mx-auto my-auto block px-3 pb-2 md:hidden">
           <Button
             theme="primary"
             href={`./careers/${career.id}`}

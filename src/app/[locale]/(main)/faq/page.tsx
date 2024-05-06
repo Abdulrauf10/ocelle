@@ -68,7 +68,7 @@ export default function FaQ() {
       <div className="bg-primary bg-opacity-20 py-8">
         <Container className="max-w-screen-xl">
           <div className="-m-2 flex flex-wrap items-center justify-between max-xl:justify-center max-xl:px-4 max-lg:justify-center max-sm:flex-col">
-            <div className="flex justify-center p-2 md:flex-[1_1_30%]">
+            <div className="flex justify-center p-2 md:flex-[1_1_30%] xl:flex-1">
               <Link
                 href="#our-food"
                 className="heading-4 block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90"
@@ -76,7 +76,7 @@ export default function FaQ() {
                 Our Food
               </Link>
             </div>
-            <div className="flex justify-center p-2 md:flex-[1_1_30%]">
+            <div className="flex justify-center p-2 md:flex-[1_1_30%] xl:flex-1">
               <Link
                 href="#our-quiz"
                 className="heading-4 block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90"
@@ -84,7 +84,7 @@ export default function FaQ() {
                 Our Quiz
               </Link>
             </div>
-            <div className="flex justify-center p-2 md:flex-[1_1_30%]">
+            <div className="flex justify-center p-2 md:flex-[1_1_30%] xl:flex-1">
               <Link
                 href="#subscription"
                 className="heading-4 block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90"
@@ -92,7 +92,7 @@ export default function FaQ() {
                 Subscription
               </Link>
             </div>
-            <div className="flex justify-center p-2 md:flex-[1_1_40%]">
+            <div className="flex justify-center p-2 md:flex-[1_1_40%] xl:flex-1">
               <Link
                 href="#deliveries"
                 className="heading-4 block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90"

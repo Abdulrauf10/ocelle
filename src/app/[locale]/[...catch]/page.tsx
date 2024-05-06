@@ -20,22 +20,16 @@ export default function NotFound() {
       <Promotion />
       <Header nav={<Navigator />} />
       <div className="bg-gold bg-opacity-20">
-        <Container className="flex max-w-screen-xl items-end max-md:flex-col max-sm:items-center">
-          <div className="w-full px-4 py-20 text-left max-md:py-12 max-md:text-center max-sm:py-8">
+        <Container className="flex max-w-screen-xl items-end max-[903px]:flex-col max-[903px]:items-center">
+          <div className="w-full px-4 py-20 text-left max-[903px]:py-12 max-[903px]:py-8 max-[903px]:text-center">
             <h1 className="heading-1 font-bold text-primary">
               <i>Aiya!</i> <span className="inline-block">Page Gone Walkies!</span>
             </h1>
             <p className="body-1 mt-4">
-              <span className="italic text-primary">RUH-ROH!</span>{' '}
-              <span className="uppercase text-secondary">(TRY RELOADING!)</span>
-              <br />
-              <span className="italic text-primary">WOOF! RUH-RUFF!</span>{' '}
-              <span className="uppercase text-secondary">(Or Use Links Below!)</span>
-              <br />
-              <span className="italic text-primary">AROOOOOOOO!!!</span>
+              <span className="italic text-primary">Woof! Please use the links below.</span>
             </p>
 
-            <div className="mx-0 max-w-[180px] max-md:mx-auto">
+            <div className="mx-0 max-w-[180px] max-[903px]:mx-auto">
               <div className="mt-4">
                 <Button fullWidth onClick={() => router.back()}>
                   <span className="flex-1">{t('go-back')}</span>
@@ -48,7 +42,7 @@ export default function NotFound() {
               </div>
             </div>
           </div>
-          <div className="w-full px-4 pt-10 xs:w-[480px] xs:min-w-[480px]">
+          <div className="w-full px-4 pt-0 xs:w-[480px] xs:min-w-[480px] min-[903px]:pt-10">
             <div className="relative pt-[103.3%]">
               <Image src="/404.png" alt="404 dog" fill />
             </div>
