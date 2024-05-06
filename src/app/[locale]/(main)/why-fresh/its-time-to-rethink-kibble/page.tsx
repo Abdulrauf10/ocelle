@@ -431,15 +431,6 @@ export default function ItsTimeToRethinkKibble() {
       <Block>
         <Container className="!max-w-5xl">
           <div className="relative">
-            <h2 className="heading-1 text-center font-bold text-brown">
-              {i.rich('block-6-title')}
-            </h2>
-            <hr className="my-10" />
-            <div className="mx-auto !max-w-4xl">
-              <p className="body-1 text-center">{i.rich('block-6-content-1')}</p>
-              <p className="body-1 mt-6 text-center">{i.rich('block-6-content-2')}</p>
-              <p className="body-1 mt-6 text-center">{i.rich('block-6-content-3')}</p>
-            </div>
             <div className="absolute inset-0 max-xl:hidden">
               <Image
                 src="/why-fresh/chicken-kibble.png"
@@ -462,6 +453,15 @@ export default function ItsTimeToRethinkKibble() {
                 height={50}
                 className="absolute -left-12 bottom-1"
               />
+            </div>
+            <h2 className="heading-1 relative text-center font-bold text-brown">
+              {i.rich('block-6-title')}
+            </h2>
+            <hr className="my-10" />
+            <div className="relative mx-auto !max-w-4xl">
+              <p className="body-1 text-center">{i.rich('block-6-content-1')}</p>
+              <p className="body-1 mt-6 text-center">{i.rich('block-6-content-2')}</p>
+              <p className="body-1 mt-6 text-center">{i.rich('block-6-content-3')}</p>
             </div>
           </div>
         </Container>
