@@ -9,8 +9,6 @@ import 'swiper/css/pagination';
 import { EffectCreative, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import './styles.css';
-
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
@@ -197,7 +195,12 @@ export default function ItsTimeToRethinkKibble() {
             centeredSlides
             spaceBetween={50}
             modules={[Pagination, EffectCreative]}
-            pagination={{ dynamicBullets: false, clickable: true }}
+            pagination={{
+              dynamicBullets: false,
+              clickable: true,
+              bulletClass: 'swiper-pagination-bullet !border-dark-green',
+              bulletActiveClass: 'swiper-pagination-bullet-active !bg-dark-green',
+            }}
             className="mt-10"
             wrapperClass="pb-20"
             effect="creative"
