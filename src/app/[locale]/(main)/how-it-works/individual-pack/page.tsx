@@ -45,15 +45,15 @@ export default async function HowItWorksIndividual() {
   return (
     <CartContextProvider lines={cart ? cart.lines : []} totalPrice={cart?.totalPrice.gross}>
       <main>
-        <div className="relative flex items-center bg-[url('./individual-pack-bg.jpg')] bg-[length:auto_100%] bg-[center_50%] bg-repeat-x">
-          <div className="w-full pt-[36.5%]"></div>
-          <div className="body-1 absolute w-full py-[4vw] text-white max-lg:w-full lg:pr-0">
-            <Container>
+        <div className="relative flex items-center bg-[url('./individual-pack-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_40px)_center] bg-no-repeat max-lg:bg-[url('./individual-pack-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-bottom">
+          <div className="w-full pt-[clamp(450px,31.5%,700px)] max-lg:hidden"></div>
+          <div className="body-1 w-full py-[4vw] text-white max-lg:w-full max-lg:py-10 max-lg:pb-[95%] lg:absolute lg:pr-0">
+            <Container className="max-lg:text-center">
               <h1 className="heading-headline font-bold">
                 Feeding Fresh Is <br />
                 Easy With OCELLE
               </h1>
-              <p className="body-1 mt-4 max-w-[45%]">
+              <p className="body-1 mt-4 max-w-[45%] max-lg:max-w-none">
                 If you’re not ready for a subscription, our individual packs come in set weights and
                 can be ordered anytime.
               </p>

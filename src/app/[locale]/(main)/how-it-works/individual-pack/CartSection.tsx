@@ -5,6 +5,7 @@ import React from 'react';
 import { deleteCartLine, updateCartLine } from './actions';
 
 import CartRows from '@/components/CartRows';
+import Container from '@/components/Container';
 import CartDialog from '@/components/dialogs/Cart';
 import Cart from '@/components/icons/Cart';
 import { useCart } from '@/contexts/cart';
@@ -55,9 +56,16 @@ export default function CartSection() {
       onCheckoutClick={() => router.push('/checkout')}
       disabled={pending}
     >
-      <button type="button" className="fixed right-8 top-36">
-        <Cart className="w-16" count={lines.reduce((count, line) => line.quantity + count, 0)} />
-      </button>
+      <div className="fixed left-0 top-40 w-full max-lg:top-[340px]">
+        <Container className="text-right">
+          <button type="button">
+            <Cart
+              className="w-16"
+              count={lines.reduce((count, line) => line.quantity + count, 0)}
+            />
+          </button>
+        </Container>
+      </div>
     </CartDialog>
   );
 }
