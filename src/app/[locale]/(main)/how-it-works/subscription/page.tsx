@@ -14,27 +14,20 @@ export default function HowItWorksSubscription() {
   const b = useTranslations('Button');
   return (
     <main>
-      <div className="bg-[#E8E4DB]">
+      <div className="bg-[#EFE9DD] bg-[url('./subscription-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_50px)_center] bg-no-repeat max-lg:bg-[#E8E4DB] max-lg:bg-[url('./subscription-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-top max-lg:pt-[68%]">
         <Container>
           <div className="-mx-4 flex flex-wrap items-center max-lg:flex-col-reverse max-lg:items-center">
-            <div className="w-2/5 px-4 py-[4vw] text-xl text-primary max-lg:w-full">
-              <h1 className="heading-headline font-bold max-lg:text-center">
-                Get Personal With An Expert
-              </h1>
-              <p className="body-1 mt-5 font-bold italic max-lg:text-center">
+            <div className="w-2/5 px-4 py-[5vw] text-xl text-primary max-lg:w-full max-lg:pb-12">
+              <h1 className="heading-headline font-bold">Get Personal With An Expert</h1>
+              <p className="body-1 mt-5 font-bold italic">
                 Nutrition is not a one-size-fits-all affair!
               </p>
-              <p className="body-1 mt-3 max-lg:text-center">
+              <p className="body-1 mt-3">
                 Our unique, customised recipes are crafted by our Vet Nutritionist and tailored to
                 your dog&apos;s health goals and ongoing needs.
               </p>
               <div className="mt-5 max-lg:flex max-lg:justify-center">
                 <Button href="/get-started">{b('get-started')}</Button>
-              </div>
-            </div>
-            <div className="w-3/5 self-start px-4 pb-[2vw] max-lg:w-full">
-              <div className="relative h-[30.625vw] w-[50vw] max-lg:m-auto max-lg:h-[55.125vw] max-lg:w-[90vw]">
-                <Image src="/how-it-works-banner-v4.jpg" alt="feed dog" fill />
               </div>
             </div>
           </div>
