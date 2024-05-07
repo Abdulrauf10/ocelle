@@ -41,7 +41,7 @@ export default function Header({
   }, [pathname]);
 
   return (
-    <header className="relative bg-white px-[2vw] py-3 max-lg:px-4">
+    <header className="relative bg-white py-3">
       <Container>
         <div className="-mx-2 flex flex-row flex-wrap items-center justify-between">
           {startAdornment}
