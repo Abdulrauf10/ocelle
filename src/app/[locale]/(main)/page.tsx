@@ -24,15 +24,9 @@ export default function Home() {
       <Picture />
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center text-white">
-          <h1 className="heading-1 font-bold">
-            {t('block-2-title-1')}
-            <br className="md:hidden" />
-            {t('block-2-title-2')}
-          </h1>
+          <h1 className="heading-1 font-bold">{t.rich('block-2-title')}</h1>
           <p className="body-1 mt-8">
-            {t('blcok-2-content-1')}
-            <br className="max-lg:hidden" />
-            {t('blcok-2-content-2')}
+            {t.rich('blcok-2-content', { br: () => <br className="max-lg:hidden" /> })}
           </p>
         </Container>
       </Block>
