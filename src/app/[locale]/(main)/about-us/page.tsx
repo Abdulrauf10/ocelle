@@ -6,6 +6,7 @@ import Newsletter from '@/components/Newsletter';
 import Button from '@/components/buttons/Button';
 import Sound from '@/components/icons/Sound';
 import Block from '@/components/layouts/Block';
+import TwoToneBlock from '@/components/layouts/TwoToneBlock';
 import { Link } from '@/navigation';
 
 export default function OurStory() {
@@ -74,10 +75,16 @@ export default function OurStory() {
           </div>
         </Container>
       </Block>
-      <div className="flex flex-wrap md:flex-row-reverse xl:h-[655px]">
-        <div className="min-h-[380px] w-1/2 bg-[length:auto_100%] max-md:min-h-[100vw] max-md:w-full max-md:bg-[url('./charlie-center.jpg')]  md:bg-[url('./charlie.jpg')]"></div>
-        <div className="w-1/2 bg-brown pl-[8vw] pr-[4vw] text-white max-md:w-full max-md:px-4">
-          <Block>
+      <TwoToneBlock
+        breakpoint="lg"
+        className={{
+          bgLeft: 'bg-brown',
+          bgRight:
+            "min-h-[520px] bg-[length:auto_100%] max-md:min-h-[100vw] max-md:bg-[url('./charlie-center.jpg')] md:bg-[url('./charlie.jpg')]",
+          mbLeft: 'px-4',
+        }}
+        left={
+          <div className="py-[clamp(20px,3.5vw,60px)] text-white">
             <h2 className="heading-1 font-bold">
               {a.rich('block-2-title-1-1')}
               <span className="block"> {a.rich('block-2-title-1-2')}</span>
@@ -85,9 +92,9 @@ export default function OurStory() {
             <p className="body-1 mt-8">{a('block-2-content-1')}</p>
             <p className="body-1 mt-4">{a('block-2-content-2')}</p>
             <p className="body-1 mt-4">{a('block-2-content-3')}</p>
-          </Block>
-        </div>
-      </div>
+          </div>
+        }
+      />
       <div className="relative z-0 flex items-center bg-primary bg-cover bg-center bg-repeat-x max-md:flex-col-reverse md:bg-[url('./about-us-bg.svg')] xl:h-[680px]">
         <Image
           src="/food-1.png"
@@ -134,9 +141,27 @@ export default function OurStory() {
           <p className="body-1 mt-4 w-2/3 max-xl:w-full">{a('block-3-content-1')}</p>
         </div>
       </div>
-      <div className="flex flex-wrap xl:h-[794px]">
-        <div className="w-1/2 bg-secondary bg-opacity-20 pl-[8vw] pr-[4vw] max-lg:w-full max-lg:px-4">
-          <Block>
+      <TwoToneBlock
+        breakpoint="lg"
+        className={{
+          bgLeft: 'bg-secondary bg-opacity-20',
+          bgRight: 'flex items-end bg-secondary bg-opacity-80',
+          mbLeft: 'px-4 py-6',
+        }}
+        bgRight={
+          <div className="ml-[12%] w-full max-w-[620px] max-lg:mx-auto max-lg:px-4">
+            <div className="relative pt-[117.2%]">
+              <Image
+                src="/about-us-food.png"
+                alt="foods"
+                fill
+                className="select-none object-contain object-bottom"
+              />
+            </div>
+          </div>
+        }
+        left={
+          <div className="py-[clamp(20px,3.5vw,60px)]">
             <h2 className="heading-1 inline-block font-bold text-secondary max-[300px]:block">
               {a('block-4-title-1-1')}
               {a.rich('block-4-title-1-2')}
@@ -146,16 +171,21 @@ export default function OurStory() {
             <p className="body-1 mt-4">{a('block-4-content-3')}</p>
             <p className="body-1 mt-4">{a('block-4-content-4')}</p>
             <p className="body-1 mt-4">{a('block-4-content-5')}</p>
-          </Block>
-        </div>
-        <div className="flex min-h-[380px] w-1/2 items-end bg-secondary bg-opacity-80 max-lg:w-full">
-          <div className="ml-[12%] w-full max-w-[620px] max-lg:mx-auto max-lg:px-4">
-            <div className="relative pt-[117.2%]">
-              <Image src="/about-us-food.png" alt="foods" fill className="select-none" />
+          </div>
+        }
+        right={
+          <div className="relative w-full max-w-[620px] max-lg:mx-auto lg:ml-[6%]">
+            <div className="pt-[117.2%]">
+              <Image
+                src="/about-us-food.png"
+                alt="foods"
+                fill
+                className="select-none object-contain object-bottom lg:hidden"
+              />
             </div>
           </div>
-        </div>
-      </div>
+        }
+      />
       <Block styles="normal" className="h-[280px] bg-dark-green py-10">
         <Container className="text-center text-white" screen>
           <h2 className="heading-1 font-bold">

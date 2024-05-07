@@ -38,7 +38,6 @@ export default function Home() {
       </Block>
       <TwoToneBlock
         className={{
-          bg: 'inset-0',
           bgLeft: 'min-h-[300px] bg-[url("./gofresh-img.jpg")] bg-cover bg-[center_right]',
           bgRight: 'max-md:px-4',
         }}
