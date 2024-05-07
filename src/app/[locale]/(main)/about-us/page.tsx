@@ -58,7 +58,7 @@ export default function OurStory() {
                 </tr>
                 <tr>
                   <th>
-                    <div className="mt-[.1em]">
+                    <div>
                       <strong className="text-[.6em] font-bold text-primary">2. </strong>
                     </div>
                   </th>
