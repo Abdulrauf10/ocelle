@@ -110,7 +110,7 @@ export default function OurStory() {
           alt="food-2"
           width={320}
           height={220}
-          className="left-30 clip-path: insea(0 40% 0 0) absolute -right-[60px] bottom-[15%] max-[450px]:hidden"
+          className="left-30 clip-path: insea(0 40% 0 0) min-md:hidden absolute -right-[60px] bottom-[15%] max-md:block max-[450px]:hidden md:hidden"
           style={{
             clipPath: 'insea(0 19% 0 0)',
           }}
