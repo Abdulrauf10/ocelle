@@ -470,7 +470,9 @@ export default function ItsTimeToRethinkKibble() {
         <Container className="text-center">
           <h2 className="heading-1 font-bold text-white">{i.rich('block-7-title')}</h2>
           <p className="body-1 mt-6 text-white">{i.rich('block-7-content-1')}</p>
-          <Button className="mt-8">{b('try-it-today')}</Button>
+          <Button className="mt-8" href="/get-started">
+            {b('try-it-today')}
+          </Button>
         </Container>
       </Block>
       <Block className="overflow-hidden bg-gold bg-opacity-15">

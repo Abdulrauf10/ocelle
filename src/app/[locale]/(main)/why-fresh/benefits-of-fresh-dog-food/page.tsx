@@ -125,7 +125,9 @@ export default function BenefitsOfFreshDogFood() {
             </div>
             <div className="mx-4 flex-1 max-md:text-center">
               <p className="body-1">{i.rich('block-3-content-1')}</p>
-              <Button className="mt-8">{t('learn-more')}</Button>
+              <Button className="mt-8" href="/why-fresh/its-time-to-rethink-kibble">
+                {t('learn-more')}
+              </Button>
             </div>
           </div>
         </Container>
@@ -314,7 +316,9 @@ export default function BenefitsOfFreshDogFood() {
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center">
           <h2 className="heading-1 font-bold text-white">{i.rich('block-5-title')}</h2>
-          <Button className="mt-8">{b('try-it-today')}</Button>
+          <Button className="mt-8" href="/get-started">
+            {b('try-it-today')}
+          </Button>
         </Container>
       </Block>
       <Block className="overflow-hidden bg-gold bg-opacity-15">
