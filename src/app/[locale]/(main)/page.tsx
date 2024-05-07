@@ -222,7 +222,9 @@ export default function Home() {
       <Block className="bg-gold bg-opacity-10">
         <Container>
           <h2 className="heading-1 text-center font-black text-gold">{t('block-6-title')}</h2>
-          <p className="body-1 mx-auto mt-5 max-w-screen-md text-center text-gold"></p>
+          <p className="body-1 mx-auto mt-5 max-w-screen-md text-center text-gold">
+            {t('block-6-content')}
+          </p>
           <CaseSwiper />
           <div className="mt-8 text-center">
             <Button href="/get-started">{b('see-my-plan')}</Button>
