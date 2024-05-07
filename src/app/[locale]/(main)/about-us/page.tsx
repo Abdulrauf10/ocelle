@@ -20,10 +20,10 @@ export default function OurStory() {
         <Container>
           <h1 className="heading-1 text-center font-bold text-primary">{a('we-do-it-for-them')}</h1>
           <div className="mx-auto mt-10 rounded-[30px] border border-primary bg-white p-12 text-[1.6vw] leading-[1.2] max-3xl:text-[2.4vw] max-2xl:text-[2.8vw] max-xl:mt-5 max-xl:p-10 max-xl:text-[3.4vw] max-lg:text-[3.8vw] max-md:p-8 max-md:text-[4.8vw] max-sm:text-[36px] max-xs:p-6 max-xs:text-[32px]">
-            <strong className="flex items-center text-[1em] leading-[1.5em] text-primary">
+            <strong className="flex flex-col text-left text-[1em] leading-[1.5em] text-primary xs:flex-row xs:items-center">
               <div className="inline-block">Ocelle |</div>
-              <div className="inline-block max-w-[220px]">
-                oh-chell-i | <Sound className="ml-[.8vw] inline-block w-[.8em]" />
+              <div className="inline-block min-w-[240px]">
+                oh-chell-i | <Sound className="ml-[.8vw] inline-block w-[.8em] pb-1" />
               </div>
             </strong>
             <p className="mt-[.6em] text-[.73em] text-primary">
@@ -113,7 +113,7 @@ export default function OurStory() {
           alt="food-2"
           width={320}
           height={220}
-          className="left-30 clip-path: insea(0 40% 0 0) absolute -right-[60px] bottom-[15%] max-[450px]:hidden"
+          className="left-30 clip-path: insea(0 40% 0 0) min-md:hidden absolute -right-[60px] bottom-[15%] max-md:block max-[450px]:hidden md:hidden"
           style={{
             clipPath: 'insea(0 19% 0 0)',
           }}

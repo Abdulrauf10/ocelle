@@ -40,7 +40,7 @@ export default function FaQ() {
                   max-md:pt-4"
       >
         <Container>
-          <div className="max-w-8xl py-3">
+          <div className="max-w-8xl px-10 py-3">
             <h1 className="-ml-[9px] select-none text-[215px] font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] max-lg:text-[130px]">
               FAQ
             </h1>
