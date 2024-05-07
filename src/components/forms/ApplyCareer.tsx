@@ -74,7 +74,7 @@ function FileInput<T extends FieldValues>({
           <div className="flex flex-row items-start">
             <span className="body-2 mr-2 mt-2 inline-block break-all">
               {/* {label}: {filename} */}
-              <b> Attached </b>: {filename}
+              <b>Attached</b>: {filename}
             </span>
             <button className=" mt-2 h-6" onClick={handleDetach}>
               <Close className="w-3" />
