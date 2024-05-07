@@ -46,7 +46,8 @@ export default function BenefitsOfFreshDogFood() {
       <Block className="bg-gold bg-opacity-15">
         <Container>
           <h1 className="heading-1 text-center font-bold text-brown">{i.rich('block-1-title')}</h1>
-          <p className="body-1 mt-6 text-center">{i.rich('block-1-content-1')}</p>
+          <div className="mt-6"></div>
+          <p className="body-1 text-center">{i.rich('block-1-content-1')}</p>
           <div className="mx-auto mt-6 max-w-[1200px]">
             <div className="relative pt-[56%]">
               <Image src="/why-fresh/a-running-dog.jpg" alt="running dog" fill />
@@ -65,8 +66,10 @@ export default function BenefitsOfFreshDogFood() {
         left={
           <div className="text-white">
             <h2 className="heading-1 font-bold max-md:text-center">{i.rich('block-2-title')}</h2>
-            <p className="body-1 mt-6">{i.rich('block-2-content-1')}</p>
-            <p className="body-1 mt-4">{i.rich('block-2-content-2')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-2-content-1')}</p>
+            <div className="mt-4"></div>
+            <p className="body-1">{i.rich('block-2-content-2')}</p>
           </div>
         }
         right={
@@ -87,9 +90,8 @@ export default function BenefitsOfFreshDogFood() {
             <div className="mx-4 flex-1 max-md:mb-6">
               <div className="ml-4 mr-10 rounded-[40px] border-[3px] border-gold bg-white px-12 py-8 max-xl:ml-0 max-xl:mr-4 max-md:max-w-xl">
                 <p className="heading-4 text-center italic text-gold">{i.rich('block-3-quota')}</p>
-                <p className="body-1 mt-4 text-center text-gold">
-                  {i.rich('block-3-quota-person')}
-                </p>
+                <div className="mt-4"></div>
+                <p className="body-1 text-center text-gold">{i.rich('block-3-quota-person')}</p>
                 <div className="mt-6 flex">
                   <div className="flex-1 text-center">
                     <div className="body-1 font-bold">{i.rich('block-3-chicken')}</div>
@@ -136,7 +138,9 @@ export default function BenefitsOfFreshDogFood() {
       <Block className="bg-primary bg-opacity-10">
         <h2 className="heading-1 text-center font-bold text-primary">{i.rich('block-4-title')}</h2>
         <Container className="!max-w-5xl">
-          <p className="body-1 mt-4 text-center text-primary">{i.rich('block-4-content-1')}</p>
+          <div className="mt-4">
+            <p className="body-1 text-center text-primary">{i.rich('block-4-content-1')}</p>
+          </div>
           <Toggler
             className={{ root: 'mt-6' }}
             title={
@@ -149,31 +153,32 @@ export default function BenefitsOfFreshDogFood() {
             }
           >
             <p className="body-1">{i.rich('block-4-benefits-1-content-1')}</p>
-            <p className="body-1 mt-6">{i.rich('block-4-benefits-1-content-2')}</p>
-            <p className="body-1 mt-6">{i.rich('block-4-benefits-1-content-3')}</p>
-            <p className="body-1 mt-6">
-              {i.rich('block-4-benefits-1-content-4')}
-              <ul className="-mb-2 mt-2 list-item pl-7">
-                <li className="relative flex items-center py-1">
-                  <div className="absolute -left-5 select-none text-[60px] text-primary">
-                    <span className="relative top-1">•</span>
-                  </div>
-                  {i.rich('block-4-benefits-1-content-4-mark-1')}
-                </li>
-                <li className="relative flex items-center py-1">
-                  <div className="absolute -left-5 select-none text-[60px] text-primary">
-                    <span className="relative top-1">•</span>
-                  </div>
-                  {i.rich('block-4-benefits-1-content-4-mark-2')}
-                </li>
-                <li className="relative flex items-center py-1">
-                  <div className="absolute -left-5 select-none text-[60px] text-primary">
-                    <span className="relative top-1">•</span>
-                  </div>
-                  {i.rich('block-4-benefits-1-content-4-mark-3')}
-                </li>
-              </ul>
-            </p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-1-content-2')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-1-content-3')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-1-content-4')}</p>
+            <ul className="-mb-2 mt-2 list-item pl-7">
+              <li className="relative flex items-center py-1">
+                <div className="absolute -left-5 select-none text-[60px] text-primary">
+                  <span className="relative top-1">•</span>
+                </div>
+                <p className="body-1">{i.rich('block-4-benefits-1-content-4-mark-1')}</p>
+              </li>
+              <li className="relative flex items-center py-1">
+                <div className="absolute -left-5 select-none text-[60px] text-primary">
+                  <span className="relative top-1">•</span>
+                </div>
+                <p className="body-1">{i.rich('block-4-benefits-1-content-4-mark-2')}</p>
+              </li>
+              <li className="relative flex items-center py-1">
+                <div className="absolute -left-5 select-none text-[60px] text-primary">
+                  <span className="relative top-1">•</span>
+                </div>
+                <p className="body-1">{i.rich('block-4-benefits-1-content-4-mark-3')}</p>
+              </li>
+            </ul>
           </Toggler>
           <Toggler
             className={{ root: 'mt-6' }}
@@ -187,9 +192,12 @@ export default function BenefitsOfFreshDogFood() {
             }
           >
             <p className="body-1">{i.rich('block-4-benefits-2-content-1')}</p>
-            <p className="body-1 mt-6">{i.rich('block-4-benefits-2-content-2')}</p>
-            <p className="body-1 mt-6">{i.rich('block-4-benefits-2-content-3')}</p>
-            <p className="body-1 mt-6">{i.rich('block-4-benefits-2-content-4')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-2-content-2')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-2-content-3')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-2-content-4')}</p>
           </Toggler>
           <Toggler
             className={{ root: 'mt-6' }}
@@ -203,7 +211,8 @@ export default function BenefitsOfFreshDogFood() {
             }
           >
             <p className="body-1">{i.rich('block-4-benefits-3-content-1')}</p>
-            <p className="body-1 mt-6">{i.rich('block-4-benefits-3-content-2')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-3-content-2')}</p>
           </Toggler>
           <Toggler
             className={{ root: 'mt-6' }}
@@ -217,12 +226,14 @@ export default function BenefitsOfFreshDogFood() {
             }
           >
             <p className="body-1">{i.rich('block-4-benefits-4-content-1')}</p>
-            <p className="body-1 mt-6">
+            <div className="mt-6"></div>
+            <p className="body-1">
               {i.rich('block-4-benefits-4-content-2', {
                 button: (chunks) => <UnderlineButton label={chunks} underline />,
               })}
             </p>
-            <p className="body-1 mt-6">{i.rich('block-4-benefits-4-content-3')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-4-content-3')}</p>
           </Toggler>
           <Toggler
             className={{ root: 'mt-6' }}
@@ -236,9 +247,12 @@ export default function BenefitsOfFreshDogFood() {
             }
           >
             <p className="body-1">{i.rich('block-4-benefits-5-content-1')}</p>
-            <p className="body-1 mt-6">{i.rich('block-4-benefits-5-content-2')}</p>
-            <p className="body-1 mt-6">{i.rich('block-4-benefits-5-content-3')}</p>
-            <p className="body-1 mt-6">{i.rich('block-4-benefits-5-content-4')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-5-content-2')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-5-content-3')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-5-content-4')}</p>
             <div className="-mx-4 mt-6 flex">
               <p className="body-1 flex-1 px-4">{i.rich('block-4-benefits-5-content-5')}</p>
               <div className="flex px-4">
@@ -250,7 +264,8 @@ export default function BenefitsOfFreshDogFood() {
                     height={115.5}
                     className="inline-block min-w-28"
                   />
-                  <p className="body-4 mt-1 font-bold text-primary">500 calories of OCELLE</p>
+                  <div className="mt-1"></div>
+                  <p className="body-4 font-bold text-primary">500 calories of OCELLE</p>
                 </div>
                 <div className="mx-6 mt-2 h-[115.5px] w-px bg-primary"></div>
                 <div className="flex">
@@ -262,13 +277,16 @@ export default function BenefitsOfFreshDogFood() {
                       height={115.5}
                       className="inline-block min-w-28"
                     />
-                    <p className="body-4 mt-1 font-bold text-brown">500 calories of kibble</p>
+                    <div className="mt-1"></div>
+                    <p className="body-4 font-bold text-brown">500 calories of kibble</p>
                   </div>
                 </div>
               </div>
             </div>
-            <p className="body-1 mt-6">{i.rich('block-4-benefits-5-content-6')}</p>
-            <p className="body-1 mt-6">{i.rich('block-4-benefits-5-content-7')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-5-content-6')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-5-content-7')}</p>
           </Toggler>
           <Toggler
             className={{ root: 'mt-6' }}
@@ -282,8 +300,10 @@ export default function BenefitsOfFreshDogFood() {
             }
           >
             <p className="body-1">{i.rich('block-4-benefits-6-content-1')}</p>
-            <p className="body-1 mt-6">{i.rich('block-4-benefits-6-content-2')}</p>
-            <p className="body-1 mt-6">{i.rich('block-4-benefits-6-content-3')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-6-content-2')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-6-content-3')}</p>
           </Toggler>
           <Toggler
             className={{ root: 'mt-6' }}
@@ -297,7 +317,8 @@ export default function BenefitsOfFreshDogFood() {
             }
           >
             <p className="body-1">{i.rich('block-4-benefits-7-content-1')}</p>
-            <p className="body-1 mt-6">{i.rich('block-4-benefits-7-content-2')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-4-benefits-7-content-2')}</p>
           </Toggler>
           <Toggler
             className={{ root: 'mt-6' }}
@@ -325,7 +346,8 @@ export default function BenefitsOfFreshDogFood() {
       <Block className="overflow-hidden bg-gold bg-opacity-15">
         <Container>
           <h2 className="heading-1 text-center font-bold text-gold">{w.rich('block-1-title')}</h2>
-          <p className="body-1 mt-4 text-center">
+          <div className="mt-4"></div>
+          <p className="body-1 text-center">
             {w.rich('block-1-content-1', {
               button: (chunks) => <UnderlineButton label={chunks} href="/why-fresh/reference" />,
             })}

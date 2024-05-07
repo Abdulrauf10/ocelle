@@ -59,27 +59,27 @@ export default async function CareerView({ params }: { params: { id: string } })
       <Block styles="custom" className="bg-gold bg-opacity-10 py-6">
         <Container className="max-w-screen-lg">
           <p className="body-3">{c('detail-content-1')}</p>
-          <p className="body-3 mt-6">{c('detail-content-2')}</p>
-          <div className="mt-6">
-            <CareerBlock
-              title={c('what-you’ll-do')}
-              lines={career.lines.filter((line) => line.lineType === CareerLineType.Responsibility)}
-            />
-          </div>
-          <div className="mt-6">
-            <CareerBlock
-              title={c('what-you’ll-need')}
-              lines={career.lines.filter((line) => line.lineType === CareerLineType.Requirement)}
-            />
-          </div>
-          <div className="mt-6">
-            <CareerBlock
-              title={c('benefits')}
-              lines={career.lines.filter((line) => line.lineType === CareerLineType.Benefit)}
-            />
-          </div>
-          <p className="body-3 mt-6 italic">{c('detail-content-3')}</p>
-          <div className="mt-6 text-center">
+          <div className="mt-6"></div>
+          <p className="body-3">{c('detail-content-2')}</p>
+          <div className="mt-6"></div>
+          <CareerBlock
+            title={c('what-you’ll-do')}
+            lines={career.lines.filter((line) => line.lineType === CareerLineType.Responsibility)}
+          />
+          <div className="mt-6"></div>
+          <CareerBlock
+            title={c('what-you’ll-need')}
+            lines={career.lines.filter((line) => line.lineType === CareerLineType.Requirement)}
+          />
+          <div className="mt-6"></div>
+          <CareerBlock
+            title={c('benefits')}
+            lines={career.lines.filter((line) => line.lineType === CareerLineType.Benefit)}
+          />
+          <div className="mt-6"></div>
+          <p className="body-3 italic">{c('detail-content-3')}</p>
+          <div className="mt-6"></div>
+          <div className="text-center">
             <Button className="min-w-[180px]" href={`./${params.id}/apply`}>
               {b('apply')}
             </Button>

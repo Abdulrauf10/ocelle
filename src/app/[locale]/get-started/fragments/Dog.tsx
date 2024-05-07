@@ -54,13 +54,16 @@ export default function DogFragment() {
               {t('continue')}
             </Button>
           </form>
+          <div className="mt-10"></div>
           <UnderlineButton
-            className="body-2 mt-10"
+            className="body-2"
             onClick={() => setShowMoreDogs(!showMoreDogs)}
             label={t('i-have-more-dogs')}
           />
           {showMoreDogs && (
-            <p className="body-3 mt-3 italic text-primary">{t.rich('i-have-more-dogs:reply')}</p>
+            <div className="mt-3">
+              <p className="body-3 italic text-primary">{t.rich('i-have-more-dogs:reply')}</p>
+            </div>
           )}
         </Section>
       </Container>

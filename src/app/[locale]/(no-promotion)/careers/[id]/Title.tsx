@@ -12,7 +12,8 @@ export default function Title({ career }: { career: Career }) {
     <Block styles="custom" className="bg-primary bg-opacity-10 py-5">
       <Container className="max-w-screen-lg">
         <h1 className="heading-4 font-bold text-brown">{career.name}</h1>
-        <div className="body-2 mt-1">
+        <div className="mt-1"></div>
+        <div className="body-2">
           {t(
             career.workType === WorkType.FullTime
               ? 'full-time'

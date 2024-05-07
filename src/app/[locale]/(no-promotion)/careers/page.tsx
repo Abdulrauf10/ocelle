@@ -43,7 +43,8 @@ function CareerBlock({ career }: { career: Career }) {
       <div className="-mx-3 -my-2 flex items-start ">
         <div className="w-full px-3 py-2">
           <h3 className="body-1 font-bold text-brown">{career.name}</h3>
-          <div className="body-3 mt-1">
+          <div className="mt-1"></div>
+          <div className="body-3">
             {t(
               career.workType === WorkType.FullTime
                 ? 'full-time'
@@ -95,7 +96,8 @@ export default async function Careers() {
       <Block styles="narrow" className="bg-primary bg-opacity-10">
         <Container>
           <h1 className="heading-2 text-center font-bold text-primary">{c('block-1-title')}</h1>
-          <p className="body-3 mt-2 text-center text-secondary">{c('block-1-content')}</p>
+          <div className="mt-2"></div>
+          <p className="body-3 text-center text-secondary">{c('block-1-content')}</p>
         </Container>
       </Block>
       <Block styles="custom" className="bg-gold bg-opacity-10 pb-6 pt-4 max-xl:py-10">
@@ -146,9 +148,10 @@ export default async function Careers() {
               )}
             </div>
           ) : (
-            <div className="body-3 mx-auto max-w-[640px] text-center">
-              <p>{c('block-2-content-1')}</p>
-              <p className="mt-4">
+            <div className="mx-auto max-w-[640px] text-center">
+              <p className="body-3">{c('block-2-content-1')}</p>
+              <div className="mt-4"></div>
+              <p className="body-3">
                 {c('block-2-content-2')}
                 <UnderlineButton
                   label="careers@ocelle.dog"
@@ -157,7 +160,8 @@ export default async function Careers() {
                 />
                 {c('block-2-content-3')}
               </p>
-              <p className="mt-6 font-bold italic text-primary">{c('block-2-content-4')}</p>
+              <div className="mt-6"></div>
+              <p className="body-3 font-bold italic text-primary">{c('block-2-content-4')}</p>
             </div>
           )}
         </Container>

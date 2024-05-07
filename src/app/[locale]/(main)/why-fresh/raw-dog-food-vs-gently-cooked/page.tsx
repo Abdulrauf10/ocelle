@@ -69,17 +69,18 @@ export default function RawDogFoodVsGentlyCooked() {
           <div className="-mx-4 flex items-center max-md:flex-col">
             <div className="mx-4 flex-1 max-md:mb-6">
               <p className="body-1">{i.rich('block-2-content-1')}</p>
-              <p className="body-1 mt-6">{i.rich('block-2-content-2')}</p>
-              <p className="body-1 mt-6">{i.rich('block-2-content-3')}</p>
+              <div className="mt-6"></div>
+              <p className="body-1">{i.rich('block-2-content-2')}</p>
+              <div className="mt-6"></div>
+              <p className="body-1">{i.rich('block-2-content-3')}</p>
             </div>
             <div className="mx-4 flex-1">
               <div className="ml-10 mr-4 rounded-[40px] border-[3px] border-primary bg-white px-12 py-8 max-xl:ml-4 max-xl:mr-0 max-md:max-w-xl">
                 <p className="heading-4 text-center italic text-primary">
                   {i.rich('block-2-quota')}
                 </p>
-                <p className="body-1 mt-4 text-center text-primary">
-                  {i.rich('block-2-quota-person')}
-                </p>
+                <div className="mt-4"></div>
+                <p className="body-1 text-center text-primary">{i.rich('block-2-quota-person')}</p>
               </div>
             </div>
           </div>
@@ -133,7 +134,8 @@ export default function RawDogFoodVsGentlyCooked() {
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center text-white">
           <h1 className="heading-1 font-bold">{i.rich('block-6-title')}</h1>
-          <p className="body-1 mt-6">{i.rich('block-6-content-1')}</p>
+          <div className="mt-6"></div>
+          <p className="body-1">{i.rich('block-6-content-1')}</p>
           <Button className="mt-6" href="/get-started">
             {b('try-it-today')}
           </Button>
@@ -142,7 +144,8 @@ export default function RawDogFoodVsGentlyCooked() {
       <Block className="overflow-hidden bg-gold bg-opacity-15">
         <Container>
           <h2 className="heading-1 text-center font-bold text-gold">{w.rich('block-1-title')}</h2>
-          <p className="body-1 mt-4 text-center">
+          <div className="mt-4"></div>
+          <p className="body-1 text-center">
             {w.rich('block-1-content-1', {
               button: (chunks) => <UnderlineButton label={chunks} href="/why-fresh/reference" />,
             })}

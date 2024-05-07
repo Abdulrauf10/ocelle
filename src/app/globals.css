@@ -40,39 +40,43 @@ span.swiper-pagination-bullet-active {
 }
 
 .heading-headline {
-  @apply text-[clamp(40px,5vw,68px)] leading-[clamp(46px,6.2vw,84px)];
+  @apply text-[clamp(40px,5vw,68px)] leading-[1.25em] -my-[clamp(5px,0.625vw,8.5px)];
 }
 
 .heading-1 {
-  @apply text-[clamp(32px,3vw,58px)] leading-[1.2em];
+  @apply text-[clamp(32px,3vw,58px)] leading-[1.2em] -my-[clamp(3.2px,0.3vw,5.8px)];
 }
 
 .heading-2 {
-  @apply text-[38px] leading-[48px];
+  @apply text-[38px] leading-[48px] -my-[5px];
 }
 
 .heading-3 {
-  @apply text-[32px] leading-[40px];
+  @apply text-[32px] leading-[40px] -my-[4px];
 }
 
 .heading-4 {
-  @apply text-[24px] leading-[32px];
+  @apply text-[24px] leading-[32px] -my-[4px];
 }
 
 .body-1 {
-  @apply text-[20px] leading-[28px];
+  @apply text-[20px] leading-[28px] -my-[4px];
 }
 
 .body-2 {
-  @apply text-[16px] leading-[24px];
+  @apply text-[16px] leading-[24px] -my-[4px];
 }
 
 .body-3 {
-  @apply text-[14px] leading-[20px];
+  @apply text-[14px] leading-[20px] -my-[3px];
 }
 
 .body-4 {
-  @apply text-[12px] leading-[18px];
+  @apply text-[12px] leading-[18px] -my-[3px];
+}
+
+.body-inline {
+  @apply my-0;
 }
 
 .dotted {

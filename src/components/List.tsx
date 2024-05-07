@@ -4,8 +4,9 @@ import { ReactNode } from 'react';
 
 interface ListProps {
   className?: {
-    list?: string;
-    listItem?: string;
+    root?: string;
+    row?: string;
+    item?: string;
   };
   picture?: ReactNode;
   items: ReactNode[];
@@ -14,12 +15,12 @@ interface ListProps {
 export default function List({ className, picture, items }: ListProps) {
   const t = useTranslations();
   return (
-    <ul className={clsx('list-none', className?.list)}>
+    <ul className={clsx('list-none', className?.root)}>
       {items.map((item, idx) => {
         return (
-          <li key={idx} className={clsx('mx-0 my-2.5 flex items-start', className?.listItem)}>
+          <li key={idx} className={clsx('mx-0 my-2.5 flex items-center', className?.row)}>
             <div>{picture}</div>
-            <div className="w-[calc(100%_-_40px)]">{item}</div>
+            <div className={clsx('w-[calc(100%_-_40px)]', className?.item)}>{item}</div>
           </li>
         );
       })}

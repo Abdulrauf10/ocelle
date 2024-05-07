@@ -91,9 +91,12 @@ export default function OurStory() {
               {a.rich('block-2-title-1-1')}
               <span className="block"> {a.rich('block-2-title-1-2')}</span>
             </h2>
-            <p className="body-1 mt-8">{a('block-2-content-1')}</p>
-            <p className="body-1 mt-4">{a('block-2-content-2')}</p>
-            <p className="body-1 mt-4">{a('block-2-content-3')}</p>
+            <div className="mt-8"></div>
+            <p className="body-1">{a('block-2-content-1')}</p>
+            <div className="mt-4"></div>
+            <p className="body-1">{a('block-2-content-2')}</p>
+            <div className="mt-4"></div>
+            <p className="body-1">{a('block-2-content-3')}</p>
           </div>
         }
       />
@@ -139,8 +142,12 @@ export default function OurStory() {
               className="max-md:mx-auto"
             />
           </div>
-          <h2 className="heading-1 pt-6 font-bold max-md:text-center">{a('block-3-title-1')}</h2>
-          <p className="body-1 mt-4 w-2/3 max-xl:w-full">{a('block-3-content-1')}</p>
+          <div className="mt-6"></div>
+          <h2 className="heading-1 font-bold max-md:text-center">{a('block-3-title-1')}</h2>
+          <div className="mt-4"></div>
+          <div className="w-2/3 max-xl:w-full">
+            <p className="body-1">{a('block-3-content-1')}</p>
+          </div>
         </div>
       </div>
       <TwoToneBlock
@@ -168,11 +175,16 @@ export default function OurStory() {
               {a('block-4-title-1-1')}
               {a.rich('block-4-title-1-2')}
             </h2>
-            <p className="body-1 mt-8">{a('block-4-content-1')}</p>
-            <p className="body-1 mt-4">{a('block-4-content-2')}</p>
-            <p className="body-1 mt-4">{a('block-4-content-3')}</p>
-            <p className="body-1 mt-4">{a('block-4-content-4')}</p>
-            <p className="body-1 mt-4">{a('block-4-content-5')}</p>
+            <div className="mt-8"></div>
+            <p className="body-1">{a('block-4-content-1')}</p>
+            <div className="mt-4"></div>
+            <p className="body-1">{a('block-4-content-2')}</p>
+            <div className="mt-4"></div>
+            <p className="body-1">{a('block-4-content-3')}</p>
+            <div className="mt-4"></div>
+            <p className="body-1">{a('block-4-content-4')}</p>
+            <div className="mt-4"></div>
+            <p className="body-1">{a('block-4-content-5')}</p>
           </div>
         }
         right={
@@ -188,7 +200,7 @@ export default function OurStory() {
           </div>
         }
       />
-      <Block styles="normal" className="h-[280px] bg-dark-green py-10">
+      <Block styles="normal" className="bg-dark-green py-10">
         <Container className="text-center text-white" screen>
           <h2 className="heading-1 font-bold">
             {a('block-5-title-1-1')}
@@ -203,13 +215,16 @@ export default function OurStory() {
       <Block>
         <Container className="text-center text-primary">
           <h2 className="heading-1 font-bold">Our Community</h2>
-          <p className="body-1 mx-auto mt-6 max-w-4xl">
-            {a.rich('block-6-content-1-1')}
-            <Link href="/affiliate-program" className="text-secondary hover:underline">
-              {a('block-6-content-1-2')}
-            </Link>
-            {a('block-6-content-1-3')}
-          </p>
+          <div className="mt-6"></div>
+          <div className="mx-auto max-w-4xl">
+            <p className="body-1">
+              {a.rich('block-6-content-1-1')}
+              <Link href="/affiliate-program" className="text-secondary hover:underline">
+                {a('block-6-content-1-2')}
+              </Link>
+              {a('block-6-content-1-3')}
+            </p>
+          </div>
           <div className="relative -z-10 -mx-32 -mt-[5%] flex justify-center overflow-hidden max-2xl:mx-0">
             <div className="w-full max-md:min-w-[110%]">
               <div className="relative pt-[76.9%]">

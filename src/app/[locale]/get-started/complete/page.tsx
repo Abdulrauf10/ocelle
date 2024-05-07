@@ -52,7 +52,8 @@ export default function ThankYouPage() {
           height={200}
           className="inline-block"
         />
-        <h1 className="heading-4 mt-8 font-bold text-primary">{t('processing-your-order')}</h1>
+        <div className="mt-8"></div>
+        <h1 className="heading-4 font-bold text-primary">{t('processing-your-order')}</h1>
       </Container>
     );
   }
@@ -68,7 +69,8 @@ export default function ThankYouPage() {
           className="min-w-[160px]"
         />
       </Link>
-      <h1 className="heading-4 mt-6 font-bold text-primary">{t('thank-you-for-your-order')}</h1>
+      <div className="mt-6"></div>
+      <h1 className="heading-4 font-bold text-primary">{t('thank-you-for-your-order')}</h1>
       <p className="mt-4 text-primary">
         {t('your-{}-will-be-delivered-on-the-{}', {
           value: t('starter-box').toLowerCase(),

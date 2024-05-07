@@ -39,7 +39,8 @@ export default function ChallengesWithHomeCookingForYourDog() {
       <Block styles="tight" className="bg-primary bg-opacity-[12%]">
         <Container className="!max-w-6xl">
           <p className="heading-4 text-center text-primary">{i.rich('block-2-content-1')}</p>
-          <p className="heading-4 mt-6 text-center text-primary">{i.rich('block-2-content-2')}</p>
+          <div className="mt-6"></div>
+          <p className="heading-4 text-center text-primary">{i.rich('block-2-content-2')}</p>
         </Container>
       </Block>
       <Block styles="tight" className="bg-secondary bg-opacity-[12%]">
@@ -94,13 +95,15 @@ export default function ChallengesWithHomeCookingForYourDog() {
       <Block styles="tight" className="bg-primary bg-opacity-[12%]">
         <Container className="!max-w-6xl">
           <p className="heading-4 text-center text-primary">{i.rich('block-4-content-1')}</p>
-          <p className="heading-4 mt-6 text-center text-primary">{i.rich('block-4-content-2')}</p>
+          <div className="mt-6"></div>
+          <p className="heading-4 text-center text-primary">{i.rich('block-4-content-2')}</p>
         </Container>
       </Block>
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center text-white">
           <h1 className="heading-1 font-bold">{i.rich('block-5-title')}</h1>
-          <p className="body-1 mt-6">{i.rich('block-5-content-1')}</p>
+          <div className="mt-6"></div>
+          <p className="body-1">{i.rich('block-5-content-1')}</p>
           <Button className="mt-6" href="/get-started">
             {b('try-it-today')}
           </Button>
@@ -109,7 +112,8 @@ export default function ChallengesWithHomeCookingForYourDog() {
       <Block className="overflow-hidden bg-gold bg-opacity-15">
         <Container>
           <h2 className="heading-1 text-center font-bold text-gold">{w.rich('block-1-title')}</h2>
-          <p className="body-1 mt-4 text-center">
+          <div className="mt-4"></div>
+          <p className="body-1 text-center">
             {w.rich('block-1-content-1', {
               button: (chunks) => <UnderlineButton label={chunks} href="/why-fresh/reference" />,
             })}

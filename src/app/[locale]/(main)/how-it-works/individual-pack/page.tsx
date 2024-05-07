@@ -47,16 +47,19 @@ export default async function HowItWorksIndividual() {
       <main>
         <div className="relative flex items-center bg-[url('./individual-pack-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_40px)_center] bg-no-repeat max-lg:bg-[url('./individual-pack-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-bottom">
           <div className="w-full pt-[clamp(450px,31.5%,700px)] max-lg:hidden"></div>
-          <div className="body-1 w-full py-[4vw] text-white max-lg:w-full max-lg:py-10 max-lg:pb-[95%] lg:absolute lg:pr-0">
+          <div className="w-full py-[4vw] text-white max-lg:w-full max-lg:py-10 max-lg:pb-[95%] lg:absolute lg:pr-0">
             <Container className="max-lg:text-center">
               <h1 className="heading-headline font-bold">
                 Feeding Fresh Is <br />
                 Easy With OCELLE
               </h1>
-              <p className="body-1 mt-4 max-w-[45%] max-lg:max-w-none">
-                If you’re not ready for a subscription, our individual packs come in set weights and
-                can be ordered anytime.
-              </p>
+              <div className="mt-4"></div>
+              <div className="max-w-[45%] max-lg:max-w-none">
+                <p className="body-1">
+                  If you’re not ready for a subscription, our individual packs come in set weights
+                  and can be ordered anytime.
+                </p>
+              </div>
             </Container>
           </div>
         </div>
@@ -213,10 +216,10 @@ export default async function HowItWorksIndividual() {
                       className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                     />
                   </div>
-                  <h3 className="heading-4 mt-6 font-bold text-gray">
-                    Developed By Vet Nutritionists
-                  </h3>
-                  <p className="body-1 mt-3">
+                  <div className="mt-6"></div>
+                  <h3 className="heading-4 font-bold text-gray">Developed By Vet Nutritionists</h3>
+                  <div className="mt-3"></div>
+                  <p className="body-1">
                     Many of the health issues dogs face are related to diet. That’s why our team is
                     devoted to determining exactly what dogs need to live happier, healthier lives.
                   </p>
@@ -230,10 +233,12 @@ export default async function HowItWorksIndividual() {
                       className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                     />
                   </div>
-                  <h3 className="heading-4 mt-6 font-bold text-gray">
+                  <div className="mt-6"></div>
+                  <h3 className="heading-4 font-bold text-gray">
                     Crafted With Premium Ingredients
                   </h3>
-                  <p className="body-1 mt-3">
+                  <div className="mt-3"></div>
+                  <p className="body-1">
                     No heat-blasted ingredients. No preservatives. No fillers. No nonsense. Just
                     real ingredients you can see, nutrition dogs need, and the flavours they crave.
                   </p>
@@ -247,10 +252,12 @@ export default async function HowItWorksIndividual() {
                       className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
                     />
                   </div>
-                  <h3 className="heading-4 mt-6 font-bold text-gray">
+                  <div className="mt-6"></div>
+                  <h3 className="heading-4 font-bold text-gray">
                     Freshly Made To Lock In Nutrients
                   </h3>
-                  <p className="body-1 mt-3">
+                  <div className="mt-3"></div>
+                  <p className="body-1">
                     Our ingredients are gently cooked to maximize digestibility and preserve vital
                     nutrients, texture, and taste.
                   </p>
@@ -265,12 +272,12 @@ export default async function HowItWorksIndividual() {
         <Block styles="tight" className="bg-dark-green">
           <Container className="text-center text-white">
             <h2 className="heading-1 font-bold">Easier For You. Better For Them.</h2>
-            <p className="body-1 mt-2">
+            <div className="mt-2"></div>
+            <p className="body-1">
               Get fresh food conveniently delivered with our customised meal plans.
             </p>
-            <div className="mt-8">
-              <Button href="/get-started">Try It Today</Button>
-            </div>
+            <div className="mt-8"></div>
+            <Button href="/get-started">Try It Today</Button>
           </Container>
         </Block>
         <Newsletter />

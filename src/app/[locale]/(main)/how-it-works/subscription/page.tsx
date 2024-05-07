@@ -19,14 +19,16 @@ export default function HowItWorksSubscription() {
           <div className="-mx-4 flex flex-wrap items-center max-lg:flex-col-reverse max-lg:items-center">
             <div className="w-2/5 px-4 py-[5vw] text-xl text-primary max-lg:w-full max-lg:pb-12">
               <h1 className="heading-headline font-bold">Get Personal With An Expert</h1>
-              <p className="body-1 mt-5 font-bold italic">
+              <div className="mt-5"></div>
+              <p className="body-1 font-bold italic">
                 Nutrition is not a one-size-fits-all affair!
               </p>
-              <p className="body-1 mt-3">
+              <div className="mt-4"></div>
+              <p className="body-1">
                 Our unique, customised recipes are crafted by our Vet Nutritionist and tailored to
                 your dog&apos;s health goals and ongoing needs.
               </p>
-              <div className="mt-5 max-lg:flex max-lg:justify-center">
+              <div className="mt-8 max-lg:flex max-lg:justify-center">
                 <Button href="/get-started">{b('get-started')}</Button>
               </div>
             </div>
@@ -61,8 +63,10 @@ export default function HowItWorksSubscription() {
                 <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
                   <Image alt="Full Plan Meal" src="/meal-plan/full-plan.jpg" fill />
                 </div>
-                <h3 className="heading-4 mt-6 font-bold text-dark-green">FRESH FULL PLAN</h3>
-                <p className="body-1 mt-2">
+                <div className="mt-6"></div>
+                <h3 className="heading-4 font-bold text-dark-green">FRESH FULL PLAN</h3>
+                <div className="mt-2"></div>
+                <p className="body-1">
                   Everything needed in one simple serving. Reap the full benefits of fresh,
                   nutritious meals for your dog, meticulously crafted and portioned by experts.
                 </p>
@@ -73,8 +77,10 @@ export default function HowItWorksSubscription() {
                 <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
                   <Image alt="Full Plan Meal" src="/meal-plan/half-plan.jpg" fill />
                 </div>
-                <h3 className="heading-4 mt-6 font-bold text-dark-green">FRESH HALF PLAN</h3>
-                <p className="body-1 mt-2">
+                <div className="mt-6"></div>
+                <h3 className="heading-4 font-bold text-dark-green">FRESH HALF PLAN</h3>
+                <div className="mt-2"></div>
+                <p className="body-1">
                   Everything needed to supplement your dog’s current diet! Reinvigorate your
                   dog&apos;s current meals with a fresh, nutrient-packed addition.
                 </p>
@@ -100,7 +106,8 @@ export default function HowItWorksSubscription() {
             All The Flavour <br />
             They Desire!
           </h2>
-          <p className="body-1 mt-5">
+          <div className="mt-5"></div>
+          <p className="body-1">
             Choose from five protein-rich fresh recipes, meticulously crafted with whole foods,
             slow-cooked to enhance both nutrition and taste. Mix-and-match according to your dog’s
             needs. After all, you know your dog best of all!
@@ -117,7 +124,8 @@ export default function HowItWorksSubscription() {
             <br className="max-[360px]:hidden min-[632px]:hidden" />
             Tailored Nutrition!
           </h2>
-          <p className="body-1 mt-5 max-lg:text-center">
+          <div className="mt-5"></div>
+          <p className="body-1 max-lg:text-center">
             From puppy food to senior dog food – we’re with you every step of the way. Our meals
             evolve with your dog, delivering maximum benefits at every bowl.
           </p>
@@ -135,9 +143,9 @@ export default function HowItWorksSubscription() {
           block: 'bg-primary bg-opacity-10',
         }}
         startAdornment={
-          <h2 className="heading-1 mb-10 text-center font-bold text-primary">
-            When OCELLE Arrives
-          </h2>
+          <div className="mb-10">
+            <h2 className="heading-1 text-center font-bold text-primary">When OCELLE Arrives</h2>
+          </div>
         }
       >
         <div className="max-sm:px-7">
@@ -150,8 +158,10 @@ export default function HowItWorksSubscription() {
               alt="ocelle truck"
             />
           </div>
-          <p className="body-1 mt-5">Get ready for some serious tail-wagging!</p>
-          <p className="body-1 mt-5">
+          <div className="mt-5"></div>
+          <p className="body-1">Get ready for some serious tail-wagging!</p>
+          <div className="mt-5"></div>
+          <p className="body-1">
             Pop your fresh food in the freezer, then defrost in the fridge 24 hours before mealtime.
             Dinner is served!
           </p>
@@ -162,36 +172,42 @@ export default function HowItWorksSubscription() {
       </ImageContentBlock>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <h2 className="heading-1 mb-10 text-center font-bold text-gold">
+          <h2 className="heading-1 text-center font-bold text-gold">
             Your Dog. Your Plan. Your Schedule.
           </h2>
-          <div className="mx-auto max-w-[820px] rounded-[30px] bg-white p-12 max-sm:p-8">
-            <div className="body-1 flex items-center max-sm:block">
-              <h3 className="w-[190px] min-w-[190px] py-px text-center font-bold text-primary max-sm:w-full">
+          <div className="mx-auto mt-10 max-w-[820px] rounded-[30px] bg-white p-12 max-sm:p-8">
+            <div className="flex items-center max-sm:block">
+              <h3 className="body-1 w-[190px] min-w-[190px] text-center font-bold text-primary max-sm:w-full">
                 Fancy A Change?
               </h3>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
-              <div className="py-px max-lg:text-center">
-                Easily tweak your delivery timings or choose new recipes based on what&apos;s
-                perfect for you and your dog.
+              <div className="max-lg:mt-1">
+                <p className="body-1 max-lg:text-center">
+                  Easily tweak your delivery timings or choose new recipes based on what&apos;s
+                  perfect for you and your dog.
+                </p>
               </div>
             </div>
-            <div className="body-1 mt-6 flex items-center max-sm:block">
-              <h3 className="w-[190px] min-w-[190px] py-px text-center font-bold text-primary max-sm:w-full">
+            <div className="mt-6 flex items-center max-sm:block">
+              <h3 className="body-1 w-[190px] min-w-[190px] text-center font-bold text-primary max-sm:w-full">
                 More Dogs?
               </h3>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
-              <div className="py-px max-lg:text-center">
-                No problem! Add them to your account for easy fresh meal management.
+              <div className="max-lg:mt-1">
+                <p className="body-1 max-lg:text-center">
+                  No problem! Add them to your account for easy fresh meal management.
+                </p>
               </div>
             </div>
-            <div className="body-1 mt-6 flex items-center max-sm:block">
-              <h3 className="w-[190px] min-w-[190px] py-px text-center font-bold text-primary max-sm:w-full">
+            <div className="mt-6 flex items-center max-sm:block">
+              <h3 className="body-1 w-[190px] min-w-[190px] text-center font-bold text-primary max-sm:w-full">
                 A <i>Paws-itively</i> Simple Subscription
               </h3>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
-              <div className="py-px max-lg:text-center">
-                Skip deliveries, cancel, and come back any time!
+              <div className="max-lg:mt-1">
+                <p className="body-1 max-lg:text-center">
+                  Skip deliveries, cancel, and come back any time!
+                </p>
               </div>
             </div>
             <div className="text-center">

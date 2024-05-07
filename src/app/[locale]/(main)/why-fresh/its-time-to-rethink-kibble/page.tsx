@@ -119,7 +119,8 @@ export default function ItsTimeToRethinkKibble() {
           <h1 className="heading-headline text-center font-bold text-brown">
             {i.rich('block-1-title')}
           </h1>
-          <p className="body-1 mt-4 text-center">
+          <div className="mt-4"></div>
+          <p className="body-1 text-center">
             {i.rich('block-1-content-1', {
               br: () => <br className="max-md:hidden" />,
             })}
@@ -171,9 +172,8 @@ export default function ItsTimeToRethinkKibble() {
             <div className="mx-4 flex-1 max-md:mt-8">
               <div className="ml-4 rounded-[40px] border-[3px] border-gold bg-white px-12 py-8 max-md:ml-0">
                 <p className="heading-4 text-center italic text-gold">{i.rich('block-2-quota')}</p>
-                <p className="body-1 mt-4 text-center text-gold">
-                  {i.rich('block-2-quota-person')}
-                </p>
+                <div className="mt-4"></div>
+                <p className="body-1 text-center text-gold">{i.rich('block-2-quota-person')}</p>
               </div>
             </div>
           </div>
@@ -238,7 +238,8 @@ export default function ItsTimeToRethinkKibble() {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-1-content-2', {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
@@ -261,7 +262,8 @@ export default function ItsTimeToRethinkKibble() {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-2-content-2', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
@@ -302,22 +304,26 @@ export default function ItsTimeToRethinkKibble() {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-4-content-2', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-4-content-3', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4 font-bold">
+                <div className="mt-4"></div>
+                <p className="body-1 font-bold">
                   {i.rich('block-4-mark-4-content-4', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-4-content-5', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
@@ -340,17 +346,20 @@ export default function ItsTimeToRethinkKibble() {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-5-content-2', {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-5-content-3', {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-5-content-4', {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
@@ -377,8 +386,10 @@ export default function ItsTimeToRethinkKibble() {
             }
           >
             <p className="body-1">{i.rich('block-5-mark-1-content-1')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-1-content-2')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-1-content-3')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-1-content-2')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-1-content-3')}</p>
           </Toggler>
           <Toggler
             className={{ root: 'mt-6' }}
@@ -392,9 +403,12 @@ export default function ItsTimeToRethinkKibble() {
             }
           >
             <p className="body-1">{i.rich('block-5-mark-2-content-1')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-2-content-2')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-2-content-3')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-2-content-4')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-2-content-2')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-2-content-3')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-2-content-4')}</p>
           </Toggler>
           <Toggler
             className={{ root: 'mt-6' }}
@@ -408,9 +422,12 @@ export default function ItsTimeToRethinkKibble() {
             }
           >
             <p className="body-1">{i.rich('block-5-mark-3-content-1')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-3-content-2')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-3-content-3')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-3-content-4')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-3-content-2')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-3-content-3')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-3-content-4')}</p>
           </Toggler>
           <Toggler
             className={{ root: 'mt-6' }}
@@ -424,8 +441,10 @@ export default function ItsTimeToRethinkKibble() {
             }
           >
             <p className="body-1">{i.rich('block-5-mark-4-content-1')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-4-content-2')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-4-content-3')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-4-content-2')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-4-content-3')}</p>
           </Toggler>
         </Container>
       </Block>
@@ -461,8 +480,10 @@ export default function ItsTimeToRethinkKibble() {
             <hr className="my-10" />
             <div className="relative mx-auto !max-w-4xl">
               <p className="body-1 text-center">{i.rich('block-6-content-1')}</p>
-              <p className="body-1 mt-6 text-center">{i.rich('block-6-content-2')}</p>
-              <p className="body-1 mt-6 text-center">{i.rich('block-6-content-3')}</p>
+              <div className="mt-6"></div>
+              <p className="body-1 text-center">{i.rich('block-6-content-2')}</p>
+              <div className="mt-6"></div>
+              <p className="body-1 text-center">{i.rich('block-6-content-3')}</p>
             </div>
           </div>
         </Container>
@@ -470,7 +491,8 @@ export default function ItsTimeToRethinkKibble() {
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center">
           <h2 className="heading-1 font-bold text-white">{i.rich('block-7-title')}</h2>
-          <p className="body-1 mt-6 text-white">{i.rich('block-7-content-1')}</p>
+          <div className="mt-6"></div>
+          <p className="body-1 text-white">{i.rich('block-7-content-1')}</p>
           <Button className="mt-8" href="/get-started">
             {b('try-it-today')}
           </Button>
@@ -479,7 +501,8 @@ export default function ItsTimeToRethinkKibble() {
       <Block className="overflow-hidden bg-gold bg-opacity-15">
         <Container>
           <h2 className="heading-1 text-center font-bold text-gold">{w.rich('block-1-title')}</h2>
-          <p className="body-1 mt-4 text-center">
+          <div className="mt-4"></div>
+          <p className="body-1 text-center">
             {w.rich('block-1-content-1', {
               button: (chunks) => <UnderlineButton label={chunks} href="/why-fresh/reference" />,
             })}

@@ -355,9 +355,8 @@ export default function RecommendedPlanFragment() {
                 <h2 className="heading-4 font-bold">
                   {t('use-a-transition-period-in-starter-box')}
                 </h2>
-                <p className="body-3 mt-5">
-                  {t('use-a-transition-period-in-starter-box:description')}
-                </p>
+                <div className="mt-5"></div>
+                <p className="body-3">{t('use-a-transition-period-in-starter-box:description')}</p>
                 <div className="my-3 flex flex-wrap justify-center">
                   <div className="mt-4 px-2">
                     <InteractiveBlock

@@ -25,9 +25,11 @@ export default function PartialCardStripeForm() {
         <Stripe className="mx-3 my-2 w-20" />
         <div className="mx-3 my-2 flex items-center">
           <Lock className="relative -top-0.5 w-4" />
-          <span className="body-3 ml-4 text-lg text-[#7B8D97]">
-            {t('all-transactions-are-secure-and-encrypted')}
-          </span>
+          <p className="ml-4">
+            <span className="body-3 text-lg text-[#7B8D97]">
+              {t('all-transactions-are-secure-and-encrypted')}
+            </span>
+          </p>
         </div>
       </div>
       <div className="mt-3">

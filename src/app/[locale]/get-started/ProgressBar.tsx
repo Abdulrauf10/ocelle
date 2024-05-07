@@ -101,6 +101,7 @@ export default function ProgressBar({ stage }: { stage: Stage }) {
           >
             {t('dogs')}
           </div>
+          <div className="mt-1"></div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isDogStage(stage) && (
               <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>
@@ -118,6 +119,7 @@ export default function ProgressBar({ stage }: { stage: Stage }) {
           >
             {t('you')}
           </div>
+          <div className="mt-1"></div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isYouStage(stage) && (
               <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>
@@ -135,6 +137,7 @@ export default function ProgressBar({ stage }: { stage: Stage }) {
           >
             {t('your-plan')}
           </div>
+          <div className="mt-1"></div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isYourPlanStage(stage) && (
               <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>
@@ -152,6 +155,7 @@ export default function ProgressBar({ stage }: { stage: Stage }) {
           >
             {t('checkout')}
           </div>
+          <div className="mt-1"></div>
           <div className="relative mx-auto h-[14px] w-[14px] rounded-full border border-primary bg-white">
             {isCheckoutStage(stage) && (
               <div className="ml-0.5 mt-0.5 h-2 w-2 rounded-full bg-primary"></div>

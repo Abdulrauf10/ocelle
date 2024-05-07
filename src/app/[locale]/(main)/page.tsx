@@ -25,7 +25,8 @@ export default function Home() {
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center text-white">
           <h1 className="heading-1 font-bold">{t.rich('block-2-title')}</h1>
-          <p className="body-1 mt-8">
+          <div className="mt-8"></div>
+          <p className="body-1">
             {t.rich('blcok-2-content', { br: () => <br className="max-lg:hidden" /> })}
           </p>
         </Container>
@@ -44,8 +45,8 @@ export default function Home() {
             </h2>
             <div className="mt-[2vw]">
               <List
-                picture={<Tickbox className="mr-4 mt-1 h-5 w-5" />}
-                className={{ listItem: 'body-1 py-0.5' }}
+                picture={<Tickbox className="mr-4 h-5 w-5" />}
+                className={{ row: 'py-1.5', item: 'body-1' }}
                 items={[
                   t('block-3-content-1'),
                   t('block-3-content-2'),
@@ -79,8 +80,10 @@ export default function Home() {
                   width={81}
                   height={70}
                 />
-                <h3 className="heading-4 mt-2 text-primary">{t.rich('block-4-item-1-title')}</h3>
-                <p className="body-1 mt-2 xl:max-w-[320px]">{t('block-4-item-1-content')}</p>
+                <div className="mt-2"></div>
+                <h3 className="heading-4 text-primary">{t.rich('block-4-item-1-title')}</h3>
+                <div className="mt-3"></div>
+                <p className="body-1 xl:max-w-[320px]">{t('block-4-item-1-content')}</p>
               </div>
               <div className="mt-[6%] md:w-1/2 xl:w-full">
                 <Image
@@ -90,8 +93,10 @@ export default function Home() {
                   width={74}
                   height={70}
                 />
-                <h3 className="heading-4 mt-2 text-primary">{t('block-4-item-2-title')}</h3>
-                <p className="body-1 mt-2 xl:max-w-[320px]">{t('block-4-item-2-content')}</p>
+                <div className="mt-2"></div>
+                <h3 className="heading-4 text-primary">{t.rich('block-4-item-2-title')}</h3>
+                <div className="mt-3"></div>
+                <p className="body-1 xl:max-w-[320px]">{t('block-4-item-2-content')}</p>
               </div>
               <div className="ml-32 mt-[6%]">
                 <div className="flex flex-1 flex-wrap max-xl:-m-3">
@@ -103,8 +108,10 @@ export default function Home() {
                       width={102}
                       height={70}
                     />
-                    <h3 className="heading-4 mt-2 text-primary">{t('block-4-item-3-title')}</h3>
-                    <p className="body-1 mt-2">{t.rich('block-4-item-3-content')}</p>
+                    <div className="mt-2"></div>
+                    <h3 className="heading-4 text-primary">{t.rich('block-4-item-3-title')}</h3>
+                    <div className="mt-3"></div>
+                    <p className="body-1">{t.rich('block-4-item-3-content')}</p>
                   </div>
                   <div className="w-full max-xl:mt-0 max-xl:p-3 md:w-1/2 xl:ml-[11%] xl:mt-[12%] xl:w-full xl:max-w-[320px]">
                     <Image
@@ -114,8 +121,10 @@ export default function Home() {
                       width={67}
                       height={70}
                     />
-                    <h3 className="heading-4 mt-2 text-primary">{t('block-4-item-4-title')}</h3>
-                    <p className="body-1 mt-2">{t('block-4-item-4-content')}</p>
+                    <div className="mt-2"></div>
+                    <h3 className="heading-4 text-primary">{t.rich('block-4-item-4-title')}</h3>
+                    <div className="mt-3"></div>
+                    <p className="body-1">{t('block-4-item-4-content')}</p>
                   </div>
                   <div className="ml-[6%] mt-[21%] text-center max-xl:hidden">
                     <Button href="/get-started">{b('see-your-recipes')}</Button>
@@ -200,10 +209,11 @@ export default function Home() {
           <div className="mt-6">
             <HowPlanWorks />
           </div>
-          <div className="mt-2 text-center">
+          <div className="mt-4 text-center">
             <Button href="/get-started">{b('build-my-plan')}</Button>
           </div>
-          <p className="mt-[2.5vw] text-center text-[32px] font-normal text-gray max-md:text-[32px] max-sm:mt-8">
+          <div className="mt-[3vw] max-sm:mt-10"></div>
+          <p className="heading-3 text-center font-normal text-gray">
             {t.rich('block-5-content', {
               link: (chunks) => {
                 return (
@@ -222,9 +232,10 @@ export default function Home() {
       <Block className="bg-gold bg-opacity-10">
         <Container>
           <h2 className="heading-1 text-center font-black text-gold">{t('block-6-title')}</h2>
-          <p className="body-1 mx-auto mt-5 max-w-screen-md text-center text-gold">
-            {t('block-6-content')}
-          </p>
+          <div className="mt-5"></div>
+          <div className="mx-auto max-w-screen-md">
+            <p className="body-1 text-center text-gold">{t('block-6-content')}</p>
+          </div>
           <CaseSwiper />
           <div className="mt-8 text-center">
             <Button href="/get-started">{b('see-my-plan')}</Button>
@@ -235,7 +246,8 @@ export default function Home() {
         <Container>
           <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-8 py-12 text-center sm:p-16 md:px-[140px]">
             <strong className="heading-3 text-primary">{t('block-7-title')}</strong>
-            <p className="body-1 mt-5">{t('block-7-content')}</p>
+            <div className="mt-5"></div>
+            <p className="body-1">{t('block-7-content')}</p>
             <div className="mt-8 text-center">
               <Button href="/get-started">{b('create-your-plan')}</Button>
             </div>

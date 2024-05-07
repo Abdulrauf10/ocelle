@@ -108,7 +108,8 @@ export default function SurveyFragment() {
           </div>
         </div>
       </div>
-      <h2 className="heading-4 mt-20 text-center font-bold text-primary">
+      <div className="mt-20"></div>
+      <h2 className="heading-4 text-center font-bold text-primary">
         {t.rich('cancel-my-subscrption:experience', { br: () => <br /> })}
       </h2>
       <div className="pb-2 text-center">

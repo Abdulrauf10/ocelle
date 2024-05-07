@@ -25,9 +25,11 @@ export default function NotFound() {
             <h1 className="heading-1 font-bold text-primary">
               <i>Aiya!</i> <span className="inline-block">Page Gone Walkies!</span>
             </h1>
-            <p className="body-1 mt-4">
-              <span className="italic text-primary">Woof! Please use the links below.</span>
-            </p>
+            <div className="mt-4">
+              <p className="body-1">
+                <span className="italic text-primary">Woof! Please use the links below.</span>
+              </p>
+            </div>
 
             <div className="mx-0 max-w-[180px] max-[903px]:mx-auto">
               <div className="mt-4">
