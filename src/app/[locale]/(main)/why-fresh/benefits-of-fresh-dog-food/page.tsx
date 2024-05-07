@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import Container from '@/components/Container';
+import Newsletter from '@/components/Newsletter';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import Block from '@/components/layouts/Block';
@@ -376,6 +377,7 @@ export default function BenefitsOfFreshDogFood() {
           </div>
         </Container>
       </Block>
+      <Newsletter />
     </main>
   );
 }

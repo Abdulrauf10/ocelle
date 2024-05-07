@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import Container from '@/components/Container';
+import Newsletter from '@/components/Newsletter';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import DogFoot from '@/components/icons/DogFoot';
@@ -193,6 +194,7 @@ export default function RawDogFoodVsGentlyCooked() {
           </div>
         </Container>
       </Block>
+      <Newsletter />
     </main>
   );
 }
