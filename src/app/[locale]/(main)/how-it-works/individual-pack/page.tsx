@@ -47,15 +47,17 @@ export default async function HowItWorksIndividual() {
       <main>
         <div className="relative flex items-center bg-[url('./individual-pack-bg.jpg')] bg-[length:auto_100%] bg-[center_50%] bg-repeat-x">
           <div className="w-full pt-[36.5%]"></div>
-          <div className="absolute w-full px-[2vw] py-[4vw] text-xl text-white max-lg:w-full lg:pr-0">
-            <h1 className="heading-headline font-bold">
-              Feeding Fresh Is <br />
-              Easy With OCELLE
-            </h1>
-            <p className="body-1 mt-4 max-w-[45%]">
-              If you’re not ready for a subscription, our individual packs come in set weights and
-              can be ordered anytime.
-            </p>
+          <div className="body-1 absolute w-full py-[4vw] text-white max-lg:w-full lg:pr-0">
+            <Container>
+              <h1 className="heading-headline font-bold">
+                Feeding Fresh Is <br />
+                Easy With OCELLE
+              </h1>
+              <p className="body-1 mt-4 max-w-[45%]">
+                If you’re not ready for a subscription, our individual packs come in set weights and
+                can be ordered anytime.
+              </p>
+            </Container>
           </div>
         </div>
         <Product

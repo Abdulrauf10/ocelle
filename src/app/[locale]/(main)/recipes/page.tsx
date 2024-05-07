@@ -225,20 +225,22 @@ export default function RecipesPage() {
 
   return (
     <main className="overflow-x-hidden">
-      <div className="bg-[#3d2316] bg-[url('./recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-repeat-x py-10 max-lg:pb-[55%] lg:bg-[url('./recipes-bg.jpg')] lg:bg-[length:auto_100%] lg:bg-center">
-        <div className="px-[clamp(16px,2vw,100px)] py-[4vw] text-xl text-white max-lg:w-full lg:pr-0">
-          <h1 className="heading-headline grid font-bold">
-            <span>{r('block-1-title-1')}</span>
-            <span>{r('block-1-title-2')}</span>
-          </h1>
-          <div className="w-full lg:w-1/3">
-            <p className="body-1 mt-5">{r('block-1-content-1')}</p>
-            <p className="body-1 mt-3">{r('block-1-content-2')}</p>
+      <div className="bg-[#3d2316] bg-[url('./recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-repeat-x py-10 max-lg:pb-[55%] lg:bg-[url('./recipes-bg.jpg')] lg:bg-[length:auto_100%] lg:bg-[calc(50%+60px)_center]">
+        <Container>
+          <div className="py-[4vw] text-xl text-white max-lg:w-full lg:pr-0">
+            <h1 className="heading-headline grid font-bold">
+              <span>{r('block-1-title-1')}</span>
+              <span>{r('block-1-title-2')}</span>
+            </h1>
+            <div className="w-full lg:w-1/3">
+              <p className="body-1 mt-5">{r('block-1-content-1')}</p>
+              <p className="body-1 mt-3">{r('block-1-content-2')}</p>
+            </div>
+            <div className="mt-5">
+              <Button href="/get-started">{b('get-started')}</Button>
+            </div>
           </div>
-          <div className="mt-5">
-            <Button href="/get-started">{b('get-started')}</Button>
-          </div>
-        </div>
+        </Container>
       </div>
       <Marquee
         items={[

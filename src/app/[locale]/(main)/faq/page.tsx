@@ -39,31 +39,36 @@ export default function FaQ() {
                   max-md:min-h-[800px] max-md:bg-[url('/ocelle-faq-mb-bg.jpg')] max-md:bg-[length:768px_960px] max-md:bg-[bottom_center]  max-md:bg-no-repeat max-md:pb-8
                   max-md:pt-4"
       >
-        <div className="max-w-8xl px-[clamp(16px,2vw,100px)] py-3 max-lg:px-4">
-          <h1 className="-ml-[9px] select-none text-[215px] font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] max-lg:text-[130px]">
-            FAQ
-          </h1>
-          <p className="body-2 text-white">
-            If you can’t find what you’re looking for, please contact us!
-          </p>
-          <div className="mt-6">
-            <Link href="mailto:info@ocelle.dog" className="inline-flex text-white hover:underline">
-              <Email className="w-7" />
-              <span className="body-1 ml-3 font-bold">info@ocelle.dog</span>
-            </Link>
+        <Container>
+          <div className="max-w-8xl py-3">
+            <h1 className="-ml-[9px] select-none text-[215px] font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] max-lg:text-[130px]">
+              FAQ
+            </h1>
+            <p className="body-2 text-white">
+              If you can’t find what you’re looking for, please contact us!
+            </p>
+            <div className="mt-6">
+              <Link
+                href="mailto:info@ocelle.dog"
+                className="inline-flex text-white hover:underline"
+              >
+                <Email className="w-7" />
+                <span className="body-1 ml-3 font-bold">info@ocelle.dog</span>
+              </Link>
+            </div>
+            <div className="mt-4">
+              <Link
+                href="whatsapp://send/?text=Hello%20World!&phone=92267236"
+                className="inline-flex text-white hover:underline"
+              >
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white">
+                  <Whatsapp className="w-4 text-primary" />
+                </div>
+                <span className="body-1 ml-3 font-bold">9226 7236</span>
+              </Link>
+            </div>
           </div>
-          <div className="mt-4">
-            <Link
-              href="whatsapp://send/?text=Hello%20World!&phone=92267236"
-              className="inline-flex text-white hover:underline"
-            >
-              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white">
-                <Whatsapp className="w-4 text-primary" />
-              </div>
-              <span className="body-1 ml-3 font-bold">9226 7236</span>
-            </Link>
-          </div>
-        </div>
+        </Container>
       </div>
       <div className="bg-primary bg-opacity-20 py-8">
         <Container className="max-w-screen-xl">

@@ -15,28 +15,30 @@ export default function HowItWorksSubscription() {
   return (
     <main>
       <div className="bg-[#E8E4DB]">
-        <div className="flex flex-wrap items-center max-lg:flex-col-reverse max-lg:items-center">
-          <div className="w-2/5 px-[clamp(16px,2vw,100px)] py-[4vw] text-xl text-primary max-lg:w-full">
-            <h1 className="heading-headline font-bold max-lg:text-center">
-              Get Personal With An Expert
-            </h1>
-            <p className="body-1 mt-5 font-bold italic max-lg:text-center">
-              Nutrition is not a one-size-fits-all affair!
-            </p>
-            <p className="body-1 mt-3 max-lg:text-center">
-              Our unique, customised recipes are crafted by our Vet Nutritionist and tailored to
-              your dog&apos;s health goals and ongoing needs.
-            </p>
-            <div className="mt-5 max-lg:flex max-lg:justify-center">
-              <Button href="/get-started">{b('get-started')}</Button>
+        <Container>
+          <div className="-mx-4 flex flex-wrap items-center max-lg:flex-col-reverse max-lg:items-center">
+            <div className="w-2/5 px-4 py-[4vw] text-xl text-primary max-lg:w-full">
+              <h1 className="heading-headline font-bold max-lg:text-center">
+                Get Personal With An Expert
+              </h1>
+              <p className="body-1 mt-5 font-bold italic max-lg:text-center">
+                Nutrition is not a one-size-fits-all affair!
+              </p>
+              <p className="body-1 mt-3 max-lg:text-center">
+                Our unique, customised recipes are crafted by our Vet Nutritionist and tailored to
+                your dog&apos;s health goals and ongoing needs.
+              </p>
+              <div className="mt-5 max-lg:flex max-lg:justify-center">
+                <Button href="/get-started">{b('get-started')}</Button>
+              </div>
+            </div>
+            <div className="w-3/5 self-start px-4 pb-[2vw] max-lg:w-full">
+              <div className="relative h-[30.625vw] w-[50vw] max-lg:m-auto max-lg:h-[55.125vw] max-lg:w-[90vw]">
+                <Image src="/how-it-works-banner-v4.jpg" alt="feed dog" fill />
+              </div>
             </div>
           </div>
-          <div className="w-3/5 self-start pb-[2vw] max-lg:w-full">
-            <div className="relative h-[30.625vw] w-[50vw] max-lg:m-auto max-lg:h-[55.125vw] max-lg:w-[90vw]">
-              <Image src="/how-it-works-banner-v4.jpg" alt="feed dog" fill />
-            </div>
-          </div>
-        </div>
+        </Container>
       </div>
       <Block className="bg-[#EEEEEE]">
         <Container>

@@ -12,6 +12,7 @@ import Newsletter from '@/components/Newsletter';
 import Button from '@/components/buttons/Button';
 import Tickbox from '@/components/icons/Tickbox';
 import Block from '@/components/layouts/Block';
+import TwoToneBlock from '@/components/layouts/TwoToneBlock';
 import { Link } from '@/navigation';
 
 export default function Home() {
@@ -35,10 +36,14 @@ export default function Home() {
           </p>
         </Container>
       </Block>
-      <div className="flex flex-wrap">
-        <div className="min-h-[300px] w-1/2 bg-[url('./gofresh-img.jpg')] bg-cover bg-[center_right] max-md:w-full"></div>
-        <div className="w-1/2 pl-[2vw] pr-[1vw] text-xl max-md:w-full">
-          <Block>
+      <TwoToneBlock
+        className={{
+          bg: 'inset-0',
+          bgLeft: 'min-h-[300px] bg-[url("./gofresh-img.jpg")] bg-cover bg-[center_right]',
+          bgRight: 'max-md:px-4',
+        }}
+        right={
+          <div className="py-[clamp(30px,3vw,60px)]">
             <h2 className="heading-1 font-bold text-primary">
               {t.rich('block-3-title-1')}
               <br />
@@ -47,7 +52,7 @@ export default function Home() {
             <div className="mt-[2vw]">
               <List
                 picture={<Tickbox className="mr-4 mt-1 h-5 w-5" />}
-                className={{ listItem: 'py-0.5' }}
+                className={{ listItem: 'body-1 py-0.5' }}
                 items={[
                   t('block-3-content-1'),
                   t('block-3-content-2'),
@@ -61,9 +66,9 @@ export default function Home() {
             <div className="flex justify-center md:justify-start">
               <Button href="/why-fresh/benefits-of-fresh-dog-food">{b('learn-more')}</Button>
             </div>
-          </Block>
-        </div>
-      </div>
+          </div>
+        }
+      />
       <Block className="bg-primary bg-opacity-15">
         <Container>
           <h2 className="heading-1 text-center font-bold text-primary">
