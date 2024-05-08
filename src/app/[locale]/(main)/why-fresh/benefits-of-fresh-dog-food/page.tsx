@@ -48,7 +48,7 @@ export default function BenefitsOfFreshDogFood() {
           <h1 className="heading-1 text-center font-bold text-brown">{i.rich('block-1-title')}</h1>
           <div className="mt-6"></div>
           <p className="body-1 text-center">{i.rich('block-1-content-1')}</p>
-          <div className="mx-auto -mb-10 mt-6 max-w-[1200px]">
+          <div className="mx-auto -mb-[3%] mt-6 max-w-[1200px]">
             <div className="relative pt-[56%]">
               <Image src="/why-fresh/a-running-dog.jpg" alt="running dog" fill />
             </div>
