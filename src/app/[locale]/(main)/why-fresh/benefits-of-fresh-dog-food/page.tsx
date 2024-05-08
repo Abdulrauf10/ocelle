@@ -59,8 +59,8 @@ export default function BenefitsOfFreshDogFood() {
         className={{
           bgLeft: 'bg-dark-green',
           bgRight: 'bg-[#DCEDEE]',
-          container: 'py-10',
-          mbLeft: 'px-4 py-10',
+          container: 'py-tight',
+          mbLeft: 'py-tight px-4',
           mbRight: 'py-6',
         }}
         left={
@@ -73,13 +73,15 @@ export default function BenefitsOfFreshDogFood() {
           </div>
         }
         right={
-          <div className="relative h-full min-h-[480px]">
-            <Image
-              src="/why-fresh/fresh-food-diet.png"
-              alt=""
-              fill
-              className="object-contain object-[right_calc(50%_+_15px)] max-md:object-[calc(50%_+_15px)_calc(50%_+_15px)]"
-            />
+          <div className="relative ml-auto max-w-[480px] max-md:mx-auto">
+            <div className="pt-[100%]">
+              <Image
+                src="/why-fresh/fresh-food-diet.png"
+                alt=""
+                fill
+                className="object-contain object-[right_calc(50%_+_15px)] max-md:object-[calc(50%_+_15px)_calc(50%_+_15px)]"
+              />
+            </div>
           </div>
         }
       />
