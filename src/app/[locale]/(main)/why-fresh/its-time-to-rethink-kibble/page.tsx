@@ -70,7 +70,7 @@ function Card({
   return (
     <div
       className={clsx(
-        'relative mx-auto flex h-full max-w-2xl flex-col rounded-3xl px-8 py-8',
+        'relative mx-auto flex h-full max-w-2xl flex-col rounded-3xl px-8 py-8 max-md:px-4',
         theme === 'dark'
           ? 'bg-[#00616A] bg-[url("./dog-foot-bg.png")] bg-[length:156px_126px]'
           : 'bg-white'
@@ -86,7 +86,7 @@ function Card({
       </h3>
       <div
         className={clsx(
-          'my-6 rounded-3xl border p-6',
+          'my-6 rounded-3xl border p-6 max-md:px-4',
           theme === 'dark' ? 'bg-[#00616A] text-white' : 'bg-white text-black'
         )}
       >
@@ -96,7 +96,12 @@ function Card({
       <div className="-mx-2 flex items-center justify-between">
         <div className="px-2">{icon}</div>
         <div className="px-2">
-          <p className={clsx('body-1', theme === 'dark' ? 'text-white' : 'text-black')}>
+          <p
+            className={clsx(
+              'body-1 text-right font-bold',
+              theme === 'dark' ? 'text-white' : 'text-black'
+            )}
+          >
             {t('{}-colon', { value: t('source') })}
             {source}
           </p>
