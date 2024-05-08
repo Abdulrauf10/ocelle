@@ -43,7 +43,7 @@ export default function BenefitsOfFreshDogFood() {
 
   return (
     <main>
-      <Block className="bg-gold bg-opacity-15">
+      <Block className="bg-[#f6ece1]">
         <Container>
           <h1 className="heading-1 text-center font-bold text-brown">{i.rich('block-1-title')}</h1>
           <div className="mt-6"></div>
