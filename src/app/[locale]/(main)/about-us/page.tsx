@@ -4,13 +4,15 @@ import Image from 'next/image';
 import Container from '@/components/Container';
 import Newsletter from '@/components/Newsletter';
 import Button from '@/components/buttons/Button';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import Sound from '@/components/icons/Sound';
 import Block from '@/components/layouts/Block';
 import TwoToneBlock from '@/components/layouts/TwoToneBlock';
-import { Link } from '@/navigation';
 
 export default function OurStory() {
+  const b = useTranslations('Button');
   const a = useTranslations('AboutUs');
+
   return (
     <main className="overflow-x-hidden">
       <Block
@@ -202,27 +204,21 @@ export default function OurStory() {
       />
       <Block styles="normal" className="bg-dark-green py-10">
         <Container className="text-center text-white" screen>
-          <h2 className="heading-1 font-bold">
-            {a('block-5-title-1-1')}
-            <br />
-            {a('block-5-title-1-2')}
-          </h2>
+          <h2 className="heading-1 font-bold">{a.rich('block-5-title-1')}</h2>
           <div className="mb-1 mt-10">
-            <Button href="/get-started">Start Your Fresh Journey</Button>
+            <Button href="/get-started">{b('start-your-fresh-journey')}</Button>
           </div>
         </Container>
       </Block>
       <Block>
         <Container className="text-center text-primary">
-          <h2 className="heading-1 font-bold">Our Community</h2>
+          <h2 className="heading-1 font-bold">{a('block-6-title-1')}</h2>
           <div className="mt-6"></div>
           <div className="mx-auto max-w-4xl">
             <p className="body-1">
-              {a.rich('block-6-content-1-1')}
-              <Link href="/affiliate-program" className="text-secondary hover:underline">
-                {a('block-6-content-1-2')}
-              </Link>
-              {a('block-6-content-1-3')}
+              {a.rich('block-6-content-1', {
+                link: (chunks) => <UnderlineButton label={chunks} href="/affiliate-program" />,
+              })}
             </p>
           </div>
           <div className="relative -z-10 -mx-32 -mt-[5%] flex justify-center overflow-hidden max-2xl:mx-0">

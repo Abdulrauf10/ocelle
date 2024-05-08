@@ -358,7 +358,8 @@
     "try-it-today": "Try It Today",
     "submit-application": "Submit Application",
     "refer-a-friend": "Refer a Friend",
-    "recipes": "Recipes"
+    "recipes": "Recipes",
+    "start-your-fresh-journey": "Start Your Fresh Journey"
   },
   "Home": {
     "block-1-title-1": "Nutrition They Need.",
@@ -805,11 +806,9 @@
     "block-4-content-3": "After extensive research into pet nutrition, with insights from leading Vet Nutritionists, we’ve developed a range of fresh, convenient pet food solutions, that are both innovative and ground-breaking!",
     "block-4-content-4": "Our recipes aren’t just human-grade in quality; they’re meticulously crafted to promote your dog’s health and happiness, with the same love and care you’d put into creating a family meal.",
     "block-4-content-5": "Welcome to OCELLE, where your dog’s well-being isn’t just our business—it’sour heartfelt commitment.",
-    "block-5-title-1-1": "Powered By Science, ",
-    "block-5-title-1-2": "We Turn Love Into Uncomplicated Care!",
-    "block-6-content-1-1": "Are you as passionate as we are about giving your dog(s) the best? We’re firm believers in the strength of community to bring about real transformation. If you’re interested in helping us spread our mission to make a <i>paws-itive</i> impact on canine lives,",
-    "block-6-content-1-2": " apply here ",
-    "block-6-content-1-3": "to become an OCELLE Affiliate."
+    "block-5-title-1": "Powered By Science, <br></br>We Turn Love Into Uncomplicated Care!",
+    "block-6-title-1": "Our Community",
+    "block-6-content-1": "Are you as passionate as we are about giving your dog(s) the best? We’re firm believers in the strength of community to bring about real transformation. If you’re interested in helping us spread our mission to make a <i>paws-itive</i> impact on canine lives, <link>apply here</link> to become an OCELLE Affiliate."
   },
   "Careers": {
     "what-you’ll-do": "What You’ll Do:",
