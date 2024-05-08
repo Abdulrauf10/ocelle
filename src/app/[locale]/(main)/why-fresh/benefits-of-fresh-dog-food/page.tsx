@@ -162,19 +162,19 @@ export default function BenefitsOfFreshDogFood() {
             <div className="mt-6"></div>
             <p className="body-1">{i.rich('block-4-benefits-1-content-4')}</p>
             <ul className="-mb-2 mt-2 list-item pl-7">
-              <li className="relative flex items-center py-1">
+              <li className="relative flex items-center py-2">
                 <div className="absolute -left-5 select-none text-[60px] text-primary">
                   <span className="relative top-1">•</span>
                 </div>
                 <p className="body-1">{i.rich('block-4-benefits-1-content-4-mark-1')}</p>
               </li>
-              <li className="relative flex items-center py-1">
+              <li className="relative flex items-center py-2">
                 <div className="absolute -left-5 select-none text-[60px] text-primary">
                   <span className="relative top-1">•</span>
                 </div>
                 <p className="body-1">{i.rich('block-4-benefits-1-content-4-mark-2')}</p>
               </li>
-              <li className="relative flex items-center py-1">
+              <li className="relative flex items-center py-2">
                 <div className="absolute -left-5 select-none text-[60px] text-primary">
                   <span className="relative top-1">•</span>
                 </div>
