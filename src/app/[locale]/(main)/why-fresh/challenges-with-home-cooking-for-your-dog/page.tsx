@@ -46,32 +46,32 @@ export default function ChallengesWithHomeCookingForYourDog() {
       <Block styles="tight" className="bg-secondary bg-opacity-[12%]">
         <Container className="!max-w-6xl">
           <h2 className="heading-1 text-center font-bold text-gold">{i.rich('block-3-title')}</h2>
-          <div className="mt-10 flex items-center">
-            <DogFoot className="mr-4 w-10 min-w-10 fill-gold" />
+          <div className="mt-12 flex">
+            <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
             <p className="body-1">
               <span className="font-bold text-gold">{i.rich('block-3-mark-1-title')}</span>
               <Arrow />
               <span>{i.rich('block-3-mark-1-content')}</span>
             </p>
           </div>
-          <div className="mt-10 flex items-center">
-            <DogFoot className="mr-4 w-10 min-w-10 fill-gold" />
+          <div className="mt-12 flex">
+            <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
             <p className="body-1">
               <span className="font-bold text-gold">{i.rich('block-3-mark-2-title')}</span>
               <Arrow />
               <span>{i.rich('block-3-mark-2-content')}</span>
             </p>
           </div>
-          <div className="mt-10 flex items-center">
-            <DogFoot className="mr-4 w-10 min-w-10 fill-gold" />
+          <div className="mt-12 flex">
+            <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
             <p className="body-1">
               <span className="font-bold text-gold">{i.rich('block-3-mark-3-title')}</span>
               <Arrow />
               <span>{i.rich('block-3-mark-3-content')}</span>
             </p>
           </div>
-          <div className="mt-10 flex items-center">
-            <DogFoot className="mr-4 w-10 min-w-10 fill-gold" />
+          <div className="mt-12 flex">
+            <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
             <p className="body-1">
               <span className="font-bold text-gold">{i.rich('block-3-mark-4-title')}</span>
               <Arrow />
@@ -82,8 +82,8 @@ export default function ChallengesWithHomeCookingForYourDog() {
               </span>
             </p>
           </div>
-          <div className="mt-10 flex items-center">
-            <DogFoot className="mr-4 w-10 min-w-10 fill-gold" />
+          <div className="mt-12 flex">
+            <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
             <p className="body-1">
               <span className="font-bold text-gold">{i.rich('block-3-mark-5-title')}</span>
               <Arrow />
@@ -118,11 +118,11 @@ export default function ChallengesWithHomeCookingForYourDog() {
               button: (chunks) => <UnderlineButton label={chunks} href="/why-fresh/reference" />,
             })}
           </p>
-          <div className="-mx-6 mb-10 mt-16 flex flex-wrap items-stretch max-md:mb-0 max-md:mt-6">
-            <div className="w-1/3 p-6 max-md:w-full">
+          <div className="pt-normal -mx-6 flex flex-wrap items-stretch max-lg:-mx-3">
+            <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/benefits-of-fresh-dog-food"
-                className="shadow-block mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white"
+                className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"
               >
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/benefits-of-fresh-dog-food.jpg" alt="" fill />
@@ -132,10 +132,10 @@ export default function ChallengesWithHomeCookingForYourDog() {
                 </div>
               </Link>
             </div>
-            <div className="w-1/3 p-6 max-md:w-full">
+            <div className="max-md:pt-normal w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/raw-dog-food-vs-gently-cooked"
-                className="shadow-block mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white"
+                className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"
               >
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/raw-vs-gently-cooked-diets.jpg" alt="" fill />
@@ -145,10 +145,10 @@ export default function ChallengesWithHomeCookingForYourDog() {
                 </div>
               </Link>
             </div>
-            <div className="w-1/3 p-6 max-md:w-full">
+            <div className="max-md:pt-normal w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/its-time-to-rethink-kibble"
-                className="shadow-block mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white"
+                className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"
               >
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/its-time-to-rethink-kibble.jpg" alt="" fill />

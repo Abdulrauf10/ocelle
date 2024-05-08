@@ -14,7 +14,7 @@ export default function Block({
   const getStyles = () => {
     switch (styles) {
       case 'tight':
-        return 'py-[2.4vw] max-xl:py-10';
+        return 'py-tight';
       case 'narrow':
         return 'py-4 max-xl:py-10';
       case 'custom':
@@ -22,7 +22,7 @@ export default function Block({
       case 'normal':
         return '';
       default:
-        return 'py-[3.5vw] max-xl:py-10';
+        return 'py-normal';
     }
   };
 
