@@ -36,7 +36,8 @@ export default function QuestionAnswerBlock({ question, answer }: QuestionAnswer
       <div className="px-2">
         <h3 className="body-1 text-primary">{question}</h3>
         <div className={clsx('h-0 overflow-hidden transition', opened && 'h-auto')}>
-          <p className="body-1 mt-2">{answer}</p>
+          <div className="mt-2"></div>
+          <p className="body-1">{answer}</p>
         </div>
       </div>
     </div>

@@ -181,7 +181,8 @@ export default function DogBasicFragment() {
                 />
               </div>
             </div>
-            <p className="body-3 mt-6 italic text-primary">
+            <div className="mt-6"></div>
+            <p className="body-3 italic text-primary">
               {t('spayed-and-neutered-dogs-require-fewer-calories')}
             </p>
           </Section>

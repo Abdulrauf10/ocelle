@@ -72,11 +72,13 @@ function FileInput<T extends FieldValues>({
       {filename && !error ? (
         <>
           <div className="flex flex-row items-start">
-            <span className="body-2 mr-2 mt-2 inline-block break-all">
+            <div className="mt-2"></div>
+            <span className="body-2 mr-2 inline-block break-all">
               {/* {label}: {filename} */}
               <b>Attached</b>: {filename}
             </span>
-            <button className=" mt-2 h-6" onClick={handleDetach}>
+            <div className="mt-2"></div>
+            <button className="h-6" onClick={handleDetach}>
               <Close className="w-3" />
             </button>
           </div>
@@ -97,7 +99,11 @@ function FileInput<T extends FieldValues>({
         </Button>
       )}
 
-      {helperText && !(filename && !error) && <div className="body-4 mt-1">{helperText}</div>}
+      {helperText && !(filename && !error) && (
+        <div className="mt-1">
+          <p className="body-4">{helperText}</p>
+        </div>
+      )}
       {(filename || !!error) && (
         <div className="mt-1 flex w-full items-center">
           {error ? <span className="body-4 text-error">{error.message}</span> : <></>}
@@ -150,7 +156,8 @@ export default function ApplyCareerForm({
             className="mx-auto"
           /> */}
             <p className="heading-4 font-bold">{t('thank-you-for-applying')}</p>
-            <p className="body-3 mt-4">{t('thank-you-for-applying:description', { title })}</p>
+            <div className="mt-4"></div>
+            <p className="body-3">{t('thank-you-for-applying:description', { title })}</p>
           </Container>
         </Block>
       </div>

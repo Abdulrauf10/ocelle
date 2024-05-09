@@ -39,8 +39,14 @@ function Section({
   return (
     <>
       <div className={className}>
-        <h2 className="heading-4 mb-4 font-bold text-primary">{title}</h2>
-        {description && <p className="body-3 mb-2 italic text-primary">{description}</p>}
+        <h2 className="heading-4 font-bold text-primary">{title}</h2>
+        <div className="mt-4"></div>
+        {description && (
+          <>
+            <p className="body-3 italic text-primary">{description}</p>
+            <div className="mb-2"></div>
+          </>
+        )}
       </div>
       <div className={clsx(!dense && 'mt-4')}>{children}</div>
     </>
@@ -50,7 +56,12 @@ function Section({
 function SummaryBlock({ title, children }: React.PropsWithChildren<{ title?: string }>) {
   return (
     <div className="mt-4 border-t border-gold pt-4">
-      {title && <h3 className="body-2 font-bold text-gold">{title}</h3>}
+      {title && (
+        <>
+          <h3 className="body-2 font-bold text-gold">{title}</h3>
+          <div className="mt-3"></div>
+        </>
+      )}
       {children}
     </div>
   );
@@ -361,11 +372,12 @@ export default function GuestCheckoutForm({
                 {couponForm}
               </SummaryBlock>
               <SummaryBlock>
-                <div className="body-3 -mx-1 mt-2 flex flex-wrap justify-between">
+                <div className="body-3 -mx-1 flex flex-wrap justify-between">
                   <div className="px-1">{t('promo-code')}</div>
                   <div className="px-1">－</div>
                 </div>
-                <div className="body-3 -mx-1 mt-2 flex flex-wrap justify-between">
+                <div className="mt-2"></div>
+                <div className="body-3 -mx-1 flex flex-wrap justify-between">
                   <div className="px-1">{t('{}-colon', { value: t('delivery') })}</div>
                   <div className="px-1">
                     {!shippingPrice || shippingPrice.amount === 0 ? (
@@ -375,7 +387,8 @@ export default function GuestCheckoutForm({
                     )}
                   </div>
                 </div>
-                <div className="body-2 -mx-1 mt-2 flex flex-wrap justify-between font-bold">
+                <div className="mt-2"></div>
+                <div className="body-2 -mx-1 flex flex-wrap justify-between font-bold">
                   <div className="px-1">{t('{}-colon', { value: t('todays-total') })}</div>
                   <div className="px-1">${totalPrice?.amount}</div>
                 </div>

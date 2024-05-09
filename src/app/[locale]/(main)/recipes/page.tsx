@@ -233,10 +233,12 @@ export default function RecipesPage() {
               <span>{r('block-1-title-2')}</span>
             </h1>
             <div className="w-full lg:w-1/3">
-              <p className="body-1 mt-5">{r('block-1-content-1')}</p>
-              <p className="body-1 mt-3">{r('block-1-content-2')}</p>
+              <div className="mt-5"></div>
+              <p className="body-1">{r('block-1-content-1')}</p>
+              <div className="mt-4"></div>
+              <p className="body-1">{r('block-1-content-2')}</p>
             </div>
-            <div className="mt-5">
+            <div className="mt-8">
               <Button href="/get-started">{b('get-started')}</Button>
             </div>
           </div>
@@ -331,10 +333,13 @@ export default function RecipesPage() {
       >
         <div className="max-md:px-2">
           <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Chicken)}</h2>
-          <p className="body-1 mt-4">{r('block-2-content')}</p>
-          <p className="heading-4 mt-6 font-bold text-gold">
+          <div className="mt-4"></div>
+          <p className="body-1">{r('block-2-content')}</p>
+          <div className="mt-6"></div>
+          <p className="heading-4 font-bold text-gold">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
           </p>
+          <div className="mt-1"></div>
           <p className="body-1">
             {sentence.array([
               i('chicken-breast'),
@@ -378,10 +383,13 @@ export default function RecipesPage() {
       >
         <div className="max-md:px-2">
           <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Beef)}</h2>
-          <p className="body-1 mt-4">{r('block-3-content')}</p>
-          <p className="heading-4 mt-6 font-bold text-gold">
+          <div className="mt-4"></div>
+          <p className="body-1">{r('block-3-content')}</p>
+          <div className="mt-6"></div>
+          <p className="heading-4 font-bold text-gold">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
           </p>
+          <div className="mt-1"></div>
           <p className="body-1">
             {sentence.array([
               i('beef-chuck'),
@@ -427,10 +435,13 @@ export default function RecipesPage() {
       >
         <div className="max-md:px-2">
           <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Pork)}</h2>
-          <p className="body-1 mt-4">{r('block-3-content')}</p>
-          <p className="heading-4 mt-6 font-bold text-gold">
+          <div className="mt-4"></div>
+          <p className="body-1">{r('block-3-content')}</p>
+          <div className="mt-6"></div>
+          <p className="heading-4 font-bold text-gold">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
           </p>
+          <div className="mt-1"></div>
           <p className="body-1">
             {sentence.array([
               i('pork-loin'),
@@ -473,10 +484,13 @@ export default function RecipesPage() {
       >
         <div className="max-md:px-2">
           <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Lamb)}</h2>
-          <p className="body-1 mt-4">{r('block-4-content')}</p>
-          <p className="heading-4 mt-6 font-bold text-gold">
+          <div className="mt-4"></div>
+          <p className="body-1">{r('block-4-content')}</p>
+          <div className="mt-6"></div>
+          <p className="heading-4 font-bold text-gold">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
           </p>
+          <div className="mt-1"></div>
           <p className="body-1">
             {sentence.array([
               i('lamb-leg-boneless'),
@@ -520,10 +534,13 @@ export default function RecipesPage() {
       >
         <div className="max-md:px-2">
           <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Duck)}</h2>
-          <p className="body-1 mt-4">{r('block-5-content')}</p>
-          <p className="heading-4 mt-6 font-bold text-gold">
+          <div className="mt-4"></div>
+          <p className="body-1">{r('block-5-content')}</p>
+          <div className="mt-6"></div>
+          <p className="heading-4 font-bold text-gold">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
           </p>
+          <div className="mt-1"></div>
           <p className="body-1">
             {sentence.array([
               i('duck-breast'),
@@ -547,7 +564,8 @@ export default function RecipesPage() {
       <Block>
         <Container className="text-center">
           <h2 className="heading-3 font-bold text-primary">{r('block-8-title')}</h2>
-          <p className="body-1 mt-6">{r('block-8-content')}</p>
+          <div className="mt-6"></div>
+          <p className="body-1">{r('block-8-content')}</p>
           <Button className="mt-6" href="/get-started">
             {b('create-your-plan')}
           </Button>

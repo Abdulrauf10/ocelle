@@ -51,6 +51,10 @@ const config: Config = {
         jost: ['--font-jost', ...defaultTheme.fontFamily.sans],
         'open-sans': ['--font-open-sans', ...defaultTheme.fontFamily.sans],
       },
+      padding: {
+        tight: 'clamp(40px,2.4vw,50px)',
+        normal: 'clamp(40px,3.5vw,80px)',
+      },
     },
   },
   plugins: [

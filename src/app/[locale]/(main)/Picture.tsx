@@ -21,30 +21,22 @@ export default function Picture() {
       <Container className="max-md:px-0">
         <div className="flex flex-wrap items-center max-md:flex-col-reverse">
           <div className="relative w-3/5 py-[5vw] pr-0 text-primary max-md:w-full max-md:border-t-[10px] max-md:border-primary max-md:p-[30px]">
-            <h1 className="heading-headline font-bold">
-              {t('block-1-title-1-1')}
-              <br className="min-[450px]:hidden" />
-              {t('block-1-title-1-2')}
-              {t('block-1-title-1-3')}
-              <br />
-              {t('block-1-title-3')}
-            </h1>
-            <div className="my-5 text-xl">
-              <List
-                picture={
-                  <div className="mt-[2px]">
-                    <DogFoot className="mr-5 h-6 w-6 fill-primary" />
-                  </div>
-                }
-                className={{ listItem: 'py-1' }}
-                items={[
-                  t('block-1-content-1'),
-                  t('block-1-content-2'),
-                  t('block-1-content-3'),
-                  t('block-1-content-4'),
-                ]}
-              />
-            </div>
+            <h1 className="heading-headline font-bold">{t.rich('block-1-title-1')}</h1>
+            <div className="my-6"></div>
+            <List
+              picture={
+                <div className="mt-[2px]">
+                  <DogFoot className="mr-5 h-6 w-6 fill-primary" />
+                </div>
+              }
+              className={{ row: 'py-1', item: 'body-1' }}
+              items={[
+                t('block-1-content-1'),
+                t('block-1-content-2'),
+                t('block-1-content-3'),
+                t('block-1-content-4'),
+              ]}
+            />
             <div className="flex justify-center sm:justify-start ">
               <Button className="mt-4" href="/get-started">
                 {b('get-started')}

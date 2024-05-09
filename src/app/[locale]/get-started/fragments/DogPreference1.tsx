@@ -81,7 +81,9 @@ export default function DogPreference1Fragment() {
               />
               <span className="body-3 ml-2">KG</span>
               {errors?.weight?.message && (
-                <p className="body-4 mt-3 w-full text-error">{String(errors?.weight?.message)}</p>
+                <p className="mt-3 w-full text-error">
+                  <span className="body-4">{String(errors?.weight?.message)}</span>
+                </p>
               )}
             </div>
           </Section>

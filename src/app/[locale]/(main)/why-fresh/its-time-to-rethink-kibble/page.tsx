@@ -70,7 +70,7 @@ function Card({
   return (
     <div
       className={clsx(
-        'relative mx-auto flex h-full max-w-2xl flex-col rounded-3xl px-8 py-8',
+        'relative mx-auto flex h-full max-w-2xl flex-col rounded-3xl px-8 py-8 max-md:px-4',
         theme === 'dark'
           ? 'bg-[#00616A] bg-[url("./dog-foot-bg.png")] bg-[length:156px_126px]'
           : 'bg-white'
@@ -86,7 +86,7 @@ function Card({
       </h3>
       <div
         className={clsx(
-          'my-6 rounded-3xl border p-6',
+          'my-6 rounded-3xl border p-6 max-md:px-4',
           theme === 'dark' ? 'bg-[#00616A] text-white' : 'bg-white text-black'
         )}
       >
@@ -96,7 +96,12 @@ function Card({
       <div className="-mx-2 flex items-center justify-between">
         <div className="px-2">{icon}</div>
         <div className="px-2">
-          <p className={clsx('body-1', theme === 'dark' ? 'text-white' : 'text-black')}>
+          <p
+            className={clsx(
+              'body-1 text-right font-bold',
+              theme === 'dark' ? 'text-white' : 'text-black'
+            )}
+          >
             {t('{}-colon', { value: t('source') })}
             {source}
           </p>
@@ -119,7 +124,8 @@ export default function ItsTimeToRethinkKibble() {
           <h1 className="heading-headline text-center font-bold text-brown">
             {i.rich('block-1-title')}
           </h1>
-          <p className="body-1 mt-4 text-center">
+          <div className="mt-4"></div>
+          <p className="body-1 text-center">
             {i.rich('block-1-content-1', {
               br: () => <br className="max-md:hidden" />,
             })}
@@ -131,8 +137,8 @@ export default function ItsTimeToRethinkKibble() {
           <h2 className="heading-1 text-center font-bold text-gold">{i.rich('block-2-title')}</h2>
           <div className="-mx-4 mt-10 flex items-center max-md:flex-col">
             <div className="mx-4 flex-1">
-              <div className="flex items-center">
-                <DogFoot className="mr-4 w-10 min-w-10 fill-gold" />
+              <div className="flex">
+                <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
                 <p className="body-1">
                   <span className="font-bold text-gold">
                     {t('{}-colon', { value: i('block-2-mark-1-title') })}
@@ -140,8 +146,8 @@ export default function ItsTimeToRethinkKibble() {
                   <span>{i.rich('block-2-mark-1-content')}</span>
                 </p>
               </div>
-              <div className="mt-6 flex items-center">
-                <DogFoot className="mr-4 w-10 min-w-10 fill-gold" />
+              <div className="mt-6 flex">
+                <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
                 <p className="body-1">
                   <span className="font-bold text-gold">
                     {t('{}-colon', { value: i('block-2-mark-2-title') })}
@@ -149,8 +155,8 @@ export default function ItsTimeToRethinkKibble() {
                   <span>{i.rich('block-2-mark-2-content')}</span>
                 </p>
               </div>
-              <div className="mt-6 flex items-center">
-                <DogFoot className="mr-4 w-10 min-w-10 fill-gold" />
+              <div className="mt-6 flex">
+                <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
                 <p className="body-1">
                   <span className="font-bold text-gold">
                     {t('{}-colon', { value: i('block-2-mark-3-title') })}
@@ -158,8 +164,8 @@ export default function ItsTimeToRethinkKibble() {
                   <span>{i.rich('block-2-mark-3-content')}</span>
                 </p>
               </div>
-              <div className="mt-6 flex items-center">
-                <DogFoot className="mr-4 w-10 min-w-10 fill-gold" />
+              <div className="mt-6 flex">
+                <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
                 <p className="body-1">
                   <span className="font-bold text-gold">
                     {t('{}-colon', { value: i('block-2-mark-4-title') })}
@@ -171,9 +177,8 @@ export default function ItsTimeToRethinkKibble() {
             <div className="mx-4 flex-1 max-md:mt-8">
               <div className="ml-4 rounded-[40px] border-[3px] border-gold bg-white px-12 py-8 max-md:ml-0">
                 <p className="heading-4 text-center italic text-gold">{i.rich('block-2-quota')}</p>
-                <p className="body-1 mt-4 text-center text-gold">
-                  {i.rich('block-2-quota-person')}
-                </p>
+                <div className="mt-4"></div>
+                <p className="body-1 text-center text-gold">{i.rich('block-2-quota-person')}</p>
               </div>
             </div>
           </div>
@@ -238,7 +243,8 @@ export default function ItsTimeToRethinkKibble() {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-1-content-2', {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
@@ -261,7 +267,8 @@ export default function ItsTimeToRethinkKibble() {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-2-content-2', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
@@ -302,22 +309,26 @@ export default function ItsTimeToRethinkKibble() {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-4-content-2', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-4-content-3', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4 font-bold">
+                <div className="mt-4"></div>
+                <p className="body-1 font-bold">
                   {i.rich('block-4-mark-4-content-4', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-4-content-5', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
@@ -340,17 +351,20 @@ export default function ItsTimeToRethinkKibble() {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-5-content-2', {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-5-content-3', {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
                 </p>
-                <p className="body-1 mt-4">
+                <div className="mt-4"></div>
+                <p className="body-1">
                   {i.rich('block-4-mark-5-content-4', {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
@@ -377,8 +391,10 @@ export default function ItsTimeToRethinkKibble() {
             }
           >
             <p className="body-1">{i.rich('block-5-mark-1-content-1')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-1-content-2')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-1-content-3')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-1-content-2')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-1-content-3')}</p>
           </Toggler>
           <Toggler
             className={{ root: 'mt-6' }}
@@ -392,9 +408,12 @@ export default function ItsTimeToRethinkKibble() {
             }
           >
             <p className="body-1">{i.rich('block-5-mark-2-content-1')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-2-content-2')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-2-content-3')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-2-content-4')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-2-content-2')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-2-content-3')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-2-content-4')}</p>
           </Toggler>
           <Toggler
             className={{ root: 'mt-6' }}
@@ -408,9 +427,12 @@ export default function ItsTimeToRethinkKibble() {
             }
           >
             <p className="body-1">{i.rich('block-5-mark-3-content-1')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-3-content-2')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-3-content-3')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-3-content-4')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-3-content-2')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-3-content-3')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-3-content-4')}</p>
           </Toggler>
           <Toggler
             className={{ root: 'mt-6' }}
@@ -424,8 +446,10 @@ export default function ItsTimeToRethinkKibble() {
             }
           >
             <p className="body-1">{i.rich('block-5-mark-4-content-1')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-4-content-2')}</p>
-            <p className="body-1 mt-6">{i.rich('block-5-mark-4-content-3')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-4-content-2')}</p>
+            <div className="mt-6"></div>
+            <p className="body-1">{i.rich('block-5-mark-4-content-3')}</p>
           </Toggler>
         </Container>
       </Block>
@@ -461,8 +485,10 @@ export default function ItsTimeToRethinkKibble() {
             <hr className="my-10" />
             <div className="relative mx-auto !max-w-4xl">
               <p className="body-1 text-center">{i.rich('block-6-content-1')}</p>
-              <p className="body-1 mt-6 text-center">{i.rich('block-6-content-2')}</p>
-              <p className="body-1 mt-6 text-center">{i.rich('block-6-content-3')}</p>
+              <div className="mt-6"></div>
+              <p className="body-1 text-center">{i.rich('block-6-content-2')}</p>
+              <div className="mt-6"></div>
+              <p className="body-1 text-center">{i.rich('block-6-content-3')}</p>
             </div>
           </div>
         </Container>
@@ -470,7 +496,8 @@ export default function ItsTimeToRethinkKibble() {
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center">
           <h2 className="heading-1 font-bold text-white">{i.rich('block-7-title')}</h2>
-          <p className="body-1 mt-6 text-white">{i.rich('block-7-content-1')}</p>
+          <div className="mt-6"></div>
+          <p className="body-1 text-white">{i.rich('block-7-content-1')}</p>
           <Button className="mt-8" href="/get-started">
             {b('try-it-today')}
           </Button>
@@ -479,16 +506,17 @@ export default function ItsTimeToRethinkKibble() {
       <Block className="overflow-hidden bg-gold bg-opacity-15">
         <Container>
           <h2 className="heading-1 text-center font-bold text-gold">{w.rich('block-1-title')}</h2>
-          <p className="body-1 mt-4 text-center">
+          <div className="mt-4"></div>
+          <p className="body-1 text-center">
             {w.rich('block-1-content-1', {
               button: (chunks) => <UnderlineButton label={chunks} href="/why-fresh/reference" />,
             })}
           </p>
-          <div className="-mx-6 mb-10 mt-16 flex flex-wrap items-stretch max-md:mb-0 max-md:mt-6">
-            <div className="w-1/3 p-6 max-md:w-full">
+          <div className="pt-normal -mx-6 flex flex-wrap items-stretch max-lg:-mx-3">
+            <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/benefits-of-fresh-dog-food"
-                className="shadow-block mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white"
+                className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"
               >
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/benefits-of-fresh-dog-food.jpg" alt="" fill />
@@ -498,10 +526,10 @@ export default function ItsTimeToRethinkKibble() {
                 </div>
               </Link>
             </div>
-            <div className="w-1/3 p-6 max-md:w-full">
+            <div className="max-md:pt-normal w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/raw-dog-food-vs-gently-cooked"
-                className="shadow-block mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white"
+                className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"
               >
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/raw-vs-gently-cooked-diets.jpg" alt="" fill />
@@ -511,10 +539,10 @@ export default function ItsTimeToRethinkKibble() {
                 </div>
               </Link>
             </div>
-            <div className="w-1/3 p-6 max-md:w-full">
+            <div className="max-md:pt-normal w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/challenges-with-home-cooking-for-your-dog"
-                className="shadow-block mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white"
+                className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"
               >
                 <div className="relative pt-[68.5%]">
                   <Image

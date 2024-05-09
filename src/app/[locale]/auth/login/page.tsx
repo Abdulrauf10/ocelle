@@ -17,7 +17,8 @@ export default function Login() {
       <main className="py-10 text-center text-primary">
         <Container>
           <h1 className="heading-4 font-bold">{t('greetings')}</h1>
-          <p className="body-2 mt-4">{t('please-log-in-to-continue')}</p>
+          <div className="mt-4"></div>
+          <p className="body-2">{t('please-log-in-to-continue')}</p>
           <div className="mx-auto max-w-[210px] max-xs:max-w-full">
             <LoginForm
               action={loginAction}
@@ -25,14 +26,17 @@ export default function Login() {
             />
           </div>
           <div className="mx-auto max-w-[210px]">
+            <div className="mt-4"></div>
             <UnderlineButton
               href="/auth/forgot-password"
-              className="body-2 mt-4"
+              className="body-2"
               label={t('forgot-password')}
             />
             <hr className="mt-4 border-primary" />
-            <h2 className="heading-4 mt-6 font-bold">{t('new-to-ocelle')}</h2>
-            <Button href="/get-started" reverse fullWidth className="body-2 mt-8">
+            <div className="mt-6"></div>
+            <h2 className="heading-4 font-bold">{t('new-to-ocelle')}</h2>
+            <div className="mt-8"></div>
+            <Button fontSize="small" href="/get-started" reverse fullWidth>
               {t('build-your-plan')}
             </Button>
           </div>

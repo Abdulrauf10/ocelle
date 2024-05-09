@@ -100,10 +100,13 @@ export default function RecipeLargeDialog({
                         className={clsx('absolute', ingredient.className)}
                       />
                     </div>
-                    <strong className="heading-4 mt-6 block text-center text-primary">
+                    <div className="mt-6"></div>
+                    <strong className="heading-4 block text-center text-primary">
                       {ingredient.title}
                     </strong>
-                    <p className="body-1 mt-2 text-center max-md:mb-3">{ingredient.description}</p>
+                    <div className="mt-2"></div>
+                    <p className="body-1 text-center">{ingredient.description}</p>
+                    <div className="max-md:mb-3"></div>
                   </SwiperSlide>
                 );
               })}
@@ -111,8 +114,9 @@ export default function RecipeLargeDialog({
           </DialogBlock>
           <Hr />
           <DialogBlock title={r('whats-not-inside')}>
-            <div className="flex flex-wrap justify-evenly max-lg:justify-start">
-              <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
+            <div className="pt-2"></div>
+            <div className="-mx-3 -my-4 flex flex-wrap justify-evenly max-lg:justify-start">
+              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
                   src="/recipes/not-inside/colours.svg"
@@ -120,11 +124,12 @@ export default function RecipeLargeDialog({
                   width={80}
                   height={80}
                 />
-                <strong className="heading-4 mt-2 block text-center font-bold text-primary">
+                <div className="mt-3"></div>
+                <strong className="heading-4 block text-center font-bold text-primary">
                   {m('no-colours')}
                 </strong>
               </div>
-              <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
+              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
                   src="/recipes/not-inside/filters.svg"
@@ -132,11 +137,12 @@ export default function RecipeLargeDialog({
                   width={80}
                   height={80}
                 />
-                <strong className="heading-4 mt-2 block text-center font-bold text-primary">
+                <div className="mt-3"></div>
+                <strong className="heading-4 block text-center font-bold text-primary">
                   {m('no-fillers')}
                 </strong>
               </div>
-              <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
+              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
                   src="/recipes/not-inside/flavourings.svg"
@@ -144,11 +150,12 @@ export default function RecipeLargeDialog({
                   width={80}
                   height={80}
                 />
-                <strong className="heading-4 mt-2 block text-center font-bold text-primary">
+                <div className="mt-3"></div>
+                <strong className="heading-4 block text-center font-bold text-primary">
                   {m('no-flavourings')}
                 </strong>
               </div>
-              <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
+              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
                   src="/recipes/not-inside/preservatives.svg"
@@ -156,12 +163,13 @@ export default function RecipeLargeDialog({
                   width={80}
                   height={80}
                 />
-                <strong className="heading-4 mt-2 block text-center font-bold text-primary">
+                <div className="mt-3"></div>
+                <strong className="heading-4 block text-center font-bold text-primary">
                   {m('no-preservatives')}
                 </strong>
               </div>
               <div className="w-full max-lg:hidden"></div>
-              <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
+              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
                   src="/recipes/not-inside/additives.svg"
@@ -169,11 +177,12 @@ export default function RecipeLargeDialog({
                   width={80}
                   height={80}
                 />
-                <strong className="heading-4 mt-2 block text-center font-bold text-primary">
+                <div className="mt-3"></div>
+                <strong className="heading-4 block text-center font-bold text-primary">
                   {m('no-additives')}
                 </strong>
               </div>
-              <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
+              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
                   src="/recipes/not-inside/artificial-ingredients.svg"
@@ -181,11 +190,12 @@ export default function RecipeLargeDialog({
                   width={80}
                   height={80}
                 />
-                <strong className="heading-4 mt-2 block text-center font-bold text-primary">
+                <div className="mt-3"></div>
+                <strong className="heading-4 block text-center font-bold text-primary">
                   {m('no-artificial-flavours')}
                 </strong>
               </div>
-              <div className="min-w-[160px] p-3 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0">
+              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
                   src="/recipes/not-inside/hormones.svg"
@@ -193,7 +203,8 @@ export default function RecipeLargeDialog({
                   width={80}
                   height={80}
                 />
-                <strong className="heading-4 mt-2 block text-center font-bold text-primary">
+                <div className="mt-3"></div>
+                <strong className="heading-4 block text-center font-bold text-primary">
                   {m('no-hormones')}
                 </strong>
               </div>
@@ -203,13 +214,15 @@ export default function RecipeLargeDialog({
           <DialogBlock title={r('nutrition-profile')}>
             <div className="-mx-6 -my-3 flex flex-wrap">
               <div className="w-1/2 px-6 py-3 max-md:w-full">
-                <div className="body-1 mt-2 flex flex-wrap justify-between">
-                  <strong className="uppercase">
+                <div className="mt-2"></div>
+                <div className="body-1 flex flex-wrap justify-between">
+                  <strong className="mr-2 uppercase">
                     {t('{}-colon', { value: r('calorie-content') })}
                   </strong>
                   <span>{t('{}-kcal-per-kg', { value: calorie })}</span>
                 </div>
-                <div className="body-1 mt-2">
+                <div className="mt-2"></div>
+                <div className="body-1">
                   <strong className="uppercase">
                     {t('{}-colon', { value: r('guarenteed-analysis') })}
                   </strong>

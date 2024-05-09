@@ -279,14 +279,16 @@ export default async function Plan() {
                     b: (chunks) => <b className="text-[1.1em]">{chunks}</b>,
                   })}
                 </h2>
-                <p className="mt-3">
-                  {t.rich(
-                    'refer-your-friends-to-try-ocelle-with-a-special-discount-code-and-get-{}-off-your-next-box',
-                    {
-                      value: '[$50]',
-                      b: (chunks) => <b className="text-[1.4em]">{chunks}</b>,
-                    }
-                  )}
+                <p className="mt-5">
+                  <span className="body-3">
+                    {t.rich(
+                      'refer-your-friends-to-try-ocelle-with-a-special-discount-code-and-get-{}-off-your-next-box',
+                      {
+                        value: '[$50]',
+                        b: (chunks) => <b className="text-[1.4em]">{chunks}</b>,
+                      }
+                    )}
+                  </span>
                 </p>
                 <Button className="mt-6">{b('refer-a-friend')}</Button>
               </div>

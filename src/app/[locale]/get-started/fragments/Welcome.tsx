@@ -22,7 +22,8 @@ export default function WelcomeFragment() {
           <p className="body-3 text-primary">
             {t('lets-determine-your-recommended-meal-plan-and-price')}
           </p>
-          <p className="body-3 mt-5 flex items-center justify-center text-left text-primary">
+          <div className="mt-5"></div>
+          <p className="body-3 flex items-center justify-center text-left text-primary">
             <Image
               src="/question/timer.svg"
               alt="Timer"

@@ -40,8 +40,14 @@ function Section({
   return (
     <>
       <div className={className}>
-        <h2 className="heading-4 mb-4 font-bold text-primary">{title}</h2>
-        {description && <p className="body-3 mb-2 italic text-primary">{description}</p>}
+        <h2 className="heading-4 font-bold text-primary">{title}</h2>
+        <div className="mt-4"></div>
+        {description && (
+          <>
+            <p className="body-3 italic text-primary">{description}</p>
+            <div className="mb-2"></div>
+          </>
+        )}
       </div>
       <div className={clsx(!dense && 'mt-4')}>{children}</div>
     </>
@@ -51,7 +57,12 @@ function Section({
 function SummaryBlock({ title, children }: React.PropsWithChildren<{ title?: string }>) {
   return (
     <div className="mt-4 border-t border-gold pt-4">
-      {title && <h3 className="body-2 font-bold text-gold">{title}</h3>}
+      {title && (
+        <>
+          <h3 className="body-2 font-bold text-gold">{title}</h3>
+          <div className="mt-3"></div>
+        </>
+      )}
       {children}
     </div>
   );
@@ -358,7 +369,8 @@ export default function SubscriptionCheckoutForm({
                   }}
                 />
               </p>
-              <p className="body-3 mt-3">
+              <div className="mt-3"></div>
+              <p className="body-3">
                 {t('after-checkout-you-can-adjust-your-delivery-date-until-the-{}', {
                   date: sentence.date(new Date()),
                 })}
@@ -385,16 +397,18 @@ export default function SubscriptionCheckoutForm({
               <SummaryBlock title={t('{}-colon', { value: t('your-plan') })}>
                 {dogs.map((dog, idx) => {
                   return (
-                    <p key={idx} className="body-3 mt-1">
-                      {t('{}-for-{}-diet-at-a-total-of-{}-per-day', {
-                        plan:
-                          dog.mealPlan === MealPlan.Full
-                            ? t('fresh-full-plan')
-                            : t('fresh-half-plan'),
-                        name: dog.name,
-                        price: '$18',
-                      })}
-                    </p>
+                    <div key={idx} className="mt-2">
+                      <p className="body-3">
+                        {t('{}-for-{}-diet-at-a-total-of-{}-per-day', {
+                          plan:
+                            dog.mealPlan === MealPlan.Full
+                              ? t('fresh-full-plan')
+                              : t('fresh-half-plan'),
+                          name: dog.name,
+                          price: '$18',
+                        })}
+                      </p>
+                    </div>
                   );
                 })}
               </SummaryBlock>
@@ -404,7 +418,7 @@ export default function SubscriptionCheckoutForm({
                     key={idx}
                     title={t('{}-colon', { value: t('{}-fresh-food-box', { name: dog.name }) })}
                   >
-                    <div className="body-3 -mx-1 mt-3 flex flex-wrap justify-between">
+                    <div className="body-3 -mx-1 flex flex-wrap justify-between">
                       <div className="px-1">{t('{}-colon', { value: t('meal-plan') })}</div>
                       <div className="px-1">
                         <strong className="mr-1.5">
@@ -415,7 +429,8 @@ export default function SubscriptionCheckoutForm({
                         <EditButton onClick={onEditMealPlan} />
                       </div>
                     </div>
-                    <div className="body-3 -mx-1 mt-2 flex flex-wrap justify-between">
+                    <div className="mt-2"></div>
+                    <div className="body-3 -mx-1 flex flex-wrap justify-between">
                       <div className="px-1">{t('{}-colon', { value: n('recipes') })}</div>
                       <div className="px-1">
                         <strong className="mr-1.5">
@@ -425,14 +440,16 @@ export default function SubscriptionCheckoutForm({
                         <EditButton onClick={onEditRecipes} />
                       </div>
                     </div>
-                    <div className="body-3 -mx-1 mt-2 flex flex-wrap justify-between">
+                    <div className="mt-2"></div>
+                    <div className="body-3 -mx-1 flex flex-wrap justify-between">
                       <div className="px-1">{t('days-of-food')}</div>
                       <div className="px-1">
                         <strong className="mr-1.5">{t('{}-days', { value: 14 })}</strong>
                         <div className="inline-block w-4">&nbsp;</div>
                       </div>
                     </div>
-                    <div className="body-3 -mx-1 mt-2 flex flex-wrap justify-between">
+                    <div className="mt-2"></div>
+                    <div className="body-3 -mx-1 flex flex-wrap justify-between">
                       <div className="px-1">{t('transition-period')}</div>
                       <div className="px-1">
                         <strong className="mr-1.5">
@@ -454,7 +471,8 @@ export default function SubscriptionCheckoutForm({
                     <Price className="font-bold" value={500} discount />
                   </div>
                 </div>
-                <div className="body-3 -mx-1 mt-2 flex flex-wrap justify-between">
+                <div className="mt-2"></div>
+                <div className="body-3 -mx-1 flex flex-wrap justify-between">
                   <div className="px-1">
                     {t('{}-colon', { value: t('with-starter-box-discount') })}
                   </div>
@@ -462,11 +480,13 @@ export default function SubscriptionCheckoutForm({
                     <Price className="font-bold" value={250} />
                   </div>
                 </div>
-                <div className="body-3 -mx-1 mt-2 flex flex-wrap justify-between">
+                <div className="mt-2"></div>
+                <div className="body-3 -mx-1 flex flex-wrap justify-between">
                   <div className="px-1">{t('promo-code')}</div>
                   <div className="px-1">－</div>
                 </div>
-                <div className="body-3 -mx-1 mt-2 flex flex-wrap justify-between">
+                <div className="mt-2"></div>
+                <div className="body-3 -mx-1 flex flex-wrap justify-between">
                   <div className="px-1">{t('{}-colon', { value: t('delivery') })}</div>
                   <div className="px-1">
                     <Price className="font-bold uppercase" value={t('free')} dollorSign={false} />
@@ -502,12 +522,14 @@ export default function SubscriptionCheckoutForm({
                   {t('{}-colon', { value: t('next-order') })}
                   {sentence.date(addWeeks(new Date(), 2), true)}
                 </p>
-                <p className="body-3 mt-3">
+                <div className="mt-3"></div>
+                <p className="body-3">
                   {t('{}-colon', { value: t('delivery-cycle') })}
                   {t('every-{}', { value: t('{}-weeks', { value: 2 }) })}
                 </p>
               </div>
-              <p className="body-3 mt-4">{t.rich('subscription:description')}</p>
+              <div className="mt-4"></div>
+              <p className="body-3">{t.rich('subscription:description')}</p>
             </div>
           </div>
         </div>

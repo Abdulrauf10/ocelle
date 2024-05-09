@@ -28,7 +28,8 @@ export default function PauseDelivery() {
             <div className="mx-auto h-12 w-12 rounded-full bg-secondary p-1.5">
               <CircleTick className="relative top-px" />
             </div>
-            <h1 className="heading-4 mt-2 text-center font-bold text-primary">{t('done')}</h1>
+            <div className="mt-2"></div>
+            <h1 className="heading-4 text-center font-bold text-primary">{t('done')}</h1>
             <p className="mx-auto mt-4 max-w-[360px] text-center">
               {t.rich('your-orders-are-now-paused-delivery-will-resume-on-the-{}', {
                 date: '[23rd of February 2024]',

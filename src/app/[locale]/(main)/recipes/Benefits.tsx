@@ -58,14 +58,20 @@ export default function RecipeBenefits() {
       <hr className="my-4 border-gray" />
       {benefits.map((benefit, idx) => {
         return (
-          <div key={idx} className="mt-3 text-lg">
-            <div className="flex">
-              <div className="mt-1.5 flex h-4 w-4 min-w-4 items-center justify-center rounded-full bg-primary text-sm font-bold leading-none text-white">
+          <div key={idx} className="mt-4 text-lg">
+            <div className="flex items-center">
+              <div className="flex h-4 w-4 min-w-4 items-center justify-center rounded-full bg-primary text-sm font-bold leading-none text-white">
                 {idx + 1}
               </div>
-              <h3 className="body-1 ml-2 text-primary">{benefit.title}</h3>
+              <div className="ml-2">
+                <h3 className="body-1 text-primary">{benefit.title}</h3>
+              </div>
             </div>
-            {opened && <p className="body-1 ml-8 mt-1">{benefit.description}</p>}
+            {opened && (
+              <div className="mb-7 ml-8 mt-3">
+                <p className="body-1">{benefit.description}</p>
+              </div>
+            )}
           </div>
         );
       })}

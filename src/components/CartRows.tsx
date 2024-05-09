@@ -83,7 +83,7 @@ export default function CartRows({
             <div className="-mx-2 mt-2 flex items-center justify-between">
               <div className="px-2">
                 <NumberInput
-                  className={{ root: 'border-brown', input: 'body-3' }}
+                  className={{ root: 'border-brown', input: 'body-3 body-inline' }}
                   min={0}
                   value={line.quantity}
                   onChange={(value) => onUpdateClick(line.id, value)}

@@ -357,22 +357,18 @@
     "see-my-recipes": "See My Recipes",
     "try-it-today": "Try It Today",
     "submit-application": "Submit Application",
-    "refer-a-friend": "refer-a-friend",
-    "recipes": "Recipes"
+    "refer-a-friend": "Refer a Friend",
+    "recipes": "Recipes",
+    "start-your-fresh-journey": "Start Your Fresh Journey"
   },
   "Home": {
-    "block-1-title-1-1": "Nutrition ",
-    "block-1-title-1-2": "They ",
-    "block-1-title-1-3": "Need.",
-    "block-1-title-3": "Food They Want.",
+    "block-1-title-1": "Nutrition They Need. <br></br>Food They Want.",
     "block-1-content-1": "Tasty fresh food delivered to your door",
     "block-1-content-2": "Meals customised to your dog’s specific nutritional needs",
     "block-1-content-3": "Vet developed formula",
     "block-1-content-4": "Easier for you, better for them!",
-    "block-2-title-1": "They’re My Dogs. ",
-    "block-2-title-2": "They’re My Family.",
-    "blcok-2-content-1": "Trade guesswork for peace of mind. Relax, knowing that your dog is getting the highest quality ",
-    "blcok-2-content-2": "nutrition for a longer and more vibrant life! It’s science... and it’s delicious.",
+    "block-2-title": "They’re My Dogs. <block>They’re My Family.</block>",
+    "blcok-2-content": "Trade guesswork for peace of mind. Relax, knowing that your dog is getting the highest quality <br></br>nutrition for a longer and more vibrant life! It’s science... and it’s delicious.",
     "block-3-title-1": "More Years, <block>Happier Years.</block>",
     "block-3-title-2": "It’s Time To Go Fresh.",
     "block-3-content-1": "Increased Lifespan",
@@ -406,7 +402,7 @@
     "no-fillers": "No Fillers"
   },
   "Marquee": {
-    "vet-approved": "vet-approved",
+    "vet-approved": "Vet Approved",
     "real-good-food": "Real, Good Food",
     "human-grade": "Human-Grade",
     "made-fresh": "Made Fresh",
@@ -809,11 +805,9 @@
     "block-4-content-3": "After extensive research into pet nutrition, with insights from leading Vet Nutritionists, we’ve developed a range of fresh, convenient pet food solutions, that are both innovative and ground-breaking!",
     "block-4-content-4": "Our recipes aren’t just human-grade in quality; they’re meticulously crafted to promote your dog’s health and happiness, with the same love and care you’d put into creating a family meal.",
     "block-4-content-5": "Welcome to OCELLE, where your dog’s well-being isn’t just our business—it’sour heartfelt commitment.",
-    "block-5-title-1-1": "Powered By Science, ",
-    "block-5-title-1-2": "We Turn Love Into Uncomplicated Care!",
-    "block-6-content-1-1": "Are you as passionate as we are about giving your dog(s) the best? We’re firm believers in the strength of community to bring about real transformation. If you’re interested in helping us spread our mission to make a <i>paws-itive</i> impact on canine lives,",
-    "block-6-content-1-2": " apply here ",
-    "block-6-content-1-3": "to become an OCELLE Affiliate."
+    "block-5-title-1": "Powered By Science, <br></br>We Turn Love Into Uncomplicated Care!",
+    "block-6-title-1": "Our Community",
+    "block-6-content-1": "Are you as passionate as we are about giving your dog(s) the best? We’re firm believers in the strength of community to bring about real transformation. If you’re interested in helping us spread our mission to make a <i>paws-itive</i> impact on canine lives, <link>apply here</link> to become an OCELLE Affiliate."
   },
   "Careers": {
     "what-you’ll-do": "What You’ll Do:",

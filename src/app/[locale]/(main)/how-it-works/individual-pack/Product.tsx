@@ -98,14 +98,16 @@ export default function Product({
               {product.name} ({t('{}-g', { value: getWeight(product) })})
             </h2>
             <p className={clsx('mt-4 text-[30px]', className.title)}>${getPrice(product)}</p>
-            <div className={clsx('body-1 mt-4', className.content)}>
-              {description.map((content, idx) => (
-                <span
-                  key={idx}
-                  className="my-4 block"
-                  dangerouslySetInnerHTML={{ __html: xss(content) }}
-                />
-              ))}
+            <div className={clsx('mt-4', className.content)}>
+              <p className="body-1">
+                {description.map((content, idx) => (
+                  <span
+                    key={idx}
+                    className="my-4 block"
+                    dangerouslySetInnerHTML={{ __html: xss(content) }}
+                  />
+                ))}
+              </p>
             </div>
             {pack !== IndividualRecipePack.Bundle && (
               <div className="mt-6">
@@ -133,7 +135,7 @@ export default function Product({
               <NumberInput
                 className={{
                   root: 'w-20 border-brown',
-                  input: 'body-1 w-[78px] px-4 py-1',
+                  input: 'body-1 body-inline w-[78px] px-4 py-1',
                   icon: 'w-2.5',
                 }}
                 min={1}

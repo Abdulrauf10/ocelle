@@ -60,8 +60,9 @@ export default async function Account() {
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
         <h1 className="heading-4 text-center font-bold text-primary">{t('my-info')}</h1>
-        <p className="mt-4 text-center">{t('manage-your-account-information')}</p>
-        <div className="py-4"></div>
+        <div className="mt-4"></div>
+        <p className="text-center">{t('manage-your-account-information')}</p>
+        <div className="my-4"></div>
         <div className="mx-auto max-w-[480px]">
           <ClickableBlock
             icon={<Unbox className="w-16" />}

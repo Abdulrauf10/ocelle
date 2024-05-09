@@ -13,10 +13,12 @@ export default function CompleteFragment() {
       <div className="mx-auto h-12 w-12 rounded-full bg-secondary p-1.5">
         <CircleTick className="relative top-px" />
       </div>
-      <h1 className="heading-4 mt-2 text-center font-bold text-primary">
+      <div className="mt-2"></div>
+      <h1 className="heading-4 text-center font-bold text-primary">
         {t('cancellation-successful')}
       </h1>
-      <div className="relative -m-2 mx-auto mt-6 flex max-w-[780px] items-center justify-center max-lg:flex-col">
+      <div className="mt-6"></div>
+      <div className="relative -m-2 mx-auto flex max-w-[780px] items-center justify-center max-lg:flex-col">
         <div className="absolute -left-24 p-2 max-lg:static">
           <Image src="/sorry.svg" alt="Sorry dog" width={80} height={80} />
         </div>

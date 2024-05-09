@@ -50,21 +50,25 @@ export default function FaQ() {
             <div className="mt-6">
               <Link
                 href="mailto:info@ocelle.dog"
-                className="inline-flex text-white hover:underline"
+                className="inline-flex items-center text-white hover:underline"
               >
                 <Email className="w-7" />
-                <span className="body-1 ml-3 font-bold">info@ocelle.dog</span>
+                <div className="ml-3">
+                  <span className="body-1 font-bold">info@ocelle.dog</span>
+                </div>
               </Link>
             </div>
             <div className="mt-4">
               <Link
                 href="whatsapp://send/?text=Hello%20World!&phone=92267236"
-                className="inline-flex text-white hover:underline"
+                className="inline-flex items-center text-white hover:underline"
               >
                 <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white">
                   <Whatsapp className="w-4 text-primary" />
                 </div>
-                <span className="body-1 ml-3 font-bold">9226 7236</span>
+                <div className="ml-3">
+                  <span className="body-1 font-bold">9226 7236</span>
+                </div>
               </Link>
             </div>
           </div>

@@ -18,7 +18,8 @@ export default async function Orders() {
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
         <h1 className="heading-4 text-center font-bold text-primary">{t('orders')}</h1>
-        <div className="mx-auto mt-6 max-w-[680px] overflow-hidden rounded-3xl border border-gray">
+        <div className="mt-6"></div>
+        <div className="mx-auto max-w-[680px] overflow-hidden rounded-3xl border border-gray">
           <table className="w-full">
             <thead className="bg-gray text-white">
               <tr>

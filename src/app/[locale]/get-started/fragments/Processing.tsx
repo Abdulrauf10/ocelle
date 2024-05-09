@@ -153,8 +153,10 @@ export default function ProcessingFragment() {
           height={200}
           className="inline-block"
         />
-        <h1 className="heading-4 mt-8 font-bold text-primary">{t('calculating')}</h1>
-        <p className="mt-8 text-primary">
+        <div className="mt-8"></div>
+        <h1 className="heading-4 font-bold text-primary">{t('calculating')}</h1>
+        <div className="mt-8"></div>
+        <p className="text-primary">
           {/* {t('were-crunching-some-numbers-to-formulate-{}-meal-plan', { name })} */}
         </p>
       </Container>
