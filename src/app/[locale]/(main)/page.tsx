@@ -29,7 +29,7 @@ export default function Home() {
             <br className="md:hidden" />
             {t('block-2-title-2')}
           </h1>
-          <p className="body-1 mt-8">
+          <p className="body-1 mt-7">
             {t('blcok-2-content-1')}
             <br className="max-lg:hidden" />
             {t('blcok-2-content-2')}

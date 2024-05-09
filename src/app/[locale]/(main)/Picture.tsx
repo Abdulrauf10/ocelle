@@ -22,8 +22,12 @@ export default function Picture() {
         <div className="flex flex-wrap items-center max-md:flex-col-reverse">
           <div className="relative w-3/5 py-[5vw] pr-0 text-primary max-md:w-full max-md:border-t-[10px] max-md:border-primary max-md:p-[30px]">
             <h1 className="heading-headline font-bold">
-              {t('block-1-title-1')} <br />
-              {t('block-1-title-2')}
+              {t('block-1-title-1-1')}
+              <br className="min-[450px]:hidden" />
+              {t('block-1-title-1-2')}
+              {t('block-1-title-1-3')}
+              <br />
+              {t('block-1-title-3')}
             </h1>
             <div className="my-5 text-xl">
               <List
