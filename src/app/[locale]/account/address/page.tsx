@@ -6,7 +6,7 @@ import { changeBillingAddressAction, changeShippingAddressAction } from './actio
 import { getLoginedMeFullSize } from '@/actions';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
-import BackButton from '@/components/buttons/BackButton';
+import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import BillingAddressForm from '@/components/forms/BillingAddress';
 import DeliveryAddressForm from '@/components/forms/DeliveryAddress';
 import { EditAddressProvider } from '@/contexts/editAddress';
@@ -62,7 +62,7 @@ export default async function Addresses() {
                 action={changeBillingAddressAction}
               />
               <div className="mt-12 text-center">
-                <BackButton label={t('go-back')} />
+                <UnderlineBackButton label={t('go-back')} />
               </div>
             </div>
           </Container>

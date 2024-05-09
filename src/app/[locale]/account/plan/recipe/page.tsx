@@ -7,7 +7,7 @@ import setRecipeAction from './action';
 import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
-import BackButton from '@/components/buttons/BackButton';
+import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import RecipeForm from '@/components/forms/Recipe';
 import RecurringBoxNote from '@/components/notes/RecurringBox';
 import { DOG_SELECT_COOKIE } from '@/consts';
@@ -60,7 +60,7 @@ export default async function PlanRecipe() {
             />
           </div>
           <div className="mt-8 text-center">
-            <BackButton label={t('go-back')} />
+            <UnderlineBackButton label={t('go-back')} />
           </div>
         </Container>
       </main>

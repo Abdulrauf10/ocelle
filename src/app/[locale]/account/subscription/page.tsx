@@ -4,7 +4,7 @@ import updateSubscriptionAction from './action';
 
 import { getLoginedMe } from '@/actions';
 import Container from '@/components/Container';
-import BackButton from '@/components/buttons/BackButton';
+import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import DogPlanForm from '@/components/forms/DogPlan';
 
@@ -43,7 +43,7 @@ export default async function Subscriptions() {
           />
         </div>
         <div className="mt-6 text-center">
-          <BackButton label={t('go-back')} />
+          <UnderlineBackButton label={t('go-back')} />
         </div>
       </Container>
     </main>

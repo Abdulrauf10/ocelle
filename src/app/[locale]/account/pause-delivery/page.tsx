@@ -7,7 +7,7 @@ import pauseDeliveriesAction from './action';
 
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
-import BackButton from '@/components/buttons/BackButton';
+import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import DatePickerForm from '@/components/forms/DatePicker';
 import CircleTick from '@/components/icons/CircleTick';
@@ -63,7 +63,7 @@ export default function PauseDelivery() {
               />
             </div>
             <div className="mt-8 text-center">
-              <BackButton label={t('go-back')} />
+              <UnderlineBackButton label={t('go-back')} />
             </div>
           </Container>
         )}

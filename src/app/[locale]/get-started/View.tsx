@@ -7,7 +7,7 @@ import Stage from './Stage';
 
 import Header from '@/components/Header';
 
-function BackButton({
+function UnderlineBackButton({
   show,
   className,
   onClick,
@@ -48,7 +48,7 @@ export default function View({ children }: React.PropsWithChildren) {
         disableGetStartedButton
         startAdornment={
           <div className="mt-1 hidden px-2 max-lg:block">
-            <BackButton
+            <UnderlineBackButton
               show={
                 location.pathname !== Stage.Welcome &&
                 location.pathname !== Stage.Calculating &&
@@ -63,7 +63,7 @@ export default function View({ children }: React.PropsWithChildren) {
             <div className="w-full max-lg:px-2">
               <div className="flex w-full justify-center max-lg:mt-2 lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 lg:px-[280px]">
                 <div className="relative w-full max-w-[460px]">
-                  <BackButton
+                  <UnderlineBackButton
                     className="absolute -left-[80px] -top-px select-none max-lg:hidden"
                     show={location.pathname !== Stage.Welcome}
                     onClick={() => navigate(-1)}

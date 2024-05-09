@@ -5,7 +5,7 @@ import changePasswordAction from './action';
 
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
-import BackButton from '@/components/buttons/BackButton';
+import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import ChangePasswordForm from '@/components/forms/ChangePassword';
 
 export default function ChangePassword() {
@@ -22,7 +22,7 @@ export default function ChangePassword() {
             <div className="py-4"></div>
             <ChangePasswordForm action={changePasswordAction} />
             <div className="mt-12 text-center">
-              <BackButton label={t('go-back')} />
+              <UnderlineBackButton label={t('go-back')} />
             </div>
           </div>
         </Container>

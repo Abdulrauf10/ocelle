@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server';
 import getOrders from './action';
 
 import Container from '@/components/Container';
-import BackButton from '@/components/buttons/BackButton';
+import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { isDeliveredBox } from '@/helpers/dog';
 
@@ -59,7 +59,7 @@ export default async function Orders() {
           </table>
         </div>
         <div className="mt-8 text-center">
-          <BackButton label={t('go-back')} />
+          <UnderlineBackButton label={t('go-back')} />
         </div>
       </Container>
     </main>

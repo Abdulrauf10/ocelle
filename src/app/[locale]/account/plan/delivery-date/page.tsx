@@ -5,8 +5,8 @@ import setDeliveryDateAction from './action';
 
 import { getLoginedMe } from '@/actions';
 import Container from '@/components/Container';
-import BackButton from '@/components/buttons/BackButton';
 import Button from '@/components/buttons/Button';
+import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import DeliveryDatePickerDialog from '@/components/dialogs/DeliveryDatePicker';
 import ShippableNote from '@/components/notes/Shippable';
 import { Shipment } from '@/entities';
@@ -53,7 +53,7 @@ export default async function PlanDeliveryDate() {
           </div>
         )}
         <div className="mt-8 text-center">
-          <BackButton label={t('go-back')} />
+          <UnderlineBackButton label={t('go-back')} />
         </div>
       </Container>
     </main>
