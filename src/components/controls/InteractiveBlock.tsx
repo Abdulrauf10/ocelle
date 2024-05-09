@@ -88,7 +88,7 @@ export default function InteractiveBlock<
           checked={type === 'checkbox' && !!field.value}
         />
       </div>
-      <span className="body-3 min-w-[55px]">{label}</span>
+      <span className="body-3 min-w-[55px] text-left">{label}</span>
     </label>
   );
 }

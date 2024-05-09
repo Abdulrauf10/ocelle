@@ -33,7 +33,7 @@ export default function DogPreference2Fragment() {
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isValid },
     getValues,
     trigger,
     watch,
@@ -130,8 +130,8 @@ export default function DogPreference2Fragment() {
               )}
           </Section>
           <SectionBreak />
-          <Section title={t('what-is-{}-currently-eating', { name })}>
-            <div className="mx-auto -mt-4 flex max-w-[460px] flex-wrap justify-between">
+          <Section title={t.rich('what-is-{}-currently-eating', { name })}>
+            <div className="mx-auto -mt-4 flex max-w-[460px] flex-wrap justify-between max-sm:max-w-[360px] max-sm:justify-center">
               <div className="mt-4 px-3">
                 <InteractiveBlock
                   type="radio"
@@ -209,6 +209,7 @@ export default function DogPreference2Fragment() {
                   rules={{ required: true }}
                 />
               </div>
+              <div className="min-w-[152px] px-3"></div>
             </div>
           </Section>
           <SectionBreak />
@@ -255,7 +256,7 @@ export default function DogPreference2Fragment() {
             </div>
           </Section>
           <SectionBreak />
-          <Section title={t('how-picky-is-{}-at-mealtimes', { name })}>
+          <Section title={t.rich('how-picky-is-{}-at-mealtimes', { name })}>
             <div className="mx-auto mt-10 max-w-[640px]">
               <PictureRadio
                 name="pickiness"
@@ -303,7 +304,9 @@ export default function DogPreference2Fragment() {
               />
             </div>
           </Section>
-          <Button className="mt-10">{t('continue')}</Button>
+          <Button className="mt-10" disabled={!isValid}>
+            {t('continue')}
+          </Button>
         </form>
       </Container>
     </motion.div>

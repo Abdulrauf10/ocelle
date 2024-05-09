@@ -99,6 +99,7 @@ type DogData = {
 };
 
 export default function SubscriptionCheckoutForm({
+  defaultValues,
   dogs,
   clientSecret,
   closestDeliveryDate,
@@ -110,6 +111,11 @@ export default function SubscriptionCheckoutForm({
   onBeforeTransaction,
   onCompleteTransaction,
 }: {
+  defaultValues?: {
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+  };
   dogs: DogData[];
   clientSecret: string;
   closestDeliveryDate: Date;
@@ -134,9 +140,17 @@ export default function SubscriptionCheckoutForm({
     watch,
   } = useForm<ISubscriptionCheckoutForm>({
     defaultValues: {
+      ...defaultValues,
       isSameBillingAddress: true,
-      tnc: true,
       deliveryDate: closestDeliveryDate,
+      billingAddress: {
+        firstName: defaultValues?.firstName,
+        lastName: defaultValues?.lastName,
+      },
+      deliveryAddress: {
+        firstName: defaultValues?.firstName,
+        lastName: defaultValues?.lastName,
+      },
     },
   });
   const datePickerRef = React.useRef<HTMLDivElement | null>(null);
@@ -357,7 +371,7 @@ export default function SubscriptionCheckoutForm({
             <div className="mt-10"></div>
             <Section dense title={t('delivery-date')}>
               <p className="body-3">
-                {t('{}-{}-week-starter-box-will-be-delivered-on-the-{}', {
+                {t.rich('{}-{}-week-starter-box-will-be-delivered-on-the-{}', {
                   name: dogs[0].name,
                   week: 2,
                   date: sentence.date(watch('deliveryDate'), true),
@@ -371,7 +385,7 @@ export default function SubscriptionCheckoutForm({
               </p>
               <div className="mt-3"></div>
               <p className="body-3">
-                {t('after-checkout-you-can-adjust-your-delivery-date-until-the-{}', {
+                {t.rich('after-checkout-you-can-adjust-your-delivery-date-until-the-{}', {
                   date: sentence.date(new Date()),
                 })}
               </p>
@@ -394,7 +408,7 @@ export default function SubscriptionCheckoutForm({
           <div className="w-1/3 px-6 max-lg:w-2/5 max-lg:px-3 max-md:mt-8 max-md:w-full">
             <div className="rounded-3xl bg-gold bg-opacity-10 px-6 py-10">
               <h2 className="heading-4 font-bold text-gold">{t('order-summary')}</h2>
-              <SummaryBlock title={t('{}-colon', { value: t('your-plan') })}>
+              <SummaryBlock title={t('your-plan')}>
                 {dogs.map((dog, idx) => {
                   return (
                     <div key={idx} className="mt-2">
@@ -414,12 +428,9 @@ export default function SubscriptionCheckoutForm({
               </SummaryBlock>
               {dogs.map((dog, idx) => {
                 return (
-                  <SummaryBlock
-                    key={idx}
-                    title={t('{}-colon', { value: t('{}-fresh-food-box', { name: dog.name }) })}
-                  >
+                  <SummaryBlock key={idx} title={t('{}-fresh-food-box', { name: dog.name })}>
                     <div className="body-3 -mx-1 flex flex-wrap justify-between">
-                      <div className="px-1">{t('{}-colon', { value: t('meal-plan') })}</div>
+                      <div className="px-1">{t('meal-plan')}</div>
                       <div className="px-1">
                         <strong className="mr-1.5">
                           {dog.mealPlan === MealPlan.Full
@@ -431,7 +442,7 @@ export default function SubscriptionCheckoutForm({
                     </div>
                     <div className="mt-2"></div>
                     <div className="body-3 -mx-1 flex flex-wrap justify-between">
-                      <div className="px-1">{t('{}-colon', { value: n('recipes') })}</div>
+                      <div className="px-1">{n('recipes')}</div>
                       <div className="px-1">
                         <strong className="mr-1.5">
                           {dog.recipe1 != null && t(getRecipeSlug(dog.recipe1))}
@@ -461,21 +472,17 @@ export default function SubscriptionCheckoutForm({
                   </SummaryBlock>
                 );
               })}
-              <SummaryBlock title={t('discount-coupon')}>{couponForm}</SummaryBlock>
+              <SummaryBlock title={t('promo-code')}>{couponForm}</SummaryBlock>
               <SummaryBlock>
                 <div className="body-3 -mx-1 flex flex-wrap justify-between">
-                  <div className="px-1">
-                    {t('{}-colon', { value: t('fresh-food-box-subtotal') })}
-                  </div>
+                  <div className="px-1">{t('fresh-food-box-subtotal')}</div>
                   <div className="px-1">
                     <Price className="font-bold" value={500} discount />
                   </div>
                 </div>
                 <div className="mt-2"></div>
                 <div className="body-3 -mx-1 flex flex-wrap justify-between">
-                  <div className="px-1">
-                    {t('{}-colon', { value: t('with-starter-box-discount') })}
-                  </div>
+                  <div className="px-1">{t('with-starter-box-discount')}</div>
                   <div className="px-1">
                     <Price className="font-bold" value={250} />
                   </div>
@@ -487,7 +494,7 @@ export default function SubscriptionCheckoutForm({
                 </div>
                 <div className="mt-2"></div>
                 <div className="body-3 -mx-1 flex flex-wrap justify-between">
-                  <div className="px-1">{t('{}-colon', { value: t('delivery') })}</div>
+                  <div className="px-1">{t('delivery')}</div>
                   <div className="px-1">
                     <Price className="font-bold uppercase" value={t('free')} dollorSign={false} />
                   </div>
@@ -518,7 +525,7 @@ export default function SubscriptionCheckoutForm({
             <div className="mt-10 rounded-3xl bg-gold bg-opacity-10 px-6 py-10">
               <h2 className="heading-4 font-bold text-gold">{n('subscription')}</h2>
               <div className="mt-4 text-gold">
-                <p>
+                <p className="body-3">
                   {t('{}-colon', { value: t('next-order') })}
                   {sentence.date(addWeeks(new Date(), 2), true)}
                 </p>

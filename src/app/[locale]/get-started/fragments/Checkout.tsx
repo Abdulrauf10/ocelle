@@ -13,7 +13,7 @@ import CouponForm from '@/components/forms/Coupon';
 import SubscriptionCheckoutForm from '@/components/forms/SubscriptionCheckout';
 
 export default function CheckoutFragment() {
-  const { dogs } = useSurvey();
+  const { dogs, owner } = useSurvey();
   const navigate = useNavigate();
   const { state } = useLocation();
 
@@ -47,6 +47,7 @@ export default function CheckoutFragment() {
           publishableKey={state.stripe.publishableKey}
         >
           <SubscriptionCheckoutForm
+            defaultValues={owner}
             dogs={dogs}
             clientSecret={state.stripe.paymentIntent.client_secret}
             closestDeliveryDate={state.closestDeliveryDate}

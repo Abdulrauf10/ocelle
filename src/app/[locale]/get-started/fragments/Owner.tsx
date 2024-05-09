@@ -29,7 +29,7 @@ export default function OwnerFragment() {
   const {
     handleSubmit,
     control,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<OwnerForm>({
     defaultValues: owner,
   });
@@ -96,7 +96,7 @@ export default function OwnerFragment() {
               label={t('already-have-an-account-log-in-here')}
             />
           </div>
-          <Button className="mt-10">{t('continue')}</Button>
+          <Button className="mt-10" disabled={!isValid}>{t('continue')}</Button>
         </form>
       </Container>
     </motion.div>

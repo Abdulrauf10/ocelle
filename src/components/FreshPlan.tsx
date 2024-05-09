@@ -34,8 +34,12 @@ export default function FreshPlan({
   return (
     <div
       className={clsx(
-        'mx-auto flex h-full max-w-[400px] cursor-pointer flex-col rounded-[30px] border bg-white p-6 text-left shadow-[0_0_15px_rgba(0,0,0,0.2)]',
-        error ? 'border-error' : selected ? 'border-primary' : 'border-transparent'
+        'mx-auto flex h-full max-w-[400px] cursor-pointer flex-col rounded-[30px] border bg-white p-6 text-left shadow-[8px_8px_20px_rgba(0,0,0,0.2)]',
+        error
+          ? 'border-error'
+          : selected
+            ? 'border-primary'
+            : 'border-transparent shadow-[8px_8px_20px_rgba(0,0,0,0.4)]'
       )}
       tabIndex={0}
       onClick={onSelect}
@@ -81,7 +85,7 @@ export default function FreshPlan({
             <span className="font-bold text-dark-green">/day</span>.
           </p>
           {firstDiscount && (
-            <p className="mt-2">
+            <p className="mt-2 leading-[1.25em]">
               Enjoy <span className="font-bold text-dark-green">50%</span> off for{' '}
               <br className="max-lg:hidden" />
               your starter box.

@@ -531,7 +531,7 @@ export default function DogForm({
                 label: t('mellow'),
                 descripton: (
                   <p className="body-3 text-primary">
-                    {t('less-than-30-minutes-of-outdoor-daily-activity')}
+                    {t('less-than-30-minutes-of-daily-outdoor-activity')}
                   </p>
                 ),
                 value: 'Mellow',
@@ -543,7 +543,7 @@ export default function DogForm({
                 label: t('active'),
                 descripton: (
                   <p className="body-3 text-primary">
-                    {t('around-1-2-hours-of-outdoor-daily-activity')}
+                    {t('around-1-2-hours-of-daily-outdoor-activity')}
                   </p>
                 ),
                 value: 'Active',
@@ -555,7 +555,7 @@ export default function DogForm({
                 label: t('very-active'),
                 descripton: (
                   <p className="body-3 text-primary">
-                    {t('more-than-2-hours-of-outdoor-daily-activity')}
+                    {t('more-than-2-hours-of-daily-outdoor-activity')}
                   </p>
                 ),
                 value: 'VeryActive',

@@ -13,6 +13,7 @@ interface RecipeCheckboxProps<T extends FieldValues> extends InputControllerProp
   title: string;
   description: string;
   picture: string;
+  price: 'cheap' | 'normal' | 'expensive';
   ingredients: string[];
   targetedNutrientBlendIngredients: string[];
   calorie: number;
@@ -37,6 +38,7 @@ export default function RecipeCheckbox<T extends FieldValues>({
   recommended,
   disabled,
   description,
+  price,
   ingredients,
   targetedNutrientBlendIngredients,
   calorie,
@@ -58,10 +60,10 @@ export default function RecipeCheckbox<T extends FieldValues>({
         {recommended && (
           <div
             className={clsx(
-              'body-4 absolute -left-1/2 inline-block select-none rounded-3xl border border-white bg-secondary px-3 py-px text-center uppercase italic text-white'
+              'absolute left-0 inline-block -translate-x-1/2 select-none rounded-3xl border border-white bg-secondary px-3 py-[3px]'
             )}
           >
-            {t('recommended')}
+            <p className="body-4 text-center uppercase italic text-white">{t('recommended')}</p>
           </div>
         )}
         <Image
@@ -84,7 +86,9 @@ export default function RecipeCheckbox<T extends FieldValues>({
           disabled={disabled}
           onChange={onChange}
         />
-        <div className={clsx('mt-0.5 text-[#7B8D97]', disabled && 'text-opacity-50')}>$$</div>
+        <div className={clsx('mt-0.5 text-[#7B8D97]', disabled && 'text-opacity-50')}>
+          {price === 'cheap' ? '$$' : price === 'normal' ? '$$$' : '$$$$'}
+        </div>
         <div className="mt-0.5">
           <RecipeMediumDialog
             name={title}

@@ -129,6 +129,7 @@ export default function RecipeForm({
             }}
             error={!!errors?.recipe}
             picture="/meal-plan/chicken.jpg"
+            price="cheap"
             ingredients={[
               i('chicken-breast'),
               i('chicken-liver'),
@@ -166,6 +167,7 @@ export default function RecipeForm({
             }}
             error={!!errors?.recipe}
             picture="/meal-plan/pork.jpg"
+            price="cheap"
             ingredients={[
               i('pork-loin'),
               i('pork-liver'),
@@ -203,6 +205,7 @@ export default function RecipeForm({
             }}
             error={!!errors?.recipe}
             picture="/meal-plan/duck.jpg"
+            price="normal"
             ingredients={[
               i('duck-breast'),
               i('chicken-liver'),
@@ -239,6 +242,7 @@ export default function RecipeForm({
             }}
             error={!!errors?.recipe}
             picture="/meal-plan/beef.jpg"
+            price="normal"
             ingredients={[
               i('beef-chuck'),
               i('beef-liver'),
@@ -276,6 +280,7 @@ export default function RecipeForm({
             }}
             error={!!errors?.recipe}
             picture="/meal-plan/lamb.jpg"
+            price="expensive"
             ingredients={[
               i('lamb-leg-boneless'),
               i('beef-liver'),

@@ -49,7 +49,7 @@ function Radio<T extends FieldValues>({
           />
         </div>
       </div>
-      <div className="mt-1"></div>
+      <div className="mt-2"></div>
       <div className="body-3 whitespace-nowrap px-1 text-center">{label}</div>
     </label>
   );
@@ -62,6 +62,7 @@ type PictureRadioOption<
   label: string;
   value: FieldPathValue<TFieldValues, TFieldName>;
   descripton?: React.ReactNode;
+  selectedDescription?: React.ReactNode;
 }>;
 
 interface PictureRadioProps<
@@ -97,6 +98,10 @@ export default function PictureRadio<
       : hoverValue && radios.find((radio) => radio.value === hoverValue)?.descripton;
   }, [radios, selectedRadio, hoverValue]);
 
+  const selectedDescription = React.useMemo(() => {
+    return selectedRadio && selectedRadio.selectedDescription;
+  }, [selectedRadio]);
+
   return (
     <>
       <div className="flex">
@@ -115,7 +120,8 @@ export default function PictureRadio<
           </Radio>
         ))}
       </div>
-      {description && <div className="mt-5">{description}</div>}
+      {description && <div className="mt-5 flex justify-center">{description}</div>}
+      {selectedDescription && <div className="mt-5 flex justify-center">{selectedDescription}</div>}
     </>
   );
 }

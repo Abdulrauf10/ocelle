@@ -334,7 +334,7 @@ export default function RecipesPage() {
         <div className="max-md:px-2">
           <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Chicken)}</h2>
           <div className="mt-4"></div>
-          <p className="body-1">{r('block-2-content')}</p>
+          <p className="body-1">{r('chicken:description')}</p>
           <div className="mt-6"></div>
           <p className="heading-4 font-bold text-gold">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
@@ -384,7 +384,7 @@ export default function RecipesPage() {
         <div className="max-md:px-2">
           <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Beef)}</h2>
           <div className="mt-4"></div>
-          <p className="body-1">{r('block-3-content')}</p>
+          <p className="body-1">{r('beef:description')}</p>
           <div className="mt-6"></div>
           <p className="heading-4 font-bold text-gold">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
@@ -436,7 +436,7 @@ export default function RecipesPage() {
         <div className="max-md:px-2">
           <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Pork)}</h2>
           <div className="mt-4"></div>
-          <p className="body-1">{r('block-3-content')}</p>
+          <p className="body-1">{r('pork:description')}</p>
           <div className="mt-6"></div>
           <p className="heading-4 font-bold text-gold">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
@@ -485,7 +485,7 @@ export default function RecipesPage() {
         <div className="max-md:px-2">
           <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Lamb)}</h2>
           <div className="mt-4"></div>
-          <p className="body-1">{r('block-4-content')}</p>
+          <p className="body-1">{r('lamb:description')}</p>
           <div className="mt-6"></div>
           <p className="heading-4 font-bold text-gold">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
@@ -535,7 +535,7 @@ export default function RecipesPage() {
         <div className="max-md:px-2">
           <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Duck)}</h2>
           <div className="mt-4"></div>
-          <p className="body-1">{r('block-5-content')}</p>
+          <p className="body-1">{r('duck:description')}</p>
           <div className="mt-6"></div>
           <p className="heading-4 font-bold text-gold">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
