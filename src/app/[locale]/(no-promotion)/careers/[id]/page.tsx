@@ -46,7 +46,11 @@ function CareerBlock({ title, lines }: { title: string; lines: CareerLine[] }) {
 }
 
 export default async function CareerView({ params }: { params: { id: string } }) {
-  const career = await fetchData(parseInt(params.id));
+  const id = parseInt(params.id);
+  if (Number.isNaN(id)) {
+    notFound();
+  }
+  const career = await fetchData(id);
   const c = await getTranslations('Careers');
   const b = await getTranslations('Button');
   if (!career) {
