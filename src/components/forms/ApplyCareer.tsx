@@ -270,8 +270,8 @@ export default function ApplyCareerForm({
                 </div>
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-start">
-                    <div className="body-3 mb-5 mr-2 flex h-[40px] w-[95px] min-w-[95px] items-center">
-                      <label htmlFor="resume">
+                    <div className="mb-5 mr-2 flex h-[40px] w-[95px] min-w-[95px] items-center">
+                      <label htmlFor="resume" className="body-3">
                         {c('resume-cv')}
                         <span className="relative top-[-2px] text-error">*</span>
                       </label>
@@ -302,8 +302,10 @@ export default function ApplyCareerForm({
                 </div>
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-start">
-                    <div className="body-3 mb-5 mr-2 flex h-[40px] w-[95px] min-w-[95px] items-center">
-                      <label htmlFor="coverLetter">{t('cover-letter')}</label>
+                    <div className="mb-5 mr-2 flex h-[40px] w-[95px] min-w-[95px] items-center">
+                      <label htmlFor="coverLetter" className="body-3">
+                        {t('cover-letter')}
+                      </label>
                     </div>
                     <FileInput
                       control={control}

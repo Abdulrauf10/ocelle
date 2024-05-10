@@ -12,7 +12,9 @@ export default function WhyFreshReference() {
         <Container>
           <h1 className="heading-2 font-bold text-primary">{i('title')}</h1>
           <div className="mt-10"></div>
-          <h2 className="heading-4 border-b pb-5 text-primary">{i('block-1-title')}</h2>
+          <h2 className="border-b pb-5 text-primary">
+            <span className="heading-4">{i('block-1-title')}</span>
+          </h2>
           <div className="mt-5"></div>
           <ol className="list-decimal pl-[18px] [&_li]:pb-2 [&_li]:pl-2">
             <li>{i('block-1-content-1')}</li>
@@ -42,7 +44,9 @@ export default function WhyFreshReference() {
       </Block>
       <Block className="bg-gold bg-opacity-[12%]">
         <Container>
-          <h2 className="heading-4 border-b pb-5 text-gold">{i('block-2-title')}</h2>
+          <h2 className="border-b pb-5 text-gold">
+            <span className="heading-4">{i('block-2-title')}</span>
+          </h2>
           <div className="mt-5"></div>
           <ol className="list-decimal pl-[18px] [&_li]:pb-2 [&_li]:pl-2">
             <li>{i('block-2-content-1')}</li>
@@ -74,7 +78,9 @@ export default function WhyFreshReference() {
       </Block>
       <Block className="bg-dark-green bg-opacity-[12%]">
         <Container>
-          <h2 className="heading-4 border-b pb-5 text-dark-green">{i('block-3-title')}</h2>
+          <h2 className="border-b pb-5 text-dark-green">
+            <span className="heading-4">{i('block-3-title')}</span>
+          </h2>
           <div className="mt-5"></div>
           <ol className="list-decimal pl-[18px] [&_li]:pb-2 [&_li]:pl-2">
             <li>{i('block-3-content-1')}</li>
@@ -100,7 +106,9 @@ export default function WhyFreshReference() {
       </Block>
       <Block className="bg-gray bg-opacity-[12%]">
         <Container>
-          <h2 className="heading-4 border-b pb-5 text-gray">{i('block-4-title')}</h2>
+          <h2 className="border-b pb-5 text-gray">
+            <span className="heading-4">{i('block-4-title')}</span>
+          </h2>
           <div className="mt-5"></div>
           <ol className="list-decimal pl-[18px] [&_li]:pb-2 [&_li]:pl-2">
             <li>{i('block-4-content-1')}</li>
