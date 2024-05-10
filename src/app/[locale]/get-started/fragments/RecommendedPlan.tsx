@@ -468,7 +468,7 @@ export default function RecommendedPlanFragment() {
                     width={60}
                     height={70}
                   />
-                  <div className="my-2 ml-3 inline-flex flex-wrap items-center justify-center text-primary">
+                  <div className="relative top-1 my-2 ml-3 inline-flex flex-wrap items-center justify-center text-primary">
                     <div className="mr-1">{t('{}-colon', { value: t('starter-box') })}</div>
                     <div>
                       <span className="inline-block">
