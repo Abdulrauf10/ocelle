@@ -12,7 +12,7 @@ interface ButtonBaseProps {
   reverse?: boolean;
   fullWidth?: boolean;
   disabled?: boolean;
-  iconNotNeed?: boolean;
+  disableIcon?: boolean;
 }
 
 interface ButtonProps extends ButtonBaseProps {
@@ -42,6 +42,7 @@ export default function Button({
   reverse,
   fullWidth,
   disabled,
+  disableIcon,
   ...props
 }: React.PropsWithChildren<ButtonProps | LinkbuttonProps>) {
   const buttonProps = props as ButtonProps;
@@ -112,9 +113,6 @@ export default function Button({
         className
       );
 
-  if (buttonProps.iconNotNeed) {
-    iconNeed = false;
-  }
   if (linkProps.href) {
     return (
       <Link
@@ -127,7 +125,7 @@ export default function Button({
         <div className={clsx(!fontSize || fontSize === 'normal' ? 'body-1' : 'body-2')}>
           {children}
         </div>
-        {iconNeed && <ButtonIcon />}
+        {!disableIcon && <ButtonIcon />}
       </Link>
     );
   }
@@ -143,7 +141,7 @@ export default function Button({
       <div className={clsx(!fontSize || fontSize === 'normal' ? 'body-1' : 'body-2')}>
         {children}
       </div>
-      {iconNeed && <ButtonIcon />}
+      {!disableIcon && <ButtonIcon />}
     </button>
   );
 }

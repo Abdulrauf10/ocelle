@@ -67,7 +67,7 @@ function CareerBlock({ career }: { career: Career }) {
             theme="primary"
             href={`./careers/${career.id}`}
             className="whitespace-nowrap !text-base"
-            iconNotNeed
+            disableIcon
           >
             {b('see-details')}
           </Button>

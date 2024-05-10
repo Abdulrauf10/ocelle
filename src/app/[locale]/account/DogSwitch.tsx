@@ -47,7 +47,7 @@ export default function DogSwitch({
             );
           })}
           <MenuItem className="w-full" component="button" disableRipple disableTouchRipple>
-            <p className="text-secondary underline">+ Add Another Dog</p>
+            <p className="text-secondary underline">+ {t.rich('add-another-dog')}</p>
           </MenuItem>
         </Select>
       </FormControl>
