@@ -6,7 +6,7 @@ import updateBasicInfoAction from './action';
 import { getLoginedMe } from '@/actions';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
-import BackButton from '@/components/buttons/BackButton';
+import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import UserBasicInfoForm from '@/components/forms/UserBasicInfo';
 
@@ -38,7 +38,7 @@ export default async function BasicInfo() {
               action={updateBasicInfoAction}
             />
             <div className="mt-12 text-center">
-              <BackButton label={t('go-back')} />
+              <UnderlineBackButton label={t('go-back')} />
             </div>
           </div>
         </Container>

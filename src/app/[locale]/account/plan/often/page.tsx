@@ -5,7 +5,7 @@ import setOrderSizeAction from './action';
 
 import { getLoginedMe } from '@/actions';
 import Container from '@/components/Container';
-import BackButton from '@/components/buttons/BackButton';
+import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import OrderSizeForm from '@/components/forms/OrderSize';
 import ShippableNote from '@/components/notes/Shippable';
 import { OrderSize } from '@/enums';
@@ -71,7 +71,7 @@ export default async function PlanOften() {
           action={setOrderSizeAction}
         />
         <div className="mt-8 text-center">
-          <BackButton label={t('go-back')} />
+          <UnderlineBackButton label={t('go-back')} />
         </div>
       </Container>
     </main>

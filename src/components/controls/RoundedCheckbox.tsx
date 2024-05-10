@@ -42,14 +42,11 @@ export default function RoundedCheckbox<
 
   return (
     <label
-      className={clsx(
-        'inline-flex cursor-pointer select-none items-center',
-        error && '!text-error'
-      )}
+      className={clsx('inline-flex cursor-pointer select-none items-start', error && '!text-error')}
     >
       <div
         className={clsx(
-          'relative mr-2 h-[13px] min-h-[13px] w-[13px] min-w-[13px] rounded-[3px] border',
+          'relative mr-2 mt-px h-[13px] min-h-[13px] w-[13px] min-w-[13px] rounded-[3px] border',
           disabled
             ? 'border-[#7B8D97] border-opacity-50'
             : error

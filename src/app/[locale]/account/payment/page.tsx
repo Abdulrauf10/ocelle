@@ -8,7 +8,7 @@ import { getLoginedMe } from '@/actions';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
 import StripeLoader from '@/components/StripeLoader';
-import BackButton from '@/components/buttons/BackButton';
+import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import CardForm from '@/components/forms/Card';
 import { createSetupIntent } from '@/services/stripe';
 
@@ -49,7 +49,7 @@ export default async function Payments() {
               <CardForm clientSecret={setupIntent.client_secret} action={updateCreditCardAction} />
             </StripeLoader>
             <div className="mt-12 text-center">
-              <BackButton label={t('go-back')} />
+              <UnderlineBackButton label={t('go-back')} />
             </div>
           </div>
         </Container>

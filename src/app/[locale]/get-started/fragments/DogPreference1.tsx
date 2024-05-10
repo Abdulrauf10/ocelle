@@ -33,7 +33,7 @@ export default function DogPreference1Fragment() {
     control,
     watch,
     setError,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<DogPreference1Form>({
     defaultValues: {
       weight,
@@ -73,11 +73,14 @@ export default function DogPreference1Fragment() {
                   },
                   max: {
                     value: 50,
-                    message: t('ocelle-is-currently-available-to-dogs-between-05-to-50-kg'),
+                    message: t(
+                      'unfortunately-the-amount-that-{}-needs-fall-outside-of-the-portion-sizes-ocelle-typically-offers',
+                      { name }
+                    ),
                   },
                 }}
                 className="mr-2 w-20"
-                inputProps={{ min: 0.5, step: 0.5 }}
+                inputProps={{ step: 0.5 }}
               />
               <span className="body-3 ml-2">KG</span>
               {errors?.weight?.message && (
@@ -102,10 +105,10 @@ export default function DogPreference1Fragment() {
                     descripton: (
                       <p className="body-3 text-primary">
                         {t('visible-rib-cage-spine-noticeable-loss-of-muscle-mass')}
-                        <br />
-                        <br />
-                        <i>{t('adjust-their-calories')}</i>
                       </p>
+                    ),
+                    selectedDescription: (
+                      <i className="body-3 text-primary">{t('adjust-their-calories')}</i>
                     ),
                     value: 'TooSkinny',
                     children: (
@@ -140,13 +143,10 @@ export default function DogPreference1Fragment() {
                     descripton: (
                       <p className="body-3 text-primary">
                         Waistline is disappearing, difficult to feel ribs and spine. Broad back.
-                        <br />
-                        <br />
-                        <i>
-                          We’ll adjust their calories and help to manage their weight, so that it’s
-                          just right for optimum health and wellbeing!
-                        </i>
                       </p>
+                    ),
+                    selectedDescription: (
+                      <i className="body-3 text-primary">{t('adjust-their-calories')}</i>
                     ),
                     value: 'Rounded',
                     children: (
@@ -164,13 +164,10 @@ export default function DogPreference1Fragment() {
                       <p className="body-3 text-primary">
                         Waistline is lost. You cannot feel their ribs and spine. Weight is a serious
                         concern.
-                        <br />
-                        <br />
-                        <i>
-                          We’ll adjust their calories and help to manage their weight, so that it’s
-                          just right for optimum health and wellbeing!
-                        </i>
                       </p>
+                    ),
+                    selectedDescription: (
+                      <i className="body-3 text-primary">{t('adjust-their-calories')}</i>
                     ),
                     value: 'Chunky',
                     children: (
@@ -200,7 +197,7 @@ export default function DogPreference1Fragment() {
                     label: t('mellow'),
                     descripton: (
                       <p className="body-3 text-primary">
-                        {t('less-than-30-minutes-of-outdoor-daily-activity')}
+                        {t('less-than-30-minutes-of-daily-outdoor-activity')}
                       </p>
                     ),
                     value: 'Mellow',
@@ -212,7 +209,7 @@ export default function DogPreference1Fragment() {
                     label: t('active'),
                     descripton: (
                       <p className="body-3 text-primary">
-                        {t('around-1-2-hours-of-outdoor-daily-activity')}
+                        {t('around-1-2-hours-of-daily-outdoor-activity')}
                       </p>
                     ),
                     value: 'Active',
@@ -224,7 +221,7 @@ export default function DogPreference1Fragment() {
                     label: t('very-active'),
                     descripton: (
                       <p className="body-3 text-primary">
-                        {t('more-than-2-hours-of-outdoor-daily-activity')}
+                        {t('more-than-2-hours-of-daily-outdoor-activity')}
                       </p>
                     ),
                     value: 'VeryActive',
@@ -241,7 +238,9 @@ export default function DogPreference1Fragment() {
               />
             </div>
           </Section>
-          <Button className="mt-8">{t('continue')}</Button>
+          <Button className="mt-8" disabled={!isValid}>
+            {t('continue')}
+          </Button>
         </form>
       </Container>
     </motion.div>

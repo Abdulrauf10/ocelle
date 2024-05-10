@@ -42,7 +42,7 @@ export default function DogFragment() {
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <Container className="text-center">
         <Section title={t('whats-your-dogs-name')}>
-          <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-8 max-w-[320px]">
+          <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-6 max-w-[320px]">
             <TextField
               name="name"
               placeholder={t('your-dogs-name')}

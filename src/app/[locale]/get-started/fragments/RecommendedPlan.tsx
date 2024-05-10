@@ -20,6 +20,7 @@ import { Recipe } from '@/enums';
 import { isAllergies, isRecommendedRecipe } from '@/helpers/dog';
 import { arrayToRecipe, recipeToArray } from '@/helpers/form';
 import { booleanToString, stringToBoolean } from '@/helpers/string';
+import useSentence from '@/hooks/useSentence';
 
 interface RecommendedPlanForm {
   transition: 'Y' | 'N';
@@ -28,7 +29,9 @@ interface RecommendedPlanForm {
 
 export default function RecommendedPlanFragment() {
   const t = useTranslations();
+  const r = useTranslations('Recipes');
   const i = useTranslations('Ingredients');
+  const sentence = useSentence();
   const navigate = useNavigate();
   const location = useLocation();
   const { getDog, setDog, nextDog } = useSurvey();
@@ -47,7 +50,7 @@ export default function RecommendedPlanFragment() {
     trigger,
     getValues,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<RecommendedPlanForm>({
     defaultValues: {
       recipe: recipeToArray(recipe1, recipe2),
@@ -134,21 +137,22 @@ export default function RecommendedPlanFragment() {
             </span>
           }
         >
-          <div className="-mb-[3vw] bg-[#F8F3EB] py-[2vw] max-md:py-5 max-sm:-mb-8">
+          <div className="-mb-[clamp(16px,2.4vw,35px)] bg-[#F8F3EB] pb-[40px] pt-5">
             <Container>
               <div className="flex justify-center">
                 <div className="">
                   <p className="body-3 text-primary">
-                    {t(
+                    {t.rich(
                       'feel-free-to-adjust-{}-meal-plan-by-selecting-from-up-to-suitable-recipes-below',
                       { name, recipes: 2 }
                     )}
                   </p>
-                  <div className="mt-5 flex max-w-[820px] flex-wrap justify-center">
+                  <div className="mt-5"></div>
+                  <div className="flex max-w-[820px] flex-wrap justify-center">
                     <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
                       <RecipeCheckbox
-                        title="Fresh Chicken Recipe"
-                        description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
+                        title={sentence.recipe(Recipe.Chicken)}
+                        description={r('chicken:description')}
                         name="recipe.0"
                         control={control}
                         rules={{
@@ -156,6 +160,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         error={!!errors?.recipe}
                         picture="/meal-plan/chicken.jpg"
+                        price="cheap"
                         ingredients={[
                           i('chicken-breast'),
                           i('chicken-liver'),
@@ -184,8 +189,8 @@ export default function RecommendedPlanFragment() {
                     </div>
                     <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
                       <RecipeCheckbox
-                        title="Fresh Pork Recipe"
-                        description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
+                        title={sentence.recipe(Recipe.Pork)}
+                        description={r('pork:description')}
                         name="recipe.1"
                         control={control}
                         rules={{
@@ -193,6 +198,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         error={!!errors?.recipe}
                         picture="/meal-plan/pork.jpg"
+                        price="cheap"
                         ingredients={[
                           i('pork-loin'),
                           i('pork-liver'),
@@ -221,8 +227,8 @@ export default function RecommendedPlanFragment() {
                     </div>
                     <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
                       <RecipeCheckbox
-                        title="Fresh Duck Recipe"
-                        description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
+                        title={sentence.recipe(Recipe.Duck)}
+                        description={r('duck:description')}
                         name="recipe.2"
                         control={control}
                         rules={{
@@ -230,6 +236,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         error={!!errors?.recipe}
                         picture="/meal-plan/duck.jpg"
+                        price="normal"
                         ingredients={[
                           i('duck-breast'),
                           i('chicken-liver'),
@@ -257,8 +264,8 @@ export default function RecommendedPlanFragment() {
                     </div>
                     <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
                       <RecipeCheckbox
-                        title="Fresh Beef Recipe"
-                        description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
+                        title={sentence.recipe(Recipe.Beef)}
+                        description={r('beef:description')}
                         name="recipe.3"
                         control={control}
                         rules={{
@@ -266,6 +273,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         error={!!errors?.recipe}
                         picture="/meal-plan/beef.jpg"
+                        price="normal"
                         ingredients={[
                           i('beef-chuck'),
                           i('beef-liver'),
@@ -294,8 +302,8 @@ export default function RecommendedPlanFragment() {
                     </div>
                     <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
                       <RecipeCheckbox
-                        title="Fresh Lamb Recipe"
-                        description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
+                        title={sentence.recipe(Recipe.Lamb)}
+                        description={r('lamb:description')}
                         name="recipe.4"
                         control={control}
                         rules={{
@@ -303,6 +311,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         error={!!errors?.recipe}
                         picture="/meal-plan/lamb.jpg"
+                        price="expensive"
                         ingredients={[
                           i('lamb-leg-boneless'),
                           i('beef-liver'),
@@ -385,16 +394,24 @@ export default function RecommendedPlanFragment() {
                 </div>
               </div>
               <div className="mt-12 flex flex-wrap items-center justify-center">
-                <Image src="/question/eat-anything.svg" alt="Eating Dog" width={60} height={70} />
+                <Image
+                  src="/question/eat-anything-gold.svg"
+                  alt="Eating Dog"
+                  width={60}
+                  height={70}
+                />
                 <div className="my-2 ml-3 inline-flex flex-wrap items-center justify-center text-primary">
                   <div className="mr-1">{t('{}-colon', { value: t('starter-box') })}</div>
                   <div>
-                    <Price value={504} discount />
-                    <Price className="ml-1 font-bold" value={252} /> (
-                    <Price value={36} discount />
-                    <Price className="ml-1 font-bold" value={18} />
-                    <span className="font-bold text-dark-green">{t('per-day')}</span>)&nbsp;
-                    <span className="whitespace-nowrap">{t('with-your-starter-discount')}</span>
+                    <span className="inline-block">
+                      <Price value={504} discount />
+                      <Price className="ml-1 font-bold" value={252} /> (
+                      <Price value={36} discount />
+                      <Price className="ml-1 font-bold" value={18} />
+                      <span className="font-bold text-dark-green">{t('per-day')}</span>)
+                    </span>
+                    &nbsp;
+                    <span className="inline-block">{t('with-your-starter-discount')}</span>
                   </div>
                 </div>
               </div>
@@ -404,10 +421,11 @@ export default function RecommendedPlanFragment() {
                   className="mx-2 mt-4 !bg-none !px-11"
                   type="button"
                   onClick={handleAddDog}
+                  disabled={!isValid}
                 >
                   + {t('add-another-dog')}
                 </Button>
-                <Button className="mx-2 mt-4">
+                <Button className="mx-2 mt-4" disabled={!isValid}>
                   {t('continue-to-{}', { name: t('checkout') })}
                 </Button>
               </div>
