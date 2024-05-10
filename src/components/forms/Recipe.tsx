@@ -70,9 +70,6 @@ export default function RecipeForm({
       // all elements are false
       return 'you must select at least one recipe';
     }
-    if (values.filter((value) => !!value).length > 2) {
-      return 'you must select not more than 2 recipes';
-    }
     return true;
   };
 
@@ -91,6 +88,7 @@ export default function RecipeForm({
   );
 
   const isSameAsDefaultValue = equal(watch('recipe'), defaultValues.recipe);
+  const containsTwoRecipes = watch('recipe').filter((x) => x === true).length >= 2;
 
   const targetedNutrientBlendIngredients = [
     t('selenium-yeast'),
@@ -152,7 +150,10 @@ export default function RecipeForm({
               bodyCondition!,
               foodAllergies!
             )}
-            disabled={isAllergies(Recipe.Chicken, foodAllergies!)}
+            disabled={
+              isAllergies(Recipe.Chicken, foodAllergies!) ||
+              (containsTwoRecipes && !watch('recipe')[0])
+            }
             onChange={() => trigger('recipe')}
           />
         </div>
@@ -190,7 +191,10 @@ export default function RecipeForm({
               bodyCondition!,
               foodAllergies!
             )}
-            disabled={isAllergies(Recipe.Pork, foodAllergies!)}
+            disabled={
+              isAllergies(Recipe.Pork, foodAllergies!) ||
+              (containsTwoRecipes && !watch('recipe')[1])
+            }
             onChange={() => trigger('recipe')}
           />
         </div>
@@ -227,7 +231,10 @@ export default function RecipeForm({
               bodyCondition!,
               foodAllergies!
             )}
-            disabled={isAllergies(Recipe.Duck, foodAllergies!)}
+            disabled={
+              isAllergies(Recipe.Duck, foodAllergies!) ||
+              (containsTwoRecipes && !watch('recipe')[2])
+            }
             onChange={() => trigger('recipe')}
           />
         </div>
@@ -265,7 +272,10 @@ export default function RecipeForm({
               bodyCondition!,
               foodAllergies!
             )}
-            disabled={isAllergies(Recipe.Beef, foodAllergies!)}
+            disabled={
+              isAllergies(Recipe.Beef, foodAllergies!) ||
+              (containsTwoRecipes && !watch('recipe')[3])
+            }
             onChange={() => trigger('recipe')}
           />
         </div>
@@ -302,7 +312,10 @@ export default function RecipeForm({
               bodyCondition!,
               foodAllergies!
             )}
-            disabled={isAllergies(Recipe.Lamb, foodAllergies!)}
+            disabled={
+              isAllergies(Recipe.Lamb, foodAllergies!) ||
+              (containsTwoRecipes && !watch('recipe')[4])
+            }
             onChange={() => trigger('recipe')}
           />
         </div>
