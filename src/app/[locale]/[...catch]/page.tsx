@@ -21,7 +21,7 @@ export default function NotFound() {
       <Header nav={<Navigator />} />
       <div className="bg-gold bg-opacity-20">
         <Container className="flex max-w-screen-xl items-end max-[903px]:flex-col max-[903px]:items-center">
-          <div className="w-full px-4 py-20 text-left max-[903px]:py-12 max-[903px]:py-8 max-[903px]:text-center">
+          <div className="w-full px-4 py-20 text-left max-[903px]:py-8 max-[903px]:text-center">
             <h1 className="heading-1 font-bold text-primary">
               <i>Aiya!</i> <span className="inline-block">Page Gone Walkies!</span>
             </h1>

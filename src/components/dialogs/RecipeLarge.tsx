@@ -116,7 +116,7 @@ export default function RecipeLargeDialog({
           <DialogBlock title={r('whats-not-inside')}>
             <div className="pt-2"></div>
             <div className="-mx-3 -my-4 flex flex-wrap justify-evenly max-lg:justify-start">
-              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
+              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 max-[420px]:w-full ">
                 <Image
                   className="mx-auto"
                   src="/recipes/not-inside/colours.svg"
