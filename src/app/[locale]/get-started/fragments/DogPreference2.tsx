@@ -103,6 +103,8 @@ export default function DogPreference2Fragment() {
                           required: (value, formValues) =>
                             formValues.allergies.some((value) => !!value),
                           conflict: (value, formValues) => !value || !formValues.allergies[0],
+                          selectedAll: (value, formValues) =>
+                            formValues.allergies.slice(-5).some((x) => x === false),
                         },
                       }}
                       onChange={() => trigger('allergies')}
@@ -116,13 +118,26 @@ export default function DogPreference2Fragment() {
                 <p className="mx-auto mt-3 max-w-[360px] text-error">
                   <span className="body-4">
                     {t(
-                      'You-ve-indicated-that-{}-has-no-allergies-None-as-well-as-allergies-to-{}-please-recheck-and-re-enter-your-selection',
+                      'You-ve-indicated-that-{}-has-no-allergies-None-as-well-as-allergies-to-{}-please-check-your-selection',
                       {
                         name,
                         value: getValues('allergies')
                           .map((v: unknown, i: number) => (v ? options[i].label : v))
                           .filter((v: unknown, i: number) => !!v && i !== 0)
                           .join(', '),
+                      }
+                    )}
+                  </span>
+                </p>
+              )}
+            {Array.isArray(errors.allergies) &&
+              errors.allergies.some((x) => x.type === 'selectedAll') && (
+                <p className="mx-auto mt-3 max-w-[360px] text-error">
+                  <span className="body-4">
+                    {t(
+                      'unfortunately-all-our-recipes-contain-an-ingredient-{}-is-allergic-sensitive-to',
+                      {
+                        name,
                       }
                     )}
                   </span>

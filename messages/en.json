@@ -783,7 +783,8 @@
   "thank-you-for-applying": "Thank You For Applying!",
   "thank-you-for-applying:description": "Your application for the {title} role has been successfully submitted. We’re excited to learn more about you and will be in touch if you move forward in the process.",
   "this-{}-doesn-t-look-correct-please-update-it": "This {name} doesn’t look correct, please update it.",
-  "You-ve-indicated-that-{}-has-no-allergies-None-as-well-as-allergies-to-{}-please-recheck-and-re-enter-your-selection": "You’ve indicated that {name} has no allergies (“None!”) as well as allergies to {value}. Please recheck and re-enter your selection.",
+  "You-ve-indicated-that-{}-has-no-allergies-None-as-well-as-allergies-to-{}-please-check-your-selection": "You’ve indicated that {name} has no allergies (“None!”) as well as allergies to {value}. Please check your selection.",
+  "unfortunately-all-our-recipes-contain-an-ingredient-{}-is-allergic-sensitive-to": "Unfortunately, all our recipes contain an ingredient {name} is allergic / sensitive to. We may still be able to help, so please contact customer service if you’re interested in feeding Ocelle!",
   "please-enter-a-valid-{}": "Please enter a valid {name}.",
   "AboutUs": {
     "we-do-it-for-them": "We Do It For Them",
