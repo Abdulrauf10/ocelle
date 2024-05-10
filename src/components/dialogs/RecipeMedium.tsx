@@ -52,7 +52,8 @@ export default function RecipeMediumDialog({
           </div>
           <div className="ml-6 py-1 max-md:mx-3 max-md:mt-4">
             <h2 className="text-xl font-bold text-primary max-lg:text-lg">{name}</h2>
-            <p className="mt-2 leading-tight">{description}</p>
+            <div className="mt-2"></div>
+            <p className="leading-tight">{description}</p>
             <hr className="my-3 border-[#7B8D97]" />
             <div className="-mx-4 flex">
               <button
@@ -80,12 +81,14 @@ export default function RecipeMediumDialog({
             </div>
             {tab === 'Ingredients' && (
               <>
-                <p className="mt-3 leading-tight">
+                <div className="mt-3"></div>
+                <p className="leading-tight">
                   <strong>{t('{}-colon', { value: r('ingredients') })}</strong>
                   <br />
                   {sentence.array(ingredients)}
                 </p>
-                <p className="mt-3 leading-tight">
+                <div className="mt-3"></div>
+                <p className="leading-tight">
                   <strong>{t('{}-colon', { value: i('ocelle-targeted-nutrient-blend') })}</strong>
                   <br />
                   {sentence.array(targetedNutrientBlendIngredients)}
