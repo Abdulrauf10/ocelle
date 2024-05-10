@@ -61,10 +61,10 @@ export default function View({ children }: React.PropsWithChildren) {
         endAdornment={
           !(location.pathname === Stage.Calculating || location.pathname === Stage.Processing) && (
             <div className="w-full max-lg:mt-3 max-lg:px-2">
-              <div className="flex w-full justify-center max-lg:mt-2 lg:absolute lg:bottom-0 lg:left-1/2 lg:-translate-x-1/2 lg:px-[280px]">
+              <div className="flex w-full justify-center max-lg:mt-2 lg:absolute lg:bottom-3 lg:left-1/2 lg:-translate-x-1/2 lg:px-[280px]">
                 <div className="relative w-full max-w-[460px]">
                   <UnderlineBackButton
-                    className="absolute -left-[80px] -top-px select-none max-lg:hidden"
+                    className="absolute -left-[80px] -top-2 select-none max-lg:hidden"
                     show={location.pathname !== Stage.Welcome}
                     onClick={() => navigate(-1)}
                   />
@@ -75,7 +75,7 @@ export default function View({ children }: React.PropsWithChildren) {
           )
         }
       />
-      <main className="py-[clamp(16px,2.4vw,35px)]">{children}</main>
+      <main className="py-[clamp(16px,2.4vw,30px)]">{children}</main>
     </>
   );
 }

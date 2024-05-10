@@ -5,6 +5,7 @@ import Cookies from 'js-cookie';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { DOG_SELECT_COOKIE } from '@/consts';
 import { useRouter } from '@/navigation';
 
@@ -25,8 +26,12 @@ export default function DogSwitch({
         <Select
           value={selectedDogId}
           onChange={(event) => {
-            Cookies.set(DOG_SELECT_COOKIE, String(event.target.value), { sameSite: 'strict' });
-            router.refresh();
+            if (event.target.value) {
+              Cookies.set(DOG_SELECT_COOKIE, String(event.target.value), { sameSite: 'strict' });
+              router.refresh();
+            } else {
+              router.push('/get-started');
+            }
           }}
           sx={{
             backgroundColor: 'white',
@@ -42,6 +47,9 @@ export default function DogSwitch({
               </MenuItem>
             );
           })}
+          <MenuItem className="w-full" component="button" disableRipple disableTouchRipple>
+            <p className="text-secondary underline">+ Add Another Dog</p>
+          </MenuItem>
         </Select>
       </FormControl>
     </div>

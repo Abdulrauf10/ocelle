@@ -1,3 +1,3 @@
 export default function SectionBreak() {
-  return <div className="mt-24"></div>;
+  return <div className="mt-20"></div>;
 }

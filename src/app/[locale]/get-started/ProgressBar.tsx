@@ -87,7 +87,7 @@ function isSingleCheckoutStage(stage: Stage) {
 
 export default function ProgressBar({ stage }: { stage: Stage }) {
   const t = useTranslations();
-  console.log(stage);
+
   return (
     <div className="relative flex w-full flex-1 whitespace-nowrap ">
       <div className="absolute bottom-[5.5px] h-0.5 w-full bg-primary"></div>
@@ -95,7 +95,8 @@ export default function ProgressBar({ stage }: { stage: Stage }) {
         <div className="px-1">
           <div
             className={clsx(
-              'body-2 text-center text-primary',
+              'body-2 text-center',
+              isDogStage(stage) ? 'text-primary' : 'text-gray',
               isSingleDogsStage(stage) && 'underline'
             )}
           >
@@ -113,7 +114,8 @@ export default function ProgressBar({ stage }: { stage: Stage }) {
         <div className="px-1">
           <div
             className={clsx(
-              'body-2 text-center text-primary',
+              'body-2 text-center',
+              isYouStage(stage) ? 'text-primary' : 'text-gray',
               isSingleYouStage(stage) && 'underline'
             )}
           >
@@ -131,7 +133,8 @@ export default function ProgressBar({ stage }: { stage: Stage }) {
         <div className="px-1">
           <div
             className={clsx(
-              'body-2 text-center text-primary',
+              'body-2 text-center',
+              isYourPlanStage(stage) ? 'text-primary' : 'text-gray',
               isSingleYourplanStage(stage) && 'underline'
             )}
           >
@@ -149,7 +152,8 @@ export default function ProgressBar({ stage }: { stage: Stage }) {
         <div className="px-1">
           <div
             className={clsx(
-              'body-2 text-center text-primary',
+              'body-2 text-center',
+              isCheckoutStage(stage) ? 'text-primary' : 'text-gray',
               isSingleCheckoutStage(stage) && 'underline'
             )}
           >

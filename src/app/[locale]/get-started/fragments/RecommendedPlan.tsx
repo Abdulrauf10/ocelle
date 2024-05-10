@@ -137,7 +137,7 @@ export default function RecommendedPlanFragment() {
             </span>
           }
         >
-          <div className="-mb-[clamp(16px,2.4vw,35px)] bg-[#F8F3EB] pb-[40px] pt-5">
+          <div className="-mb-[clamp(16px,2.4vw,30px)] bg-[#F8F3EB] pb-[40px] pt-5">
             <Container>
               <div className="flex justify-center">
                 <div className="">
