@@ -5,7 +5,6 @@ import Cookies from 'js-cookie';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
-import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { DOG_SELECT_COOKIE } from '@/consts';
 import { useRouter } from '@/navigation';
 

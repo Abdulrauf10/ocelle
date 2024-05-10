@@ -81,6 +81,7 @@ export default function DogPreference1Fragment() {
                 }}
                 className="mr-2 w-20"
                 inputProps={{ step: 0.5 }}
+                InputProps={{ sx: { input: { '&::-webkit-inner-spin-button': { opacity: 1 } } } }}
               />
               <span className="body-3 ml-2">KG</span>
               {errors?.weight?.message && (
