@@ -197,7 +197,7 @@ export default function ApplyCareerForm({
                     <TextField
                       id="firstName"
                       name="firstName"
-                      className="rounded-md bg-white"
+                      className="bg-whit body-3 rounded-md"
                       control={control}
                       rules={{ required: true }}
                       fullWidth
@@ -213,7 +213,7 @@ export default function ApplyCareerForm({
                     <TextField
                       id="lastName"
                       name="lastName"
-                      className="rounded-md bg-white"
+                      className="body-3 rounded-md bg-white"
                       control={control}
                       rules={{ required: true }}
                       fullWidth
@@ -229,7 +229,7 @@ export default function ApplyCareerForm({
                     <TextField
                       id="email"
                       name="email"
-                      className="rounded-md bg-white"
+                      className="body-3 rounded-md bg-white"
                       control={control}
                       rules={{
                         required: true,
@@ -253,7 +253,7 @@ export default function ApplyCareerForm({
                     <TextField
                       id="phone"
                       name="phone"
-                      className="rounded-md bg-white"
+                      className=" rounded-md bg-white text-[14px]"
                       control={control}
                       rules={{
                         required: true,

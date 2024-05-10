@@ -92,7 +92,7 @@ export default async function Careers() {
   const t = await getTranslations();
   const c = await getTranslations('Careers');
   return (
-    <main className="flex flex-col ">
+    <main className="flex grow flex-col">
       <Block styles="narrow" className="bg-primary bg-opacity-10">
         <Container>
           <h1 className="heading-2 text-center font-bold text-primary">{c('block-1-title')}</h1>
@@ -100,7 +100,7 @@ export default async function Careers() {
           <p className="body-3 text-center text-secondary">{c('block-1-content')}</p>
         </Container>
       </Block>
-      <Block styles="custom" className="bg-gold bg-opacity-10 pb-6 pt-4 max-xl:py-10">
+      <Block styles="custom" className="grow bg-gold bg-opacity-10 pb-6 pt-4 max-xl:py-10">
         <Container className="max-w-screen-lg">
           {count > 0 ? (
             <div className="-my-10">
