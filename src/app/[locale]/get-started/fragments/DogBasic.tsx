@@ -15,11 +15,11 @@ import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import CircleCheckbox from '@/components/controls/CircleCheckbox';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
-import { Breed } from '@/entities';
 import { booleanToString, stringToBoolean } from '@/helpers/string';
+import { BreedDto } from '@/types/dto';
 
 interface DogBasicForm {
-  breeds: Breed[];
+  breeds: BreedDto[];
   isUnknownBreed: boolean;
   gender: 'M' | 'F';
   isNeutered: 'Y' | 'N';
@@ -46,12 +46,12 @@ export default function DogBasicFragment() {
     },
   });
   const [loading, setLoading] = React.useState(true);
-  const [options, setOptions] = React.useState<Breed[] | undefined>(undefined);
+  const [options, setOptions] = React.useState<BreedDto[] | undefined>(undefined);
 
   const fetchBreeds = React.useCallback(async () => {
     if (options === undefined) {
       const res = await fetch('/api/breed');
-      setOptions((await res.json()) as Breed[]);
+      setOptions((await res.json()) as BreedDto[]);
       setLoading(false);
     }
   }, [options]);

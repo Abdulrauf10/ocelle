@@ -1,7 +1,6 @@
 import cloneDeep from 'clone-deep';
 import React from 'react';
 
-import { Breed } from '@/entities';
 import { FoodAllergies, MealPlan, Recipe } from '@/enums';
 import { getSurveySessionStore } from '@/helpers/session';
 import {
@@ -12,11 +11,12 @@ import {
   Gender,
   Pickiness,
 } from '@/types';
+import { BreedDto } from '@/types/dto';
 
 export interface Dog {
   name?: string;
   isUnknownBreed?: boolean;
-  breeds?: Breed[];
+  breeds?: BreedDto[];
   gender?: Gender;
   isNeutered?: boolean;
   age?: { years: number; months: number } | string;
