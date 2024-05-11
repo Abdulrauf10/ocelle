@@ -195,9 +195,10 @@ export default function ApplyCareerForm({
                       <span className="relative top-[-2px] text-error">*</span>
                     </label>
                     <TextField
+                      sx={{ input: { fontSize: '14px' } }}
                       id="firstName"
                       name="firstName"
-                      className="bg-whit body-3 rounded-md"
+                      className="rounded-md bg-white"
                       control={control}
                       rules={{ required: true }}
                       fullWidth
@@ -211,9 +212,10 @@ export default function ApplyCareerForm({
                       <span className="relative top-[-2px] text-error">*</span>
                     </label>
                     <TextField
+                      sx={{ input: { fontSize: '14px' } }}
                       id="lastName"
                       name="lastName"
-                      className="body-3 rounded-md bg-white"
+                      className="rounded-md bg-white"
                       control={control}
                       rules={{ required: true }}
                       fullWidth
@@ -227,9 +229,10 @@ export default function ApplyCareerForm({
                       <span className="relative top-[-2px] text-error">*</span>
                     </label>
                     <TextField
+                      sx={{ input: { fontSize: '14px' } }}
                       id="email"
                       name="email"
-                      className="body-3 rounded-md bg-white"
+                      className=" rounded-md bg-white"
                       control={control}
                       rules={{
                         required: true,
@@ -251,9 +254,10 @@ export default function ApplyCareerForm({
                       <span className="relative top-[-2px] text-error">*</span>
                     </label>
                     <TextField
+                      sx={{ input: { fontSize: '14px' } }}
                       id="phone"
                       name="phone"
-                      className=" rounded-md bg-white text-[14px]"
+                      className=" rounded-md bg-white "
                       control={control}
                       rules={{
                         required: true,
