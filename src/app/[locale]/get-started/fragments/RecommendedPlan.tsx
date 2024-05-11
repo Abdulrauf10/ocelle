@@ -16,9 +16,17 @@ import Price from '@/components/Price';
 import Button from '@/components/buttons/Button';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import RecipeCheckbox from '@/components/controls/RecipeCheckbox';
-import { Recipe } from '@/enums';
-import { isAllergies, isRecommendedRecipe } from '@/helpers/dog';
+import { OrderSize, Recipe } from '@/enums';
+import {
+  calculateRecipeTotalPriceInBox,
+  calculateTotalPerDayPrice,
+  calculateTotalPriceInBox,
+  getDateOfBirth,
+  isAllergies,
+  isRecommendedRecipe,
+} from '@/helpers/dog';
 import { arrayToRecipe, recipeToArray } from '@/helpers/form';
+import { nativeRound } from '@/helpers/number';
 import { booleanToString, stringToBoolean } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
 
@@ -37,10 +45,15 @@ export default function RecommendedPlanFragment() {
   const { getDog, setDog, nextDog } = useSurvey();
   const {
     name,
+    age,
+    breeds,
+    isNeutered,
+    weight,
     pickiness,
     activityLevel,
     bodyCondition,
     foodAllergies,
+    mealPlan,
     recipe1,
     recipe2,
     isEnabledTransitionPeriod,
@@ -59,7 +72,7 @@ export default function RecommendedPlanFragment() {
     },
   });
 
-  const validateRecipeCheckbox = () => {
+  const validateRecipeCheckbox = React.useCallback(() => {
     const values = getValues('recipe');
     if (!Array.isArray(values)) {
       return false;
@@ -69,7 +82,7 @@ export default function RecommendedPlanFragment() {
       return 'you must select at least one recipe';
     }
     return true;
-  };
+  }, [getValues]);
 
   const handleAddDog = React.useCallback(async () => {
     if (await trigger()) {
@@ -117,7 +130,45 @@ export default function RecommendedPlanFragment() {
     t('choline-bitartrate'),
   ];
 
+  const selectedRecipes = watch('recipe').filter((x) => x === true).length > 0;
   const containsTwoRecipes = watch('recipe').filter((x) => x === true).length >= 2;
+
+  const calculateBoxPrice = () => {
+    const recipes = watch('recipe');
+    const { recipe1, recipe2 } = arrayToRecipe(recipes);
+    const dateOfBirth = typeof age === 'string' ? age! : getDateOfBirth(age!).toISOString();
+    if (!recipe1) {
+      return { total: 0, daily: 0 };
+    }
+    return {
+      total: calculateTotalPriceInBox(
+        breeds!,
+        new Date(dateOfBirth),
+        isNeutered!,
+        weight!,
+        bodyCondition!,
+        activityLevel!,
+        { recipe1, recipe2 },
+        mealPlan!,
+        OrderSize.TwoWeek,
+        true
+      ),
+      daily: calculateTotalPerDayPrice(
+        breeds!,
+        new Date(dateOfBirth),
+        isNeutered!,
+        weight!,
+        bodyCondition!,
+        activityLevel!,
+        { recipe1, recipe2 },
+        mealPlan!,
+        OrderSize.TwoWeek,
+        true
+      ),
+    };
+  };
+
+  const boxPrice = calculateBoxPrice();
 
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
@@ -408,42 +459,56 @@ export default function RecommendedPlanFragment() {
                   </div>
                 </div>
               </div>
-              <div className="mt-12 flex flex-wrap items-center justify-center">
-                <Image
-                  src="/question/eat-anything-gold.svg"
-                  alt="Eating Dog"
-                  width={60}
-                  height={70}
-                />
-                <div className="my-2 ml-3 inline-flex flex-wrap items-center justify-center text-primary">
-                  <div className="mr-1">{t('{}-colon', { value: t('starter-box') })}</div>
-                  <div>
-                    <span className="inline-block">
-                      <Price value={504} discount />
-                      <Price className="ml-1 font-bold" value={252} /> (
-                      <Price value={36} discount />
-                      <Price className="ml-1 font-bold" value={18} />
-                      <span className="font-bold text-dark-green">{t('per-day')}</span>)
-                    </span>
-                    &nbsp;
-                    <span className="inline-block">{t('with-your-starter-discount')}</span>
+              <div className="mt-12"></div>
+              {selectedRecipes && (
+                <div className="flex flex-wrap items-center justify-center">
+                  <Image
+                    src="/question/eat-anything-gold.svg"
+                    alt="Eating Dog"
+                    width={60}
+                    height={70}
+                  />
+                  <div className="relative top-1 my-2 ml-3 inline-flex flex-wrap items-center justify-center text-primary">
+                    <div className="mr-1">{t('{}-colon', { value: t('starter-box') })}</div>
+                    <div>
+                      <span className="inline-block">
+                        <Price value={nativeRound(boxPrice.total)} discount />
+                        <Price
+                          className="ml-1 font-bold"
+                          value={nativeRound(boxPrice.total / 2)}
+                        />{' '}
+                        (
+                        <Price value={nativeRound(boxPrice.daily)} discount />
+                        <Price className="ml-1 font-bold" value={nativeRound(boxPrice.daily / 2)} />
+                        <span className="font-bold text-dark-green">{t('per-day')}</span>)
+                      </span>
+                      &nbsp;
+                      <span className="inline-block">{t('with-your-starter-discount')}</span>
+                    </div>
                   </div>
                 </div>
+              )}
+              <div className="mt-4"></div>
+              <div className="-my-2 flex flex-wrap justify-center">
+                <div className="py-2">
+                  <Button
+                    theme="primary"
+                    className="mx-2 !bg-none !px-[54px]"
+                    type="button"
+                    onClick={handleAddDog}
+                    disabled={!isValid}
+                    disableIcon
+                  >
+                    + {t.rich('add-another-dog')}
+                  </Button>
+                </div>
+                <div className="py-2">
+                  <Button className="mx-2" disabled={!isValid}>
+                    {t('continue-to-{}', { name: t('checkout') })}
+                  </Button>
+                </div>
               </div>
-              <div className="mb-[1vw]">
-                <Button
-                  theme="primary"
-                  className="mx-2 mt-4 !bg-none !px-11"
-                  type="button"
-                  onClick={handleAddDog}
-                  disabled={!isValid}
-                >
-                  + {t('add-another-dog')}
-                </Button>
-                <Button className="mx-2 mt-4" disabled={!isValid}>
-                  {t('continue-to-{}', { name: t('checkout') })}
-                </Button>
-              </div>
+              <div className="mt-[1vw]"></div>
             </Container>
           </div>
         </Section>

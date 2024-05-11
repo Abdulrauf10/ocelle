@@ -80,41 +80,41 @@ export default function FaQ() {
             <div className="flex justify-center p-2 md:flex-[1_1_30%] xl:flex-1">
               <Link
                 href="#our-food"
-                className="heading-4 block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90"
+                className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                Our Food
+                <span className="heading-4 font-bold text-white">Our Food</span>
               </Link>
             </div>
             <div className="flex justify-center p-2 md:flex-[1_1_30%] xl:flex-1">
               <Link
                 href="#our-quiz"
-                className="heading-4 block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90"
+                className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                Our Quiz
+                <span className="heading-4 font-bold text-white">Our Quiz</span>
               </Link>
             </div>
             <div className="flex justify-center p-2 md:flex-[1_1_30%] xl:flex-1">
               <Link
                 href="#subscription"
-                className="heading-4 block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90"
+                className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                Subscription
+                <span className="heading-4 font-bold text-white">Subscription</span>
               </Link>
             </div>
             <div className="flex justify-center p-2 md:flex-[1_1_40%] xl:flex-1">
               <Link
                 href="#deliveries"
-                className="heading-4 block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90"
+                className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                Deliveries
+                <span className="heading-4 font-bold text-white">Deliveries</span>
               </Link>
             </div>
             <div className="flex justify-center p-2 md:flex-[1_1_40%] xl:flex-1">
               <Link
                 href="#payment"
-                className="heading-4 block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-0.5 text-center font-bold text-white hover:opacity-90"
+                className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                Payment
+                <span className="heading-4 font-bold text-white">Payment</span>
               </Link>
             </div>
           </div>

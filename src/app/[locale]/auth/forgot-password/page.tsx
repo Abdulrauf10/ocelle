@@ -25,11 +25,14 @@ export default function ForgotPassword() {
               action={forgotPasswordAction}
               className={{ button: 'body-2 mx-auto max-w-[230px]' }}
             />
-            <UnderlineButton
-              href="/auth/login"
-              className="body-2 mx-auto mt-4 max-w-[230px]"
-              label={t('back-to-{}', { name: t('log-in') })}
-            />
+            <div className="mt-4"></div>
+            <div className="mx-auto max-w-[230px]">
+              <UnderlineButton
+                href="/auth/login"
+                className="body-2"
+                label={t('back-to-{}', { name: t('log-in') })}
+              />
+            </div>
           </div>
         </Container>
       </main>

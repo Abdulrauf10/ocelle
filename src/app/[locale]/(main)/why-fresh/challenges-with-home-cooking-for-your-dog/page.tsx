@@ -127,8 +127,8 @@ export default function ChallengesWithHomeCookingForYourDog() {
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/benefits-of-fresh-dog-food.jpg" alt="" fill />
                 </div>
-                <div className="body-1 flex h-full items-center justify-center px-4 py-6 text-center">
-                  {w.rich('benefits-of-fresh-dog-food')}
+                <div className="flex h-full items-center justify-center px-4 py-6">
+                  <span className="body-1 text-center">{w.rich('benefits-of-fresh-dog-food')}</span>
                 </div>
               </Link>
             </div>
@@ -140,8 +140,8 @@ export default function ChallengesWithHomeCookingForYourDog() {
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/raw-vs-gently-cooked-diets.jpg" alt="" fill />
                 </div>
-                <div className="body-1 flex h-full items-center justify-center px-4 py-6 text-center">
-                  {w.rich('raw-vs-gently-cooked-diets')}
+                <div className="flex h-full items-center justify-center px-4 py-6">
+                  <span className="body-1 text-center">{w.rich('raw-vs-gently-cooked-diets')}</span>
                 </div>
               </Link>
             </div>
@@ -153,8 +153,8 @@ export default function ChallengesWithHomeCookingForYourDog() {
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/its-time-to-rethink-kibble.jpg" alt="" fill />
                 </div>
-                <div className="body-1 flex h-full items-center justify-center px-4 py-6 text-center">
-                  {w.rich('its-time-to-rethink-kibble')}
+                <div className="flex h-full items-center justify-center px-4 py-6">
+                  <span className="body-1 text-center">{w.rich('its-time-to-rethink-kibble')}</span>
                 </div>
               </Link>
             </div>

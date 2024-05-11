@@ -255,7 +255,9 @@ export default function BenefitsOfFreshDogFood() {
             <div className="mt-6"></div>
             <p className="body-1">{i.rich('block-4-benefits-5-content-4')}</p>
             <div className="-mx-4 mt-6 flex">
-              <p className="body-1 flex-1 px-4">{i.rich('block-4-benefits-5-content-5')}</p>
+              <p className="flex-1 px-4">
+                <span className="body-1">{i.rich('block-4-benefits-5-content-5')}</span>
+              </p>
               <div className="flex px-4">
                 <div className="flex-1 text-center">
                   <Image
@@ -362,8 +364,8 @@ export default function BenefitsOfFreshDogFood() {
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/its-time-to-rethink-kibble.jpg" alt="" fill />
                 </div>
-                <div className="body-1 flex h-full items-center justify-center px-4 py-6 text-center">
-                  {w.rich('its-time-to-rethink-kibble')}
+                <div className="flex h-full items-center justify-center px-4 py-6">
+                  <span className="body-1 text-center">{w.rich('its-time-to-rethink-kibble')}</span>
                 </div>
               </Link>
             </div>
@@ -375,8 +377,8 @@ export default function BenefitsOfFreshDogFood() {
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/raw-vs-gently-cooked-diets.jpg" alt="" fill />
                 </div>
-                <div className="body-1 flex h-full items-center justify-center px-4 py-6 text-center">
-                  {w.rich('raw-vs-gently-cooked-diets')}
+                <div className="flex h-full items-center justify-center px-4 py-6">
+                  <span className="body-1 text-center">{w.rich('raw-vs-gently-cooked-diets')}</span>
                 </div>
               </Link>
             </div>
@@ -392,8 +394,10 @@ export default function BenefitsOfFreshDogFood() {
                     fill
                   />
                 </div>
-                <div className="body-1 flex h-full items-center justify-center px-4 py-6 text-center">
-                  {w.rich('challenges-with-home-cooking-for-your-dog')}
+                <div className="flex h-full items-center justify-center px-4 py-6">
+                  <span className="body-1 text-center">
+                    {w.rich('challenges-with-home-cooking-for-your-dog')}
+                  </span>
                 </div>
               </Link>
             </div>

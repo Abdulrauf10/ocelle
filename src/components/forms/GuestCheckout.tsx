@@ -372,14 +372,14 @@ export default function GuestCheckoutForm({
                 {couponForm}
               </SummaryBlock>
               <SummaryBlock>
-                <div className="body-3 -mx-1 flex flex-wrap justify-between">
-                  <div className="px-1">{t('promo-code')}</div>
-                  <div className="px-1">－</div>
+                <div className="-mx-1 flex flex-wrap justify-between">
+                  <div className="body-3 px-1">{t('promo-code')}</div>
+                  <div className="body-3 px-1">－</div>
                 </div>
-                <div className="mt-2"></div>
-                <div className="body-3 -mx-1 flex flex-wrap justify-between">
-                  <div className="px-1">{t('{}-colon', { value: t('delivery') })}</div>
-                  <div className="px-1">
+                <div className="mt-3"></div>
+                <div className="-mx-1 flex flex-wrap justify-between">
+                  <div className="body-3 px-1">{t('{}-colon', { value: t('delivery') })}</div>
+                  <div className="body-3 px-1">
                     {!shippingPrice || shippingPrice.amount === 0 ? (
                       <Price className="font-bold uppercase" value={t('free')} dollorSign={false} />
                     ) : (
@@ -387,12 +387,12 @@ export default function GuestCheckoutForm({
                     )}
                   </div>
                 </div>
-                <div className="mt-2"></div>
-                <div className="body-2 -mx-1 flex flex-wrap justify-between font-bold">
-                  <div className="px-1">{t('{}-colon', { value: t('todays-total') })}</div>
-                  <div className="px-1">${totalPrice?.amount}</div>
+                <div className="mt-3"></div>
+                <div className="-mx-1 flex flex-wrap justify-between font-bold">
+                  <div className="body-2 px-1">{t('{}-colon', { value: t('total') })}</div>
+                  <div className="body-2 px-1">${totalPrice?.amount}</div>
                 </div>
-                <div className="mt-4 text-center">
+                <div className="mt-5 text-center">
                   <Button disabled={!stripe || isSubmitInProgress || updatingCart}>
                     {t('checkout')}
                   </Button>
