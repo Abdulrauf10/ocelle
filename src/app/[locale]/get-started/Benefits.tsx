@@ -35,7 +35,7 @@ export default function Benefits() {
             />
           </div>
           <div className="mt-3"></div>
-          <h3 className="body-2 font-bold text-gray">{t('ready-to-serve')}</h3>
+          <h3 className="body-2 relative font-bold text-gray">{t('ready-to-serve')}</h3>
           <div className="mt-1"></div>
           <p className="body-3">{t('pre-portioned-packs-make-serving-a-snap')}</p>
         </div>
