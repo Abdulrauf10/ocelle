@@ -68,7 +68,7 @@ export default function RecipeBenefits() {
               </div>
             </div>
             {opened && (
-              <div className="mb-7 ml-8 mt-3">
+              <div className="mb-7 ml-6 mt-3">
                 <p className="body-1">{benefit.description}</p>
               </div>
             )}

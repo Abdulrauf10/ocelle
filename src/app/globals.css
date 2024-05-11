@@ -90,3 +90,11 @@ span.swiper-pagination-bullet-active {
 .dotted-black {
   @apply after:text-black
 }
+
+.swiper-pagination-bullet {
+  @apply bg-red-500 w-2 h-2 opacity-100; /* Normal bullet styles */
+}
+
+.swiper-pagination-bullet-active {
+  @apply bg-blue-500; /* Active bullet color */
+}

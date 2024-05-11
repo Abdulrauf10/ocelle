@@ -77,8 +77,12 @@ export default function RecipeLargeDialog({
               slidesPerView={1}
               spaceBetween={50}
               modules={[Pagination]}
-              pagination={{ enabled: true, clickable: true }}
+              pagination={{
+                enabled: true,
+                clickable: true,
+              }}
               wrapperClass="mb-16"
+              loop={true}
               breakpoints={{
                 640: {
                   slidesPerView: 2,

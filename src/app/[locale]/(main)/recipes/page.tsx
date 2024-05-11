@@ -225,12 +225,12 @@ export default function RecipesPage() {
 
   return (
     <main className="overflow-x-hidden">
-      <div className="bg-[#3d2316] bg-[url('./recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-repeat-x py-10 max-lg:pb-[55%] lg:bg-[url('./recipes-bg.jpg')] lg:bg-[length:auto_100%] lg:bg-[calc(50%+60px)_center]">
+      <div className="bg-[#3d2316] bg-[url('./recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-repeat-x py-[55px] max-lg:pb-[55%] lg:bg-[url('./recipes-bg.jpg')] lg:bg-[length:auto_100%] lg:bg-[calc(50%+60px)_center]">
         <Container>
-          <div className="py-[4vw] text-xl text-white max-lg:w-full lg:pr-0">
+          {/* <div className="py-[4vw] text-xl text-white max-lg:w-full lg:pr-0"> */}
+          <div className="text-xl text-white max-lg:w-full lg:pr-0">
             <h1 className="heading-headline grid font-bold">
-              <span>{r('block-1-title-1')}</span>
-              <span>{r('block-1-title-2')}</span>
+              <span>{r.rich('block-1-title')}</span>
             </h1>
             <div className="w-full lg:w-1/3">
               <div className="mt-5"></div>
@@ -336,7 +336,7 @@ export default function RecipesPage() {
           <div className="mt-4"></div>
           <p className="body-1">{r('chicken:description')}</p>
           <div className="mt-6"></div>
-          <p className="heading-4 font-bold text-gold">
+          <p className="heading-4 font-bold text-[rgb(190,135,59)]">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
           </p>
           <div className="mt-1"></div>
@@ -348,7 +348,7 @@ export default function RecipesPage() {
               pluralize.plural(i('shiitake-mushroom')),
               i('spinach'),
               i('peas'),
-              pluralize.plural(i('cranberry')),
+              pluralize.plural(i('cranberries')),
               i('flaxseed'),
               i('salmon-oil'),
               i('ocelle-targeted-nutrient-blend'),
