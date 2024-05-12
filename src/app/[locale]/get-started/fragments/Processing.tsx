@@ -43,7 +43,7 @@ export default function ProcessingFragment() {
 
   React.useEffect(() => {
     getClosestDeliveryDate()
-      .then(setClosestDeliveryDate)
+      .then((date) => setClosestDeliveryDate(new Date(date)))
       .catch((e) => {
         console.error(e);
         setClosestDeliveryDate(null);

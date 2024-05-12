@@ -102,7 +102,7 @@ export async function logout() {
  * calculate the delivery date after order placement
  */
 export async function getClosestDeliveryDate() {
-  return getClosestOrderDeliveryDate(await getCalendarEvents());
+  return getClosestOrderDeliveryDate(await getCalendarEvents()).toISOString();
 }
 
 export async function setCartCookie(value: string) {
