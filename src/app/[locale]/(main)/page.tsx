@@ -38,11 +38,7 @@ export default function Home() {
         }}
         right={
           <div className="py-[clamp(30px,3vw,60px)]">
-            <h2 className="heading-1 font-bold text-primary">
-              {t.rich('block-3-title-1')}
-              <br />
-              {t('block-3-title-2')}
-            </h2>
+            <h2 className="heading-1 font-bold text-primary">{t.rich('block-3-title')}</h2>
             <div className="mt-[2vw]">
               <List
                 picture={<Tickbox className="mr-4 h-5 w-5" />}
