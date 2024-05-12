@@ -85,7 +85,7 @@ span.swiper-pagination-bullet-active {
 
 .dotted-white {
   @apply after:text-white
-}
+}  
 
 .dotted-black {
   @apply after:text-black
