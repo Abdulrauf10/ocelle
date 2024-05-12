@@ -11,17 +11,28 @@ async function createExcelFile() {
 
   // Function to add data to sheets
   function addToSheet(sheetName, entries) {
-      const sheet = workbook.addWorksheet(sheetName);
-      sheet.columns = [
-          { header: 'ID', key: 'id', width: 300 },
-          { header: 'EN', key: 'en', width: 500 },
-          { header: 'ZH', key: 'zh', width: 500 }
-      ];
+    const sheet = workbook.addWorksheet(sheetName);
+    sheet.columns = [
+        { header: 'ID', key: 'id', width: 10 }, // Initial width, will adjust
+        { header: 'EN', key: 'en', width: 10 }, // Initial width, will adjust
+        { header: 'ZH', key: 'zh', width: 10 }  // Initial width, will adjust
+    ];
 
-      entries.forEach(entry => {
-          sheet.addRow({ id: entry[0], en: entry[1], zh: '' });
-      });
-  }
+    entries.forEach(entry => {
+        sheet.addRow({ id: entry[0], en: entry[1], zh: '' });
+    });
+
+    sheet.columns.forEach(column => {
+        let maxLength = 0;
+        column.eachCell({ includeEmpty: true }, (cell) => {
+            let cellLength = cell.value ? cell.value.toString().length : 0;
+            if (cellLength > maxLength) {
+                maxLength = cellLength;
+            }
+        });
+        column.width = maxLength < 10 ? 10 : maxLength + 2;  // Set column width based on max content length
+    });
+}
 
   // Add general data
   const generalEntries = Object.entries(data).filter(([key, value]) => typeof value === 'string');
