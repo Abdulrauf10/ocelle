@@ -83,7 +83,7 @@ export default function CardForm({
           </Button>
         </div>
         <div className="w-1/2 px-2">
-          <Button fullWidth disabled={isSubmitInProgress || form.empty}>
+          <Button fullWidth disabled={isSubmitInProgress || !form.complete}>
             {t('save-changes')}
           </Button>
         </div>
