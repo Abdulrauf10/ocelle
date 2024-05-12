@@ -137,7 +137,7 @@ export default function SubscriptionCheckoutForm({
     control,
     setValue,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     watch,
   } = useForm<ISubscriptionCheckoutForm>({
     defaultValues: {
@@ -519,7 +519,9 @@ export default function SubscriptionCheckoutForm({
                   />
                 </div>
                 <div className="mt-4 text-center">
-                  <Button disabled={!stripe || isSubmitInProgress}>{t('checkout')}</Button>
+                  <Button disabled={!stripe || isSubmitInProgress || !isValid || !form.complete}>
+                    {t('checkout')}
+                  </Button>
                 </div>
               </SummaryBlock>
             </div>

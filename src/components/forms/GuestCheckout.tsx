@@ -112,7 +112,7 @@ export default function GuestCheckoutForm({
     control,
     setValue,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     watch,
   } = useForm<IGuestCheckoutForm>({
     defaultValues: {
@@ -394,7 +394,11 @@ export default function GuestCheckoutForm({
                   <div className="body-2 px-1">${totalPrice?.amount}</div>
                 </div>
                 <div className="mt-5 text-center">
-                  <Button disabled={!stripe || isSubmitInProgress || updatingCart}>
+                  <Button
+                    disabled={
+                      !stripe || isSubmitInProgress || updatingCart || !isValid || !form.complete
+                    }
+                  >
                     {t('checkout')}
                   </Button>
                 </div>
