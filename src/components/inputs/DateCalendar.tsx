@@ -1,6 +1,6 @@
 import { alpha } from '@mui/material';
 import { DateView } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import { DateCalendar as MuiDateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { dateCalendarClasses } from '@mui/x-date-pickers/DateCalendar/dateCalendarClasses';
 import { dayPickerClasses } from '@mui/x-date-pickers/DateCalendar/dayCalendarClasses';

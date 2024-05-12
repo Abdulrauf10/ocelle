@@ -1,4 +1,4 @@
-import { zonedTimeToUtc } from 'date-fns-tz';
+import { fromZonedTime } from 'date-fns-tz';
 
 import { get1823PublicHolidays, set1823PublicHolidays } from './redis';
 
@@ -36,8 +36,8 @@ export async function getCalendarEvents(): Promise<CalendarEvent[]> {
       id: event.uid,
       summary: event.summary,
       source: 'gov',
-      start: zonedTimeToUtc(start, timeZone),
-      end: zonedTimeToUtc(end, timeZone),
+      start: fromZonedTime(start, timeZone),
+      end: fromZonedTime(end, timeZone),
     });
   }
 
