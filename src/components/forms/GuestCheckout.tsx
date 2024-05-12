@@ -10,7 +10,7 @@ import CartRows from '../CartRows';
 import TextField from '../controls/TextField';
 import DatePickerForm from './DatePicker';
 import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
-import PartialCardStripeForm from './partial/CardStripe';
+import PartialCardStripeForm, { useCardStripeForm } from './partial/CardStripe';
 
 import Container from '@/components/Container';
 import Price from '@/components/Price';
@@ -104,6 +104,7 @@ export default function GuestCheckoutForm({
 }) {
   const stripe = useStripe();
   const elements = useElements();
+  const form = useCardStripeForm();
   const sentence = useSentence();
   const { lines, shippingPrice, totalPrice, setLines, setTotalPrice } = useCart();
   const t = useTranslations();
@@ -309,7 +310,7 @@ export default function GuestCheckoutForm({
               </>
             )}
             <Section dense title={t('payment-information')}>
-              <PartialCardStripeForm />
+              <PartialCardStripeForm form={form} />
             </Section>
             <div className="mt-10"></div>
             <Section dense title={t('delivery-date')}>

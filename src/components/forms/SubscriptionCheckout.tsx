@@ -10,7 +10,7 @@ import { useForm } from 'react-hook-form';
 import TextField from '../controls/TextField';
 import DatePickerForm from './DatePicker';
 import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
-import PartialCardStripeForm from './partial/CardStripe';
+import PartialCardStripeForm, { useCardStripeForm } from './partial/CardStripe';
 
 import Container from '@/components/Container';
 import Price from '@/components/Price';
@@ -129,6 +129,7 @@ export default function SubscriptionCheckoutForm({
 }) {
   const stripe = useStripe();
   const elements = useElements();
+  const form = useCardStripeForm();
   const t = useTranslations();
   const n = useTranslations('Navigator');
   const sentence = useSentence();
@@ -366,7 +367,7 @@ export default function SubscriptionCheckoutForm({
               </>
             )}
             <Section dense title={t('payment-information')}>
-              <PartialCardStripeForm />
+              <PartialCardStripeForm form={form} />
             </Section>
             <div className="mt-10"></div>
             <Section dense title={t('delivery-date')}>

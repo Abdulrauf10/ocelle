@@ -1,5 +1,15 @@
+'use client';
+
+import {
+  CardCvcElement,
+  CardExpiryElement,
+  CardNumberElement,
+  useElements,
+} from '@stripe/react-stripe-js';
+import { StripeElementChangeEvent } from '@stripe/stripe-js';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
+import React from 'react';
 
 import Lock from '../../icons/Lock';
 import Stripe from '../../icons/Stripe';
@@ -10,14 +20,120 @@ import {
   StripeTextFieldNumber,
 } from '@/components/controls/StripeTextField';
 
+type CardFieldType = 'no' | 'exp' | 'cvc';
+
+interface CardStripeFieldState {
+  empty: boolean;
+  complete: boolean;
+  error?: {
+    type: 'validation_error';
+    code: string;
+    message: string;
+  };
+}
+
+interface UseCardStripeFormReturn {
+  formState: {
+    cardNo?: CardStripeFieldState;
+    cardExp?: CardStripeFieldState;
+    cardCvc?: CardStripeFieldState;
+  };
+  empty: boolean;
+  complete: boolean;
+  handleCardFieldChange(field: CardFieldType, event: StripeElementChangeEvent): void;
+  reset(): void;
+}
+
+export function useCardStripeForm(): UseCardStripeFormReturn {
+  const elements = useElements();
+  const [numberState, setNumberState] = React.useState<CardStripeFieldState>();
+  const [expireState, setExpireState] = React.useState<CardStripeFieldState>();
+  const [cvcState, setCvcState] = React.useState<CardStripeFieldState>();
+
+  const handleCardFieldChange = React.useCallback(
+    (field: CardFieldType, event: StripeElementChangeEvent) => {
+      switch (field) {
+        case 'no': {
+          setNumberState({ empty: event.empty, complete: event.complete, error: event.error });
+          break;
+        }
+        case 'exp': {
+          setExpireState({ empty: event.empty, complete: event.complete, error: event.error });
+          break;
+        }
+        case 'cvc': {
+          setCvcState({ empty: event.empty, complete: event.complete, error: event.error });
+          break;
+        }
+        default:
+          throw new Error('unknown card field type of ' + field);
+      }
+    },
+    []
+  );
+
+  const reset = React.useCallback(() => {
+    if (!elements) {
+      return;
+    }
+    elements.getElement(CardNumberElement)?.clear();
+    elements.getElement(CardExpiryElement)?.clear();
+    elements.getElement(CardCvcElement)?.clear();
+
+    setNumberState(undefined);
+    setExpireState(undefined);
+    setCvcState(undefined);
+  }, [elements]);
+
+  return {
+    formState: {
+      cardNo: numberState,
+      cardExp: expireState,
+      cardCvc: cvcState,
+    },
+    empty: (numberState?.empty || expireState?.empty || cvcState?.empty) ?? true,
+    complete: (numberState?.complete && expireState?.complete && cvcState?.complete) ?? false,
+    handleCardFieldChange,
+    reset,
+  };
+}
+
 export interface IPartialCardStripeForm {
   cardNo: string;
   cardExp: string;
   cardCvc: string;
 }
 
-export default function PartialCardStripeForm() {
+export default function PartialCardStripeForm({ form }: { form: UseCardStripeFormReturn }) {
   const t = useTranslations();
+  const elements = useElements();
+  const { formState, handleCardFieldChange } = form;
+
+  const handleChange = React.useCallback(
+    (field: CardFieldType) => {
+      return (event: StripeElementChangeEvent) => {
+        handleCardFieldChange(field, event);
+      };
+    },
+    [handleCardFieldChange]
+  );
+
+  React.useEffect(() => {
+    if (!elements) {
+      return;
+    }
+    const handleCardNumberChange = handleChange('no');
+    const handleCardExpireChange = handleChange('exp');
+    const handleCardCvcChange = handleChange('cvc');
+    elements.getElement(CardNumberElement)?.on('change', handleCardNumberChange);
+    elements.getElement(CardExpiryElement)?.on('change', handleCardExpireChange);
+    elements.getElement(CardCvcElement)?.on('change', handleCardCvcChange);
+    return () => {
+      elements.getElement(CardNumberElement)?.off('change', handleCardNumberChange);
+      elements.getElement(CardExpiryElement)?.off('change', handleCardExpireChange);
+      elements.getElement(CardCvcElement)?.off('change', handleCardCvcChange);
+    };
+  }, [elements, handleChange]);
 
   return (
     <>
@@ -71,6 +187,7 @@ export default function PartialCardStripeForm() {
           <div className="w-full p-2">
             <StripeTextFieldNumber
               label={t('card-number')}
+              error={!!formState.cardNo?.error}
               InputProps={{
                 inputProps: {
                   options: {
@@ -88,6 +205,7 @@ export default function PartialCardStripeForm() {
           <div className="w-1/2 p-2 max-sm:w-full">
             <StripeTextFieldExpiry
               label={t('expiration-date')}
+              error={!!formState.cardExp?.error}
               InputProps={{
                 inputProps: {
                   options: {
@@ -105,6 +223,7 @@ export default function PartialCardStripeForm() {
           <div className="w-1/2 p-2 max-sm:w-full">
             <StripeTextFieldCVC
               label={t('cvc')}
+              error={!!formState.cardCvc?.error}
               InputProps={{
                 inputProps: {
                   options: {
