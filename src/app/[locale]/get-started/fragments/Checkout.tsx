@@ -48,6 +48,7 @@ export default function CheckoutFragment() {
         >
           <SubscriptionCheckoutForm
             defaultValues={owner}
+            initialCheckout={state.checkout}
             dogs={dogs}
             clientSecret={state.stripe.paymentIntent.client_secret}
             closestDeliveryDate={state.closestDeliveryDate}

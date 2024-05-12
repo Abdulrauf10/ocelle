@@ -76,30 +76,62 @@ export async function getMinPerDayPrice(
         })
       : [];
   return {
-    halfPlan: calculateTotalPerDayPrice(
-      breeds,
-      new Date(dog.dateOfBirth),
-      dog.isNeutered,
-      dog.weight,
-      dog.bodyCondition,
-      dog.activityLevel,
-      { recipe1: getTheCheapestRecipe() },
-      MealPlan.Half,
-      OrderSize.TwoWeek,
-      true
-    ),
-    fullPlan: calculateTotalPerDayPrice(
-      breeds,
-      new Date(dog.dateOfBirth),
-      dog.isNeutered,
-      dog.weight,
-      dog.bodyCondition,
-      dog.activityLevel,
-      { recipe1: getTheCheapestRecipe() },
-      MealPlan.Full,
-      OrderSize.TwoWeek,
-      true
-    ),
+    starterBox: {
+      halfPlan: calculateTotalPerDayPrice(
+        breeds,
+        new Date(dog.dateOfBirth),
+        dog.isNeutered,
+        dog.weight,
+        dog.bodyCondition,
+        dog.activityLevel,
+        { recipe1: getTheCheapestRecipe() },
+        MealPlan.Half,
+        OrderSize.TwoWeek,
+        true,
+        true
+      ),
+      fullPlan: calculateTotalPerDayPrice(
+        breeds,
+        new Date(dog.dateOfBirth),
+        dog.isNeutered,
+        dog.weight,
+        dog.bodyCondition,
+        dog.activityLevel,
+        { recipe1: getTheCheapestRecipe() },
+        MealPlan.Full,
+        OrderSize.TwoWeek,
+        true,
+        true
+      ),
+    },
+    recurringBox: {
+      halfPlan: calculateTotalPerDayPrice(
+        breeds,
+        new Date(dog.dateOfBirth),
+        dog.isNeutered,
+        dog.weight,
+        dog.bodyCondition,
+        dog.activityLevel,
+        { recipe1: getTheCheapestRecipe() },
+        MealPlan.Half,
+        OrderSize.TwoWeek,
+        true,
+        false
+      ),
+      fullPlan: calculateTotalPerDayPrice(
+        breeds,
+        new Date(dog.dateOfBirth),
+        dog.isNeutered,
+        dog.weight,
+        dog.bodyCondition,
+        dog.activityLevel,
+        { recipe1: getTheCheapestRecipe() },
+        MealPlan.Full,
+        OrderSize.TwoWeek,
+        true,
+        false
+      ),
+    },
   };
 }
 
@@ -186,7 +218,8 @@ export async function createCheckout(orderSize: OrderSize, dogs: DogDto[]) {
       { recipeToBeCalcuate: dog.recipe1, recipeReference: dog.recipe2 },
       dog.mealPlan,
       OrderSize.TwoWeek,
-      dog.isEnabledTransitionPeriod
+      dog.isEnabledTransitionPeriod,
+      true
     );
     lines.push({
       variantId: recipe1Variant.id,
@@ -207,7 +240,8 @@ export async function createCheckout(orderSize: OrderSize, dogs: DogDto[]) {
         { recipeToBeCalcuate: dog.recipe2, recipeReference: dog.recipe1 },
         dog.mealPlan,
         OrderSize.TwoWeek,
-        dog.isEnabledTransitionPeriod
+        dog.isEnabledTransitionPeriod,
+        true
       );
       lines.push({
         variantId: recipe2Variant.id,

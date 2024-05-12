@@ -12,6 +12,7 @@ import { pageVariants } from '../transition';
 import { getClosestDeliveryDate } from '@/actions';
 import Container from '@/components/Container';
 import { OrderSize } from '@/enums';
+import { CheckoutFragment } from '@/gql/graphql';
 import { getDateOfBirth } from '@/helpers/dog';
 import { CalendarEvent } from '@/types';
 
@@ -37,6 +38,7 @@ export default function ProcessingFragment() {
   const navigate = useNavigate();
   const { owner, dogs } = useSurvey();
   const waitPromise = React.useMemo(() => new Promise((resolve) => setTimeout(resolve, 3000)), []);
+  const [checkout, setCheckout] = React.useState<CheckoutFragment | null>();
   const [closestDeliveryDate, setClosestDeliveryDate] = React.useState<Date | null>();
   const [calendarEvents, setCalendarEvents] = React.useState<CalendarEvent[] | null>();
   const [transcation, setTranscation] = React.useState<any | null>();
@@ -98,7 +100,8 @@ export default function ProcessingFragment() {
         })
       )
         .then(async (checkout) => {
-          console.debug(checkout);
+          console.log(checkout, typeof checkout);
+          setCheckout(checkout);
           try {
             const data = await initializeStripeTranscation();
             setTranscation(data);
@@ -109,6 +112,7 @@ export default function ProcessingFragment() {
         })
         .catch((e) => {
           console.error(e);
+          setCheckout(null);
           setTranscation(null);
         });
     }
@@ -116,6 +120,7 @@ export default function ProcessingFragment() {
 
   React.useEffect(() => {
     if (
+      checkout === undefined ||
       closestDeliveryDate === undefined ||
       calendarEvents === undefined ||
       transcation === undefined
@@ -123,8 +128,19 @@ export default function ProcessingFragment() {
       // fetching api and wait for the request has completed
       return;
     }
-    if (closestDeliveryDate === null || calendarEvents === null || transcation === null) {
-      console.error('there have some error during create the checkout, redirect to the home page');
+    console.log(
+      checkout === null ||
+        closestDeliveryDate === null ||
+        calendarEvents === null ||
+        transcation === null
+    );
+    if (
+      checkout === null ||
+      closestDeliveryDate === null ||
+      calendarEvents === null ||
+      transcation === null
+    ) {
+      console.error('there have some error during create the checkout');
       return navigate('/', {
         state: {
           checkoutError: true,
@@ -134,6 +150,7 @@ export default function ProcessingFragment() {
     waitPromise.then(() => {
       navigate(Stage.Checkout, {
         state: {
+          checkout,
           closestDeliveryDate,
           calendarEvents,
           stripe: transcation,
@@ -141,7 +158,7 @@ export default function ProcessingFragment() {
         replace: true,
       });
     });
-  }, [closestDeliveryDate, calendarEvents, transcation, waitPromise, navigate]);
+  }, [checkout, closestDeliveryDate, calendarEvents, transcation, waitPromise, navigate]);
 
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">

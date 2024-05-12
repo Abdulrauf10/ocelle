@@ -69,8 +69,8 @@ export default function ChoosePlanFragment() {
               <FreshPlan
                 title={t('fresh-full-plan')}
                 picture="/meal-plan/full-plan.jpg"
-                pricePerDay={nativeRound(minPrices!.fullPlan)}
-                discountedPricePerDay={nativeRound(minPrices!.fullPlan / 2)}
+                pricePerDay={nativeRound(minPrices!.recurringBox.fullPlan)}
+                discountedPricePerDay={nativeRound(minPrices!.starterBox.fullPlan)}
                 firstDiscount
                 error={!!error}
                 recommended
@@ -84,8 +84,8 @@ export default function ChoosePlanFragment() {
               <FreshPlan
                 title={t('fresh-half-plan')}
                 picture="/meal-plan/half-plan.jpg"
-                pricePerDay={nativeRound(minPrices!.halfPlan)}
-                discountedPricePerDay={nativeRound(minPrices!.halfPlan / 2)}
+                pricePerDay={nativeRound(minPrices!.recurringBox.halfPlan)}
+                discountedPricePerDay={nativeRound(minPrices!.starterBox.halfPlan)}
                 firstDiscount
                 error={!!error}
                 selected={currentMealPlan === MealPlan.Half}

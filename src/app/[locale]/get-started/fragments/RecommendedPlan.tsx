@@ -18,7 +18,6 @@ import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import RecipeCheckbox from '@/components/controls/RecipeCheckbox';
 import { OrderSize, Recipe } from '@/enums';
 import {
-  calculateRecipeTotalPriceInBox,
   calculateTotalPerDayPrice,
   calculateTotalPriceInBox,
   getDateOfBirth,
@@ -138,33 +137,68 @@ export default function RecommendedPlanFragment() {
     const { recipe1, recipe2 } = arrayToRecipe(recipes);
     const dateOfBirth = typeof age === 'string' ? age! : getDateOfBirth(age!).toISOString();
     if (!recipe1) {
-      return { total: 0, daily: 0 };
+      return {
+        recurring: { total: 0, daily: 0 },
+        starterBox: { total: 0, daily: 0 },
+      };
     }
     return {
-      total: calculateTotalPriceInBox(
-        breeds!,
-        new Date(dateOfBirth),
-        isNeutered!,
-        weight!,
-        bodyCondition!,
-        activityLevel!,
-        { recipe1, recipe2 },
-        mealPlan!,
-        OrderSize.TwoWeek,
-        true
-      ),
-      daily: calculateTotalPerDayPrice(
-        breeds!,
-        new Date(dateOfBirth),
-        isNeutered!,
-        weight!,
-        bodyCondition!,
-        activityLevel!,
-        { recipe1, recipe2 },
-        mealPlan!,
-        OrderSize.TwoWeek,
-        true
-      ),
+      recurring: {
+        total: calculateTotalPriceInBox(
+          breeds!,
+          new Date(dateOfBirth),
+          isNeutered!,
+          weight!,
+          bodyCondition!,
+          activityLevel!,
+          { recipe1, recipe2 },
+          mealPlan!,
+          OrderSize.TwoWeek,
+          true,
+          false
+        ),
+        daily: calculateTotalPerDayPrice(
+          breeds!,
+          new Date(dateOfBirth),
+          isNeutered!,
+          weight!,
+          bodyCondition!,
+          activityLevel!,
+          { recipe1, recipe2 },
+          mealPlan!,
+          OrderSize.TwoWeek,
+          true,
+          false
+        ),
+      },
+      starterBox: {
+        total: calculateTotalPriceInBox(
+          breeds!,
+          new Date(dateOfBirth),
+          isNeutered!,
+          weight!,
+          bodyCondition!,
+          activityLevel!,
+          { recipe1, recipe2 },
+          mealPlan!,
+          OrderSize.TwoWeek,
+          true,
+          true
+        ),
+        daily: calculateTotalPerDayPrice(
+          breeds!,
+          new Date(dateOfBirth),
+          isNeutered!,
+          weight!,
+          bodyCondition!,
+          activityLevel!,
+          { recipe1, recipe2 },
+          mealPlan!,
+          OrderSize.TwoWeek,
+          true,
+          true
+        ),
+      },
     };
   };
 
@@ -472,14 +506,17 @@ export default function RecommendedPlanFragment() {
                     <div className="mr-1">{t('{}-colon', { value: t('starter-box') })}</div>
                     <div>
                       <span className="inline-block">
-                        <Price value={nativeRound(boxPrice.total)} discount />
+                        <Price value={nativeRound(boxPrice.recurring.total)} discount />
                         <Price
                           className="ml-1 font-bold"
-                          value={nativeRound(boxPrice.total / 2)}
+                          value={nativeRound(boxPrice.starterBox.total)}
                         />{' '}
                         (
-                        <Price value={nativeRound(boxPrice.daily)} discount />
-                        <Price className="ml-1 font-bold" value={nativeRound(boxPrice.daily / 2)} />
+                        <Price value={nativeRound(boxPrice.recurring.daily)} discount />
+                        <Price
+                          className="ml-1 font-bold"
+                          value={nativeRound(boxPrice.starterBox.daily)}
+                        />
                         <span className="font-bold text-dark-green">{t('per-day')}</span>)
                       </span>
                       &nbsp;

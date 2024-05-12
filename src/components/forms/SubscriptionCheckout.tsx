@@ -20,10 +20,27 @@ import UnderlineButton from '@/components/buttons/UnderlineButton';
 import PasswordField from '@/components/controls/PasswordField';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
-import { MealPlan, Recipe } from '@/enums';
-import { getRecipeSlug, isUnavailableDeliveryDate } from '@/helpers/dog';
+import { FoodAllergies, MealPlan, OrderSize, Recipe } from '@/enums';
+import { CheckoutFragment } from '@/gql/graphql';
+import {
+  calculateTotalPerDayPrice,
+  calculateTotalPriceInBox,
+  getDateOfBirth,
+  getRecipeSlug,
+  isUnavailableDeliveryDate,
+} from '@/helpers/dog';
+import { nativeRound } from '@/helpers/number';
 import useSentence from '@/hooks/useSentence';
-import { CalendarEvent } from '@/types';
+import {
+  ActivityLevel,
+  AmountOfTreats,
+  BodyCondition,
+  CalendarEvent,
+  CurrentlyEating,
+  Gender,
+  Pickiness,
+} from '@/types';
+import { BreedDto } from '@/types/dto';
 
 function Section({
   title,
@@ -92,6 +109,18 @@ type ISubscriptionCheckoutFormAction = Omit<
 
 type DogData = {
   name?: string;
+  isUnknownBreed?: boolean;
+  breeds?: BreedDto[];
+  gender?: Gender;
+  isNeutered?: boolean;
+  age?: { years: number; months: number } | string;
+  weight?: number;
+  bodyCondition?: BodyCondition;
+  activityLevel?: ActivityLevel;
+  foodAllergies?: FoodAllergies;
+  currentlyEating?: CurrentlyEating;
+  amountOfTreats?: AmountOfTreats;
+  pickiness?: Pickiness;
   mealPlan?: MealPlan;
   recipe1?: Recipe;
   recipe2?: Recipe;
@@ -100,6 +129,7 @@ type DogData = {
 
 export default function SubscriptionCheckoutForm({
   defaultValues,
+  initialCheckout,
   dogs,
   clientSecret,
   closestDeliveryDate,
@@ -116,6 +146,7 @@ export default function SubscriptionCheckoutForm({
     lastName?: string;
     email?: string;
   };
+  initialCheckout: CheckoutFragment;
   dogs: DogData[];
   clientSecret: string;
   closestDeliveryDate: Date;
@@ -244,6 +275,44 @@ export default function SubscriptionCheckoutForm({
       window.removeEventListener('click', handleWindowClick);
     };
   }, [handleWindowClick]);
+
+  const totalPrice = dogs.reduce(
+    ({ recurring, startbox }, dog) => {
+      const dateOfBirth =
+        typeof dog.age === 'string' ? dog.age! : getDateOfBirth(dog.age!).toISOString();
+      const starterBoxPrice = calculateTotalPriceInBox(
+        dog.breeds!,
+        new Date(dateOfBirth),
+        dog.isNeutered!,
+        dog.weight!,
+        dog.bodyCondition!,
+        dog.activityLevel!,
+        { recipe1: dog.recipe1!, recipe2: dog.recipe2 },
+        dog.mealPlan!,
+        OrderSize.TwoWeek,
+        true,
+        true
+      );
+      const recurringPrice = calculateTotalPriceInBox(
+        dog.breeds!,
+        new Date(dateOfBirth),
+        dog.isNeutered!,
+        dog.weight!,
+        dog.bodyCondition!,
+        dog.activityLevel!,
+        { recipe1: dog.recipe1!, recipe2: dog.recipe2 },
+        dog.mealPlan!,
+        OrderSize.TwoWeek,
+        true,
+        false
+      );
+      return {
+        startbox: starterBoxPrice + startbox,
+        recurring: recurringPrice + recurring,
+      };
+    },
+    { recurring: 0, startbox: 0 }
+  );
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -411,6 +480,21 @@ export default function SubscriptionCheckoutForm({
               <h2 className="heading-4 font-bold text-gold">{t('order-summary')}</h2>
               <SummaryBlock title={t('your-plan')}>
                 {dogs.map((dog, idx) => {
+                  const dateOfBirth =
+                    typeof dog.age === 'string' ? dog.age! : getDateOfBirth(dog.age!).toISOString();
+                  const price = calculateTotalPerDayPrice(
+                    dog.breeds!,
+                    new Date(dateOfBirth),
+                    dog.isNeutered!,
+                    dog.weight!,
+                    dog.bodyCondition!,
+                    dog.activityLevel!,
+                    { recipe1: dog.recipe1!, recipe2: dog.recipe2 },
+                    dog.mealPlan!,
+                    OrderSize.TwoWeek,
+                    true,
+                    false
+                  );
                   return (
                     <div key={idx} className="mt-2">
                       <p className="body-3">
@@ -420,7 +504,7 @@ export default function SubscriptionCheckoutForm({
                               ? t('fresh-full-plan')
                               : t('fresh-half-plan'),
                           name: dog.name,
-                          price: '$18',
+                          price: `\$${nativeRound(price)}`,
                         })}
                       </p>
                     </div>
@@ -478,14 +562,18 @@ export default function SubscriptionCheckoutForm({
                 <div className="-mx-1 flex flex-wrap justify-between">
                   <div className="body-3 px-1">{t('fresh-food-box-subtotal')}</div>
                   <div className="body-3 px-1">
-                    <Price className="font-bold" value={500} discount />
+                    <Price
+                      className="font-bold"
+                      value={nativeRound(totalPrice.recurring)}
+                      discount
+                    />
                   </div>
                 </div>
                 <div className="mt-3"></div>
                 <div className="-mx-1 flex flex-wrap justify-between">
                   <div className="body-3 px-1">{t('with-starter-box-discount')}</div>
                   <div className="body-3 px-1">
-                    <Price className="font-bold" value={250} />
+                    <Price className="font-bold" value={nativeRound(totalPrice.startbox)} />
                   </div>
                 </div>
                 <div className="mt-3"></div>
@@ -504,7 +592,7 @@ export default function SubscriptionCheckoutForm({
               <SummaryBlock>
                 <div className="-mx-1 flex flex-wrap justify-between font-bold">
                   <div className="px-1">{t('{}-colon', { value: t('todays-total') })}</div>
-                  <div className="px-1">$250</div>
+                  <div className="px-1">${initialCheckout.totalPrice?.gross.amount}</div>
                 </div>
                 <div className="mt-4">
                   <RoundedCheckbox
