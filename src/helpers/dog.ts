@@ -710,7 +710,7 @@ export function calculateTotalPerDayPrice(
     transitionPeriod
   );
   const recipe2PerDayPrice =
-    recipe1TotalPriceInBox / (recipe2Days.transitionPeriodDays + recipe2Days.normalDays);
+    recipe2TotalPriceInBox / (recipe2Days.transitionPeriodDays + recipe2Days.normalDays);
 
   return recipe1PerDayPrice + recipe2PerDayPrice;
 }
