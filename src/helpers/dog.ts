@@ -552,7 +552,8 @@ export function calculateRecipeTotalPriceInBox(
   recipes: { recipeToBeCalcuate: Recipe; recipeReference?: Recipe },
   plan: MealPlan,
   orderSize: OrderSize,
-  transitionPeriod: boolean
+  transitionPeriod: boolean,
+  starterBox: boolean
 ) {
   const lifeStage = getLifeStage(breeds, dateOfBirth);
   const totalProtionsInBox = calculateRecipeTotalProtionsInBox(
@@ -570,9 +571,12 @@ export function calculateRecipeTotalPriceInBox(
 
   console.log(transitionPeriod, totalProtionsInBox);
 
+  const factor = starterBox ? 2 : 1;
+
   return (
-    totalProtionsInBox *
-    subscriptionProducts[recipes.recipeToBeCalcuate].variants[lifeStage].pricePerUnit
+    (totalProtionsInBox *
+      subscriptionProducts[recipes.recipeToBeCalcuate].variants[lifeStage].pricePerUnit) /
+    factor
   );
 }
 
@@ -589,7 +593,8 @@ export function calculateRecipePerDayPrice(
   recipes: { recipeToBeCalcuate: Recipe; recipeReference?: Recipe },
   plan: MealPlan,
   orderSize: OrderSize,
-  transitionPeriod: boolean
+  transitionPeriod: boolean,
+  starterBox: boolean
 ) {
   const { transitionPeriodDays, normalDays } = calculateTotalDaysInBox(
     recipes,
@@ -606,7 +611,8 @@ export function calculateRecipePerDayPrice(
     recipes,
     plan,
     orderSize,
-    transitionPeriod
+    transitionPeriod,
+    starterBox
   );
   console.log('recipeTotalPriceInBox', recipeTotalPriceInBox);
   return recipeTotalPriceInBox / (transitionPeriodDays + normalDays);
@@ -622,7 +628,8 @@ export function calculateTotalPriceInBox(
   recipes: { recipe1: Recipe; recipe2?: Recipe },
   plan: MealPlan,
   orderSize: OrderSize,
-  transitionPeriod: boolean
+  transitionPeriod: boolean,
+  starterBox: boolean
 ) {
   const recipe1Price = calculateRecipeTotalPriceInBox(
     breeds,
@@ -634,7 +641,8 @@ export function calculateTotalPriceInBox(
     { recipeToBeCalcuate: recipes.recipe1, recipeReference: recipes.recipe2 },
     plan,
     orderSize,
-    transitionPeriod
+    transitionPeriod,
+    starterBox
   );
   if (!recipes.recipe2) {
     return recipe1Price;
@@ -651,7 +659,8 @@ export function calculateTotalPriceInBox(
       { recipeToBeCalcuate: recipes.recipe2, recipeReference: recipes.recipe1 },
       plan,
       orderSize,
-      transitionPeriod
+      transitionPeriod,
+      starterBox
     )
   );
 }
@@ -666,7 +675,8 @@ export function calculateTotalPerDayPrice(
   recipes: { recipe1: Recipe; recipe2?: Recipe },
   plan: MealPlan,
   orderSize: OrderSize,
-  transitionPeriod: boolean
+  transitionPeriod: boolean,
+  starterBox: boolean
 ) {
   const recipe1Days = calculateTotalDaysInBox(
     { recipeToBeCalcuate: recipes.recipe1, recipeReference: recipes.recipe2 },
@@ -683,7 +693,8 @@ export function calculateTotalPerDayPrice(
     { recipeToBeCalcuate: recipes.recipe1, recipeReference: recipes.recipe2 },
     plan,
     orderSize,
-    transitionPeriod
+    transitionPeriod,
+    starterBox
   );
   const recipe1PerDayPrice =
     recipe1TotalPriceInBox / (recipe1Days.transitionPeriodDays + recipe1Days.normalDays);
@@ -707,7 +718,8 @@ export function calculateTotalPerDayPrice(
     { recipeToBeCalcuate: recipes.recipe2, recipeReference: recipes.recipe1 },
     plan,
     orderSize,
-    transitionPeriod
+    transitionPeriod,
+    starterBox
   );
   const recipe2PerDayPrice =
     recipe2TotalPriceInBox / (recipe2Days.transitionPeriodDays + recipe2Days.normalDays);
