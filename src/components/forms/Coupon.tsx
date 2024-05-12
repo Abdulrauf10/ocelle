@@ -52,10 +52,10 @@ export default function CouponForm({ action }: CouponFormProps) {
           <button
             type="button"
             disabled={pending}
-            className="rounded-lg bg-secondary px-6 py-[9.5px] font-open-sans font-bold text-white"
+            className="rounded-lg bg-secondary px-6 py-[9.5px] transition-all duration-300 ease-in-out mouse:hover:opacity-85"
             onClick={() => handleSubmit(onSubmit)()}
           >
-            {t('apply')}
+            <span className="font-open-sans font-bold text-white">{t('apply')}</span>
           </button>
         </div>
       </div>
