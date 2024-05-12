@@ -7,6 +7,7 @@ import {
   useElements,
   useStripe,
 } from '@stripe/react-stripe-js';
+import { StripeElementChangeEvent } from '@stripe/stripe-js';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
@@ -84,20 +85,31 @@ export default function CardForm({
     [isSubmitInProgress, elements, stripe, clientSecret, action, handleClearForm]
   );
 
+  const handleChange = React.useCallback(
+    (setState: React.Dispatch<React.SetStateAction<boolean>>) => {
+      return ({ empty }: StripeElementChangeEvent) => {
+        setState(empty);
+      };
+    },
+    []
+  );
+
   React.useEffect(() => {
     if (!elements) {
       return;
     }
-    elements.getElement(CardNumberElement)?.on('change', ({ empty }) => {
-      setIsNumberEmpty(empty);
-    });
-    elements.getElement(CardExpiryElement)?.on('change', ({ empty }) => {
-      setIsExpireEmpty(empty);
-    });
-    elements.getElement(CardCvcElement)?.on('change', ({ empty }) => {
-      setIsCvcEmpty(empty);
-    });
-  }, [elements]);
+    const handleCardNumberChange = handleChange(setIsNumberEmpty);
+    const handleCardExpireChange = handleChange(setIsExpireEmpty);
+    const handleCardCvcChange = handleChange(setIsCvcEmpty);
+    elements.getElement(CardNumberElement)?.on('change', handleCardNumberChange);
+    elements.getElement(CardExpiryElement)?.on('change', handleCardExpireChange);
+    elements.getElement(CardCvcElement)?.on('change', handleCardCvcChange);
+    return () => {
+      elements.getElement(CardNumberElement)?.off('change', handleCardNumberChange);
+      elements.getElement(CardExpiryElement)?.off('change', handleCardExpireChange);
+      elements.getElement(CardCvcElement)?.off('change', handleCardCvcChange);
+    };
+  }, [elements, handleChange]);
 
   const isEmpty = isNumberEmpty || isExpireEmpty || isCvcEmpty;
 
