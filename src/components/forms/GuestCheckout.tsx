@@ -115,6 +115,7 @@ export default function GuestCheckoutForm({
     formState: { errors, isValid },
     watch,
   } = useForm<IGuestCheckoutForm>({
+    mode: 'onChange',
     defaultValues: {
       isSameBillingAddress: true,
       deliveryDate: closestDeliveryDate,

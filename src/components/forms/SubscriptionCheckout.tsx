@@ -171,6 +171,7 @@ export default function SubscriptionCheckoutForm({
     formState: { errors, isValid },
     watch,
   } = useForm<ISubscriptionCheckoutForm>({
+    mode: 'onChange',
     defaultValues: {
       ...defaultValues,
       isSameBillingAddress: true,
@@ -373,7 +374,12 @@ export default function SubscriptionCheckoutForm({
                   <PasswordField
                     name="confirmPassword"
                     control={control}
-                    rules={{ required: true }}
+                    rules={{
+                      required: true,
+                      validate: (value) => {
+                        return value === watch('password') || t('your-password-is-not-match');
+                      },
+                    }}
                     label={t('confirm-{}', { value: t('password') })}
                     fullWidth
                     disabled={isSubmitInProgress}
