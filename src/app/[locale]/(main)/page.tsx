@@ -62,9 +62,7 @@ export default function Home() {
       <Block className="bg-primary bg-opacity-15">
         <Container>
           <h2 className="heading-1 text-center font-bold text-primary">
-            {t('block-4-title-1')}
-            <br className="hidden lg:block" />
-            {t('block-4-title-2')}
+            {t.rich('block-4-title')}
           </h2>
           <div className="relative mt-10 flex-col-reverse items-center max-xl:flex">
             <div className="pb-0 max-xl:flex max-xl:flex-wrap [&>*]:max-xl:m-0 [&>*]:max-xl:mt-3 [&>*]:max-xl:max-w-none [&>*]:max-xl:px-4 [&>*]:max-xl:py-3 [&>*]:max-xl:text-center [&>*]:max-sm:w-full [&_img]:max-xl:inline">

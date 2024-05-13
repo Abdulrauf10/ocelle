@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, useInView } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
 import 'swiper/css';
@@ -20,7 +21,7 @@ interface SlideProps {
 function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChildren<SlideProps>) {
   const ref = React.useRef<HTMLDivElement>(null);
   const isInView = useInView(ref);
-
+  const h = useTranslations('Home');
   return (
     <div ref={ref} className="flex w-full justify-center">
       <div className="flex flex-wrap items-start justify-center pb-14 max-lg:flex-col-reverse max-lg:justify-start">
@@ -31,7 +32,9 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
           className="max-w-[560px] rounded-[30px] bg-white py-12 pl-12 pr-24 text-left shadow-[7px_7px_5px_rgba(185,130,59,0.3)] max-lg:-mt-5 max-lg:ml-8 max-lg:px-12 max-lg:py-10 max-lg:shadow-[-7px_7px_5px_rgba(185,130,59,0.3)]"
         > */}
         <div className="max-w-[560px] rounded-[30px] bg-white py-12 pl-12 pr-24 text-left shadow-[7px_7px_5px_rgba(185,130,59,0.3)] max-lg:-mt-5 max-lg:ml-8 max-lg:px-12 max-lg:py-10 max-lg:shadow-[-7px_7px_5px_rgba(185,130,59,0.3)]">
-          <h3 className="heading-3 font-bold text-gold">{dog} Plan</h3>
+          <h3 className="heading-3 font-bold text-gold">
+            {dog} {h("'s plan")}
+          </h3>
           <div className="mt-2"></div>
           <div className="my-2.5 inline-block rounded-3xl border border-current px-11 py-1 uppercase text-gold">
             <span className="body-1">{plan}</span>
@@ -77,6 +80,7 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
 }
 
 export default function CaseSwiper() {
+  const h = useTranslations('Home');
   return (
     <Swiper
       spaceBetween={50}
@@ -89,40 +93,40 @@ export default function CaseSwiper() {
     >
       <SwiperSlide>
         <Slide
-          dog="Muffin’s"
+          dog="Muffin"
           plan="Fresh Duck"
           picture="/dogs/muffin.jpeg"
           listItems={[
-            'Weight loss support',
-            'Improved digestive health (perfect poops!)',
-            'Improved allergies',
+            h('weight-loss-support'),
+            h('improved-digestive-health'),
+            h('improved-allergies'),
           ]}
         >
-          An active 9-year-old Poodle with allergies who’s on a weight loss journey. She needs
-          flavourful food without excess calories that are easy to digest. Her Fresh Duck plan
-          ensures:
+          {h('muffin-content')}
         </Slide>
       </SwiperSlide>
       <SwiperSlide>
         <Slide
-          dog="Pixie’s"
+          dog="Pixie"
           plan="Fresh Beef"
           picture="/dogs/pixie.jpg"
-          listItems={['Eye health', 'Joint support', 'Sustained energy']}
+          listItems={[h('eye-health'), h('joint-support'), h('sustained-energy')]}
         >
-          A mellow 10-year-old Bichon Friese, who’s a picky eater and needs nutrients that support
-          her physical health with the flavours she loves. Her Fresh Beef plan ensures:
+          {h('pixie-content')}
         </Slide>
       </SwiperSlide>
       <SwiperSlide>
         <Slide
-          dog="Toast’s"
+          dog="Toast"
           plan="Fresh Pork"
           picture="/dogs/toast.jpg"
-          listItems={['Healthier coat and skin', 'Improved immunity', 'Improved allergies']}
+          listItems={[
+            h('healthier-coat-and-skin'),
+            h('improved-immunity'),
+            h('improved-allergies'),
+          ]}
         >
-          A very active 6-year-old Pug with severe allergies, who needs nutrient-rich food to fuel
-          his active lifestyle, while being easy on his stomach. His Fresh Pork plan ensures:
+          {h('toast-content')}
         </Slide>
       </SwiperSlide>
     </Swiper>
