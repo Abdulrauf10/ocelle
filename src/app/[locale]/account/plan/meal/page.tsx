@@ -35,7 +35,6 @@ export default async function PlanMeal() {
     MealPlan.Full,
     orderSize,
     false,
-    //TODO fake false
     false
   );
 
@@ -50,7 +49,6 @@ export default async function PlanMeal() {
     MealPlan.Half,
     orderSize,
     false,
-    //TODO fake false
     false
   );
 
