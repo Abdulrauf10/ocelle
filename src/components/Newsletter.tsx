@@ -1,8 +1,11 @@
+import { useTranslations } from 'next-intl';
+
 import Container from './Container';
 import ArrowRight from './icons/ArrowRight';
 import EmailStroke from './icons/EmailStroke';
 
 export default function Newsletter() {
+  const n = useTranslations('Newsletter');
   return (
     <div className="bg-primary bg-opacity-20 py-8">
       <Container>
@@ -12,12 +15,10 @@ export default function Newsletter() {
               <EmailStroke className="w-[60px] min-w-[60px] text-primary" />
               <div className="ml-5">
                 <span className="body-1">
-                  Exclusive insights, special offers, and helpful nutrition information from
+                  {n('content-1')}
                   the&nbsp;
-                  <span className="uppercase">Ocelle</span> Dog Pack.&nbsp;
-                  <strong className="inline-block text-primary">
-                    Join Now! <i>Woof!</i>
-                  </strong>
+                  <span className="uppercase">Ocelle</span> {n('content-3')}&nbsp;
+                  <strong className="inline-block text-primary">{n.rich('content-2')}</strong>
                 </span>
               </div>
             </div>

@@ -93,25 +93,25 @@
     "recipes": "Recipes",
     "why-fresh": "Why Fresh?",
     "faq": "Faq",
-    "reviews": "Reviews",
     "about-us": "About Us",
     "my-plan": "My Plan",
     "my-info": "My Info",
-    "refer-a-friend": "Refer a Friend"
+    "refer-a-friend": "Refer a Friend",
+    "product": "Product",
+    "about": "About",
+    "contact": "Contact",
+    "privacy-policy": "Privacy Policy",
+    "terms-and-conditions": "Terms & Conditions",
+    "careers": "Careers",
+    "affiliate-program": "Affiliate Program",
+    "our-story": "Our Story",
+    "my-account": "My Account"
   },
   "shipping-and-deliveries": "Shipping & Deliveries",
-  "our-story": "Our Story",
-  "my-account": "My Account",
-  "careers": "Careers",
-  "affiliate-program": "Affiliate Program",
-  "product": "Product",
-  "about": "About",
-  "contact": "Contact",
-  "follow-us-on": "Follow Us On",
-  "privacy-policy": "Privacy Policy",
-  "terms-and-conditions": "Terms & Conditions",
-  "edit": "Edit",
 
+
+  "follow-us-on": "Follow Us On",
+  "edit": "Edit",
   "recommended": "Recommended",
   "log-in": "Log In",
   "log-out": "Log Out",
@@ -390,7 +390,7 @@
     "block-5-item-1-title": "Tell us about your dog",
     "block-5-item-1-content": "Take our quick quiz to help us understand your furry friend. Based on their preferences and needs, we'll formulate a personalised meal plan just for them.",
     "block-5-item-2-title": "Get your starter box",
-    "block-5-item-2-content": "We’ll send you two weeks’ worth of freshly crafted meals. It’s the ideal intro for your dog’s discerning palate!",
+    "block-5-item-2-content": "We’ll send you two weeks’ worth of WhyFresh-ChallengesWithHomeCookingForYourDog crafted meals. It’s the ideal intro for your dog’s discerning palate!",
     "block-5-item-3-title": "Real, good food, regularly delivered",
     "block-5-item-3-content": "If our meals win your hearts, sit back and relax. Your dog's food will arrive at your door like clockwork. If you need to make changes, simply adjust your subscription at any time.",
     "block-5-content": "<b>Not ready for a subscription? </b><block><b>No problem!</b></block> <block><b>Try our </b><link>individual packs first</link>.</block>",
@@ -398,7 +398,7 @@
     "block-6-content": "Choose OCELLE and watch your dog thrive – from better gut health (cleaner poops!) and luxurious fur, to optimised energy for life. But you don't have to take our word for it:",
     "'s plan": "'s plan",
     "muffin-content": "An active 9-year-old Poodle with allergies who’s on a weight loss journey. She needs flavourful food without excess calories that are easy to digest. Her Fresh Duck plan ensures:",
-    "pixie-content": "A very active 6-year-old Pug with severe allergies, who needs nutrient-rich food to fuel his active lifestyle, while being easy on his stomach. His Fresh Pork plan ensures:",
+    "pixie-content": "A mellow 10-year-old Bichon Friese, who’s a picky eater and needs nutrients that support her physical health with the flavours she loves. Her Fresh Beef plan ensures:",
     "toast-content": "A very active 6-year-old Pug with severe allergies, who needs nutrient-rich food to fuel his active lifestyle, while being easy on his stomach. His Fresh Pork plan ensures:",
     "weight-loss-support": "Weight loss support",
     "improved-digestive-health": "Improved digestive health (perfect poops!)",
@@ -846,5 +846,10 @@
   "hong-kong-island": "Hong Kong Island",
   "kowloon": "Kowloon",
   "new-territories": "New Territories",
-  "hong-kong": "Hong Kong"
+  "hong-kong": "Hong Kong",
+  "Newsletter": {
+    "content-1": "Exclusive insights, special offers, and helpful nutrition information from",
+    "content-2": "Join Now! <i>Woof!</i>",
+    "content-3": "Dog Pack."
+  }
 }

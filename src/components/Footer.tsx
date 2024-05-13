@@ -38,7 +38,7 @@ export default function Footer({ hideNav }: FooterProps) {
         {!hideNav && (
           <div className="flex flex-wrap items-start justify-between gap-8 max-sm:-mx-2 max-sm:gap-0">
             <div className="py-5 max-sm:w-3/5 max-sm:px-2 [&_a:hover]:underline">
-              <FooterHead>{t('product')}</FooterHead>
+              <FooterHead>{n('product')}</FooterHead>
               <ul className="list-none">
                 <FooterLink href="/how-it-works/subscription">
                   {n('how-it-works-subscription')}
@@ -55,19 +55,19 @@ export default function Footer({ hideNav }: FooterProps) {
               </ul>
             </div>
             <div className="py-5 max-sm:w-2/5 max-sm:px-2 [&_a:hover]:underline">
-              <FooterHead>{t('about')}</FooterHead>
+              <FooterHead>{n('about')}</FooterHead>
               <ul className="list-none">
                 <FooterLink href="/why-fresh/benefits-of-fresh-dog-food">
                   {n('why-fresh')}
                 </FooterLink>
-                <FooterLink href="/about-us">{t('our-story')}</FooterLink>
-                <FooterLink href="/account/plan">{t('my-account')}</FooterLink>
-                <FooterLink href="/careers">{t('careers')}</FooterLink>
-                <FooterLink href="/affiliate-program">{t('affiliate-program')}</FooterLink>
+                <FooterLink href="/about-us">{n('our-story')}</FooterLink>
+                <FooterLink href="/account/plan">{n('my-account')}</FooterLink>
+                <FooterLink href="/careers">{n('careers')}</FooterLink>
+                <FooterLink href="/affiliate-program">{n('affiliate-program')}</FooterLink>
               </ul>
             </div>
             <div className="py-5 max-sm:w-3/5 max-sm:px-2 [&_a:hover]:underline">
-              <FooterHead>{t('contact')}</FooterHead>
+              <FooterHead>{n('contact')}</FooterHead>
               <Link href="mailto:info@ocelle.dog" className="mt-5 inline-flex items-center">
                 <Email className="w-5 min-w-5" />
                 <span className="pl-2">info@ocelle.dog</span>
@@ -115,10 +115,10 @@ export default function Footer({ hideNav }: FooterProps) {
           <div>&copy; {new Date().getFullYear()} Ocelle Company Limited</div>
           <div className="[&_a:hover]:underline">
             <div className="mr-5 inline-block whitespace-nowrap">
-              <Link href="#">{t('privacy-policy')}</Link>
+              <Link href="#">{n('privacy-policy')}</Link>
             </div>
             <div className="inline-block whitespace-nowrap">
-              <Link href="#">{t('terms-and-conditions')}</Link>
+              <Link href="#">{n('terms-and-conditions')}</Link>
             </div>
           </div>
         </div>
