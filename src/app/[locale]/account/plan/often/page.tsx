@@ -30,7 +30,6 @@ export default async function PlanOften() {
           dog.plan.mealPlan,
           OrderSize.OneWeek,
           false,
-          //TODO fake false
           false
         )
       );
@@ -51,7 +50,6 @@ export default async function PlanOften() {
           dog.plan.mealPlan,
           OrderSize.TwoWeek,
           false,
-          //TODO fake false
           false
         )
       );

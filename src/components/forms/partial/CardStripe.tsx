@@ -188,6 +188,7 @@ export default function PartialCardStripeForm({ form }: { form: UseCardStripeFor
             <StripeTextFieldNumber
               label={t('card-number')}
               error={!!formState.cardNo?.error}
+              labelErrorMessage={formState.cardNo?.error?.message}
               InputProps={{
                 inputProps: {
                   options: {
@@ -206,6 +207,7 @@ export default function PartialCardStripeForm({ form }: { form: UseCardStripeFor
             <StripeTextFieldExpiry
               label={t('expiration-date')}
               error={!!formState.cardExp?.error}
+              labelErrorMessage={formState.cardExp?.error?.message}
               InputProps={{
                 inputProps: {
                   options: {
@@ -224,6 +226,7 @@ export default function PartialCardStripeForm({ form }: { form: UseCardStripeFor
             <StripeTextFieldCVC
               label={t('cvc')}
               error={!!formState.cardCvc?.error}
+              labelErrorMessage={formState.cardCvc?.error?.message}
               InputProps={{
                 inputProps: {
                   options: {

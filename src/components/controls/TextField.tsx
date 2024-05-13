@@ -19,6 +19,7 @@ interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> 
   label?: string;
   className?: string;
   placeholder?: string;
+  helperText?: React.ReactNode;
   inputProps?: InputBaseComponentProps;
   InputProps?: Partial<FilledInputProps> | Partial<OutlinedInputProps> | Partial<InputProps>;
   fullWidth?: boolean;
@@ -36,6 +37,7 @@ export default function TextField<T extends FieldValues>({
   id,
   name,
   placeholder,
+  helperText,
   className,
   rules,
   control,
@@ -65,12 +67,13 @@ export default function TextField<T extends FieldValues>({
             value={value ?? ''}
             label={label}
             fullWidth={fullWidth}
-            error={!!error}
+            error={!!error && value && (value as string).length !== 0}
             sx={sx}
             InputLabelProps={InputLabelProps}
             inputProps={inputProps}
             InputProps={InputProps}
             className={className}
+            helperText={error?.message || helperText}
           />
         )}
       />
@@ -101,6 +104,7 @@ export default function TextField<T extends FieldValues>({
           fullWidth={fullWidth}
           error={!!error}
           inputProps={inputProps}
+          helperText={helperText}
           InputProps={{
             ...InputProps,
             inputComponent: MaskInput,
