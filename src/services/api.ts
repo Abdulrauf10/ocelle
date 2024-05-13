@@ -216,7 +216,8 @@ export async function orderRecurringBox(
       { recipeToBeCalcuate: box.recipe1, recipeReference: box.recipe2 },
       box.mealPlan,
       user.orderSize,
-      box.isTransitionPeriod
+      box.isTransitionPeriod,
+      false
     );
     lines.push({
       variantId: recipe1Variant.id,
@@ -237,7 +238,8 @@ export async function orderRecurringBox(
         { recipeToBeCalcuate: box.recipe2, recipeReference: box.recipe1 },
         box.mealPlan,
         user.orderSize,
-        box.isTransitionPeriod
+        box.isTransitionPeriod,
+        false
       );
       lines.push({
         variantId: recipe2Variant.id,
