@@ -12,8 +12,7 @@ export default function Container({
   screen,
 }: React.PropsWithChildren<ContainerProps>) {
   return (
-    <div className={clsx('mx-auto px-4', screen ? 'max-w-full' : 'max-w-8xl', className)}>
-      {children}
-    </div>
+    // <div className={clsx('mx-auto px-4', screen ? 'max-w-full' : 'max-w-8xl', className)}>
+    <div className={clsx('mx-auto px-4', screen ? '' : 'max-w-8xl', className)}>{children}</div>
   );
 }

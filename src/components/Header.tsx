@@ -42,7 +42,7 @@ export default function Header({
 
   return (
     <header className="relative bg-white py-3">
-      <Container>
+      <Container screen>
         <div className="-mx-2 flex flex-row flex-wrap items-center justify-between">
           {startAdornment}
           {!disableMenuButton && (

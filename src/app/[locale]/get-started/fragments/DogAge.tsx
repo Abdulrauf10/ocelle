@@ -119,7 +119,7 @@ export default function DogAgeFragment() {
                           return formData.years > 0 || formData.months > 0;
                         },
                       },
-                      min: 0,
+                      min: 0 || 'years and months cannot be zero',
                       max: 35 || 'years and months cannot be zero',
                     }}
                     inputProps={{ min: 0, max: 35 }}
