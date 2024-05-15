@@ -26,6 +26,7 @@ const config: Config = {
       },
       boxShadow: {
         block: '5px 5px 20px rgba(0, 0, 0, 0.2)',
+        backdrop: '13px 13px 15px rgba(0, 0, 0, 0.4)',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

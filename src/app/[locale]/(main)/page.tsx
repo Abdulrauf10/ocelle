@@ -238,7 +238,7 @@ export default function Home() {
       </Block>
       <div className="bg-[url('./recommended-plan-bg.jpg')] bg-cover bg-center py-40 max-md:py-16">
         <Container>
-          <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-8 py-12 text-center sm:p-16 md:px-[140px]">
+          <div className="shadow-backdrop mx-auto max-w-[600px] rounded-[30px] bg-white p-8 py-12 text-center sm:p-16 md:px-[140px]">
             <strong className="heading-3 text-primary">{t('block-7-title')}</strong>
             <div className="mt-5"></div>
             <p className="body-1">{t('block-7-content')}</p>
