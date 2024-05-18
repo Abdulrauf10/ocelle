@@ -11,5 +11,6 @@
   ],
   "files.associations": {
     ".env.*": "properties"
-  }
+  },
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true
 }
