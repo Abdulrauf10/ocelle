@@ -4,10 +4,17 @@ import Joi from 'joi';
 
 import { getLoginedMe } from '@/actions';
 import { Dog, DogBreed } from '@/entities';
-import { FoodAllergies } from '@/enums';
+import {
+  ActivityLevel,
+  AmountOfTreats,
+  BodyCondition,
+  DateOfBirthMethod,
+  DogFood,
+  FoodAllergies,
+  Gender,
+  Pickiness,
+} from '@/enums';
 import { executeQuery } from '@/helpers/queryRunner';
-import { ActivityLevel, AmountOfTreats, BodyCondition, CurrentlyEating, Pickiness } from '@/types';
-import { DateOfBirthMethod, Gender } from '@/types/dog';
 
 interface UpdateDogAction {
   id: number;
@@ -21,7 +28,7 @@ interface UpdateDogAction {
   bodyCondition: BodyCondition;
   activityLevel: ActivityLevel;
   allergies: FoodAllergies;
-  eating: CurrentlyEating;
+  eating: DogFood;
   amountOfTreats: AmountOfTreats;
   pickiness: Pickiness;
 }

@@ -4,7 +4,19 @@ import { QueryRunner } from 'typeorm';
 import Seeder from './Seeder';
 
 import { Dog, DogPlan, Order, RecurringBox, Shipment, User } from '@/entities';
-import { FoodAllergies, MealPlan, OrderSize, Recipe } from '@/enums';
+import {
+  ActivityLevel,
+  AmountOfTreats,
+  BodyCondition,
+  DateOfBirthMethod,
+  DogFood,
+  FoodAllergies,
+  Gender,
+  MealPlan,
+  OrderSize,
+  Pickiness,
+  Recipe,
+} from '@/enums';
 import { getClosestOrderDeliveryDate, getEditableRecurringBoxDeadline } from '@/helpers/dog';
 import { getCalendarEvents } from '@/services/calendar';
 
@@ -65,33 +77,33 @@ export default class DogSeeder extends Seeder {
 
     const dog1 = dogRepository.create({
       name: 'Charlie',
-      sex: 'M',
+      sex: Gender.M,
       isNeutered: true,
       dateOfBirth: new Date('2022-01-10'),
-      dateOfBirthMethod: 'Calendar',
+      dateOfBirthMethod: DateOfBirthMethod.Calendar,
       weight: 1.6,
-      bodyCondition: 'Rounded',
-      activityLevel: 'Mellow',
+      bodyCondition: BodyCondition.Rounded,
+      activityLevel: ActivityLevel.Mellow,
       foodAllergies: FoodAllergies.None,
-      currentEating: 'Fresh',
-      amountOfTreats: 'Lots',
-      pickiness: 'Picky',
+      currentEating: DogFood.Fresh,
+      amountOfTreats: AmountOfTreats.Lots,
+      pickiness: Pickiness.Picky,
       user: user,
     });
 
     const dog2 = dogRepository.create({
       name: 'Muffin',
-      sex: 'M',
+      sex: Gender.M,
       isNeutered: false,
       dateOfBirth: new Date('2023-08-21'),
-      dateOfBirthMethod: 'Manually',
+      dateOfBirthMethod: DateOfBirthMethod.Manually,
       weight: 1.1,
-      bodyCondition: 'JustRight',
-      activityLevel: 'Active',
+      bodyCondition: BodyCondition.JustRight,
+      activityLevel: ActivityLevel.Active,
       foodAllergies: FoodAllergies.Lamb,
-      currentEating: 'Homemade',
-      amountOfTreats: 'None',
-      pickiness: 'GoodEater',
+      currentEating: DogFood.Homemade,
+      amountOfTreats: AmountOfTreats.None,
+      pickiness: Pickiness.GoodEater,
       user: user,
     });
 

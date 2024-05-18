@@ -1,8 +1,8 @@
 enum WorkType {
-  FullTime,
-  PartTime,
-  ContractOrTemp,
-  CasualOrVacation,
+  FullTime = 'FT',
+  PartTime = 'PT',
+  ContractOrTemp = 'C/T',
+  CasualOrVacation = 'C/V',
 }
 
 export default WorkType;

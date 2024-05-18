@@ -10,13 +10,13 @@ export default class Career {
   @Column()
   name!: string;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'enum', enum: WorkType })
   workType!: WorkType;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'enum', enum: Classification })
   classification!: Classification;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'enum', enum: WorkPattern })
   workPattern!: WorkPattern;
 
   @Column()

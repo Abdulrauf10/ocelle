@@ -16,14 +16,7 @@ import {
   Shipment,
   User,
 } from '@/entities';
-import { Initial1712556909513 } from '@/migrations/1712556909513-initial';
-import { StripeIntegration1713263142208 } from '@/migrations/1713263142208-stripe-integration';
-import { AddLockBoxDate1713677342953 } from '@/migrations/1713677342953-add-lock-box-date';
-import { RemoveLockDateDefaultValue1713677413178 } from '@/migrations/1713677413178-remove-lock-date-default-value';
-import { AddShipmentUserId1714285714324 } from '@/migrations/1714285714324-add-shipment-user-id';
-import { DropLastDeliveryDate1714285758775 } from '@/migrations/1714285758775-drop-last-delivery-date';
-import { AddOrderUserId1714286728753 } from '@/migrations/1714286728753-add-order-user-id';
-import { AddRecurringPrevBox1714493646022 } from '@/migrations/1714493646022-add-recurring-prev-box';
+import { Initial1716070059675 } from '@/migrations/1716070059675-initial';
 
 dotenv.config();
 
@@ -51,16 +44,7 @@ const MySQL = new DataSource({
     Shipment,
     User,
   ],
-  migrations: [
-    Initial1712556909513,
-    StripeIntegration1713263142208,
-    AddLockBoxDate1713677342953,
-    RemoveLockDateDefaultValue1713677413178,
-    AddShipmentUserId1714285714324,
-    DropLastDeliveryDate1714285758775,
-    AddOrderUserId1714286728753,
-    AddRecurringPrevBox1714493646022,
-  ],
+  migrations: [Initial1716070059675],
 });
 
 export default MySQL;

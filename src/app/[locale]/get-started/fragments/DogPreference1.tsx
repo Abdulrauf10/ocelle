@@ -15,7 +15,7 @@ import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import PictureRadio from '@/components/controls/PictureRadio';
 import TextField from '@/components/controls/TextField';
-import { ActivityLevel, BodyCondition } from '@/types';
+import { ActivityLevel, BodyCondition } from '@/enums';
 
 interface DogPreference1Form {
   weight: number;
@@ -111,7 +111,7 @@ export default function DogPreference1Fragment() {
                     selectedDescription: (
                       <i className="body-3 text-primary">{t('adjust-their-calories')}</i>
                     ),
-                    value: 'TooSkinny',
+                    value: BodyCondition.TooSkinny,
                     children: (
                       <Image
                         src="/question/body-skinny.svg"
@@ -129,7 +129,7 @@ export default function DogPreference1Fragment() {
                         spine, but they are not clearly visible.
                       </p>
                     ),
-                    value: 'JustRight',
+                    value: BodyCondition.JustRight,
                     children: (
                       <Image
                         src="/question/body-just-right.svg"
@@ -149,7 +149,7 @@ export default function DogPreference1Fragment() {
                     selectedDescription: (
                       <i className="body-3 text-primary">{t('adjust-their-calories')}</i>
                     ),
-                    value: 'Rounded',
+                    value: BodyCondition.Rounded,
                     children: (
                       <Image
                         src="/question/body-rounded.svg"
@@ -170,7 +170,7 @@ export default function DogPreference1Fragment() {
                     selectedDescription: (
                       <i className="body-3 text-primary">{t('adjust-their-calories')}</i>
                     ),
-                    value: 'Chunky',
+                    value: BodyCondition.Chunky,
                     children: (
                       <Image
                         src="/question/body-chunky.svg"
@@ -201,7 +201,7 @@ export default function DogPreference1Fragment() {
                         {t('less-than-30-minutes-of-daily-outdoor-activity')}
                       </p>
                     ),
-                    value: 'Mellow',
+                    value: ActivityLevel.Mellow,
                     children: (
                       <Image src="/question/mellow.svg" alt="Mellow dog" width={100} height={95} />
                     ),
@@ -213,7 +213,7 @@ export default function DogPreference1Fragment() {
                         {t('around-1-2-hours-of-daily-outdoor-activity')}
                       </p>
                     ),
-                    value: 'Active',
+                    value: ActivityLevel.Active,
                     children: (
                       <Image src="/question/active.svg" alt="Active dog" width={80} height={95} />
                     ),
@@ -225,7 +225,7 @@ export default function DogPreference1Fragment() {
                         {t('more-than-2-hours-of-daily-outdoor-activity')}
                       </p>
                     ),
-                    value: 'VeryActive',
+                    value: ActivityLevel.VeryActive,
                     children: (
                       <Image
                         src="/question/very-active.svg"

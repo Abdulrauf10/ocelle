@@ -11,7 +11,7 @@ import { pageVariants } from '../transition';
 
 import { getClosestDeliveryDate } from '@/actions';
 import Container from '@/components/Container';
-import { OrderSize } from '@/enums';
+import { DateOfBirthMethod, OrderSize } from '@/enums';
 import { CheckoutFragment } from '@/gql/graphql';
 import { getDateOfBirth } from '@/helpers/dog';
 import { CalendarEvent } from '@/types';
@@ -84,7 +84,8 @@ export default function ProcessingFragment() {
             isNeutered: dog.isNeutered!,
             breeds: dog.isUnknownBreed ? undefined : dog.breeds?.map((breed) => breed.id),
             weight: dog.weight!,
-            dateOfBirthMethod: typeof dog.age === 'string' ? 'Calendar' : 'Manually',
+            dateOfBirthMethod:
+              typeof dog.age === 'string' ? DateOfBirthMethod.Calendar : DateOfBirthMethod.Manually,
             dateOfBirth:
               typeof dog.age === 'string' ? dog.age! : getDateOfBirth(dog.age!).toISOString(),
             bodyCondition: dog.bodyCondition!,

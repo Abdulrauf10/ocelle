@@ -2,13 +2,15 @@ import {
   ActivityLevel,
   AmountOfTreats,
   BodyCondition,
-  CurrentlyEating,
+  DateOfBirthMethod,
+  DogFood,
+  FoodAllergies,
   Gender,
+  MealPlan,
   Pickiness,
-} from '.';
-import { DateOfBirthMethod } from './dog';
-
-import { FoodAllergies, MealPlan, Recipe } from '@/enums';
+  Recipe,
+  Size,
+} from '@/enums';
 import { CheckoutLineFragment, MoneyFragment } from '@/gql/graphql';
 
 interface DogDto {
@@ -22,7 +24,7 @@ interface DogDto {
   bodyCondition: BodyCondition;
   activityLevel: ActivityLevel;
   foodAllergies: FoodAllergies;
-  currentlyEating: CurrentlyEating;
+  currentlyEating: DogFood;
   amountOfTreats: AmountOfTreats;
   pickiness: Pickiness;
   mealPlan: MealPlan;
@@ -56,7 +58,7 @@ interface CartReturn {
 interface BreedDto {
   id: number;
   name: string;
-  size: 'Small' | 'Medium' | 'Large';
+  size: Size;
   uid: string;
 }
 

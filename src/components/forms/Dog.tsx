@@ -15,11 +15,18 @@ import DateCalendar from '../controls/DateCalendar';
 import InteractiveBlock from '../controls/InteractiveBlock';
 import PictureRadio from '../controls/PictureRadio';
 
-import { FoodAllergies } from '@/enums';
+import {
+  ActivityLevel,
+  AmountOfTreats,
+  BodyCondition,
+  DateOfBirthMethod,
+  DogFood,
+  FoodAllergies,
+  Gender,
+  Pickiness,
+} from '@/enums';
 import { arrayToAllergies, foodAllergiesToArray, getFoodAllergiesOptions } from '@/helpers/form';
 import useDefaultValues from '@/hooks/defaultValues';
-import { ActivityLevel, AmountOfTreats, BodyCondition, CurrentlyEating, Pickiness } from '@/types';
-import { DateOfBirthMethod, Gender } from '@/types/dog';
 import { BreedDto } from '@/types/dto';
 
 interface EditDogBlockProps {
@@ -64,7 +71,7 @@ interface IDogForm {
   bodyCondition: BodyCondition;
   activityLevel: ActivityLevel;
   allergies: Array<boolean | undefined>;
-  eating: CurrentlyEating;
+  eating: DogFood;
   amountOfTreats: AmountOfTreats;
   pickiness: Pickiness;
 }
@@ -80,7 +87,7 @@ interface IDogFormReturn {
   bodyCondition: BodyCondition;
   activityLevel: ActivityLevel;
   allergies: FoodAllergies;
-  eating: CurrentlyEating;
+  eating: DogFood;
   amountOfTreats: AmountOfTreats;
   pickiness: Pickiness;
 }
@@ -111,7 +118,7 @@ export default function DogForm({
   bodyCondition: BodyCondition;
   activityLevel: ActivityLevel;
   allergies: FoodAllergies;
-  eating: CurrentlyEating;
+  eating: DogFood;
   amountOfTreats: AmountOfTreats;
   pickiness: Pickiness;
   action(data: IDogFormReturn): Promise<void>;
@@ -130,7 +137,7 @@ export default function DogForm({
     bodyCondition: BodyCondition;
     activityLevel: ActivityLevel;
     allergies: Array<boolean | undefined>;
-    eating: CurrentlyEating;
+    eating: DogFood;
     amountOfTreats: AmountOfTreats;
     pickiness: Pickiness;
   }>({
@@ -184,7 +191,8 @@ export default function DogForm({
           breeds: values.breeds.map((breed) => breed.id),
           gender: values.gender,
           isNeutered: values.isNeutered === 'Y',
-          dateOfBirthMethod: tab === 'Birthday' ? 'Calendar' : 'Manually',
+          dateOfBirthMethod:
+            tab === 'Birthday' ? DateOfBirthMethod.Calendar : DateOfBirthMethod.Manually,
           dateOfBirth:
             tab === 'Birthday'
               ? values.dateOfBirth!
@@ -280,7 +288,7 @@ export default function DogForm({
           <div className="px-3">
             <InteractiveBlock
               type="radio"
-              value="M"
+              value={Gender.M}
               error={!!errors.gender}
               control={control}
               name="gender"
@@ -291,7 +299,7 @@ export default function DogForm({
           <div className="px-3">
             <InteractiveBlock
               type="radio"
-              value="F"
+              value={Gender.F}
               error={!!errors.gender}
               control={control}
               name="gender"
@@ -310,7 +318,7 @@ export default function DogForm({
               error={!!errors.isNeutered}
               control={control}
               name="isNeutered"
-              label={watch('gender', 'M') == 'M' ? t('neutered') : t('spayed')}
+              label={watch('gender', Gender.M) == Gender.M ? t('neutered') : t('spayed')}
               rules={{ required: true }}
             />
           </div>
@@ -321,7 +329,7 @@ export default function DogForm({
               error={!!errors.isNeutered}
               control={control}
               name="isNeutered"
-              label={watch('gender', 'M') == 'M' ? t('not-neutered') : t('not-spayed')}
+              label={watch('gender', Gender.M) == Gender.M ? t('not-neutered') : t('not-spayed')}
               rules={{ required: true }}
             />
           </div>
@@ -449,7 +457,7 @@ export default function DogForm({
                     <i>{t('adjust-their-calories')}</i>
                   </p>
                 ),
-                value: 'TooSkinny',
+                value: BodyCondition.TooSkinny,
                 children: (
                   <Image src="/question/body-skinny.svg" alt="dog skinny" width={120} height={99} />
                 ),
@@ -462,7 +470,7 @@ export default function DogForm({
                     spine, but they are not clearly visible.
                   </p>
                 ),
-                value: 'JustRight',
+                value: BodyCondition.JustRight,
                 children: (
                   <Image
                     src="/question/body-just-right.svg"
@@ -485,7 +493,7 @@ export default function DogForm({
                     </i>
                   </p>
                 ),
-                value: 'Rounded',
+                value: BodyCondition.Rounded,
                 children: (
                   <Image
                     src="/question/body-rounded.svg"
@@ -509,7 +517,7 @@ export default function DogForm({
                     </i>
                   </p>
                 ),
-                value: 'Chunky',
+                value: BodyCondition.Chunky,
                 children: (
                   <Image src="/question/body-chunky.svg" alt="dog chunky" width={120} height={99} />
                 ),
@@ -534,7 +542,7 @@ export default function DogForm({
                     {t('less-than-30-minutes-of-daily-outdoor-activity')}
                   </p>
                 ),
-                value: 'Mellow',
+                value: ActivityLevel.Mellow,
                 children: (
                   <Image src="/question/mellow.svg" alt="Mellow dog" width={100} height={95} />
                 ),
@@ -546,7 +554,7 @@ export default function DogForm({
                     {t('around-1-2-hours-of-daily-outdoor-activity')}
                   </p>
                 ),
-                value: 'Active',
+                value: ActivityLevel.Active,
                 children: (
                   <Image src="/question/active.svg" alt="Active dog" width={80} height={95} />
                 ),
@@ -558,7 +566,7 @@ export default function DogForm({
                     {t('more-than-2-hours-of-daily-outdoor-activity')}
                   </p>
                 ),
-                value: 'VeryActive',
+                value: ActivityLevel.VeryActive,
                 children: (
                   <Image
                     src="/question/very-active.svg"
@@ -653,7 +661,7 @@ export default function DogForm({
           <div className="mt-4 px-3">
             <InteractiveBlock
               type="radio"
-              value="None"
+              value={AmountOfTreats.None}
               control={control}
               name="amountOfTreats"
               label={t('none')}
@@ -664,7 +672,7 @@ export default function DogForm({
           <div className="mt-4 px-3">
             <InteractiveBlock
               type="radio"
-              value="Some"
+              value={AmountOfTreats.Some}
               control={control}
               name="amountOfTreats"
               label={t('some')}
@@ -675,7 +683,7 @@ export default function DogForm({
           <div className="mt-4 px-3">
             <InteractiveBlock
               type="radio"
-              value="Lots"
+              value={AmountOfTreats.Lots}
               control={control}
               name="amountOfTreats"
               label={t('lots')}
@@ -696,7 +704,7 @@ export default function DogForm({
             radios={[
               {
                 label: t('can-be-picky'),
-                value: 'Picky',
+                value: Pickiness.Picky,
                 children: (
                   <div className="flex items-end">
                     <Image src="/question/picky.svg" alt="Picky dog" width={130} height={50} />
@@ -705,7 +713,7 @@ export default function DogForm({
               },
               {
                 label: t('is-a-good-eater'),
-                value: 'GoodEater',
+                value: Pickiness.GoodEater,
                 children: (
                   <div className="flex items-end">
                     <Image src="/question/good-eater.svg" alt="Eater dog" width={80} height={73} />
@@ -714,7 +722,7 @@ export default function DogForm({
               },
               {
                 label: t('will-eat-anything'),
-                value: 'EatAnything',
+                value: Pickiness.EatAnything,
                 children: (
                   <Image
                     src="/question/eat-anything.svg"

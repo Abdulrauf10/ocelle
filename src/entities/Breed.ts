@@ -1,5 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn, type Relation } from 'typeorm';
 import { DogBreed } from '.';
+import { Size } from '@/enums';
 
 @Entity({ name: 'breed' })
 export default class Breed {
@@ -9,8 +10,8 @@ export default class Breed {
   @Column()
   name!: string;
 
-  @Column()
-  size!: 'Small' | 'Medium' | 'Large';
+  @Column({ type: 'enum', enum: Size })
+  size!: Size;
 
   @Column({ unique: true })
   uid!: string;

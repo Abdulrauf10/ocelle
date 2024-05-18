@@ -20,7 +20,18 @@ import UnderlineButton from '@/components/buttons/UnderlineButton';
 import PasswordField from '@/components/controls/PasswordField';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
-import { FoodAllergies, MealPlan, OrderSize, Recipe } from '@/enums';
+import {
+  ActivityLevel,
+  AmountOfTreats,
+  BodyCondition,
+  DogFood,
+  FoodAllergies,
+  Gender,
+  MealPlan,
+  OrderSize,
+  Pickiness,
+  Recipe,
+} from '@/enums';
 import { CheckoutFragment } from '@/gql/graphql';
 import {
   calculateTotalPerDayPrice,
@@ -31,15 +42,7 @@ import {
 } from '@/helpers/dog';
 import { nativeRound } from '@/helpers/number';
 import useSentence from '@/hooks/useSentence';
-import {
-  ActivityLevel,
-  AmountOfTreats,
-  BodyCondition,
-  CalendarEvent,
-  CurrentlyEating,
-  Gender,
-  Pickiness,
-} from '@/types';
+import { CalendarEvent } from '@/types';
 import { BreedDto } from '@/types/dto';
 
 function Section({
@@ -118,7 +121,7 @@ type DogData = {
   bodyCondition?: BodyCondition;
   activityLevel?: ActivityLevel;
   foodAllergies?: FoodAllergies;
-  currentlyEating?: CurrentlyEating;
+  currentlyEating?: DogFood;
   amountOfTreats?: AmountOfTreats;
   pickiness?: Pickiness;
   mealPlan?: MealPlan;

@@ -87,7 +87,7 @@ export async function getCheckoutOrderSize(checkoutId: string) {
   if (value === null) {
     return value;
   }
-  return parseInt(value) as OrderSize;
+  return OrderSize[value as keyof typeof OrderSize];
 }
 
 export async function setCheckoutOrderSize(checkoutId: string, orderSize?: OrderSize) {

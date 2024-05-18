@@ -15,13 +15,14 @@ import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import CircleCheckbox from '@/components/controls/CircleCheckbox';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
+import { Gender } from '@/enums';
 import { booleanToString, stringToBoolean } from '@/helpers/string';
 import { BreedDto } from '@/types/dto';
 
 interface DogBasicForm {
   breeds: BreedDto[];
   isUnknownBreed: boolean;
-  gender: 'M' | 'F';
+  gender: Gender;
   isNeutered: 'Y' | 'N';
 }
 
@@ -132,7 +133,7 @@ export default function DogBasicFragment() {
               <div className="px-3">
                 <InteractiveBlock
                   type="radio"
-                  value="M"
+                  value={Gender.M}
                   error={!!errors.gender}
                   control={control}
                   name="gender"
@@ -143,7 +144,7 @@ export default function DogBasicFragment() {
               <div className="px-3">
                 <InteractiveBlock
                   type="radio"
-                  value="F"
+                  value={Gender.F}
                   error={!!errors.gender}
                   control={control}
                   name="gender"
@@ -163,7 +164,9 @@ export default function DogBasicFragment() {
                   error={!!errors.isNeutered}
                   control={control}
                   name="isNeutered"
-                  label={watch('gender', gender ?? 'M') == 'M' ? t('neutered') : t('spayed')}
+                  label={
+                    watch('gender', gender ?? Gender.M) == Gender.M ? t('neutered') : t('spayed')
+                  }
                   rules={{ required: true }}
                 />
               </div>
@@ -175,7 +178,9 @@ export default function DogBasicFragment() {
                   control={control}
                   name="isNeutered"
                   label={
-                    watch('gender', gender ?? 'M') == 'M' ? t('not-neutered') : t('not-spayed')
+                    watch('gender', gender ?? Gender.M) == Gender.M
+                      ? t('not-neutered')
+                      : t('not-spayed')
                   }
                   rules={{ required: true }}
                 />

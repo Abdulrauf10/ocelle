@@ -1,9 +1,9 @@
 enum Classification {
-  Operations,
-  Marketing,
-  FinanceAndAccounting,
-  Technology,
-  Sales,
+  Operations = 'O',
+  Marketing = 'M',
+  FinanceAndAccounting = 'F&A',
+  Technology = 'T',
+  Sales = 'S',
 }
 
 export default Classification;

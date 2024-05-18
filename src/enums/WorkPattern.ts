@@ -1,7 +1,7 @@
 enum WorkPattern {
-  OnSite,
-  Hybrid,
-  Remote,
+  OnSite = 'On-Site',
+  Hybrid = 'Hybrid',
+  Remote = 'Remote',
 }
 
 export default WorkPattern;

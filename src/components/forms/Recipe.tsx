@@ -10,11 +10,10 @@ import { toast } from 'react-toastify';
 import Button from '../buttons/Button';
 import RecipeCheckbox from '../controls/RecipeCheckbox';
 
-import { FoodAllergies, Recipe } from '@/enums';
+import { ActivityLevel, BodyCondition, FoodAllergies, Pickiness, Recipe } from '@/enums';
 import { isAllergies, isRecommendedRecipe } from '@/helpers/dog';
 import { arrayToRecipe, recipeToArray } from '@/helpers/form';
 import useDefaultValues from '@/hooks/defaultValues';
-import { ActivityLevel, BodyCondition, Pickiness } from '@/types';
 
 interface RecipeForm {
   recipe: boolean[];

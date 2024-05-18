@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, TreeChildren, TreeParent, type Relation } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, type Relation } from 'typeorm';
 import { Dog, Order, Shipment } from '.';
 import { MealPlan, OrderSize, Recipe } from '@/enums';
 
@@ -7,16 +7,16 @@ export default class RecurringBox {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'enum', enum: MealPlan })
   mealPlan!: MealPlan;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'enum', enum: OrderSize })
   orderSize!: OrderSize;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'enum', enum: Recipe })
   recipe1!: Recipe;
 
-  @Column({ type: 'int', nullable: true })
+  @Column({ type: 'enum', enum: Recipe, nullable: true })
   recipe2?: Recipe;
 
   @Column()

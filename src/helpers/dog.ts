@@ -9,16 +9,18 @@ import {
   subYears,
 } from 'date-fns';
 
-import { FoodAllergies, MealPlan, OrderSize, Recipe } from '@/enums';
-import { saleorSubscriptionProductUnitPrice, subscriptionProducts } from '@/products';
 import {
   ActivityLevel,
   BodyCondition,
-  BreedSize,
-  CalendarEvent,
-  LifeStage,
+  FoodAllergies,
+  MealPlan,
+  OrderSize,
   Pickiness,
-} from '@/types';
+  Recipe,
+  Size,
+} from '@/enums';
+import { saleorSubscriptionProductUnitPrice, subscriptionProducts } from '@/products';
+import { CalendarEvent, LifeStage } from '@/types';
 import { BreedDto } from '@/types/dto';
 
 /**
@@ -40,7 +42,7 @@ export function getSubscriptionProductActuallyQuanlityInSaleor(recipeTotalPriceI
 export function getTheCheapestRecipe() {
   let cheapest: Recipe = Recipe.Beef;
   for (const _recipe of Object.keys(recipePriorities)) {
-    const recipe = Number(_recipe) as Recipe;
+    const recipe = Recipe[_recipe as keyof typeof Recipe];
     if (recipePriorities[recipe] < recipePriorities[cheapest]) {
       cheapest = recipe;
     }
@@ -215,11 +217,11 @@ export function isDeliveredBox(deliveryDate: Date) {
   return startOfDay(deliveryDate) < startOfDay(new Date());
 }
 
-function isExactSize(breeds: BreedDto[], sizes: Array<BreedSize>) {
+function isExactSize(breeds: BreedDto[], sizes: Array<Size>) {
   return breeds.filter((x) => sizes.indexOf(x.size) > -1).length === breeds.length;
 }
 
-function isContainsSize(breeds: BreedDto[], sizes: Array<BreedSize>) {
+function isContainsSize(breeds: BreedDto[], sizes: Array<Size>) {
   return breeds.filter((x) => sizes.indexOf(x.size) > -1).length > -1;
 }
 
@@ -231,31 +233,31 @@ export function getLifeStage(breeds: BreedDto[], dateOfBirth: Date): LifeStage {
   const ageY = differenceInYears(dateOfBirth, new Date());
 
   // Puppy
-  if (isExactSize(breeds, ['Small'])) {
+  if (isExactSize(breeds, [Size.Small])) {
     if (ageM < 12) return 'Puppy';
     else if (ageM >= 12 && ageY < 9) return 'Adult';
     else return 'Senior';
   }
 
-  if (isExactSize(breeds, ['Medium']) || breeds.length === 0) {
+  if (isExactSize(breeds, [Size.Medium]) || breeds.length === 0) {
     if (ageM < 12) return 'Puppy';
     else if (ageM >= 12 && ageY < 7) return 'Adult';
     else return 'Senior';
   }
 
-  if (isExactSize(breeds, ['Large'])) {
+  if (isExactSize(breeds, [Size.Large])) {
     if (ageM < 16) return 'Puppy';
     else if (ageM >= 16 && ageY < 5) return 'Adult';
     else return 'Senior';
   }
 
-  if (isContainsSize(breeds, ['Small']) && isContainsSize(breeds, ['Medium', 'Large'])) {
+  if (isContainsSize(breeds, [Size.Small]) && isContainsSize(breeds, [Size.Medium, Size.Large])) {
     if (ageM < 12) return 'Puppy';
     else if (ageM >= 12 && ageY < 7) return 'Adult';
     else return 'Senior';
   }
 
-  if (isContainsSize(breeds, ['Medium']) && isContainsSize(breeds, ['Large'])) {
+  if (isContainsSize(breeds, [Size.Medium]) && isContainsSize(breeds, [Size.Large])) {
     if (ageM < 12) return 'Puppy';
     else if (ageM >= 12 && ageY < 5) return 'Adult';
     else return 'Senior';
@@ -278,8 +280,8 @@ export function isYoungPuppy(birth: Date) {
  * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
 export function getWeightModifier(condition: BodyCondition) {
-  if (condition === 'TooSkinny') return 1.15;
-  else if (condition === 'JustRight') return 1;
+  if (condition === BodyCondition.TooSkinny) return 1.15;
+  else if (condition === BodyCondition.JustRight) return 1;
   else return 0.85;
 }
 
@@ -303,9 +305,9 @@ export function getDerMultiplier(
   if (stage === 'Puppy') {
     return 2;
   }
-  if (activityLevel === 'Mellow') {
+  if (activityLevel === ActivityLevel.Mellow) {
     return neutered ? 1.1 : 1.2;
-  } else if (activityLevel === 'Active') {
+  } else if (activityLevel === ActivityLevel.Active) {
     return neutered ? 1.4 : 1.5;
   } else {
     return neutered ? 1.6 : 1.8;
@@ -430,20 +432,24 @@ export function isRecommendedRecipe(
   switch (recipe) {
     case Recipe.Chicken: {
       if (
-        (pickiness === 'Picky' || pickiness === 'GoodEater') &&
-        level !== 'Mellow' &&
-        (condition === 'TooSkinny' || condition === 'JustRight')
+        (pickiness === Pickiness.Picky || pickiness === Pickiness.GoodEater) &&
+        level !== ActivityLevel.Mellow &&
+        (condition === BodyCondition.TooSkinny || condition === BodyCondition.JustRight)
       ) {
         return true;
       }
-      if (pickiness === 'GoodEater' && level === 'Mellow' && condition === 'TooSkinny') {
+      if (
+        pickiness === Pickiness.GoodEater &&
+        level === ActivityLevel.Mellow &&
+        condition === BodyCondition.TooSkinny
+      ) {
         return true;
       }
       if (
-        pickiness === 'EatAnything' &&
-        level !== 'Mellow' &&
-        condition !== 'Rounded' &&
-        condition !== 'Chunky'
+        pickiness === Pickiness.EatAnything &&
+        level !== ActivityLevel.Mellow &&
+        condition !== BodyCondition.Rounded &&
+        condition !== BodyCondition.Chunky
       ) {
         return true;
       }
@@ -451,63 +457,85 @@ export function isRecommendedRecipe(
     }
     case Recipe.Beef: {
       if (
-        pickiness === 'Picky' &&
-        level !== 'Mellow' &&
-        (condition === 'TooSkinny' || condition === 'JustRight')
+        pickiness === Pickiness.Picky &&
+        level !== ActivityLevel.Mellow &&
+        (condition === BodyCondition.TooSkinny || condition === BodyCondition.JustRight)
       ) {
         return true;
       }
-      if (pickiness === 'GoodEater') {
+      if (pickiness === Pickiness.GoodEater) {
         return true;
       }
       if (
-        pickiness === 'EatAnything' &&
-        level !== 'Mellow' &&
-        (condition === 'TooSkinny' || condition === 'JustRight')
+        pickiness === Pickiness.EatAnything &&
+        level !== ActivityLevel.Mellow &&
+        (condition === BodyCondition.TooSkinny || condition === BodyCondition.JustRight)
       ) {
         return true;
       }
       return false;
     }
     case Recipe.Pork: {
-      if (condition === 'Rounded' || condition === 'Chunky') {
+      if (condition === BodyCondition.Rounded || condition === BodyCondition.Chunky) {
         return true;
       }
-      if ((condition === 'TooSkinny' || condition === 'JustRight') && level === 'Mellow') {
+      if (
+        (condition === BodyCondition.TooSkinny || condition === BodyCondition.JustRight) &&
+        level === ActivityLevel.Mellow
+      ) {
         return true;
       }
-      if (pickiness === 'GoodEater' && level === 'Active' && condition === 'JustRight') {
+      if (
+        pickiness === Pickiness.GoodEater &&
+        level === ActivityLevel.Active &&
+        condition === BodyCondition.JustRight
+      ) {
         return true;
       }
       return false;
     }
     case Recipe.Lamb: {
-      if (level === 'VeryActive' && (condition === 'TooSkinny' || condition === 'JustRight')) {
+      if (
+        level === ActivityLevel.VeryActive &&
+        (condition === BodyCondition.TooSkinny || condition === BodyCondition.JustRight)
+      ) {
         return true;
       }
-      if (pickiness !== 'EatAnything' && level === 'Active' && condition === 'TooSkinny') {
+      if (
+        pickiness !== Pickiness.EatAnything &&
+        level === ActivityLevel.Active &&
+        condition === BodyCondition.TooSkinny
+      ) {
         return true;
       }
-      if (pickiness === 'Picky' && level === 'Active' && condition === 'JustRight') {
+      if (
+        pickiness === Pickiness.Picky &&
+        level === ActivityLevel.Active &&
+        condition === BodyCondition.JustRight
+      ) {
         return true;
       }
       return false;
     }
     case Recipe.Duck: {
-      if (condition === 'Rounded' || condition === 'Chunky') {
+      if (condition === BodyCondition.Rounded || condition === BodyCondition.Chunky) {
         return true;
       }
       if (
-        pickiness === 'Picky' &&
-        level === 'Mellow' &&
-        (condition === 'TooSkinny' || condition === 'JustRight')
+        pickiness === Pickiness.Picky &&
+        level === ActivityLevel.Mellow &&
+        (condition === BodyCondition.TooSkinny || condition === BodyCondition.JustRight)
       ) {
         return true;
       }
-      if (pickiness === 'GoodEater' && level === 'Mellow' && condition === 'JustRight') {
+      if (
+        pickiness === Pickiness.GoodEater &&
+        level === ActivityLevel.Mellow &&
+        condition === BodyCondition.JustRight
+      ) {
         return true;
       }
-      if (pickiness === 'EatAnything' && level !== 'VeryActive') {
+      if (pickiness === Pickiness.EatAnything && level !== ActivityLevel.VeryActive) {
         return true;
       }
       return false;

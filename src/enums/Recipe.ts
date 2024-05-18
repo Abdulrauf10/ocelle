@@ -1,9 +1,9 @@
 enum Recipe {
-  Chicken,
-  Beef,
-  Pork,
-  Lamb,
-  Duck,
+  Chicken = 'Chkn',
+  Beef = 'Beef',
+  Pork = 'Pork',
+  Lamb = 'Lamb',
+  Duck = 'Duck',
 }
 
 export default Recipe;

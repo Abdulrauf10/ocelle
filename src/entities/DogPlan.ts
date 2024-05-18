@@ -14,13 +14,13 @@ export default class DogPlan {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'enum', enum: MealPlan })
   mealPlan!: MealPlan;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'enum', enum: Recipe })
   recipe1!: Recipe;
 
-  @Column({ type: 'int', nullable: true })
+  @Column({ type: 'enum', enum: Recipe, nullable: true })
   recipe2?: Recipe;
 
   @Column()

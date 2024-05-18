@@ -1,16 +1,18 @@
 import cloneDeep from 'clone-deep';
 import React from 'react';
 
-import { FoodAllergies, MealPlan, Recipe } from '@/enums';
-import { getSurveySessionStore } from '@/helpers/session';
 import {
   ActivityLevel,
   AmountOfTreats,
   BodyCondition,
-  CurrentlyEating,
+  DogFood,
+  FoodAllergies,
   Gender,
+  MealPlan,
   Pickiness,
-} from '@/types';
+  Recipe,
+} from '@/enums';
+import { getSurveySessionStore } from '@/helpers/session';
 import { BreedDto } from '@/types/dto';
 
 export interface Dog {
@@ -24,7 +26,7 @@ export interface Dog {
   bodyCondition?: BodyCondition;
   activityLevel?: ActivityLevel;
   foodAllergies?: FoodAllergies;
-  currentlyEating?: CurrentlyEating;
+  currentlyEating?: DogFood;
   amountOfTreats?: AmountOfTreats;
   pickiness?: Pickiness;
   mealPlan?: MealPlan;

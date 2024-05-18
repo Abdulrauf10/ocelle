@@ -15,12 +15,12 @@ import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import PictureRadio from '@/components/controls/PictureRadio';
+import { AmountOfTreats, DogFood, Pickiness } from '@/enums';
 import { arrayToAllergies, foodAllergiesToArray, getFoodAllergiesOptions } from '@/helpers/form';
-import { AmountOfTreats, CurrentlyEating, Pickiness } from '@/types';
 
 interface DogPreference2Form {
   allergies: Array<boolean | undefined>;
-  eating?: CurrentlyEating;
+  eating?: DogFood;
   amountOfTreats?: AmountOfTreats;
   pickiness?: Pickiness;
 }
@@ -150,7 +150,7 @@ export default function DogPreference2Fragment() {
               <div className="mt-4 px-3">
                 <InteractiveBlock
                   type="radio"
-                  value="Dry"
+                  value={DogFood.Dry}
                   control={control}
                   name="eating"
                   label={t('dry')}
@@ -161,7 +161,7 @@ export default function DogPreference2Fragment() {
               <div className="mt-4 px-3">
                 <InteractiveBlock
                   type="radio"
-                  value="Wet"
+                  value={DogFood.Wet}
                   control={control}
                   name="eating"
                   label={t('wet')}
@@ -172,7 +172,7 @@ export default function DogPreference2Fragment() {
               <div className="mt-4 px-3">
                 <InteractiveBlock
                   type="radio"
-                  value="Raw"
+                  value={DogFood.Raw}
                   control={control}
                   name="eating"
                   label={t('raw')}
@@ -183,7 +183,7 @@ export default function DogPreference2Fragment() {
               <div className="mt-4 px-3">
                 <InteractiveBlock
                   type="radio"
-                  value="Dehydrated"
+                  value={DogFood.Dehydrated}
                   control={control}
                   name="eating"
                   label={t('dehydrated')}
@@ -194,7 +194,7 @@ export default function DogPreference2Fragment() {
               <div className="mt-4 px-3">
                 <InteractiveBlock
                   type="radio"
-                  value="Fresh"
+                  value={DogFood.Fresh}
                   control={control}
                   name="eating"
                   label={t('fresh')}
@@ -205,7 +205,7 @@ export default function DogPreference2Fragment() {
               <div className="mt-4 px-3">
                 <InteractiveBlock
                   type="radio"
-                  value="Homemade"
+                  value={DogFood.Homemade}
                   control={control}
                   name="eating"
                   label={t('homemade')}
@@ -216,7 +216,7 @@ export default function DogPreference2Fragment() {
               <div className="mt-4 px-3">
                 <InteractiveBlock
                   type="radio"
-                  value="Other"
+                  value={DogFood.Other}
                   control={control}
                   name="eating"
                   label={t('other')}
@@ -238,7 +238,7 @@ export default function DogPreference2Fragment() {
               <div className="mt-4 px-3">
                 <InteractiveBlock
                   type="radio"
-                  value="None"
+                  value={AmountOfTreats.None}
                   control={control}
                   name="amountOfTreats"
                   label={t('none')}
@@ -249,7 +249,7 @@ export default function DogPreference2Fragment() {
               <div className="mt-4 px-3">
                 <InteractiveBlock
                   type="radio"
-                  value="Some"
+                  value={AmountOfTreats.Some}
                   control={control}
                   name="amountOfTreats"
                   label={t('some')}
@@ -260,7 +260,7 @@ export default function DogPreference2Fragment() {
               <div className="mt-4 px-3">
                 <InteractiveBlock
                   type="radio"
-                  value="Lots"
+                  value={AmountOfTreats.Lots}
                   control={control}
                   name="amountOfTreats"
                   label={t('lots')}
@@ -282,7 +282,7 @@ export default function DogPreference2Fragment() {
                 radios={[
                   {
                     label: t('can-be-picky'),
-                    value: 'Picky',
+                    value: Pickiness.Picky,
                     children: (
                       <div className="flex items-end">
                         <Image src="/question/picky.svg" alt="Picky dog" width={130} height={50} />
@@ -291,7 +291,7 @@ export default function DogPreference2Fragment() {
                   },
                   {
                     label: t('is-a-good-eater'),
-                    value: 'GoodEater',
+                    value: Pickiness.GoodEater,
                     children: (
                       <div className="flex items-end">
                         <Image
@@ -305,7 +305,7 @@ export default function DogPreference2Fragment() {
                   },
                   {
                     label: t('will-eat-anything'),
-                    value: 'EatAnything',
+                    value: Pickiness.EatAnything,
                     children: (
                       <Image
                         src="/question/eat-anything.svg"

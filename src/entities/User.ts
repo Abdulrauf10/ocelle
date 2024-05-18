@@ -10,7 +10,7 @@ export default class User {
   @Column()
   phone!: string; // saleor don't have phone field, fix in database model
 
-  @Column({ type: 'int' })
+  @Column({ type: 'enum', enum: OrderSize })
   orderSize!: OrderSize;
 
   @Column()

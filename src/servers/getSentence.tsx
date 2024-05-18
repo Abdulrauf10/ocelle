@@ -2,7 +2,7 @@ import { differenceInMonths, differenceInYears, subYears } from 'date-fns';
 import { getTranslations } from 'next-intl/server';
 
 import { Dog } from '@/entities';
-import { FoodAllergies } from '@/enums';
+import { ActivityLevel, FoodAllergies } from '@/enums';
 import { UserAddressFragment } from '@/gql/graphql';
 
 export default async function getSentence() {
@@ -25,13 +25,13 @@ export default async function getSentence() {
 
       // render activity level
       switch (dog.activityLevel) {
-        case 'Mellow':
+        case ActivityLevel.Mellow:
           strings.push(t('mellow').toLowerCase());
           break;
-        case 'Active':
+        case ActivityLevel.Active:
           strings.push(t('active').toLowerCase());
           break;
-        case 'VeryActive':
+        case ActivityLevel.VeryActive:
           strings.push(t('very-active').toLowerCase());
           break;
       }

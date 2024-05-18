@@ -7,7 +7,7 @@ export default class CareerLine {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'enum', enum: CareerLineType })
   lineType!: CareerLineType;
 
   @Column()

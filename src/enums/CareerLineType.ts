@@ -1,7 +1,7 @@
 enum CareerLineType {
-  Benefit,
-  Responsibility,
-  Requirement,
+  Benefit = 'BENEFIT',
+  Responsibility = 'RESP',
+  Requirement = 'REQ',
 }
 
 export default CareerLineType;

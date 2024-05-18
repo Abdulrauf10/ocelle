@@ -1,6 +1,6 @@
 enum MealPlan {
-  Half,
-  Full,
+  Half = 'Half',
+  Full = 'Full',
 }
 
 export default MealPlan;
