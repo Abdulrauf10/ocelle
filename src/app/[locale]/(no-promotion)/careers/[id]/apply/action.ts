@@ -3,7 +3,7 @@
 import Joi from 'joi';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 
-import { Career, CareerSubmission } from '@/entities';
+import { Career } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
 
 interface ApplyCareerAction {
@@ -45,8 +45,8 @@ export async function applyCareerAction(formData: FormData) {
     throw new Error('schema is not valid');
   }
 
-  await executeQuery(async (queryRunner) => {
-    const data = await queryRunner.manager.findOne(Career, {
+  const data = await executeQuery(async (queryRunner) => {
+    return await queryRunner.manager.findOne(Career, {
       where: {
         id: parseInt(value.id),
         applyDate: LessThanOrEqual(new Date()),
@@ -55,24 +55,13 @@ export async function applyCareerAction(formData: FormData) {
       },
       relations: { lines: true },
     });
-
-    if (!data) {
-      throw new Error('career not found');
-    }
-
-    const entity = queryRunner.manager.create(CareerSubmission, {
-      firstName: value.firstName,
-      lastName: value.lastName,
-      email: value.email,
-      phone: value.phone,
-      resume: Buffer.from(await value.resume.arrayBuffer()),
-      coverLetter:
-        value.coverLetter.size > 0 ? Buffer.from(await value.coverLetter.arrayBuffer()) : undefined,
-      career: data,
-    });
-
-    await queryRunner.manager.save(entity);
   });
+
+  if (!data) {
+    throw new Error('career not found');
+  }
+
+  // TODO: setup email api for sending the submission
 
   return { ok: true };
 }
