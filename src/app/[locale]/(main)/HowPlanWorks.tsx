@@ -49,7 +49,7 @@ export default function HowPlanWorks() {
           3
         </div>
         <div className="mt-3"></div>
-        <h3 className="heading-4 text-gray">{t('block-5-item-3-title')}</h3>
+        <h3 className="heading-4 text-gray">{t.rich('block-5-item-3-title')}</h3>
         <div className="mt-3"></div>
         <p className="body-1">{t('block-5-item-3-content')}</p>
       </div>

@@ -56,7 +56,6 @@
   "continue": "Continue",
   "continue-to-{}": "Continue To {name}",
   "source": "Source",
-
   "first-name": "First Name",
   "last-name": "Last Name",
   "email": "Email",
@@ -108,7 +107,6 @@
     "my-account": "My Account"
   },
   "shipping-and-deliveries": "Shipping & Deliveries",
-
   "follow-us-on": "Follow Us On",
   "edit": "Edit",
   "recommended": "Recommended",
@@ -390,7 +388,7 @@
     "block-5-item-1-content": "Take our quick quiz to help us understand your furry friend. Based on their preferences and needs, we'll formulate a personalised meal plan just for them.",
     "block-5-item-2-title": "Get your starter box",
     "block-5-item-2-content": "We’ll send you two weeks’ worth of freshly crafted meals. It’s the ideal intro for your dog’s discerning palate!",
-    "block-5-item-3-title": "Real, good food, regularly delivered",
+    "block-5-item-3-title": "Real, good food, <block>regularly delivered</block>",
     "block-5-item-3-content": "If our meals win your hearts, sit back and relax. Your dog's food will arrive at your door like clockwork. If you need to make changes, simply adjust your subscription at any time.",
     "block-5-content": "<b>Not ready for a subscription? </b><block><b>No problem!</b></block> <block><b>Try our </b><link>individual packs first</link>.</block>",
     "block-6-title": "Proof Is In The Eating",
@@ -851,5 +849,30 @@
     "content-1": "Exclusive insights, special offers, and helpful nutrition information from the OCELLE ",
     "content-2": "Join Now! <i>Woof!</i>",
     "content-3": "Dog Pack. "
+  },
+
+  "Individual-pack": {
+    "block-1-title": ""
+  },
+  "Subscription": {
+    "block-1-title": "Get Personal <block>With An Expert</block>",
+    "block-1-subtitle": "Nutrition is not a one-size-fits-all affair!",
+    "block-1-content": "Our unique, customised recipes are crafted by our Vet Nutritionist and tailored to your dog's health goals and ongoing needs.",
+    "block-2-title": "How OCELLE Works",
+    "block-3-title": "Choose A Plan That Suits<br></br>Your Dog & You",
+    "block-4-title": "All The Flavour<br></br>They Desire!",
+    "block-4-content": "Choose from five protein-rich fresh recipes, meticulously crafted with whole foods, slow-cooked to enhance both nutrition and taste. Mix-and-match according to your dog’s needs. After all, you know your dog best of all!",
+    "block-5-title": "A Lifetime Of <block>Tailored Nutrition!</block>",
+    "block-5-content": "From puppy food to senior dog food – we’re with you every step of the way. Our meals evolve with your dog, delivering maximum benefits at every bowl.",
+    "block-6-title": "When OCELLE Arrives",
+    "block-6-content-1-title": "Get ready for some serious tail-wagging!",
+    "block-6-content-1-content": "Pop your fresh food in the freezer, then defrost in the fridge 24 hours before mealtime. Dinner is served!",
+    "block-7-title": "Your Dog. Your Plan. <block>Your Schedule.</block>",
+    "block-7-content-1-title": "Fancy A Change?",
+    "block-7-content-1-content": "Easily tweak your delivery timings or choose new recipes based on what's perfect for you and your dog.",
+    "block-7-content-2-title": "More Dogs?",
+    "block-7-content-2-content": "No problem! Add them to your account for easy fresh meal management.",
+    "block-7-content-3-title": "<i>A Paws-itively</i> Simple Subscription",
+    "block-7-content-3-content": "Skip deliveries, cancel, and come back any time!"
   }
 }
