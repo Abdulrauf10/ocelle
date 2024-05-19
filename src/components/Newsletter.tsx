@@ -16,8 +16,7 @@ export default function Newsletter() {
               <div className="ml-5">
                 <span className="body-1">
                   {n('content-1')}
-                  the&nbsp;
-                  <span className="uppercase">Ocelle</span> {n('content-3')}&nbsp;
+                  {n('content-3')}
                   <strong className="inline-block text-primary">{n.rich('content-2')}</strong>
                 </span>
               </div>
