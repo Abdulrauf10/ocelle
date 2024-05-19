@@ -5,7 +5,6 @@ import Joi from 'joi';
 import { getLoginedMe } from '@/actions';
 import { Dog, DogPlan } from '@/entities';
 import { Recipe } from '@/enums';
-import { getNumericEnumValues } from '@/helpers/enum';
 import { executeQuery } from '@/helpers/queryRunner';
 
 interface SetRecipeAction {
@@ -16,8 +15,8 @@ interface SetRecipeAction {
 
 const schema = Joi.object<SetRecipeAction>({
   id: Joi.number().positive().required(),
-  recipe1: Joi.valid(...getNumericEnumValues(Recipe)).required(),
-  recipe2: Joi.valid(...getNumericEnumValues(Recipe)).optional(),
+  recipe1: Joi.valid(...Object.values(Recipe)).required(),
+  recipe2: Joi.valid(...Object.values(Recipe)).optional(),
 });
 
 export default async function setRecipeAction(data: SetRecipeAction) {
