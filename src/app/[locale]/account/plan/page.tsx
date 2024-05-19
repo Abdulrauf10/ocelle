@@ -12,7 +12,6 @@ import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
-import { DOG_SELECT_COOKIE } from '@/consts';
 import { RecurringBox } from '@/entities';
 import { Frequency, MealPlan } from '@/enums';
 import { getEditableRecurringBoxDeadline, getRecipeSlug } from '@/helpers/dog';
@@ -33,7 +32,7 @@ export default async function Plan() {
   const calendarEvents = await getCalendarEvents();
   const { dogs, firstName } = await getLoginedMe();
   const dog = currentSelectedDogId
-    ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
+    ? dogs.find((dog) => dog.id === currentSelectedDogId) || dogs[0]
     : dogs[0];
   const { upcomingBox } = await executeQuery(async (queryRunner) => {
     return {
@@ -71,11 +70,7 @@ export default async function Plan() {
             </div>
             <div className="px-4 py-3">
               <DogSwitch
-                selectedDogId={
-                  cookie.has(DOG_SELECT_COOKIE)
-                    ? parseInt(cookie.get(DOG_SELECT_COOKIE)!.value)
-                    : dogs[0].id
-                }
+                selectedDogId={currentSelectedDogId ?? dogs[0].id}
                 dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}
               />
             </div>

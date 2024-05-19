@@ -10,7 +10,6 @@ import Container from '@/components/Container';
 import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import RecipeForm from '@/components/forms/Recipe';
 import RecurringBoxNote from '@/components/notes/RecurringBox';
-import { DOG_SELECT_COOKIE } from '@/consts';
 
 export default async function PlanRecipe() {
   const cookie = cookies();
@@ -18,7 +17,7 @@ export default async function PlanRecipe() {
   const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
   const { dogs } = await getLoginedMe();
   const dog = currentSelectedDogId
-    ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
+    ? dogs.find((dog) => dog.id === currentSelectedDogId) || dogs[0]
     : dogs[0];
 
   return (
@@ -27,11 +26,7 @@ export default async function PlanRecipe() {
         <Container>
           <div className="mx-auto flex max-w-[1120px] justify-end">
             <DogSwitch
-              selectedDogId={
-                cookie.has(DOG_SELECT_COOKIE)
-                  ? parseInt(cookie.get(DOG_SELECT_COOKIE)!.value)
-                  : dogs[0].id
-              }
+              selectedDogId={currentSelectedDogId ?? dogs[0].id}
               dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}
             />
           </div>

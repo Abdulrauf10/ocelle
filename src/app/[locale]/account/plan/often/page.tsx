@@ -10,7 +10,6 @@ import Container from '@/components/Container';
 import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import OrderSizeForm from '@/components/forms/Frequency';
 import ShippableNote from '@/components/notes/Shippable';
-import { DOG_SELECT_COOKIE } from '@/consts';
 import { Frequency } from '@/enums';
 import { calculateTotalPerDayPrice } from '@/helpers/dog';
 
@@ -20,7 +19,7 @@ export default async function PlanOften() {
   const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
   const { dogs } = await getLoginedMe();
   const dog = currentSelectedDogId
-    ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
+    ? dogs.find((dog) => dog.id === currentSelectedDogId) || dogs[0]
     : dogs[0];
 
   const oneWeekPrice =
@@ -68,11 +67,7 @@ export default async function PlanOften() {
       <Container>
         <div className="mx-auto flex max-w-[1120px] justify-end">
           <DogSwitch
-            selectedDogId={
-              cookie.has(DOG_SELECT_COOKIE)
-                ? parseInt(cookie.get(DOG_SELECT_COOKIE)!.value)
-                : dogs[0].id
-            }
+            selectedDogId={currentSelectedDogId ?? dogs[0].id}
             dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}
           />
         </div>
