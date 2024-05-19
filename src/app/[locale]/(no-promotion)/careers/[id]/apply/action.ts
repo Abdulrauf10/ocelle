@@ -1,10 +1,28 @@
 'use server';
 
+import ejs from 'ejs';
+import { convert } from 'html-to-text';
 import Joi from 'joi';
+import nodemailer from 'nodemailer';
+import type Mail from 'nodemailer/lib/mailer';
+import invariant from 'ts-invariant';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 
 import { Career } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
+
+invariant(process.env.SMTP_USER, 'Missing SMTP_USER env variable');
+invariant(process.env.SMTP_PASS, 'Missing SMTP_PASS env variable');
+
+const transporter = nodemailer.createTransport({
+  host: 'smtp.ethereal.email',
+  port: 587,
+  secure: false, // Use `true` for port 465, `false` for all other ports
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+});
 
 interface ApplyCareerAction {
   id: string;
@@ -31,6 +49,9 @@ const schema = Joi.object<ApplyCareerAction>({
 });
 
 export async function applyCareerAction(formData: FormData) {
+  invariant(process.env.SMTP_FROM, 'Missing SMTP_FROM env variable');
+  invariant(process.env.CAREER_MAILTO, 'Missing CAREER_MAILTO env variable');
+
   const { value, error } = schema.validate({
     id: formData.get('id'),
     firstName: formData.get('firstName'),
@@ -61,7 +82,39 @@ export async function applyCareerAction(formData: FormData) {
     throw new Error('career not found');
   }
 
-  // TODO: setup email api for sending the submission
+  const attachments: Mail.Attachment[] = [
+    {
+      filename: 'Resume',
+      content: Buffer.from(await value.resume.arrayBuffer()),
+    },
+  ];
 
-  return { ok: true };
+  if (value.coverLetter.size > 0) {
+    attachments.push({
+      filename: 'Cover Letter',
+      content: Buffer.from(await value.coverLetter.arrayBuffer()),
+    });
+  }
+
+  const html = await ejs.renderFile(process.cwd() + '/templates/submission.ejs', {
+    firstName: value.firstName,
+    lastName: value.lastName,
+    email: value.email,
+    phone: value.phone,
+    career: {
+      name: data.name,
+    },
+  });
+
+  // TODO: setup email api for sending the submission
+  const info = await transporter.sendMail({
+    from: process.env.SMTP_FROM,
+    to: process.env.CAREER_MAILTO,
+    subject: `Career Submission - ${data.name}`,
+    text: convert(html),
+    html,
+    attachments,
+  });
+
+  return { ok: true, id: info.messageId };
 }
