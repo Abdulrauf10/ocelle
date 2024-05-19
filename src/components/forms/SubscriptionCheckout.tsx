@@ -121,7 +121,7 @@ type DogData = {
   bodyCondition?: BodyCondition;
   activityLevel?: ActivityLevel;
   foodAllergies?: FoodAllergies;
-  currentlyEating?: DogFood;
+  currentlyEating?: DogFood[];
   amountOfTreats?: AmountOfTreats;
   pickiness?: Pickiness;
   mealPlan?: MealPlan;

@@ -16,13 +16,20 @@ import Button from '@/components/buttons/Button';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import PictureRadio from '@/components/controls/PictureRadio';
 import { AmountOfTreats, DogFood, Pickiness } from '@/enums';
-import { arrayToAllergies, foodAllergiesToArray, getFoodAllergiesOptions } from '@/helpers/form';
+import {
+  arrayToAllergies,
+  arrayToFoods,
+  foodAllergiesToArray,
+  foodsToArray,
+  getFoodAllergiesOptions,
+  getFoodOptions,
+} from '@/helpers/form';
 
 interface DogPreference2Form {
   allergies: Array<boolean | undefined>;
-  eating?: DogFood;
-  amountOfTreats?: AmountOfTreats;
-  pickiness?: Pickiness;
+  eating: Array<boolean | undefined>;
+  amountOfTreats: AmountOfTreats;
+  pickiness: Pickiness;
 }
 
 export default function DogPreference2Fragment() {
@@ -40,20 +47,23 @@ export default function DogPreference2Fragment() {
   } = useForm<DogPreference2Form>({
     defaultValues: {
       allergies: foodAllergiesToArray(foodAllergies),
-      eating: currentlyEating,
+      eating: foodsToArray(currentlyEating),
       amountOfTreats,
       pickiness,
     },
   });
-  const options = React.useMemo(() => {
+  const foodAllergiesOptions = React.useMemo(() => {
     return getFoodAllergiesOptions().map((option) => ({ label: t(option) }));
+  }, [t]);
+  const currentEatingOptions = React.useMemo(() => {
+    return getFoodOptions().map((option) => ({ label: t(option) }));
   }, [t]);
 
   const onSubmit = React.useCallback(
     ({ allergies, eating, amountOfTreats, pickiness }: DogPreference2Form) => {
       setDog({
         foodAllergies: arrayToAllergies(allergies),
-        currentlyEating: eating,
+        currentlyEating: arrayToFoods(eating),
         amountOfTreats,
         pickiness,
       });
@@ -71,7 +81,7 @@ export default function DogPreference2Fragment() {
               <div className="mt-4 px-3">
                 <InteractiveBlock
                   type="checkbox"
-                  label={options[0].label}
+                  label={foodAllergiesOptions[0].label}
                   control={control}
                   name="allergies.0"
                   error={Array.isArray(errors.allergies) && !!errors.allergies[0]}
@@ -86,7 +96,7 @@ export default function DogPreference2Fragment() {
                   onChange={() => trigger('allergies')}
                 />
               </div>
-              {options.map((option, idx) => {
+              {foodAllergiesOptions.map((option, idx) => {
                 if (idx === 0) {
                   return;
                 }
@@ -94,7 +104,7 @@ export default function DogPreference2Fragment() {
                   <div className="mt-4 px-3" key={idx}>
                     <InteractiveBlock
                       type="checkbox"
-                      label={options[idx].label}
+                      label={option.label}
                       control={control}
                       name={`allergies.${idx}`}
                       error={Array.isArray(errors.allergies) && !!errors.allergies[idx]}
@@ -122,7 +132,7 @@ export default function DogPreference2Fragment() {
                       {
                         name,
                         value: getValues('allergies')
-                          .map((v: unknown, i: number) => (v ? options[i].label : v))
+                          .map((v: unknown, i: number) => (v ? foodAllergiesOptions[i].label : v))
                           .filter((v: unknown, i: number) => !!v && i !== 0)
                           .join(', '),
                       }
@@ -147,83 +157,26 @@ export default function DogPreference2Fragment() {
           <SectionBreak />
           <Section title={t.rich('what-is-{}-currently-eating', { name })}>
             <div className="mx-auto -mt-4 flex max-w-[460px] flex-wrap justify-between max-sm:max-w-[360px] max-sm:justify-center">
-              <div className="mt-4 px-3">
-                <InteractiveBlock
-                  type="radio"
-                  value={DogFood.Dry}
-                  control={control}
-                  name="eating"
-                  label={t('dry')}
-                  error={!!errors.eating}
-                  rules={{ required: true }}
-                />
-              </div>
-              <div className="mt-4 px-3">
-                <InteractiveBlock
-                  type="radio"
-                  value={DogFood.Wet}
-                  control={control}
-                  name="eating"
-                  label={t('wet')}
-                  error={!!errors.eating}
-                  rules={{ required: true }}
-                />
-              </div>
-              <div className="mt-4 px-3">
-                <InteractiveBlock
-                  type="radio"
-                  value={DogFood.Raw}
-                  control={control}
-                  name="eating"
-                  label={t('raw')}
-                  error={!!errors.eating}
-                  rules={{ required: true }}
-                />
-              </div>
-              <div className="mt-4 px-3">
-                <InteractiveBlock
-                  type="radio"
-                  value={DogFood.Dehydrated}
-                  control={control}
-                  name="eating"
-                  label={t('dehydrated')}
-                  error={!!errors.eating}
-                  rules={{ required: true }}
-                />
-              </div>
-              <div className="mt-4 px-3">
-                <InteractiveBlock
-                  type="radio"
-                  value={DogFood.Fresh}
-                  control={control}
-                  name="eating"
-                  label={t('fresh')}
-                  error={!!errors.eating}
-                  rules={{ required: true }}
-                />
-              </div>
-              <div className="mt-4 px-3">
-                <InteractiveBlock
-                  type="radio"
-                  value={DogFood.Homemade}
-                  control={control}
-                  name="eating"
-                  label={t('homemade')}
-                  error={!!errors.eating}
-                  rules={{ required: true }}
-                />
-              </div>
-              <div className="mt-4 px-3">
-                <InteractiveBlock
-                  type="radio"
-                  value={DogFood.Other}
-                  control={control}
-                  name="eating"
-                  label={t('other')}
-                  error={!!errors.eating}
-                  rules={{ required: true }}
-                />
-              </div>
+              {currentEatingOptions.map((option, idx) => {
+                return (
+                  <div key={idx} className="mt-4 px-3">
+                    <InteractiveBlock
+                      type="checkbox"
+                      label={option.label}
+                      control={control}
+                      name={`eating.${idx}`}
+                      error={Array.isArray(errors.eating) && !!errors.eating[idx]}
+                      rules={{
+                        validate: {
+                          required: (value, formValues) =>
+                            formValues.allergies.some((value) => !!value),
+                        },
+                      }}
+                      onChange={() => trigger('eating')}
+                    />
+                  </div>
+                );
+              })}
               <div className="min-w-[152px] px-3"></div>
             </div>
           </Section>

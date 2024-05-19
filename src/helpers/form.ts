@@ -1,10 +1,10 @@
-import { FoodAllergies, Recipe } from '@/enums';
+import { DogFood, FoodAllergies, Recipe } from '@/enums';
 
 /**
  * get translation keys as index
  */
-function getFoodAllergiesOptions(): ['none', 'chicken', 'beef', 'pork', 'lamb', 'duck'] {
-  return ['none', 'chicken', 'beef', 'pork', 'lamb', 'duck'];
+function getFoodAllergiesOptions() {
+  return ['none', 'chicken', 'beef', 'pork', 'lamb', 'duck'] as const;
 }
 
 function foodAllergiesToArray(value?: FoodAllergies) {
@@ -45,7 +45,7 @@ function arrayToAllergies(array: Array<boolean | undefined>) {
 }
 
 function getRecipeOptions() {
-  return [Recipe.Chicken, Recipe.Pork, Recipe.Duck, Recipe.Beef, Recipe.Lamb];
+  return [Recipe.Chicken, Recipe.Pork, Recipe.Duck, Recipe.Beef, Recipe.Lamb] as const;
 }
 
 function arrayToRecipe(array: boolean[]): { recipe1?: Recipe; recipe2?: Recipe } {
@@ -85,6 +85,37 @@ function recipeToArray(r1?: Recipe, r2?: Recipe) {
   return array;
 }
 
+function getFoodOptions() {
+  return ['dry', 'wet', 'raw', 'dehydrated', 'fresh', 'homemade', 'other'] as const;
+}
+
+function foodsToArray(foods?: DogFood[]) {
+  if (!foods) {
+    return [];
+  }
+  return [
+    foods.indexOf(DogFood.Dry) > -1,
+    foods.indexOf(DogFood.Wet) > -1,
+    foods.indexOf(DogFood.Raw) > -1,
+    foods.indexOf(DogFood.Dehydrated) > -1,
+    foods.indexOf(DogFood.Fresh) > -1,
+    foods.indexOf(DogFood.Homemade) > -1,
+    foods.indexOf(DogFood.Other) > -1,
+  ];
+}
+
+function arrayToFoods(array: Array<boolean | undefined>) {
+  const foods = [];
+  if (array[0] === true) foods.push(DogFood.Dry);
+  if (array[1] === true) foods.push(DogFood.Wet);
+  if (array[2] === true) foods.push(DogFood.Raw);
+  if (array[3] === true) foods.push(DogFood.Dehydrated);
+  if (array[4] === true) foods.push(DogFood.Fresh);
+  if (array[5] === true) foods.push(DogFood.Homemade);
+  if (array[6] === true) foods.push(DogFood.Other);
+  return foods;
+}
+
 export {
   getFoodAllergiesOptions,
   foodAllergiesToArray,
@@ -92,4 +123,7 @@ export {
   getRecipeOptions,
   arrayToRecipe,
   recipeToArray,
+  getFoodOptions,
+  foodsToArray,
+  arrayToFoods,
 };

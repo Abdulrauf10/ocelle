@@ -42,8 +42,8 @@ export default class Dog {
   @Column({ type: 'int' })
   foodAllergies!: FoodAllergies;
 
-  @Column({ type: 'enum', enum: DogFood })
-  currentEating!: DogFood;
+  @Column({ type: 'set', enum: DogFood })
+  currentEating!: DogFood[];
 
   @Column({ type: 'enum', enum: AmountOfTreats })
   amountOfTreats!: AmountOfTreats;

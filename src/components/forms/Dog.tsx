@@ -25,7 +25,13 @@ import {
   Gender,
   Pickiness,
 } from '@/enums';
-import { arrayToAllergies, foodAllergiesToArray, getFoodAllergiesOptions } from '@/helpers/form';
+import {
+  arrayToAllergies,
+  arrayToFoods,
+  foodAllergiesToArray,
+  foodsToArray,
+  getFoodAllergiesOptions,
+} from '@/helpers/form';
 import useDefaultValues from '@/hooks/defaultValues';
 import { BreedDto } from '@/types/dto';
 
@@ -71,7 +77,7 @@ interface IDogForm {
   bodyCondition: BodyCondition;
   activityLevel: ActivityLevel;
   allergies: Array<boolean | undefined>;
-  eating: DogFood;
+  eating: Array<boolean | undefined>;
   amountOfTreats: AmountOfTreats;
   pickiness: Pickiness;
 }
@@ -87,7 +93,7 @@ interface IDogFormReturn {
   bodyCondition: BodyCondition;
   activityLevel: ActivityLevel;
   allergies: FoodAllergies;
-  eating: DogFood;
+  eating: DogFood[];
   amountOfTreats: AmountOfTreats;
   pickiness: Pickiness;
 }
@@ -118,7 +124,7 @@ export default function DogForm({
   bodyCondition: BodyCondition;
   activityLevel: ActivityLevel;
   allergies: FoodAllergies;
-  eating: DogFood;
+  eating: DogFood[];
   amountOfTreats: AmountOfTreats;
   pickiness: Pickiness;
   action(data: IDogFormReturn): Promise<void>;
@@ -137,7 +143,7 @@ export default function DogForm({
     bodyCondition: BodyCondition;
     activityLevel: ActivityLevel;
     allergies: Array<boolean | undefined>;
-    eating: DogFood;
+    eating: Array<boolean | undefined>;
     amountOfTreats: AmountOfTreats;
     pickiness: Pickiness;
   }>({
@@ -152,7 +158,7 @@ export default function DogForm({
     bodyCondition,
     activityLevel,
     allergies: foodAllergiesToArray(allergies),
-    eating,
+    eating: foodsToArray(eating),
     amountOfTreats,
     pickiness,
   });
@@ -201,7 +207,7 @@ export default function DogForm({
           bodyCondition: values.bodyCondition,
           activityLevel: values.activityLevel,
           allergies: arrayToAllergies(values.allergies),
-          eating: values.eating,
+          eating: arrayToFoods(values.eating),
           amountOfTreats: values.amountOfTreats,
           pickiness: values.pickiness,
         });
@@ -223,7 +229,7 @@ export default function DogForm({
     watch('bodyCondition') === defaultValues.bodyCondition &&
     watch('activityLevel') === defaultValues.activityLevel &&
     equal(watch('allergies'), defaultValues.allergies) &&
-    watch('eating') === defaultValues.eating &&
+    equal(watch('eating'), defaultValues.eating) &&
     watch('amountOfTreats') === defaultValues.amountOfTreats &&
     watch('pickiness') === defaultValues.pickiness;
 

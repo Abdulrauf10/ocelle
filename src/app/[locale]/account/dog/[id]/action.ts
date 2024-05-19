@@ -28,7 +28,7 @@ interface UpdateDogAction {
   bodyCondition: BodyCondition;
   activityLevel: ActivityLevel;
   allergies: FoodAllergies;
-  eating: DogFood;
+  eating: DogFood[];
   amountOfTreats: AmountOfTreats;
   pickiness: Pickiness;
 }
@@ -37,17 +37,19 @@ const schema = Joi.object<UpdateDogAction>({
   id: Joi.number().positive().required(),
   name: Joi.string().required(),
   breeds: Joi.array().items(Joi.number().positive().required()).required(),
-  gender: Joi.valid('M', 'F').required(),
+  gender: Joi.valid(...Object.values(Gender)).required(),
   isNeutered: Joi.boolean().required(),
-  dateOfBirthMethod: Joi.valid('Manually', 'Calendar').required(),
+  dateOfBirthMethod: Joi.valid(...Object.values(DateOfBirthMethod)).required(),
   dateOfBirth: Joi.date().required(),
   weight: Joi.number().positive().required(),
-  bodyCondition: Joi.valid('TooSkinny', 'JustRight', 'Rounded', 'Chunky').required(),
-  activityLevel: Joi.valid('Mellow', 'Active', 'VeryActive').required(),
+  bodyCondition: Joi.valid(...Object.values(BodyCondition)).required(),
+  activityLevel: Joi.valid(...Object.values(ActivityLevel)).required(),
   allergies: Joi.number().positive().required(),
-  eating: Joi.valid('Dry', 'Wet', 'Raw', 'Dehydrated', 'Fresh', 'Homemade', 'Other').required(),
-  amountOfTreats: Joi.valid('None', 'Some', 'Lots').required(),
-  pickiness: Joi.valid('Picky', 'GoodEater', 'EatAnything').required(),
+  eating: Joi.array()
+    .items(Joi.valid(...Object.values(DogFood)).required())
+    .required(),
+  amountOfTreats: Joi.valid(...Object.values(AmountOfTreats)).required(),
+  pickiness: Joi.valid(...Object.values(Pickiness)).required(),
 });
 
 export default async function updateDogAction(data: UpdateDogAction) {
