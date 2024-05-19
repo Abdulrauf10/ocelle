@@ -12,22 +12,18 @@ import ImageContentBlock from '@/components/layouts/ImageContentBlock';
 export default function HowItWorksSubscription() {
   const t = useTranslations();
   const b = useTranslations('Button');
+  const s = useTranslations('Subscription');
   return (
     <main>
       <div className="bg-[#EFE9DD] bg-[url('./subscription-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_50px)_center] bg-no-repeat max-lg:bg-[#E8E4DB] max-lg:bg-[url('./subscription-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-top max-lg:pt-[68%]">
         <Container>
           <div className="-mx-4 flex flex-wrap items-center max-lg:flex-col-reverse max-lg:items-center">
             <div className="w-2/5 px-4 py-[5vw] text-xl text-primary max-lg:w-full max-lg:pb-12">
-              <h1 className="heading-headline font-bold">Get Personal With An Expert</h1>
+              <h1 className="heading-headline font-bold">{s.rich('block-1-title')}</h1>
               <div className="mt-5"></div>
-              <p className="body-1 font-bold italic">
-                Nutrition is not a one-size-fits-all affair!
-              </p>
+              <p className="body-1 font-bold italic">{s('block-1-subtitle')}</p>
               <div className="mt-4"></div>
-              <p className="body-1">
-                Our unique, customised recipes are crafted by our Vet Nutritionist and tailored to
-                your dog&apos;s health goals and ongoing needs.
-              </p>
+              <p className="body-1">{s('block-1-content')}</p>
               <div className="mt-8 max-lg:flex max-lg:justify-center">
                 <Button href="/get-started">{b('get-started')}</Button>
               </div>
@@ -37,7 +33,7 @@ export default function HowItWorksSubscription() {
       </div>
       <Block className="bg-[#EEEEEE]">
         <Container>
-          <h2 className="heading-1 text-center font-bold text-gray">How OCELLE Works</h2>
+          <h2 className="heading-1 text-center font-bold text-gray">{s('block-2-title')}</h2>
           <div className="mt-6">
             <HowPlanWorks />
           </div>
@@ -49,8 +45,7 @@ export default function HowItWorksSubscription() {
       <Block className="bg-gold bg-opacity-10">
         <Container>
           <h2 className="heading-1 text-center font-bold text-dark-green">
-            Choose A Plan That Suits <br className="max-sm:hidden" />
-            Your Dog And You
+            {s.rich('block-3-title')}
           </h2>
           <div className="mt-3 flex flex-wrap justify-center">
             <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full max-sm:px-0">
@@ -64,12 +59,9 @@ export default function HowItWorksSubscription() {
                   <Image alt="Full Plan Meal" src="/meal-plan/full-plan.jpg" fill />
                 </div>
                 <div className="mt-6"></div>
-                <h3 className="heading-4 font-bold text-dark-green">FRESH FULL PLAN</h3>
+                <h3 className="heading-4 font-bold text-dark-green">{t('fresh-full-plan')}</h3>
                 <div className="mt-2"></div>
-                <p className="body-1">
-                  Everything needed in one simple serving. Reap the full benefits of fresh,
-                  nutritious meals for your dog, meticulously crafted and portioned by experts.
-                </p>
+                <p className="body-1">{t('fresh-full-plan:description')}</p>
               </div>
             </div>
             <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full max-sm:px-0">
@@ -78,17 +70,14 @@ export default function HowItWorksSubscription() {
                   <Image alt="Full Plan Meal" src="/meal-plan/half-plan.jpg" fill />
                 </div>
                 <div className="mt-6"></div>
-                <h3 className="heading-4 font-bold text-dark-green">FRESH HALF PLAN</h3>
+                <h3 className="heading-4 font-bold text-dark-green">{t('fresh-half-plan')}</h3>
                 <div className="mt-2"></div>
-                <p className="body-1">
-                  Everything needed to supplement your dog’s current diet! Reinvigorate your
-                  dog&apos;s current meals with a fresh, nutrient-packed addition.
-                </p>
+                <p className="body-1">{t('fresh-half-plan:description')}</p>
               </div>
             </div>
           </div>
           <div className="mt-5 text-center">
-            <Button href="/get-started">{b('see-my-plan')}</Button>
+            <Button href="/get-started">{b('get-started')}</Button>
           </div>
         </Container>
       </Block>
@@ -103,15 +92,10 @@ export default function HowItWorksSubscription() {
       >
         <div className="max-sm:px-7">
           <h2 className="heading-1 font-bold text-gold max-lg:text-center">
-            All The Flavour <br />
-            They Desire!
+            {s.rich('block-4-title')}
           </h2>
           <div className="mt-5"></div>
-          <p className="body-1">
-            Choose from five protein-rich fresh recipes, meticulously crafted with whole foods,
-            slow-cooked to enhance both nutrition and taste. Mix-and-match according to your dog’s
-            needs. After all, you know your dog best of all!
-          </p>
+          <p className="body-1">{s('block-4-content')}</p>
           <div className="mt-5 max-lg:flex max-lg:justify-center">
             <Button href="/get-started">{b('see-my-recipes')}</Button>
           </div>
@@ -120,15 +104,10 @@ export default function HowItWorksSubscription() {
       <ImageContentBlock image="/dogs/three-dogs.jpeg" alt="three of dogs" breakpoint="sm">
         <div className="max-sm:px-7">
           <h2 className="heading-1 font-bold text-primary max-lg:text-center">
-            A Lifetime Of &nbsp;
-            <br className="max-[360px]:hidden min-[632px]:hidden" />
-            Tailored Nutrition!
+            {s.rich('block-5-title')}
           </h2>
           <div className="mt-5"></div>
-          <p className="body-1 max-lg:text-center">
-            From puppy food to senior dog food – we’re with you every step of the way. Our meals
-            evolve with your dog, delivering maximum benefits at every bowl.
-          </p>
+          <p className="body-1 max-lg:text-center">{s.rich('block-5-content')}</p>
           <div className="mt-5 max-lg:flex max-lg:justify-center">
             <Button href="/get-started">{b('build-my-plan')}</Button>
           </div>
@@ -144,7 +123,7 @@ export default function HowItWorksSubscription() {
         }}
         startAdornment={
           <div className="mb-10">
-            <h2 className="heading-1 text-center font-bold text-primary">When OCELLE Arrives</h2>
+            <h2 className="heading-1 text-center font-bold text-primary">{s('block-6-title')}</h2>
           </div>
         }
       >
@@ -159,12 +138,9 @@ export default function HowItWorksSubscription() {
             />
           </div>
           <div className="mt-5"></div>
-          <p className="body-1">Get ready for some serious tail-wagging!</p>
+          <p className="body-1">{s('block-6-content-1-title')}</p>
           <div className="mt-5"></div>
-          <p className="body-1">
-            Pop your fresh food in the freezer, then defrost in the fridge 24 hours before mealtime.
-            Dinner is served!
-          </p>
+          <p className="body-1">{s('block-6-content-1-content')}</p>
           <div className="mt-5 max-lg:flex max-lg:justify-center">
             <Button href="/get-started">{b('get-started')}</Button>
           </div>
@@ -172,42 +148,33 @@ export default function HowItWorksSubscription() {
       </ImageContentBlock>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <h2 className="heading-1 text-center font-bold text-gold">
-            Your Dog. Your Plan. Your Schedule.
-          </h2>
+          <h2 className="heading-1 text-center font-bold text-gold">{s.rich('block-7-title')}</h2>
           <div className="mx-auto mt-10 max-w-[820px] rounded-[30px] bg-white p-12 max-sm:p-8">
-            <div className="flex items-center max-sm:block">
-              <h3 className="body-1 w-[190px] min-w-[190px] text-center font-bold text-primary max-sm:w-full">
-                Fancy A Change?
+            <div className="flex max-sm:block max-sm:items-center">
+              <h3 className="body-1 w-[190px] min-w-[190px] text-left font-bold text-primary max-sm:w-full max-sm:text-center">
+                {s('block-7-content-1-title')}
               </h3>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
               <div className="max-lg:mt-1">
-                <p className="body-1 max-lg:text-center">
-                  Easily tweak your delivery timings or choose new recipes based on what&apos;s
-                  perfect for you and your dog.
-                </p>
+                <p className="body-1 max-lg:text-center">{s('block-7-content-1-content')}</p>
               </div>
             </div>
             <div className="mt-6 flex items-center max-sm:block">
-              <h3 className="body-1 w-[190px] min-w-[190px] text-center font-bold text-primary max-sm:w-full">
-                More Dogs?
+              <h3 className="body-1 w-[190px] min-w-[190px] text-left font-bold text-primary max-sm:w-full max-sm:text-center">
+                {s('block-7-content-2-title')}
               </h3>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
               <div className="max-lg:mt-1">
-                <p className="body-1 max-lg:text-center">
-                  No problem! Add them to your account for easy fresh meal management.
-                </p>
+                <p className="body-1 max-lg:text-center">{s('block-7-content-2-content')}</p>
               </div>
             </div>
             <div className="mt-6 flex items-center max-sm:block">
-              <h3 className="body-1 w-[190px] min-w-[190px] text-center font-bold text-primary max-sm:w-full">
-                A <i>Paws-itively</i> Simple Subscription
+              <h3 className="body-1 w-[190px] min-w-[190px] text-left font-bold text-primary max-sm:w-full max-sm:text-center">
+                {s.rich('block-7-content-3-title')}
               </h3>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
               <div className="max-lg:mt-1">
-                <p className="body-1 max-lg:text-center">
-                  Skip deliveries, cancel, and come back any time!
-                </p>
+                <p className="body-1 max-lg:text-center">{s('block-7-content-3-content')}</p>
               </div>
             </div>
             <div className="text-center">

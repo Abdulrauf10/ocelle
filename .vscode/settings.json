@@ -12,5 +12,6 @@
   "files.associations": {
     ".env.*": "properties"
   },
-  "typescript.tsserver.experimental.enableProjectDiagnostics": true
+  "typescript.tsserver.experimental.enableProjectDiagnostics": true,
+  "typescript.tsdk": "node_modules\\typescript\\lib"
 }
