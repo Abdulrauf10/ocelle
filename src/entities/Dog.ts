@@ -18,7 +18,7 @@ export default class Dog {
   @Column()
   name!: string;
 
-  @Column()
+  @Column({ type: 'enum', enum: Gender })
   sex!: Gender;
 
   @Column()
