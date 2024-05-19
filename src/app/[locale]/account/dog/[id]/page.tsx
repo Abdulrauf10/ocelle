@@ -35,7 +35,7 @@ export default async function EditDog({ params }: { params: { id: string } }) {
                 uid: breed.uid,
               };
             })}
-            gender={dog.sex}
+            sex={dog.sex}
             isNeutered={dog.isNeutered}
             dateOfBirthMethod={dog.dateOfBirthMethod}
             dateOfBirth={dog.dateOfBirth}

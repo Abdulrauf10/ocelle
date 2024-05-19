@@ -94,7 +94,7 @@ export async function setupRecurringBox(
     const dbDogs = dogs.map((dog) =>
       queryRunner.manager.create(Dog, {
         name: dog.name,
-        sex: dog.gender,
+        sex: dog.sex,
         isNeutered: dog.isNeutered,
         dateOfBirthMethod: dog.dateOfBirthMethod,
         dateOfBirth: dog.dateOfBirth,

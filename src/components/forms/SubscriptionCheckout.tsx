@@ -26,11 +26,11 @@ import {
   BodyCondition,
   DogFood,
   FoodAllergies,
-  Gender,
   MealPlan,
   OrderSize,
   Pickiness,
   Recipe,
+  Sex,
 } from '@/enums';
 import { CheckoutFragment } from '@/gql/graphql';
 import {
@@ -114,7 +114,7 @@ type DogData = {
   name?: string;
   isUnknownBreed?: boolean;
   breeds?: BreedDto[];
-  gender?: Gender;
+  sex?: Sex;
   isNeutered?: boolean;
   age?: { years: number; months: number } | string;
   weight?: number;

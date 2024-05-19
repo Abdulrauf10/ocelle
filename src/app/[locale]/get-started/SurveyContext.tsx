@@ -7,10 +7,10 @@ import {
   BodyCondition,
   DogFood,
   FoodAllergies,
-  Gender,
   MealPlan,
   Pickiness,
   Recipe,
+  Sex,
 } from '@/enums';
 import { getSurveySessionStore } from '@/helpers/session';
 import { BreedDto } from '@/types/dto';
@@ -19,7 +19,7 @@ export interface Dog {
   name?: string;
   isUnknownBreed?: boolean;
   breeds?: BreedDto[];
-  gender?: Gender;
+  sex?: Sex;
   isNeutered?: boolean;
   age?: { years: number; months: number } | string;
   weight?: number;

@@ -19,7 +19,7 @@ import { CalendarEvent } from '@/types';
 function isIncompletedDogProfile(dog: Dog) {
   return (
     dog.name === undefined ||
-    dog.gender === undefined ||
+    dog.sex === undefined ||
     dog.isNeutered === undefined ||
     dog.bodyCondition === undefined ||
     dog.activityLevel === undefined ||
@@ -80,7 +80,7 @@ export default function ProcessingFragment() {
           }
           return {
             name: dog.name!,
-            gender: dog.gender!,
+            sex: dog.sex!,
             isNeutered: dog.isNeutered!,
             breeds: dog.isUnknownBreed ? undefined : dog.breeds?.map((breed) => breed.id),
             weight: dog.weight!,

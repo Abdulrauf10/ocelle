@@ -5,10 +5,10 @@ import {
   DateOfBirthMethod,
   DogFood,
   FoodAllergies,
-  Gender,
   MealPlan,
   Pickiness,
   Recipe,
+  Sex,
   Size,
 } from '@/enums';
 import { CheckoutLineFragment, MoneyFragment } from '@/gql/graphql';
@@ -16,7 +16,7 @@ import { CheckoutLineFragment, MoneyFragment } from '@/gql/graphql';
 interface DogDto {
   name: string;
   breeds?: number[];
-  gender: Gender;
+  sex: Sex;
   isNeutered: boolean;
   dateOfBirthMethod: DateOfBirthMethod;
   dateOfBirth: string;

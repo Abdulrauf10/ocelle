@@ -11,8 +11,8 @@ import {
   DateOfBirthMethod,
   DogFood,
   FoodAllergies,
-  Gender,
   Pickiness,
+  Sex,
 } from '@/enums';
 import { executeQuery } from '@/helpers/queryRunner';
 
@@ -20,7 +20,7 @@ interface UpdateDogAction {
   id: number;
   name: string;
   breeds: number[];
-  gender: Gender;
+  sex: Sex;
   isNeutered: boolean;
   dateOfBirthMethod: DateOfBirthMethod;
   dateOfBirth: Date;
@@ -37,7 +37,7 @@ const schema = Joi.object<UpdateDogAction>({
   id: Joi.number().positive().required(),
   name: Joi.string().required(),
   breeds: Joi.array().items(Joi.number().positive().required()).required(),
-  gender: Joi.valid(...Object.values(Gender)).required(),
+  sex: Joi.valid(...Object.values(Sex)).required(),
   isNeutered: Joi.boolean().required(),
   dateOfBirthMethod: Joi.valid(...Object.values(DateOfBirthMethod)).required(),
   dateOfBirth: Joi.date().required(),
@@ -74,7 +74,7 @@ export default async function updateDogAction(data: UpdateDogAction) {
     }
 
     data.name = value.name;
-    data.sex = value.gender;
+    data.sex = value.sex;
     data.isNeutered = value.isNeutered;
     data.dateOfBirthMethod = value.dateOfBirthMethod;
     data.dateOfBirth = value.dateOfBirth;

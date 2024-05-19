@@ -8,7 +8,7 @@ import {
   type Relation,
 } from 'typeorm';
 import { DogBreed, DogPlan, RecurringBox, User } from '.';
-import { ActivityLevel, AmountOfTreats, BodyCondition, DateOfBirthMethod, DogFood, FoodAllergies, Gender, Pickiness } from '@/enums';
+import { ActivityLevel, AmountOfTreats, BodyCondition, DateOfBirthMethod, DogFood, FoodAllergies, Sex, Pickiness } from '@/enums';
 
 @Entity({ name: 'dog' })
 export default class Dog {
@@ -18,8 +18,8 @@ export default class Dog {
   @Column()
   name!: string;
 
-  @Column({ type: 'enum', enum: Gender })
-  sex!: Gender;
+  @Column({ type: 'enum', enum: Sex })
+  sex!: Sex;
 
   @Column()
   isNeutered!: boolean;

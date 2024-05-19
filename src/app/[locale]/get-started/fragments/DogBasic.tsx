@@ -15,14 +15,14 @@ import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import CircleCheckbox from '@/components/controls/CircleCheckbox';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
-import { Gender } from '@/enums';
+import { Sex } from '@/enums';
 import { booleanToString, stringToBoolean } from '@/helpers/string';
 import { BreedDto } from '@/types/dto';
 
 interface DogBasicForm {
   breeds: BreedDto[];
   isUnknownBreed: boolean;
-  gender: Gender;
+  sex: Sex;
   isNeutered: 'Y' | 'N';
 }
 
@@ -30,7 +30,7 @@ export default function DogBasicFragment() {
   const t = useTranslations();
   const navigate = useNavigate();
   const { getDog, setDog } = useSurvey();
-  const { name, breeds, gender, isNeutered, isUnknownBreed } = getDog();
+  const { name, breeds, sex, isNeutered, isUnknownBreed } = getDog();
   const [pending, startTransition] = React.useTransition();
   const {
     handleSubmit,
@@ -41,7 +41,7 @@ export default function DogBasicFragment() {
   } = useForm<DogBasicForm>({
     defaultValues: {
       breeds: breeds || [],
-      gender,
+      sex,
       isNeutered: booleanToString(isNeutered),
       isUnknownBreed,
     },
@@ -58,10 +58,10 @@ export default function DogBasicFragment() {
   }, [options]);
 
   const onSubmit = React.useCallback(
-    ({ breeds, gender, isNeutered, isUnknownBreed }: DogBasicForm) => {
+    ({ breeds, sex, isNeutered, isUnknownBreed }: DogBasicForm) => {
       setDog({
         breeds,
-        gender,
+        sex,
         isNeutered: stringToBoolean(isNeutered),
         isUnknownBreed,
       });
@@ -133,10 +133,10 @@ export default function DogBasicFragment() {
               <div className="px-3">
                 <InteractiveBlock
                   type="radio"
-                  value={Gender.M}
-                  error={!!errors.gender}
+                  value={Sex.M}
+                  error={!!errors.sex}
                   control={control}
-                  name="gender"
+                  name="sex"
                   label={t('boy')}
                   rules={{ required: true }}
                 />
@@ -144,10 +144,10 @@ export default function DogBasicFragment() {
               <div className="px-3">
                 <InteractiveBlock
                   type="radio"
-                  value={Gender.F}
-                  error={!!errors.gender}
+                  value={Sex.F}
+                  error={!!errors.sex}
                   control={control}
-                  name="gender"
+                  name="sex"
                   label={t('girl')}
                   rules={{ required: true }}
                 />
@@ -164,9 +164,7 @@ export default function DogBasicFragment() {
                   error={!!errors.isNeutered}
                   control={control}
                   name="isNeutered"
-                  label={
-                    watch('gender', gender ?? Gender.M) == Gender.M ? t('neutered') : t('spayed')
-                  }
+                  label={watch('sex', sex ?? Sex.M) == Sex.M ? t('neutered') : t('spayed')}
                   rules={{ required: true }}
                 />
               </div>
@@ -177,11 +175,7 @@ export default function DogBasicFragment() {
                   error={!!errors.isNeutered}
                   control={control}
                   name="isNeutered"
-                  label={
-                    watch('gender', gender ?? Gender.M) == Gender.M
-                      ? t('not-neutered')
-                      : t('not-spayed')
-                  }
+                  label={watch('sex', sex ?? Sex.M) == Sex.M ? t('not-neutered') : t('not-spayed')}
                   rules={{ required: true }}
                 />
               </div>

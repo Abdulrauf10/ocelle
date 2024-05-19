@@ -22,8 +22,8 @@ import {
   DateOfBirthMethod,
   DogFood,
   FoodAllergies,
-  Gender,
   Pickiness,
+  Sex,
 } from '@/enums';
 import {
   arrayToAllergies,
@@ -68,7 +68,7 @@ function EditDogBlock({
 interface IDogForm {
   name: string;
   breeds: BreedDto[];
-  gender: Gender;
+  sex: Sex;
   isNeutered: 'Y' | 'N';
   months?: number;
   years?: number;
@@ -85,7 +85,7 @@ interface IDogForm {
 interface IDogFormReturn {
   name: string;
   breeds: number[];
-  gender: Gender;
+  sex: Sex;
   isNeutered: boolean;
   dateOfBirthMethod: DateOfBirthMethod;
   dateOfBirth: Date;
@@ -101,7 +101,7 @@ interface IDogFormReturn {
 export default function DogForm({
   name,
   breeds,
-  gender,
+  sex,
   isNeutered,
   dateOfBirthMethod,
   dateOfBirth,
@@ -116,7 +116,7 @@ export default function DogForm({
 }: {
   name: string;
   breeds: BreedDto[];
-  gender: Gender;
+  sex: Sex;
   isNeutered: boolean;
   dateOfBirthMethod: DateOfBirthMethod;
   dateOfBirth: Date;
@@ -134,7 +134,7 @@ export default function DogForm({
   const { defaultValues, setDefaultValues } = useDefaultValues<{
     name: string;
     breeds: BreedDto[];
-    gender: Gender;
+    sex: Sex;
     isNeutered: 'Y' | 'N';
     months?: number;
     years?: number;
@@ -149,7 +149,7 @@ export default function DogForm({
   }>({
     name,
     breeds,
-    gender,
+    sex,
     isNeutered: isNeutered ? 'Y' : 'N',
     months: dateOfBirthMethod === 'Manually' ? dateOfBirthInterval.months ?? 0 : undefined,
     years: dateOfBirthMethod === 'Manually' ? dateOfBirthInterval.years ?? 0 : undefined,
@@ -195,7 +195,7 @@ export default function DogForm({
         await action({
           name: values.name,
           breeds: values.breeds.map((breed) => breed.id),
-          gender: values.gender,
+          sex: values.sex,
           isNeutered: values.isNeutered === 'Y',
           dateOfBirthMethod:
             tab === 'Birthday' ? DateOfBirthMethod.Calendar : DateOfBirthMethod.Manually,
@@ -220,7 +220,7 @@ export default function DogForm({
   const isSameAsDefaultValue =
     watch('name') === defaultValues.name &&
     equal(watch('breeds'), defaultValues.breeds) &&
-    watch('gender') === defaultValues.gender &&
+    watch('sex') === defaultValues.sex &&
     watch('isNeutered') === defaultValues.isNeutered &&
     watch('years') === defaultValues.years &&
     watch('months') === defaultValues.months &&
@@ -294,10 +294,10 @@ export default function DogForm({
           <div className="px-3">
             <InteractiveBlock
               type="radio"
-              value={Gender.M}
-              error={!!errors.gender}
+              value={Sex.M}
+              error={!!errors.sex}
               control={control}
-              name="gender"
+              name="sex"
               label={t('boy')}
               rules={{ required: true }}
             />
@@ -305,10 +305,10 @@ export default function DogForm({
           <div className="px-3">
             <InteractiveBlock
               type="radio"
-              value={Gender.F}
-              error={!!errors.gender}
+              value={Sex.F}
+              error={!!errors.sex}
               control={control}
-              name="gender"
+              name="sex"
               label={t('girl')}
               rules={{ required: true }}
             />
@@ -324,7 +324,7 @@ export default function DogForm({
               error={!!errors.isNeutered}
               control={control}
               name="isNeutered"
-              label={watch('gender', Gender.M) == Gender.M ? t('neutered') : t('spayed')}
+              label={watch('sex', Sex.M) == Sex.M ? t('neutered') : t('spayed')}
               rules={{ required: true }}
             />
           </div>
@@ -335,7 +335,7 @@ export default function DogForm({
               error={!!errors.isNeutered}
               control={control}
               name="isNeutered"
-              label={watch('gender', Gender.M) == Gender.M ? t('not-neutered') : t('not-spayed')}
+              label={watch('sex', Sex.M) == Sex.M ? t('not-neutered') : t('not-spayed')}
               rules={{ required: true }}
             />
           </div>

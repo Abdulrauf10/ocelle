@@ -11,11 +11,11 @@ import {
   DateOfBirthMethod,
   DogFood,
   FoodAllergies,
-  Gender,
   MealPlan,
   OrderSize,
   Pickiness,
   Recipe,
+  Sex,
 } from '@/enums';
 import { getClosestOrderDeliveryDate, getEditableRecurringBoxDeadline } from '@/helpers/dog';
 import { getCalendarEvents } from '@/services/calendar';
@@ -77,7 +77,7 @@ export default class DogSeeder extends Seeder {
 
     const dog1 = dogRepository.create({
       name: 'Charlie',
-      sex: Gender.M,
+      sex: Sex.M,
       isNeutered: true,
       dateOfBirth: new Date('2022-01-10'),
       dateOfBirthMethod: DateOfBirthMethod.Calendar,
@@ -93,7 +93,7 @@ export default class DogSeeder extends Seeder {
 
     const dog2 = dogRepository.create({
       name: 'Muffin',
-      sex: Gender.M,
+      sex: Sex.M,
       isNeutered: false,
       dateOfBirth: new Date('2023-08-21'),
       dateOfBirthMethod: DateOfBirthMethod.Manually,
