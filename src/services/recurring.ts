@@ -77,12 +77,6 @@ export async function setupRecurringBox(
       throw new Error('user not found');
     }
     const shipment = await upsertEditableShipmentRecord(queryRunner, id, preferDeliveryDate, true);
-    // no any dog configurations
-    const defaultStartDate = addDays(startOfDay(preferDeliveryDate), 1);
-    // try to sync with existing box if exists
-    const startDate =
-      shipment.boxs.length > 0 ? findMostMatchBoxStartDate(shipment.boxs) : defaultStartDate;
-    const endDate = addDays(startDate, user.orderSize === OrderSize.OneWeek ? 7 : 14);
     const order = queryRunner.manager.create(Order, {
       id: saleorOrder.id,
       createdAt: new Date(saleorOrder.created),
@@ -91,72 +85,60 @@ export async function setupRecurringBox(
       },
     });
     await queryRunner.manager.save(order);
-    const dbDogs = dogs.map((dog) =>
-      queryRunner.manager.create(Dog, {
-        name: dog.name,
-        sex: dog.sex,
-        isNeutered: dog.isNeutered,
-        dateOfBirthMethod: dog.dateOfBirthMethod,
-        dateOfBirth: dog.dateOfBirth,
-        weight: dog.weight,
-        bodyCondition: dog.bodyCondition,
-        activityLevel: dog.activityLevel,
-        foodAllergies: dog.foodAllergies,
-        currentEating: dog.currentlyEating,
-        amountOfTreats: dog.amountOfTreats,
-        pickiness: dog.pickiness,
+    for (const data of dogs) {
+      const startDate = addDays(startOfDay(preferDeliveryDate), 1);
+      const endDate = addDays(startDate, user.orderSize === OrderSize.OneWeek ? 7 : 14);
+      const dog = queryRunner.manager.create(Dog, {
+        name: data.name,
+        sex: data.sex,
+        isNeutered: data.isNeutered,
+        dateOfBirthMethod: data.dateOfBirthMethod,
+        dateOfBirth: data.dateOfBirth,
+        weight: data.weight,
+        bodyCondition: data.bodyCondition,
+        activityLevel: data.activityLevel,
+        foodAllergies: data.foodAllergies,
+        currentEating: data.currentEating,
+        amountOfTreats: data.amountOfTreats,
+        pickiness: data.pickiness,
         user: {
           id,
         },
-      })
-    );
-    await queryRunner.manager.save(dogs);
-    const breeds = [];
-    for (let i = 0; i < dogs.length; i++) {
-      const dog = dbDogs[i];
-      if (dogs[i].breeds) {
-        for (const breed of dogs[i].breeds!) {
-          breeds.push(queryRunner.manager.create(DogBreed, { dog, breedId: breed }));
+      });
+      await queryRunner.manager.save(dog);
+      const breeds = [];
+      for (let i = 0; i < dogs.length; i++) {
+        if (data.breeds) {
+          for (const id of data.breeds!) {
+            breeds.push(queryRunner.manager.create(DogBreed, { dog, breedId: id }));
+          }
         }
       }
+      await queryRunner.manager.save(breeds);
+      const plan = queryRunner.manager.create(DogPlan, {
+        mealPlan: data.mealPlan,
+        recipe1: data.recipe1,
+        recipe2: data.recipe2,
+        isEnabledTransitionPeriod: data.isEnabledTransitionPeriod,
+        startDate,
+        isEnabled: true,
+        dog,
+      });
+      await queryRunner.manager.save(plan);
+      const box = queryRunner.manager.create(RecurringBox, {
+        mealPlan: data.mealPlan,
+        orderSize: user.orderSize,
+        recipe1: data.recipe1,
+        recipe2: data.recipe2,
+        isTransitionPeriod: data.isEnabledTransitionPeriod,
+        startDate,
+        endDate,
+        dog,
+        order,
+        shipment,
+      });
+      await queryRunner.manager.save(box);
     }
-    await queryRunner.manager.save(breeds);
-    const plans = [];
-    for (let i = 0; i < dogs.length; i++) {
-      const dog = dbDogs[i];
-      plans.push(
-        queryRunner.manager.create(DogPlan, {
-          mealPlan: dogs[i].mealPlan,
-          recipe1: dogs[i].recipe1,
-          recipe2: dogs[i].recipe2,
-          isEnabledTransitionPeriod: dogs[i].isEnabledTransitionPeriod,
-          startDate,
-          isEnabled: true,
-          dog,
-        })
-      );
-    }
-    await queryRunner.manager.save(plans);
-    const recurringRecords = [];
-    for (let i = 0; i < dogs.length; i++) {
-      const dog = dbDogs[i];
-      // current box (Starter Box)
-      recurringRecords.push(
-        queryRunner.manager.create(RecurringBox, {
-          mealPlan: dogs[i].mealPlan,
-          orderSize: user.orderSize,
-          recipe1: dogs[i].recipe1,
-          recipe2: dogs[i].recipe2,
-          isTransitionPeriod: dogs[i].isEnabledTransitionPeriod,
-          startDate,
-          endDate,
-          dog,
-          order,
-          shipment,
-        })
-      );
-    }
-    await queryRunner.manager.save(recurringRecords);
   });
 }
 

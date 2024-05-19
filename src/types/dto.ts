@@ -24,7 +24,7 @@ interface DogDto {
   bodyCondition: BodyCondition;
   activityLevel: ActivityLevel;
   foodAllergies: FoodAllergies;
-  currentlyEating: DogFood[];
+  currentEating: DogFood[];
   amountOfTreats: AmountOfTreats;
   pickiness: Pickiness;
   mealPlan: MealPlan;

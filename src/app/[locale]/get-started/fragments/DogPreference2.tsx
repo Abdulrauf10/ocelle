@@ -15,7 +15,7 @@ import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import PictureRadio from '@/components/controls/PictureRadio';
-import { AmountOfTreats, DogFood, Pickiness } from '@/enums';
+import { AmountOfTreats, Pickiness } from '@/enums';
 import {
   arrayToAllergies,
   arrayToFoods,
@@ -36,7 +36,7 @@ export default function DogPreference2Fragment() {
   const t = useTranslations();
   const navigate = useNavigate();
   const { getDog, setDog } = useSurvey();
-  const { name, foodAllergies, currentlyEating, amountOfTreats, pickiness } = getDog();
+  const { name, foodAllergies, currentEating, amountOfTreats, pickiness } = getDog();
   const {
     handleSubmit,
     control,
@@ -47,7 +47,7 @@ export default function DogPreference2Fragment() {
   } = useForm<DogPreference2Form>({
     defaultValues: {
       allergies: foodAllergiesToArray(foodAllergies),
-      eating: foodsToArray(currentlyEating),
+      eating: foodsToArray(currentEating),
       amountOfTreats,
       pickiness,
     },
@@ -63,7 +63,7 @@ export default function DogPreference2Fragment() {
     ({ allergies, eating, amountOfTreats, pickiness }: DogPreference2Form) => {
       setDog({
         foodAllergies: arrayToAllergies(allergies),
-        currentlyEating: arrayToFoods(eating),
+        currentEating: arrayToFoods(eating),
         amountOfTreats,
         pickiness,
       });

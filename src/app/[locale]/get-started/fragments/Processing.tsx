@@ -25,7 +25,7 @@ function isIncompletedDogProfile(dog: Dog) {
     dog.activityLevel === undefined ||
     dog.foodAllergies === undefined ||
     dog.amountOfTreats === undefined ||
-    dog.currentlyEating === undefined ||
+    dog.currentEating === undefined ||
     dog.pickiness === undefined ||
     dog.mealPlan === undefined ||
     dog.isEnabledTransitionPeriod === undefined ||
@@ -92,7 +92,7 @@ export default function ProcessingFragment() {
             activityLevel: dog.activityLevel!,
             foodAllergies: dog.foodAllergies!,
             amountOfTreats: dog.amountOfTreats!,
-            currentlyEating: dog.currentlyEating!,
+            currentEating: dog.currentEating!,
             pickiness: dog.pickiness!,
             mealPlan: dog.mealPlan!,
             isEnabledTransitionPeriod: dog.isEnabledTransitionPeriod!,

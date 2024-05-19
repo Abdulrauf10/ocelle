@@ -26,7 +26,7 @@ export interface Dog {
   bodyCondition?: BodyCondition;
   activityLevel?: ActivityLevel;
   foodAllergies?: FoodAllergies;
-  currentlyEating?: DogFood[];
+  currentEating?: DogFood[];
   amountOfTreats?: AmountOfTreats;
   pickiness?: Pickiness;
   mealPlan?: MealPlan;
