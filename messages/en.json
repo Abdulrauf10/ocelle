@@ -109,7 +109,6 @@
   },
   "shipping-and-deliveries": "Shipping & Deliveries",
 
-
   "follow-us-on": "Follow Us On",
   "edit": "Edit",
   "recommended": "Recommended",
@@ -609,7 +608,7 @@
     "block-6-title": "Freshen Up With A Science First<br></br>Approach To Pet Food",
     "block-6-content-1": "Get fresh food conveniently delivered with our customised meal plans."
   },
-  "WhyFresh-ChallengesWithHomeCookingForYourDog": {
+  "WhyFresh-Challenges": {
     "block-1-title": "Challenges With Home Cooking<br></br>For Your Dog",
     "block-2-content-1": "We can all agree, there is nothing better than a home-cooked meal!",
     "block-2-content-2": "Without professional guidance, however, even the most well-intentioned diets can fall short. Research has found that up to 95% of home-prepared diets lack vital nutrients, endangering long-term health due to nutrient deficiency.<sup>1, 2</sup>",
@@ -849,8 +848,8 @@
   "new-territories": "New Territories",
   "hong-kong": "Hong Kong",
   "Newsletter": {
-    "content-1": "Exclusive insights, special offers, and helpful nutrition information from",
+    "content-1": "Exclusive insights, special offers, and helpful nutrition information from the OCELLE ",
     "content-2": "Join Now! <i>Woof!</i>",
-    "content-3": "Dog Pack."
+    "content-3": "Dog Pack. "
   }
 }

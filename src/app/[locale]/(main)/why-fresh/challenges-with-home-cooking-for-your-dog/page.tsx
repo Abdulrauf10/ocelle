@@ -25,7 +25,7 @@ function Arrow() {
 export default function ChallengesWithHomeCookingForYourDog() {
   const b = useTranslations('Button');
   const w = useTranslations('WhyFresh');
-  const i = useTranslations('WhyFresh-ChallengesWithHomeCookingForYourDog');
+  const i = useTranslations('WhyFresh-Challenges');
 
   return (
     <main>
@@ -118,7 +118,7 @@ export default function ChallengesWithHomeCookingForYourDog() {
               button: (chunks) => <UnderlineButton label={chunks} href="/why-fresh/reference" />,
             })}
           </p>
-          <div className="pt-normal -mx-6 flex flex-wrap items-stretch max-lg:-mx-3">
+          <div className="-mx-6 flex flex-wrap items-stretch pt-normal max-lg:-mx-3">
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/benefits-of-fresh-dog-food"
@@ -132,7 +132,7 @@ export default function ChallengesWithHomeCookingForYourDog() {
                 </div>
               </Link>
             </div>
-            <div className="max-md:pt-normal w-1/3 px-6 max-lg:px-3 max-md:w-full">
+            <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
               <Link
                 href="/why-fresh/raw-dog-food-vs-gently-cooked"
                 className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"
@@ -145,7 +145,7 @@ export default function ChallengesWithHomeCookingForYourDog() {
                 </div>
               </Link>
             </div>
-            <div className="max-md:pt-normal w-1/3 px-6 max-lg:px-3 max-md:w-full">
+            <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
               <Link
                 href="/why-fresh/its-time-to-rethink-kibble"
                 className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"
