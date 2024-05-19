@@ -7,7 +7,7 @@ import {
   type Relation,
 } from 'typeorm';
 import { Dog } from '.';
-import { MealPlan, Recipe } from '@/enums';
+import { Frequency, MealPlan, Recipe } from '@/enums';
 
 @Entity({ name: 'dog_plan' })
 export default class DogPlan {
@@ -16,6 +16,9 @@ export default class DogPlan {
 
   @Column({ type: 'enum', enum: MealPlan })
   mealPlan!: MealPlan;
+
+  @Column({ type: 'enum', enum: Frequency })
+  frequency!: Frequency;
 
   @Column({ type: 'enum', enum: Recipe })
   recipe1!: Recipe;

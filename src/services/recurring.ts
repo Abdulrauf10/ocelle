@@ -5,7 +5,7 @@ import { orderRecurringBox } from './api';
 import { getCalendarEvents } from './calendar';
 
 import { Dog, DogBreed, DogPlan, Order, RecurringBox, Shipment, User } from '@/entities';
-import { OrderSize } from '@/enums';
+import { Frequency } from '@/enums';
 import StripeNotReadyError from '@/errors/StripeNotReadyError';
 import { OrderFragment } from '@/gql/graphql';
 import { maxDate } from '@/helpers/date';
@@ -87,7 +87,7 @@ export async function setupRecurringBox(
     await queryRunner.manager.save(order);
     for (const data of dogs) {
       const startDate = addDays(startOfDay(preferDeliveryDate), 1);
-      const endDate = addDays(startDate, user.orderSize === OrderSize.OneWeek ? 7 : 14);
+      const endDate = addDays(startDate, 14);
       const dog = queryRunner.manager.create(Dog, {
         name: data.name,
         sex: data.sex,
@@ -117,6 +117,7 @@ export async function setupRecurringBox(
       await queryRunner.manager.save(breeds);
       const plan = queryRunner.manager.create(DogPlan, {
         mealPlan: data.mealPlan,
+        frequency: Frequency.TwoWeek,
         recipe1: data.recipe1,
         recipe2: data.recipe2,
         isEnabledTransitionPeriod: data.isEnabledTransitionPeriod,
@@ -127,7 +128,7 @@ export async function setupRecurringBox(
       await queryRunner.manager.save(plan);
       const box = queryRunner.manager.create(RecurringBox, {
         mealPlan: data.mealPlan,
-        orderSize: user.orderSize,
+        frequency: Frequency.TwoWeek,
         recipe1: data.recipe1,
         recipe2: data.recipe2,
         isTransitionPeriod: data.isEnabledTransitionPeriod,
@@ -237,12 +238,12 @@ export async function handleRecurringBox(id: string) {
       const startDate = addDays(prevBox.endDate, 1);
       const box = queryRunner.manager.create(RecurringBox, {
         mealPlan: dog.plan.mealPlan,
-        orderSize: user.orderSize,
+        frequency: dog.plan.frequency,
         recipe1: dog.plan.recipe1,
         recipe2: dog.plan.recipe2,
         isTransitionPeriod: false,
         startDate: startDate,
-        endDate: addDays(startDate, user.orderSize === OrderSize.OneWeek ? 7 : 14),
+        endDate: addDays(startDate, dog.plan.frequency === Frequency.OneWeek ? 7 : 14),
         dog,
         shipment,
         prevBox,

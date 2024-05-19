@@ -19,7 +19,7 @@ export default async function PlanMeal() {
   const cookie = cookies();
   const t = await getTranslations();
   const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
-  const { dogs, orderSize } = await getLoginedMe();
+  const { dogs } = await getLoginedMe();
   const dog = currentSelectedDogId
     ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
     : dogs[0];
@@ -33,7 +33,7 @@ export default async function PlanMeal() {
     dog.activityLevel,
     { recipe1: dog.plan.recipe1, recipe2: dog.plan.recipe2 },
     MealPlan.Full,
-    orderSize,
+    dog.plan.frequency,
     false,
     false
   );
@@ -47,7 +47,7 @@ export default async function PlanMeal() {
     dog.activityLevel,
     { recipe1: dog.plan.recipe1, recipe2: dog.plan.recipe2 },
     MealPlan.Half,
-    orderSize,
+    dog.plan.frequency,
     false,
     false
   );

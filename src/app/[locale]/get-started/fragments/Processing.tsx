@@ -11,7 +11,7 @@ import { pageVariants } from '../transition';
 
 import { getClosestDeliveryDate } from '@/actions';
 import Container from '@/components/Container';
-import { DateOfBirthMethod, OrderSize } from '@/enums';
+import { DateOfBirthMethod } from '@/enums';
 import { CheckoutFragment } from '@/gql/graphql';
 import { getDateOfBirth } from '@/helpers/dog';
 import { CalendarEvent } from '@/types';
@@ -73,7 +73,6 @@ export default function ProcessingFragment() {
       setTranscation(null);
     } else {
       createCheckout(
-        OrderSize.TwoWeek,
         dogs.map((dog) => {
           if (isIncompletedDogProfile(dog)) {
             throw new Error('unexcepted incompleted dog profile');

@@ -26,8 +26,8 @@ import {
   BodyCondition,
   DogFood,
   FoodAllergies,
+  Frequency,
   MealPlan,
-  OrderSize,
   Pickiness,
   Recipe,
   Sex,
@@ -293,7 +293,7 @@ export default function SubscriptionCheckoutForm({
         dog.activityLevel!,
         { recipe1: dog.recipe1!, recipe2: dog.recipe2 },
         dog.mealPlan!,
-        OrderSize.TwoWeek,
+        Frequency.TwoWeek,
         true,
         true
       );
@@ -306,7 +306,7 @@ export default function SubscriptionCheckoutForm({
         dog.activityLevel!,
         { recipe1: dog.recipe1!, recipe2: dog.recipe2 },
         dog.mealPlan!,
-        OrderSize.TwoWeek,
+        Frequency.TwoWeek,
         true,
         false
       );
@@ -500,7 +500,7 @@ export default function SubscriptionCheckoutForm({
                     dog.activityLevel!,
                     { recipe1: dog.recipe1!, recipe2: dog.recipe2 },
                     dog.mealPlan!,
-                    OrderSize.TwoWeek,
+                    Frequency.TwoWeek,
                     true,
                     false
                   );

@@ -6,9 +6,9 @@ import Classification from './Classification';
 import DateOfBirthMethod from './DateOfBirthMethod';
 import DogFood from './DogFood';
 import FoodAllergies from './FoodAllergies';
+import Frequency from './Frequency';
 import IndividualRecipePack from './IndividualRecipePack';
 import MealPlan from './MealPlan';
-import OrderSize from './OrderSize';
 import Pickiness from './Pickiness';
 import Recipe from './Recipe';
 import Sex from './Sex';
@@ -25,9 +25,9 @@ export {
   DateOfBirthMethod,
   DogFood,
   FoodAllergies,
+  Frequency,
   IndividualRecipePack,
   MealPlan,
-  OrderSize,
   Pickiness,
   Recipe,
   Sex,

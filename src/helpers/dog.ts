@@ -13,8 +13,8 @@ import {
   ActivityLevel,
   BodyCondition,
   FoodAllergies,
+  Frequency,
   MealPlan,
-  OrderSize,
   Pickiness,
   Recipe,
   Size,
@@ -348,7 +348,7 @@ export function calculateDailyProtionSize(requiredDailyCalorie: number, recipe: 
  */
 export function calculateTotalDaysInBox(
   recipes: { recipeToBeCalcuate: Recipe; recipeReference?: Recipe },
-  orderSize: OrderSize,
+  frequency: Frequency,
   transitionPeriod: boolean
 ) {
   const { recipeToBeCalcuate, recipeReference } = recipes;
@@ -359,7 +359,7 @@ export function calculateTotalDaysInBox(
       normalDays: 8 / totalRecipes,
     };
   }
-  if (orderSize === OrderSize.OneWeek && recipeReference) {
+  if (frequency === Frequency.OneWeek && recipeReference) {
     return {
       transitionPeriodDays: 0,
       normalDays: recipePriorities[recipeToBeCalcuate] > recipePriorities[recipeReference] ? 4 : 3,
@@ -367,7 +367,7 @@ export function calculateTotalDaysInBox(
   }
   return {
     transitionPeriodDays: 0,
-    normalDays: orderSize === OrderSize.TwoWeek ? 14 : 7,
+    normalDays: frequency === Frequency.TwoWeek ? 14 : 7,
   };
 }
 
@@ -377,14 +377,14 @@ export function calculateTotalDaysInBox(
 export function calculateTotalPortionSizeInBox(
   requiredDailyCalorie: number,
   recipes: { recipeToBeCalcuate: Recipe; recipeReference?: Recipe },
-  orderSize: OrderSize,
+  frequency: Frequency,
   transitionPeriod: boolean
 ) {
   const { recipeToBeCalcuate } = recipes;
   const dailyProtionSize = calculateDailyProtionSize(requiredDailyCalorie, recipeToBeCalcuate);
   const { transitionPeriodDays, normalDays } = calculateTotalDaysInBox(
     recipes,
-    orderSize,
+    frequency,
     transitionPeriod
   );
   if (transitionPeriodDays > 0) {
@@ -555,7 +555,7 @@ export function calculateRecipeTotalProtionsInBox(
   activityLevel: ActivityLevel,
   recipes: { recipeToBeCalcuate: Recipe; recipeReference?: Recipe },
   plan: MealPlan,
-  orderSize: OrderSize,
+  frequency: Frequency,
   transitionPeriod: boolean
 ) {
   const idealWeight = calculateIdealWeight(currentWeight, condition);
@@ -564,7 +564,7 @@ export function calculateRecipeTotalProtionsInBox(
   const totalOrderPortionSize = calculateTotalPortionSizeInBox(
     requiredDailyCalorie,
     recipes,
-    orderSize,
+    frequency,
     transitionPeriod
   );
   return totalOrderPortionSize;
@@ -579,7 +579,7 @@ export function calculateRecipeTotalPriceInBox(
   activityLevel: ActivityLevel,
   recipes: { recipeToBeCalcuate: Recipe; recipeReference?: Recipe },
   plan: MealPlan,
-  orderSize: OrderSize,
+  frequency: Frequency,
   transitionPeriod: boolean,
   starterBox: boolean
 ) {
@@ -593,7 +593,7 @@ export function calculateRecipeTotalPriceInBox(
     activityLevel,
     recipes,
     plan,
-    orderSize,
+    frequency,
     transitionPeriod
   );
 
@@ -620,13 +620,13 @@ export function calculateRecipePerDayPrice(
   activityLevel: ActivityLevel,
   recipes: { recipeToBeCalcuate: Recipe; recipeReference?: Recipe },
   plan: MealPlan,
-  orderSize: OrderSize,
+  frequency: Frequency,
   transitionPeriod: boolean,
   starterBox: boolean
 ) {
   const { transitionPeriodDays, normalDays } = calculateTotalDaysInBox(
     recipes,
-    orderSize,
+    frequency,
     transitionPeriod
   );
   const recipeTotalPriceInBox = calculateRecipeTotalPriceInBox(
@@ -638,7 +638,7 @@ export function calculateRecipePerDayPrice(
     activityLevel,
     recipes,
     plan,
-    orderSize,
+    frequency,
     transitionPeriod,
     starterBox
   );
@@ -655,7 +655,7 @@ export function calculateTotalPriceInBox(
   activityLevel: ActivityLevel,
   recipes: { recipe1: Recipe; recipe2?: Recipe },
   plan: MealPlan,
-  orderSize: OrderSize,
+  frequency: Frequency,
   transitionPeriod: boolean,
   starterBox: boolean
 ) {
@@ -668,7 +668,7 @@ export function calculateTotalPriceInBox(
     activityLevel,
     { recipeToBeCalcuate: recipes.recipe1, recipeReference: recipes.recipe2 },
     plan,
-    orderSize,
+    frequency,
     transitionPeriod,
     starterBox
   );
@@ -686,7 +686,7 @@ export function calculateTotalPriceInBox(
       activityLevel,
       { recipeToBeCalcuate: recipes.recipe2, recipeReference: recipes.recipe1 },
       plan,
-      orderSize,
+      frequency,
       transitionPeriod,
       starterBox
     )
@@ -702,13 +702,13 @@ export function calculateTotalPerDayPrice(
   activityLevel: ActivityLevel,
   recipes: { recipe1: Recipe; recipe2?: Recipe },
   plan: MealPlan,
-  orderSize: OrderSize,
+  frequency: Frequency,
   transitionPeriod: boolean,
   starterBox: boolean
 ) {
   const recipe1Days = calculateTotalDaysInBox(
     { recipeToBeCalcuate: recipes.recipe1, recipeReference: recipes.recipe2 },
-    orderSize,
+    frequency,
     transitionPeriod
   );
   const recipe1TotalPriceInBox = calculateRecipeTotalPriceInBox(
@@ -720,7 +720,7 @@ export function calculateTotalPerDayPrice(
     activityLevel,
     { recipeToBeCalcuate: recipes.recipe1, recipeReference: recipes.recipe2 },
     plan,
-    orderSize,
+    frequency,
     transitionPeriod,
     starterBox
   );
@@ -733,7 +733,7 @@ export function calculateTotalPerDayPrice(
 
   const recipe2Days = calculateTotalDaysInBox(
     { recipeToBeCalcuate: recipes.recipe2, recipeReference: recipes.recipe1 },
-    orderSize,
+    frequency,
     transitionPeriod
   );
   const recipe2TotalPriceInBox = calculateRecipeTotalPriceInBox(
@@ -745,7 +745,7 @@ export function calculateTotalPerDayPrice(
     activityLevel,
     { recipeToBeCalcuate: recipes.recipe2, recipeReference: recipes.recipe1 },
     plan,
-    orderSize,
+    frequency,
     transitionPeriod,
     starterBox
   );

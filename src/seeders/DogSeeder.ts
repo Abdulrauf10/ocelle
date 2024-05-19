@@ -11,8 +11,8 @@ import {
   DateOfBirthMethod,
   DogFood,
   FoodAllergies,
+  Frequency,
   MealPlan,
-  OrderSize,
   Pickiness,
   Recipe,
   Sex,
@@ -50,7 +50,6 @@ export default class DogSeeder extends Seeder {
     const orderRepository = queryRunner.manager.getRepository(Order);
 
     const user = userRepository.create({
-      orderSize: OrderSize.TwoWeek,
       id: '1',
       phone: '88888888',
       isDeliveryUsAsBillingAddress: true,
@@ -110,6 +109,7 @@ export default class DogSeeder extends Seeder {
     await dogRepository.save([dog1, dog2]);
 
     const plan1 = dogPlanRepository.create({
+      frequency: Frequency.TwoWeek,
       mealPlan: MealPlan.Full,
       recipe1: Recipe.Duck,
       recipe2: Recipe.Pork,
@@ -120,6 +120,7 @@ export default class DogSeeder extends Seeder {
     });
 
     const plan2 = dogPlanRepository.create({
+      frequency: Frequency.TwoWeek,
       mealPlan: MealPlan.Full,
       recipe1: Recipe.Chicken,
       isEnabledTransitionPeriod: true,
@@ -132,7 +133,7 @@ export default class DogSeeder extends Seeder {
 
     const box1 = recurringBoxRepository.create({
       mealPlan: plan1.mealPlan,
-      orderSize: user.orderSize,
+      frequency: plan1.frequency,
       recipe1: plan1.recipe1,
       recipe2: plan1.recipe2,
       isTransitionPeriod: true,
@@ -145,7 +146,7 @@ export default class DogSeeder extends Seeder {
 
     const box2 = recurringBoxRepository.create({
       mealPlan: plan2.mealPlan,
-      orderSize: user.orderSize,
+      frequency: plan2.frequency,
       recipe1: plan2.recipe1,
       recipe2: plan2.recipe2,
       isTransitionPeriod: true,

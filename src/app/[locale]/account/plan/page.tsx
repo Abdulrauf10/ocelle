@@ -14,7 +14,7 @@ import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { DOG_SELECT_COOKIE } from '@/consts';
 import { RecurringBox } from '@/entities';
-import { MealPlan, OrderSize } from '@/enums';
+import { Frequency, MealPlan } from '@/enums';
 import { getEditableRecurringBoxDeadline, getRecipeSlug } from '@/helpers/dog';
 import { executeQuery } from '@/helpers/queryRunner';
 import getSentence from '@/servers/getSentence';
@@ -31,7 +31,7 @@ export default async function Plan() {
   );
   const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
   const calendarEvents = await getCalendarEvents();
-  const { dogs, firstName, orderSize } = await getLoginedMe();
+  const { dogs, firstName } = await getLoginedMe();
   const dog = currentSelectedDogId
     ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
     : dogs[0];
@@ -179,7 +179,7 @@ export default async function Plan() {
                     <span className="flex-1 px-1 py-2 lowercase">
                       {t('{}-supply-of-fresh-healthy-food', {
                         value: t('{}-weeks', {
-                          value: orderSize === OrderSize.OneWeek ? 1 : 2,
+                          value: dog.plan.frequency === Frequency.OneWeek ? 1 : 2,
                         }),
                       })}
                     </span>
