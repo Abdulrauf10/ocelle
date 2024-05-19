@@ -169,7 +169,7 @@ export default function DogPreference2Fragment() {
                       rules={{
                         validate: {
                           required: (value, formValues) =>
-                            formValues.allergies.some((value) => !!value),
+                            formValues.eating.some((value) => !!value),
                         },
                       }}
                       onChange={() => trigger('eating')}
