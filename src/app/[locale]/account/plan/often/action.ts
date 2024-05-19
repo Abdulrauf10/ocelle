@@ -13,7 +13,7 @@ interface SetOrderSizeAction {
 }
 
 const schema = Joi.object<SetOrderSizeAction>({
-  size: Joi.valid(...getNumericEnumValues(OrderSize)).required(),
+  size: Joi.valid(...Object.values(OrderSize)).required(),
 });
 
 export default async function setOrderSizeAction(data: SetOrderSizeAction) {
