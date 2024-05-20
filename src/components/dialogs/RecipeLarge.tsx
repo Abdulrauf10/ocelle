@@ -228,7 +228,7 @@ export default function RecipeLargeDialog({
                 <div className="mt-2"></div>
                 <div className="body-1">
                   <strong className="uppercase">
-                    {t('{}-colon', { value: r('guarenteed-analysis') })}
+                    {t('{}-colon', { value: r('guaranteed-analysis') })}
                   </strong>
                   <div className="mt-2 flex flex-wrap justify-between">
                     <span>{r('crude-protein')}</span>
