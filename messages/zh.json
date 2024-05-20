@@ -1,5 +1,4 @@
 {
-  "General": {},
   "{}-colon": "",
   "{}-apostrophe": "",
   "({})": "",
@@ -646,7 +645,26 @@
     "block-6-title": "",
     "block-6-content-1": ""
   },
-  "WhyFresh-Challenges": {},
+  "WhyFresh-Challenges": {
+    "block-1-title": "",
+    "block-2-content-1": "",
+    "block-2-content-2": "",
+    "block-3-title": "",
+    "block-3-mark-1-title": "",
+    "block-3-mark-1-content": "",
+    "block-3-mark-2-title": "",
+    "block-3-mark-2-content": "",
+    "block-3-mark-3-title": "",
+    "block-3-mark-3-content": "",
+    "block-3-mark-4-title": "",
+    "block-3-mark-4-content": "",
+    "block-3-mark-5-title": "",
+    "block-3-mark-5-content": "",
+    "block-4-content-1": "",
+    "block-4-content-2": "",
+    "block-5-title": "",
+    "block-5-content-1": ""
+  },
   "WhyFresh-ItsTimeToRethinkKibble": {
     "block-1-title": "",
     "block-1-content-1": "",
@@ -829,5 +847,29 @@
     "content-1": "現在就加入OCELLE狗狗聯盟，獲取更多寵物資訊，尊屬優惠及營養信息！",
     "content-2": "<i>Woof！</i>",
     "content-3": ""
+  },
+  "Individual-pack": {
+    "block-1-title": ""
+  },
+  "Subscription": {
+    "block-1-title": "親自體驗專家為您度身定製的營養方案",
+    "block-1-subtitle": "營養並非一概而論！",
+    "block-1-content": "我們獨有的個人化食譜均由獸醫營養師根據您狗狗的需要及健康目標定製。",
+    "block-2-title": "OCELLE如何運作",
+    "block-3-title": "選擇一個適合您和您狗狗的專屬方案",
+    "block-4-title": "滿足狗狗味蕾的慾望！",
+    "block-4-content": "五種高蛋白質的鮮食食譜供您選擇，全使用天然食材，配合慢煮的烹調方法，保留食物的營養成份和味道。您亦可根據狗狗的需求進行調配，畢竟，沒有人比您更了解您的狗狗！",
+    "block-5-title": "專屬的終身營養",
+    "block-5-content": "由幼犬到高齡犬的食物 - 我們將一直陪伴您及您的狗狗。隨著狗狗成長而作出調整，確保每一份鮮食都為他的健康帶來最佳益處。",
+    "block-6-title": "當OCELLE配送到您家",
+    "block-6-content-1-title": "準備見證狗狗興奮搖尾的時刻！",
+    "block-6-content-1-content": "將鮮食放入急凍箱，於用餐前24小時放到冰箱解凍。美味的晚餐準備好了！",
+    "block-7-title": "您的狗狗，您的計劃，由您掌控。",
+    "block-7-content-1-title": "需要更改?",
+    "block-7-content-1-content": "輕鬆更改配送時間或選擇新的食譜。",
+    "block-7-content-2-title": "多於一隻狗狗？",
+    "block-7-content-2-content": "只需將他們添加至「我的計劃」，方便管理。",
+    "block-7-content-3-title": "至簡單的自動訂購計劃",
+    "block-7-content-3-content": "隨時暫停配送、取消，及重新再次訂購！"
   }
 }
