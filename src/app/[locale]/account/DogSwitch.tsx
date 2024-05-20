@@ -20,7 +20,9 @@ export default function DogSwitch({
 
   return (
     <div className="w-[200px] max-sm:flex max-sm:w-full max-sm:items-center">
-      <div className="whitespace-nowrap max-sm:mr-3 sm:mb-2">{t('view-info-for')}</div>
+      <div className="whitespace-nowrap max-sm:mr-3 sm:mb-1">
+        <span className="body-2">{t('view-info-for')}</span>
+      </div>
       <FormControl fullWidth>
         <Select
           value={selectedDogId}

@@ -1,6 +1,5 @@
 import clsx from 'clsx';
 import { getTranslations } from 'next-intl/server';
-import { cookies } from 'next/headers';
 import Image from 'next/image';
 import React from 'react';
 import { IsNull, Not } from 'typeorm';
@@ -20,7 +19,6 @@ import getSentence from '@/servers/getSentence';
 import { getCalendarEvents } from '@/services/calendar';
 
 export default async function Plan() {
-  const cookie = cookies();
   const t = await getTranslations();
   const b = await getTranslations('Button');
   const r = await getTranslations('Recipes');
@@ -62,7 +60,8 @@ export default async function Plan() {
               <h1 className="heading-4 font-bold text-primary">
                 {t('welcome-back-{}', { name: firstName })}
               </h1>
-              <p className="mt-4">
+              <div className="mt-5"></div>
+              <p>
                 {t('keep-tabs-on-your-subscription-and-edit-{}-information', {
                   name: dog.name,
                 })}
