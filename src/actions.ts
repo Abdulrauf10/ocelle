@@ -130,5 +130,12 @@ export async function deleteCheckoutCookie() {
 }
 
 export async function getCurrentSelectedDogIdCookie() {
-  return cookies().get(DOG_SELECT_COOKIE)?.value;
+  const value = cookies().get(DOG_SELECT_COOKIE)?.value;
+  if (value) {
+    try {
+      return parseInt(value);
+    } catch (e) {
+      //
+    }
+  }
 }

@@ -11,7 +11,6 @@ import Container from '@/components/Container';
 import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import FreshPlanForm from '@/components/forms/FreshPlan';
 import RecurringBoxNote from '@/components/notes/RecurringBox';
-import { DOG_SELECT_COOKIE } from '@/consts';
 import { MealPlan } from '@/enums';
 import { calculateTotalPerDayPrice } from '@/helpers/dog';
 
@@ -19,9 +18,9 @@ export default async function PlanMeal() {
   const cookie = cookies();
   const t = await getTranslations();
   const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
-  const { dogs, orderSize } = await getLoginedMe();
+  const { dogs } = await getLoginedMe();
   const dog = currentSelectedDogId
-    ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
+    ? dogs.find((dog) => dog.id === currentSelectedDogId) || dogs[0]
     : dogs[0];
 
   const fullPlanPerDayPrice = calculateTotalPerDayPrice(
@@ -33,7 +32,7 @@ export default async function PlanMeal() {
     dog.activityLevel,
     { recipe1: dog.plan.recipe1, recipe2: dog.plan.recipe2 },
     MealPlan.Full,
-    orderSize,
+    dog.plan.frequency,
     false,
     false
   );
@@ -47,7 +46,7 @@ export default async function PlanMeal() {
     dog.activityLevel,
     { recipe1: dog.plan.recipe1, recipe2: dog.plan.recipe2 },
     MealPlan.Half,
-    orderSize,
+    dog.plan.frequency,
     false,
     false
   );
@@ -58,11 +57,7 @@ export default async function PlanMeal() {
         <Container>
           <div className="mx-auto flex max-w-[1120px] justify-end">
             <DogSwitch
-              selectedDogId={
-                cookie.has(DOG_SELECT_COOKIE)
-                  ? parseInt(cookie.get(DOG_SELECT_COOKIE)!.value)
-                  : dogs[0].id
-              }
+              selectedDogId={currentSelectedDogId ?? dogs[0].id}
               dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}
             />
           </div>

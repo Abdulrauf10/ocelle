@@ -12,9 +12,8 @@ import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
-import { DOG_SELECT_COOKIE } from '@/consts';
 import { RecurringBox } from '@/entities';
-import { MealPlan, OrderSize } from '@/enums';
+import { Frequency, MealPlan } from '@/enums';
 import { getEditableRecurringBoxDeadline, getRecipeSlug } from '@/helpers/dog';
 import { executeQuery } from '@/helpers/queryRunner';
 import getSentence from '@/servers/getSentence';
@@ -31,9 +30,9 @@ export default async function Plan() {
   );
   const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
   const calendarEvents = await getCalendarEvents();
-  const { dogs, firstName, orderSize } = await getLoginedMe();
+  const { dogs, firstName } = await getLoginedMe();
   const dog = currentSelectedDogId
-    ? dogs.find((dog) => dog.id === parseInt(currentSelectedDogId)) || dogs[0]
+    ? dogs.find((dog) => dog.id === currentSelectedDogId) || dogs[0]
     : dogs[0];
   const { upcomingBox } = await executeQuery(async (queryRunner) => {
     return {
@@ -71,11 +70,7 @@ export default async function Plan() {
             </div>
             <div className="px-4 py-3">
               <DogSwitch
-                selectedDogId={
-                  cookie.has(DOG_SELECT_COOKIE)
-                    ? parseInt(cookie.get(DOG_SELECT_COOKIE)!.value)
-                    : dogs[0].id
-                }
+                selectedDogId={currentSelectedDogId ?? dogs[0].id}
                 dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}
               />
             </div>
@@ -179,7 +174,7 @@ export default async function Plan() {
                     <span className="flex-1 px-1 py-2 lowercase">
                       {t('{}-supply-of-fresh-healthy-food', {
                         value: t('{}-weeks', {
-                          value: orderSize === OrderSize.OneWeek ? 1 : 2,
+                          value: dog.plan.frequency === Frequency.OneWeek ? 1 : 2,
                         }),
                       })}
                     </span>

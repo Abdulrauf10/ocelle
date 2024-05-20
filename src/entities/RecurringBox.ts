@@ -1,6 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, type Relation } from 'typeorm';
 import { Dog, Order, Shipment } from '.';
-import { MealPlan, OrderSize, Recipe } from '@/enums';
+import { MealPlan, Frequency, Recipe } from '@/enums';
 
 @Entity({ name: 'recurring_box' })
 export default class RecurringBox {
@@ -10,8 +10,8 @@ export default class RecurringBox {
   @Column({ type: 'enum', enum: MealPlan })
   mealPlan!: MealPlan;
 
-  @Column({ type: 'enum', enum: OrderSize })
-  orderSize!: OrderSize;
+  @Column({ type: 'enum', enum: Frequency })
+  frequency!: Frequency;
 
   @Column({ type: 'enum', enum: Recipe })
   recipe1!: Recipe;

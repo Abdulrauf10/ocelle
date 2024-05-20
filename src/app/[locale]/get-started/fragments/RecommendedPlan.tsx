@@ -16,7 +16,7 @@ import Price from '@/components/Price';
 import Button from '@/components/buttons/Button';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import RecipeCheckbox from '@/components/controls/RecipeCheckbox';
-import { OrderSize, Recipe } from '@/enums';
+import { Frequency, Recipe } from '@/enums';
 import {
   calculateTotalPerDayPrice,
   calculateTotalPriceInBox,
@@ -153,7 +153,7 @@ export default function RecommendedPlanFragment() {
           activityLevel!,
           { recipe1, recipe2 },
           mealPlan!,
-          OrderSize.TwoWeek,
+          Frequency.TwoWeek,
           true,
           false
         ),
@@ -166,7 +166,7 @@ export default function RecommendedPlanFragment() {
           activityLevel!,
           { recipe1, recipe2 },
           mealPlan!,
-          OrderSize.TwoWeek,
+          Frequency.TwoWeek,
           true,
           false
         ),
@@ -181,7 +181,7 @@ export default function RecommendedPlanFragment() {
           activityLevel!,
           { recipe1, recipe2 },
           mealPlan!,
-          OrderSize.TwoWeek,
+          Frequency.TwoWeek,
           true,
           true
         ),
@@ -194,7 +194,7 @@ export default function RecommendedPlanFragment() {
           activityLevel!,
           { recipe1, recipe2 },
           mealPlan!,
-          OrderSize.TwoWeek,
+          Frequency.TwoWeek,
           true,
           true
         ),

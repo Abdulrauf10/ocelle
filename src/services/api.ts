@@ -215,7 +215,7 @@ export async function orderRecurringBox(
       dog.activityLevel,
       { recipeToBeCalcuate: box.recipe1, recipeReference: box.recipe2 },
       box.mealPlan,
-      user.orderSize,
+      box.frequency,
       box.isTransitionPeriod,
       false
     );
@@ -237,7 +237,7 @@ export async function orderRecurringBox(
         dog.activityLevel,
         { recipeToBeCalcuate: box.recipe2, recipeReference: box.recipe1 },
         box.mealPlan,
-        user.orderSize,
+        box.frequency,
         box.isTransitionPeriod,
         false
       );

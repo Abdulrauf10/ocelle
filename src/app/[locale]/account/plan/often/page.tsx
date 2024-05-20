@@ -1,19 +1,26 @@
 import { getTranslations } from 'next-intl/server';
+import { cookies } from 'next/headers';
 import React from 'react';
 
-import setOrderSizeAction from './action';
+import DogSwitch from '../../DogSwitch';
+import setFrequencyAction from './action';
 
-import { getLoginedMe } from '@/actions';
+import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import Container from '@/components/Container';
 import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
-import OrderSizeForm from '@/components/forms/OrderSize';
+import OrderSizeForm from '@/components/forms/Frequency';
 import ShippableNote from '@/components/notes/Shippable';
-import { OrderSize } from '@/enums';
+import { Frequency } from '@/enums';
 import { calculateTotalPerDayPrice } from '@/helpers/dog';
 
 export default async function PlanOften() {
+  const cookie = cookies();
   const t = await getTranslations();
-  const { orderSize, dogs } = await getLoginedMe();
+  const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
+  const { dogs } = await getLoginedMe();
+  const dog = currentSelectedDogId
+    ? dogs.find((dog) => dog.id === currentSelectedDogId) || dogs[0]
+    : dogs[0];
 
   const oneWeekPrice =
     dogs.reduce((price, dog) => {
@@ -28,7 +35,7 @@ export default async function PlanOften() {
           dog.activityLevel,
           { recipe1: dog.plan.recipe1, recipe2: dog.plan.recipe2 },
           dog.plan.mealPlan,
-          OrderSize.OneWeek,
+          Frequency.OneWeek,
           false,
           false
         )
@@ -48,7 +55,7 @@ export default async function PlanOften() {
           dog.activityLevel,
           { recipe1: dog.plan.recipe1, recipe2: dog.plan.recipe2 },
           dog.plan.mealPlan,
-          OrderSize.TwoWeek,
+          Frequency.TwoWeek,
           false,
           false
         )
@@ -58,11 +65,17 @@ export default async function PlanOften() {
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
+        <div className="mx-auto flex max-w-[1120px] justify-end">
+          <DogSwitch
+            selectedDogId={currentSelectedDogId ?? dogs[0].id}
+            dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}
+          />
+        </div>
         <h1 className="heading-4 text-center font-bold text-primary">
           {t('how-often-would-you-like-to-receive-deliveries')}
         </h1>
         <OrderSizeForm
-          initialSize={orderSize}
+          initialFrequency={dog.plan.frequency}
           oneWeekPrice={oneWeekPrice}
           twoWeekPrice={twoWeekPrice}
           endAdornment={
@@ -70,7 +83,10 @@ export default async function PlanOften() {
               <ShippableNote />
             </div>
           }
-          action={setOrderSizeAction}
+          action={async (data) => {
+            'use server';
+            return await setFrequencyAction({ ...data, id: dog.id });
+          }}
         />
         <div className="mt-8 text-center">
           <UnderlineBackButton label={t('go-back')} />

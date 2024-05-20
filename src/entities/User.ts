@@ -1,6 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryColumn, type Relation } from 'typeorm';
 import { Dog, Order, Shipment } from '.';
-import { OrderSize } from '@/enums';
 
 @Entity({ name: 'user' })
 export default class User {
@@ -9,9 +8,6 @@ export default class User {
 
   @Column()
   phone!: string; // saleor don't have phone field, fix in database model
-
-  @Column({ type: 'enum', enum: OrderSize })
-  orderSize!: OrderSize;
 
   @Column()
   isDeliveryUsAsBillingAddress!: boolean;

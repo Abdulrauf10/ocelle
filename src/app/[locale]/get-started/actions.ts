@@ -8,7 +8,7 @@ import { In } from 'typeorm';
 
 import { deleteCheckoutCookie, getCheckoutCookie, setCheckoutCookie } from '@/actions';
 import { Breed, User } from '@/entities';
-import { MealPlan, OrderSize } from '@/enums';
+import { Frequency, MealPlan } from '@/enums';
 import {
   AddPromoCodeDocument,
   AttachCheckoutCustomerDocument,
@@ -43,12 +43,10 @@ import {
   deleteCheckoutKeys,
   getCheckoutDeliveryDate,
   getCheckoutDogs,
-  getCheckoutOrderSize,
   getCheckoutPaymentIntent,
   setCheckoutDeliveryDate,
   setCheckoutDogs,
   setCheckoutEmail,
-  setCheckoutOrderSize,
   setCheckoutPaymentIntent,
 } from '@/services/redis';
 import {
@@ -86,7 +84,7 @@ export async function getMinPerDayPrice(
         dog.activityLevel,
         { recipe1: getTheCheapestRecipe() },
         MealPlan.Half,
-        OrderSize.TwoWeek,
+        Frequency.TwoWeek,
         true,
         true
       ),
@@ -99,7 +97,7 @@ export async function getMinPerDayPrice(
         dog.activityLevel,
         { recipe1: getTheCheapestRecipe() },
         MealPlan.Full,
-        OrderSize.TwoWeek,
+        Frequency.TwoWeek,
         true,
         true
       ),
@@ -114,7 +112,7 @@ export async function getMinPerDayPrice(
         dog.activityLevel,
         { recipe1: getTheCheapestRecipe() },
         MealPlan.Half,
-        OrderSize.TwoWeek,
+        Frequency.TwoWeek,
         true,
         false
       ),
@@ -127,7 +125,7 @@ export async function getMinPerDayPrice(
         dog.activityLevel,
         { recipe1: getTheCheapestRecipe() },
         MealPlan.Full,
-        OrderSize.TwoWeek,
+        Frequency.TwoWeek,
         true,
         false
       ),
@@ -157,7 +155,7 @@ async function getCheckout(): Promise<CheckoutFragment> {
   return checkout;
 }
 
-export async function createCheckout(orderSize: OrderSize, dogs: DogDto[]) {
+export async function createCheckout(dogs: DogDto[]) {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
   const productSlugsToBeAddToLine = [];
@@ -217,7 +215,7 @@ export async function createCheckout(orderSize: OrderSize, dogs: DogDto[]) {
       dog.activityLevel,
       { recipeToBeCalcuate: dog.recipe1, recipeReference: dog.recipe2 },
       dog.mealPlan,
-      OrderSize.TwoWeek,
+      Frequency.TwoWeek,
       dog.isEnabledTransitionPeriod,
       true
     );
@@ -239,7 +237,7 @@ export async function createCheckout(orderSize: OrderSize, dogs: DogDto[]) {
         dog.activityLevel,
         { recipeToBeCalcuate: dog.recipe2, recipeReference: dog.recipe1 },
         dog.mealPlan,
-        OrderSize.TwoWeek,
+        Frequency.TwoWeek,
         dog.isEnabledTransitionPeriod,
         true
       );
@@ -272,7 +270,6 @@ export async function createCheckout(orderSize: OrderSize, dogs: DogDto[]) {
     throw new Error('stripe is currently not available');
   }
 
-  await setCheckoutOrderSize(checkout.id, orderSize);
   await setCheckoutDogs(checkout.id, dogs);
 
   await setCheckoutCookie(checkout.id);
@@ -348,7 +345,6 @@ async function findOrCreateUser(
       const user = queryRunner.manager.create(User, {
         id: saleorUser.id,
         phone,
-        orderSize: OrderSize.TwoWeek,
         isDeliveryUsAsBillingAddress,
       });
       await queryRunner.manager.save(user);
@@ -493,7 +489,6 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
 export async function finalizeCheckout(paymentMethodId: string) {
   try {
     const checkout = await getCheckout();
-    const orderSize = await getCheckoutOrderSize(checkout.id);
     const surveyDogs = await getCheckoutDogs(checkout.id);
     const deliveryDate = await getCheckoutDeliveryDate(checkout.id);
 
@@ -503,10 +498,10 @@ export async function finalizeCheckout(paymentMethodId: string) {
       throw new Error('there have no available shipping method');
     }
 
-    if (orderSize === null || deliveryDate === null || surveyDogs === null) {
+    if (deliveryDate === null || surveyDogs === null) {
       throw new Error(
         'receive incompleted checkout, reason: ' +
-          (orderSize === null || deliveryDate === null || surveyDogs === null
+          (deliveryDate === null || surveyDogs === null
             ? 'params not available'
             : 'checkout is not authorized')
       );

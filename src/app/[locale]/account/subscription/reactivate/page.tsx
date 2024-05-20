@@ -10,7 +10,7 @@ import { getLoginedMeFullSize } from '@/actions';
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import EditButton from '@/components/buttons/EditButton';
-import { MealPlan, OrderSize } from '@/enums';
+import { Frequency, MealPlan } from '@/enums';
 import { getRecipeSlug } from '@/helpers/dog';
 import getSentence from '@/servers/getSentence';
 
@@ -22,8 +22,7 @@ export default async function Reactivate() {
   const t = await getTranslations();
   const sentence = await getSentence();
   const n = await getTranslations('Navigator');
-  const { orderSize, dogs, defaultShippingAddress, defaultBillingAddress } =
-    await getLoginedMeFullSize();
+  const { dogs, defaultShippingAddress, defaultBillingAddress } = await getLoginedMeFullSize();
 
   return (
     <main className="bg-gold bg-opacity-10 py-10">
@@ -82,6 +81,22 @@ export default async function Reactivate() {
                   <EditButton href={`/account/plan/recipe?current=${dog.id}`} />
                 </div>
               </div>
+              <SectionHr />
+              <div className="-mx-2 flex items-center">
+                <div className="flex-1 px-2">
+                  <SectionTitle>{t('delivery-frequency')}</SectionTitle>
+                  <p>
+                    {t('every-{}', {
+                      value: t('{}-weeks', {
+                        value: dog.plan.frequency === Frequency.OneWeek ? 1 : 2,
+                      }),
+                    })}
+                  </p>
+                </div>
+                <div className="px-2">
+                  <EditButton href={`/account/plan/often?current=${dog.id}`} />
+                </div>
+              </div>
             </CollapseBlock>
           );
         })}
@@ -120,20 +135,6 @@ export default async function Reactivate() {
             &nbsp;
             <span className="relative top-0.5">**** **** ****</span>&nbsp;1234]
           </div>
-        </SectionBlock>
-        <SectionBlock className="mt-8">
-          <div className="item-center -mx-2 flex">
-            <div className="flex-1 px-2">
-              <div className="text-2xl font-bold text-primary">[{t('delivery-frequency')}]</div>
-            </div>
-            <EditButton className="px-2" href="/account/plan/often" />
-          </div>
-          <SectionHr />
-          <p>
-            {t('every-{}', {
-              value: t('{}-weeks', { value: orderSize === OrderSize.OneWeek ? 1 : 2 }),
-            })}
-          </p>
         </SectionBlock>
         <SectionBlock className="mt-8">
           <div className="item-center -mx-2 flex">
@@ -202,7 +203,9 @@ export default async function Reactivate() {
                           {t('{}-colon', { value: t('days-of-food') })}
                         </div>
                         <div className="flex-1 text-right">
-                          {t('{}-days', { value: orderSize === OrderSize.OneWeek ? 7 : 14 })}
+                          {t('{}-days', {
+                            value: dog.plan.frequency === Frequency.OneWeek ? 7 : 14,
+                          })}
                         </div>
                       </div>
                     </div>

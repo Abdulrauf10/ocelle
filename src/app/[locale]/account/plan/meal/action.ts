@@ -5,7 +5,6 @@ import Joi from 'joi';
 import { getLoginedMe } from '@/actions';
 import { Dog, DogPlan } from '@/entities';
 import { MealPlan } from '@/enums';
-import { getNumericEnumValues } from '@/helpers/enum';
 import { executeQuery } from '@/helpers/queryRunner';
 
 interface SetMealPlanAction {
@@ -15,7 +14,7 @@ interface SetMealPlanAction {
 
 const schema = Joi.object<SetMealPlanAction>({
   id: Joi.number().positive().required(),
-  plan: Joi.valid(...getNumericEnumValues(MealPlan)).required(),
+  plan: Joi.valid(...Object.values(MealPlan)).required(),
 });
 
 export default async function setMealPlanAction(data: SetMealPlanAction) {

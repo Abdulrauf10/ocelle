@@ -1,7 +1,6 @@
 import { Redis } from 'ioredis';
 import invariant from 'ts-invariant';
 
-import { OrderSize } from '@/enums';
 import { DogDto } from '@/types/dto';
 
 invariant(process.env.REDIS_PREFIX, 'Missing REDIS_PREFIX env variable');
@@ -81,23 +80,6 @@ export async function setCheckoutDogs(checkoutId: string, dogs?: DogDto[]) {
   return createRedisClient().set(k, JSON.stringify(dogs), 'EX', CHECKOUT_PARAMS_EX);
 }
 
-export async function getCheckoutOrderSize(checkoutId: string) {
-  const k = `${process.env.REDIS_PREFIX}:checkout:orderSize:${checkoutId}`;
-  const value = await createRedisClient().get(k);
-  if (value === null) {
-    return value;
-  }
-  return OrderSize[value as keyof typeof OrderSize];
-}
-
-export async function setCheckoutOrderSize(checkoutId: string, orderSize?: OrderSize) {
-  const k = `${process.env.REDIS_PREFIX}:checkout:orderSize:${checkoutId}`;
-  if (!orderSize) {
-    return createRedisClient().del(k);
-  }
-  return createRedisClient().set(k, orderSize, 'EX', CHECKOUT_PARAMS_EX);
-}
-
 export async function getCheckoutEmail(checkoutId: string) {
   const k = `${process.env.REDIS_PREFIX}:checkout:email:${checkoutId}`;
   const value = await createRedisClient().get(k);
@@ -130,6 +112,5 @@ export async function deleteCheckoutKeys(checkoutId: string) {
   await setCheckoutEmail(checkoutId);
   await setCheckoutDogs(checkoutId);
   await setCheckoutDeliveryDate(checkoutId);
-  await setCheckoutOrderSize(checkoutId);
   await setCheckoutPaymentIntent(checkoutId);
 }
