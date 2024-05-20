@@ -46,8 +46,8 @@ export async function set1823PublicHolidays(calendar: I1823ICalendar) {
   );
 }
 
-export async function getCheckoutDeliveryDate(checkoutId: string) {
-  const k = `${process.env.REDIS_PREFIX}:checkout:deliveryDate:${checkoutId}`;
+export async function getStoreDeliveryDate(id: string) {
+  const k = `${process.env.REDIS_PREFIX}:store:deliveryDate:${id}`;
   const value = await createRedisClient().get(k);
   if (value === null) {
     return value;
@@ -55,16 +55,16 @@ export async function getCheckoutDeliveryDate(checkoutId: string) {
   return typeof value === 'string' ? new Date(value) : value;
 }
 
-export async function setCheckoutDeliveryDate(checkoutId: string, deliveryDate?: Date) {
-  const k = `${process.env.REDIS_PREFIX}:checkout:deliveryDate:${checkoutId}`;
+export async function setStoreDeliveryDate(id: string, deliveryDate?: Date) {
+  const k = `${process.env.REDIS_PREFIX}:store:deliveryDate:${id}`;
   if (!deliveryDate) {
     return createRedisClient().del(k);
   }
   return createRedisClient().set(k, deliveryDate.toISOString(), 'EX', CHECKOUT_PARAMS_EX);
 }
 
-export async function getCheckoutDogs(checkoutId: string) {
-  const k = `${process.env.REDIS_PREFIX}:checkout:dogs:${checkoutId}`;
+export async function getStoreDogs(id: string) {
+  const k = `${process.env.REDIS_PREFIX}:store:dogs:${id}`;
   const value = await createRedisClient().get(k);
   if (value === null) {
     return value;
@@ -72,45 +72,45 @@ export async function getCheckoutDogs(checkoutId: string) {
   return JSON.parse(value) as DogDto[];
 }
 
-export async function setCheckoutDogs(checkoutId: string, dogs?: DogDto[]) {
-  const k = `${process.env.REDIS_PREFIX}:checkout:dogs:${checkoutId}`;
+export async function setStoreDogs(id: string, dogs?: DogDto[]) {
+  const k = `${process.env.REDIS_PREFIX}:store:dogs:${id}`;
   if (!dogs) {
     return createRedisClient().del(k);
   }
   return createRedisClient().set(k, JSON.stringify(dogs), 'EX', CHECKOUT_PARAMS_EX);
 }
 
-export async function getCheckoutEmail(checkoutId: string) {
-  const k = `${process.env.REDIS_PREFIX}:checkout:email:${checkoutId}`;
+export async function getStoreEmail(id: string) {
+  const k = `${process.env.REDIS_PREFIX}:store:email:${id}`;
   const value = await createRedisClient().get(k);
   return value;
 }
 
-export async function setCheckoutEmail(checkoutId: string, email?: string) {
-  const k = `${process.env.REDIS_PREFIX}:checkout:email:${checkoutId}`;
+export async function setStoreEmail(id: string, email?: string) {
+  const k = `${process.env.REDIS_PREFIX}:store:email:${id}`;
   if (!email) {
     return createRedisClient().del(k);
   }
   return createRedisClient().set(k, email, 'EX', CHECKOUT_PARAMS_EX);
 }
 
-export async function getCheckoutPaymentIntent(checkoutId: string) {
-  const k = `${process.env.REDIS_PREFIX}:checkout:paymentIntent:${checkoutId}`;
+export async function getStorePaymentIntent(id: string) {
+  const k = `${process.env.REDIS_PREFIX}:store:paymentIntent:${id}`;
   const value = await createRedisClient().get(k);
   return value;
 }
 
-export async function setCheckoutPaymentIntent(checkoutId: string, paymentIntent?: string) {
-  const k = `${process.env.REDIS_PREFIX}:checkout:paymentIntent:${checkoutId}`;
+export async function setStorePaymentIntent(id: string, paymentIntent?: string) {
+  const k = `${process.env.REDIS_PREFIX}:store:paymentIntent:${id}`;
   if (!paymentIntent) {
     return createRedisClient().del(k);
   }
   return createRedisClient().set(k, paymentIntent, 'EX', CHECKOUT_PARAMS_EX);
 }
 
-export async function deleteCheckoutKeys(checkoutId: string) {
-  await setCheckoutEmail(checkoutId);
-  await setCheckoutDogs(checkoutId);
-  await setCheckoutDeliveryDate(checkoutId);
-  await setCheckoutPaymentIntent(checkoutId);
+export async function deleteStoreKeys(id: string) {
+  await setStoreEmail(id);
+  await setStoreDogs(id);
+  await setStoreDeliveryDate(id);
+  await setStorePaymentIntent(id);
 }

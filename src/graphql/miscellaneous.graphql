@@ -2,3 +2,12 @@ fragment Money on Money {
   currency
   amount
 }
+
+fragment TaxedMoney on TaxedMoney {
+  net {
+    ...Money
+  }
+  gross {
+    ...Money
+  }
+}

@@ -26,7 +26,7 @@ import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
 import { redirect } from '@/navigation';
 import { getCalendarEvents } from '@/services/calendar';
-import { getCheckoutDeliveryDate, setCheckoutDeliveryDate } from '@/services/redis';
+import { getStoreDeliveryDate, setStoreDeliveryDate } from '@/services/redis';
 import { CartReturn } from '@/types/dto';
 
 export async function getCartOrCheckout(): Promise<CheckoutFragment> {
@@ -254,7 +254,7 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
     throw new Error('delivery date is unavailable');
   }
 
-  await setCheckoutDeliveryDate(checkout.id, value.deliveryDate);
+  await setStoreDeliveryDate(checkout.id, value.deliveryDate);
 
   const { checkoutEmailUpdate } = await executeGraphQL(UpdateCheckoutEmailDocument, {
     variables: {
@@ -353,7 +353,7 @@ export async function getDeliveryDate() {
     return undefined;
   }
 
-  const deliveryDate = await getCheckoutDeliveryDate(id);
+  const deliveryDate = await getStoreDeliveryDate(id);
 
   if (!deliveryDate) {
     return undefined;

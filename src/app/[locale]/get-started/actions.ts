@@ -6,27 +6,26 @@ import { headers } from 'next/headers';
 import invariant from 'ts-invariant';
 import { In } from 'typeorm';
 
-import { deleteCheckoutCookie, getCheckoutCookie, setCheckoutCookie } from '@/actions';
+import { deleteOrderCookie, getOrderCookie, setOrderCookie } from '@/actions';
 import { Breed, User } from '@/entities';
 import { Frequency, MealPlan } from '@/enums';
 import {
-  AddPromoCodeDocument,
-  AttachCheckoutCustomerDocument,
-  CheckoutAuthorizeStatusEnum,
-  CheckoutChargeStatusEnum,
-  CheckoutFragment,
-  CompleteCheckoutDocument,
-  CreateCheckoutDocument,
-  GetCheckoutDocument,
+  AddOrderDiscountDocument,
+  CompleteDraftOrderDocument,
+  CreateDraftOrderDocument,
+  DiscountValueTypeEnum,
+  GetOrderDocument,
   InitializeTransactionDocument,
-  UpdateCheckoutShippingMethodDocument,
+  OrderAuthorizeStatusEnum,
+  OrderChargeStatusEnum,
+  OrderFragment,
+  UpdateDraftOrderDocument,
 } from '@/gql/graphql';
 import { awaitable } from '@/helpers/async';
 import {
-  calculateRecipeTotalPriceInBox,
+  calculateRecipeTotalProtionsInBox,
   calculateTotalPerDayPrice,
   getClosestOrderDeliveryDate,
-  getSubscriptionProductActuallyQuanlityInSaleor,
   getTheCheapestRecipe,
   isUnavailableDeliveryDate,
 } from '@/helpers/dog';
@@ -36,18 +35,18 @@ import { executeQuery } from '@/helpers/queryRunner';
 import { recipeToVariant } from '@/helpers/saleor';
 import { redirect } from '@/navigation';
 import { subscriptionProducts } from '@/products';
-import { findProducts, updateAddress, upsertUser } from '@/services/api';
+import { findProducts, getThrowableChannel, updateOrderAddress, upsertUser } from '@/services/api';
 import { getCalendarEvents } from '@/services/calendar';
 import { setupRecurringBox } from '@/services/recurring';
 import {
-  deleteCheckoutKeys,
-  getCheckoutDeliveryDate,
-  getCheckoutDogs,
-  getCheckoutPaymentIntent,
-  setCheckoutDeliveryDate,
-  setCheckoutDogs,
-  setCheckoutEmail,
-  setCheckoutPaymentIntent,
+  deleteStoreKeys,
+  getStoreDeliveryDate,
+  getStoreDogs,
+  getStorePaymentIntent,
+  setStoreDeliveryDate,
+  setStoreDogs,
+  setStoreEmail,
+  setStorePaymentIntent,
 } from '@/services/redis';
 import {
   attachPaymentMethod,
@@ -133,30 +132,32 @@ export async function getMinPerDayPrice(
   };
 }
 
-async function getCheckout(): Promise<CheckoutFragment> {
-  const checkoutId = await getCheckoutCookie();
+async function getOrder(): Promise<OrderFragment> {
+  const orderId = await getOrderCookie();
 
-  if (!checkoutId) {
-    throw new Error('checkout id cannot be found');
+  if (!orderId) {
+    throw new Error('order id cannot be found');
   }
 
-  const { checkout } = await executeGraphQL(GetCheckoutDocument, {
+  const { order } = await executeGraphQL(GetOrderDocument, {
     withAuth: false,
     headers: {
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
-    variables: { id: checkoutId },
+    variables: { id: orderId },
   });
 
-  if (!checkout) {
-    throw new Error('checkout not found');
+  if (!order) {
+    throw new Error('order not found');
   }
 
-  return checkout;
+  return order;
 }
 
-export async function createCheckout(dogs: DogDto[]) {
+export async function createDraftOrder(dogs: DogDto[]) {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
+
+  const channel = await getThrowableChannel();
 
   const productSlugsToBeAddToLine = [];
 
@@ -206,7 +207,7 @@ export async function createCheckout(dogs: DogDto[]) {
     if (!recipe1Variant) {
       throw new Error('failed to add recipe 1 to checkout, variant not found');
     }
-    const recipe1TotalPrice = calculateRecipeTotalPriceInBox(
+    const recipe1TotalProtions = calculateRecipeTotalProtionsInBox(
       breeds,
       dateOfBirth,
       dog.isNeutered,
@@ -216,19 +217,18 @@ export async function createCheckout(dogs: DogDto[]) {
       { recipeToBeCalcuate: dog.recipe1, recipeReference: dog.recipe2 },
       dog.mealPlan,
       Frequency.TwoWeek,
-      dog.isEnabledTransitionPeriod,
-      true
+      dog.isEnabledTransitionPeriod
     );
     lines.push({
       variantId: recipe1Variant.id,
-      quantity: getSubscriptionProductActuallyQuanlityInSaleor(recipe1TotalPrice),
+      quantity: Math.ceil(recipe1TotalProtions),
     });
     if (dog.recipe2) {
       const recipe2Variant = recipeToVariant(products, breeds, dateOfBirth, dog.recipe2);
       if (!recipe2Variant) {
         throw new Error('failed to add recipe 2 to checkout, variant not found');
       }
-      const recipe2TotalPrice = calculateRecipeTotalPriceInBox(
+      const recipe2TotalProtions = calculateRecipeTotalProtionsInBox(
         breeds,
         dateOfBirth,
         dog.isNeutered,
@@ -238,51 +238,70 @@ export async function createCheckout(dogs: DogDto[]) {
         { recipeToBeCalcuate: dog.recipe2, recipeReference: dog.recipe1 },
         dog.mealPlan,
         Frequency.TwoWeek,
-        dog.isEnabledTransitionPeriod,
-        true
+        dog.isEnabledTransitionPeriod
       );
       lines.push({
         variantId: recipe2Variant.id,
-        quantity: getSubscriptionProductActuallyQuanlityInSaleor(recipe2TotalPrice),
+        quantity: Math.ceil(recipe2TotalProtions),
       });
     }
   }
 
-  // create checkout
-  const { checkoutCreate } = await executeGraphQL(CreateCheckoutDocument, {
+  // create draft order
+  const { draftOrderCreate } = await executeGraphQL(CreateDraftOrderDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
     variables: {
       input: {
-        channel: process.env.SALEOR_CHANNEL_SLUG,
+        channelId: channel.id,
         lines,
       },
     },
   });
 
-  if (!checkoutCreate || checkoutCreate.errors.length > 0) {
-    checkoutCreate && console.error(checkoutCreate?.errors);
-    throw new Error('create checkout failed');
+  if (!draftOrderCreate || draftOrderCreate.errors.length > 0) {
+    draftOrderCreate && console.error(draftOrderCreate?.errors);
+    throw new Error('create draft order failed');
   }
 
-  const checkout = checkoutCreate.checkout!;
-  const stripeAppId = getStripeAppId();
+  const order = draftOrderCreate.order!;
 
-  if (!checkout.availablePaymentGateways.find((x) => x.id === stripeAppId)) {
-    throw new Error('stripe is currently not available');
+  // setup starter box discount
+  const { orderDiscountAdd } = await executeGraphQL(AddOrderDiscountDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      id: order.id,
+      input: {
+        valueType: DiscountValueTypeEnum.Percentage,
+        value: 50,
+        reason: '50% Off Starter Box',
+      },
+    },
+  });
+
+  if (!orderDiscountAdd || orderDiscountAdd.errors.length > 0) {
+    orderDiscountAdd && console.error(orderDiscountAdd?.errors);
+    throw new Error('add starter box discount failed');
   }
 
-  await setCheckoutDogs(checkout.id, dogs);
+  await setStoreDogs(order.id, dogs);
 
-  await setCheckoutCookie(checkout.id);
+  await setOrderCookie(order.id);
 
-  return checkoutCreate.checkout!;
+  return orderDiscountAdd.order!;
 }
 
 export async function initializeStripeTranscation() {
-  const checkout = await getCheckout();
+  const order = await getOrder();
 
   const { transactionInitialize } = await executeGraphQL(InitializeTransactionDocument, {
     variables: {
-      checkoutOrOrderId: checkout.id,
+      checkoutOrOrderId: order.id,
       paymentGateway: {
         id: getStripeAppId(),
         data: {
@@ -302,7 +321,7 @@ export async function initializeStripeTranscation() {
 
   const paymentIntent = await retrivePaymentIntent(transactionInitialize.transaction!.pspReference);
 
-  await setCheckoutPaymentIntent(checkout.id, paymentIntent.id);
+  await setStorePaymentIntent(order.id, paymentIntent.id);
 
   return transactionInitialize.data as {
     paymentIntent: { client_secret: string };
@@ -311,18 +330,24 @@ export async function initializeStripeTranscation() {
 }
 
 export async function applyCoupon({ coupon }: { coupon: string }) {
-  const checkout = await getCheckout();
+  const order = await getOrder();
 
-  const { checkoutAddPromoCode } = await executeGraphQL(AddPromoCodeDocument, {
+  const { draftOrderUpdate } = await executeGraphQL(UpdateDraftOrderDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
     variables: {
-      promoCode: coupon,
-      checkoutId: checkout.id,
+      id: order.id,
+      input: {
+        voucherCode: coupon,
+      },
     },
   });
 
-  if (!checkoutAddPromoCode || checkoutAddPromoCode.errors.length > 0) {
-    checkoutAddPromoCode && console.error(checkoutAddPromoCode.errors);
-    throw new Error('failed to add coupon to checkout');
+  if (!draftOrderUpdate || draftOrderUpdate.errors.length > 0) {
+    draftOrderUpdate && console.error(draftOrderUpdate.errors);
+    throw new Error('failed to add coupon to draft order');
   }
 }
 
@@ -369,7 +394,7 @@ interface Address {
   country: string;
 }
 
-interface UpdateCheckoutDataAction {
+interface UpdateOrderDataAction {
   firstName: string;
   lastName: string;
   email: string;
@@ -393,7 +418,7 @@ const addressSchema = Joi.object({
   country: Joi.string().required(),
 });
 
-const schema = Joi.object<UpdateCheckoutDataAction>({
+const schema = Joi.object<UpdateOrderDataAction>({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   email: Joi.string().required(),
@@ -407,7 +432,7 @@ const schema = Joi.object<UpdateCheckoutDataAction>({
   billingAddress: addressSchema,
 });
 
-export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
+export async function updateOrderData(data: UpdateOrderDataAction) {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
   const headersList = headers();
@@ -419,8 +444,8 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
     throw new Error('schema is not valid');
   }
 
-  const checkout = await getCheckout();
-  const paymentIntent = await getCheckoutPaymentIntent(checkout.id);
+  const order = await getOrder();
+  const paymentIntent = await getStorePaymentIntent(order.id);
 
   const calendarEvents = await getCalendarEvents();
 
@@ -435,8 +460,8 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
     throw new Error('delivery date is unavailable');
   }
 
-  await setCheckoutEmail(checkout.id, value.email);
-  await setCheckoutDeliveryDate(checkout.id, value.deliveryDate);
+  await setStoreEmail(order.id, value.email);
+  await setStoreDeliveryDate(order.id, value.deliveryDate);
 
   const user = await findOrCreateUser(
     value.firstName,
@@ -449,28 +474,30 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
     `${origin}/auth/verify-email`
   );
 
-  if (!checkout.user) {
-    const { checkoutCustomerAttach } = await executeGraphQL(AttachCheckoutCustomerDocument, {
+  if (!order.user) {
+    const { draftOrderUpdate } = await executeGraphQL(UpdateDraftOrderDocument, {
       withAuth: false,
       headers: {
         Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
       },
       variables: {
-        checkoutId: checkout.id,
-        customerId: user.id,
+        id: order.id,
+        input: {
+          user: user.id,
+        },
       },
     });
 
-    if (!checkoutCustomerAttach || checkoutCustomerAttach.errors.length > 0) {
-      checkoutCustomerAttach && console.error(checkoutCustomerAttach.errors);
-      throw new Error('failed to attach a user to the checkout');
+    if (!draftOrderUpdate || draftOrderUpdate.errors.length > 0) {
+      draftOrderUpdate && console.error(draftOrderUpdate.errors);
+      throw new Error('failed to attach a user to the draft order');
     }
-  } else if (checkout.user.id !== user.id) {
-    throw new Error('incorrect user id of current checkout');
+  } else if (order.user.id !== user.id) {
+    throw new Error('incorrect user id of the current draft order');
   }
 
-  await updateAddress(
-    checkout.id,
+  await updateOrderAddress(
+    order.id,
     value.deliveryAddress,
     value.isSameBillingAddress ? undefined : value.billingAddress!
   );
@@ -486,15 +513,15 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
   }
 }
 
-export async function finalizeCheckout(paymentMethodId: string) {
+export async function finalizeOrder(paymentMethodId: string) {
   try {
-    const checkout = await getCheckout();
-    const surveyDogs = await getCheckoutDogs(checkout.id);
-    const deliveryDate = await getCheckoutDeliveryDate(checkout.id);
+    const order = await getOrder();
+    const surveyDogs = await getStoreDogs(order.id);
+    const deliveryDate = await getStoreDeliveryDate(order.id);
 
-    console.dir(checkout, { depth: null });
+    console.dir(order, { depth: null });
 
-    if (checkout.shippingMethods.length === 0) {
+    if (order.shippingMethods.length === 0) {
       throw new Error('there have no available shipping method');
     }
 
@@ -507,52 +534,55 @@ export async function finalizeCheckout(paymentMethodId: string) {
       );
     }
 
-    if (!checkout.user) {
+    if (!order.user) {
       throw new Error('checkout is not linked with user, please contact ocelle for more.');
     }
 
-    const { checkoutDeliveryMethodUpdate } = await executeGraphQL(
-      UpdateCheckoutShippingMethodDocument,
-      {
-        withAuth: false,
-        headers: {
-          Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    const { draftOrderUpdate } = await executeGraphQL(UpdateDraftOrderDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: {
+        id: order.id,
+        input: {
+          shippingMethod: order.shippingMethods[0].id,
         },
-        variables: {
-          checkoutId: checkout.id,
-          shippingMethodId: checkout.shippingMethods[0].id,
-        },
-      }
-    );
+      },
+    });
 
-    if (!checkoutDeliveryMethodUpdate || checkoutDeliveryMethodUpdate.errors.length > 0) {
-      checkoutDeliveryMethodUpdate && console.error(checkoutDeliveryMethodUpdate.errors);
+    if (!draftOrderUpdate || draftOrderUpdate.errors.length > 0) {
+      draftOrderUpdate && console.error(draftOrderUpdate.errors);
       throw new Error('failed to update shipping method');
     }
 
     // we need to wait for the payment hook to be called before completing the checkout
     await awaitable(
-      getCheckout,
+      getOrder,
       ({ authorizeStatus, chargeStatus }) =>
-        authorizeStatus !== CheckoutAuthorizeStatusEnum.None &&
-        chargeStatus !== CheckoutChargeStatusEnum.None
+        authorizeStatus !== OrderAuthorizeStatusEnum.None &&
+        chargeStatus !== OrderChargeStatusEnum.None
     );
 
-    const { checkoutComplete } = await executeGraphQL(CompleteCheckoutDocument, {
+    const { draftOrderComplete } = await executeGraphQL(CompleteDraftOrderDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
       variables: {
-        checkoutId: checkout.id,
+        id: order.id,
       },
     });
 
-    if (!checkoutComplete || checkoutComplete.errors.length > 0) {
-      checkoutComplete && console.error(checkoutComplete.errors);
-      throw new Error('checkout cannot completed');
+    if (!draftOrderComplete || draftOrderComplete.errors.length > 0) {
+      draftOrderComplete && console.error(draftOrderComplete.errors);
+      throw new Error('order cannot be completed');
     }
 
     const user = await executeQuery(async (queryRunner) => {
       // user should be created in update checkout data action
       const user = await queryRunner.manager.findOne(User, {
-        where: { id: checkout.user!.id },
+        where: { id: order.user!.id },
         relations: {
           dogs: {
             boxs: true,
@@ -570,7 +600,7 @@ export async function finalizeCheckout(paymentMethodId: string) {
       return user;
     });
 
-    await setupRecurringBox(user.id, surveyDogs, deliveryDate, checkoutComplete.order!);
+    await setupRecurringBox(user.id, surveyDogs, deliveryDate, draftOrderComplete.order!);
   } catch (e) {
     console.error(e);
     redirect('/get-started');
@@ -581,19 +611,19 @@ export async function finalizeCheckout(paymentMethodId: string) {
 }
 
 export async function getDeliveryDate() {
-  const id = await getCheckoutCookie();
+  const id = await getOrderCookie();
 
   if (!id) {
     return undefined;
   }
 
-  const deliveryDate = await getCheckoutDeliveryDate(id);
+  const deliveryDate = await getStoreDeliveryDate(id);
 
-  await deleteCheckoutKeys(id);
+  await deleteStoreKeys(id);
 
-  return deliveryDate ?? undefined;
+  return deliveryDate ? deliveryDate.toISOString() : undefined;
 }
 
-export async function dropCheckoutSession() {
-  await deleteCheckoutCookie();
+export async function dropOrderSession() {
+  await deleteOrderCookie();
 }

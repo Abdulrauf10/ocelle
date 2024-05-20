@@ -32,10 +32,9 @@ import {
   Recipe,
   Sex,
 } from '@/enums';
-import { CheckoutFragment } from '@/gql/graphql';
+import { OrderDiscountType, OrderFragment } from '@/gql/graphql';
 import {
   calculateTotalPerDayPrice,
-  calculateTotalPriceInBox,
   getDateOfBirth,
   getRecipeSlug,
   isUnavailableDeliveryDate,
@@ -132,7 +131,7 @@ type DogData = {
 
 export default function SubscriptionCheckoutForm({
   defaultValues,
-  initialCheckout,
+  draftOrder,
   dogs,
   clientSecret,
   closestDeliveryDate,
@@ -149,7 +148,7 @@ export default function SubscriptionCheckoutForm({
     lastName?: string;
     email?: string;
   };
-  initialCheckout: CheckoutFragment;
+  draftOrder: OrderFragment;
   dogs: DogData[];
   clientSecret: string;
   closestDeliveryDate: Date;
@@ -179,16 +178,32 @@ export default function SubscriptionCheckoutForm({
       ...defaultValues,
       isSameBillingAddress: true,
       deliveryDate: closestDeliveryDate,
-      billingAddress: {
-        firstName: defaultValues?.firstName,
-        lastName: defaultValues?.lastName,
-      },
+      // billingAddress: {
+      //   firstName: defaultValues?.firstName,
+      //   lastName: defaultValues?.lastName,
+      // },
+      // deliveryAddress: {
+      //   firstName: defaultValues?.firstName,
+      //   lastName: defaultValues?.lastName,
+      // },
+      firstName: 'Chris',
+      lastName: 'Wong',
+      email: 'chris.wong@gmail.com',
+      phone: '88888888',
+      password: 'P@ssw0rd',
+      confirmPassword: 'P@ssw0rd',
       deliveryAddress: {
-        firstName: defaultValues?.firstName,
-        lastName: defaultValues?.lastName,
+        firstName: 'Chris',
+        lastName: 'Wong',
+        streetAddress1: 'Flat A-B, 11/F, Wah Lik Industrial Centre',
+        streetAddress2: '459-469 Castle Peak Road',
+        district: 'Tsuen Wan',
+        region: 'New Territories',
+        country: 'HK',
       },
     },
   });
+  console.log(errors);
   const datePickerRef = React.useRef<HTMLDivElement | null>(null);
   const [openDeliveryDate, setOpenDeliveryDate] = React.useState(false);
   const [isSubmitInProgress, setIsSubmitInProgress] = React.useState(false);
@@ -280,43 +295,13 @@ export default function SubscriptionCheckoutForm({
     };
   }, [handleWindowClick]);
 
-  const totalPrice = dogs.reduce(
-    ({ recurring, startbox }, dog) => {
-      const dateOfBirth =
-        typeof dog.age === 'string' ? dog.age! : getDateOfBirth(dog.age!).toISOString();
-      const starterBoxPrice = calculateTotalPriceInBox(
-        dog.breeds!,
-        new Date(dateOfBirth),
-        dog.isNeutered!,
-        dog.weight!,
-        dog.bodyCondition!,
-        dog.activityLevel!,
-        { recipe1: dog.recipe1!, recipe2: dog.recipe2 },
-        dog.mealPlan!,
-        Frequency.TwoWeek,
-        true,
-        true
-      );
-      const recurringPrice = calculateTotalPriceInBox(
-        dog.breeds!,
-        new Date(dateOfBirth),
-        dog.isNeutered!,
-        dog.weight!,
-        dog.bodyCondition!,
-        dog.activityLevel!,
-        { recipe1: dog.recipe1!, recipe2: dog.recipe2 },
-        dog.mealPlan!,
-        Frequency.TwoWeek,
-        true,
-        false
-      );
-      return {
-        startbox: starterBoxPrice + startbox,
-        recurring: recurringPrice + recurring,
-      };
-    },
-    { recurring: 0, startbox: 0 }
+  const starterBoxDiscount = draftOrder.discounts.find(
+    (discount) => discount.type === OrderDiscountType.Manual
   );
+
+  if (!starterBoxDiscount) {
+    throw new Error('there have some error, please try again later.');
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -573,7 +558,7 @@ export default function SubscriptionCheckoutForm({
                   <div className="body-3 px-1">
                     <Price
                       className="font-bold"
-                      value={nativeRound(totalPrice.recurring)}
+                      value={draftOrder.undiscountedTotal.gross.amount}
                       discount
                     />
                   </div>
@@ -582,7 +567,7 @@ export default function SubscriptionCheckoutForm({
                 <div className="-mx-1 flex flex-wrap justify-between">
                   <div className="body-3 px-1">{t('with-starter-box-discount')}</div>
                   <div className="body-3 px-1">
-                    <Price className="font-bold" value={nativeRound(totalPrice.startbox)} />
+                    <Price className="font-bold" value={starterBoxDiscount.amount.amount} />
                   </div>
                 </div>
                 <div className="mt-3"></div>
@@ -601,7 +586,7 @@ export default function SubscriptionCheckoutForm({
               <SummaryBlock>
                 <div className="-mx-1 flex flex-wrap justify-between font-bold">
                   <div className="px-1">{t('{}-colon', { value: t('todays-total') })}</div>
-                  <div className="px-1">${initialCheckout.totalPrice?.gross.amount}</div>
+                  <div className="px-1">${draftOrder.total.gross.amount}</div>
                 </div>
                 <div className="mt-4">
                   <RoundedCheckbox

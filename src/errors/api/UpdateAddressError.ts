@@ -1,10 +1,8 @@
 import APIError from './APIError';
 
-import { UpdateCheckoutAddressMutation } from '@/gql/graphql';
+import { UpdateDraftOrderMutation } from '@/gql/graphql';
 
-type T =
-  | UpdateCheckoutAddressMutation['checkoutShippingAddressUpdate']
-  | UpdateCheckoutAddressMutation['checkoutBillingAddressUpdate'];
+type T = UpdateDraftOrderMutation['draftOrderUpdate'];
 
 export default class UpdateAddressError extends APIError<T> {
   constructor(mutation: T) {

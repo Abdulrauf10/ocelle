@@ -14,6 +14,17 @@ fragment OrderLine on OrderLine {
   }
 }
 
+fragment OrderDiscount on OrderDiscount {
+  id
+  type
+  valueType
+  value
+  reason
+  amount {
+    ...Money
+  }
+}
+
 fragment Order on Order {
   id
   userEmail
@@ -36,10 +47,14 @@ fragment Order on Order {
   shippingMethods {
     ...ShippingMethod
   }
+  discounts {
+    ...OrderDiscount
+  }
   shippingPrice {
-    gross {
-      ...Money
-    }
+    ...TaxedMoney
+  }
+  undiscountedTotal {
+    ...TaxedMoney
   }
   total {
     gross {
@@ -64,8 +79,34 @@ mutation CreateDraftOrder($input: DraftOrderCreateInput!) {
   }
 }
 
+mutation UpdateDraftOrder($id: ID!, $input: DraftOrderInput!) {
+  draftOrderUpdate(id: $id, input: $input) {
+    errors {
+      field
+      message
+      code
+    }
+    order {
+      ...Order
+    }
+  }
+}
+
 mutation CompleteDraftOrder($id: ID!) {
   draftOrderComplete(id: $id) {
+    errors {
+      field
+      message
+      code
+    }
+    order {
+      ...Order
+    }
+  }
+}
+
+mutation AddOrderDiscount($id: ID!, $input: OrderDiscountCommonInput!) {
+  orderDiscountAdd(orderId: $id, input: $input) {
     errors {
       field
       message

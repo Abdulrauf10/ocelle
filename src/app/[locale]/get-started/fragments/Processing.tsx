@@ -6,13 +6,13 @@ import { useNavigate } from 'react-router-dom';
 
 import Stage from '../Stage';
 import { Dog, useSurvey } from '../SurveyContext';
-import { createCheckout, initializeStripeTranscation } from '../actions';
+import { createDraftOrder, initializeStripeTranscation } from '../actions';
 import { pageVariants } from '../transition';
 
 import { getClosestDeliveryDate } from '@/actions';
 import Container from '@/components/Container';
 import { DateOfBirthMethod } from '@/enums';
-import { CheckoutFragment } from '@/gql/graphql';
+import { OrderFragment } from '@/gql/graphql';
 import { getDateOfBirth } from '@/helpers/dog';
 import { CalendarEvent } from '@/types';
 
@@ -38,7 +38,7 @@ export default function ProcessingFragment() {
   const navigate = useNavigate();
   const { owner, dogs } = useSurvey();
   const waitPromise = React.useMemo(() => new Promise((resolve) => setTimeout(resolve, 3000)), []);
-  const [checkout, setCheckout] = React.useState<CheckoutFragment | null>();
+  const [order, setOrder] = React.useState<OrderFragment | null>();
   const [closestDeliveryDate, setClosestDeliveryDate] = React.useState<Date | null>();
   const [calendarEvents, setCalendarEvents] = React.useState<CalendarEvent[] | null>();
   const [transcation, setTranscation] = React.useState<any | null>();
@@ -72,7 +72,7 @@ export default function ProcessingFragment() {
       console.error('failed to calculate, there have some fields not yet completed');
       setTranscation(null);
     } else {
-      createCheckout(
+      createDraftOrder(
         dogs.map((dog) => {
           if (isIncompletedDogProfile(dog)) {
             throw new Error('unexcepted incompleted dog profile');
@@ -99,9 +99,8 @@ export default function ProcessingFragment() {
           };
         })
       )
-        .then(async (checkout) => {
-          console.log(checkout, typeof checkout);
-          setCheckout(checkout);
+        .then(async (order) => {
+          setOrder(order);
           try {
             const data = await initializeStripeTranscation();
             setTranscation(data);
@@ -112,7 +111,7 @@ export default function ProcessingFragment() {
         })
         .catch((e) => {
           console.error(e);
-          setCheckout(null);
+          setOrder(null);
           setTranscation(null);
         });
     }
@@ -120,7 +119,7 @@ export default function ProcessingFragment() {
 
   React.useEffect(() => {
     if (
-      checkout === undefined ||
+      order === undefined ||
       closestDeliveryDate === undefined ||
       calendarEvents === undefined ||
       transcation === undefined
@@ -128,14 +127,8 @@ export default function ProcessingFragment() {
       // fetching api and wait for the request has completed
       return;
     }
-    console.log(
-      checkout === null ||
-        closestDeliveryDate === null ||
-        calendarEvents === null ||
-        transcation === null
-    );
     if (
-      checkout === null ||
+      order === null ||
       closestDeliveryDate === null ||
       calendarEvents === null ||
       transcation === null
@@ -150,7 +143,7 @@ export default function ProcessingFragment() {
     waitPromise.then(() => {
       navigate(Stage.Checkout, {
         state: {
-          checkout,
+          order,
           closestDeliveryDate,
           calendarEvents,
           stripe: transcation,
@@ -158,7 +151,7 @@ export default function ProcessingFragment() {
         replace: true,
       });
     });
-  }, [checkout, closestDeliveryDate, calendarEvents, transcation, waitPromise, navigate]);
+  }, [order, closestDeliveryDate, calendarEvents, transcation, waitPromise, navigate]);
 
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">

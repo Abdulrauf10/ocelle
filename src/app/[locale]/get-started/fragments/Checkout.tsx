@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import Stage from '../Stage';
 import { useSurvey } from '../SurveyContext';
-import { applyCoupon, finalizeCheckout, updateCheckoutData } from '../actions';
+import { applyCoupon, finalizeOrder, updateOrderData } from '../actions';
 import { pageVariants } from '../transition';
 
 import AppThemeProvider from '@/components/AppThemeProvider';
@@ -48,7 +48,7 @@ export default function CheckoutFragment() {
         >
           <SubscriptionCheckoutForm
             defaultValues={owner}
-            initialCheckout={state.checkout}
+            draftOrder={state.order}
             dogs={dogs}
             clientSecret={state.stripe.paymentIntent.client_secret}
             closestDeliveryDate={state.closestDeliveryDate}
@@ -59,8 +59,8 @@ export default function CheckoutFragment() {
             onEditTransitionPeriod={() =>
               navigate(Stage.RecommendedPlan, { state: { isEdit: true } })
             }
-            onBeforeTransaction={updateCheckoutData}
-            onCompleteTransaction={finalizeCheckout}
+            onBeforeTransaction={updateOrderData}
+            onCompleteTransaction={finalizeOrder}
           />
         </StripeLoader>
       </AppThemeProvider>

@@ -3,7 +3,7 @@
 import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import { cookies } from 'next/headers';
 
-import { CART_COOKIE, CHECKOUT_COOKIE, DOG_SELECT_COOKIE, LOGIN_PATH } from './consts';
+import { CART_COOKIE, DOG_SELECT_COOKIE, LOGIN_PATH, ORDER_COOKIE } from './consts';
 import { User } from './entities';
 import { GetCurrentUserDocument, GetCurrentUserFullSizeDocument } from './gql/graphql';
 import { getClosestOrderDeliveryDate } from './helpers/dog';
@@ -117,16 +117,16 @@ export async function deleteCartCookie() {
   return getNextServerCookiesStorage().removeItem(CART_COOKIE);
 }
 
-export async function setCheckoutCookie(value: string) {
-  return getNextServerCookiesStorage().setItem(CHECKOUT_COOKIE, value);
+export async function setOrderCookie(value: string) {
+  return getNextServerCookiesStorage().setItem(ORDER_COOKIE, value);
 }
 
-export async function getCheckoutCookie() {
-  return getNextServerCookiesStorage().getItem(CHECKOUT_COOKIE);
+export async function getOrderCookie() {
+  return getNextServerCookiesStorage().getItem(ORDER_COOKIE);
 }
 
-export async function deleteCheckoutCookie() {
-  return getNextServerCookiesStorage().removeItem(CHECKOUT_COOKIE);
+export async function deleteOrderCookie() {
+  return getNextServerCookiesStorage().removeItem(ORDER_COOKIE);
 }
 
 export async function getCurrentSelectedDogIdCookie() {

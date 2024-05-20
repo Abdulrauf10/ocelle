@@ -5,7 +5,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import Benefits from '../Benefits';
-import { dropCheckoutSession, getDeliveryDate } from '../actions';
+import { dropOrderSession, getDeliveryDate } from '../actions';
 
 import Container from '@/components/Container';
 import { getSurveySessionStore } from '@/helpers/session';
@@ -29,8 +29,8 @@ export default function ThankYouPage() {
       if (!deliveryDate) {
         throw new Error('delivery date is undefined');
       }
-      setDeliveryDate(deliveryDate);
-      await dropCheckoutSession();
+      setDeliveryDate(new Date(deliveryDate));
+      await dropOrderSession();
       getSurveySessionStore().clearAll();
     } catch (e) {
       console.error(e);

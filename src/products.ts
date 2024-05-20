@@ -1,17 +1,12 @@
 import { IndividualRecipePack, Recipe } from './enums';
 
 /**
- * used in saleor product variant unit price
- */
-export const saleorSubscriptionProductUnitPrice = 0.1;
-
-/**
  * Refer to `Excel: customization variables v1.01 > Price Matrix`
  * price = saleor variant price
  */
 export const subscriptionProducts = {
   [Recipe.Chicken]: {
-    name: 'S: Fresh Chicken Recipe',
+    name: 'Fresh Chicken Recipe',
     slug: 'fresh-chicken-subscription',
     variants: {
       Puppy: {
@@ -29,7 +24,7 @@ export const subscriptionProducts = {
     },
   },
   [Recipe.Beef]: {
-    name: 'S: Fresh Beef Recipe',
+    name: 'Fresh Beef Recipe',
     slug: 'fresh-beef-subscription',
     variants: {
       Puppy: {
@@ -47,7 +42,7 @@ export const subscriptionProducts = {
     },
   },
   [Recipe.Duck]: {
-    name: 'S: Fresh Duck Recipe',
+    name: 'Fresh Duck Recipe',
     slug: 'fresh-duck-subscription',
     variants: {
       Puppy: {
@@ -65,7 +60,7 @@ export const subscriptionProducts = {
     },
   },
   [Recipe.Lamb]: {
-    name: 'S: Fresh Lamb Recipe',
+    name: 'Fresh Lamb Recipe',
     slug: 'fresh-lamb-subscription',
     variants: {
       Puppy: {
@@ -83,7 +78,7 @@ export const subscriptionProducts = {
     },
   },
   [Recipe.Pork]: {
-    name: 'S: Fresh Pork Recipe',
+    name: 'Fresh Pork Recipe',
     slug: 'fresh-pork-subscription',
     variants: {
       Puppy: {

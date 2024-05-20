@@ -1,10 +1,7 @@
 import invariant from 'ts-invariant';
 
 import { awaitable } from '../helpers/async';
-import {
-  calculateRecipeTotalPriceInBox,
-  getSubscriptionProductActuallyQuanlityInSaleor,
-} from '../helpers/dog';
+import { calculateRecipeTotalProtionsInBox } from '../helpers/dog';
 import { getStripeAppId } from '../helpers/env';
 import { executeGraphQL } from '../helpers/graphql';
 import { recipeToVariant } from '../helpers/saleor';
@@ -28,6 +25,7 @@ import {
   OrderChargeStatusEnum,
   RegisterAccountDocument,
   UpdateCheckoutAddressDocument,
+  UpdateDraftOrderDocument,
 } from '@/gql/graphql';
 
 export async function getThrowableChannel() {
@@ -97,8 +95,8 @@ export async function upsertUser(
   return accountRegister.user!;
 }
 
-export async function updateAddress(
-  checkoutId: string,
+export async function updateOrderAddress(
+  id: string,
   deliveryAddress: {
     firstName: string;
     lastName: string;
@@ -126,15 +124,14 @@ export async function updateAddress(
     country: CountryCode.Hk,
   };
 
-  const { checkoutShippingAddressUpdate, checkoutBillingAddressUpdate } = await executeGraphQL(
-    UpdateCheckoutAddressDocument,
-    {
-      withAuth: false,
-      headers: {
-        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-      },
-      variables: {
-        checkoutId,
+  const { draftOrderUpdate } = await executeGraphQL(UpdateDraftOrderDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      id,
+      input: {
         shippingAddress,
         billingAddress: billingAddress
           ? {
@@ -148,15 +145,11 @@ export async function updateAddress(
             }
           : shippingAddress,
       },
-    }
-  );
+    },
+  });
 
-  if (!checkoutShippingAddressUpdate || checkoutShippingAddressUpdate.errors.length > 0) {
-    throw new UpdateAddressError(checkoutBillingAddressUpdate);
-  }
-
-  if (!checkoutBillingAddressUpdate || checkoutBillingAddressUpdate.errors.length > 0) {
-    throw new UpdateAddressError(checkoutBillingAddressUpdate);
+  if (!draftOrderUpdate || draftOrderUpdate.errors.length > 0) {
+    throw new UpdateAddressError(draftOrderUpdate);
   }
 }
 
@@ -206,7 +199,7 @@ export async function orderRecurringBox(
     if (!recipe1Variant) {
       throw new Error('recipe1 variant not found in saleor');
     }
-    const recipe1TotalPrice = calculateRecipeTotalPriceInBox(
+    const recipe1TotalProtions = calculateRecipeTotalProtionsInBox(
       breeds,
       dog.dateOfBirth,
       dog.isNeutered,
@@ -216,19 +209,18 @@ export async function orderRecurringBox(
       { recipeToBeCalcuate: box.recipe1, recipeReference: box.recipe2 },
       box.mealPlan,
       box.frequency,
-      box.isTransitionPeriod,
-      false
+      box.isTransitionPeriod
     );
     lines.push({
       variantId: recipe1Variant.id,
-      quantity: getSubscriptionProductActuallyQuanlityInSaleor(recipe1TotalPrice),
+      quantity: Math.ceil(recipe1TotalProtions),
     });
     if (box.recipe2) {
       const recipe2Variant = recipeToVariant(products, breeds, dog.dateOfBirth, box.recipe2);
       if (!recipe2Variant) {
         throw new Error('recipe2 variant not found in saleor');
       }
-      const recipe2TotalPrice = calculateRecipeTotalPriceInBox(
+      const recipe2TotalProtions = calculateRecipeTotalProtionsInBox(
         breeds,
         dog.dateOfBirth,
         dog.isNeutered,
@@ -238,12 +230,11 @@ export async function orderRecurringBox(
         { recipeToBeCalcuate: box.recipe2, recipeReference: box.recipe1 },
         box.mealPlan,
         box.frequency,
-        box.isTransitionPeriod,
-        false
+        box.isTransitionPeriod
       );
       lines.push({
         variantId: recipe2Variant.id,
-        quantity: getSubscriptionProductActuallyQuanlityInSaleor(recipe2TotalPrice),
+        quantity: Math.ceil(recipe2TotalProtions),
       });
     }
   }

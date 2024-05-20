@@ -6,7 +6,7 @@ export const SHIPPING_METHOD_SF_EXPRESS_FIXED = 'SF Express (Fixed)';
 
 export const DOG_SELECT_COOKIE = 'CURRENT_DOG';
 export const CART_COOKIE = 'cart';
-export const CHECKOUT_COOKIE = 'checkout';
+export const ORDER_COOKIE = 'order';
 
 export const LOGIN_PATH = '/auth/login';
 

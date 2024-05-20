@@ -19,7 +19,7 @@ import {
   Recipe,
   Size,
 } from '@/enums';
-import { saleorSubscriptionProductUnitPrice, subscriptionProducts } from '@/products';
+import { subscriptionProducts } from '@/products';
 import { CalendarEvent, LifeStage } from '@/types';
 import { BreedDto } from '@/types/dto';
 
@@ -34,10 +34,6 @@ const recipePriorities = {
   [Recipe.Lamb]: 4,
   [Recipe.Duck]: 5,
 };
-
-export function getSubscriptionProductActuallyQuanlityInSaleor(recipeTotalPriceInBox: number) {
-  return Math.ceil(recipeTotalPriceInBox / saleorSubscriptionProductUnitPrice);
-}
 
 export function getTheCheapestRecipe() {
   let cheapest: Recipe = Recipe.Beef;

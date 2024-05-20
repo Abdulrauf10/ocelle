@@ -42,12 +42,9 @@ import {
   WeightUnitsEnum,
 } from './gql/graphql';
 import { executeGraphQL } from './helpers/graphql';
+import { nativeCeil } from './helpers/number';
 import { executeQuery } from './helpers/queryRunner';
-import {
-  individualPackProductsValues,
-  saleorSubscriptionProductUnitPrice,
-  subscriptionProductsValues,
-} from './products';
+import { individualPackProductsValues, subscriptionProductsValues } from './products';
 import { findProducts } from './services/api';
 
 import AppDataSource from '@/AppDataSource';
@@ -612,7 +609,7 @@ async function setupSubscriptionProducts(
               channelListings: [
                 {
                   channelId: channel.id,
-                  price: saleorSubscriptionProductUnitPrice,
+                  price: nativeCeil(variant.pricePerUnit, 2),
                 },
               ],
             };
