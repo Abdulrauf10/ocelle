@@ -107,12 +107,8 @@ export async function setupRecurringBox(
       });
       await queryRunner.manager.save(dog);
       const breeds = [];
-      for (let i = 0; i < dogs.length; i++) {
-        if (data.breeds) {
-          for (const id of data.breeds!) {
-            breeds.push(queryRunner.manager.create(DogBreed, { dog, breedId: id }));
-          }
-        }
+      for (const id of data.breeds ?? []) {
+        breeds.push(queryRunner.manager.create(DogBreed, { dog, breedId: id }));
       }
       await queryRunner.manager.save(breeds);
       const plan = queryRunner.manager.create(DogPlan, {
