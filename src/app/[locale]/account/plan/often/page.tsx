@@ -6,6 +6,7 @@ import DogSwitch from '../../DogSwitch';
 import setFrequencyAction from './action';
 
 import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
+import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
 import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import OrderSizeForm from '@/components/forms/Frequency';
@@ -63,35 +64,37 @@ export default async function PlanOften() {
     }, 0) / dogs.length;
 
   return (
-    <main className="bg-gold bg-opacity-10 py-10">
-      <Container>
-        <div className="mx-auto flex max-w-[1120px] justify-end">
-          <DogSwitch
-            selectedDogId={currentSelectedDogId ?? dogs[0].id}
-            dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}
+    <AppThemeProvider>
+      <main className="bg-gold bg-opacity-10 py-10">
+        <Container>
+          <div className="mx-auto flex max-w-[1120px] justify-end">
+            <DogSwitch
+              selectedDogId={currentSelectedDogId ?? dogs[0].id}
+              dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}
+            />
+          </div>
+          <h1 className="heading-4 text-center font-bold text-primary max-lg:mt-6">
+            {t('how-often-would-you-like-to-receive-deliveries')}
+          </h1>
+          <OrderSizeForm
+            initialFrequency={dog.plan.frequency}
+            oneWeekPrice={oneWeekPrice}
+            twoWeekPrice={twoWeekPrice}
+            endAdornment={
+              <div className="mx-auto max-w-[620px] text-center">
+                <ShippableNote />
+              </div>
+            }
+            action={async (data) => {
+              'use server';
+              return await setFrequencyAction({ ...data, id: dog.id });
+            }}
           />
-        </div>
-        <h1 className="heading-4 text-center font-bold text-primary">
-          {t('how-often-would-you-like-to-receive-deliveries')}
-        </h1>
-        <OrderSizeForm
-          initialFrequency={dog.plan.frequency}
-          oneWeekPrice={oneWeekPrice}
-          twoWeekPrice={twoWeekPrice}
-          endAdornment={
-            <div className="mx-auto max-w-[620px] text-center">
-              <ShippableNote />
-            </div>
-          }
-          action={async (data) => {
-            'use server';
-            return await setFrequencyAction({ ...data, id: dog.id });
-          }}
-        />
-        <div className="mt-8 text-center">
-          <UnderlineBackButton label={t('go-back')} />
-        </div>
-      </Container>
-    </main>
+          <div className="mt-8 text-center">
+            <UnderlineBackButton label={t('go-back')} />
+          </div>
+        </Container>
+      </main>
+    </AppThemeProvider>
   );
 }
