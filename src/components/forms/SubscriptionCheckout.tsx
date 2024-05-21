@@ -172,7 +172,6 @@ export default function SubscriptionCheckoutForm({
       },
     },
   });
-  console.log(errors);
   const datePickerRef = React.useRef<HTMLDivElement | null>(null);
   const [openDeliveryDate, setOpenDeliveryDate] = React.useState(false);
   const [isSubmitInProgress, setIsSubmitInProgress] = React.useState(false);

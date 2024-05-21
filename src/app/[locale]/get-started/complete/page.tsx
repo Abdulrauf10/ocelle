@@ -1,5 +1,6 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
@@ -13,36 +14,36 @@ import useSentence from '@/hooks/useSentence';
 import { Link, useRouter } from '@/navigation';
 
 export default function ThankYouPage() {
+  const id = React.useId();
   const t = useTranslations();
   const sentence = useSentence();
   const router = useRouter();
-  const [ran, setRan] = React.useState(false);
-  const [deliveryDate, setDeliveryDate] = React.useState<Date>();
-
-  const startCleanUp = React.useCallback(async () => {
-    if (ran) {
-      return;
-    }
-    try {
-      setRan(true);
-      const deliveryDate = await getDeliveryDate();
-      if (!deliveryDate) {
-        throw new Error('delivery date is undefined');
-      }
-      setDeliveryDate(new Date(deliveryDate));
-      await dropOrderSession();
-      getSurveySessionStore().clearAll();
-    } catch (e) {
-      console.error(e);
-      router.replace('/get-started');
-    }
-  }, [ran, router]);
+  const {
+    data: deliveryDate,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['completeDeliveryDate', id],
+    queryFn: async () => await getDeliveryDate(),
+    refetchInterval: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
 
   React.useEffect(() => {
-    startCleanUp();
-  }, [startCleanUp]);
+    if (deliveryDate) {
+      dropOrderSession();
+      getSurveySessionStore().clearAll();
+    }
+  }, [deliveryDate]);
 
-  if (!deliveryDate) {
+  if (isError) {
+    router.replace('/get-started');
+    return;
+  }
+
+  if (isLoading || !deliveryDate) {
     return (
       <Container className="py-24 text-center">
         <Image
@@ -72,9 +73,9 @@ export default function ThankYouPage() {
       <div className="mt-6"></div>
       <h1 className="heading-4 font-bold text-primary">{t('thank-you-for-your-order')}</h1>
       <p className="mt-4 text-primary">
-        {t('your-{}-will-be-delivered-on-the-{}', {
+        {t.rich('your-{}-will-be-delivered-on-the-{}', {
           value: t('starter-box').toLowerCase(),
-          date: sentence.date(deliveryDate, true),
+          date: sentence.date(new Date(deliveryDate), true),
         })}
       </p>
       <Benefits />
