@@ -42,12 +42,7 @@ export default function ProcessingFragment() {
       }));
     },
   });
-  const {
-    data: dogsPerDayPrice,
-    isLoading: loadingDogsPerDayPrice,
-    error,
-    isError,
-  } = useQuery({
+  const { data: dogsPerDayPrice, isLoading: loadingDogsPerDayPrice } = useQuery({
     queryKey: ['dogs'],
     queryFn: () => calculateDogsTotalPerDayPrice(dogs.map(dogToDogDto)),
   });
@@ -55,6 +50,7 @@ export default function ProcessingFragment() {
     data: order,
     mutate: draftOrderMutate,
     isPending: draftOrderPending,
+    isIdle: draftOrderIdle,
   } = useMutation({
     mutationFn: (dogs: Dog[]) => createDraftOrder(dogs.map((dog) => dogToDogDto(dog))),
   });
@@ -62,6 +58,7 @@ export default function ProcessingFragment() {
     data: transcation,
     mutate: transcationMutate,
     isPending: transcationPending,
+    isIdle: transcationIdle,
   } = useMutation({
     mutationFn: () => initializeStripeTranscation(),
   });
@@ -71,17 +68,19 @@ export default function ProcessingFragment() {
   }, [dogs, draftOrderMutate]);
 
   React.useEffect(() => {
-    if (!draftOrderPending) {
+    if (order) {
       transcationMutate();
     }
-  }, [draftOrderPending, dogs, transcationMutate]);
+  }, [order, dogs, transcationMutate]);
 
   React.useEffect(() => {
     if (
       loadingDogsPerDayPrice ||
       loadingDeliveryDate ||
       loadingCalenadarEvents ||
+      draftOrderIdle ||
       draftOrderPending ||
+      transcationIdle ||
       transcationPending
     ) {
       // fetching api and wait for the request has completed
@@ -116,7 +115,9 @@ export default function ProcessingFragment() {
     loadingDogsPerDayPrice,
     loadingDeliveryDate,
     loadingCalenadarEvents,
+    draftOrderIdle,
     draftOrderPending,
+    transcationIdle,
     transcationPending,
     waitPromise,
     navigate,
