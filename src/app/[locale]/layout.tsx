@@ -6,6 +6,7 @@ import { notFound } from 'next/navigation';
 import '../globals.css';
 
 import { getClientLoginedMe, logout } from '@/actions';
+import QueryClientProvider from '@/components/QueryClientProvider';
 import { AuthProvider } from '@/contexts/auth';
 import IntlProvider from '@/providers/intl';
 
@@ -40,9 +41,11 @@ export default async function RootLayout({
     <html lang={locale}>
       <body className={clsx(jost.className, jost.variable, openSans.variable)}>
         <IntlProvider locale={locale} messages={messages}>
-          <AuthProvider me={me} logout={logout}>
-            {children}
-          </AuthProvider>
+          <QueryClientProvider>
+            <AuthProvider me={me} logout={logout}>
+              {children}
+            </AuthProvider>
+          </QueryClientProvider>
         </IntlProvider>
       </body>
     </html>

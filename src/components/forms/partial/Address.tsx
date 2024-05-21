@@ -1,6 +1,7 @@
 'use client';
 
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import { useLocale, useTranslations } from 'next-intl';
 import React from 'react';
 import {
@@ -40,8 +41,6 @@ export default function PartialAddressForm<T extends FieldValues>({
   const locale = useLocale();
   const t = useTranslations();
   const id = React.useId();
-  const [pending, startTransition] = React.useTransition();
-  const [districts, setDistricts] = React.useState<{ raw: string; verbose: string }[]>([]);
 
   const getPath = React.useCallback(
     (key: string) => {
@@ -52,19 +51,23 @@ export default function PartialAddressForm<T extends FieldValues>({
 
   const region = watch(getPath('region'));
 
-  React.useEffect(() => {
-    if (region !== undefined) {
-      startTransition(async () => {
-        const districts = await fetch('/api/district', {
-          headers: {
-            'x-countryArea': region,
-            'x-language': locale,
-          },
-        });
-        setDistricts(await districts.json());
+  const {
+    data: districts,
+    isLoading,
+    isError,
+  } = useQuery({
+    enabled: region !== undefined,
+    queryKey: ['districts', region, locale],
+    queryFn: async () => {
+      const districts = await fetch('/api/district', {
+        headers: {
+          'x-countryArea': region,
+          'x-language': locale,
+        },
       });
-    }
-  }, [region, locale]);
+      return (await districts.json()) as { raw: string; verbose: string }[];
+    },
+  });
 
   return (
     <div className="-m-2 flex flex-wrap">
@@ -115,7 +118,7 @@ export default function PartialAddressForm<T extends FieldValues>({
           rules={{ required: !disabled }}
           render={({ field: { value, ...field }, fieldState: { error } }) => {
             return (
-              <FormControl fullWidth disabled={disabled || pending}>
+              <FormControl fullWidth disabled={disabled || isLoading}>
                 <InputLabel id={`${id}-region-label`}>{t('region')}</InputLabel>
                 <Select
                   {...field}
@@ -140,7 +143,10 @@ export default function PartialAddressForm<T extends FieldValues>({
           control={control}
           rules={{ required: !disabled }}
           render={({ field: { value, ...field }, fieldState: { error } }) => (
-            <FormControl fullWidth disabled={disabled || pending || districts.length === 0}>
+            <FormControl
+              fullWidth
+              disabled={disabled || isLoading || isError || !districts || districts.length === 0}
+            >
               <InputLabel id={`${id}-district-label`}>{t('district')}</InputLabel>
               <Select
                 {...field}
@@ -150,7 +156,7 @@ export default function PartialAddressForm<T extends FieldValues>({
                 error={!!error}
                 value={value ?? ''}
               >
-                {districts.map((district, idx) => (
+                {(districts || []).map((district, idx) => (
                   <MenuItem key={idx} value={district.raw}>
                     {district.verbose}
                   </MenuItem>
@@ -167,7 +173,7 @@ export default function PartialAddressForm<T extends FieldValues>({
           control={control}
           rules={{ required: !disabled }}
           render={({ field: { value, ...field }, fieldState: { error } }) => (
-            <FormControl fullWidth disabled={disabled || pending}>
+            <FormControl fullWidth disabled={disabled || isLoading}>
               <InputLabel id={`${id}-country-label`}>{t('country')}</InputLabel>
               <Select
                 {...field}

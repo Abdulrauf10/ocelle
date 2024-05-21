@@ -1,6 +1,7 @@
 'use client';
 
 import { Autocomplete, Chip, TextField } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
 import { intervalToDuration, startOfDay, subMonths, subYears } from 'date-fns';
 import equal from 'deep-equal';
@@ -172,22 +173,19 @@ export default function DogForm({
     formState: { errors },
   } = useForm<IDogForm>({ defaultValues });
   const [pending, startTransition] = React.useTransition();
-  const [breedLoading, setBreedLoading] = React.useState(true);
-  const [breedOptions, setBreedOptions] = React.useState<BreedDto[] | undefined>(undefined);
+  const { data: breedOptions, isLoading: isBreedLoading } = useQuery({
+    queryKey: ['breeds'],
+    queryFn: async () => {
+      const res = await fetch('/api/breed');
+      return (await res.json()) as BreedDto[];
+    },
+  });
   const [tab, setTab] = React.useState<'Age' | 'Birthday'>(
     dateOfBirthMethod === 'Manually' ? 'Age' : 'Birthday'
   );
   const allergiesOptions = React.useMemo(() => {
     return getFoodAllergiesOptions().map((option) => ({ label: t(option) }));
   }, [t]);
-
-  const fetchBreeds = React.useCallback(async () => {
-    if (breedOptions === undefined) {
-      const res = await fetch('/api/breed');
-      setBreedOptions((await res.json()) as BreedDto[]);
-      setBreedLoading(false);
-    }
-  }, [breedOptions]);
 
   const onSubmit = React.useCallback(
     (values: IDogForm) => {
@@ -261,8 +259,7 @@ export default function DogForm({
               multiple
               fullWidth
               options={breedOptions || []}
-              loading={breedLoading}
-              onOpen={fetchBreeds}
+              loading={isBreedLoading}
               getOptionLabel={(option) => option.name}
               freeSolo={false}
               getOptionDisabled={(option) => watch('breeds').length > 1}

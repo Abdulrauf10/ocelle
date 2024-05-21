@@ -1,4 +1,5 @@
 import { Autocomplete, Chip, TextField } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import React from 'react';
@@ -36,7 +37,6 @@ export default function DogBasicFragment() {
     handleSubmit,
     control,
     watch,
-    setValue,
     formState: { errors, isValid },
   } = useForm<DogBasicForm>({
     defaultValues: {
@@ -46,16 +46,13 @@ export default function DogBasicFragment() {
       isUnknownBreed,
     },
   });
-  const [loading, setLoading] = React.useState(true);
-  const [options, setOptions] = React.useState<BreedDto[] | undefined>(undefined);
-
-  const fetchBreeds = React.useCallback(async () => {
-    if (options === undefined) {
+  const { data: options, isLoading } = useQuery({
+    queryKey: ['breeds'],
+    queryFn: async () => {
       const res = await fetch('/api/breed');
-      setOptions((await res.json()) as BreedDto[]);
-      setLoading(false);
-    }
-  }, [options]);
+      return (await res.json()) as BreedDto[];
+    },
+  });
 
   const onSubmit = React.useCallback(
     ({ breeds, sex, isNeutered, isUnknownBreed }: DogBasicForm) => {
@@ -88,8 +85,7 @@ export default function DogBasicFragment() {
                     multiple
                     fullWidth
                     options={options || []}
-                    loading={loading}
-                    onOpen={fetchBreeds}
+                    loading={isLoading}
                     getOptionLabel={(option) => option.name}
                     freeSolo={false}
                     getOptionDisabled={(option) => watch('breeds').length > 1}
