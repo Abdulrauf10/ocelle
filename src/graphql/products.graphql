@@ -24,12 +24,13 @@ fragment ProductVariant on ProductVariant {
     ...Weight
   }
   quantityAvailable
-  pricing {
+  channelListings {
+    id
     price {
-      gross {
-        currency
-        amount
-      }
+      ...Money
+    }
+    costPrice {
+      ...Money
     }
   }
 }

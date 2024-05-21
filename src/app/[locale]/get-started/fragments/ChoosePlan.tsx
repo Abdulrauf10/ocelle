@@ -57,7 +57,7 @@ export default function ChoosePlanFragment() {
 
   if (!minPrices) {
     console.error('cannot find min prices, redirect to home page');
-    navigate('/');
+    throw navigate('/');
   }
 
   return (
@@ -69,8 +69,8 @@ export default function ChoosePlanFragment() {
               <FreshPlan
                 title={t('fresh-full-plan')}
                 picture="/meal-plan/full-plan.jpg"
-                pricePerDay={nativeRound(minPrices!.recurringBox.fullPlan)}
-                discountedPricePerDay={nativeRound(minPrices!.starterBox.fullPlan)}
+                pricePerDay={nativeRound(minPrices.fullPlan)}
+                discountedPricePerDay={nativeRound(minPrices.fullPlan / 2)}
                 firstDiscount
                 error={!!error}
                 recommended
@@ -84,8 +84,8 @@ export default function ChoosePlanFragment() {
               <FreshPlan
                 title={t('fresh-half-plan')}
                 picture="/meal-plan/half-plan.jpg"
-                pricePerDay={nativeRound(minPrices!.recurringBox.halfPlan)}
-                discountedPricePerDay={nativeRound(minPrices!.starterBox.halfPlan)}
+                pricePerDay={nativeRound(minPrices.halfPlan)}
+                discountedPricePerDay={nativeRound(minPrices.halfPlan / 2)}
                 firstDiscount
                 error={!!error}
                 selected={currentMealPlan === MealPlan.Half}

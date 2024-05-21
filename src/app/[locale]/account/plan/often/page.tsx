@@ -12,7 +12,7 @@ import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import OrderSizeForm from '@/components/forms/Frequency';
 import ShippableNote from '@/components/notes/Shippable';
 import { Frequency } from '@/enums';
-import { calculateTotalPerDayPrice } from '@/helpers/dog';
+import { calculateTotalPerDayPrice } from '@/services/api';
 
 export default async function PlanOften() {
   const cookie = cookies();
@@ -24,10 +24,10 @@ export default async function PlanOften() {
     : dogs[0];
 
   const oneWeekPrice =
-    dogs.reduce((price, dog) => {
+    (await dogs.reduce(async (price, dog) => {
       return (
-        price +
-        calculateTotalPerDayPrice(
+        (await price) +
+        (await calculateTotalPerDayPrice(
           dog.breeds.map(({ breed }) => breed),
           new Date(dog.dateOfBirth),
           dog.isNeutered,
@@ -37,17 +37,16 @@ export default async function PlanOften() {
           { recipe1: dog.plan.recipe1, recipe2: dog.plan.recipe2 },
           dog.plan.mealPlan,
           Frequency.OneWeek,
-          false,
           false
-        )
+        ))
       );
-    }, 0) / dogs.length;
+    }, Promise.resolve(0))) / dogs.length;
 
   const twoWeekPrice =
-    dogs.reduce((price, dog) => {
+    (await dogs.reduce(async (price, dog) => {
       return (
-        price +
-        calculateTotalPerDayPrice(
+        (await price) +
+        (await calculateTotalPerDayPrice(
           dog.breeds.map(({ breed }) => breed),
           new Date(dog.dateOfBirth),
           dog.isNeutered,
@@ -57,11 +56,10 @@ export default async function PlanOften() {
           { recipe1: dog.plan.recipe1, recipe2: dog.plan.recipe2 },
           dog.plan.mealPlan,
           Frequency.TwoWeek,
-          false,
           false
-        )
+        ))
       );
-    }, 0) / dogs.length;
+    }, Promise.resolve(0))) / dogs.length;
 
   return (
     <AppThemeProvider>

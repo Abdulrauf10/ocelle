@@ -65,7 +65,7 @@ export default function Product({
   }, [pack, quantity, setLines, setTotalPrice]);
 
   const getPrice = (product: ProductFragment) => {
-    return product.variants![0].pricing!.price!.gross.amount;
+    return product.variants![0].channelListings![0].price!.amount;
   };
 
   const getWeight = (product: ProductFragment) => {

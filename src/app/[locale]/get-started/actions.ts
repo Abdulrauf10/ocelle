@@ -8,7 +8,7 @@ import { In } from 'typeorm';
 
 import { deleteOrderCookie, getOrderCookie, setOrderCookie } from '@/actions';
 import { Breed, User } from '@/entities';
-import { Frequency, MealPlan } from '@/enums';
+import { ActivityLevel, BodyCondition, Frequency, MealPlan, Recipe } from '@/enums';
 import {
   AddOrderDiscountDocument,
   CompleteDraftOrderDocument,
@@ -24,7 +24,6 @@ import {
 import { awaitable } from '@/helpers/async';
 import {
   calculateRecipeTotalProtionsInBox,
-  calculateTotalPerDayPrice,
   getClosestOrderDeliveryDate,
   getTheCheapestRecipe,
   isUnavailableDeliveryDate,
@@ -35,7 +34,14 @@ import { executeQuery } from '@/helpers/queryRunner';
 import { recipeToVariant } from '@/helpers/saleor';
 import { redirect } from '@/navigation';
 import { subscriptionProducts } from '@/products';
-import { findProducts, getThrowableChannel, updateOrderAddress, upsertUser } from '@/services/api';
+import {
+  calculateTotalPerDayPrice,
+  calculateTotalPriceInBox,
+  findProducts,
+  getThrowableChannel,
+  updateOrderAddress,
+  upsertUser,
+} from '@/services/api';
 import { getCalendarEvents } from '@/services/calendar';
 import { setupRecurringBox } from '@/services/recurring';
 import {
@@ -54,7 +60,81 @@ import {
   retrivePaymentIntent,
   updatePaymentIntent,
 } from '@/services/stripe';
-import { DogDto, MinPricesDto } from '@/types/dto';
+import { BreedDto, DogDto, MinPricesDto } from '@/types/dto';
+
+export async function calculateDogsTotalPerDayPrice(dogs: DogDto[]) {
+  const values = [];
+  for (const dog of dogs) {
+    const breeds =
+      dog.breeds && dog.breeds.length > 0
+        ? await executeQuery(async (queryRunner) => {
+            return queryRunner.manager.find(Breed, {
+              where: {
+                id: In(dog.breeds!),
+              },
+            });
+          })
+        : [];
+    const price = await calculateTotalPerDayPrice(
+      breeds,
+      new Date(dog.dateOfBirth),
+      dog.isNeutered,
+      dog.weight,
+      dog.bodyCondition,
+      dog.activityLevel,
+      { recipe1: dog.recipe1, recipe2: dog.recipe2 },
+      dog.mealPlan,
+      Frequency.TwoWeek,
+      true
+    );
+    values.push({ name: dog.name, price });
+  }
+  return values;
+}
+
+export async function getBoxPrices(
+  breeds: BreedDto[],
+  dateOfBirth: string,
+  isNeutered: boolean,
+  weight: number,
+  bodyCondition: BodyCondition,
+  activityLevel: ActivityLevel,
+  { recipe1, recipe2 }: { recipe1?: Recipe; recipe2?: Recipe },
+  mealPlan: MealPlan
+) {
+  if (!recipe1) {
+    return {
+      total: 0,
+      daily: 0,
+    };
+  }
+  return {
+    total: await calculateTotalPriceInBox(
+      breeds,
+      new Date(dateOfBirth),
+      isNeutered,
+      weight,
+      bodyCondition,
+      activityLevel,
+      { recipe1, recipe2 },
+      mealPlan,
+      Frequency.TwoWeek,
+      true
+    ),
+    daily: await calculateTotalPerDayPrice(
+      breeds,
+      new Date(dateOfBirth),
+      isNeutered,
+      weight,
+      bodyCondition,
+      activityLevel,
+      { recipe1, recipe2 },
+      mealPlan,
+      Frequency.TwoWeek,
+      true
+    ),
+  };
+}
 
 export async function getMinPerDayPrice(
   dog: Pick<
@@ -73,62 +153,30 @@ export async function getMinPerDayPrice(
         })
       : [];
   return {
-    starterBox: {
-      halfPlan: calculateTotalPerDayPrice(
-        breeds,
-        new Date(dog.dateOfBirth),
-        dog.isNeutered,
-        dog.weight,
-        dog.bodyCondition,
-        dog.activityLevel,
-        { recipe1: getTheCheapestRecipe() },
-        MealPlan.Half,
-        Frequency.TwoWeek,
-        true,
-        true
-      ),
-      fullPlan: calculateTotalPerDayPrice(
-        breeds,
-        new Date(dog.dateOfBirth),
-        dog.isNeutered,
-        dog.weight,
-        dog.bodyCondition,
-        dog.activityLevel,
-        { recipe1: getTheCheapestRecipe() },
-        MealPlan.Full,
-        Frequency.TwoWeek,
-        true,
-        true
-      ),
-    },
-    recurringBox: {
-      halfPlan: calculateTotalPerDayPrice(
-        breeds,
-        new Date(dog.dateOfBirth),
-        dog.isNeutered,
-        dog.weight,
-        dog.bodyCondition,
-        dog.activityLevel,
-        { recipe1: getTheCheapestRecipe() },
-        MealPlan.Half,
-        Frequency.TwoWeek,
-        true,
-        false
-      ),
-      fullPlan: calculateTotalPerDayPrice(
-        breeds,
-        new Date(dog.dateOfBirth),
-        dog.isNeutered,
-        dog.weight,
-        dog.bodyCondition,
-        dog.activityLevel,
-        { recipe1: getTheCheapestRecipe() },
-        MealPlan.Full,
-        Frequency.TwoWeek,
-        true,
-        false
-      ),
-    },
+    halfPlan: await calculateTotalPerDayPrice(
+      breeds,
+      new Date(dog.dateOfBirth),
+      dog.isNeutered,
+      dog.weight,
+      dog.bodyCondition,
+      dog.activityLevel,
+      { recipe1: getTheCheapestRecipe() },
+      MealPlan.Half,
+      Frequency.TwoWeek,
+      true
+    ),
+    fullPlan: await calculateTotalPerDayPrice(
+      breeds,
+      new Date(dog.dateOfBirth),
+      dog.isNeutered,
+      dog.weight,
+      dog.bodyCondition,
+      dog.activityLevel,
+      { recipe1: getTheCheapestRecipe() },
+      MealPlan.Full,
+      Frequency.TwoWeek,
+      true
+    ),
   };
 }
 

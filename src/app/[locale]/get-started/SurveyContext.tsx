@@ -5,6 +5,7 @@ import {
   ActivityLevel,
   AmountOfTreats,
   BodyCondition,
+  DateOfBirthMethod,
   DogFood,
   FoodAllergies,
   MealPlan,
@@ -12,8 +13,9 @@ import {
   Recipe,
   Sex,
 } from '@/enums';
+import { getDateOfBirth } from '@/helpers/dog';
 import { getSurveySessionStore } from '@/helpers/session';
-import { BreedDto } from '@/types/dto';
+import { BreedDto, DogDto } from '@/types/dto';
 
 export interface Dog {
   name?: string;
@@ -109,4 +111,61 @@ export function useSurvey() {
   }
 
   return context;
+}
+
+export function dogToDogDto({
+  name,
+  sex,
+  weight,
+  isUnknownBreed,
+  breeds,
+  age,
+  isNeutered,
+  bodyCondition,
+  activityLevel,
+  foodAllergies,
+  amountOfTreats,
+  currentEating,
+  pickiness,
+  mealPlan,
+  isEnabledTransitionPeriod,
+  recipe1,
+}: Dog): DogDto {
+  if (
+    name === undefined ||
+    sex === undefined ||
+    age === undefined ||
+    weight === undefined ||
+    isNeutered === undefined ||
+    bodyCondition === undefined ||
+    activityLevel === undefined ||
+    foodAllergies === undefined ||
+    amountOfTreats === undefined ||
+    currentEating === undefined ||
+    pickiness === undefined ||
+    mealPlan === undefined ||
+    isEnabledTransitionPeriod === undefined ||
+    recipe1 === undefined
+  ) {
+    throw new Error('there have some fields not yet completed');
+  }
+  return {
+    name,
+    sex,
+    isNeutered,
+    breeds: isUnknownBreed ? undefined : breeds?.map((breed) => breed.id),
+    weight,
+    dateOfBirthMethod:
+      typeof age === 'string' ? DateOfBirthMethod.Calendar : DateOfBirthMethod.Manually,
+    dateOfBirth: typeof age === 'string' ? age : getDateOfBirth(age).toISOString(),
+    bodyCondition,
+    activityLevel,
+    foodAllergies,
+    amountOfTreats,
+    currentEating,
+    pickiness,
+    mealPlan,
+    isEnabledTransitionPeriod,
+    recipe1,
+  };
 }

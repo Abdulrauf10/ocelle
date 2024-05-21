@@ -40,14 +40,8 @@ interface DogPlanDto {
 }
 
 interface MinPricesDto {
-  starterBox: {
-    halfPlan: number;
-    fullPlan: number;
-  };
-  recurringBox: {
-    halfPlan: number;
-    fullPlan: number;
-  };
+  halfPlan: number;
+  fullPlan: number;
 }
 
 interface CartReturn {

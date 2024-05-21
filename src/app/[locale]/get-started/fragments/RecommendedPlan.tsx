@@ -1,3 +1,4 @@
+import { queryOptions, useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -9,6 +10,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import Section from '../Section';
 import Stage from '../Stage';
 import { useSurvey } from '../SurveyContext';
+import { getBoxPrices } from '../actions';
 import { pageVariants } from '../transition';
 
 import Container from '@/components/Container';
@@ -16,22 +18,58 @@ import Price from '@/components/Price';
 import Button from '@/components/buttons/Button';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import RecipeCheckbox from '@/components/controls/RecipeCheckbox';
-import { Frequency, Recipe } from '@/enums';
-import {
-  calculateTotalPerDayPrice,
-  calculateTotalPriceInBox,
-  getDateOfBirth,
-  isAllergies,
-  isRecommendedRecipe,
-} from '@/helpers/dog';
+import { ActivityLevel, BodyCondition, MealPlan, Recipe } from '@/enums';
+import { getDateOfBirth, isAllergies, isRecommendedRecipe } from '@/helpers/dog';
 import { arrayToRecipe, recipeToArray } from '@/helpers/form';
 import { nativeRound } from '@/helpers/number';
 import { booleanToString, stringToBoolean } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
+import { BreedDto } from '@/types/dto';
 
 interface RecommendedPlanForm {
   transition: 'Y' | 'N';
   recipe: boolean[];
+}
+
+function recipesBoxPriceOptions(
+  breeds: BreedDto[],
+  age:
+    | string
+    | {
+        years: number;
+        months: number;
+      },
+  isNeutered: boolean,
+  weight: number,
+  bodyCondition: BodyCondition,
+  activityLevel: ActivityLevel,
+  recipes: { recipe1?: Recipe; recipe2?: Recipe },
+  mealPlan: MealPlan
+) {
+  const dateOfBirth = typeof age === 'string' ? age! : getDateOfBirth(age!).toISOString();
+  return queryOptions({
+    queryKey: [
+      'recommendedPlan',
+      isNeutered,
+      weight,
+      bodyCondition,
+      activityLevel,
+      recipes.recipe1,
+      recipes.recipe2,
+      mealPlan,
+    ],
+    queryFn: () =>
+      getBoxPrices(
+        breeds,
+        dateOfBirth,
+        isNeutered,
+        weight,
+        bodyCondition,
+        activityLevel,
+        recipes,
+        mealPlan
+      ),
+  });
 }
 
 export default function RecommendedPlanFragment() {
@@ -70,6 +108,20 @@ export default function RecommendedPlanFragment() {
       transition: booleanToString(isEnabledTransitionPeriod) ?? 'Y',
     },
   });
+  const recipeValues = watch('recipe');
+  const recipes = arrayToRecipe(recipeValues);
+  const { data: boxPrice, isLoading } = useQuery(
+    recipesBoxPriceOptions(
+      breeds!,
+      age!,
+      isNeutered!,
+      weight!,
+      bodyCondition!,
+      activityLevel!,
+      recipes,
+      mealPlan!
+    )
+  );
 
   const validateRecipeCheckbox = React.useCallback(() => {
     const values = getValues('recipe');
@@ -129,80 +181,8 @@ export default function RecommendedPlanFragment() {
     t('choline-bitartrate'),
   ];
 
-  const selectedRecipes = watch('recipe').filter((x) => x === true).length > 0;
-  const containsTwoRecipes = watch('recipe').filter((x) => x === true).length >= 2;
-
-  const calculateBoxPrice = () => {
-    const recipes = watch('recipe');
-    const { recipe1, recipe2 } = arrayToRecipe(recipes);
-    const dateOfBirth = typeof age === 'string' ? age! : getDateOfBirth(age!).toISOString();
-    if (!recipe1) {
-      return {
-        recurring: { total: 0, daily: 0 },
-        starterBox: { total: 0, daily: 0 },
-      };
-    }
-    return {
-      recurring: {
-        total: calculateTotalPriceInBox(
-          breeds!,
-          new Date(dateOfBirth),
-          isNeutered!,
-          weight!,
-          bodyCondition!,
-          activityLevel!,
-          { recipe1, recipe2 },
-          mealPlan!,
-          Frequency.TwoWeek,
-          true,
-          false
-        ),
-        daily: calculateTotalPerDayPrice(
-          breeds!,
-          new Date(dateOfBirth),
-          isNeutered!,
-          weight!,
-          bodyCondition!,
-          activityLevel!,
-          { recipe1, recipe2 },
-          mealPlan!,
-          Frequency.TwoWeek,
-          true,
-          false
-        ),
-      },
-      starterBox: {
-        total: calculateTotalPriceInBox(
-          breeds!,
-          new Date(dateOfBirth),
-          isNeutered!,
-          weight!,
-          bodyCondition!,
-          activityLevel!,
-          { recipe1, recipe2 },
-          mealPlan!,
-          Frequency.TwoWeek,
-          true,
-          true
-        ),
-        daily: calculateTotalPerDayPrice(
-          breeds!,
-          new Date(dateOfBirth),
-          isNeutered!,
-          weight!,
-          bodyCondition!,
-          activityLevel!,
-          { recipe1, recipe2 },
-          mealPlan!,
-          Frequency.TwoWeek,
-          true,
-          true
-        ),
-      },
-    };
-  };
-
-  const boxPrice = calculateBoxPrice();
+  const selectedRecipes = recipeValues.filter((x) => x === true).length > 0;
+  const containsTwoRecipes = recipeValues.filter((x) => x === true).length >= 2;
 
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
@@ -494,7 +474,7 @@ export default function RecommendedPlanFragment() {
                 </div>
               </div>
               <div className="mt-12"></div>
-              {selectedRecipes && (
+              {selectedRecipes && !isLoading && boxPrice && (
                 <div className="flex flex-wrap items-center justify-center">
                   <Image
                     src="/question/eat-anything-gold.svg"
@@ -506,17 +486,14 @@ export default function RecommendedPlanFragment() {
                     <div className="mr-1">{t('{}-colon', { value: t('starter-box') })}</div>
                     <div>
                       <span className="inline-block">
-                        <Price value={nativeRound(boxPrice.recurring.total)} discount />
+                        <Price value={nativeRound(boxPrice.total)} discount />
                         <Price
                           className="ml-1 font-bold"
-                          value={nativeRound(boxPrice.starterBox.total)}
+                          value={nativeRound(boxPrice.total / 2)}
                         />{' '}
                         (
-                        <Price value={nativeRound(boxPrice.recurring.daily)} discount />
-                        <Price
-                          className="ml-1 font-bold"
-                          value={nativeRound(boxPrice.starterBox.daily)}
-                        />
+                        <Price value={nativeRound(boxPrice.daily)} discount />
+                        <Price className="ml-1 font-bold" value={nativeRound(boxPrice.daily / 2)} />
                         <span className="font-bold text-dark-green">{t('per-day')}</span>)
                       </span>
                       &nbsp;

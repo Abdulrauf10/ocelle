@@ -12,7 +12,7 @@ import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import FreshPlanForm from '@/components/forms/FreshPlan';
 import RecurringBoxNote from '@/components/notes/RecurringBox';
 import { MealPlan } from '@/enums';
-import { calculateTotalPerDayPrice } from '@/helpers/dog';
+import { calculateTotalPerDayPrice } from '@/services/api';
 
 export default async function PlanMeal() {
   const cookie = cookies();
@@ -23,7 +23,7 @@ export default async function PlanMeal() {
     ? dogs.find((dog) => dog.id === currentSelectedDogId) || dogs[0]
     : dogs[0];
 
-  const fullPlanPerDayPrice = calculateTotalPerDayPrice(
+  const fullPlanPerDayPrice = await calculateTotalPerDayPrice(
     dog.breeds.map(({ breed }) => breed),
     new Date(dog.dateOfBirth),
     dog.isNeutered,
@@ -33,11 +33,10 @@ export default async function PlanMeal() {
     { recipe1: dog.plan.recipe1, recipe2: dog.plan.recipe2 },
     MealPlan.Full,
     dog.plan.frequency,
-    false,
     false
   );
 
-  const halfPlanPerDayPrice = calculateTotalPerDayPrice(
+  const halfPlanPerDayPrice = await calculateTotalPerDayPrice(
     dog.breeds.map(({ breed }) => breed),
     new Date(dog.dateOfBirth),
     dog.isNeutered,
@@ -47,7 +46,6 @@ export default async function PlanMeal() {
     { recipe1: dog.plan.recipe1, recipe2: dog.plan.recipe2 },
     MealPlan.Half,
     dog.plan.frequency,
-    false,
     false
   );
 

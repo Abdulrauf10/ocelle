@@ -1,3 +1,4 @@
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -5,135 +6,89 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import Stage from '../Stage';
-import { Dog, useSurvey } from '../SurveyContext';
-import { createDraftOrder, initializeStripeTranscation } from '../actions';
+import { Dog, dogToDogDto, useSurvey } from '../SurveyContext';
+import {
+  calculateDogsTotalPerDayPrice,
+  createDraftOrder,
+  initializeStripeTranscation,
+} from '../actions';
 import { pageVariants } from '../transition';
 
 import { getClosestDeliveryDate } from '@/actions';
 import Container from '@/components/Container';
-import { DateOfBirthMethod } from '@/enums';
-import { OrderFragment } from '@/gql/graphql';
-import { getDateOfBirth } from '@/helpers/dog';
 import { CalendarEvent } from '@/types';
-
-function isIncompletedDogProfile(dog: Dog) {
-  return (
-    dog.name === undefined ||
-    dog.sex === undefined ||
-    dog.isNeutered === undefined ||
-    dog.bodyCondition === undefined ||
-    dog.activityLevel === undefined ||
-    dog.foodAllergies === undefined ||
-    dog.amountOfTreats === undefined ||
-    dog.currentEating === undefined ||
-    dog.pickiness === undefined ||
-    dog.mealPlan === undefined ||
-    dog.isEnabledTransitionPeriod === undefined ||
-    dog.recipe1 === undefined
-  );
-}
 
 export default function ProcessingFragment() {
   const t = useTranslations();
   const navigate = useNavigate();
-  const { owner, dogs } = useSurvey();
+  const { dogs } = useSurvey();
   const waitPromise = React.useMemo(() => new Promise((resolve) => setTimeout(resolve, 3000)), []);
-  const [order, setOrder] = React.useState<OrderFragment | null>();
-  const [closestDeliveryDate, setClosestDeliveryDate] = React.useState<Date | null>();
-  const [calendarEvents, setCalendarEvents] = React.useState<CalendarEvent[] | null>();
-  const [transcation, setTranscation] = React.useState<any | null>();
+  const { data: closestDeliveryDate, isLoading: loadingDeliveryDate } = useQuery({
+    queryKey: [],
+    queryFn: async () => new Date(await getClosestDeliveryDate()),
+  });
+  const { data: calendarEvents, isLoading: loadingCalenadarEvents } = useQuery({
+    queryKey: ['calendar'],
+    queryFn: async () => {
+      const calendarAPI = await fetch('/api/calendar');
+      if (!calendarAPI.ok) {
+        throw new Error('failed to fetch calendar events');
+      }
+      const json = (await calendarAPI.json()) as CalendarEvent[];
+      return json.map((record) => ({
+        ...record,
+        start: new Date(record.start),
+        end: new Date(record.end),
+      }));
+    },
+  });
+  const {
+    data: dogsPerDayPrice,
+    isLoading: loadingDogsPerDayPrice,
+    error,
+    isError,
+  } = useQuery({
+    queryKey: ['dogs'],
+    queryFn: () => calculateDogsTotalPerDayPrice(dogs.map(dogToDogDto)),
+  });
+  const {
+    data: order,
+    mutate: draftOrderMutate,
+    isPending: draftOrderPending,
+  } = useMutation({
+    mutationFn: (dogs: Dog[]) => createDraftOrder(dogs.map((dog) => dogToDogDto(dog))),
+  });
+  const {
+    data: transcation,
+    mutate: transcationMutate,
+    isPending: transcationPending,
+  } = useMutation({
+    mutationFn: () => initializeStripeTranscation(),
+  });
 
   React.useEffect(() => {
-    getClosestDeliveryDate()
-      .then((date) => setClosestDeliveryDate(new Date(date)))
-      .catch((e) => {
-        console.error(e);
-        setClosestDeliveryDate(null);
-      });
-    fetch('/api/calendar')
-      .then(async (calendarAPI) => {
-        if (!calendarAPI.ok) {
-          console.error('failed to fetch calendar events');
-          setCalendarEvents(null);
-        }
-        const json = (await calendarAPI.json()) as CalendarEvent[];
-        setCalendarEvents(
-          json.map((record) => {
-            return { ...record, start: new Date(record.start), end: new Date(record.end) };
-          })
-        );
-      })
-      .catch((e) => {
-        console.error(e);
-        setCalendarEvents(null);
-      });
-    const hasDogNotYetCompleted = dogs.some(isIncompletedDogProfile);
-    if (owner.email === undefined || hasDogNotYetCompleted) {
-      console.error('failed to calculate, there have some fields not yet completed');
-      setTranscation(null);
-    } else {
-      createDraftOrder(
-        dogs.map((dog) => {
-          if (isIncompletedDogProfile(dog)) {
-            throw new Error('unexcepted incompleted dog profile');
-          }
-          return {
-            name: dog.name!,
-            sex: dog.sex!,
-            isNeutered: dog.isNeutered!,
-            breeds: dog.isUnknownBreed ? undefined : dog.breeds?.map((breed) => breed.id),
-            weight: dog.weight!,
-            dateOfBirthMethod:
-              typeof dog.age === 'string' ? DateOfBirthMethod.Calendar : DateOfBirthMethod.Manually,
-            dateOfBirth:
-              typeof dog.age === 'string' ? dog.age! : getDateOfBirth(dog.age!).toISOString(),
-            bodyCondition: dog.bodyCondition!,
-            activityLevel: dog.activityLevel!,
-            foodAllergies: dog.foodAllergies!,
-            amountOfTreats: dog.amountOfTreats!,
-            currentEating: dog.currentEating!,
-            pickiness: dog.pickiness!,
-            mealPlan: dog.mealPlan!,
-            isEnabledTransitionPeriod: dog.isEnabledTransitionPeriod!,
-            recipe1: dog.recipe1!,
-          };
-        })
-      )
-        .then(async (order) => {
-          setOrder(order);
-          try {
-            const data = await initializeStripeTranscation();
-            setTranscation(data);
-          } catch (e) {
-            console.error(e);
-            setTranscation(null);
-          }
-        })
-        .catch((e) => {
-          console.error(e);
-          setOrder(null);
-          setTranscation(null);
-        });
+    draftOrderMutate(dogs);
+  }, [dogs, draftOrderMutate]);
+
+  React.useEffect(() => {
+    if (!draftOrderPending) {
+      transcationMutate();
     }
-  }, [owner, dogs]);
+  }, [draftOrderPending, dogs, transcationMutate]);
 
   React.useEffect(() => {
     if (
-      order === undefined ||
-      closestDeliveryDate === undefined ||
-      calendarEvents === undefined ||
-      transcation === undefined
+      loadingDogsPerDayPrice ||
+      loadingDeliveryDate ||
+      loadingCalenadarEvents ||
+      draftOrderPending ||
+      transcationPending
     ) {
       // fetching api and wait for the request has completed
       return;
     }
-    if (
-      order === null ||
-      closestDeliveryDate === null ||
-      calendarEvents === null ||
-      transcation === null
-    ) {
-      console.error('there have some error during create the checkout');
+    if (!dogsPerDayPrice || !order || !closestDeliveryDate || !calendarEvents || !transcation) {
+      console.error('there have some error during create the draft order');
       return navigate('/', {
         state: {
           checkoutError: true,
@@ -143,6 +98,7 @@ export default function ProcessingFragment() {
     waitPromise.then(() => {
       navigate(Stage.Checkout, {
         state: {
+          dogsPerDayPrice,
           order,
           closestDeliveryDate,
           calendarEvents,
@@ -151,7 +107,20 @@ export default function ProcessingFragment() {
         replace: true,
       });
     });
-  }, [order, closestDeliveryDate, calendarEvents, transcation, waitPromise, navigate]);
+  }, [
+    dogsPerDayPrice,
+    order,
+    closestDeliveryDate,
+    calendarEvents,
+    transcation,
+    loadingDogsPerDayPrice,
+    loadingDeliveryDate,
+    loadingCalenadarEvents,
+    draftOrderPending,
+    transcationPending,
+    waitPromise,
+    navigate,
+  ]);
 
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">

@@ -33,12 +33,7 @@ import {
   Sex,
 } from '@/enums';
 import { OrderDiscountType, OrderFragment } from '@/gql/graphql';
-import {
-  calculateTotalPerDayPrice,
-  getDateOfBirth,
-  getRecipeSlug,
-  isUnavailableDeliveryDate,
-} from '@/helpers/dog';
+import { getDateOfBirth, getRecipeSlug, isUnavailableDeliveryDate } from '@/helpers/dog';
 import { nativeRound } from '@/helpers/number';
 import useSentence from '@/hooks/useSentence';
 import { CalendarEvent } from '@/types';
@@ -110,23 +105,12 @@ type ISubscriptionCheckoutFormAction = Omit<
 };
 
 type DogData = {
-  name?: string;
-  isUnknownBreed?: boolean;
-  breeds?: BreedDto[];
-  sex?: Sex;
-  isNeutered?: boolean;
-  age?: { years: number; months: number } | string;
-  weight?: number;
-  bodyCondition?: BodyCondition;
-  activityLevel?: ActivityLevel;
-  foodAllergies?: FoodAllergies;
-  currentlyEating?: DogFood[];
-  amountOfTreats?: AmountOfTreats;
-  pickiness?: Pickiness;
-  mealPlan?: MealPlan;
-  recipe1?: Recipe;
+  name: string;
+  mealPlan: MealPlan;
+  recipe1: Recipe;
   recipe2?: Recipe;
-  isEnabledTransitionPeriod?: boolean;
+  isEnabledTransitionPeriod: boolean;
+  perDayPrice: number;
 };
 
 export default function SubscriptionCheckoutForm({
@@ -459,21 +443,6 @@ export default function SubscriptionCheckoutForm({
               <h2 className="heading-4 font-bold text-gold">{t('order-summary')}</h2>
               <SummaryBlock title={t('your-plan')}>
                 {dogs.map((dog, idx) => {
-                  const dateOfBirth =
-                    typeof dog.age === 'string' ? dog.age! : getDateOfBirth(dog.age!).toISOString();
-                  const price = calculateTotalPerDayPrice(
-                    dog.breeds!,
-                    new Date(dateOfBirth),
-                    dog.isNeutered!,
-                    dog.weight!,
-                    dog.bodyCondition!,
-                    dog.activityLevel!,
-                    { recipe1: dog.recipe1!, recipe2: dog.recipe2 },
-                    dog.mealPlan!,
-                    Frequency.TwoWeek,
-                    true,
-                    false
-                  );
                   return (
                     <div key={idx} className="mt-2">
                       <p className="body-3">
@@ -483,7 +452,7 @@ export default function SubscriptionCheckoutForm({
                               ? t('fresh-full-plan')
                               : t('fresh-half-plan'),
                           name: dog.name,
-                          price: `\$${nativeRound(price)}`,
+                          price: `\$${nativeRound(dog.perDayPrice)}`,
                         })}
                       </p>
                     </div>
@@ -509,7 +478,7 @@ export default function SubscriptionCheckoutForm({
                       <div className="body-3 px-1">{n('recipes')}</div>
                       <div className="body-3 px-1">
                         <strong className="mr-1.5">
-                          {dog.recipe1 != null && t(getRecipeSlug(dog.recipe1))}
+                          {t(getRecipeSlug(dog.recipe1))}
                           {dog.recipe2 != null && `, ${t(getRecipeSlug(dog.recipe2))}`}
                         </strong>
                         <EditButton onClick={onEditRecipes} />

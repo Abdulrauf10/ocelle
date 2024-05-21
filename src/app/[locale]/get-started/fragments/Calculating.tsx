@@ -1,3 +1,4 @@
+import { queryOptions, useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -12,46 +13,43 @@ import { pageVariants } from '../transition';
 import Container from '@/components/Container';
 import { getDateOfBirth } from '@/helpers/dog';
 import { getSurveySessionStore } from '@/helpers/session';
-import { MinPricesDto } from '@/types/dto';
 
 export default function CalculatingFragment() {
   const t = useTranslations();
   const navigate = useNavigate();
   const { getDog } = useSurvey();
   const dog = getDog();
+  const options = queryOptions({
+    queryKey: [
+      'minPerDayPrice',
+      dog.age,
+      dog.isNeutered,
+      dog.isUnknownBreed,
+      dog.breeds ? JSON.stringify(dog.breeds) : undefined,
+      dog.weight,
+      dog.bodyCondition,
+      dog.activityLevel,
+    ],
+    queryFn: () =>
+      getMinPerDayPrice({
+        isNeutered: dog.isNeutered!,
+        breeds: dog.isUnknownBreed ? undefined : dog.breeds?.map((breed) => breed.id),
+        weight: dog.weight!,
+        dateOfBirth:
+          typeof dog.age === 'string' ? dog.age! : getDateOfBirth(dog.age!).toISOString(),
+        bodyCondition: dog.bodyCondition!,
+        activityLevel: dog.activityLevel!,
+      }),
+  });
+  const { isLoading, data } = useQuery(options);
   const waitPromise = React.useMemo(() => new Promise((resolve) => setTimeout(resolve, 3000)), []);
-  const [minPrices, setMinPrices] = React.useState<MinPricesDto | null>();
 
   React.useEffect(() => {
-    getMinPerDayPrice({
-      isNeutered: dog.isNeutered!,
-      breeds: dog.isUnknownBreed ? undefined : dog.breeds?.map((breed) => breed.id),
-      weight: dog.weight!,
-      dateOfBirth: typeof dog.age === 'string' ? dog.age! : getDateOfBirth(dog.age!).toISOString(),
-      bodyCondition: dog.bodyCondition!,
-      activityLevel: dog.activityLevel!,
-    })
-      .then(setMinPrices)
-      .catch((e) => {
-        console.error(e);
-        setMinPrices(null);
-      });
-  }, [
-    dog.age,
-    dog.isNeutered,
-    dog.isUnknownBreed,
-    dog.breeds,
-    dog.weight,
-    dog.bodyCondition,
-    dog.activityLevel,
-  ]);
-
-  React.useEffect(() => {
-    if (minPrices === undefined) {
+    if (isLoading) {
       // fetching api and wait for the request has completed
       return;
     }
-    if (minPrices === null) {
+    if (data === null) {
       console.error('there have some error during calculation, redirect to the home page');
       return navigate('/', {
         state: {
@@ -60,10 +58,10 @@ export default function CalculatingFragment() {
       });
     }
     waitPromise.then(() => {
-      getSurveySessionStore().set('min-prices', minPrices);
+      getSurveySessionStore().set('min-prices', data);
       navigate(Stage.ChoosePlan, { replace: true });
     });
-  }, [waitPromise, minPrices, navigate]);
+  }, [waitPromise, isLoading, data, navigate]);
 
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">

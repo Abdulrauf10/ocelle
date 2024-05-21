@@ -49,7 +49,17 @@ export default function CheckoutFragment() {
           <SubscriptionCheckoutForm
             defaultValues={owner}
             draftOrder={state.order}
-            dogs={dogs}
+            dogs={dogs.map((dog) => {
+              return {
+                name: dog.name!,
+                mealPlan: dog.mealPlan!,
+                recipe1: dog.recipe1!,
+                recipe2: dog.recipe2,
+                isEnabledTransitionPeriod: dog.isEnabledTransitionPeriod!,
+                perDayPrice: state.dogsPerDayPrice.find((price: any) => price.name === dog.name)
+                  .price,
+              };
+            })}
             clientSecret={state.stripe.paymentIntent.client_secret}
             closestDeliveryDate={state.closestDeliveryDate}
             calendarEvents={state.calendarEvents}
