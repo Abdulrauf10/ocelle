@@ -49,8 +49,12 @@ const config: Config = {
         },
       },
       fontFamily: {
-        jost: ['--font-jost', ...defaultTheme.fontFamily.sans],
-        'open-sans': ['--font-open-sans', ...defaultTheme.fontFamily.sans],
+        jost: ['var(--font-jost)', 'var(--font-ping-fang-hk)', ...defaultTheme.fontFamily.sans],
+        'open-sans': [
+          'var(--font-open-sans)',
+          'var(--font-ping-fang-hk)',
+          ...defaultTheme.fontFamily.sans,
+        ],
       },
       padding: {
         tight: 'clamp(40px,2.4vw,50px)',
