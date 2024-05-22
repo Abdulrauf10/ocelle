@@ -99,22 +99,18 @@ export default function Product({
             </h2>
             <p className={clsx('mt-4 text-[30px]', className.title)}>${getPrice(product)}</p>
             <div className={clsx('mt-4', className.content)}>
-              <p className="body-1">
-                {description.map((content, idx) => (
-                  <span
-                    key={idx}
-                    className="my-4 block"
-                    dangerouslySetInnerHTML={{ __html: xss(content) }}
-                  />
-                ))}
-              </p>
+              {description.map((content, idx) => (
+                <div key={idx} className="my-5 block">
+                  <div className="body-1" dangerouslySetInnerHTML={{ __html: xss(content) }} />
+                </div>
+              ))}
             </div>
             {pack !== IndividualRecipePack.Bundle && (
               <div className="mt-6">
                 <RecipeMediumDialog
                   name={product.name}
                   description={description.map((content, idx) => (
-                    <span key={idx} dangerouslySetInnerHTML={{ __html: xss(content) }} />
+                    <div key={idx} dangerouslySetInnerHTML={{ __html: xss(content) }} />
                   ))}
                   picture="/meal-plan/chicken-recipe.jpg"
                   ingredients={ingredients}

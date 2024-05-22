@@ -53,7 +53,7 @@ export default function RecipeMediumDialog({
           <div className="ml-6 py-1 max-md:mx-3 max-md:mt-4">
             <h2 className="text-xl font-bold text-primary max-lg:text-lg">{name}</h2>
             <div className="mt-2"></div>
-            <p className="leading-tight">{description}</p>
+            <div className="leading-tight">{description}</div>
             <hr className="my-3 border-[#7B8D97]" />
             <div className="-mx-4 flex">
               <button
