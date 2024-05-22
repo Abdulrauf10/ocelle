@@ -55,7 +55,7 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
               </div>
             }
             className={{
-              row: '!items-start text-gold',
+              row: 'text-gold',
               item: 'body-1 py-0.5',
             }}
             items={listItems}

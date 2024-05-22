@@ -45,7 +45,7 @@ export default function Home() {
             <div className="mt-[2vw]">
               <List
                 picture={<Tickbox className="mr-4 h-5 w-5" />}
-                className={{ row: '!items-start py-1.5', item: 'body-1' }}
+                className={{ row: 'py-1.5', item: 'body-1' }}
                 items={[
                   t('block-3-content-1'),
                   t('block-3-content-2'),

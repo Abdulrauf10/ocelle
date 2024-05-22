@@ -29,7 +29,7 @@ export default function Picture() {
                   <DogFoot className="mr-5 h-6 w-6 fill-primary" />
                 </div>
               }
-              className={{ row: '!items-start py-1', item: 'body-1 !pt-[2px]' }}
+              className={{ row: 'py-1', item: 'body-1 !pt-[2px]' }}
               items={[
                 t('block-1-content-1'),
                 t('block-1-content-2'),
