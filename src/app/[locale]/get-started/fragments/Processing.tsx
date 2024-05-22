@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { startOfDay } from 'date-fns';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -24,7 +25,7 @@ export default function ProcessingFragment() {
   const { dogs } = useSurvey();
   const waitPromise = React.useMemo(() => new Promise((resolve) => setTimeout(resolve, 3000)), []);
   const { data: closestDeliveryDate, isLoading: loadingDeliveryDate } = useQuery({
-    queryKey: [],
+    queryKey: [startOfDay(new Date()).toISOString()],
     queryFn: async () => new Date(await getClosestDeliveryDate()),
   });
   const { data: calendarEvents, isLoading: loadingCalenadarEvents } = useQuery({

@@ -20,24 +20,12 @@ import UnderlineButton from '@/components/buttons/UnderlineButton';
 import PasswordField from '@/components/controls/PasswordField';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
-import {
-  ActivityLevel,
-  AmountOfTreats,
-  BodyCondition,
-  DogFood,
-  FoodAllergies,
-  Frequency,
-  MealPlan,
-  Pickiness,
-  Recipe,
-  Sex,
-} from '@/enums';
+import { MealPlan, Recipe } from '@/enums';
 import { OrderDiscountType, OrderFragment } from '@/gql/graphql';
-import { getDateOfBirth, getRecipeSlug, isUnavailableDeliveryDate } from '@/helpers/dog';
+import { getRecipeSlug, isUnavailableDeliveryDate } from '@/helpers/dog';
 import { nativeRound } from '@/helpers/number';
 import useSentence from '@/hooks/useSentence';
 import { CalendarEvent } from '@/types';
-import { BreedDto } from '@/types/dto';
 
 function Section({
   title,
