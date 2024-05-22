@@ -1,5 +1,6 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import equal from 'deep-equal';
 import { useTranslations } from 'next-intl';
 import pluralize from 'pluralize';
@@ -13,6 +14,7 @@ import RecipeCheckbox from '../controls/RecipeCheckbox';
 import { ActivityLevel, BodyCondition, FoodAllergies, Pickiness, Recipe } from '@/enums';
 import { isAllergies, isRecommendedRecipe } from '@/helpers/dog';
 import { arrayToRecipe, recipeToArray } from '@/helpers/form';
+import { nativeRound } from '@/helpers/number';
 import useDefaultValues from '@/hooks/defaultValues';
 
 interface RecipeForm {
@@ -27,6 +29,7 @@ export default function RecipeForm({
   foodAllergies,
   initialRecipe1,
   initialRecipe2,
+  fetchBoxPrice,
   action,
 }: {
   name: string;
@@ -36,6 +39,10 @@ export default function RecipeForm({
   foodAllergies: FoodAllergies;
   initialRecipe1: Recipe;
   initialRecipe2?: Recipe;
+  fetchBoxPrice(data: {
+    recipe1?: Recipe;
+    recipe2?: Recipe;
+  }): Promise<{ total: number; daily: number } | undefined>;
   action(data: { recipe1: Recipe; recipe2?: Recipe }): Promise<void>;
 }) {
   const t = useTranslations();
@@ -54,6 +61,12 @@ export default function RecipeForm({
     trigger,
     setValue,
   } = useForm<RecipeForm>({ defaultValues });
+  const recipeValues = watch('recipe');
+  const recipes = arrayToRecipe(recipeValues);
+  const { data: boxPrice, isLoading } = useQuery({
+    queryKey: ['boxPrice', recipes.recipe1, recipes.recipe2],
+    queryFn: () => fetchBoxPrice(recipes),
+  });
 
   React.useEffect(() => {
     setValue('recipe', recipeToArray(initialRecipe1, initialRecipe2));
@@ -319,9 +332,11 @@ export default function RecipeForm({
           />
         </div>
       </div>
-      <div className="mt-10 text-center font-bold text-dark-green">
-        Total Price: [$210 ($15/Day)]
-      </div>
+      {boxPrice && (
+        <div className="mt-10 text-center font-bold text-dark-green">
+          Total Price: ${nativeRound(boxPrice.total)} (${nativeRound(boxPrice.daily)}/Day)
+        </div>
+      )}
       <div className="mx-auto mt-10 max-w-[480px]">
         <div className="-mx-2 flex">
           <div className="w-1/2 px-2">
@@ -329,13 +344,13 @@ export default function RecipeForm({
               fullWidth
               onClick={() => reset(defaultValues)}
               reverse
-              disabled={isSameAsDefaultValue}
+              disabled={isSameAsDefaultValue || !recipes.recipe1}
             >
               {t('cancel')}
             </Button>
           </div>
           <div className="w-1/2 px-2">
-            <Button fullWidth disabled={pending || isSameAsDefaultValue}>
+            <Button fullWidth disabled={pending || isSameAsDefaultValue || !recipes.recipe1}>
               {t('save-changes')}
             </Button>
           </div>

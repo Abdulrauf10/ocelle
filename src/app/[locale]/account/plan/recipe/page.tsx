@@ -1,8 +1,7 @@
 import { getTranslations } from 'next-intl/server';
-import { cookies } from 'next/headers';
 
 import DogSwitch from '../../DogSwitch';
-import setRecipeAction from './action';
+import { calculateBoxPrice, setRecipeAction } from './actions';
 
 import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import AppThemeProvider from '@/components/AppThemeProvider';
@@ -12,7 +11,6 @@ import RecipeForm from '@/components/forms/Recipe';
 import RecurringBoxNote from '@/components/notes/RecurringBox';
 
 export default async function PlanRecipe() {
-  const cookie = cookies();
   const t = await getTranslations();
   const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
   const { dogs } = await getLoginedMe();
@@ -48,6 +46,10 @@ export default async function PlanRecipe() {
               foodAllergies={dog.foodAllergies}
               initialRecipe1={dog.plan.recipe1}
               initialRecipe2={dog.plan.recipe2}
+              fetchBoxPrice={async (data) => {
+                'use server';
+                return await calculateBoxPrice({ ...data, id: dog.id });
+              }}
               action={async (data) => {
                 'use server';
                 return await setRecipeAction({ ...data, id: dog.id });
