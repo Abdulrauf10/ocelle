@@ -25,16 +25,19 @@ export default function Home() {
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center text-white">
           <h1 className="heading-1 font-bold">{t.rich('block-2-title')}</h1>
-          <div className="mt-8"></div>
+          <div className="mt-6"></div>
           <p className="body-1">
-            {t.rich('blcok-2-content', { br: () => <br className="max-lg:hidden" /> })}
+            {t.rich('blcok-2-content', {
+              br: () => <br className="max-lg:hidden" />,
+            })}
           </p>
         </Container>
       </Block>
       <TwoToneBlock
+        breakpoint="lg"
         className={{
-          bgLeft: 'min-h-[300px] bg-[url("./gofresh-img.jpg")] bg-cover bg-[center_right]',
-          bgRight: 'max-md:px-4',
+          bgLeft: 'min-h-[500px] bg-[url("./homepage-go-fresh.jpg")] bg-cover bg-[70%] ',
+          bgRight: 'max-lg:px-4',
         }}
         right={
           <div className="py-[clamp(30px,3vw,60px)]">
@@ -42,7 +45,7 @@ export default function Home() {
             <div className="mt-[2vw]">
               <List
                 picture={<Tickbox className="mr-4 h-5 w-5" />}
-                className={{ row: 'py-1.5', item: 'body-1' }}
+                className={{ row: '!items-start py-1.5', item: 'body-1' }}
                 items={[
                   t('block-3-content-1'),
                   t('block-3-content-2'),
@@ -53,7 +56,7 @@ export default function Home() {
               />
             </div>
             <div className="mb-5 mt-[2vw]"></div>
-            <div className="flex justify-center md:justify-start">
+            <div className="flex justify-center lg:justify-start">
               <Button href="/why-fresh/benefits-of-fresh-dog-food">{b('learn-more')}</Button>
             </div>
           </div>
@@ -121,7 +124,7 @@ export default function Home() {
                     <p className="body-1">{t('block-4-item-4-content')}</p>
                   </div>
                   <div className="ml-[6%] mt-[21%] text-center max-xl:hidden">
-                    <Button href="/get-started">{b('see-your-recipes')}</Button>
+                    <Button href="/get-started">{b('get-started')}</Button>
                   </div>
                 </div>
               </div>
@@ -133,7 +136,7 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-8 text-center xl:hidden">
-            <Button href="/get-started">{b('see-your-recipes')}</Button>
+            <Button href="/get-started">{b('get-started')}</Button>
           </div>
         </Container>
       </Block>
@@ -207,7 +210,7 @@ export default function Home() {
             <Button href="/get-started">{b('build-my-plan')}</Button>
           </div>
           <div className="mt-[3vw] max-sm:mt-10"></div>
-          <p className="heading-3 text-center font-normal text-gray">
+          <p className="text-center text-2xl font-normal text-gray">
             {t.rich('block-5-content', {
               link: (chunks) => {
                 return (
@@ -238,7 +241,7 @@ export default function Home() {
       </Block>
       <div className="bg-[url('./recommended-plan-bg.jpg')] bg-cover bg-center py-40 max-md:py-16">
         <Container>
-          <div className="shadow-backdrop mx-auto max-w-[600px] rounded-[30px] bg-white p-8 py-12 text-center sm:p-16 md:px-[140px]">
+          <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-8 py-12 text-center shadow-backdrop sm:p-16 md:px-[8px]">
             <strong className="heading-3 text-primary">{t('block-7-title')}</strong>
             <div className="mt-5"></div>
             <p className="body-1">{t('block-7-content')}</p>

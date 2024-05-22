@@ -31,7 +31,7 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
           transition={{ duration: 1.5 }}
           className="max-w-[560px] rounded-[30px] bg-white py-12 pl-12 pr-24 text-left shadow-[7px_7px_5px_rgba(185,130,59,0.3)] max-lg:-mt-5 max-lg:ml-8 max-lg:px-12 max-lg:py-10 max-lg:shadow-[-7px_7px_5px_rgba(185,130,59,0.3)]"
         > */}
-        <div className="max-w-[560px] rounded-[30px] bg-white py-12 pl-12 pr-24 text-left shadow-[7px_7px_5px_rgba(185,130,59,0.3)] max-lg:-mt-5 max-lg:ml-8 max-lg:px-12 max-lg:py-10 max-lg:shadow-[-7px_7px_5px_rgba(185,130,59,0.3)]">
+        <div className="max-w-[560px] rounded-[30px] bg-white py-12 pl-12 pr-24 text-left shadow-[7px_7px_5px_rgba(185,130,59,0.3)] max-lg:-mt-5 max-lg:ml-8 max-lg:px-6 max-lg:py-10 max-lg:shadow-[-7px_7px_5px_rgba(185,130,59,0.3)]">
           <h3 className="heading-3 font-bold text-gold">
             {dog} {h("'s plan")}
           </h3>
@@ -44,10 +44,10 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
           <div className="mt-5"></div>
           <List
             picture={
-              <div className="mt-[2px]">
+              <div className="">
                 <Image
                   src="/brown-tick.png"
-                  className={'mr-3 h-6 w-6'}
+                  className={'mr-3 h-[22px] w-[22px]'}
                   width={24}
                   height={24}
                   alt="brown tick"
@@ -55,8 +55,8 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
               </div>
             }
             className={{
-              row: 'py-0.5 text-gold',
-              item: 'body-1',
+              row: '!items-start text-gold',
+              item: 'body-1 py-0.5',
             }}
             items={listItems}
           />
