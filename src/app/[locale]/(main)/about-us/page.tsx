@@ -20,15 +20,17 @@ export default function OurStory() {
         className=" flex min-h-[600px] flex-col justify-center bg-gold bg-opacity-10 py-4"
       >
         <Container>
-          <h1 className="heading-1 text-center font-bold text-primary">{a('we-do-it-for-them')}</h1>
+          <h1 className="heading-headline text-center font-bold text-primary">
+            {a('we-do-it-for-them')}
+          </h1>
           <div className="mx-auto mt-10 rounded-[30px] border border-primary bg-white p-12 text-[1.6vw] leading-[1.2] max-3xl:text-[2.4vw] max-2xl:text-[2.8vw] max-xl:mt-5 max-xl:p-10 max-xl:text-[3.4vw] max-lg:text-[3.8vw] max-md:p-8 max-md:text-[4.8vw] max-sm:text-[36px] max-xs:p-6 max-xs:text-[32px]">
-            <strong className="flex flex-col text-left text-[1em] leading-[1.5em] text-primary xs:flex-row xs:items-center">
-              <div className="inline-block">Ocelle |</div>
+            <strong className="flex flex-col text-left text-[1em]  text-primary xs:flex-row xs:items-center">
+              <div className="inline-block">Ocelle |&nbsp;</div>
               <div className="inline-block min-w-[240px]">
                 oh-chell-i | <Sound className="ml-[.8vw] inline-block w-[.8em] pb-1" />
               </div>
             </strong>
-            <p className="mt-[.6em] text-[.73em] text-primary">
+            <p className="text-[.73em] text-primary">
               {/* <Sound className="mr-3 inline-block w-[1.2em] max-sm:hidden" /> */}
               noun。Latin
             </p>
@@ -48,15 +50,11 @@ export default function OurStory() {
                   <th></th>
                   <th>
                     <p className="mt-3 flex text-[.5em] ">
-                      <strong className="mr-2">a.</strong>
-                      <span className="font-normal">
-                        {a.rich('block-1-content-1')}
-                        <br />
-                        {a.rich('block-1-content-2')}
-                      </span>
+                      <span className="mr-2 font-medium">a.</span>
+                      <span className="font-normal">{a.rich('block-1-content-1')}</span>
                     </p>
                     <p className="mt-3 flex text-[.5em] ">
-                      <strong className="mr-2">b.</strong>
+                      <span className="mr-2 font-medium">b.</span>
                       <span className="font-normal">{a.rich('block-1-content-3')}</span>
                     </p>
                   </th>
@@ -71,7 +69,7 @@ export default function OurStory() {
                     <strong className="text-[.6em] font-bold text-primary">
                       {a('block-1-title-2')}:
                     </strong>
-                    <span className="text-[.5em]"> {a.rich('block-1-content-4')}</span>
+                    <span className="text-[.5em] font-normal"> {a.rich('block-1-content-4')}</span>
                   </th>
                 </tr>
               </tbody>
@@ -79,69 +77,69 @@ export default function OurStory() {
           </div>
         </Container>
       </Block>
-      <TwoToneBlock
-        breakpoint="lg"
-        className={{
-          bgLeft: 'bg-brown',
-          bgRight:
-            "min-h-[520px] bg-[length:auto_100%] max-lg:min-h-[100vw] max-lg:bg-[url('./charlie-center.jpg')] lg:bg-[url('./charlie.jpg')]",
-          mbLeft: 'px-4',
-        }}
-        left={
-          <div className="py-[clamp(20px,3.5vw,60px)] text-white">
-            <h2 className="heading-1 font-bold">
-              {a.rich('block-2-title-1-1')}
-              <span className="block"> {a.rich('block-2-title-1-2')}</span>
-            </h2>
-            <div className="mt-8"></div>
-            <p className="body-1">{a('block-2-content-1')}</p>
-            <div className="mt-4"></div>
-            <p className="body-1">{a('block-2-content-2')}</p>
-            <div className="mt-4"></div>
-            <p className="body-1">{a('block-2-content-3')}</p>
-          </div>
-        }
-      />
-      <div className="relative z-0 flex items-center bg-primary bg-cover bg-center bg-repeat-x max-md:flex-col-reverse md:bg-[url('./about-us-bg.svg')] xl:h-[680px]">
+      <div className="m-0 bg-[#d8b99a] p-0">
+        <TwoToneBlock
+          breakpoint="lg"
+          className={{
+            bgLeft: 'bg-brown',
+            bgRight:
+              "min-h-[520px] bg-[length:auto_100%] bg-[5%] bg-no-repeat max-lg:min-h-[50vw] max-lg:bg-[url('./charlie-center.jpg')] max-lg:bg-[center] lg:bg-[url('./charlie.jpg')]",
+            // "min-h-[520px] bg-[url('./charlie.jpg')] bg-[length:auto_100%] bg-no-repeat max-lg:min-h-[60vw] max-lg:bg-[]",
+            mbLeft: 'px-4',
+          }}
+          left={
+            <div className="py-[clamp(20px,3.5vw,60px)] text-white">
+              <h2 className="heading-1 font-bold lg:hidden">{a.rich('block-2-title-1')}</h2>
+              <h2 className="heading-1 font-bold max-lg:hidden">{a.rich('block-2-title-1-lg')}</h2>
+              <div className="mt-8"></div>
+              <p className="body-1">{a('block-2-content-1')}</p>
+              <div className="mt-4"></div>
+              <p className="body-1">{a('block-2-content-2')}</p>
+              <div className="mt-4"></div>
+              <p className="body-1">{a('block-2-content-3')}</p>
+            </div>
+          }
+        />
+      </div>
+      <div className="relative z-0 flex items-center bg-primary bg-cover bg-center bg-repeat-x max-md:flex-col-reverse lg:bg-[url('./about-us-bg.svg')] xl:h-[680px]">
         <Image
           src="/food-1.png"
           alt="food-1"
           width={300}
           height={250}
-          className="clip-path: insea(0 40% 0 0) absolute -left-[50px] bottom-[10%] md:hidden"
+          className="absolute -left-[50px] bottom-[10%] lg:hidden"
         />
         <Image
           src="/food-2.png"
           alt="food-2"
           width={320}
           height={220}
-          className="left-30 clip-path: insea(0 40% 0 0) min-md:hidden absolute -right-[60px] bottom-[15%] max-md:block max-[450px]:hidden md:hidden"
-          style={{
-            clipPath: 'insea(0 19% 0 0)',
-          }}
+          className="left-30 clip-path: insea(0 40% 0 0) min-lg:hidden absolute -right-[60px] bottom-[15%] max-md:block max-[450px]:hidden lg:hidden"
         />
         <Image
           src="/food-3.png"
           alt="food-3"
           width={220}
           height={220}
-          className="left-30 absolute -right-[40px] -top-[40px] [clip-path:insea(0_19%_0_0)] md:hidden"
+          className="left-30 absolute -right-[40px] -top-[40px] lg:hidden"
+          loading="eager"
         />
         <div className="z-40 flex w-1/2 justify-end max-md:w-full max-md:justify-center">
           <div className="mr-8 w-full max-w-[380px] pt-10 max-md:mx-4">
             <div className="relative pt-[168%]">
-              <Image src="/dog-with-owner.png" alt="Dog with owner" fill />
+              <Image src="/dog-with-owner.png" alt="Dog with owner" fill loading="eager" />
             </div>
           </div>
         </div>
         <div className="relative -left-6 w-1/2 text-white max-md:left-0 max-md:w-full max-md:px-4">
-          <div className="absolute left-16 -translate-y-full max-md:static max-md:mt-12 max-md:translate-y-0">
+          <div className="absolute left-16 -translate-y-full max-md:static max-md:mt-12 max-md:translate-y-0 md:top-[-56px]">
             <Image
               src="/inspire.svg"
               alt="Inspire"
               width={130}
               height={140}
               className="max-md:mx-auto"
+              loading="eager"
             />
           </div>
           <div className="mt-6"></div>
@@ -174,8 +172,8 @@ export default function OurStory() {
         left={
           <div className="py-[clamp(20px,3.5vw,60px)]">
             <h2 className="heading-1 inline-block font-bold text-secondary max-[300px]:block">
-              {a('block-4-title-1-1')}
-              {a.rich('block-4-title-1-2')}
+              <span className="max-lg:hidden">{a.rich('block-4-title')}</span>
+              <span className="lg:hidden">{a.rich('block-4-title-lg')}</span>
             </h2>
             <div className="mt-8"></div>
             <p className="body-1">{a('block-4-content-1')}</p>
@@ -190,7 +188,7 @@ export default function OurStory() {
           </div>
         }
         right={
-          <div className="relative w-full max-w-[620px] max-lg:mx-auto lg:ml-[6%]">
+          <div className="relative w-full max-w-[600px] max-lg:mx-auto max-lg:max-w-[450px] lg:ml-[6%]">
             <div className="pt-[117.2%]">
               <Image
                 src="/about-us-food.png"
