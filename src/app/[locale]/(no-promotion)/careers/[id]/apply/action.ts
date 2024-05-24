@@ -11,8 +11,8 @@ import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import { Career } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
 
-// invariant(process.env.SMTP_USER, 'Missing SMTP_USER env variable');
-// invariant(process.env.SMTP_PASS, 'Missing SMTP_PASS env variable');
+invariant(process.env.SMTP_USER, 'Missing SMTP_USER env variable');
+invariant(process.env.SMTP_PASS, 'Missing SMTP_PASS env variable');
 
 const transporter = nodemailer.createTransport({
   host: 'smtp.ethereal.email',
