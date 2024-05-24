@@ -73,12 +73,12 @@ function FileInput<T extends FieldValues>({
         <>
           <div className="flex flex-row items-start">
             <div className="mt-2"></div>
-            <span className="body-2 mr-2 inline-block break-all">
+            <span className="body-2 !mt-[8px] mr-2 inline-block break-all">
               {/* {label}: {filename} */}
-              <b>Attached</b>: {filename}
+              {filename}
             </span>
             <div className="mt-2"></div>
-            <button className="h-6" onClick={handleDetach}>
+            <button className="mt-[8px] h-6" onClick={handleDetach}>
               <Close className="w-3" />
             </button>
           </div>
@@ -105,8 +105,8 @@ function FileInput<T extends FieldValues>({
         </div>
       )}
       {(filename || !!error) && (
-        <div className="mt-1 flex w-full items-center">
-          {error ? <span className="body-4 text-error">{error.message}</span> : <></>}
+        <div className="mt-1 flex w-full items-center ">
+          {error ? <span className="body-4  text-error">{error.message}</span> : <></>}
         </div>
       )}
     </div>
@@ -137,7 +137,7 @@ export default function ApplyCareerForm({
   const {
     control,
     formState: { isValid, errors },
-  } = useForm<IApplyCareerForm>({ mode: 'all' });
+  } = useForm<IApplyCareerForm>({ mode: 'onBlur' });
   const [completed, setCompleted] = React.useState(false);
 
   if (completed) {
@@ -172,8 +172,8 @@ export default function ApplyCareerForm({
           <div className="body-1 font-bold uppercase text-primary">
             {t('submit-your-application')}
           </div>
-          <div className="body-3">
-            <span className="text-error">*</span>
+          <div className="body-3 relative w-fit pl-[5px]">
+            <span className="absolute -top-[3px] left-[-2px] text-error">*</span>
             {t('required')}
           </div>
           <div className="mt-6">
@@ -189,8 +189,8 @@ export default function ApplyCareerForm({
             >
               <div className="-mx-4 -my-4 flex flex-wrap">
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
-                  <div className="flex items-center">
-                    <label htmlFor="firstName" className="body-3 mr-2 w-[95px] min-w-[95px]">
+                  <div className="flex items-start">
+                    <label htmlFor="firstName" className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]">
                       {t('first-name')}
                       <span className="relative top-[-2px] text-error">*</span>
                     </label>
@@ -206,8 +206,8 @@ export default function ApplyCareerForm({
                   </div>
                 </div>
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
-                  <div className="flex items-center">
-                    <label htmlFor="lastName" className="body-3 mr-2 w-[95px] min-w-[95px]">
+                  <div className="flex items-start">
+                    <label htmlFor="lastName" className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]">
                       {t('last-name')}
                       <span className="relative top-[-2px] text-error">*</span>
                     </label>
@@ -223,13 +223,23 @@ export default function ApplyCareerForm({
                   </div>
                 </div>
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
-                  <div className="flex items-center">
-                    <label htmlFor="email" className="body-3 mr-2 w-[95px] min-w-[95px]">
+                  <div className="flex items-start">
+                    <label htmlFor="email" className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]">
                       {t('email')}
                       <span className="relative top-[-2px] text-error">*</span>
                     </label>
                     <TextField
-                      sx={{ input: { fontSize: '14px' } }}
+                      sx={{
+                        input: { fontSize: '14px' },
+                      }}
+                      FormHelperTextProps={{
+                        id: 'email-helper-text',
+                        sx: {
+                          backgroundColor: '#f9f3eb !important',
+                          margin: '0px',
+                          padding: '3px 14px 0px 14px',
+                        }, // Specific inline styling for this helper text
+                      }}
                       id="email"
                       name="email"
                       className=" rounded-md bg-white"
@@ -248,13 +258,16 @@ export default function ApplyCareerForm({
                   </div>
                 </div>
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
-                  <div className="flex items-center">
-                    <label htmlFor="phone" className="body-3 mr-2 w-[95px] min-w-[95px]">
+                  <div className="flex items-start">
+                    <label htmlFor="phone" className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]">
                       {t('phone')}
                       <span className="relative top-[-2px] text-error">*</span>
                     </label>
                     <TextField
-                      sx={{ input: { fontSize: '14px' } }}
+                      sx={{
+                        input: { fontSize: '14px', backgroundColor: 'white' },
+                        backgroundColor: '#f9f3eb',
+                      }}
                       id="phone"
                       name="phone"
                       className=" rounded-md bg-white "
@@ -299,7 +312,7 @@ export default function ApplyCareerForm({
                         },
                       }}
                       helperText={c('file-types-{}', {
-                        value: 'pdf, doc, docx, txt, rtf',
+                        value: 'pdf, doc, docx, txt, rtf (5MB)',
                       })}
                     />
                   </div>
@@ -332,7 +345,7 @@ export default function ApplyCareerForm({
                         },
                       }}
                       helperText={c('file-types-{}', {
-                        value: 'pdf, doc, docx, txt, rtf',
+                        value: 'pdf, doc, docx, txt, rtf (5MB)',
                       })}
                     />
                   </div>
