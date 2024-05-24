@@ -6,8 +6,8 @@ import { MoreThanOrEqual } from 'typeorm';
 
 import { getLoginedMe } from '@/actions';
 import { Shipment } from '@/entities';
-import { getEditableRecurringBoxDeadline } from '@/helpers/dog';
 import { executeQuery } from '@/helpers/queryRunner';
+import { getEditableRecurringBoxDeadline } from '@/helpers/shipment';
 import { getCalendarEvents } from '@/services/calendar';
 
 interface SetDeliveryDateAction {

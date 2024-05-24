@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   type Relation,
 } from 'typeorm';
-import { DogBreed, DogPlan, RecurringBox, User } from '.';
+import { DogBreed, DogPlan, RecurringBox, Shipment, User } from '.';
 import { ActivityLevel, AmountOfTreats, BodyCondition, DateOfBirthMethod, DogFood, FoodAllergies, Sex, Pickiness } from '@/enums';
 
 @Entity({ name: 'dog' })
@@ -62,4 +62,7 @@ export default class Dog {
 
   @ManyToOne(() => User, (user) => user.dogs)
   user!: Relation<User>;
+
+  @OneToMany(() => Shipment, (shipment) => shipment.dog)
+  shipements!: Relation<Shipment>[];
 }

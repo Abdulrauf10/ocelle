@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class Initial1716138102423 implements MigrationInterface {
-    name = 'Initial1716138102423'
+export class Initial1716538994073 implements MigrationInterface {
+    name = 'Initial1716538994073'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE \`breed\` (\`id\` int NOT NULL AUTO_INCREMENT, \`name\` varchar(255) NOT NULL, \`size\` enum ('S', 'M', 'L') NOT NULL, \`uid\` varchar(255) NOT NULL, UNIQUE INDEX \`IDX_650207c14426ca764db4a23c68\` (\`uid\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
@@ -11,8 +11,8 @@ export class Initial1716138102423 implements MigrationInterface {
         await queryRunner.query(`CREATE TABLE \`dog_breed\` (\`breed_id\` int NOT NULL, \`dog_id\` int NOT NULL, PRIMARY KEY (\`breed_id\`, \`dog_id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`dog_plan\` (\`id\` int NOT NULL AUTO_INCREMENT, \`meal_plan\` enum ('Half', 'Full') NOT NULL, \`frequency\` enum ('Once', '1 Week', '2 Week') NOT NULL, \`recipe1\` enum ('Chkn', 'Beef', 'Pork', 'Lamb', 'Duck') NOT NULL, \`recipe2\` enum ('Chkn', 'Beef', 'Pork', 'Lamb', 'Duck') NULL, \`is_enabled_transition_period\` tinyint NOT NULL, \`is_enabled\` tinyint NOT NULL, \`start_date\` datetime NOT NULL, \`dog_id\` int NULL, UNIQUE INDEX \`REL_2cd39d986a0584fddfb5f9d699\` (\`dog_id\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`order\` (\`id\` varchar(255) NOT NULL, \`created_at\` datetime NOT NULL, \`user_id\` varchar(255) NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
-        await queryRunner.query(`CREATE TABLE \`recurring_box\` (\`id\` int NOT NULL AUTO_INCREMENT, \`meal_plan\` enum ('Half', 'Full') NOT NULL, \`frequency\` enum ('Once', '1 Week', '2 Week') NOT NULL, \`recipe1\` enum ('Chkn', 'Beef', 'Pork', 'Lamb', 'Duck') NOT NULL, \`recipe2\` enum ('Chkn', 'Beef', 'Pork', 'Lamb', 'Duck') NULL, \`is_transition_period\` tinyint NOT NULL, \`start_date\` datetime NOT NULL, \`end_date\` datetime NOT NULL, \`order_id\` varchar(255) NULL, \`shipment_id\` int NULL, \`dog_id\` int NULL, \`prev_box_id\` int NULL, UNIQUE INDEX \`REL_7588b7d25ab33e4a10e810aa41\` (\`prev_box_id\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
-        await queryRunner.query(`CREATE TABLE \`shipment\` (\`id\` int NOT NULL AUTO_INCREMENT, \`lock_box_date\` datetime NOT NULL, \`delivery_date\` datetime NOT NULL, \`user_id\` varchar(255) NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`recurring_box\` (\`id\` int NOT NULL AUTO_INCREMENT, \`meal_plan\` enum ('Half', 'Full') NOT NULL, \`frequency\` enum ('Once', '1 Week', '2 Week') NOT NULL, \`recipe1\` enum ('Chkn', 'Beef', 'Pork', 'Lamb', 'Duck') NOT NULL, \`recipe2\` enum ('Chkn', 'Beef', 'Pork', 'Lamb', 'Duck') NULL, \`is_transition_period\` tinyint NOT NULL, \`start_date\` datetime NOT NULL, \`end_date\` datetime NOT NULL, \`order_id\` varchar(255) NULL, \`shipment_id\` int NULL, \`dog_id\` int NULL, \`prev_box_id\` int NULL, UNIQUE INDEX \`REL_44a0a0218be18e16a6a7c008f5\` (\`shipment_id\`), UNIQUE INDEX \`REL_7588b7d25ab33e4a10e810aa41\` (\`prev_box_id\`), PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`shipment\` (\`id\` int NOT NULL AUTO_INCREMENT, \`editable_deadline\` datetime NOT NULL, \`delivery_date\` datetime NOT NULL, \`tracking_code\` varchar(255) NULL, \`user_id\` varchar(255) NULL, \`dog_id\` int NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`CREATE TABLE \`user\` (\`id\` varchar(255) NOT NULL, \`phone\` varchar(255) NOT NULL, \`is_delivery_us_as_billing_address\` tinyint NOT NULL, \`stripe\` varchar(255) NULL, \`stripe_payment_method\` varchar(255) NULL, PRIMARY KEY (\`id\`)) ENGINE=InnoDB`);
         await queryRunner.query(`ALTER TABLE \`career_line\` ADD CONSTRAINT \`FK_9075532455b6d44af190decfa14\` FOREIGN KEY (\`career_id\`) REFERENCES \`career\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`dog\` ADD CONSTRAINT \`FK_0e47068be8d1aea4497d70be100\` FOREIGN KEY (\`user_id\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
@@ -25,9 +25,11 @@ export class Initial1716138102423 implements MigrationInterface {
         await queryRunner.query(`ALTER TABLE \`recurring_box\` ADD CONSTRAINT \`FK_8c58005158caec9ee8328af68db\` FOREIGN KEY (\`dog_id\`) REFERENCES \`dog\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`recurring_box\` ADD CONSTRAINT \`FK_7588b7d25ab33e4a10e810aa411\` FOREIGN KEY (\`prev_box_id\`) REFERENCES \`recurring_box\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
         await queryRunner.query(`ALTER TABLE \`shipment\` ADD CONSTRAINT \`FK_bf41e996eb69b87f8127e10f85d\` FOREIGN KEY (\`user_id\`) REFERENCES \`user\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`shipment\` ADD CONSTRAINT \`FK_0ff9ccbfdb01af41cb5c7395bd2\` FOREIGN KEY (\`dog_id\`) REFERENCES \`dog\`(\`id\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`ALTER TABLE \`shipment\` DROP FOREIGN KEY \`FK_0ff9ccbfdb01af41cb5c7395bd2\``);
         await queryRunner.query(`ALTER TABLE \`shipment\` DROP FOREIGN KEY \`FK_bf41e996eb69b87f8127e10f85d\``);
         await queryRunner.query(`ALTER TABLE \`recurring_box\` DROP FOREIGN KEY \`FK_7588b7d25ab33e4a10e810aa411\``);
         await queryRunner.query(`ALTER TABLE \`recurring_box\` DROP FOREIGN KEY \`FK_8c58005158caec9ee8328af68db\``);
@@ -42,6 +44,7 @@ export class Initial1716138102423 implements MigrationInterface {
         await queryRunner.query(`DROP TABLE \`user\``);
         await queryRunner.query(`DROP TABLE \`shipment\``);
         await queryRunner.query(`DROP INDEX \`REL_7588b7d25ab33e4a10e810aa41\` ON \`recurring_box\``);
+        await queryRunner.query(`DROP INDEX \`REL_44a0a0218be18e16a6a7c008f5\` ON \`recurring_box\``);
         await queryRunner.query(`DROP TABLE \`recurring_box\``);
         await queryRunner.query(`DROP TABLE \`order\``);
         await queryRunner.query(`DROP INDEX \`REL_2cd39d986a0584fddfb5f9d699\` ON \`dog_plan\``);

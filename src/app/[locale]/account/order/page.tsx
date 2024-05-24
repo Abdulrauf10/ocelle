@@ -6,7 +6,7 @@ import getOrders from './action';
 import Container from '@/components/Container';
 import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
-import { isDeliveredBox } from '@/helpers/dog';
+import { isDeliveredRecurringBox } from '@/helpers/shipment';
 
 export default async function Orders() {
   const t = await getTranslations();
@@ -37,7 +37,7 @@ export default async function Orders() {
                     <td className="px-2 py-3">{order.number}</td>
                     <td className="px-2 py-3">{format(shipment.deliveryDate, 'dd/MM/yy')}</td>
                     <td className="px-2 py-3">
-                      {isDeliveredBox(shipment.deliveryDate)
+                      {isDeliveredRecurringBox(shipment.deliveryDate)
                         ? t('delivered')
                         : isBefore(today, startOfDay(shipment.editableDeadline))
                           ? t('order-processing')

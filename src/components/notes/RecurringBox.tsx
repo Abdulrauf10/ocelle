@@ -4,8 +4,8 @@ import { startOfDay } from 'date-fns';
 import { getTranslations } from 'next-intl/server';
 
 import { Dog, Shipment } from '@/entities';
-import { isDeliveredBox } from '@/helpers/dog';
 import { executeQuery } from '@/helpers/queryRunner';
+import { isDeliveredRecurringBox } from '@/helpers/shipment';
 import getSentence from '@/servers/getSentence';
 
 export default async function RecurringBoxNote({ id }: { id: number }) {
@@ -19,9 +19,7 @@ export default async function RecurringBoxNote({ id }: { id: number }) {
       }),
       shipments: await queryRunner.manager.find(Shipment, {
         where: {
-          boxs: {
-            dog: { id },
-          },
+          dog: { id },
         },
         order: {
           deliveryDate: -1,
@@ -36,7 +34,8 @@ export default async function RecurringBoxNote({ id }: { id: number }) {
   }
 
   const shipable = shipments.find(
-    (shipment) => !isDeliveredBox(shipment.deliveryDate) && shipment.editableDeadline <= refDate
+    (shipment) =>
+      !isDeliveredRecurringBox(shipment.deliveryDate) && shipment.editableDeadline <= refDate
   );
 
   const editable = shipments.find((shipment) => shipment.editableDeadline >= refDate);

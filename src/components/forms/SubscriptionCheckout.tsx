@@ -22,8 +22,9 @@ import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 import { MealPlan, Recipe } from '@/enums';
 import { OrderDiscountType, OrderFragment } from '@/gql/graphql';
-import { getRecipeSlug, isUnavailableDeliveryDate } from '@/helpers/dog';
+import { getRecipeSlug } from '@/helpers/dog';
 import { nativeRound } from '@/helpers/number';
+import { isLegalDeliveryDate } from '@/helpers/shipment';
 import useSentence from '@/hooks/useSentence';
 import { CalendarEvent } from '@/types';
 
@@ -414,7 +415,7 @@ export default function SubscriptionCheckoutForm({
                   <DatePickerForm
                     initialDate={watch('deliveryDate')}
                     minDate={closestDeliveryDate}
-                    shouldDisableDate={(day) => isUnavailableDeliveryDate(day, calendarEvents)}
+                    shouldDisableDate={(day) => !isLegalDeliveryDate(day, calendarEvents)}
                     view={['day']}
                     action={async ({ date }) => {
                       setValue('deliveryDate', date);

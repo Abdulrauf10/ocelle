@@ -13,8 +13,9 @@ import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { RecurringBox } from '@/entities';
 import { Frequency, MealPlan } from '@/enums';
-import { getEditableRecurringBoxDeadline, getRecipeSlug } from '@/helpers/dog';
+import { getRecipeSlug } from '@/helpers/dog';
 import { executeQuery } from '@/helpers/queryRunner';
+import { getEditableRecurringBoxDeadline } from '@/helpers/shipment';
 import getSentence from '@/servers/getSentence';
 import { getCalendarEvents } from '@/services/calendar';
 

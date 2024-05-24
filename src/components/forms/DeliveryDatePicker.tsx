@@ -4,7 +4,7 @@ import React from 'react';
 
 import DatePickerForm from './DatePicker';
 
-import { isUnavailableDeliveryDate } from '@/helpers/dog';
+import { isLegalDeliveryDate } from '@/helpers/shipment';
 import { CalendarEvent } from '@/types';
 
 export default function DeliveryDatePickerForm({
@@ -28,7 +28,7 @@ export default function DeliveryDatePickerForm({
       disabled={disabled}
       minDate={minDate}
       view={['day']}
-      shouldDisableDate={(day) => isUnavailableDeliveryDate(day, calendarEvents)}
+      shouldDisableDate={(day) => !isLegalDeliveryDate(day, calendarEvents)}
       onComplete={onComplete}
       action={action}
     />

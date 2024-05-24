@@ -1,13 +1,4 @@
-import {
-  addDays,
-  differenceInMonths,
-  differenceInYears,
-  getDay,
-  startOfDay,
-  subDays,
-  subMonths,
-  subYears,
-} from 'date-fns';
+import { differenceInMonths, differenceInYears, startOfDay, subMonths, subYears } from 'date-fns';
 
 import {
   ActivityLevel,
@@ -19,7 +10,7 @@ import {
   Recipe,
   Size,
 } from '@/enums';
-import { CalendarEvent, LifeStage } from '@/types';
+import { LifeStage } from '@/types';
 import { BreedDto } from '@/types/dto';
 
 /**
@@ -62,154 +53,6 @@ export function getRecipeSlug(recipe: Recipe) {
     case Recipe.Pork:
       return 'pork';
   }
-}
-
-export function isNotProductionDate(date: Date, events: CalendarEvent[]) {
-  if (getDay(date) === 0) {
-    return true;
-  }
-  for (const event of events) {
-    if (event.start <= date && event.end > date) {
-      return true;
-    }
-  }
-  return false;
-}
-
-export function isUnavailableDeliveryDate(date: Date, events: CalendarEvent[]) {
-  if (getDay(date) === 1) {
-    return true;
-  }
-  for (const event of events) {
-    if (event.start <= date && event.end > date) {
-      return true;
-    }
-  }
-  return false;
-}
-
-/**
- * calculate the delivery date based on any time
- */
-export function getClosestDeliveryDateByDate(currentDate = new Date(), events: CalendarEvent[]) {
-  const dates = [
-    1, // D + production
-    1, // D + production
-    1, // D + pick up
-    1, // D + delivery
-  ];
-
-  while (isNotProductionDate(addDays(currentDate, dates[0]), events)) {
-    dates[0] += 1;
-  }
-
-  while (isNotProductionDate(addDays(currentDate, dates[0] + dates[1]), events)) {
-    dates[1] += 1;
-  }
-
-  const totalProductionDates = dates[0] + dates[1];
-
-  // pick up + delivery stick together
-  while (
-    isUnavailableDeliveryDate(
-      addDays(currentDate, totalProductionDates + dates[2] + dates[3]),
-      events
-    )
-  ) {
-    dates[2] += 1;
-  }
-
-  console.debug('processing dates debug day usage', dates);
-
-  return addDays(
-    startOfDay(currentDate),
-    dates.reduce((sum, a) => sum + a, 0)
-  );
-}
-
-/**
- * calculate the delivery date after order placement
- */
-export function getClosestOrderDeliveryDate(events: CalendarEvent[]) {
-  return getClosestDeliveryDateByDate(addDays(new Date(), 1), events);
-}
-
-export function getEditableRecurringBoxDeadline(
-  events: CalendarEvent[],
-  scheduledDeliveryDate: Date,
-  disableBufferZone?: boolean
-) {
-  const dates = [
-    1, // D + delivery
-    1, // D + pick up
-    1, // D + production
-    1, // D + production
-  ];
-
-  // pick up + delivery stick together
-  while (isNotProductionDate(subDays(scheduledDeliveryDate, dates[0] + dates[1]), events)) {
-    dates[1] += 1;
-  }
-
-  const _days = dates[0] + dates[1];
-
-  while (isUnavailableDeliveryDate(subDays(scheduledDeliveryDate, _days + dates[2]), events)) {
-    dates[2] += 1;
-  }
-
-  while (isUnavailableDeliveryDate(subDays(scheduledDeliveryDate, _days + dates[3]), events)) {
-    dates[3] += 1;
-  }
-
-  console.debug('get editable recurring box deadline', dates);
-
-  return subDays(
-    startOfDay(scheduledDeliveryDate),
-    dates.reduce((sum, a) => sum + a, 0) + (disableBufferZone ? 0 : 2)
-  );
-}
-
-export function getEditableRecurringBoxDeadlineByStartDate(
-  events: CalendarEvent[],
-  boxStartDate: Date
-) {
-  const dates = [
-    1, // The box should be delivered before one day of the holiday / the next box start date
-    1, // D + delivery
-    1, // D + pick up
-    1, // D + production
-    1, // D + production
-  ];
-
-  while (isNotProductionDate(subDays(boxStartDate, dates[0]), events)) {
-    dates[0] += 1;
-  }
-
-  // pick up + delivery stick together
-  while (isNotProductionDate(subDays(boxStartDate, dates[0] + dates[1] + dates[2]), events)) {
-    dates[2] += 1;
-  }
-
-  const _days = dates[0] + dates[1] + dates[2];
-
-  while (isUnavailableDeliveryDate(subDays(boxStartDate, _days + dates[3]), events)) {
-    dates[3] += 1;
-  }
-
-  while (isUnavailableDeliveryDate(subDays(boxStartDate, _days + dates[4]), events)) {
-    dates[4] += 1;
-  }
-
-  console.debug('get editable recurring box deadline (box start date)', dates);
-
-  return subDays(
-    startOfDay(boxStartDate),
-    dates.reduce((sum, a) => sum + a, 0)
-  );
-}
-
-export function isDeliveredBox(deliveryDate: Date) {
-  return startOfDay(deliveryDate) < startOfDay(new Date());
 }
 
 function isExactSize(breeds: BreedDto[], sizes: Array<Size>) {

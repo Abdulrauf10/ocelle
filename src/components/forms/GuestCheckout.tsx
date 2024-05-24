@@ -19,7 +19,7 @@ import EditButton from '@/components/buttons/EditButton';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 import { useCart } from '@/contexts/cart';
-import { isUnavailableDeliveryDate } from '@/helpers/dog';
+import { isLegalDeliveryDate } from '@/helpers/shipment';
 import useSentence from '@/hooks/useSentence';
 import { CalendarEvent } from '@/types';
 import { CartReturn } from '@/types/dto';
@@ -85,7 +85,7 @@ type IGuestCheckoutFormAction = Omit<IGuestCheckoutForm, 'billingAddress' | 'con
 
 export default function GuestCheckoutForm({
   clientSecret,
-  closestDeliveryDate,
+  minDeliveryDate,
   calendarEvents,
   couponForm,
   onCartUpdate,
@@ -94,7 +94,7 @@ export default function GuestCheckoutForm({
   onCompleteTransaction,
 }: {
   clientSecret: string;
-  closestDeliveryDate: Date;
+  minDeliveryDate: Date;
   calendarEvents: CalendarEvent[];
   couponForm: React.ReactNode;
   onCartUpdate(lineId: string, quantity: number): Promise<CartReturn>;
@@ -118,7 +118,7 @@ export default function GuestCheckoutForm({
     mode: 'onChange',
     defaultValues: {
       isSameBillingAddress: true,
-      deliveryDate: closestDeliveryDate,
+      deliveryDate: minDeliveryDate,
     },
   });
   const datePickerRef = React.useRef<HTMLDivElement | null>(null);
@@ -330,8 +330,8 @@ export default function GuestCheckoutForm({
                 <div ref={datePickerRef} className="mt-4 w-fit">
                   <DatePickerForm
                     initialDate={watch('deliveryDate')}
-                    minDate={closestDeliveryDate}
-                    shouldDisableDate={(day) => isUnavailableDeliveryDate(day, calendarEvents)}
+                    minDate={minDeliveryDate}
+                    shouldDisableDate={(day) => !isLegalDeliveryDate(day, calendarEvents)}
                     view={['day']}
                     action={async ({ date }) => {
                       setValue('deliveryDate', date);

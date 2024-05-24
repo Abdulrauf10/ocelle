@@ -10,15 +10,15 @@ import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import DeliveryDatePickerDialog from '@/components/dialogs/DeliveryDatePicker';
 import ShippableNote from '@/components/notes/Shippable';
 import { Shipment } from '@/entities';
-import { getClosestOrderDeliveryDate } from '@/helpers/dog';
 import { executeQuery } from '@/helpers/queryRunner';
+import { getRecurringBoxMinDeliveryDate } from '@/helpers/shipment';
 import { getCalendarEvents } from '@/services/calendar';
 
 export default async function PlanDeliveryDate() {
   const { id } = await getLoginedMe();
   const t = await getTranslations();
   const calendarEvents = await getCalendarEvents();
-  const closestDeliveryDate = getClosestOrderDeliveryDate(calendarEvents);
+  const minDeliveryDate = getRecurringBoxMinDeliveryDate(calendarEvents);
   const shipments = await executeQuery(async (queryRunner) => {
     return await queryRunner.manager.find(Shipment, {
       where: {
@@ -44,7 +44,7 @@ export default async function PlanDeliveryDate() {
           <div className="mt-8 text-center">
             <DeliveryDatePickerDialog
               initialDate={shipments[0].deliveryDate}
-              minDate={closestDeliveryDate}
+              minDate={minDeliveryDate}
               calendarEvents={calendarEvents}
               action={setDeliveryDateAction}
             >

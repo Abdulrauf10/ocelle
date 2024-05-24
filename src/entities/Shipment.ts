@@ -2,26 +2,32 @@ import {
   Column,
   Entity,
   ManyToOne,
-  OneToMany,
+  OneToOne,
   PrimaryGeneratedColumn,
   type Relation,
 } from 'typeorm';
-import { RecurringBox, User } from '.';
+import { Dog, RecurringBox, User } from '.';
 
 @Entity({ name: 'shipment' })
 export default class Shipment {
   @PrimaryGeneratedColumn()
   id!: number;
 
-  @Column({ name: 'lock_box_date' })
+  @Column()
   editableDeadline!: Date; // after the deadline, not more changes will be apply to the shipment
 
   @Column()
   deliveryDate!: Date;
 
-  @OneToMany(() => RecurringBox, (record) => record.shipment)
-  boxs!: Relation<RecurringBox>[];
+  @Column({ nullable:true })
+  trackingCode?: string;
+
+  @OneToOne(() => RecurringBox, (record) => record.shipment)
+  box?: Relation<RecurringBox>; // null before the box has not yet been ordered
 
   @ManyToOne(() => User, (user) => user.shipements)
   user!: Relation<User>;
+
+  @ManyToOne(() => Dog, (dog) => dog.shipements)
+  dog!: Relation<Dog>;
 }

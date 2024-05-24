@@ -20,14 +20,14 @@ import UnderlineButton from '@/components/buttons/UnderlineButton';
 import CouponForm from '@/components/forms/Coupon';
 import GuestCheckoutForm from '@/components/forms/GuestCheckout';
 import { CartContextProvider } from '@/contexts/cart';
-import { getClosestOrderDeliveryDate } from '@/helpers/dog';
+import { getRecurringBoxMinDeliveryDate } from '@/helpers/shipment';
 import { getCalendarEvents } from '@/services/calendar';
 
 export default async function Checkout() {
   const t = await getTranslations();
   const checkout = await initializeCheckout();
   const calendarEvents = await getCalendarEvents();
-  const closestDeliveryDate = getClosestOrderDeliveryDate(calendarEvents);
+  const minDeliveryDate = getRecurringBoxMinDeliveryDate(calendarEvents);
   const { paymentIntent, publishableKey } = await initializeStripeTranscation();
 
   return (
@@ -73,7 +73,7 @@ export default async function Checkout() {
             </Container>
             <GuestCheckoutForm
               clientSecret={paymentIntent.client_secret}
-              closestDeliveryDate={closestDeliveryDate}
+              minDeliveryDate={minDeliveryDate}
               calendarEvents={calendarEvents}
               couponForm={<CouponForm action={applyCoupon} />}
               onCartUpdate={updateCartLine}

@@ -17,7 +17,10 @@ import {
   Recipe,
   Sex,
 } from '@/enums';
-import { getClosestOrderDeliveryDate, getEditableRecurringBoxDeadline } from '@/helpers/dog';
+import {
+  getEditableRecurringBoxDeadline,
+  getRecurringBoxMinDeliveryDate,
+} from '@/helpers/shipment';
 import { getCalendarEvents } from '@/services/calendar';
 
 export default class DogSeeder extends Seeder {
@@ -57,7 +60,7 @@ export default class DogSeeder extends Seeder {
 
     await userRepository.save(user);
 
-    const deliveryDate = getClosestOrderDeliveryDate(events);
+    const deliveryDate = getRecurringBoxMinDeliveryDate(events);
 
     const order = orderRepository.create({
       id: 'fake-order',
@@ -65,14 +68,6 @@ export default class DogSeeder extends Seeder {
     });
 
     await orderRepository.save(order);
-
-    const shipment = shipmentRepository.create({
-      deliveryDate,
-      editableDeadline: getEditableRecurringBoxDeadline(events, deliveryDate, true),
-      user,
-    });
-
-    await shipmentRepository.save(shipment);
 
     const dog1 = dogRepository.create({
       name: 'Charlie',
@@ -131,6 +126,22 @@ export default class DogSeeder extends Seeder {
 
     await dogPlanRepository.save([plan1, plan2]);
 
+    const shipment1 = shipmentRepository.create({
+      deliveryDate,
+      editableDeadline: getEditableRecurringBoxDeadline(events, deliveryDate, true),
+      user,
+      dog: dog1,
+    });
+
+    const shipment2 = shipmentRepository.create({
+      deliveryDate,
+      editableDeadline: getEditableRecurringBoxDeadline(events, deliveryDate, true),
+      user,
+      dog: dog2,
+    });
+
+    await shipmentRepository.save([shipment1, shipment2]);
+
     const box1 = recurringBoxRepository.create({
       mealPlan: plan1.mealPlan,
       frequency: plan1.frequency,
@@ -141,7 +152,7 @@ export default class DogSeeder extends Seeder {
       endDate: addDays(today, 14),
       dog: dog1,
       order,
-      shipment,
+      shipment: shipment1,
     });
 
     const box2 = recurringBoxRepository.create({
@@ -154,7 +165,7 @@ export default class DogSeeder extends Seeder {
       endDate: addDays(today, 14),
       dog: dog2,
       order,
-      shipment,
+      shipment: shipment2,
     });
 
     await recurringBoxRepository.save([box1, box2]);

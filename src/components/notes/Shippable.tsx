@@ -5,9 +5,8 @@ import { getTranslations } from 'next-intl/server';
 
 import { getLoginedMe } from '@/actions';
 import { Dog, Shipment } from '@/entities';
-import { isDeliveredBox } from '@/helpers/dog';
 import { executeQuery } from '@/helpers/queryRunner';
-import { isOrderableDog } from '@/helpers/shipment';
+import { isDeliveredRecurringBox } from '@/helpers/shipment';
 import getSentence from '@/servers/getSentence';
 
 export default async function ShippableNote() {
@@ -21,11 +20,6 @@ export default async function ShippableNote() {
         where: {
           user: {
             id,
-          },
-        },
-        relations: {
-          boxs: {
-            dog: true,
           },
         },
         order: {
@@ -51,10 +45,11 @@ export default async function ShippableNote() {
       }),
     };
   });
-  const orderableDogs = dogs.filter((dog) => isOrderableDog(dog.plan, dog.boxs[0]));
+  const orderableDogs = dogs.filter((dog) => dog.plan.isEnabled);
 
   const shipable = shipments.find(
-    (shipment) => !isDeliveredBox(shipment.deliveryDate) && shipment.editableDeadline <= refDate
+    (shipment) =>
+      !isDeliveredRecurringBox(shipment.deliveryDate) && shipment.editableDeadline <= refDate
   );
 
   const editable = shipments.find((shipment) => shipment.editableDeadline >= refDate);

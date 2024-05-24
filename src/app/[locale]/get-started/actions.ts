@@ -22,16 +22,12 @@ import {
   UpdateDraftOrderDocument,
 } from '@/gql/graphql';
 import { awaitable } from '@/helpers/async';
-import {
-  calculateRecipeTotalProtionsInBox,
-  getClosestOrderDeliveryDate,
-  getTheCheapestRecipe,
-  isUnavailableDeliveryDate,
-} from '@/helpers/dog';
+import { calculateRecipeTotalProtionsInBox, getTheCheapestRecipe } from '@/helpers/dog';
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
 import { recipeToVariant } from '@/helpers/saleor';
+import { getRecurringBoxMinDeliveryDate, isLegalDeliveryDate } from '@/helpers/shipment';
 import { redirect } from '@/navigation';
 import { subscriptionProducts } from '@/products';
 import {
@@ -502,8 +498,8 @@ export async function updateOrderData(data: UpdateOrderDataAction) {
   }
 
   if (
-    isUnavailableDeliveryDate(value.deliveryDate, calendarEvents) ||
-    getClosestOrderDeliveryDate(calendarEvents) > startOfDay(value.deliveryDate)
+    !isLegalDeliveryDate(value.deliveryDate, calendarEvents) ||
+    getRecurringBoxMinDeliveryDate(calendarEvents) > startOfDay(value.deliveryDate)
   ) {
     throw new Error('delivery date is unavailable');
   }

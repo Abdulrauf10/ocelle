@@ -6,9 +6,9 @@ import { cookies } from 'next/headers';
 import { CART_COOKIE, DOG_SELECT_COOKIE, LOGIN_PATH, ORDER_COOKIE } from './consts';
 import { User } from './entities';
 import { GetCurrentUserDocument, GetCurrentUserFullSizeDocument } from './gql/graphql';
-import { getClosestOrderDeliveryDate } from './helpers/dog';
 import { executeGraphQL } from './helpers/graphql';
 import { executeQuery } from './helpers/queryRunner';
+import { getRecurringBoxMinDeliveryDate } from './helpers/shipment';
 import { redirect } from './navigation';
 import saleorAuthClient from './saleorAuthClient';
 import { getCalendarEvents } from './services/calendar';
@@ -102,7 +102,7 @@ export async function logout() {
  * calculate the delivery date after order placement
  */
 export async function getClosestDeliveryDate() {
-  return getClosestOrderDeliveryDate(await getCalendarEvents()).toISOString();
+  return getRecurringBoxMinDeliveryDate(await getCalendarEvents()).toISOString();
 }
 
 export async function setCartCookie(value: string) {

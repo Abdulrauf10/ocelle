@@ -31,7 +31,8 @@ export default class RecurringBox {
   @ManyToOne(() => Order, (order) => order.boxs)
   order!: Relation<Order>;
 
-  @ManyToOne(() => Shipment, (shipment) => shipment.boxs)
+  @OneToOne(() => Shipment, (shipment) => shipment.box)
+  @JoinColumn()
   shipment!: Relation<Shipment>;
 
   @ManyToOne(() => Dog, (dog: Dog) => dog.boxs)

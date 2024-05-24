@@ -1,5 +1,5 @@
 import { addDays, startOfDay } from 'date-fns';
-import { In, IsNull, LessThan, MoreThan, MoreThanOrEqual, QueryRunner } from 'typeorm';
+import { In, LessThan, MoreThan, MoreThanOrEqual } from 'typeorm';
 
 import { orderRecurringBox } from './api';
 import { getCalendarEvents } from './calendar';
@@ -8,59 +8,13 @@ import { Dog, DogBreed, DogPlan, Order, RecurringBox, Shipment, User } from '@/e
 import { Frequency } from '@/enums';
 import StripeNotReadyError from '@/errors/StripeNotReadyError';
 import { OrderFragment } from '@/gql/graphql';
-import { maxDate } from '@/helpers/date';
-import {
-  getClosestOrderDeliveryDate,
-  getEditableRecurringBoxDeadline,
-  getEditableRecurringBoxDeadlineByStartDate,
-} from '@/helpers/dog';
+import { calculateRecurringBoxDuration } from '@/helpers/box';
 import { executeQuery } from '@/helpers/queryRunner';
-import { isOrderableDog } from '@/helpers/shipment';
+import {
+  getEditableRecurringBoxDeadline,
+  getRecurringBoxDefaultDeliveryDate,
+} from '@/helpers/shipment';
 import { DogDto } from '@/types/dto';
-
-/**
- * Find a current available shipment otherwise return a new shipment
- * @param id User ID
- */
-export async function upsertEditableShipmentRecord(
-  queryRunner: QueryRunner,
-  id: string,
-  preferDeliveryDate: Date,
-  noBufferZone?: boolean
-) {
-  const events = await getCalendarEvents();
-  const today = startOfDay(new Date());
-
-  const data = await queryRunner.manager.findOne(Shipment, {
-    where: {
-      user: { id },
-      editableDeadline: MoreThanOrEqual(today),
-    },
-    relations: {
-      boxs: true,
-    },
-  });
-
-  if (data) {
-    return data;
-  }
-
-  const shipment = queryRunner.manager.create(Shipment, {
-    deliveryDate: preferDeliveryDate,
-    editableDeadline: getEditableRecurringBoxDeadline(events, preferDeliveryDate, noBufferZone),
-    user: {
-      id,
-    },
-  });
-
-  await queryRunner.manager.save(shipment);
-
-  return shipment;
-}
-
-export function findMostMatchBoxStartDate(boxs: RecurringBox[]) {
-  return boxs[0].startDate;
-}
 
 /**
  * @param id referer to the database user id, user must be setup before setup the recurring box
@@ -71,12 +25,12 @@ export async function setupRecurringBox(
   preferDeliveryDate: Date,
   saleorOrder: OrderFragment
 ) {
+  const events = await getCalendarEvents();
   await executeQuery(async (queryRunner) => {
     const user = await queryRunner.manager.findOne(User, { where: { id } });
     if (!user) {
       throw new Error('user not found');
     }
-    const shipment = await upsertEditableShipmentRecord(queryRunner, id, preferDeliveryDate, true);
     const order = queryRunner.manager.create(Order, {
       id: saleorOrder.id,
       createdAt: new Date(saleorOrder.created),
@@ -122,6 +76,13 @@ export async function setupRecurringBox(
         dog,
       });
       await queryRunner.manager.save(plan);
+      const shipment = queryRunner.manager.create(Shipment, {
+        deliveryDate: preferDeliveryDate,
+        editableDeadline: getEditableRecurringBoxDeadline(events, preferDeliveryDate, true),
+        user,
+        dog,
+      });
+      await queryRunner.manager.save(shipment);
       const box = queryRunner.manager.create(RecurringBox, {
         mealPlan: data.mealPlan,
         frequency: Frequency.TwoWeek,
@@ -143,15 +104,19 @@ export async function setupRecurringBox(
  * checking is the box need to order new one
  * @param id user id
  */
-export async function handleRecurringBox(id: string) {
+export async function handleRecurringBox(user: User) {
+  if (!user.stripe || !user.stripePaymentMethod) {
+    throw new StripeNotReadyError(user.id);
+  }
+
   const events = await getCalendarEvents();
   const today = startOfDay(new Date());
 
   return await executeQuery(async (queryRunner) => {
-    const shipment = await queryRunner.manager.findOne(Shipment, {
+    const shipments = await queryRunner.manager.find(Shipment, {
       where: {
         user: {
-          id,
+          id: user.id,
         },
         // should not be order before the shipment deadline not met
         editableDeadline: LessThan(today),
@@ -159,79 +124,37 @@ export async function handleRecurringBox(id: string) {
         deliveryDate: MoreThan(today),
       },
       relations: {
-        user: true,
-        boxs: true,
-      },
-      order: {
-        editableDeadline: -1,
-      },
-    });
-    const dogs = await queryRunner.manager.find(Dog, {
-      where: {
-        user: {
-          id,
+        box: {
+          dog: {
+            breeds: { breed: true },
+            plan: true,
+          },
         },
-        boxs: {
-          prevBox: IsNull(),
-        },
-      },
-      relations: {
-        breeds: { breed: true },
-        plan: true,
-        boxs: true,
       },
     });
 
-    let minEndDate: Date | undefined = undefined;
-    for (const dog of dogs) {
-      if (!dog.boxs[0]) {
-        throw new Error('dog do not have starter box');
-      }
-      if (dog.plan.isEnabled && (!minEndDate || dog.boxs[0].endDate < minEndDate)) {
-        minEndDate = dog.boxs[0].endDate;
-      }
-    }
+    const orderLines: Array<{ dog: Dog; box: RecurringBox; shipment: Shipment }> = [];
 
-    if (!shipment) {
-      // shipment not exists due to errors, re-create the shipment and re-run on next day
-      if (minEndDate) {
-        const deliveryDate = maxDate(
-          getEditableRecurringBoxDeadlineByStartDate(events, addDays(minEndDate, 1)),
-          getClosestOrderDeliveryDate(events)
-        );
-        await queryRunner.manager.save(
-          queryRunner.manager.create(Shipment, {
-            editableDeadline: getEditableRecurringBoxDeadline(events, deliveryDate),
-            deliveryDate,
-            user: {
-              id,
-            },
-          })
-        );
-      }
-      return;
-    }
-
-    // shipment already bind with the boxs
-    if (shipment.boxs.length > 0) {
-      return;
-    }
-
-    const user = shipment.user;
-
-    if (!user.stripe || !user.stripePaymentMethod) {
-      throw new StripeNotReadyError(user.id);
-    }
-
-    const orderLines: Array<{ dog: Dog; box: RecurringBox }> = [];
-
-    for (const dog of dogs) {
-      const prevBox = dog.boxs[0];
-      if (!isOrderableDog(dog.plan, prevBox)) {
+    for (const shipment of shipments) {
+      const { dog } = shipment;
+      const prevBox = await queryRunner.manager.findOne(RecurringBox, {
+        where: {
+          dog: {
+            id: dog.id,
+          },
+        },
+        order: {
+          startDate: -1,
+        },
+      });
+      if (!prevBox) {
+        console.error('failed to find the recurring box of dog ' + dog.id);
         continue;
       }
-      // TODO: reactive plan have interrupted start date
-      const startDate = addDays(prevBox.endDate, 1);
+      const { startDate, endDate } = calculateRecurringBoxDuration(
+        prevBox.endDate,
+        dog.plan.frequency
+      );
       const box = queryRunner.manager.create(RecurringBox, {
         mealPlan: dog.plan.mealPlan,
         frequency: dog.plan.frequency,
@@ -239,12 +162,12 @@ export async function handleRecurringBox(id: string) {
         recipe2: dog.plan.recipe2,
         isTransitionPeriod: false,
         startDate: startDate,
-        endDate: addDays(startDate, dog.plan.frequency === Frequency.OneWeek ? 7 : 14),
+        endDate,
         dog,
         shipment,
         prevBox,
       });
-      orderLines.push({ dog, box });
+      orderLines.push({ dog, box, shipment });
     }
 
     if (orderLines.length > 0) {
@@ -257,26 +180,23 @@ export async function handleRecurringBox(id: string) {
       });
       await queryRunner.manager.save(order);
 
-      const boxs = [];
-      for (const { box } of orderLines) {
-        box.order = order;
-        boxs.push(box);
-      }
-      await queryRunner.manager.save(boxs);
+      await queryRunner.manager.update(
+        RecurringBox,
+        { id: In(orderLines.map(({ box }) => box.id)) },
+        { order }
+      );
     }
 
-    if (minEndDate) {
-      const deliveryDate = maxDate(
-        getEditableRecurringBoxDeadlineByStartDate(events, addDays(minEndDate, 1)),
-        getClosestOrderDeliveryDate(events)
-      );
-      await queryRunner.manager.save(
-        queryRunner.manager.create(Shipment, {
-          editableDeadline: getEditableRecurringBoxDeadline(events, deliveryDate),
-          deliveryDate,
-          user,
-        })
-      );
+    for (const { dog, box } of orderLines) {
+      const { startDate } = calculateRecurringBoxDuration(box.endDate, dog.plan.frequency);
+      const defaultDeliveryDate = getRecurringBoxDefaultDeliveryDate(events, startDate);
+      const shipment = queryRunner.manager.create(Shipment, {
+        deliveryDate: defaultDeliveryDate,
+        editableDeadline: getEditableRecurringBoxDeadline(events, defaultDeliveryDate),
+        user,
+        dog,
+      });
+      await queryRunner.manager.save(shipment);
     }
   });
 }
@@ -296,36 +216,26 @@ export async function pauseRecurringBox(id: string, includeDogIds?: number[]) {
         plan: true,
       },
     });
-    for (const dog of dogs) {
-      await queryRunner.manager.update(DogPlan, dog.plan.id, { isEnabled: false });
-    }
-    const totalActiveDogs = await queryRunner.manager.count(Dog, {
-      where: {
-        plan: {
-          isEnabled: true,
-        },
-        user: {
-          id,
-        },
+    const ids = dogs.map((dog) => dog.id);
+    await queryRunner.manager.update(DogPlan, { dog: { id: In(ids) } }, { isEnabled: false });
+    await queryRunner.manager.delete(Shipment, {
+      dog: {
+        id: In(ids),
       },
+      user: {
+        id,
+      },
+      editableDeadline: MoreThanOrEqual(today),
     });
-    // delete draft shipment if not active dogs
-    if (totalActiveDogs === 0) {
-      await queryRunner.manager.delete(Shipment, {
-        user: {
-          id,
-        },
-        editableDeadline: MoreThanOrEqual(today),
-      });
-    }
   });
 }
 
 export async function resumeRecurringBox(
   id: string,
-  preferDeliveryDate: Date,
+  preferDeliveryDate?: Date,
   includeDogIds?: number[]
 ) {
+  const events = await getCalendarEvents();
   await executeQuery(async (queryRunner) => {
     const dogs = await queryRunner.manager.find(Dog, {
       where: {
@@ -339,8 +249,33 @@ export async function resumeRecurringBox(
       },
     });
     for (const dog of dogs) {
+      const prevBox = await queryRunner.manager.findOne(RecurringBox, {
+        where: {
+          dog: {
+            id: dog.id,
+          },
+        },
+        order: {
+          startDate: -1,
+        },
+      });
+      if (!prevBox) {
+        console.error('failed to find the recurring box of dog ' + dog.id);
+        continue;
+      }
+      const { startDate } = calculateRecurringBoxDuration(prevBox.endDate, dog.plan.frequency);
+      const defaultDeliveryDate =
+        preferDeliveryDate ?? getRecurringBoxDefaultDeliveryDate(events, startDate);
+      const shipment = queryRunner.manager.create(Shipment, {
+        deliveryDate: defaultDeliveryDate,
+        editableDeadline: getEditableRecurringBoxDeadline(events, defaultDeliveryDate),
+        dog,
+        user: {
+          id,
+        },
+      });
+      await queryRunner.manager.save(shipment);
       await queryRunner.manager.update(DogPlan, { id: dog.plan.id }, { isEnabled: true });
     }
-    await upsertEditableShipmentRecord(queryRunner, id, preferDeliveryDate);
   });
 }
