@@ -42,7 +42,7 @@ function CareerBlock({ career }: { career: Career }) {
     <div className="mt-4 rounded-2xl bg-white px-10 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-sm:px-4 max-sm:py-6">
       <div className="-mx-3 -my-2 flex items-start ">
         <div className="w-full px-3 py-2">
-          <h3 className="body-1 font-bold text-brown">{career.name}</h3>
+          <h3 className="body-1 pb-[2px] font-bold !leading-6 text-brown">{career.name}</h3>
           <div className="mt-1"></div>
           <div className="body-3">
             {t(
@@ -62,7 +62,7 @@ function CareerBlock({ career }: { career: Career }) {
             )}
           </div>
         </div>
-        <div className="mx-auto my-auto block px-3 pb-2 md:hidden">
+        <div className="mx-auto my-auto block px-3  md:hidden">
           <Button
             theme="primary"
             href={`./careers/${career.id}`}
@@ -89,18 +89,19 @@ function CareerBlock({ career }: { career: Career }) {
 export default async function Careers() {
   const { count, operations, marketing, financeAndAccounting, technology, sales } =
     await fetchData();
+
   const t = await getTranslations();
   const c = await getTranslations('Careers');
   return (
     <main className="flex grow flex-col">
-      <Block styles="narrow" className="bg-primary bg-opacity-10">
+      <Block styles="narrow" className="bg-primary bg-opacity-10 !py-10">
         <Container>
           <h1 className="heading-2 text-center font-bold text-primary">{c('block-1-title')}</h1>
           <div className="mt-2"></div>
           <p className="body-3 text-center text-secondary">{c('block-1-content')}</p>
         </Container>
       </Block>
-      <Block styles="custom" className="grow bg-gold bg-opacity-10 pb-6 pt-4 max-xl:py-10">
+      <Block styles="custom" className="grow bg-gold bg-opacity-10 pb-6 pt-10 max-xl:py-10">
         <Container className="max-w-screen-lg">
           {count > 0 ? (
             <div className="-my-10">

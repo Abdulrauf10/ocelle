@@ -1,5 +1,6 @@
 import {
   FilledInputProps,
+  FormHelperTextProps,
   InputBaseComponentProps,
   InputLabelProps,
   InputProps,
@@ -25,6 +26,7 @@ interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> 
   fullWidth?: boolean;
   InputLabelProps?: Partial<InputLabelProps>;
   sx?: SxProps<Theme>;
+  FormHelperTextProps?: Partial<FormHelperTextProps>;
   disabled?: boolean;
   mask?: {
     pattern: Mask | ((value: string) => Mask);
@@ -48,6 +50,7 @@ export default function TextField<T extends FieldValues>({
   inputProps,
   InputProps,
   InputLabelProps,
+  FormHelperTextProps,
   sx,
   mask,
 }: TextFieldProps<T>) {
@@ -69,6 +72,7 @@ export default function TextField<T extends FieldValues>({
             fullWidth={fullWidth}
             error={!!error && value && (value as string).length !== 0}
             sx={sx}
+            FormHelperTextProps={FormHelperTextProps}
             InputLabelProps={InputLabelProps}
             inputProps={inputProps}
             InputProps={InputProps}
