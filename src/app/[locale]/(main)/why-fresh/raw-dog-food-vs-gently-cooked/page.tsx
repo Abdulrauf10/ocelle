@@ -24,7 +24,7 @@ export default function RawDogFoodVsGentlyCooked() {
           <div className="flex-1 bg-dark-green bg-opacity-25"></div>
         </div>
         <Container className="py-normal">
-          <div className="relative flex items-center max-md:flex-col">
+          <div className="relative flex items-center max-md:flex-col ">
             <div className="flex-1">
               <div className="flex flex-col max-md:flex-row max-md:items-center">
                 <h2 className="heading-headline text-center font-bold text-white max-md:text-left">
@@ -91,7 +91,7 @@ export default function RawDogFoodVsGentlyCooked() {
           bg: 'inset-0',
           bgLeft: 'bg-secondary bg-opacity-[12%]',
           bgRight:
-            'bg-[url("./why-fresh-food-roulette.jpg")] bg-[length:auto_100%] max-md:bg-[url("./why-fresh-food-roulette-mb.jpg")]',
+            'bg-[url("./why-fresh-food-roulette.jpg")] bg-[length:auto_100%] bg-no-repeat max-md:bg-[url("./why-fresh-food-roulette-mb.jpg")] ',
           container: 'py-10',
           mbLeft: 'px-4 py-10',
           mbRight: 'py-6 max-md:pt-[98%]',
@@ -150,7 +150,7 @@ export default function RawDogFoodVsGentlyCooked() {
               button: (chunks) => <UnderlineButton label={chunks} href="/why-fresh/reference" />,
             })}
           </p>
-          <div className="pt-normal -mx-6 flex flex-wrap items-stretch max-lg:-mx-3">
+          <div className="-mx-6 flex flex-wrap items-stretch pt-normal max-lg:-mx-3">
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/benefits-of-fresh-dog-food"
@@ -164,7 +164,7 @@ export default function RawDogFoodVsGentlyCooked() {
                 </div>
               </Link>
             </div>
-            <div className="max-md:pt-normal w-1/3 px-6 max-lg:px-3 max-md:w-full">
+            <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
               <Link
                 href="/why-fresh/its-time-to-rethink-kibble"
                 className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"
@@ -177,7 +177,7 @@ export default function RawDogFoodVsGentlyCooked() {
                 </div>
               </Link>
             </div>
-            <div className="max-md:pt-normal w-1/3 px-6 max-lg:px-3 max-md:w-full">
+            <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
               <Link
                 href="/why-fresh/challenges-with-home-cooking-for-your-dog"
                 className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"

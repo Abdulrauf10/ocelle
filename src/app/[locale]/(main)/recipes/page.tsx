@@ -45,7 +45,7 @@ function EndAdornment({
         <div className="flex-1 p-2 text-center">
           <RecipeLargeDialog
             recipe={sentence.recipe(recipe)}
-            recipePicture={`/recipes/dispersion/${getRecipeSlug(recipe)}.jpg`}
+            recipePicture={`/recipes/dispersion/${getRecipeSlug(recipe)}.gif`}
             ingredients={ingredients}
             calorie={calorie}
             analysis={analysis}
