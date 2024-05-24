@@ -137,7 +137,7 @@ export function getClosestOrderDeliveryDate(events: CalendarEvent[]) {
 export function getEditableRecurringBoxDeadline(
   events: CalendarEvent[],
   scheduledDeliveryDate: Date,
-  noBufferZone?: boolean
+  disableBufferZone?: boolean
 ) {
   const dates = [
     1, // D + delivery
@@ -165,7 +165,7 @@ export function getEditableRecurringBoxDeadline(
 
   return subDays(
     startOfDay(scheduledDeliveryDate),
-    dates.reduce((sum, a) => sum + a, 0) + (noBufferZone ? 0 : 2)
+    dates.reduce((sum, a) => sum + a, 0) + (disableBufferZone ? 0 : 2)
   );
 }
 
