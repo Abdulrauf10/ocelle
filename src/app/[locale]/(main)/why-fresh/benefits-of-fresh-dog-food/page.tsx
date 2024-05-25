@@ -45,7 +45,9 @@ export default function BenefitsOfFreshDogFood() {
     <main>
       <Block className="bg-[#f6ece1]">
         <Container>
-          <h1 className="heading-1 text-center font-bold text-brown">{i.rich('block-1-title')}</h1>
+          <h1 className="heading-headline heading-weight-1 text-center text-brown">
+            {i.rich('block-1-title')}
+          </h1>
           <div className="mt-6"></div>
           <p className="body-1 text-center">{i.rich('block-1-content-1')}</p>
           <div className="mx-auto -mb-[3%] mt-6 max-w-[1200px]">
@@ -60,7 +62,7 @@ export default function BenefitsOfFreshDogFood() {
           bgLeft: 'bg-dark-green',
           bgRight: 'bg-[#DCEDEE]',
           container: 'py-tight',
-          mbLeft: 'py-tight px-4',
+          mbLeft: 'px-4 py-tight',
           mbRight: 'py-6',
         }}
         left={
@@ -355,7 +357,7 @@ export default function BenefitsOfFreshDogFood() {
               button: (chunks) => <UnderlineButton label={chunks} href="/why-fresh/reference" />,
             })}
           </p>
-          <div className="pt-normal -mx-6 flex flex-wrap items-stretch max-lg:-mx-3">
+          <div className="-mx-6 flex flex-wrap items-stretch pt-normal max-lg:-mx-3">
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/its-time-to-rethink-kibble"
@@ -369,7 +371,7 @@ export default function BenefitsOfFreshDogFood() {
                 </div>
               </Link>
             </div>
-            <div className="max-md:pt-normal w-1/3 px-6 max-lg:px-3 max-md:w-full">
+            <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
               <Link
                 href="/why-fresh/raw-dog-food-vs-gently-cooked"
                 className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"
@@ -382,7 +384,7 @@ export default function BenefitsOfFreshDogFood() {
                 </div>
               </Link>
             </div>
-            <div className="max-md:pt-normal w-1/3 px-6 max-lg:px-3 max-md:w-full">
+            <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
               <Link
                 href="/why-fresh/challenges-with-home-cooking-for-your-dog"
                 className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"

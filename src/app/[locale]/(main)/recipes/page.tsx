@@ -229,7 +229,7 @@ export default function RecipesPage() {
         <Container>
           {/* <div className="py-[4vw] text-xl text-white max-lg:w-full lg:pr-0"> */}
           <div className="text-xl text-white max-lg:w-full lg:pr-0">
-            <h1 className="heading-headline grid font-bold">
+            <h1 className="heading-headline heading-weight-1 grid">
               <span>{r.rich('block-1-title')}</span>
             </h1>
             <div className="w-full lg:w-1/3">

@@ -31,7 +31,7 @@ export default function ChallengesWithHomeCookingForYourDog() {
     <main>
       <Block className="bg-[url('./challenges-with-home-cooking-for-your-dog-bg.jpg')] bg-[length:auto_100%] bg-center">
         <Container className="pb-[clamp(420px,30%,650px)]">
-          <h1 className="heading-headline text-center font-bold text-dark-green">
+          <h1 className="heading-headline heading-weight-1 text-center text-dark-green">
             {i.rich('block-1-title')}
           </h1>
         </Container>

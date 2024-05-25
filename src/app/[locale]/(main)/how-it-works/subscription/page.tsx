@@ -19,7 +19,7 @@ export default function HowItWorksSubscription() {
         <Container>
           <div className="-mx-4 flex flex-wrap items-center max-lg:flex-col-reverse max-lg:items-center">
             <div className="w-2/5 px-4 py-[5vw] text-xl text-primary max-lg:w-full max-lg:pb-12">
-              <h1 className="heading-headline font-bold">{s.rich('block-1-title')}</h1>
+              <h1 className="heading-headline heading-weight-1">{s.rich('block-1-title')}</h1>
               <div className="mt-5"></div>
               <p className="body-1 font-bold italic">{s('block-1-subtitle')}</p>
               <div className="mt-4"></div>

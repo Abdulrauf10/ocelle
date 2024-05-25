@@ -49,7 +49,7 @@ export default async function HowItWorksIndividual() {
           <div className="w-full pt-[clamp(450px,31.5%,700px)] max-lg:hidden"></div>
           <div className="w-full py-[4vw] text-white max-lg:w-full max-lg:py-10 max-lg:pb-[95%] lg:absolute lg:pr-0">
             <Container className="max-lg:text-center">
-              <h1 className="heading-headline font-bold">
+              <h1 className="heading-headline heading-weight-1">
                 Feeding Fresh Is <br />
                 Easy With OCELLE
               </h1>

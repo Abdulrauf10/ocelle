@@ -17,7 +17,9 @@ export default function Newsletter() {
                 <span className="body-1">
                   {n('content-1')}
                   {n('content-3')}
-                  <strong className="inline-block text-primary">{n.rich('content-2')}</strong>
+                  <strong className="inline-block font-jost font-bold text-primary">
+                    {n.rich('content-2')}
+                  </strong>
                 </span>
               </div>
             </div>

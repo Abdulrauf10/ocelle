@@ -19,6 +19,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
+  -webkit-locale: auto;
 }
 
 span.swiper-pagination-bullet {
@@ -59,8 +60,16 @@ span.swiper-pagination-bullet-active {
   @apply text-[24px] leading-[32px] -my-[4px];
 }
 
+.heading-weight-1 {
+  @apply lang-en:font-bold lang-zh:font-light;
+}
+
+.heading-weight-2 {
+  @apply lang-en:font-bold lang-zh:font-normal;
+}
+
 .body-1 {
-  @apply text-[20px] leading-[28px] -my-[4px];
+  @apply text-[20px] leading-[28px] -my-[4px] lang-en:font-normal lang-zh:font-light;
 }
 
 .body-2 {

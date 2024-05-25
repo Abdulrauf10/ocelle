@@ -32,7 +32,7 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
           className="max-w-[560px] rounded-[30px] bg-white py-12 pl-12 pr-24 text-left shadow-[7px_7px_5px_rgba(185,130,59,0.3)] max-lg:-mt-5 max-lg:ml-8 max-lg:px-12 max-lg:py-10 max-lg:shadow-[-7px_7px_5px_rgba(185,130,59,0.3)]"
         > */}
         <div className="max-w-[560px] rounded-[30px] bg-white py-12 pl-12 pr-24 text-left shadow-[7px_7px_5px_rgba(185,130,59,0.3)] max-lg:-mt-5 max-lg:ml-8 max-lg:px-6 max-lg:py-10 max-lg:shadow-[-7px_7px_5px_rgba(185,130,59,0.3)]">
-          <h3 className="heading-3 font-bold text-gold">
+          <h3 className="heading-3 heading-weight-2 text-gold">
             {dog} {h("'s plan")}
           </h3>
           <div className="mt-2"></div>

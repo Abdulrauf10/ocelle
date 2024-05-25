@@ -1,7 +1,6 @@
 import clsx from 'clsx';
 import type { Metadata } from 'next';
-import { Jost, Open_Sans } from 'next/font/google';
-import localFont from 'next/font/local';
+import { Jost, Noto_Sans_TC, Open_Sans } from 'next/font/google';
 import { notFound } from 'next/navigation';
 
 import '../globals.css';
@@ -16,36 +15,9 @@ const openSans = Open_Sans({
   subsets: ['latin'],
   variable: '--font-open-sans',
 });
-const pingFangHK = localFont({
-  src: [
-    {
-      path: '../../../fonts/PingFangHK/PingFangHK-Thin.otf',
-      weight: '100',
-    },
-    {
-      path: '../../../fonts/PingFangHK/PingFangHK-Ultralight.otf',
-      weight: '200',
-    },
-    {
-      path: '../../../fonts/PingFangHK/PingFangHK-Light.otf',
-      weight: '300',
-    },
-    {
-      path: '../../../fonts/PingFangHK/PingFangHK-Regular.otf',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../../../fonts/PingFangHK/PingFangHK-Medium.otf',
-      weight: '500',
-    },
-    {
-      path: '../../../fonts/PingFangHK/PingFangHK-Semibold.otf',
-      weight: '600',
-      style: 'bold',
-    },
-  ],
-  variable: '--font-ping-fang-hk',
+const notoSansTC = Noto_Sans_TC({
+  subsets: ['latin'],
+  variable: '--font-noto-sans-tc',
 });
 
 export const metadata: Metadata = {
@@ -70,8 +42,8 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang={locale} className={clsx(jost.variable, openSans.variable, pingFangHK.variable)}>
-      <body className={clsx('font-jost')}>
+    <html lang={locale} className={clsx(jost.variable, openSans.variable, notoSansTC.variable)}>
+      <body className="lang-en:font-jost lang-zh:font-zh">
         <IntlProvider locale={locale} messages={messages}>
           <QueryClientProvider>
             <AuthProvider me={me} logout={logout}>

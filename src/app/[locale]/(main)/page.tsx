@@ -24,7 +24,7 @@ export default function Home() {
       <Picture />
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center text-white">
-          <h1 className="heading-1 font-bold">{t.rich('block-2-title')}</h1>
+          <h1 className="heading-1 heading-weight-1">{t.rich('block-2-title')}</h1>
           <div className="mt-6"></div>
           <p className="body-1">
             {t.rich('blcok-2-content', {
@@ -41,7 +41,7 @@ export default function Home() {
         }}
         right={
           <div className="py-[clamp(30px,3vw,60px)]">
-            <h2 className="heading-1 font-bold text-primary">{t.rich('block-3-title')}</h2>
+            <h2 className="heading-1 heading-weight-1 text-primary">{t.rich('block-3-title')}</h2>
             <div className="mt-[2vw]">
               <List
                 picture={<Tickbox className="mr-4 h-5 w-5" />}
@@ -64,7 +64,7 @@ export default function Home() {
       />
       <Block className="bg-primary bg-opacity-15">
         <Container>
-          <h2 className="heading-1 text-center font-bold text-primary">
+          <h2 className="heading-1 heading-weight-1 text-center text-primary">
             {t.rich('block-4-title')}
           </h2>
           <div className="relative mt-10 flex-col-reverse items-center max-xl:flex">
@@ -202,7 +202,7 @@ export default function Home() {
       />
       <Block className="bg-gray bg-opacity-20">
         <Container>
-          <h2 className="heading-1 text-center font-bold text-gray">{t('block-5-title')}</h2>
+          <h2 className="heading-1 heading-weight-1 text-center text-gray">{t('block-5-title')}</h2>
           <div className="mt-6">
             <HowPlanWorks />
           </div>
@@ -228,7 +228,7 @@ export default function Home() {
       </Block>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <h2 className="heading-1 text-center font-black text-gold">{t('block-6-title')}</h2>
+          <h2 className="heading-1 heading-weight-1 text-center text-gold">{t('block-6-title')}</h2>
           <div className="mt-5"></div>
           <div className="mx-auto max-w-screen-md">
             <p className="body-1 text-center text-gold">{t('block-6-content')}</p>
@@ -242,7 +242,7 @@ export default function Home() {
       <div className="bg-[url('./recommended-plan-bg.jpg')] bg-cover bg-center py-40 max-md:py-16">
         <Container>
           <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-8 py-12 text-center shadow-backdrop sm:p-16 md:px-[8px]">
-            <strong className="heading-3 text-primary">{t('block-7-title')}</strong>
+            <div className="heading-3 heading-weight-2 text-primary">{t('block-7-title')}</div>
             <div className="mt-5"></div>
             <p className="body-1">{t('block-7-content')}</p>
             <div className="mt-8 text-center">

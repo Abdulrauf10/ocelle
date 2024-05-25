@@ -50,7 +50,7 @@ export default function Button({
   let iconNeed = true;
   const linkProps = props as LinkbuttonProps;
   const baseClasses = clsx(
-    'font-open-sans items-center justify-center rounded-[30px] py-2 px-6 text-center font-bold border-2 select-none',
+    'font-open-sans items-center justify-center rounded-[30px] py-2 px-6 text-center border-2 select-none',
     fullWidth ? 'flex w-full' : 'inline-flex'
   );
   const reverseBaseClasses = clsx('mouse:hover:border-gray');
@@ -122,7 +122,9 @@ export default function Button({
         onClick={onClick as React.MouseEventHandler<HTMLAnchorElement>}
         onTouchEnd={onTouchEnd as React.TouchEventHandler<HTMLAnchorElement>}
       >
-        <div className={clsx(!fontSize || fontSize === 'normal' ? 'body-1' : 'body-2')}>
+        <div
+          className={clsx('!font-bold', !fontSize || fontSize === 'normal' ? 'body-1' : 'body-2')}
+        >
           {children}
         </div>
         {!disableIcon && <ButtonIcon />}
@@ -138,7 +140,7 @@ export default function Button({
       onTouchEnd={onTouchEnd as React.TouchEventHandler<HTMLButtonElement>}
       disabled={disabled}
     >
-      <div className={clsx(!fontSize || fontSize === 'normal' ? 'body-1' : 'body-2')}>
+      <div className={clsx('!font-bold', !fontSize || fontSize === 'normal' ? 'body-1' : 'body-2')}>
         {children}
       </div>
       {!disableIcon && <ButtonIcon />}

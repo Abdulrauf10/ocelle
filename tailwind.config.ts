@@ -9,6 +9,7 @@ const config: Config = {
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    languages: ['en', 'zh'],
     extend: {
       colors: {
         primary: '#5289B1',
@@ -49,12 +50,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        jost: ['var(--font-jost)', 'var(--font-ping-fang-hk)', ...defaultTheme.fontFamily.sans],
-        'open-sans': [
-          'var(--font-open-sans)',
-          'var(--font-ping-fang-hk)',
-          ...defaultTheme.fontFamily.sans,
-        ],
+        jost: ['var(--font-jost)', ...defaultTheme.fontFamily.sans],
+        'open-sans': ['var(--font-open-sans)', ...defaultTheme.fontFamily.sans],
+        zh: ['"PingFang HK"', 'var(--font-noto-sans-tc)', ...defaultTheme.fontFamily.sans],
       },
       padding: {
         tight: 'clamp(40px,2.4vw,50px)',
@@ -63,6 +61,7 @@ const config: Config = {
     },
   },
   plugins: [
+    require('@ganmahmud/tailwindcss-language-variant'),
     plugin(function ({ addVariant }) {
       addVariant('mouse', '@media (hover: hover) and (pointer: fine)');
     }),

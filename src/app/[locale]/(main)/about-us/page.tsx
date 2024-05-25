@@ -20,7 +20,7 @@ export default function OurStory() {
         className=" flex min-h-[600px] flex-col justify-center bg-gold bg-opacity-10 py-4"
       >
         <Container>
-          <h1 className="heading-headline text-center font-bold text-primary">
+          <h1 className="heading-headline heading-weight-1 text-center text-primary">
             {a('we-do-it-for-them')}
           </h1>
           <div className="mx-auto mt-10 rounded-[30px] border border-primary bg-white p-12 text-[1.6vw] leading-[1.2] max-3xl:text-[2.4vw] max-2xl:text-[2.8vw] max-xl:mt-5 max-xl:p-10 max-xl:text-[3.4vw] max-lg:text-[3.8vw] max-md:p-8 max-md:text-[4.8vw] max-sm:text-[36px] max-xs:p-6 max-xs:text-[32px]">

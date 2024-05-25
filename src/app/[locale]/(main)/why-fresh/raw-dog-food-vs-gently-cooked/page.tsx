@@ -27,7 +27,7 @@ export default function RawDogFoodVsGentlyCooked() {
           <div className="relative flex items-center max-md:flex-col ">
             <div className="flex-1">
               <div className="flex flex-col max-md:flex-row max-md:items-center">
-                <h2 className="heading-headline text-center font-bold text-white max-md:text-left">
+                <h2 className="heading-headline heading-weight-1 text-center text-white max-md:text-left">
                   {i.rich('block-1-title-1')}
                 </h2>
                 <div className="relative min-h-[480px] flex-1 max-md:left-4 max-md:min-h-[155px] max-md:min-w-[155px] md:-mb-9">
@@ -43,7 +43,7 @@ export default function RawDogFoodVsGentlyCooked() {
             <div className="px-[5%] py-[65px]"></div>
             <div className="flex-1">
               <div className="flex flex-col max-md:flex-row max-md:items-center">
-                <h2 className="heading-headline text-center font-bold text-dark-green max-md:text-left">
+                <h2 className="heading-headline heading-weight-1 text-center text-dark-green max-md:text-left">
                   {i.rich('block-1-title-2')}
                 </h2>
                 <div className="relative min-h-[480px] flex-1 max-md:left-4 max-md:min-h-[155px] max-md:min-w-[155px] md:-mb-9">
@@ -59,7 +59,7 @@ export default function RawDogFoodVsGentlyCooked() {
           </div>
         </Container>
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white p-6 shadow-block">
-          <span className="heading-headline relative -top-1 text-center font-bold text-primary">
+          <span className="heading-headline heading-weight-1 relative -top-1 text-center text-primary">
             vs.
           </span>
         </div>
@@ -98,7 +98,7 @@ export default function RawDogFoodVsGentlyCooked() {
         }}
         left={
           <div className="py-24 max-md:py-0">
-            <h2 className="heading-headline font-bold text-gold max-md:text-center">
+            <h2 className="heading-headline heading-weight-1 text-gold max-md:text-center">
               {i.rich('block-3-title')}
             </h2>
             <p className="body-1 pt-6">{i.rich('block-3-content-1')}</p>

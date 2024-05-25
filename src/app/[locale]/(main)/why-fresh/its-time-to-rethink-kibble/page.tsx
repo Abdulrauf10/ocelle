@@ -121,7 +121,7 @@ export default function ItsTimeToRethinkKibble() {
     <main>
       <Block className="bg-[#f6ece0] bg-[url('./its-time-to-rethink-kibble-bg.jpg')] bg-[length:auto_100%] bg-center">
         <Container className="pb-[clamp(420px,30%,650px)]">
-          <h1 className="heading-headline text-center font-bold text-brown">
+          <h1 className="heading-headline heading-weight-1 text-center text-brown">
             {i.rich('block-1-title')}
           </h1>
           <div className="mt-4"></div>
@@ -512,7 +512,7 @@ export default function ItsTimeToRethinkKibble() {
               button: (chunks) => <UnderlineButton label={chunks} href="/why-fresh/reference" />,
             })}
           </p>
-          <div className="pt-normal -mx-6 flex flex-wrap items-stretch max-lg:-mx-3">
+          <div className="-mx-6 flex flex-wrap items-stretch pt-normal max-lg:-mx-3">
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/benefits-of-fresh-dog-food"
@@ -526,7 +526,7 @@ export default function ItsTimeToRethinkKibble() {
                 </div>
               </Link>
             </div>
-            <div className="max-md:pt-normal w-1/3 px-6 max-lg:px-3 max-md:w-full">
+            <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
               <Link
                 href="/why-fresh/raw-dog-food-vs-gently-cooked"
                 className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"
@@ -539,7 +539,7 @@ export default function ItsTimeToRethinkKibble() {
                 </div>
               </Link>
             </div>
-            <div className="max-md:pt-normal w-1/3 px-6 max-lg:px-3 max-md:w-full">
+            <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
               <Link
                 href="/why-fresh/challenges-with-home-cooking-for-your-dog"
                 className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"
