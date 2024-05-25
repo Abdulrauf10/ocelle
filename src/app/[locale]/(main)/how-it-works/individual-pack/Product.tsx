@@ -125,7 +125,7 @@ export default function Product({
               </div>
             )}
             <label className="mt-6 block">
-              <span className={clsx('body-1 mr-3 inline-block font-bold', className.content)}>
+              <span className={clsx('body-1 body-weight-1 mr-3 inline-block', className.content)}>
                 {t('{}-colon', { value: t('quantity') })}
               </span>
               <NumberInput

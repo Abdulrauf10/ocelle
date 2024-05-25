@@ -51,7 +51,7 @@ export default function AffiliateProgram() {
                     </div>
                   </div>
                   <div className="mt-2"></div>
-                  <h3 className="body-1 font-bold">Free to join</h3>
+                  <h3 className="body-1 body-weight-1">Free to join</h3>
                 </div>
                 <div className="w-3/5 px-4 py-6 max-xs:w-full">
                   <div className="mx-auto w-16">
@@ -60,7 +60,7 @@ export default function AffiliateProgram() {
                     </div>
                   </div>
                   <div className="mt-2"></div>
-                  <h3 className="body-1 font-bold">
+                  <h3 className="body-1 body-weight-1">
                     Ongoing commissions for each new customer you refer
                   </h3>
                 </div>
@@ -71,7 +71,7 @@ export default function AffiliateProgram() {
                     </div>
                   </div>
                   <div className="mt-2"></div>
-                  <h3 className="body-1 font-bold">Monthly pay-outs</h3>
+                  <h3 className="body-1 body-weight-1">Monthly pay-outs</h3>
                 </div>
                 <div className="w-3/5 px-4 py-6 max-xs:w-full">
                   <div className="mx-auto w-16">
@@ -80,7 +80,7 @@ export default function AffiliateProgram() {
                     </div>
                   </div>
                   <div className="mt-2"></div>
-                  <h3 className="body-1 font-bold">
+                  <h3 className="body-1 body-weight-1">
                     Custom offers and promotions for your audience
                   </h3>
                 </div>
@@ -91,7 +91,7 @@ export default function AffiliateProgram() {
                     </div>
                   </div>
                   <div className="mt-2"></div>
-                  <h3 className="body-1 font-bold">Real-time stat tracking</h3>
+                  <h3 className="body-1 body-weight-1">Real-time stat tracking</h3>
                 </div>
                 <div className="w-3/5 px-4 py-6 max-xs:w-full">
                   <div className="mx-auto w-16">
@@ -100,7 +100,9 @@ export default function AffiliateProgram() {
                     </div>
                   </div>
                   <div className="mt-2"></div>
-                  <h3 className="body-1 font-bold">We handle orders, deliveries, and payment</h3>
+                  <h3 className="body-1 body-weight-1">
+                    We handle orders, deliveries, and payment
+                  </h3>
                 </div>
               </div>
             </div>

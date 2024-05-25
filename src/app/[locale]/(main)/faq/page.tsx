@@ -54,7 +54,7 @@ export default function FaQ() {
               >
                 <Email className="w-7" />
                 <div className="ml-3">
-                  <span className="body-1 font-bold">info@ocelle.dog</span>
+                  <span className="body-1 body-weight-1">info@ocelle.dog</span>
                 </div>
               </Link>
             </div>
@@ -67,7 +67,7 @@ export default function FaQ() {
                   <Whatsapp className="w-4 text-primary" />
                 </div>
                 <div className="ml-3">
-                  <span className="body-1 font-bold">9226 7236</span>
+                  <span className="body-1 body-weight-1">9226 7236</span>
                 </div>
               </Link>
             </div>

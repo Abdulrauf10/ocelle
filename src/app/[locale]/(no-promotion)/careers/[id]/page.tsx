@@ -28,7 +28,7 @@ async function fetchData(id: number) {
 function CareerBlock({ title, lines }: { title: string; lines: CareerLine[] }) {
   return (
     <div className="overflow-hidden rounded-[30px] border-2 border-primary">
-      <h2 className="body-1 bg-primary px-8 pb-[18px] pt-4 font-bold text-white ">{title}</h2>
+      <h2 className="body-1 body-weight-1 bg-primary px-8 pb-[18px] pt-4 text-white ">{title}</h2>
       <div className="bg-white px-8 py-6">
         <ul className="-my-2 list-none">
           {lines.map((line) => (

@@ -21,7 +21,7 @@ export default function HowItWorksSubscription() {
             <div className="w-2/5 px-4 py-[5vw] text-xl text-primary max-lg:w-full max-lg:pb-12">
               <h1 className="heading-headline heading-weight-1">{s.rich('block-1-title')}</h1>
               <div className="mt-5"></div>
-              <p className="body-1 font-bold italic">{s('block-1-subtitle')}</p>
+              <p className="body-1 body-weight-1 italic">{s('block-1-subtitle')}</p>
               <div className="mt-4"></div>
               <p className="body-1">{s('block-1-content')}</p>
               <div className="mt-8 max-lg:flex max-lg:justify-center">
@@ -151,7 +151,7 @@ export default function HowItWorksSubscription() {
           <h2 className="heading-1 text-center font-bold text-gold">{s.rich('block-7-title')}</h2>
           <div className="mx-auto mt-10 max-w-[820px] rounded-[30px] bg-white p-12 max-sm:p-8">
             <div className="flex max-sm:block max-sm:items-center">
-              <h3 className="body-1 w-[190px] min-w-[190px] text-left font-bold text-primary max-sm:w-full max-sm:text-center">
+              <h3 className="body-1 body-weight-1 w-[190px] min-w-[190px] text-left text-primary max-sm:w-full max-sm:text-center">
                 {s('block-7-content-1-title')}
               </h3>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
@@ -160,7 +160,7 @@ export default function HowItWorksSubscription() {
               </div>
             </div>
             <div className="mt-6 flex items-center max-sm:block">
-              <h3 className="body-1 w-[190px] min-w-[190px] text-left font-bold text-primary max-sm:w-full max-sm:text-center">
+              <h3 className="body-1 body-weight-1 w-[190px] min-w-[190px] text-left text-primary max-sm:w-full max-sm:text-center">
                 {s('block-7-content-2-title')}
               </h3>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
@@ -169,7 +169,7 @@ export default function HowItWorksSubscription() {
               </div>
             </div>
             <div className="mt-6 flex items-center max-sm:block">
-              <h3 className="body-1 w-[190px] min-w-[190px] text-left font-bold text-primary max-sm:w-full max-sm:text-center">
+              <h3 className="body-1 body-weight-1 w-[190px] min-w-[190px] text-left text-primary max-sm:w-full max-sm:text-center">
                 {s.rich('block-7-content-3-title')}
               </h3>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>

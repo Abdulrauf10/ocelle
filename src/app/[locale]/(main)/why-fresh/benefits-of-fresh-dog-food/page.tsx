@@ -98,7 +98,7 @@ export default function BenefitsOfFreshDogFood() {
                 <p className="body-1 text-center text-gold">{i.rich('block-3-quota-person')}</p>
                 <div className="mt-6 flex">
                   <div className="flex-1 text-center">
-                    <div className="body-1 font-bold">{i.rich('block-3-chicken')}</div>
+                    <div className="body-1 body-weight-1">{i.rich('block-3-chicken')}</div>
                     <Image
                       src="/why-fresh/single-piece-of-dog-food.png"
                       alt=""
@@ -108,7 +108,7 @@ export default function BenefitsOfFreshDogFood() {
                     />
                   </div>
                   <div className="flex-1 text-center">
-                    <div className="body-1 font-bold">{i.rich('block-3-fish')}</div>
+                    <div className="body-1 body-weight-1">{i.rich('block-3-fish')}</div>
                     <Image
                       src="/why-fresh/single-piece-of-dog-food.png"
                       alt=""
@@ -118,7 +118,7 @@ export default function BenefitsOfFreshDogFood() {
                     />
                   </div>
                   <div className="flex-1 text-center">
-                    <div className="body-1 font-bold">{i.rich('block-3-beef')}</div>
+                    <div className="body-1 body-weight-1">{i.rich('block-3-beef')}</div>
                     <Image
                       src="/why-fresh/single-piece-of-dog-food.png"
                       alt=""

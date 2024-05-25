@@ -84,6 +84,10 @@ span.swiper-pagination-bullet-active {
   @apply text-[12px] leading-[18px] -my-[3px];
 }
 
+.body-weight-1 {
+  @apply lang-en:font-bold lang-zh:font-light;
+}
+
 .body-inline {
   @apply my-0;
 }

@@ -304,7 +304,7 @@ export default function ItsTimeToRethinkKibble() {
                   </>
                 }
               >
-                <p className="body-1 font-bold">
+                <p className="body-1 body-weight-1">
                   {i.rich('block-4-mark-4-content-1', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
@@ -322,7 +322,7 @@ export default function ItsTimeToRethinkKibble() {
                   })}
                 </p>
                 <div className="mt-4"></div>
-                <p className="body-1 font-bold">
+                <p className="body-1 body-weight-1">
                   {i.rich('block-4-mark-4-content-4', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}

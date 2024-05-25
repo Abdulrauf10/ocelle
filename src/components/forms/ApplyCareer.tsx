@@ -169,7 +169,7 @@ export default function ApplyCareerForm({
       {startAdornment}
       <Block styles="tight" className="grow bg-gold bg-opacity-10">
         <Container className="max-w-screen-lg">
-          <div className="body-1 font-bold uppercase text-primary">
+          <div className="body-1 body-weight-1 uppercase text-primary">
             {t('submit-your-application')}
           </div>
           <div className="body-3 relative w-fit pl-[5px]">
