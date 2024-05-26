@@ -204,7 +204,20 @@ export default function Home() {
         <Container>
           <h2 className="heading-1 heading-weight-1 text-center text-gray">{t('block-5-title')}</h2>
           <div className="mt-6">
-            <HowPlanWorks />
+            <HowPlanWorks
+              mark1={{
+                title: t.rich('block-5-item-1-title'),
+                content: t.rich('block-5-item-1-content'),
+              }}
+              mark2={{
+                title: t.rich('block-5-item-2-title'),
+                content: t.rich('block-5-item-2-content'),
+              }}
+              mark3={{
+                title: t.rich('block-5-item-3-title'),
+                content: t.rich('block-5-item-3-content'),
+              }}
+            />
           </div>
           <div className="mt-4 text-center">
             <Button href="/get-started">{b('build-my-plan')}</Button>

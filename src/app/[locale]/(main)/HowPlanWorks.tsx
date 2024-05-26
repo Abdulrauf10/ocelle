@@ -1,7 +1,20 @@
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
-export default function HowPlanWorks() {
+type Mark = {
+  title: React.ReactNode;
+  content: React.ReactNode;
+};
+
+export default function HowPlanWorks({
+  mark1,
+  mark2,
+  mark3,
+}: {
+  mark1: Mark;
+  mark2: Mark;
+  mark3: Mark;
+}) {
   const t = useTranslations('Home');
   return (
     <div className="flex flex-row flex-wrap">
@@ -17,9 +30,9 @@ export default function HowPlanWorks() {
           1
         </div>
         <div className="mt-3"></div>
-        <h3 className="heading-4 text-gray">{t('block-5-item-1-title')}</h3>
+        <h3 className="heading-4 text-gray">{mark1.title}</h3>
         <div className="mt-3"></div>
-        <p className="body-1">{t('block-5-item-1-content')}</p>
+        <p className="body-1">{mark1.content}</p>
       </div>
       <div className=" w-1/3 px-8 py-5 text-center max-md:w-full">
         <Image
@@ -33,9 +46,9 @@ export default function HowPlanWorks() {
           2
         </div>
         <div className="mt-3"></div>
-        <h3 className="heading-4 text-gray">{t('block-5-item-2-title')}</h3>
+        <h3 className="heading-4 text-gray">{mark2.title}</h3>
         <div className="mt-3"></div>
-        <p className="body-1">{t('block-5-item-2-content')}</p>
+        <p className="body-1">{mark2.content}</p>
       </div>
       <div className="w-1/3 px-8 py-5 text-center max-md:w-full">
         <Image
@@ -49,9 +62,9 @@ export default function HowPlanWorks() {
           3
         </div>
         <div className="mt-3"></div>
-        <h3 className="heading-4 text-gray">{t.rich('block-5-item-3-title')}</h3>
+        <h3 className="heading-4 text-gray">{mark3.title}</h3>
         <div className="mt-3"></div>
-        <p className="body-1">{t('block-5-item-3-content')}</p>
+        <p className="body-1">{mark3.content}</p>
       </div>
     </div>
   );
