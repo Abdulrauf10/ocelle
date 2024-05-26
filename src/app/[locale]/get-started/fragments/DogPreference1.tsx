@@ -35,6 +35,7 @@ export default function DogPreference1Fragment() {
     setError,
     formState: { errors, isValid },
   } = useForm<DogPreference1Form>({
+    mode: 'onChange',
     defaultValues: {
       weight,
       bodyCondition,
@@ -65,6 +66,7 @@ export default function DogPreference1Fragment() {
                 name="weight"
                 type="number"
                 control={control}
+                disableErrorMessage
                 rules={{
                   required: true,
                   min: {

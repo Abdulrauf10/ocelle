@@ -81,7 +81,7 @@ export default function DogPreference2Fragment() {
               <div className="mt-4 px-3">
                 <InteractiveBlock
                   type="checkbox"
-                  label={foodAllergiesOptions[0].label}
+                  label={t('{}-exclamation', { value: foodAllergiesOptions[0].label })}
                   control={control}
                   name="allergies.0"
                   error={Array.isArray(errors.allergies) && !!errors.allergies[0]}

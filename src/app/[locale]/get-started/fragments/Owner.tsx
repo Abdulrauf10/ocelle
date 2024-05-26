@@ -31,6 +31,7 @@ export default function OwnerFragment() {
     control,
     formState: { errors, isValid },
   } = useForm<OwnerForm>({
+    mode: 'onChange',
     defaultValues: owner,
   });
 
@@ -73,6 +74,7 @@ export default function OwnerFragment() {
                 name="email"
                 placeholder={t('email')}
                 control={control}
+                disableErrorMessage
                 rules={{
                   required: true,
                   pattern: {
@@ -96,7 +98,9 @@ export default function OwnerFragment() {
               label={t('already-have-an-account-log-in-here')}
             />
           </div>
-          <Button className="mt-10" disabled={!isValid}>{t('continue')}</Button>
+          <Button className="mt-10" disabled={!isValid}>
+            {t('continue')}
+          </Button>
         </form>
       </Container>
     </motion.div>

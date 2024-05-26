@@ -588,7 +588,7 @@ export default function DogForm({
           <div className="mt-4 px-3">
             <InteractiveBlock
               type="checkbox"
-              label={allergiesOptions[0].label}
+              label={t('{}-exclamation', { value: allergiesOptions[0].label })}
               control={control}
               name="allergies.0"
               error={Array.isArray(errors.allergies) && !!errors.allergies[0]}

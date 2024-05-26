@@ -14,6 +14,7 @@ interface PasswordFieldProps<T extends FieldValues> extends InputControllerProps
   label: string;
   fullWidth?: boolean;
   disabled?: boolean;
+  disableErrorMessage?: boolean;
 }
 
 export default function PasswordField<T extends FieldValues>({
@@ -23,6 +24,7 @@ export default function PasswordField<T extends FieldValues>({
   label,
   fullWidth,
   disabled,
+  disableErrorMessage,
 }: PasswordFieldProps<T>) {
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -41,6 +43,7 @@ export default function PasswordField<T extends FieldValues>({
       fullWidth={fullWidth}
       type={showPassword ? 'text' : 'password'}
       disabled={disabled}
+      disableErrorMessage={disableErrorMessage}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">

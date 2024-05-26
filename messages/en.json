@@ -1,6 +1,7 @@
 {
   "{}-colon": "{value}: ",
   "{}-apostrophe": "{value}’s",
+  "{}-exclamation": "{value}!",
   "({})": "({value})",
   "{}-kcal-per-kg": "{value} kcal/kg",
   "{}-per-day": "{value}/day",

@@ -20,6 +20,7 @@ interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> 
   label?: string;
   className?: string;
   placeholder?: string;
+  disableErrorMessage?: boolean;
   helperText?: React.ReactNode;
   inputProps?: InputBaseComponentProps;
   InputProps?: Partial<FilledInputProps> | Partial<OutlinedInputProps> | Partial<InputProps>;
@@ -39,6 +40,7 @@ export default function TextField<T extends FieldValues>({
   id,
   name,
   placeholder,
+  disableErrorMessage,
   helperText,
   className,
   rules,
@@ -77,7 +79,7 @@ export default function TextField<T extends FieldValues>({
             inputProps={inputProps}
             InputProps={InputProps}
             className={className}
-            helperText={error?.message || helperText}
+            helperText={(!disableErrorMessage && error?.message) || helperText}
           />
         )}
       />
