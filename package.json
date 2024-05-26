@@ -20,7 +20,9 @@
     "migration:generate": "npm run typeorm:mysql -- migration:generate src/migrations/${npm_config_name}",
     "migration:run": "npm run typeorm:mysql -- migration:run",
     "migration:show": "npm run typeorm:mysql -- migration:show",
-    "migration:revert": "npm run typeorm:mysql -- migration:revert"
+    "migration:revert": "npm run typeorm:mysql -- migration:revert",
+    "i18n:generate": "node src/import18.mjs",
+    "i18n:export": "node src/export18.mjs"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^0.38.0",
