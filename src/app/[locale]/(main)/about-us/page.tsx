@@ -161,7 +161,7 @@ export default function OurStory() {
           <div className="ml-[12%] w-full max-w-[620px] max-lg:mx-auto max-lg:px-4">
             <div className="relative pt-[117.2%]">
               <Image
-                src="/about-us-food.png"
+                src="/about-us-food.gif"
                 alt="foods"
                 fill
                 className="select-none object-contain object-bottom"
@@ -191,7 +191,7 @@ export default function OurStory() {
           <div className="relative w-full max-w-[600px] max-lg:mx-auto max-lg:max-w-[450px] lg:ml-[6%]">
             <div className="pt-[117.2%]">
               <Image
-                src="/about-us-food.png"
+                src="/about-us-food.gif"
                 alt="foods"
                 fill
                 className="select-none object-contain object-bottom lg:hidden"
