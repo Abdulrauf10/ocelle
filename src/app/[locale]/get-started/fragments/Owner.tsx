@@ -8,6 +8,7 @@ import Section from '../Section';
 import SectionBreak from '../SectionBreak';
 import Stage from '../Stage';
 import { useSurvey } from '../SurveyContext';
+import { isAvailableEmailAddress } from '../actions';
 import { pageVariants } from '../transition';
 
 import Container from '@/components/Container';
@@ -82,6 +83,14 @@ export default function OwnerFragment() {
                     message: t('this-{}-doesn-t-look-correct-please-update-it', {
                       name: t('email').toLowerCase(),
                     }),
+                  },
+                  validate: async (value) => {
+                    if (await isAvailableEmailAddress(value)) {
+                      return true;
+                    }
+                    return t(
+                      'looks-like-you-already-have-an-account-with-us-to-continue-please-log-in-using-the-link-below'
+                    );
                   },
                 }}
                 fullWidth

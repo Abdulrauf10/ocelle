@@ -14,6 +14,7 @@ import {
   CompleteDraftOrderDocument,
   CreateDraftOrderDocument,
   DiscountValueTypeEnum,
+  FindUserDocument,
   GetOrderDocument,
   InitializeTransactionDocument,
   OrderAuthorizeStatusEnum,
@@ -57,6 +58,20 @@ import {
   updatePaymentIntent,
 } from '@/services/stripe';
 import { BreedDto, DogDto, MinPricesDto } from '@/types/dto';
+
+export async function isAvailableEmailAddress(email: string) {
+  const { user } = await executeGraphQL(FindUserDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      email,
+    },
+  });
+
+  return !user;
+}
 
 export async function calculateDogsTotalPerDayPrice(dogs: DogDto[]) {
   const values = [];
