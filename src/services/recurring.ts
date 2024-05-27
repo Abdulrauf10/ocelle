@@ -34,9 +34,7 @@ export async function setupRecurringBox(
     const order = queryRunner.manager.create(Order, {
       id: saleorOrder.id,
       createdAt: new Date(saleorOrder.created),
-      user: {
-        id,
-      },
+      user,
     });
     await queryRunner.manager.save(order);
     for (const data of dogs) {
@@ -55,9 +53,7 @@ export async function setupRecurringBox(
         currentEating: data.currentEating,
         amountOfTreats: data.amountOfTreats,
         pickiness: data.pickiness,
-        user: {
-          id,
-        },
+        user,
       });
       await queryRunner.manager.save(dog);
       const breeds = [];

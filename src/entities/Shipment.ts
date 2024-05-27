@@ -19,7 +19,7 @@ export default class Shipment {
   @Column()
   deliveryDate!: Date;
 
-  @Column({ nullable:true })
+  @Column({ nullable: true })
   trackingCode?: string;
 
   @OneToOne(() => RecurringBox, (record) => record.shipment)

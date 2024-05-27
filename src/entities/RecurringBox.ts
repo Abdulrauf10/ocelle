@@ -40,8 +40,8 @@ export default class RecurringBox {
 
   @OneToOne(() => RecurringBox, (box) => box.nextBox)
   @JoinColumn()
-  prevBox?: RecurringBox;
+  prevBox?: Relation<RecurringBox>;
 
   @OneToOne(() => RecurringBox, (box) => box.prevBox)
-  nextBox?: RecurringBox;
+  nextBox?: Relation<RecurringBox>;
 }
