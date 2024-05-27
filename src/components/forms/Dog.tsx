@@ -622,7 +622,7 @@ export default function DogForm({
                         formValues.allergies.some((value: unknown) => !!value),
                       conflict: (value, formValues) => !value || !formValues.allergies[0],
                       selectedAll: (value, formValues) =>
-                        formValues.allergies.slice(-5).some((x) => x === false),
+                        formValues.allergies.slice(-5).some((x) => !x),
                     },
                   }}
                   onChange={() => trigger('allergies')}

@@ -115,7 +115,7 @@ export default function DogPreference2Fragment() {
                             formValues.allergies.some((value) => !!value),
                           conflict: (value, formValues) => !value || !formValues.allergies[0],
                           selectedAll: (value, formValues) =>
-                            formValues.allergies.slice(-5).some((x) => x === false),
+                            formValues.allergies.slice(-5).some((x) => !x),
                         },
                       }}
                       onChange={() => trigger('allergies')}
