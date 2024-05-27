@@ -676,7 +676,7 @@ export async function finalizeOrder(paymentMethodId: string) {
     await setupRecurringBox(user.id, surveyDogs, deliveryDate, draftOrderComplete.order!);
   } catch (e) {
     console.error(e);
-    throw redirect('/get-started');
+    throw e;
   }
 
   redirect('/get-started/complete');
