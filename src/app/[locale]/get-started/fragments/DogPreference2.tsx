@@ -35,7 +35,7 @@ interface DogPreference2Form {
 export default function DogPreference2Fragment() {
   const t = useTranslations();
   const navigate = useNavigate();
-  const { getDog, setDog, owner } = useSurvey();
+  const { getDog, setDog, currentDogIdx } = useSurvey();
   const { name, foodAllergies, currentEating, amountOfTreats, pickiness } = getDog();
   const {
     handleSubmit,
@@ -67,10 +67,10 @@ export default function DogPreference2Fragment() {
         amountOfTreats,
         pickiness,
       });
-      if (!owner.firstName || !owner.lastName || !owner.email) navigate(Stage.Owner);
+      if (currentDogIdx === 0) navigate(Stage.Owner);
       else navigate(Stage.Calculating);
     },
-    [owner.firstName, owner.lastName, owner.email, navigate, setDog]
+    [currentDogIdx, navigate, setDog]
   );
 
   return (

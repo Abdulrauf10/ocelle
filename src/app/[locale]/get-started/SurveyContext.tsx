@@ -44,6 +44,7 @@ interface Owner {
 }
 
 interface SurveyContextProps {
+  currentDogIdx: number;
   dogs: Dog[];
   owner: Owner;
   getDog(): Dog;
@@ -90,6 +91,7 @@ export function SurveyContextProvider({ children }: React.PropsWithChildren) {
 
   const values = React.useMemo(() => {
     return {
+      currentDogIdx: currentDog,
       dogs,
       owner,
       getDog,
@@ -98,7 +100,7 @@ export function SurveyContextProvider({ children }: React.PropsWithChildren) {
       nextDog,
       setOwner,
     };
-  }, [dogs, owner, getDog, setDog, prevDog, nextDog, setOwner]);
+  }, [currentDog, dogs, owner, getDog, setDog, prevDog, nextDog, setOwner]);
 
   return <SurveyContext.Provider value={values}>{children}</SurveyContext.Provider>;
 }
