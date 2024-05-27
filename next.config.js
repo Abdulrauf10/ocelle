@@ -4,6 +4,7 @@ const bundleAnalyzer = require('@next/bundle-analyzer');
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
+    serverMinification: false,
     serverActions: {
       // sync with consts:MAX_FILE_SIZE_MB and used in career submission
       bodySizeLimit: '10mb'
