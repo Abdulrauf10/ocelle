@@ -340,6 +340,8 @@ export async function finalizeCheckout() {
       chargeStatus !== CheckoutChargeStatusEnum.None
   );
 
+  await new Promise((resolve) => setTimeout(resolve, 3000));
+
   const { checkoutComplete } = await executeGraphQL(CompleteCheckoutDocument, {
     variables: {
       checkoutId: checkout.id,

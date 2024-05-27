@@ -635,6 +635,8 @@ export async function finalizeOrder(paymentMethodId: string) {
         chargeStatus !== OrderChargeStatusEnum.None
     );
 
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
     const { draftOrderComplete } = await executeGraphQL(CompleteDraftOrderDocument, {
       withAuth: false,
       headers: {
