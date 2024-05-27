@@ -1,5 +1,6 @@
 'use client';
 
+import { MenuItem } from '@mui/material';
 import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import clsx from 'clsx';
 import { addWeeks } from 'date-fns';
@@ -19,12 +20,14 @@ import EditButton from '@/components/buttons/EditButton';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import PasswordField from '@/components/controls/PasswordField';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
+import Select from '@/components/controls/Select';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 import { MealPlan, Recipe } from '@/enums';
 import { OrderDiscountType, OrderFragment } from '@/gql/graphql';
 import { getRecipeSlug } from '@/helpers/dog';
 import { nativeRound } from '@/helpers/number';
 import { isLegalDeliveryDate } from '@/helpers/shipment';
+import { getCountryCodes } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
 import { CalendarEvent } from '@/types';
 
@@ -77,7 +80,8 @@ interface ISubscriptionCheckoutForm {
   email: string;
   password: string;
   confirmPassword: string;
-  phone: string;
+  phone: { code: string; value: string };
+  whatsapp: { code: string; value: string };
   receiveNews: boolean;
   isSameBillingAddress: boolean;
   deliveryDate: Date;
@@ -88,8 +92,9 @@ interface ISubscriptionCheckoutForm {
 
 type ISubscriptionCheckoutFormAction = Omit<
   ISubscriptionCheckoutForm,
-  'billingAddress' | 'confirmPassword'
+  'whatsapp' | 'billingAddress' | 'confirmPassword'
 > & {
+  whatsapp?: { code: string; value: string };
   billingAddress?: IPartialAddressForm;
 };
 
@@ -190,9 +195,11 @@ export default function SubscriptionCheckoutForm({
       }
       try {
         setIsSubmitInProgress(true);
-        await onBeforeTransaction(
-          values.isSameBillingAddress ? values : { ...values, billingAddress }
-        );
+        const data = {
+          ...values,
+          whatsapp: values.whatsapp.value.length === 0 ? undefined : values.whatsapp,
+        };
+        await onBeforeTransaction(values.isSameBillingAddress ? data : { ...data, billingAddress });
         const card = elements.getElement(CardNumberElement);
         if (!card) {
           throw new Error('cannot find card element');
@@ -330,9 +337,9 @@ export default function SubscriptionCheckoutForm({
                     disabled={isSubmitInProgress}
                   />
                 </div>
-                <div className="w-full p-2">
+                <div className="w-1/2 p-2 max-lg:w-full">
                   <TextField
-                    name="phone"
+                    name="phone.value"
                     label={t('phone-number')}
                     control={control}
                     rules={{
@@ -346,6 +353,61 @@ export default function SubscriptionCheckoutForm({
                     }}
                     disabled={isSubmitInProgress}
                     fullWidth
+                    InputProps={{
+                      startAdornment: (
+                        <div className="w-auto">
+                          <Select
+                            variant="standard"
+                            name="phone.code"
+                            control={control}
+                            rules={{ required: true }}
+                            disableUnderline
+                          >
+                            {getCountryCodes().map((code, idx) => (
+                              <MenuItem key={idx} value={code}>
+                                +{code}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </div>
+                      ),
+                    }}
+                  />
+                </div>
+                <div className="w-1/2 p-2 max-lg:w-full">
+                  <TextField
+                    name="whatsapp.value"
+                    label="WhatsApp"
+                    control={control}
+                    rules={{
+                      pattern: {
+                        value: PHONE_REGEXP,
+                        message: t('this-{}-doesn-t-look-correct-please-update-it', {
+                          name: 'WhatsApp',
+                        }),
+                      },
+                    }}
+                    disabled={isSubmitInProgress}
+                    fullWidth
+                    InputProps={{
+                      startAdornment: (
+                        <div className="w-auto">
+                          <Select
+                            variant="standard"
+                            name="whatsapp.code"
+                            control={control}
+                            rules={{ required: true }}
+                            disableUnderline
+                          >
+                            {getCountryCodes().map((code, idx) => (
+                              <MenuItem key={idx} value={code}>
+                                +{code}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </div>
+                      ),
+                    }}
                   />
                 </div>
               </div>

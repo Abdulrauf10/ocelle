@@ -1,3 +1,5 @@
+import countryCodes from 'country-codes-list';
+
 function stringToBoolean(string?: string) {
   if (string == null) {
     return undefined;
@@ -18,4 +20,12 @@ function booleanToString(bool?: boolean) {
   return 'N';
 }
 
-export { stringToBoolean, booleanToString };
+function getCountryCodes() {
+  return countryCodes
+    .all()
+    .map(({ countryCallingCode }) => countryCallingCode)
+    .filter((value, index, self) => index === self.findIndex((code) => code === value))
+    .sort();
+}
+
+export { stringToBoolean, booleanToString, getCountryCodes };

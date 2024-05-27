@@ -16,6 +16,7 @@ import {
   User,
 } from '@/entities';
 import { Initial1716538994073 } from '@/migrations/1716538994073-initial';
+import { UpdateUserPhone1716725173601 } from '@/migrations/1716725173601-update-user-phone';
 
 dotenv.config();
 
@@ -42,7 +43,7 @@ const MySQL = new DataSource({
     Shipment,
     User,
   ],
-  migrations: [Initial1716538994073],
+  migrations: [Initial1716538994073, UpdateUserPhone1716725173601],
 });
 
 export default MySQL;

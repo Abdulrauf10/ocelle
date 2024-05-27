@@ -1,5 +1,6 @@
 'use client';
 
+import { MenuItem } from '@mui/material';
 import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
@@ -17,9 +18,11 @@ import Price from '@/components/Price';
 import Button from '@/components/buttons/Button';
 import EditButton from '@/components/buttons/EditButton';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
+import Select from '@/components/controls/Select';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 import { useCart } from '@/contexts/cart';
 import { isLegalDeliveryDate } from '@/helpers/shipment';
+import { getCountryCodes } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
 import { CalendarEvent } from '@/types';
 import { CartReturn } from '@/types/dto';
@@ -71,7 +74,8 @@ interface IGuestCheckoutForm {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phone: { code: string; value: string };
+  whatsapp: { code: string; value: string };
   receiveNews: boolean;
   isSameBillingAddress: boolean;
   deliveryDate: Date;
@@ -79,7 +83,11 @@ interface IGuestCheckoutForm {
   billingAddress: IPartialAddressForm;
 }
 
-type IGuestCheckoutFormAction = Omit<IGuestCheckoutForm, 'billingAddress' | 'confirmPassword'> & {
+type IGuestCheckoutFormAction = Omit<
+  IGuestCheckoutForm,
+  'whatsapp' | 'billingAddress' | 'confirmPassword'
+> & {
+  whatsapp?: { code: string; value: string };
   billingAddress?: IPartialAddressForm;
 };
 
@@ -117,6 +125,14 @@ export default function GuestCheckoutForm({
   } = useForm<IGuestCheckoutForm>({
     mode: 'onChange',
     defaultValues: {
+      phone: {
+        code: '852',
+        value: '',
+      },
+      whatsapp: {
+        code: '852',
+        value: '',
+      },
       isSameBillingAddress: true,
       deliveryDate: minDeliveryDate,
     },
@@ -151,9 +167,11 @@ export default function GuestCheckoutForm({
       }
       try {
         setIsSubmitInProgress(true);
-        await onBeforeTransaction(
-          values.isSameBillingAddress ? values : { ...values, billingAddress }
-        );
+        const data = {
+          ...values,
+          whatsapp: values.whatsapp.value.length === 0 ? undefined : values.whatsapp,
+        };
+        await onBeforeTransaction(values.isSameBillingAddress ? data : { ...data, billingAddress });
         const card = elements.getElement(CardNumberElement);
         if (!card) {
           throw new Error('cannot find card element');
@@ -172,7 +190,7 @@ export default function GuestCheckoutForm({
                 line2: address.streetAddress2,
                 state: address.region,
               },
-              phone: '+852' + values.phone, // assume all phones are from HK
+              phone: '+' + values.phone.code + values.phone.value, // assume all phones are from HK
             },
           },
           receipt_email: values.email,
@@ -254,9 +272,9 @@ export default function GuestCheckoutForm({
                     fullWidth
                   />
                 </div>
-                <div className="w-full p-2">
+                <div className="w-1/2 p-2 max-lg:w-full">
                   <TextField
-                    name="phone"
+                    name="phone.value"
                     label={t('phone-number')}
                     control={control}
                     rules={{
@@ -270,6 +288,61 @@ export default function GuestCheckoutForm({
                     }}
                     disabled={isSubmitInProgress}
                     fullWidth
+                    InputProps={{
+                      startAdornment: (
+                        <div className="w-auto">
+                          <Select
+                            variant="standard"
+                            name="phone.code"
+                            control={control}
+                            rules={{ required: true }}
+                            disableUnderline
+                          >
+                            {getCountryCodes().map((code, idx) => (
+                              <MenuItem key={idx} value={code}>
+                                +{code}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </div>
+                      ),
+                    }}
+                  />
+                </div>
+                <div className="w-1/2 p-2 max-lg:w-full">
+                  <TextField
+                    name="whatsapp.value"
+                    label="WhatsApp"
+                    control={control}
+                    rules={{
+                      pattern: {
+                        value: PHONE_REGEXP,
+                        message: t('this-{}-doesn-t-look-correct-please-update-it', {
+                          name: 'WhatsApp',
+                        }),
+                      },
+                    }}
+                    disabled={isSubmitInProgress}
+                    fullWidth
+                    InputProps={{
+                      startAdornment: (
+                        <div className="w-auto">
+                          <Select
+                            variant="standard"
+                            name="whatsapp.code"
+                            control={control}
+                            rules={{ required: true }}
+                            disableUnderline
+                          >
+                            {getCountryCodes().map((code, idx) => (
+                              <MenuItem key={idx} value={code}>
+                                +{code}
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </div>
+                      ),
+                    }}
                   />
                 </div>
               </div>

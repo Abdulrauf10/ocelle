@@ -12,7 +12,7 @@ import UserBasicInfoForm from '@/components/forms/UserBasicInfo';
 
 export default async function BasicInfo() {
   const t = await getTranslations();
-  const { firstName, lastName, email, phone } = await getLoginedMe();
+  const { firstName, lastName, email, phone, whatsapp } = await getLoginedMe();
 
   return (
     <AppThemeProvider>

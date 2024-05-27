@@ -12,14 +12,22 @@ interface UpdateBasicInfoAction {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phone: { code: string; value: string };
+  whatsapp?: { code: string; value: string };
 }
 
 const schema = Joi.object<UpdateBasicInfoAction>({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   email: Joi.string().required(),
-  phone: Joi.string().required(),
+  phone: Joi.object({
+    code: Joi.string().required(),
+    value: Joi.string().required(),
+  }).required(),
+  whatsapp: Joi.object({
+    code: Joi.string().required(),
+    value: Joi.string().required(),
+  }).optional(),
 });
 
 export default async function updateBasicInfoAction(data: UpdateBasicInfoAction) {
@@ -54,6 +62,9 @@ export default async function updateBasicInfoAction(data: UpdateBasicInfoAction)
   }
 
   await executeQuery(async (queryRunner) => {
-    await queryRunner.manager.update(User, me.id, { phone: value.phone });
+    await queryRunner.manager.update(User, me.id, {
+      phone: value.phone,
+      whatsapp: value.whatsapp,
+    });
   });
 }

@@ -54,7 +54,10 @@ export default class DogSeeder extends Seeder {
 
     const user = userRepository.create({
       id: '1',
-      phone: '88888888',
+      phone: {
+        code: '852',
+        value: '88888888',
+      },
       isDeliveryUsAsBillingAddress: true,
     });
 

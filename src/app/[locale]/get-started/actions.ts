@@ -395,16 +395,27 @@ export async function applyCoupon({ coupon }: { coupon: string }) {
   }
 }
 
-async function findOrCreateUser(
-  firstName: string,
-  lastName: string,
-  email: string,
-  phone: string,
-  password: string,
-  isDeliveryUsAsBillingAddress: boolean,
-  channel: string,
-  redirectUrl: string
-) {
+async function findOrCreateUser({
+  firstName,
+  lastName,
+  email,
+  phone,
+  whatsapp,
+  password,
+  isDeliveryUsAsBillingAddress,
+  channel,
+  redirectUrl,
+}: {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: { code: string; value: string };
+  whatsapp?: { code: string; value: string };
+  password: string;
+  isDeliveryUsAsBillingAddress: boolean;
+  channel: string;
+  redirectUrl: string;
+}) {
   const saleorUser = await upsertUser(firstName, lastName, email, password, channel, redirectUrl);
 
   const user = await executeQuery(async (queryRunner) => {
@@ -414,6 +425,7 @@ async function findOrCreateUser(
       const user = queryRunner.manager.create(User, {
         id: saleorUser.id,
         phone,
+        whatsapp,
         isDeliveryUsAsBillingAddress,
       });
       await queryRunner.manager.save(user);
@@ -443,7 +455,14 @@ interface UpdateOrderDataAction {
   lastName: string;
   email: string;
   password: string;
-  phone: string;
+  phone: {
+    code: string;
+    value: string;
+  };
+  whatsapp?: {
+    code: string;
+    value: string;
+  };
   receiveNews?: boolean;
   isSameBillingAddress?: boolean;
   deliveryDate: Date;
@@ -467,7 +486,14 @@ const schema = Joi.object<UpdateOrderDataAction>({
   lastName: Joi.string().required(),
   email: Joi.string().required(),
   password: Joi.string().required(),
-  phone: Joi.string().required(),
+  phone: Joi.object({
+    code: Joi.string().required(),
+    value: Joi.string().required(),
+  }).required(),
+  whatsapp: Joi.object({
+    code: Joi.string().required(),
+    value: Joi.string().required(),
+  }).optional(),
   receiveNews: Joi.boolean().optional(),
   isSameBillingAddress: Joi.boolean().optional(),
   deliveryDate: Joi.date().required(),
@@ -507,16 +533,17 @@ export async function updateOrderData(data: UpdateOrderDataAction) {
   await setStoreEmail(order.id, value.email);
   await setStoreDeliveryDate(order.id, value.deliveryDate);
 
-  const user = await findOrCreateUser(
-    value.firstName,
-    value.lastName,
-    value.email,
-    value.phone,
-    value.password,
-    value.isSameBillingAddress ?? false,
-    process.env.SALEOR_CHANNEL_SLUG,
-    `${origin}/auth/verify-email`
-  );
+  const user = await findOrCreateUser({
+    firstName: value.firstName,
+    lastName: value.lastName,
+    email: value.email,
+    phone: value.phone,
+    whatsapp: value.whatsapp,
+    password: value.password,
+    isDeliveryUsAsBillingAddress: value.isSameBillingAddress ?? false,
+    channel: process.env.SALEOR_CHANNEL_SLUG,
+    redirectUrl: `${origin}/auth/verify-email`,
+  });
 
   if (!order.user) {
     const { draftOrderUpdate } = await executeGraphQL(UpdateDraftOrderDocument, {

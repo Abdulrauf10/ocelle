@@ -1,6 +1,7 @@
 'use client';
 
 import { ThemeOptions, ThemeProvider, createTheme } from '@mui/material';
+import clsx from 'clsx';
 import React from 'react';
 
 function PopupIcon() {
@@ -16,9 +17,14 @@ function PopupIcon() {
   );
 }
 
-function DropdownIcon() {
+function DropdownIcon({ className }: { className: string }) {
   return (
-    <div className="pointer-events-none absolute right-0 mr-2 [&_polyline]:stroke-slate-500">
+    <div
+      className={clsx(
+        className,
+        'pointer-events-none !right-0 !top-0 inline-flex h-full items-center [&_polyline]:stroke-slate-500'
+      )}
+    >
       <PopupIcon />
     </div>
   );
@@ -58,11 +64,24 @@ const baseTheme: ThemeOptions = {
       defaultProps: {
         IconComponent: DropdownIcon,
       },
+      styleOverrides: {
+        standard: {
+          paddingRight: '26px !important',
+          backgroundColor: 'transparent !important',
+        },
+        outlined: {
+          paddingRight: '36px !important',
+        },
+        iconOutlined: {
+          marginRight: 10,
+        },
+      },
     },
     MuiMenu: {
       styleOverrides: {
-        list: {
-          padding: 8,
+        paper: {
+          paddingLeft: 8,
+          paddingRight: 8,
         },
       },
     },
