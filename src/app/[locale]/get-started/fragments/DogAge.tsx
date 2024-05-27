@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { subDays } from 'date-fns';
+import { differenceInWeeks, subDays, subMonths, subYears } from 'date-fns';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import React, { useEffect } from 'react';
@@ -16,6 +16,7 @@ import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import DateCalendar from '@/components/controls/DateCalendar';
 import TextField from '@/components/controls/TextField';
+import useDefaultValues from '@/hooks/defaultValues';
 
 interface DogAgeForm {
   months?: number;
@@ -28,19 +29,24 @@ export default function DogAgeFragment() {
   const navigate = useNavigate();
   const { getDog, setDog } = useSurvey();
   const { name, age } = getDog();
-  const [pending, startTransition] = React.useTransition();
+  const { defaultValues } = useDefaultValues(
+    typeof age === 'string'
+      ? { birthday: new Date(age) }
+      : age
+        ? { months: age?.months, years: age?.years }
+        : { months: 0, years: 0 }
+  );
   const {
     handleSubmit,
     control,
-    watch,
-    setValue,
     trigger,
+    getValues,
+    unregister,
+    reset,
     formState: { errors, isValid },
   } = useForm<DogAgeForm>({
-    defaultValues:
-      typeof age === 'string'
-        ? { birthday: new Date(age) }
-        : { months: age?.months, years: age?.years },
+    mode: 'all',
+    defaultValues,
   });
   const [tab, setTab] = React.useState<'Age' | 'Birthday'>(
     typeof age === 'string' ? 'Birthday' : 'Age'
@@ -57,17 +63,7 @@ export default function DogAgeFragment() {
     },
     [navigate, setDog, tab]
   );
-  const years = watch('years');
-  const months = watch('months');
-  useEffect(() => {
-    // If years is set and months is untouched or empty, set months to zero
-    if (years && (months === 0 || months === undefined)) {
-      setValue('months', 0, { shouldValidate: true });
-    }
-    if (months && (years === 0 || years === undefined)) {
-      setValue('years', 0, { shouldValidate: true });
-    }
-  }, [years, months, setValue]);
+
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <Container className="text-center">
@@ -81,11 +77,8 @@ export default function DogAgeFragment() {
               className={clsx('text-lg', tab === 'Age' ? 'font-bold' : '')}
               onClick={() => {
                 setTab('Age');
-                setValue('months', undefined, { shouldValidate: true });
-                setValue('birthday', undefined, { shouldValidate: true });
-                setValue('years', undefined, { shouldValidate: true });
-                trigger('months');
-                trigger('years');
+                unregister('birthday');
+                reset(defaultValues);
               }}
               label={t('enter-age')}
             />
@@ -94,11 +87,9 @@ export default function DogAgeFragment() {
               className={clsx('text-lg', tab === 'Birthday' ? 'font-bold' : '')}
               onClick={() => {
                 setTab('Birthday');
-                setValue('months', undefined, { shouldValidate: true });
-                setValue('birthday', undefined, { shouldValidate: true });
-                setValue('years', undefined, { shouldValidate: true });
-                trigger('months');
-                trigger('years');
+                unregister('years');
+                unregister('months');
+                reset(defaultValues);
               }}
               label={t('select-birthday')}
             />
@@ -111,19 +102,47 @@ export default function DogAgeFragment() {
                     name="years"
                     type="number"
                     control={control}
+                    disableErrorMessage
                     rules={{
-                      required: 'Years or months must be specified',
+                      required: {
+                        value: true,
+                        message: 'Years or months must be specified',
+                      },
+                      min: {
+                        value: 0,
+                        message: 'years and months cannot be zero',
+                      },
+                      max: {
+                        value: 35,
+                        message: 'years and months cannot be zero',
+                      },
                       validate: {
                         isAtLeastOneNonZero: () => {
-                          const formData = control._formValues;
-                          return formData.years > 0 || formData.months > 0;
+                          const values = getValues();
+                          if (values.years === undefined || values.months === undefined) {
+                            return false;
+                          }
+                          return values.years > 0 || values.months > 0;
+                        },
+                        under12Weeks: () => {
+                          const values = getValues();
+                          if (values.years === undefined || values.months === undefined) {
+                            return true;
+                          }
+                          const dateOfBirth = subYears(
+                            subMonths(new Date(), values.months),
+                            values.years
+                          );
+                          if (Math.abs(differenceInWeeks(dateOfBirth, new Date())) < 12) {
+                            return t('come-back-when-your-puppy-is-12-weeks-old');
+                          }
+                          return true;
                         },
                       },
-                      min: 0 || 'years and months cannot be zero',
-                      max: 35 || 'years and months cannot be zero',
                     }}
                     inputProps={{ min: 0, max: 35 }}
                     className="mr-2 w-20 [&_input]:text-center"
+                    onChange={() => trigger('months')}
                   />
                   <span className="body-3 ml-2">{t('years')}</span>
                 </div>
@@ -132,13 +151,38 @@ export default function DogAgeFragment() {
                     name="months"
                     type="number"
                     control={control}
+                    disableErrorMessage
                     rules={{
                       required: tab === 'Age',
                       min: 0,
                       max: 11,
+                      validate: {
+                        isAtLeastOneNonZero: () => {
+                          const values = getValues();
+                          if (values.years === undefined || values.months === undefined) {
+                            return false;
+                          }
+                          return values.years > 0 || values.months > 0;
+                        },
+                        under12Weeks: () => {
+                          const values = getValues();
+                          if (values.years === undefined || values.months === undefined) {
+                            return true;
+                          }
+                          const dateOfBirth = subYears(
+                            subMonths(new Date(), values.months),
+                            values.years
+                          );
+                          if (Math.abs(differenceInWeeks(dateOfBirth, new Date())) < 12) {
+                            return t('come-back-when-your-puppy-is-12-weeks-old');
+                          }
+                          return true;
+                        },
+                      },
                     }}
                     inputProps={{ min: 0, max: 11 }}
                     className="mr-2 w-20 [&_input]:text-center"
+                    onChange={() => trigger('years')}
                   />
                   <span className="body-3 ml-2">{t('months')}</span>
                 </div>
@@ -149,13 +193,31 @@ export default function DogAgeFragment() {
                 control={control}
                 name="birthday"
                 rules={{
-                  required: tab === 'Birthday',
+                  required: true,
+                  validate: {
+                    under12Weeks: (value) => {
+                      if (value === undefined) {
+                        return true;
+                      }
+                      if (Math.abs(differenceInWeeks(value, new Date())) < 12) {
+                        return t('come-back-when-your-puppy-is-12-weeks-old');
+                      }
+                      return true;
+                    },
+                  },
                 }}
                 error={!!errors.birthday}
                 maxDate={subDays(new Date(), 1)}
               />
             )}
-            <Button className="mt-8" disabled={!isValid || pending}>
+            {errors && (
+              <div className="mt-4">
+                <p className="body-3 text-error">
+                  {errors.years?.message || errors.months?.message || errors.birthday?.message}
+                </p>
+              </div>
+            )}
+            <Button className="mt-8" disabled={!isValid}>
               {t('continue')}
             </Button>
           </form>

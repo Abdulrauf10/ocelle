@@ -34,6 +34,7 @@ interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> 
     char?: string;
     guide?: boolean;
   };
+  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 }
 
 export default function TextField<T extends FieldValues>({
@@ -55,6 +56,7 @@ export default function TextField<T extends FieldValues>({
   FormHelperTextProps,
   sx,
   mask,
+  onChange: parentOnChange,
 }: TextFieldProps<T>) {
   if (mask?.pattern == null || (Array.isArray(mask.pattern) && mask.pattern.length === 0)) {
     return (
@@ -63,7 +65,7 @@ export default function TextField<T extends FieldValues>({
         control={control}
         rules={rules}
         disabled={disabled}
-        render={({ field: { value, ...field }, fieldState: { error } }) => (
+        render={({ field: { value, onChange, ...field }, fieldState: { error } }) => (
           <MuiTextField
             {...field}
             id={id}
@@ -80,6 +82,12 @@ export default function TextField<T extends FieldValues>({
             InputProps={InputProps}
             className={className}
             helperText={(!disableErrorMessage && error?.message) || helperText}
+            onChange={(e) => {
+              onChange(e);
+              if (parentOnChange && typeof parentOnChange === 'function') {
+                parentOnChange(e);
+              }
+            }}
           />
         )}
       />
@@ -102,7 +110,7 @@ export default function TextField<T extends FieldValues>({
       name={name}
       control={control}
       rules={rules}
-      render={({ field, fieldState: { error } }) => (
+      render={({ field: { onChange, ...field }, fieldState: { error } }) => (
         <MuiTextField
           {...field}
           type={type}
@@ -114,6 +122,12 @@ export default function TextField<T extends FieldValues>({
           InputProps={{
             ...InputProps,
             inputComponent: MaskInput,
+          }}
+          onChange={(e) => {
+            onChange(e);
+            if (parentOnChange && typeof parentOnChange === 'function') {
+              parentOnChange(e);
+            }
           }}
         />
       )}
