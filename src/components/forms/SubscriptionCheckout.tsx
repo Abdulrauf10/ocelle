@@ -155,6 +155,14 @@ export default function SubscriptionCheckoutForm({
     defaultValues: {
       ...defaultValues,
       isSameBillingAddress: true,
+      phone: {
+        code: '852',
+        value: '',
+      },
+      whatsapp: {
+        code: '852',
+        value: '',
+      },
       deliveryDate: closestDeliveryDate,
       billingAddress: {
         firstName: defaultValues?.firstName,
