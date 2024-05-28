@@ -1,5 +1,6 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
@@ -11,35 +12,35 @@ import useSentence from '@/hooks/useSentence';
 import { Link, useRouter } from '@/navigation';
 
 export default function CompletePage() {
+  const id = React.useId();
   const t = useTranslations();
   const sentence = useSentence();
   const router = useRouter();
-  const [ran, setRan] = React.useState(false);
-  const [deliveryDate, setDeliveryDate] = React.useState<Date>();
-
-  const startCleanUp = React.useCallback(async () => {
-    if (ran) {
-      return;
-    }
-    try {
-      setRan(true);
-      const deliveryDate = await getDeliveryDate();
-      if (!deliveryDate) {
-        throw new Error('delivery date is undefined');
-      }
-      setDeliveryDate(deliveryDate);
-      await dropCheckoutSession();
-    } catch (e) {
-      console.error(e);
-      router.replace('/');
-    }
-  }, [ran, router]);
+  const {
+    data: deliveryDate,
+    isLoading,
+    isError,
+  } = useQuery({
+    queryKey: ['completeDeliveryDate', id],
+    queryFn: async () => await getDeliveryDate(),
+    refetchInterval: false,
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+  });
 
   React.useEffect(() => {
-    startCleanUp();
-  }, [startCleanUp]);
+    if (deliveryDate) {
+      dropCheckoutSession();
+    }
+  }, [deliveryDate]);
 
-  if (!deliveryDate) {
+  if (isError) {
+    router.replace('/');
+    return;
+  }
+
+  if (isLoading || !deliveryDate) {
     return (
       <Container className="py-24 text-center">
         <Image
@@ -71,7 +72,7 @@ export default function CompletePage() {
       <p className="mt-4 text-primary">
         {t.rich('your-{}-will-be-delivered-on-the-{}', {
           value: t('order').toLowerCase(),
-          date: sentence.date(deliveryDate, true),
+          date: sentence.date(new Date(deliveryDate), true),
         })}
       </p>
     </Container>

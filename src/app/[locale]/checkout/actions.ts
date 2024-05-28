@@ -265,6 +265,10 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
   await setStoreDeliveryDate(checkout.id, value.deliveryDate);
 
   const { checkoutEmailUpdate } = await executeGraphQL(UpdateCheckoutEmailDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
     variables: {
       checkoutId: checkout.id,
       email: value.email,
@@ -343,6 +347,10 @@ export async function finalizeCheckout() {
   await new Promise((resolve) => setTimeout(resolve, 3000));
 
   const { checkoutComplete } = await executeGraphQL(CompleteCheckoutDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
     variables: {
       checkoutId: checkout.id,
     },
@@ -369,7 +377,7 @@ export async function getDeliveryDate() {
     return undefined;
   }
 
-  return deliveryDate;
+  return deliveryDate.toISOString();
 }
 
 export async function dropCheckoutSession() {
