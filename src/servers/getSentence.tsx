@@ -59,13 +59,17 @@ export default async function getSentence() {
       return array.join(t('comma')) + t('dot');
     },
     address(address: UserAddressFragment) {
-      return new Intl.ListFormat('en-US').format([
-        address.streetAddress1,
-        address.streetAddress2,
-        address.city,
-        address.countryArea,
-        address.country.country,
-      ]);
+      return new Intl.ListFormat('en-US').format(
+        address.streetAddress2.length === 0
+          ? [address.streetAddress1, address.city, address.countryArea, address.country.country]
+          : [
+              address.streetAddress1,
+              address.streetAddress2,
+              address.city,
+              address.countryArea,
+              address.country.country,
+            ]
+      );
     },
     date(date: Date, displayYear?: boolean) {
       const dateTimeFormat = new Intl.DateTimeFormat('en-US', {
