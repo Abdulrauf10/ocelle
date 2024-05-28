@@ -32,7 +32,6 @@ export default function DogPreference1Fragment() {
     handleSubmit,
     control,
     watch,
-    setError,
     formState: { errors, isValid },
   } = useForm<DogPreference1Form>({
     mode: 'onChange',

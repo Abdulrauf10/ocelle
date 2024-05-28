@@ -23,12 +23,15 @@ export default function DogFragment() {
   const navigate = useNavigate();
   const { setDog, getDog } = useSurvey();
   const { name } = getDog();
-  const [pending, startTransition] = React.useTransition();
   const {
     handleSubmit,
     control,
     formState: { isValid },
-  } = useForm<DogForm>({ defaultValues: { name } });
+  } = useForm<DogForm>({
+    defaultValues: {
+      name,
+    },
+  });
   const [showMoreDogs, setShowMoreDogs] = React.useState(false);
 
   const onSubmit = React.useCallback(
@@ -50,7 +53,7 @@ export default function DogFragment() {
               rules={{ required: true }}
               fullWidth
             />
-            <Button className="mt-10" disabled={!isValid || pending}>
+            <Button className="mt-10" disabled={!isValid}>
               {t('continue')}
             </Button>
           </form>

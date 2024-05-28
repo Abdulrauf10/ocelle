@@ -32,7 +32,6 @@ export default function DogBasicFragment() {
   const navigate = useNavigate();
   const { getDog, setDog } = useSurvey();
   const { name, breeds, sex, isNeutered, isUnknownBreed } = getDog();
-  const [pending, startTransition] = React.useTransition();
   const {
     handleSubmit,
     control,
@@ -181,7 +180,7 @@ export default function DogBasicFragment() {
               {t('spayed-and-neutered-dogs-require-fewer-calories')}
             </p>
           </Section>
-          <Button className="mt-10" disabled={!isValid || pending}>
+          <Button className="mt-10" disabled={!isValid}>
             {t('continue')}
           </Button>
         </form>

@@ -129,7 +129,7 @@
   "name": "Name",
   "your-dogs-name": "Your Dog’s Name",
   "i-have-more-dogs": "I Have More Dogs",
-  "i-have-more-dogs:reply": "Great! After you have finalised the details for your first dog,<br></br>you can click ‘<b>+ Add Another Dog</b>’ later in this quiz or in your account.<br></br>We’ll independently conduct the nutritional consultation for your other dog(s), as nutrition is not a one-size-fits-all affair...<br></br>and that is of course, reflected in their personalised meal plans.",
+  "i-have-more-dogs:reply": "Great! After you have finalised the details for your first dog, <br></br>you can click ‘<b>+ Add Another Dog</b>’ later in this quiz or in your account. <br></br>We’ll independently conduct the nutritional consultation for your other dog(s), as nutrition is not a one-size-fits-all affair...<br></br>and that is of course, reflected in their personalised meal plans.",
   "what-breed-is": "What breed is {name}?",
   "if-{}-is-a-mix-you-can-select-multiple-breeds": "If {name} is a mix, you can select multiple breeds.",
   "if-theyre-a-mix-you-can-select-multiple-breeds": "If they’re are a mix, you can select multiple breeds.",

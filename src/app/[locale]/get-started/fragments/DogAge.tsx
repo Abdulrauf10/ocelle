@@ -45,7 +45,7 @@ export default function DogAgeFragment() {
     reset,
     formState: { errors, isValid },
   } = useForm<DogAgeForm>({
-    mode: 'all',
+    mode: 'onChange',
     defaultValues,
   });
   const [tab, setTab] = React.useState<'Age' | 'Birthday'>(
@@ -78,7 +78,11 @@ export default function DogAgeFragment() {
               onClick={() => {
                 setTab('Age');
                 unregister('birthday');
-                reset(defaultValues);
+                reset({
+                  years: defaultValues.years ?? 0,
+                  months: defaultValues.months ?? 0,
+                  birthday: defaultValues.birthday,
+                });
               }}
               label={t('enter-age')}
             />
