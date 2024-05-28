@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import Stage from '../Stage';
 import { useSurvey } from '../SurveyContext';
-import { applyCoupon, finalizeOrder, updateOrderData } from '../actions';
+import { applyCoupon, finalizeDraftOrder, handleMutateDraftOrder } from '../actions';
 import { pageVariants } from '../transition';
 
 import AppThemeProvider from '@/components/AppThemeProvider';
@@ -69,8 +69,8 @@ export default function CheckoutFragment() {
             onEditTransitionPeriod={() =>
               navigate(Stage.RecommendedPlan, { state: { isEdit: true } })
             }
-            onBeforeTransaction={updateOrderData}
-            onCompleteTransaction={finalizeOrder}
+            onBeforeTransaction={handleMutateDraftOrder}
+            onCompleteTransaction={finalizeDraftOrder}
           />
         </StripeLoader>
       </AppThemeProvider>

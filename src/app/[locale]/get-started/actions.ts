@@ -36,6 +36,7 @@ import {
   calculateTotalPriceInBox,
   findProducts,
   getThrowableChannel,
+  updateDraftOrder,
   updateOrderAddress,
   upsertUser,
 } from '@/services/api';
@@ -391,23 +392,12 @@ export async function initializeStripeTranscation() {
 export async function applyCoupon({ coupon }: { coupon: string }) {
   const order = await getOrder();
 
-  const { draftOrderUpdate } = await executeGraphQL(UpdateDraftOrderDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: {
-      id: order.id,
-      input: {
-        voucherCode: coupon,
-      },
+  await updateDraftOrder({
+    id: order.id,
+    input: {
+      voucherCode: coupon,
     },
   });
-
-  if (!draftOrderUpdate || draftOrderUpdate.errors.length > 0) {
-    draftOrderUpdate && console.error(draftOrderUpdate.errors);
-    throw new Error('failed to add coupon to draft order');
-  }
 }
 
 async function findOrCreateUser({
@@ -465,7 +455,7 @@ interface Address {
   country: string;
 }
 
-interface UpdateOrderDataAction {
+interface HandleMutateDraftOrderAction {
   firstName: string;
   lastName: string;
   email: string;
@@ -496,7 +486,7 @@ const addressSchema = Joi.object({
   country: Joi.string().required(),
 });
 
-const schema = Joi.object<UpdateOrderDataAction>({
+const schema = Joi.object<HandleMutateDraftOrderAction>({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   email: Joi.string().required(),
@@ -517,7 +507,7 @@ const schema = Joi.object<UpdateOrderDataAction>({
   billingAddress: addressSchema,
 });
 
-export async function updateOrderData(data: UpdateOrderDataAction) {
+export async function handleMutateDraftOrder(data: HandleMutateDraftOrderAction) {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
   const headersList = headers();
@@ -561,23 +551,12 @@ export async function updateOrderData(data: UpdateOrderDataAction) {
   });
 
   if (!order.user) {
-    const { draftOrderUpdate } = await executeGraphQL(UpdateDraftOrderDocument, {
-      withAuth: false,
-      headers: {
-        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-      },
-      variables: {
-        id: order.id,
-        input: {
-          user: user.id,
-        },
+    await updateDraftOrder({
+      id: order.id,
+      input: {
+        user: user.id,
       },
     });
-
-    if (!draftOrderUpdate || draftOrderUpdate.errors.length > 0) {
-      draftOrderUpdate && console.error(draftOrderUpdate.errors);
-      throw new Error('failed to attach a user to the draft order');
-    }
   } else if (order.user.id !== user.id) {
     throw new Error('incorrect user id of the current draft order');
   }
@@ -599,7 +578,7 @@ export async function updateOrderData(data: UpdateOrderDataAction) {
   }
 }
 
-export async function finalizeOrder(paymentMethodId: string) {
+export async function finalizeDraftOrder(paymentMethodId: string) {
   try {
     const order = await getOrder();
     const surveyDogs = await getStoreDogs(order.id);
@@ -624,23 +603,12 @@ export async function finalizeOrder(paymentMethodId: string) {
       throw new Error('checkout is not linked with user, please contact ocelle for more.');
     }
 
-    const { draftOrderUpdate } = await executeGraphQL(UpdateDraftOrderDocument, {
-      withAuth: false,
-      headers: {
-        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-      },
-      variables: {
-        id: order.id,
-        input: {
-          shippingMethod: order.shippingMethods[0].id,
-        },
+    await updateDraftOrder({
+      id: order.id,
+      input: {
+        shippingMethod: order.shippingMethods[0].id,
       },
     });
-
-    if (!draftOrderUpdate || draftOrderUpdate.errors.length > 0) {
-      draftOrderUpdate && console.error(draftOrderUpdate.errors);
-      throw new Error('failed to update shipping method');
-    }
 
     // we need to wait for the payment hook to be called before completing the checkout
     await awaitable(

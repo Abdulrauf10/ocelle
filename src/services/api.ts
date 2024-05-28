@@ -31,6 +31,7 @@ import {
   ProductFragment,
   RegisterAccountDocument,
   UpdateDraftOrderDocument,
+  UpdateDraftOrderMutationVariables,
 } from '@/gql/graphql';
 import { subscriptionProducts } from '@/products';
 import { BreedDto } from '@/types/dto';
@@ -349,6 +350,21 @@ async function findSubscriptionShippingMethod() {
   }
 
   return shippingMethod;
+}
+
+export async function updateDraftOrder(variables: UpdateDraftOrderMutationVariables) {
+  const { draftOrderUpdate } = await executeGraphQL(UpdateDraftOrderDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables,
+  });
+
+  if (!draftOrderUpdate || draftOrderUpdate.errors.length > 0) {
+    draftOrderUpdate && console.error(draftOrderUpdate.errors);
+    throw new Error('cannot update the draft order');
+  }
 }
 
 export async function orderRecurringBox(
