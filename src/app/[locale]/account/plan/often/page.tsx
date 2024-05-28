@@ -1,5 +1,4 @@
 import { getTranslations } from 'next-intl/server';
-import { cookies } from 'next/headers';
 import React from 'react';
 
 import DogSwitch from '../../DogSwitch';
@@ -15,10 +14,9 @@ import { Frequency } from '@/enums';
 import { calculateTotalPerDayPrice } from '@/services/api';
 
 export default async function PlanOften() {
-  const cookie = cookies();
   const t = await getTranslations();
-  const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
   const { dogs } = await getLoginedMe();
+  const currentSelectedDogId = await getCurrentSelectedDogIdCookie(dogs[0].id);
   const dog = currentSelectedDogId
     ? dogs.find((dog) => dog.id === currentSelectedDogId) || dogs[0]
     : dogs[0];

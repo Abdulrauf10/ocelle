@@ -129,7 +129,7 @@ export async function deleteOrderCookie() {
   return getNextServerCookiesStorage().removeItem(ORDER_COOKIE);
 }
 
-export async function getCurrentSelectedDogIdCookie() {
+export async function getCurrentSelectedDogIdCookie(defaultValue: number) {
   const value = cookies().get(DOG_SELECT_COOKIE)?.value;
   if (value) {
     try {
@@ -137,5 +137,8 @@ export async function getCurrentSelectedDogIdCookie() {
     } catch (e) {
       //
     }
+  } else {
+    cookies().set(DOG_SELECT_COOKIE, defaultValue.toString());
+    return defaultValue;
   }
 }

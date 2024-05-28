@@ -12,8 +12,8 @@ import RecurringBoxNote from '@/components/notes/RecurringBox';
 
 export default async function PlanRecipe() {
   const t = await getTranslations();
-  const currentSelectedDogId = await getCurrentSelectedDogIdCookie();
   const { dogs } = await getLoginedMe();
+  const currentSelectedDogId = await getCurrentSelectedDogIdCookie(dogs[0].id);
   const dog = currentSelectedDogId
     ? dogs.find((dog) => dog.id === currentSelectedDogId) || dogs[0]
     : dogs[0];
