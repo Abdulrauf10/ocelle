@@ -15,6 +15,7 @@ import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import PictureRadio from '@/components/controls/PictureRadio';
+import { useAuth } from '@/contexts/auth';
 import { AmountOfTreats, Pickiness } from '@/enums';
 import {
   arrayToAllergies,
@@ -35,6 +36,7 @@ interface DogPreference2Form {
 export default function DogPreference2Fragment() {
   const t = useTranslations();
   const navigate = useNavigate();
+  const auth = useAuth();
   const { getDog, setDog, currentDogIdx } = useSurvey();
   const { name, foodAllergies, currentEating, amountOfTreats, pickiness } = getDog();
   const {
@@ -67,10 +69,10 @@ export default function DogPreference2Fragment() {
         amountOfTreats,
         pickiness,
       });
-      if (currentDogIdx === 0) navigate(Stage.Owner);
+      if (currentDogIdx === 0 && !auth.me) navigate(Stage.Owner);
       else navigate(Stage.Calculating);
     },
-    [currentDogIdx, navigate, setDog]
+    [currentDogIdx, navigate, setDog, auth.me]
   );
 
   return (
