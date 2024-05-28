@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { differenceInWeeks, subDays, subMonths, subYears } from 'date-fns';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 

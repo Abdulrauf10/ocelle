@@ -490,7 +490,7 @@ const addressSchema = Joi.object({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   streetAddress1: Joi.string().required(),
-  streetAddress2: Joi.string().required(),
+  streetAddress2: Joi.string().required().allow(''),
   district: Joi.string().required(),
   region: Joi.string().required(),
   country: Joi.string().required(),

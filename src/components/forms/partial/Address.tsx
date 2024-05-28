@@ -106,7 +106,6 @@ export default function PartialAddressForm<T extends FieldValues>({
           name={getPath('streetAddress2')}
           label={t('address-line-2')}
           control={control}
-          rules={{ required: !disabled }}
           disabled={disabled}
           fullWidth
         />

@@ -135,6 +135,12 @@ export default function GuestCheckoutForm({
       },
       isSameBillingAddress: true,
       deliveryDate: minDeliveryDate,
+      deliveryAddress: {
+        streetAddress2: '',
+      },
+      billingAddress: {
+        streetAddress2: '',
+      },
     },
   });
   const datePickerRef = React.useRef<HTMLDivElement | null>(null);

@@ -167,10 +167,12 @@ export default function SubscriptionCheckoutForm({
       billingAddress: {
         firstName: defaultValues?.firstName,
         lastName: defaultValues?.lastName,
+        streetAddress2: '',
       },
       deliveryAddress: {
         firstName: defaultValues?.firstName,
         lastName: defaultValues?.lastName,
+        streetAddress2: '',
       },
     },
   });

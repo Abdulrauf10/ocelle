@@ -42,7 +42,7 @@ export default function DeliveryAddressForm({
     firstName,
     lastName,
     streetAddress1,
-    streetAddress2,
+    streetAddress2: streetAddress2 ?? '',
     district,
     region,
     country,

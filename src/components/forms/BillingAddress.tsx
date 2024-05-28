@@ -37,7 +37,7 @@ export default function BillingAddressForm({
     firstName,
     lastName,
     streetAddress1,
-    streetAddress2,
+    streetAddress2: streetAddress2 ?? '',
     district,
     region,
     country,
