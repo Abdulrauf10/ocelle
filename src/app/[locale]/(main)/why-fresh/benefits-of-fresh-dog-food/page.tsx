@@ -206,8 +206,8 @@ export default function BenefitsOfFreshDogFood() {
           <Toggler
             title={
               <BenefitsTitle
-                width={39}
-                height={49}
+                width={47}
+                height={48}
                 icon="benefits-3.svg"
                 title={i.rich('block-4-benefits-3-title')}
               />
@@ -222,7 +222,7 @@ export default function BenefitsOfFreshDogFood() {
             title={
               <BenefitsTitle
                 width={47}
-                height={48}
+                height={60}
                 icon="benefits-4.svg"
                 title={i.rich('block-4-benefits-4-title')}
               />
@@ -242,8 +242,8 @@ export default function BenefitsOfFreshDogFood() {
           <Toggler
             title={
               <BenefitsTitle
-                width={47}
-                height={60}
+                width={50}
+                height={48}
                 icon="benefits-5.svg"
                 title={i.rich('block-4-benefits-5-title')}
               />
