@@ -42,13 +42,13 @@ export default function Benefits() {
       </div>
       <div className="mt-10 w-[30%] max-w-[400px] p-5 max-lg:w-1/3 max-lg:p-[10px] max-md:w-full">
         <div className="relative h-full rounded-[20px] border border-gray p-6">
-          <div className="absolute -top-[32px] left-1/2 w-[96px] -translate-x-1/2 bg-white">
+          <div className="absolute -top-[30px] left-1/2 w-[128px] -translate-x-1/2 bg-white">
             <Image
               src="/question/icon-3.svg"
               alt="hot food"
               width={96}
-              height={50}
-              className="min-h-[60px] min-w-[96px]"
+              height={60}
+              className="m-auto min-w-[96px]"
             />
           </div>
           <div className="mt-3"></div>
