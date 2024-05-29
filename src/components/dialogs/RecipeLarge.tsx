@@ -65,7 +65,7 @@ export default function RecipeLargeDialog({
               <div className="w-full p-3">
                 <div className="w-full min-w-[420px] max-lg:min-w-[340px] max-sm:min-w-0">
                   <div className="relative overflow-hidden rounded-[30px] pt-[100%]">
-                    <Image src={recipePicture} alt={recipe} fill />
+                    <Image src={recipePicture} alt={recipe} fill unoptimized />
                   </div>
                 </div>
               </div>

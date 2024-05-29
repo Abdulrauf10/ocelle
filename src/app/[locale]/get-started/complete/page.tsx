@@ -52,6 +52,7 @@ export default function ThankYouPage() {
           width={200}
           height={200}
           className="inline-block"
+          unoptimized
         />
         <div className="mt-8"></div>
         <h1 className="heading-4 font-bold text-primary">{t('processing-your-order')}</h1>
