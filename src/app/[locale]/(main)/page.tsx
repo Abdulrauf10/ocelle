@@ -252,7 +252,7 @@ export default function Home() {
           </div>
         </Container>
       </Block>
-      <div className="bg-[url('./recommended-plan-bg.jpg')] bg-cover bg-center py-40 max-md:py-16">
+      <div className="bg-gold bg-opacity-10 bg-[url('./recommended-plan-bg.jpg')] bg-cover bg-center py-40 max-md:bg-none max-md:py-16">
         <Container>
           <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-8 py-12 text-center shadow-backdrop sm:p-16 md:px-[8px]">
             <div className="heading-3 heading-weight-2 text-primary">{t('block-7-title')}</div>
@@ -264,6 +264,7 @@ export default function Home() {
           </div>
         </Container>
       </div>
+      <div className="bg-[url('./recommended-plan-bg-mb.jpg')] bg-[size:auto_100%] bg-center bg-no-repeat pt-[75%] md:hidden"></div>
       <Newsletter />
     </main>
   );
