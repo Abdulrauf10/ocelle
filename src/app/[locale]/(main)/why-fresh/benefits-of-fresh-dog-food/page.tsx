@@ -22,15 +22,17 @@ function BenefitsTitle({
   title: React.ReactNode;
 }) {
   return (
-    <div className="heading-4 flex items-center justify-center text-center font-bold text-primary max-sm:flex-col">
-      <Image
-        src={`/why-fresh/${icon}`}
-        alt=""
-        width={width}
-        height={height}
-        className="mr-5 inline-block max-sm:mb-2 max-sm:mr-0"
-      />
-      {title}
+    <div className="heading-4 flex items-center justify-center text-center font-bold text-primary max-sm:flex-col sm:pl-[80px]">
+      <div className="relative inline-block sm:py-3">
+        <Image
+          src={`/why-fresh/${icon}`}
+          alt=""
+          width={width}
+          height={height}
+          className="mr-5 inline-block max-sm:mb-2 max-sm:mr-0 sm:absolute sm:right-[100%] sm:top-1/2 sm:-translate-y-1/2"
+        />
+        <p>{title}</p>
+      </div>
     </div>
   );
 }
@@ -43,7 +45,7 @@ export default function BenefitsOfFreshDogFood() {
 
   return (
     <main>
-      <Block className="bg-[#f6ece1]">
+      <Block className="overflow-hidden bg-[#f6ece1]">
         <Container>
           <h1 className="heading-headline heading-weight-1 text-center text-brown">
             {i.rich('block-1-title')}
@@ -51,7 +53,7 @@ export default function BenefitsOfFreshDogFood() {
           <div className="mt-6"></div>
           <p className="body-1 text-center">{i.rich('block-1-content-1')}</p>
           <div className="mx-auto -mb-[3%] mt-6 max-w-[1200px]">
-            <div className="relative pt-[56%]">
+            <div className="relative pt-[56%] max-md:mt-[12%] max-md:scale-[1.25]">
               <Image src="/why-fresh/a-running-dog.jpg" alt="running dog" fill />
             </div>
           </div>
@@ -75,13 +77,13 @@ export default function BenefitsOfFreshDogFood() {
           </div>
         }
         right={
-          <div className="relative ml-auto max-w-[480px] max-md:mx-auto">
+          <div className="relative mx-auto max-w-[480px] max-md:mx-auto">
             <div className="pt-[100%]">
               <Image
                 src="/why-fresh/fresh-food-diet.png"
                 alt=""
                 fill
-                className="object-contain object-[right_calc(50%_+_15px)] max-md:object-[calc(50%_+_15px)_calc(50%_+_15px)]"
+                className="object-contain object-[right_calc(50%_+_14px)] max-md:object-[calc(50%_+_14px)_calc(50%_+_14px)]"
               />
             </div>
           </div>
@@ -90,11 +92,12 @@ export default function BenefitsOfFreshDogFood() {
       <Block className="bg-gold bg-opacity-15">
         <Container>
           <h2 className="heading-1 text-center font-bold text-gold">{i.rich('block-3-title')}</h2>
-          <div className="-mx-4 mt-14 flex items-center max-md:flex-col">
-            <div className="mx-4 flex-1 max-md:mb-6">
-              <div className="ml-4 mr-10 rounded-[40px] border-[3px] border-gold bg-white px-12 py-8 max-xl:ml-0 max-xl:mr-4 max-md:max-w-xl">
+          <div className="-mx-4 flex items-center pt-normal max-md:flex-col">
+            <div className="mx-4 flex-1">
+              <div className="ml-4 mr-10 rounded-[40px] border-[3px] border-gold bg-white px-12 py-10 max-xl:ml-0 max-xl:mr-4 max-md:mr-0 max-md:max-w-xl max-md:px-6">
                 <p className="heading-4 text-center italic text-gold">{i.rich('block-3-quota')}</p>
                 <div className="mt-4"></div>
+                <p className="font-baskerville"></p>
                 <p className="body-1 text-center text-gold">{i.rich('block-3-quota-person')}</p>
                 <div className="mt-6 flex">
                   <div className="flex-1 text-center">
@@ -130,11 +133,10 @@ export default function BenefitsOfFreshDogFood() {
                 </div>
               </div>
             </div>
-            <div className="mx-4 flex-1 max-md:text-center">
+            <div className="max-md:mt-normal mx-4 flex-1 max-md:text-center">
               <p className="body-1">{i.rich('block-3-content-1')}</p>
-              <Button className="mt-8" href="/why-fresh/its-time-to-rethink-kibble">
-                {t('learn-more')}
-              </Button>
+              <div className="mt-normal"></div>
+              <Button href="/why-fresh/its-time-to-rethink-kibble">{t('learn-more')}</Button>
             </div>
           </div>
         </Container>
@@ -232,7 +234,13 @@ export default function BenefitsOfFreshDogFood() {
             <div className="mt-6"></div>
             <p className="body-1">
               {i.rich('block-4-benefits-4-content-2', {
-                button: (chunks) => <UnderlineButton label={chunks} underline />,
+                button: (chunks) => (
+                  <UnderlineButton
+                    label={chunks}
+                    href="/why-fresh/its-time-to-rethink-kibble"
+                    underline
+                  />
+                ),
               })}
             </p>
             <div className="mt-6"></div>
@@ -256,11 +264,11 @@ export default function BenefitsOfFreshDogFood() {
             <p className="body-1">{i.rich('block-4-benefits-5-content-3')}</p>
             <div className="mt-6"></div>
             <p className="body-1">{i.rich('block-4-benefits-5-content-4')}</p>
-            <div className="-mx-4 mt-6 flex">
-              <p className="flex-1 px-4">
+            <div className="-mx-4 -my-2 mt-6 flex flex-wrap justify-center">
+              <p className="min-w-80 flex-1 px-4 py-2">
                 <span className="body-1">{i.rich('block-4-benefits-5-content-5')}</span>
               </p>
-              <div className="flex px-4">
+              <div className="flex px-4 py-2">
                 <div className="flex-1 text-center">
                   <Image
                     src="/why-fresh/chicken-recipe-light.png"
@@ -354,7 +362,12 @@ export default function BenefitsOfFreshDogFood() {
           <div className="mt-4"></div>
           <p className="body-1 text-center">
             {w.rich('block-1-content-1', {
-              button: (chunks) => <UnderlineButton label={chunks} href="/why-fresh/reference" />,
+              button: (chunks) => (
+                <UnderlineButton
+                  label={chunks}
+                  href="/why-fresh/reference#benefits-of-fresh-dog-food"
+                />
+              ),
             })}
           </p>
           <div className="-mx-6 flex flex-wrap items-stretch pt-normal max-lg:-mx-3">

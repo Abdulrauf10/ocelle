@@ -24,6 +24,7 @@ const config: Config = {
         'how-it-works-yellow': '#FCBB00',
         'how-it-works-green': '#93D06D',
         'how-it-works-dark-green': '#269D9E',
+        'why-fresh-dark-green': '#0D889D',
       },
       boxShadow: {
         block: '5px 5px 20px rgba(0, 0, 0, 0.2)',
@@ -50,11 +51,16 @@ const config: Config = {
         },
       },
       fontFamily: {
+        baskerville: ['baskerville', 'emoji', 'serif'],
         jost: ['var(--font-jost)', ...defaultTheme.fontFamily.sans],
         'open-sans': ['var(--font-open-sans)', ...defaultTheme.fontFamily.sans],
         zh: ['"PingFang HK"', 'var(--font-noto-sans-tc)', ...defaultTheme.fontFamily.sans],
       },
       padding: {
+        tight: 'clamp(40px,2.4vw,50px)',
+        normal: 'clamp(40px,3.5vw,80px)',
+      },
+      margin: {
         tight: 'clamp(40px,2.4vw,50px)',
         normal: 'clamp(40px,3.5vw,80px)',
       },

@@ -40,15 +40,17 @@ function ConcernTitle({
   title: React.ReactNode;
 }) {
   return (
-    <div className="heading-4 flex items-center justify-center text-center font-bold text-primary max-sm:flex-col">
-      <Image
-        src={`/why-fresh/${icon}`}
-        alt=""
-        width={width}
-        height={height}
-        className="mr-5 inline-block max-sm:mb-2 max-sm:mr-0"
-      />
-      {title}
+    <div className="heading-4 flex items-center justify-center text-center font-bold text-primary max-sm:flex-col sm:pl-[80px]">
+      <div className="relative inline-block sm:py-3">
+        <Image
+          src={`/why-fresh/${icon}`}
+          alt=""
+          width={width}
+          height={height}
+          className="mr-5 inline-block max-sm:mb-2 max-sm:mr-0 sm:absolute sm:right-[100%] sm:top-1/2 sm:-translate-y-1/2"
+        />
+        <p>{title}</p>
+      </div>
     </div>
   );
 }
@@ -119,8 +121,8 @@ export default function ItsTimeToRethinkKibble() {
 
   return (
     <main>
-      <Block className="bg-[#f6ece0] bg-[url('./its-time-to-rethink-kibble-bg.jpg')] bg-[length:auto_100%] bg-center">
-        <Container className="pb-[clamp(420px,30%,650px)]">
+      <Block className="bg-[#f6ece0] bg-[url('./its-time-to-rethink-kibble-bg.jpg')] bg-[length:auto_100%] bg-center bg-no-repeat max-xs:bg-[length:auto_88%] max-xs:bg-[52%_bottom]">
+        <Container className="pb-[clamp(420px,30%,650px)] max-xs:pb-[340px]">
           <h1 className="heading-headline heading-weight-1 text-center text-brown">
             {i.rich('block-1-title')}
           </h1>
@@ -175,7 +177,7 @@ export default function ItsTimeToRethinkKibble() {
               </div>
             </div>
             <div className="mx-4 flex-1 max-md:mt-8">
-              <div className="ml-4 rounded-[40px] border-[3px] border-gold bg-white px-12 py-8 max-md:ml-0">
+              <div className="ml-4 rounded-[40px] border-[3px] border-gold bg-white px-12 py-10 max-md:ml-0 max-md:px-6">
                 <p className="heading-4 text-center italic text-gold">{i.rich('block-2-quota')}</p>
                 <div className="mt-4"></div>
                 <p className="body-1 text-center text-gold">{i.rich('block-2-quota-person')}</p>
@@ -193,7 +195,7 @@ export default function ItsTimeToRethinkKibble() {
       </Block>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <h2 className="heading-1 text-center font-bold text-dark-green">
+          <h2 className="heading-1 text-why-fresh-dark-green text-center font-bold">
             {i.rich('block-4-title')}
           </h2>
           <Swiper
@@ -204,8 +206,8 @@ export default function ItsTimeToRethinkKibble() {
             pagination={{
               dynamicBullets: false,
               clickable: true,
-              bulletClass: 'swiper-pagination-bullet !border-dark-green',
-              bulletActiveClass: 'swiper-pagination-bullet-active !bg-dark-green',
+              bulletClass: 'swiper-pagination-bullet !border-why-fresh-dark-green',
+              bulletActiveClass: 'swiper-pagination-bullet-active !bg-why-fresh-dark-green',
             }}
             className="mt-10"
             wrapperClass="pb-20"
@@ -258,7 +260,7 @@ export default function ItsTimeToRethinkKibble() {
                 icon={<Image src="/why-fresh/aafco-light.jpg" alt="" width={210} height={66} />}
                 source={
                   <>
-                    AAFCO<sup>6</sup>
+                    AAFCO<sup>7</sup>
                   </>
                 }
               >
@@ -282,7 +284,7 @@ export default function ItsTimeToRethinkKibble() {
                 icon={<Image src="/why-fresh/aafco-dark.jpg" alt="" width={210} height={66} />}
                 source={
                   <>
-                    AAFCO<sup>6</sup>
+                    AAFCO<sup>8</sup>
                   </>
                 }
               >
@@ -447,7 +449,11 @@ export default function ItsTimeToRethinkKibble() {
           >
             <p className="body-1">{i.rich('block-5-mark-4-content-1')}</p>
             <div className="mt-6"></div>
-            <p className="body-1">{i.rich('block-5-mark-4-content-2')}</p>
+            <p className="body-1">
+              {i.rich('block-5-mark-4-content-2', {
+                h: (chunks) => <span className="text-secondary">{chunks}</span>,
+              })}
+            </p>
             <div className="mt-6"></div>
             <p className="body-1">{i.rich('block-5-mark-4-content-3')}</p>
           </Toggler>
@@ -482,7 +488,7 @@ export default function ItsTimeToRethinkKibble() {
             <h2 className="heading-1 relative text-center font-bold text-brown">
               {i.rich('block-6-title')}
             </h2>
-            <hr className="my-10" />
+            <hr className="my-10 border-brown" />
             <div className="relative mx-auto !max-w-4xl">
               <p className="body-1 text-center">{i.rich('block-6-content-1')}</p>
               <div className="mt-6"></div>
@@ -498,6 +504,8 @@ export default function ItsTimeToRethinkKibble() {
           <h2 className="heading-1 font-bold text-white">{i.rich('block-7-title')}</h2>
           <div className="mt-6"></div>
           <p className="body-1 text-white">{i.rich('block-7-content-1')}</p>
+          <div className="mt-1 max-md:mt-4"></div>
+          <p className="body-1 text-white">{i.rich('block-7-content-2')}</p>
           <Button className="mt-8" href="/get-started">
             {b('try-it-today')}
           </Button>
@@ -509,7 +517,12 @@ export default function ItsTimeToRethinkKibble() {
           <div className="mt-4"></div>
           <p className="body-1 text-center">
             {w.rich('block-1-content-1', {
-              button: (chunks) => <UnderlineButton label={chunks} href="/why-fresh/reference" />,
+              button: (chunks) => (
+                <UnderlineButton
+                  label={chunks}
+                  href="/why-fresh/reference#its-time-to-rethink-kibble"
+                />
+              ),
             })}
           </p>
           <div className="-mx-6 flex flex-wrap items-stretch pt-normal max-lg:-mx-3">

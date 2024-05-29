@@ -12,6 +12,7 @@ export default function WhyFreshReference() {
         <Container>
           <h1 className="heading-2 font-bold text-primary">{i('title')}</h1>
           <div className="mt-10"></div>
+          <div id="benefits-of-fresh-dog-food" className="relative -top-[140px]"></div>
           <h2 className="border-b pb-5 text-primary">
             <span className="heading-4">{i('block-1-title')}</span>
           </h2>
@@ -44,6 +45,7 @@ export default function WhyFreshReference() {
       </Block>
       <Block className="bg-gold bg-opacity-[12%]">
         <Container>
+          <div id="its-time-to-rethink-kibble" className="relative -top-[140px]"></div>
           <h2 className="border-b pb-5 text-gold">
             <span className="heading-4">{i('block-2-title')}</span>
           </h2>
@@ -78,6 +80,7 @@ export default function WhyFreshReference() {
       </Block>
       <Block className="bg-dark-green bg-opacity-[12%]">
         <Container>
+          <div id="raw-dog-food-vs-gently-cooked" className="relative -top-[140px]"></div>
           <h2 className="border-b pb-5 text-dark-green">
             <span className="heading-4">{i('block-3-title')}</span>
           </h2>
@@ -106,6 +109,10 @@ export default function WhyFreshReference() {
       </Block>
       <Block className="bg-gray bg-opacity-[12%]">
         <Container>
+          <div
+            id="challenges-with-home-cooking-for-your-dog"
+            className="relative -top-[140px]"
+          ></div>
           <h2 className="border-b pb-5 text-gray">
             <span className="heading-4">{i('block-4-title')}</span>
           </h2>

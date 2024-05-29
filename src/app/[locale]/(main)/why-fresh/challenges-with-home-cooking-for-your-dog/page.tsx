@@ -29,8 +29,8 @@ export default function ChallengesWithHomeCookingForYourDog() {
 
   return (
     <main>
-      <Block className="bg-[url('./challenges-with-home-cooking-for-your-dog-bg.jpg')] bg-[length:auto_100%] bg-center">
-        <Container className="pb-[clamp(420px,30%,650px)]">
+      <Block className="bg-[url('./challenges-with-home-cooking-for-your-dog-bg.jpg'),_linear-gradient(90deg,#d4ebed_50%,#bee2e2_50%)] bg-[length:auto_100%] bg-center bg-no-repeat max-md:bg-[#c9e7e8] max-md:bg-[length:auto_90%] max-md:bg-bottom max-xs:bg-[length:auto_70%]">
+        <Container className="pb-[clamp(420px,30%,650px)] max-md:pb-[360px] max-xs:pb-[200px]">
           <h1 className="heading-headline heading-weight-1 text-center text-dark-green">
             {i.rich('block-1-title')}
           </h1>
@@ -77,7 +77,9 @@ export default function ChallengesWithHomeCookingForYourDog() {
               <Arrow />
               <span>
                 {i.rich('block-3-mark-4-content', {
-                  button: (chunks) => <UnderlineButton label={chunks} />,
+                  button: (chunks) => (
+                    <UnderlineButton label={chunks} href="/why-fresh/benefits-of-fresh-dog-food" />
+                  ),
                 })}
               </span>
             </p>
@@ -115,7 +117,12 @@ export default function ChallengesWithHomeCookingForYourDog() {
           <div className="mt-4"></div>
           <p className="body-1 text-center">
             {w.rich('block-1-content-1', {
-              button: (chunks) => <UnderlineButton label={chunks} href="/why-fresh/reference" />,
+              button: (chunks) => (
+                <UnderlineButton
+                  label={chunks}
+                  href="/why-fresh/reference#challenges-with-home-cooking-for-your-dog"
+                />
+              ),
             })}
           </p>
           <div className="-mx-6 flex flex-wrap items-stretch pt-normal max-lg:-mx-3">
