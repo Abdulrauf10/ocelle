@@ -14,6 +14,7 @@ import { getBoxPrices } from '../actions';
 import { pageVariants } from '../transition';
 
 import Container from '@/components/Container';
+import PlasticBoxPreview from '@/components/PlasticBoxPreview';
 import Price from '@/components/Price';
 import Button from '@/components/buttons/Button';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
@@ -204,8 +205,8 @@ export default function RecommendedPlanFragment() {
         >
           <div className="-mb-[clamp(16px,2.4vw,30px)] bg-[#F8F3EB] pb-[40px] pt-5">
             <Container>
-              <div className="flex justify-center">
-                <div className="">
+              <div className="-mx-2 flex justify-center">
+                <div className="px-2">
                   <p className="body-3 text-primary">
                     {t.rich(
                       'feel-free-to-adjust-{}-meal-plan-by-selecting-from-up-to-suitable-recipes-below',
@@ -418,24 +419,22 @@ export default function RecommendedPlanFragment() {
                       />
                     </div>
                     <div className="mt-5 flex items-center px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
-                      <div className="relative w-full pt-[100%]">
-                        <Image
-                          src="/ocelle-food.png"
-                          alt="ocelle food"
-                          fill
-                          className="object-contain"
+                      <div className="relative w-full">
+                        <PlasticBoxPreview
+                          name={name!}
+                          recipe1={recipes.recipe1 ?? Recipe.Pork}
+                          recipe2={recipes.recipe2}
                         />
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="flex flex-auto items-center max-xl:hidden">
-                  <div className="relative w-full pt-[112.8%]">
-                    <Image
-                      src="/ocelle-food.png"
-                      alt="ocelle food"
-                      fill
-                      className="object-contain"
+                <div className="flex-auto px-2 max-xl:hidden">
+                  <div className="flex h-full items-center pt-[40px]">
+                    <PlasticBoxPreview
+                      name={name!}
+                      recipe1={recipes.recipe1 ?? Recipe.Pork}
+                      recipe2={recipes.recipe2}
                     />
                   </div>
                 </div>
