@@ -20,7 +20,7 @@ export default function Picture() {
     <div className="bg-[#e6e6e6] bg-[url('./banner-bg.svg')] bg-[length:auto_100%] bg-center bg-repeat-x">
       <Container className="max-md:px-0">
         <div className="flex flex-wrap items-center max-md:flex-col-reverse">
-          <div className="relative w-3/5 py-[5vw] pr-0 text-primary max-md:w-full max-md:border-t-[10px] max-md:border-primary max-md:p-[30px]">
+          <div className="relative flex-1 py-[5vw] pr-0 text-primary max-md:w-full max-md:border-t-[10px] max-md:border-primary max-md:p-[30px]">
             <h1 className="heading-headline heading-weight-1">{t.rich('block-1-title-1')}</h1>
             <div className="my-6"></div>
             <List
@@ -43,8 +43,8 @@ export default function Picture() {
               </Button>
             </div>
           </div>
-          <div className="w-2/5 self-end max-md:w-full">
-            <div className="w-3/4 overflow-hidden max-md:m-auto">
+          <div className="w-[500px] self-end max-xl:w-[375px] max-md:w-full">
+            <div className="w-3/4 overflow-hidden max-xl:w-full max-md:m-auto">
               <motion.div
                 ref={dogRef}
                 initial={{ opacity: 0, y: 50 }}
