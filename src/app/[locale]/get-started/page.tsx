@@ -24,20 +24,7 @@ import AppThemeProvider from '@/components/AppThemeProvider';
 
 export default function GetStarted() {
   return (
-    <AppThemeProvider
-      theme={{
-        components: {
-          MuiAutocomplete: {
-            styleOverrides: {
-              inputRoot: {
-                paddingTop: 3,
-                paddingBottom: 3,
-              },
-            },
-          },
-        },
-      }}
-    >
+    <AppThemeProvider>
       <SurveyContextProvider>
         <MemoryRouter>
           <View>

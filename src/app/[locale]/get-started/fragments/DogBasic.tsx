@@ -12,6 +12,7 @@ import Stage from '../Stage';
 import { useSurvey } from '../SurveyContext';
 import { pageVariants } from '../transition';
 
+import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import CircleCheckbox from '@/components/controls/CircleCheckbox';
@@ -67,124 +68,143 @@ export default function DogBasicFragment() {
   );
 
   return (
-    <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
-      <Container className="text-center">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Section
-            title={t('what-breed-is', { name })}
-            description={t('if-{}-is-a-mix-you-can-select-multiple-breeds', { name })}
-          >
-            <div className="mx-auto max-w-[480px]">
-              <Controller
-                name="breeds"
-                control={control}
-                rules={{ required: !watch('isUnknownBreed', isUnknownBreed ?? false) }}
-                render={({ field: { onChange, ...field } }) => (
-                  <Autocomplete
-                    multiple
-                    fullWidth
-                    options={options || []}
-                    loading={isLoading}
-                    getOptionLabel={(option) => option.name}
-                    freeSolo={false}
-                    getOptionDisabled={(option) => watch('breeds').length > 1}
-                    isOptionEqualToValue={(option, value) => option.id === value.id}
-                    renderInput={(params) => (
-                      <TextField
-                        {...params}
-                        placeholder={watch('breeds').length == 0 ? t('start-typing-the-breed') : ''}
-                        error={!!errors.breeds}
-                      />
-                    )}
-                    disabled={watch('isUnknownBreed', isUnknownBreed ?? false)}
-                    renderTags={(tagValue, getTagProps, state) =>
-                      tagValue.map((option, index) => (
-                        <Chip
-                          {...getTagProps({ index })}
-                          key={option.id}
-                          label={state.getOptionLabel(option)}
+    <AppThemeProvider
+      theme={{
+        components: {
+          MuiAutocomplete: {
+            styleOverrides: {
+              inputRoot: {
+                paddingTop: 3,
+                paddingBottom: 3,
+              },
+            },
+          },
+        },
+      }}
+    >
+      <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
+        <Container className="text-center">
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Section
+              title={t('what-breed-is', { name })}
+              description={t('if-{}-is-a-mix-you-can-select-multiple-breeds', { name })}
+            >
+              <div className="mx-auto max-w-[480px]">
+                <Controller
+                  name="breeds"
+                  control={control}
+                  rules={{ required: !watch('isUnknownBreed', isUnknownBreed ?? false) }}
+                  render={({ field: { onChange, ...field } }) => (
+                    <Autocomplete
+                      multiple
+                      fullWidth
+                      options={options || []}
+                      loading={isLoading}
+                      getOptionLabel={(option) => option.name}
+                      freeSolo={false}
+                      getOptionDisabled={(option) => watch('breeds').length > 1}
+                      isOptionEqualToValue={(option, value) => option.id === value.id}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          placeholder={
+                            watch('breeds').length == 0 ? t('start-typing-the-breed') : ''
+                          }
+                          error={!!errors.breeds}
                         />
-                      ))
-                    }
-                    onChange={(e, data) => onChange(data)}
-                    {...field}
+                      )}
+                      disabled={watch('isUnknownBreed', isUnknownBreed ?? false)}
+                      renderTags={(tagValue, getTagProps, state) =>
+                        tagValue.map((option, index) => (
+                          <Chip
+                            {...getTagProps({ index })}
+                            key={option.id}
+                            label={state.getOptionLabel(option)}
+                          />
+                        ))
+                      }
+                      onChange={(e, data) => onChange(data)}
+                      {...field}
+                    />
+                  )}
+                />
+                <div className="mt-3 px-3">
+                  <CircleCheckbox
+                    control={control}
+                    name="isUnknownBreed"
+                    label={t('dont-know-the-breed')}
+                    //TODO need to clear the breeds`
+                    onClick={() => {}}
                   />
-                )}
-              />
-              <div className="mt-3 px-3">
-                <CircleCheckbox
-                  control={control}
-                  name="isUnknownBreed"
-                  label={t('dont-know-the-breed')}
-                  //TODO need to clear the breeds`
-                  onClick={() => {}}
-                />
+                </div>
               </div>
-            </div>
-          </Section>
-          <SectionBreak />
-          <Section title={t('{}-is-', { name })}>
-            <div className="flex justify-center">
-              <div className="px-3">
-                <InteractiveBlock
-                  type="radio"
-                  value={Sex.M}
-                  error={!!errors.sex}
-                  control={control}
-                  name="sex"
-                  label={t('boy')}
-                  rules={{ required: true }}
-                />
+            </Section>
+            <SectionBreak />
+            <Section title={t('{}-is-', { name })}>
+              <div className="flex justify-center">
+                <div className="px-3">
+                  <InteractiveBlock
+                    type="radio"
+                    value={Sex.M}
+                    error={!!errors.sex}
+                    control={control}
+                    name="sex"
+                    label={t('boy')}
+                    rules={{ required: true }}
+                  />
+                </div>
+                <div className="px-3">
+                  <InteractiveBlock
+                    type="radio"
+                    value={Sex.F}
+                    error={!!errors.sex}
+                    control={control}
+                    name="sex"
+                    label={t('girl')}
+                    rules={{ required: true }}
+                  />
+                </div>
               </div>
-              <div className="px-3">
-                <InteractiveBlock
-                  type="radio"
-                  value={Sex.F}
-                  error={!!errors.sex}
-                  control={control}
-                  name="sex"
-                  label={t('girl')}
-                  rules={{ required: true }}
-                />
+            </Section>
+            <SectionBreak />
+            <Section title={t('is-{}-', { name })}>
+              <div className="flex justify-center">
+                <div className="px-3">
+                  <InteractiveBlock
+                    type="radio"
+                    value="N"
+                    error={!!errors.isNeutered}
+                    control={control}
+                    name="isNeutered"
+                    label={watch('sex', sex ?? Sex.M) == Sex.M ? t('neutered') : t('spayed')}
+                    rules={{ required: true }}
+                  />
+                </div>
+                <div className="px-3">
+                  <InteractiveBlock
+                    type="radio"
+                    value="Y"
+                    error={!!errors.isNeutered}
+                    control={control}
+                    name="isNeutered"
+                    label={
+                      watch('sex', sex ?? Sex.M) == Sex.M ? t('not-neutered') : t('not-spayed')
+                    }
+                    rules={{ required: true }}
+                  />
+                </div>
               </div>
-            </div>
-          </Section>
-          <SectionBreak />
-          <Section title={t('is-{}-', { name })}>
-            <div className="flex justify-center">
-              <div className="px-3">
-                <InteractiveBlock
-                  type="radio"
-                  value="N"
-                  error={!!errors.isNeutered}
-                  control={control}
-                  name="isNeutered"
-                  label={watch('sex', sex ?? Sex.M) == Sex.M ? t('neutered') : t('spayed')}
-                  rules={{ required: true }}
-                />
-              </div>
-              <div className="px-3">
-                <InteractiveBlock
-                  type="radio"
-                  value="Y"
-                  error={!!errors.isNeutered}
-                  control={control}
-                  name="isNeutered"
-                  label={watch('sex', sex ?? Sex.M) == Sex.M ? t('not-neutered') : t('not-spayed')}
-                  rules={{ required: true }}
-                />
-              </div>
-            </div>
-            <div className="mt-6"></div>
-            <p className="body-3 italic text-primary">
-              {t('spayed-and-neutered-dogs-require-fewer-calories')}
-            </p>
-          </Section>
-          <Button className="mt-10" disabled={!isValid}>
-            {t('continue')}
-          </Button>
-        </form>
-      </Container>
-    </motion.div>
+              <div className="mt-6"></div>
+              <p className="body-3 italic text-primary">
+                {t('spayed-and-neutered-dogs-require-fewer-calories')}
+              </p>
+            </Section>
+            <Button className="mt-10" disabled={!isValid}>
+              {t('continue')}
+            </Button>
+          </form>
+        </Container>
+      </motion.div>
+    </AppThemeProvider>
   );
 }

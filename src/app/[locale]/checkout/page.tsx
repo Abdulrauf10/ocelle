@@ -34,6 +34,14 @@ export default async function Checkout() {
     <AppThemeProvider
       theme={{
         components: {
+          MuiAutocomplete: {
+            styleOverrides: {
+              input: {
+                paddingTop: '3.5px !important',
+                paddingBottom: '3.5px !important',
+              },
+            },
+          },
           MuiOutlinedInput: {
             styleOverrides: {
               input: {

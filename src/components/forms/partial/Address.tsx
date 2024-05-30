@@ -1,6 +1,6 @@
 'use client';
 
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { Autocomplete, TextField as MuiTextField } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useLocale, useTranslations } from 'next-intl';
 import React from 'react';
@@ -21,8 +21,8 @@ export type IPartialAddressForm = {
   lastName: string;
   streetAddress1: string;
   streetAddress2: string;
-  district: string;
   region: string;
+  district: string;
   country: string;
 };
 
@@ -42,6 +42,11 @@ export default function PartialAddressForm<T extends FieldValues>({
   const locale = useLocale();
   const t = useTranslations();
   const id = React.useId();
+  const countryMaps: { [key: string]: string } = React.useMemo(() => {
+    return {
+      HK: t('hong-kong'),
+    };
+  }, [t]);
 
   const getPath = React.useCallback(
     (key: string) => {
@@ -108,23 +113,23 @@ export default function PartialAddressForm<T extends FieldValues>({
           name={getPath('region')}
           control={control}
           rules={{ required: !disabled }}
-          render={({ field: { value, ...field }, fieldState: { error } }) => {
+          render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
             return (
-              <FormControl fullWidth disabled={disabled || isLoading}>
-                <InputLabel id={`${id}-region-label`}>{t('region')}</InputLabel>
-                <Select
-                  {...field}
-                  labelId={`${id}-region-label`}
-                  label={t('region')}
-                  fullWidth
-                  error={!!error}
-                  value={value ?? ''}
-                >
-                  <MenuItem value="Hong Kong Island">{t('hong-kong-island')}</MenuItem>
-                  <MenuItem value="Kowloon">{t('kowloon')}</MenuItem>
-                  <MenuItem value="New Territories">{t('new-territories')}</MenuItem>
-                </Select>
-              </FormControl>
+              <Autocomplete
+                fullWidth
+                disableClearable
+                disabled={disabled || isLoading}
+                options={['Hong Kong Island', 'Kowloon', 'New Territories']}
+                value={value}
+                getOptionLabel={(option) => t(option.toLowerCase().replace(/\s/g, '-') as any)}
+                renderInput={(params) => (
+                  <MuiTextField {...params} {...field} label={t('region')} error={!!error} />
+                )}
+                onChange={(event, selectedValue) =>
+                  selectedValue &&
+                  onChange(Array.isArray(selectedValue) ? selectedValue[0] : selectedValue)
+                }
+              />
             );
           }}
         />
@@ -134,28 +139,28 @@ export default function PartialAddressForm<T extends FieldValues>({
           name={getPath('district')}
           control={control}
           rules={{ required: !disabled }}
-          render={({ field: { value, ...field }, fieldState: { error } }) => (
-            <FormControl
-              fullWidth
-              disabled={disabled || isLoading || isError || !districts || districts.length === 0}
-            >
-              <InputLabel id={`${id}-district-label`}>{t('district')}</InputLabel>
-              <Select
-                {...field}
-                labelId={`${id}-district-label`}
-                label={t('district')}
+          render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
+            const _districts = districts || [];
+            return (
+              <Autocomplete
                 fullWidth
-                error={!!error}
-                value={value ?? ''}
-              >
-                {(districts || []).map((district, idx) => (
-                  <MenuItem key={idx} value={district.raw}>
-                    {district.verbose}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          )}
+                disableClearable
+                disabled={disabled || isLoading || isError || !districts || districts.length === 0}
+                options={_districts.map((district) => district.raw)}
+                value={value}
+                getOptionLabel={(option) =>
+                  _districts.find((district) => district.raw === option)?.verbose || ''
+                }
+                renderInput={(params) => (
+                  <MuiTextField {...params} {...field} label={t('district')} error={!!error} />
+                )}
+                onChange={(event, selectedValue) =>
+                  selectedValue &&
+                  onChange(Array.isArray(selectedValue) ? selectedValue[0] : selectedValue)
+                }
+              />
+            );
+          }}
         />
       </div>
       <div className="w-1/3 p-2 max-sm:w-full">
@@ -164,21 +169,25 @@ export default function PartialAddressForm<T extends FieldValues>({
           name={getPath('country')}
           control={control}
           rules={{ required: !disabled }}
-          render={({ field: { value, ...field }, fieldState: { error } }) => (
-            <FormControl fullWidth disabled={disabled || isLoading}>
-              <InputLabel id={`${id}-country-label`}>{t('country')}</InputLabel>
-              <Select
-                {...field}
-                labelId={`${id}-country-label`}
-                label={t('country')}
+          render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
+            return (
+              <Autocomplete
                 fullWidth
-                error={!!error}
-                value={value ?? ''}
-              >
-                <MenuItem value="HK">{t('hong-kong')}</MenuItem>
-              </Select>
-            </FormControl>
-          )}
+                disableClearable
+                disabled={disabled || isLoading}
+                options={['HK']}
+                value={value}
+                getOptionLabel={(option) => countryMaps[option] ?? ''}
+                renderInput={(params) => (
+                  <MuiTextField {...params} {...field} label={t('country')} error={!!error} />
+                )}
+                onChange={(event, selectedValue) =>
+                  selectedValue &&
+                  onChange(Array.isArray(selectedValue) ? selectedValue[0] : selectedValue)
+                }
+              />
+            );
+          }}
         />
       </div>
     </div>
