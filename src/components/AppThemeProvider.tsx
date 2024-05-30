@@ -46,8 +46,8 @@ const baseTheme: ThemeOptions = {
       },
       styleOverrides: {
         inputRoot: {
-          paddingTop: 3,
-          paddingBottom: 3,
+          paddingTop: 6.5,
+          paddingBottom: 6.5,
         },
         paper: {
           marginTop: 8,
