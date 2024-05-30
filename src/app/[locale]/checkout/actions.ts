@@ -372,7 +372,7 @@ export async function finalizeCheckout() {
   redirect('/checkout/complete');
 }
 
-export async function getDeliveryDate() {
+export async function getOrderConfigurations() {
   const id = await getCartCookie();
 
   if (!id) {
@@ -385,7 +385,9 @@ export async function getDeliveryDate() {
     return undefined;
   }
 
-  return deliveryDate.toISOString();
+  return {
+    deliveryDate,
+  };
 }
 
 export async function dropCheckoutSession() {

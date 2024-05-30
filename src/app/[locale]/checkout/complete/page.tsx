@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
 
-import { dropCheckoutSession, getDeliveryDate } from '../actions';
+import { dropCheckoutSession, getOrderConfigurations } from '../actions';
 
 import Container from '@/components/Container';
 import useSentence from '@/hooks/useSentence';
@@ -17,12 +17,12 @@ export default function CompletePage() {
   const sentence = useSentence();
   const router = useRouter();
   const {
-    data: deliveryDate,
+    data: configurations,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ['completeDeliveryDate', id],
-    queryFn: async () => await getDeliveryDate(),
+    queryKey: ['checkout-completeOrderConfigurations', id],
+    queryFn: () => getOrderConfigurations(),
     refetchInterval: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
@@ -30,17 +30,17 @@ export default function CompletePage() {
   });
 
   React.useEffect(() => {
-    if (deliveryDate) {
+    if (configurations) {
       dropCheckoutSession();
     }
-  }, [deliveryDate]);
+  }, [configurations]);
 
   if (isError) {
     router.replace('/');
     return;
   }
 
-  if (isLoading || !deliveryDate) {
+  if (isLoading || !configurations) {
     return (
       <Container className="py-24 text-center">
         <Image
@@ -73,7 +73,7 @@ export default function CompletePage() {
       <p className="mt-4 text-primary">
         {t.rich('your-{}-will-be-delivered-on-the-{}', {
           value: t('order').toLowerCase(),
-          date: sentence.date(new Date(deliveryDate), true),
+          date: sentence.date(configurations.deliveryDate, true),
         })}
       </p>
     </Container>

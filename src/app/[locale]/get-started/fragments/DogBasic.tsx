@@ -12,6 +12,7 @@ import Stage from '../Stage';
 import { useSurvey } from '../SurveyContext';
 import { pageVariants } from '../transition';
 
+import { getBreeds } from '@/actions';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
@@ -48,10 +49,7 @@ export default function DogBasicFragment() {
   });
   const { data: options, isLoading } = useQuery({
     queryKey: ['breeds'],
-    queryFn: async () => {
-      const res = await fetch('/api/breed');
-      return (await res.json()) as BreedDto[];
-    },
+    queryFn: () => getBreeds(),
   });
 
   const onSubmit = React.useCallback(

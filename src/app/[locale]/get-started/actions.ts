@@ -665,7 +665,7 @@ export async function finalizeDraftOrder(paymentMethodId: string) {
   redirect('/get-started/complete');
 }
 
-export async function getDeliveryDate() {
+export async function getOrderConfigurations() {
   const id = await getOrderCookie();
 
   if (!id) {
@@ -676,7 +676,13 @@ export async function getDeliveryDate() {
 
   await deleteStoreKeys(id);
 
-  return deliveryDate ? deliveryDate.toISOString() : undefined;
+  if (!deliveryDate) {
+    return undefined;
+  }
+
+  return {
+    deliveryDate,
+  };
 }
 
 export async function dropOrderSession() {

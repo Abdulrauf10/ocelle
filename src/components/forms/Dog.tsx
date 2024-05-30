@@ -16,6 +16,7 @@ import DateCalendar from '../controls/DateCalendar';
 import InteractiveBlock from '../controls/InteractiveBlock';
 import PictureRadio from '../controls/PictureRadio';
 
+import { getBreeds } from '@/actions';
 import {
   ActivityLevel,
   AmountOfTreats,
@@ -175,10 +176,7 @@ export default function DogForm({
   const [pending, startTransition] = React.useTransition();
   const { data: breedOptions, isLoading: isBreedLoading } = useQuery({
     queryKey: ['breeds'],
-    queryFn: async () => {
-      const res = await fetch('/api/breed');
-      return (await res.json()) as BreedDto[];
-    },
+    queryFn: () => getBreeds(),
   });
   const [tab, setTab] = React.useState<'Age' | 'Birthday'>(
     dateOfBirthMethod === 'Manually' ? 'Age' : 'Birthday'

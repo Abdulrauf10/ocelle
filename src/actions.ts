@@ -4,7 +4,7 @@ import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import { cookies } from 'next/headers';
 
 import { CART_COOKIE, DOG_SELECT_COOKIE, LOGIN_PATH, ORDER_COOKIE } from './consts';
-import { User } from './entities';
+import { Breed, User } from './entities';
 import {
   AddressValidationRulesDocument,
   CountryCode,
@@ -17,8 +17,25 @@ import { getRecurringBoxMinDeliveryDate } from './helpers/shipment';
 import { redirect } from './navigation';
 import saleorAuthClient from './saleorAuthClient';
 import { getCalendarEvents } from './services/calendar';
+import { BreedDto } from './types/dto';
 
 // here for global actions
+
+export async function getEvents() {
+  return await getCalendarEvents();
+}
+
+export async function getBreeds(): Promise<BreedDto[]> {
+  const breeds = await executeQuery(async (queryRunner) => await queryRunner.manager.find(Breed));
+  return breeds.map((breed) => {
+    return {
+      id: breed.id,
+      name: breed.name,
+      size: breed.size,
+      uid: breed.uid,
+    };
+  });
+}
 
 export async function getDistricts(locale: string, countryArea: CountryCode) {
   const { addressValidationRules } = await executeGraphQL(AddressValidationRulesDocument, {

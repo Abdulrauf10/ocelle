@@ -6,7 +6,7 @@ import Image from 'next/image';
 import React from 'react';
 
 import Benefits from '../Benefits';
-import { dropOrderSession, getDeliveryDate } from '../actions';
+import { dropOrderSession, getOrderConfigurations } from '../actions';
 
 import Container from '@/components/Container';
 import { getSurveySessionStore } from '@/helpers/session';
@@ -19,12 +19,12 @@ export default function ThankYouPage() {
   const sentence = useSentence();
   const router = useRouter();
   const {
-    data: deliveryDate,
+    data: configurations,
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ['completeDeliveryDate', id],
-    queryFn: async () => await getDeliveryDate(),
+    queryKey: ['get-started-completeOrderConfigurations', id],
+    queryFn: () => getOrderConfigurations(),
     refetchInterval: false,
     refetchOnMount: false,
     refetchOnWindowFocus: false,
@@ -32,18 +32,18 @@ export default function ThankYouPage() {
   });
 
   React.useEffect(() => {
-    if (deliveryDate) {
+    if (configurations) {
       dropOrderSession();
       getSurveySessionStore().clearAll();
     }
-  }, [deliveryDate]);
+  }, [configurations]);
 
   if (isError) {
     router.replace('/get-started');
     return;
   }
 
-  if (isLoading || !deliveryDate) {
+  if (isLoading || !configurations) {
     return (
       <Container className="py-24 text-center">
         <Image
@@ -76,7 +76,7 @@ export default function ThankYouPage() {
       <p className="mt-4 text-primary">
         {t.rich('your-{}-will-be-delivered-on-the-{}', {
           value: t('starter-box').toLowerCase(),
-          date: sentence.date(new Date(deliveryDate), true),
+          date: sentence.date(configurations.deliveryDate, true),
         })}
       </p>
       <Benefits />

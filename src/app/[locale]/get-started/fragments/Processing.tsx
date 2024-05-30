@@ -15,9 +15,8 @@ import {
 } from '../actions';
 import { pageVariants } from '../transition';
 
-import { getClosestDeliveryDate } from '@/actions';
+import { getClosestDeliveryDate, getEvents } from '@/actions';
 import Container from '@/components/Container';
-import { CalendarEvent } from '@/types';
 
 export default function ProcessingFragment() {
   const t = useTranslations();
@@ -30,18 +29,7 @@ export default function ProcessingFragment() {
   });
   const { data: calendarEvents, isLoading: loadingCalenadarEvents } = useQuery({
     queryKey: ['calendar'],
-    queryFn: async () => {
-      const calendarAPI = await fetch('/api/calendar');
-      if (!calendarAPI.ok) {
-        throw new Error('failed to fetch calendar events');
-      }
-      const json = (await calendarAPI.json()) as CalendarEvent[];
-      return json.map((record) => ({
-        ...record,
-        start: new Date(record.start),
-        end: new Date(record.end),
-      }));
-    },
+    queryFn: () => getEvents(),
   });
   const { data: dogsPerDayPrice, isLoading: loadingDogsPerDayPrice } = useQuery({
     queryKey: ['dogs'],
