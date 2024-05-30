@@ -5,7 +5,12 @@ import { cookies } from 'next/headers';
 
 import { CART_COOKIE, DOG_SELECT_COOKIE, LOGIN_PATH, ORDER_COOKIE } from './consts';
 import { User } from './entities';
-import { GetCurrentUserDocument, GetCurrentUserFullSizeDocument } from './gql/graphql';
+import {
+  AddressValidationRulesDocument,
+  CountryCode,
+  GetCurrentUserDocument,
+  GetCurrentUserFullSizeDocument,
+} from './gql/graphql';
 import { executeGraphQL } from './helpers/graphql';
 import { executeQuery } from './helpers/queryRunner';
 import { getRecurringBoxMinDeliveryDate } from './helpers/shipment';
@@ -14,6 +19,50 @@ import saleorAuthClient from './saleorAuthClient';
 import { getCalendarEvents } from './services/calendar';
 
 // here for global actions
+
+export async function getDistricts(locale: string, countryArea: CountryCode) {
+  const { addressValidationRules } = await executeGraphQL(AddressValidationRulesDocument, {
+    variables: {
+      countryArea,
+    },
+  });
+
+  if (!addressValidationRules) {
+    throw new Error('failed to get districts');
+  }
+
+  const districts: Array<{ raw: string; verbose: string }> = [];
+
+  for (const city of addressValidationRules.cityChoices) {
+    if (city.raw && city.verbose) {
+      if (locale === 'en') {
+        if (/^[a-zA-Z\s]+$/.test(city.verbose)) {
+          districts.push({
+            raw: city.raw,
+            verbose: city.verbose,
+          });
+        }
+      } else {
+        districts.push({
+          raw: city.raw,
+          verbose: city.verbose,
+        });
+      }
+    }
+  }
+
+  districts.sort((a, b) => {
+    if (a.verbose < b.verbose) {
+      return -1;
+    }
+    if (a.verbose > b.verbose) {
+      return 1;
+    }
+    return 0;
+  });
+
+  return districts;
+}
 
 export async function getClientLoginedMe() {
   const { me } = await executeGraphQL(GetCurrentUserDocument, {

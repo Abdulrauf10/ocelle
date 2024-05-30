@@ -13,6 +13,7 @@ import {
   type UseFormWatch,
 } from 'react-hook-form';
 
+import { getDistricts } from '@/actions';
 import TextField from '@/components/controls/TextField';
 
 export type IPartialAddressForm = {
@@ -58,15 +59,7 @@ export default function PartialAddressForm<T extends FieldValues>({
   } = useQuery({
     enabled: region !== undefined,
     queryKey: ['districts', region, locale],
-    queryFn: async () => {
-      const districts = await fetch('/api/district', {
-        headers: {
-          'x-countryArea': region,
-          'x-language': locale,
-        },
-      });
-      return (await districts.json()) as { raw: string; verbose: string }[];
-    },
+    queryFn: async () => await getDistricts(locale, region),
   });
 
   return (
