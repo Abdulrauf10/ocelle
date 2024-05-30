@@ -138,6 +138,10 @@ export async function updateCartLine(lineId: string, quantity: number): Promise<
   const cart = await getCartOrCheckout();
 
   const { checkoutLinesUpdate } = await executeGraphQL(UpdateCheckoutLinesDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
     variables: {
       checkoutId: cart!.id,
       lines: [
@@ -168,6 +172,10 @@ export async function deleteCartLine(lineId: string): Promise<CartReturn> {
   const cart = await getCartOrCheckout();
 
   const { checkoutLinesDelete } = await executeGraphQL(RemoveCheckoutLinesDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
     variables: {
       checkoutId: cart!.id,
       linesIds: [lineId],
