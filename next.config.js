@@ -3,6 +3,7 @@ const bundleAnalyzer = require('@next/bundle-analyzer');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  poweredByHeader: false,
   experimental: {
     serverMinification: false,
     serverActions: {
