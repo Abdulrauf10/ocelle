@@ -80,6 +80,7 @@ export default async function HowItWorksIndividual() {
         <Product
           product={products[IndividualRecipePack.Chicken]}
           picture="/recipes/individual/chicken.jpg"
+          dialogPicture="/recipes/dispersion/chicken.gif"
           theme="dark-green"
           className={{
             root: 'bg-how-it-works-dark-green bg-opacity-[8%]',
@@ -106,6 +107,7 @@ export default async function HowItWorksIndividual() {
         <Product
           product={products[IndividualRecipePack.Beef]}
           picture="/recipes/individual/beef.jpg"
+          dialogPicture="/recipes/dispersion/beef.gif"
           theme="red"
           className={{
             root: 'bg-how-it-works-red bg-opacity-[8%]',
@@ -131,6 +133,7 @@ export default async function HowItWorksIndividual() {
         <Product
           product={products[IndividualRecipePack.Pork]}
           picture="/recipes/individual/pork.jpg"
+          dialogPicture="/recipes/dispersion/pork.gif"
           theme="primary"
           className={{
             root: 'bg-primary bg-opacity-[8%]',
@@ -157,6 +160,7 @@ export default async function HowItWorksIndividual() {
         <Product
           product={products[IndividualRecipePack.Lamb]}
           picture="/recipes/individual/lamb.jpg"
+          dialogPicture="/recipes/dispersion/lamb.gif"
           theme="green"
           className={{
             root: 'bg-how-it-works-green bg-opacity-[8%]',
@@ -181,6 +185,7 @@ export default async function HowItWorksIndividual() {
         <Product
           product={products[IndividualRecipePack.Duck]}
           picture="/recipes/individual/duck.jpg"
+          dialogPicture="/recipes/dispersion/duck.gif"
           className={{
             root: 'bg-secondary bg-opacity-[8%]',
             title: 'text-secondary',

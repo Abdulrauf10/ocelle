@@ -17,6 +17,7 @@ import Block from '@/components/layouts/Block';
 import { useCart } from '@/contexts/cart';
 import { IndividualRecipePack } from '@/enums';
 import { ProductFragment } from '@/gql/graphql';
+import { getRecipeSlug } from '@/helpers/dog';
 import { weightToGrams } from '@/helpers/saleor';
 import { individualPackProducts } from '@/products';
 
@@ -24,6 +25,7 @@ const parser = edjsHTML();
 
 export default function Product({
   picture,
+  dialogPicture,
   reverse,
   className,
   theme,
@@ -35,6 +37,7 @@ export default function Product({
   analysis,
 }: {
   picture: string;
+  dialogPicture?: string;
   reverse?: boolean;
   theme?: 'primary' | 'secondary' | 'red' | 'yellow' | 'green' | 'dark-green';
   className: {
@@ -89,6 +92,10 @@ export default function Product({
 
   const description = parser.parse(JSON.parse(product.description ?? ''));
 
+  if (pack !== IndividualRecipePack.Bundle && !dialogPicture) {
+    throw new Error('dialogPicture props is required');
+  }
+
   return (
     <Block className={className.root}>
       <Container className="max-w-screen-lg">
@@ -127,7 +134,7 @@ export default function Product({
                   description={description.map((content, idx) => (
                     <div key={idx} dangerouslySetInnerHTML={{ __html: xss(content) }} />
                   ))}
-                  picture="/meal-plan/chicken-recipe.jpg"
+                  picture={dialogPicture!}
                   ingredients={ingredients}
                   targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                   calorie={calorie}
