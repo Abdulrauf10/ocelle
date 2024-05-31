@@ -52,6 +52,8 @@ export function getRecipeSlug(recipe: Recipe) {
       return 'lamb';
     case Recipe.Pork:
       return 'pork';
+    default:
+      throw new Error('unknown recipe');
   }
 }
 
@@ -101,7 +103,6 @@ export function getLifeStage(breeds: BreedDto[], dateOfBirth: Date): LifeStage {
     else return 'Senior';
   }
 
-  console.dir(breeds, { depth: null });
   throw new Error('cannot calculate the life stage');
 }
 
