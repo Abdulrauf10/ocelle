@@ -13,6 +13,7 @@ import {
   AddOrderDiscountDocument,
   CompleteDraftOrderDocument,
   CreateDraftOrderDocument,
+  DeleteDraftOrderDocument,
   DiscountValueTypeEnum,
   FindUserDocument,
   GetOrderDocument,
@@ -350,6 +351,29 @@ export async function createDraftOrder(dogs: DogDto[]) {
   }
 
   await setStoreDogs(order.id, dogs);
+
+  const prevOrderId = await getOrderCookie();
+
+  if (prevOrderId) {
+    // try to delete prev draft order, slient mode
+    try {
+      const { draftOrderDelete } = await executeGraphQL(DeleteDraftOrderDocument, {
+        withAuth: false,
+        headers: {
+          Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+        },
+        variables: {
+          id: prevOrderId,
+        },
+      });
+
+      if (!draftOrderDelete || draftOrderDelete.errors.length > 0) {
+        draftOrderDelete && console.error(draftOrderDelete?.errors);
+      }
+    } catch (e) {
+      console.error(e);
+    }
+  }
 
   await setOrderCookie(order.id);
 

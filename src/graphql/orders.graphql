@@ -92,6 +92,19 @@ mutation UpdateDraftOrder($id: ID!, $input: DraftOrderInput!) {
   }
 }
 
+mutation DeleteDraftOrder($id: ID!) {
+  draftOrderDelete(id: $id) {
+    errors {
+      field
+      message
+      code
+    }
+    order {
+      ...Order
+    }
+  }
+}
+
 mutation CompleteDraftOrder($id: ID!) {
   draftOrderComplete(id: $id) {
     errors {
