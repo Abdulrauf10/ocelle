@@ -32,6 +32,7 @@ export default function Header({
 }: HeaderProps) {
   const locale = useLocale();
   const t = useTranslations();
+  const b = useTranslations('Button');
   const pathname = usePathname();
   const { me, logout } = useAuth();
   const [isOpened, setIsOpened] = React.useState(false);
@@ -113,7 +114,7 @@ export default function Header({
                           href="/get-started"
                           className="rounded-2xl bg-secondary px-4 py-[5px] font-open-sans text-white hover:opacity-90"
                         >
-                          {t('get-started')}
+                          {b('get-started')}
                         </Link>
                       </div>
                     )}
