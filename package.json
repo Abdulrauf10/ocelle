@@ -14,6 +14,7 @@
     "ts-node": "dotenvx run --env-file=.env --env-file=.env.local -- ts-node -r tsconfig-paths/register",
     "setup": "npm run ts-node -- src/setup.ts",
     "cron": "npm run ts-node -- src/cron.ts",
+    "debug": "npm run ts-node -- src/debugs/run.ts",
     "typeorm": "npm run ts-node -- node_modules/typeorm/cli.js",
     "typeorm:mysql": "npm run typeorm -- -d src/AppDataSource/MySQL.ts",
     "migration:create": "npm run typeorm -- migration:create src/migrations/${npm_config_name}",
