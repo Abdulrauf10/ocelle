@@ -56,6 +56,10 @@ span.swiper-pagination-bullet-active {
   @apply text-[32px] leading-[40px] -my-[4px];
 }
 
+.heading-3.lg-resize {
+  @apply max-lg:text-[24px] max-lg:leading-[32px]
+}
+
 .heading-4 {
   @apply text-[24px] leading-[32px] -my-[4px];
 }

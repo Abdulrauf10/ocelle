@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
@@ -36,26 +37,30 @@ export default function Home() {
       <TwoToneBlock
         breakpoint="lg"
         className={{
-          bgLeft: 'min-h-[500px] bg-[url("./homepage-go-fresh.jpg")] bg-cover bg-[70%] ',
+          bgLeft: clsx(
+            'bg-[#f2f2f0] bg-[url("./homepage-go-fresh.jpg")] bg-[length:auto_100%] bg-[right_top] bg-no-repeat',
+            'max-xl:bg-[right_12%_top]',
+            'max-lg:bg-[url("./homepage-go-fresh-mb.jpg")] max-lg:bg-[length:100%_auto] max-lg:bg-[bottom_20%_center] max-lg:pt-[65%]',
+            'max-xs:bg-[url("./homepage-go-fresh-xs.jpg")] max-xs:bg-cover max-xs:bg-center max-xs:pt-[100%]'
+          ),
           bgRight: 'max-lg:px-4',
         }}
         right={
-          <div className="py-[clamp(30px,3vw,60px)]">
+          <div className="py-tight">
             <h2 className="heading-1 heading-weight-1 text-primary">{t.rich('block-3-title')}</h2>
-            <div className="mt-[2vw]">
-              <List
-                picture={<Tickbox className="mr-4 h-5 w-5" />}
-                className={{ row: 'py-1.5', item: 'body-1' }}
-                items={[
-                  t('block-3-content-1'),
-                  t('block-3-content-2'),
-                  t('block-3-content-3'),
-                  t('block-3-content-4'),
-                  t('block-3-content-5'),
-                ]}
-              />
-            </div>
-            <div className="mb-5 mt-[2vw]"></div>
+            <div className="mt-tight"></div>
+            <List
+              picture={<Tickbox className="mr-4 h-5 w-5" />}
+              className={{ row: 'py-1.5', item: 'body-1' }}
+              items={[
+                t('block-3-content-1'),
+                t('block-3-content-2'),
+                t('block-3-content-3'),
+                t('block-3-content-4'),
+                t('block-3-content-5'),
+              ]}
+            />
+            <div className="mt-tight"></div>
             <div className="flex justify-center lg:justify-start">
               <Button href="/why-fresh/benefits-of-fresh-dog-food">{b('learn-more')}</Button>
             </div>
@@ -222,14 +227,14 @@ export default function Home() {
           <div className="mt-4 text-center">
             <Button href="/get-started">{b('build-my-plan')}</Button>
           </div>
-          <div className="mt-[3vw] max-sm:mt-10"></div>
-          <p className="text-center text-2xl font-normal text-gray">
+          <div className="mt-normal"></div>
+          <p className="heading-3 lg-resize text-center text-gray">
             {t.rich('block-5-content', {
               link: (chunks) => {
                 return (
                   <Link
                     href="/how-it-works/individual-pack"
-                    className="font-normal text-secondary underline hover:underline"
+                    className="text-secondary underline hover:underline"
                   >
                     {chunks}
                   </Link>
@@ -252,12 +257,12 @@ export default function Home() {
           </div>
         </Container>
       </Block>
-      <div className="bg-gold bg-opacity-10 bg-[url('./recommended-plan-bg.jpg')] bg-cover bg-center py-40 max-md:bg-none max-md:py-16">
+      <div className="bg-[#f7e9de] bg-[url('./recommended-plan-bg.jpg')] bg-[length:auto_100%] bg-center bg-no-repeat py-[clamp(120px,10vw,230px)] max-md:bg-primary max-md:bg-opacity-10 max-md:bg-none max-md:px-4 max-md:py-16 max-xs:px-0">
         <Container>
-          <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-8 py-12 text-center shadow-backdrop sm:p-16 md:px-[8px]">
+          <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-6 text-center shadow-backdrop max-md:shadow-block">
             <div className="heading-3 heading-weight-2 text-primary">{t('block-7-title')}</div>
             <div className="mt-5"></div>
-            <p className="body-1">{t('block-7-content')}</p>
+            <p className="body-1">{t.rich('block-7-content')}</p>
             <div className="mt-8 text-center">
               <Button href="/get-started">{b('create-your-plan')}</Button>
             </div>
