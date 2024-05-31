@@ -159,7 +159,8 @@ export function dogToDogDto({
     weight,
     dateOfBirthMethod:
       typeof age === 'string' ? DateOfBirthMethod.Calendar : DateOfBirthMethod.Manually,
-    dateOfBirth: typeof age === 'string' ? age : getDateOfBirth(age).toISOString(),
+    dateOfBirth:
+      typeof age === 'string' ? age : getDateOfBirth(age.years, age.months).toISOString(),
     bodyCondition,
     activityLevel,
     foodAllergies,

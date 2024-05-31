@@ -36,7 +36,9 @@ export default function CalculatingFragment() {
         breeds: dog.isUnknownBreed ? undefined : dog.breeds?.map((breed) => breed.id),
         weight: dog.weight!,
         dateOfBirth:
-          typeof dog.age === 'string' ? dog.age! : getDateOfBirth(dog.age!).toISOString(),
+          typeof dog.age === 'string'
+            ? dog.age!
+            : getDateOfBirth(dog.age?.years, dog.age?.months).toISOString(),
         bodyCondition: dog.bodyCondition!,
         activityLevel: dog.activityLevel!,
       }),

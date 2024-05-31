@@ -27,6 +27,7 @@ import {
   Pickiness,
   Sex,
 } from '@/enums';
+import { getDateOfBirth } from '@/helpers/dog';
 import {
   arrayToAllergies,
   arrayToFoods,
@@ -196,9 +197,7 @@ export default function DogForm({
           dateOfBirthMethod:
             tab === 'Birthday' ? DateOfBirthMethod.Calendar : DateOfBirthMethod.Manually,
           dateOfBirth:
-            tab === 'Birthday'
-              ? values.dateOfBirth!
-              : subMonths(subYears(startOfDay(new Date()), values.years ?? 0), values.months ?? 0),
+            tab === 'Birthday' ? values.dateOfBirth! : getDateOfBirth(values.years, values.months),
           weight: values.weight,
           bodyCondition: values.bodyCondition,
           activityLevel: values.activityLevel,

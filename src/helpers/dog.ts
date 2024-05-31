@@ -36,7 +36,7 @@ export function getTheCheapestRecipe() {
   return cheapest;
 }
 
-export function getDateOfBirth({ years, months }: { years: number; months: number }) {
+export function getDateOfBirth(years?: number, months?: number) {
   return subMonths(subYears(startOfDay(new Date()), years ?? 0), months ?? 0);
 }
 

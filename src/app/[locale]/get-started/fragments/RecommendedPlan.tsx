@@ -47,10 +47,13 @@ function recipesBoxPriceOptions(
   recipes: { recipe1?: Recipe; recipe2?: Recipe },
   mealPlan: MealPlan
 ) {
-  const dateOfBirth = typeof age === 'string' ? age! : getDateOfBirth(age!).toISOString();
+  const dateOfBirth =
+    typeof age === 'string' ? age : getDateOfBirth(age.years, age.months).toISOString();
   return queryOptions({
     queryKey: [
       'recommendedPlan',
+      JSON.stringify(breeds),
+      dateOfBirth,
       isNeutered,
       weight,
       bodyCondition,
