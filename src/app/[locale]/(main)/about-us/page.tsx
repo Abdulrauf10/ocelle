@@ -154,7 +154,7 @@ export default function OurStory() {
         breakpoint="lg"
         className={{
           bgLeft: 'bg-secondary bg-opacity-20',
-          bgRight: 'flex items-end bg-secondary bg-opacity-80',
+          bgRight: 'bg-stop flex items-end bg-gradient-to-b from-[#f7c1b5] from-30% to-white',
           mbLeft: 'px-4 py-6',
         }}
         bgRight={
