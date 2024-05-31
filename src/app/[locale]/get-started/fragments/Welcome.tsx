@@ -14,6 +14,7 @@ import Button from '@/components/buttons/Button';
 export default function WelcomeFragment() {
   const navigate = useNavigate();
   const t = useTranslations();
+  const b = useTranslations('Button');
 
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
@@ -34,7 +35,7 @@ export default function WelcomeFragment() {
             {t('this-should-only-take-about-2-minutes-per-dog')}
           </p>
           <Button className="mt-8" onClick={() => navigate(Stage.Dog)}>
-            {t('lets-get-started')}
+            {b('lets-get-started')}
           </Button>
         </Section>
         <Benefits />

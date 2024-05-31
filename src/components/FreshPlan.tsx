@@ -30,6 +30,7 @@ export default function FreshPlan({
   children,
 }: React.PropsWithChildren<FreshPlanProps>) {
   const t = useTranslations();
+  const b = useTranslations('Button');
 
   return (
     <div
@@ -86,9 +87,9 @@ export default function FreshPlan({
           </p>
           {firstDiscount && (
             <p className="mt-2 leading-[1.25em]">
-              Enjoy <span className="font-bold text-dark-green">50%</span> off for{' '}
-              <br className="max-lg:hidden" />
-              your starter box.
+              {t.rich('enjoy-50-off-for-your-starter-box', {
+                h: (chunks) => <span className="font-bold text-dark-green">{chunks}</span>,
+              })}
             </p>
           )}
         </div>
@@ -102,7 +103,7 @@ export default function FreshPlan({
           )}
         >
           {selected && <CircleTick className="mr-2 inline-block h-5 w-5" />}
-          {selected ? 'Selected' : 'Select'}
+          {selected ? b('selected') : b('select')}
         </div>
       </div>
     </div>
