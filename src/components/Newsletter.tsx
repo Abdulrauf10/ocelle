@@ -15,8 +15,7 @@ export default function Newsletter() {
               <EmailStroke className="w-[60px] min-w-[60px] text-primary" />
               <div className="ml-5">
                 <span className="body-1">
-                  {n('content-1')}
-                  {n('content-3')}
+                  {n.rich('content-1')}
                   <strong className="inline-block font-jost font-bold text-primary">
                     {n.rich('content-2')}
                   </strong>
@@ -29,7 +28,7 @@ export default function Newsletter() {
               <input
                 type="email"
                 className="body-1 body-inline w-full rounded-[30px] border-0 bg-white py-4 pl-6 pr-16"
-                placeholder="Enter your email address"
+                placeholder={n('content-3')}
               />
               <button className="absolute right-2 flex h-11 w-11 cursor-pointer items-center justify-center rounded-full border-0 bg-primary text-white">
                 <ArrowRight className="w-6" />

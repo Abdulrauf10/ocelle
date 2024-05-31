@@ -379,7 +379,7 @@
     "my-account": "我的賬戶"
   },
   "Promotion": {
-    "content-1": "新客戶可以 [5] 折優惠訂購鮮食體驗包！",
+    "content-1": "新客戶可以 5 折優惠訂購鮮食體驗包！",
     "content-2": "立即訂購！"
   },
   "Button": {
@@ -401,14 +401,14 @@
     "start-your-fresh-journey": ""
   },
   "Home": {
-    "block-1-title-1": "營養滿足 <br></br>美味滿分",
+    "block-1-title-1": "營養滿足 美味滿分",
     "block-1-content-1": "新鮮好滋味，直送到您家",
     "block-1-content-2": "根據您狗狗的營養需求度身定制餐單",
     "block-1-content-3": "獸醫研發配方",
     "block-1-content-4": "讓您更省心，讓狗狗更健康！",
-    "block-2-title": "狗狗是我的寵物<block>也是我的家人</block>",
-    "blcok-2-content": "不用猜疑！您的狗狗正享受著最優質的營養，為他帶來更長壽及更有活力的生活！這是科學與美味的完美結合。",
-    "block-3-title": "更多的歲月 <block>更快樂的時光</block> <br></br>是時候從「新」開始",
+    "block-2-title": "狗狗是我的寵物 <block>也是我的家人</block>",
+    "blcok-2-content": "不用猜疑！您的狗狗正享受著最優質的營養，為他帶來更長壽及更有活力的生活！<br></br>這是科學與美味的完美結合。",
+    "block-3-title": "更多的歲月 <br></br>更快樂的時光 <br></br>是時候從「新」開始",
     "block-3-content-1": "延長壽命",
     "block-3-content-2": "延遲慢性病發作",
     "block-3-content-3": "減少肥胖的風險",
@@ -845,9 +845,9 @@
     "attach-{}": ""
   },
   "Newsletter": {
-    "content-1": "現在就加入OCELLE狗狗聯盟，獲取更多寵物資訊，尊屬優惠及營養信息！",
+    "content-1": "現在就加入OCELLE狗狗聯盟，獲取更多寵物資訊，<block>尊屬優惠及營養信息！</block>",
     "content-2": "<i>Woof！</i>",
-    "content-3": ""
+    "content-3": "輸入您的電郵地址"
   },
   "Individual-pack": {
     "block-1-title": ""

@@ -22,7 +22,6 @@ export default function Promotion() {
         <Link href="/get-started" className="font-bold underline">
           {t('content-2')}
         </Link>
-        !
       </Container>
     </div>
   );

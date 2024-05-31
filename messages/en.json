@@ -342,7 +342,7 @@
   "deliveries": "Deliveries",
   "Promotion": {
     "content-1": "Get 50% off your starter box! ",
-    "content-2": "Order NOW"
+    "content-2": "Order NOW!"
   },
   "Button": {
     "see-my-plan": "See My Plan",
@@ -850,9 +850,9 @@
   "new-territories": "New Territories",
   "hong-kong": "Hong Kong",
   "Newsletter": {
-    "content-1": "Exclusive insights, special offers, and helpful nutrition information from the OCELLE ",
+    "content-1": "Exclusive insights, special offers, and helpful nutrition information from the OCELLE <block>Dog Pack.</block> ",
     "content-2": "Join Now! <i>Woof!</i>",
-    "content-3": "Dog Pack. "
+    "content-3": "Enter your email address"
   },
 
   "Individual-pack": {
