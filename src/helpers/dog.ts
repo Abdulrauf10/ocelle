@@ -286,9 +286,10 @@ export function isRecommendedRecipe(
       }
       if (
         pickiness === Pickiness.EatAnything &&
-        level !== ActivityLevel.Mellow &&
-        condition !== BodyCondition.Rounded &&
-        condition !== BodyCondition.Chunky
+        !(
+          level === ActivityLevel.Mellow &&
+          (condition === BodyCondition.Rounded || condition === BodyCondition.Chunky)
+        )
       ) {
         return true;
       }
@@ -297,8 +298,10 @@ export function isRecommendedRecipe(
     case Recipe.Beef: {
       if (
         pickiness === Pickiness.Picky &&
-        level !== ActivityLevel.Mellow &&
-        (condition === BodyCondition.TooSkinny || condition === BodyCondition.JustRight)
+        !(
+          level === ActivityLevel.Mellow &&
+          (condition === BodyCondition.Rounded || condition === BodyCondition.Chunky)
+        )
       ) {
         return true;
       }
