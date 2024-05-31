@@ -18,6 +18,7 @@ interface CouponFormProps {
 
 export default function CouponForm({ action }: CouponFormProps) {
   const t = useTranslations();
+  const b = useTranslations('Button');
   const [pending, startTransition] = React.useTransition();
   const { control, handleSubmit } = useForm<ICouponForm>({ defaultValues: { coupon: '' } });
   const [applied, setApplied] = React.useState(false);
@@ -55,7 +56,7 @@ export default function CouponForm({ action }: CouponFormProps) {
             className="rounded-lg bg-secondary px-6 py-[9.5px] transition-all duration-300 ease-in-out mouse:hover:opacity-85"
             onClick={() => handleSubmit(onSubmit)()}
           >
-            <span className="font-open-sans font-bold text-white">{t('apply')}</span>
+            <span className="font-open-sans font-bold text-white">{b('apply')}</span>
           </button>
         </div>
       </div>
@@ -64,7 +65,7 @@ export default function CouponForm({ action }: CouponFormProps) {
           <div className="h-7 w-7 rounded-full bg-secondary p-1">
             <CircleTick />
           </div>
-          <p className="ml-2 text-sm">{t('your-coupon-was-successfully-applied')}</p>
+          <p className="ml-2 text-sm">{t('your-promo-code-was-successfully-applied')}</p>
         </div>
       )}
     </>

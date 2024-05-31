@@ -606,7 +606,7 @@ export default function SubscriptionCheckoutForm({
                   <RoundedCheckbox
                     name="tnc"
                     control={control}
-                    label={t.rich('by-starting-the-first-box-you-agree-to-our-terms-conditions', {
+                    label={t.rich('i-have-read-and-understood-the-terms-conditions', {
                       button: (chunks) => (
                         <UnderlineButton type="button" theme="primary" label={chunks} />
                       ),

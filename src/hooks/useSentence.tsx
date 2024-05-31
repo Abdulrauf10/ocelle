@@ -1,9 +1,10 @@
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { Recipe } from '@/enums';
 import { getRecipeSlug } from '@/helpers/dog';
 
 export default function useSentence() {
+  const locale = useLocale();
   const t = useTranslations();
 
   return {
@@ -14,13 +15,17 @@ export default function useSentence() {
       return t('Recipes.fresh-{}-recipe', { value: t(getRecipeSlug(recipe)) });
     },
     date(date: Date, displayYear?: boolean) {
-      const dateTimeFormat = new Intl.DateTimeFormat('en-US', {
+      const dateTimeFormat = new Intl.DateTimeFormat(locale === 'zh' ? 'zh-HK' : 'en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
       });
 
       const parts = dateTimeFormat.formatToParts(date);
+
+      if (locale === 'zh') {
+        return parts.map((part) => part.value).join('');
+      }
 
       const segments = [
         t('{}-of-{}', {

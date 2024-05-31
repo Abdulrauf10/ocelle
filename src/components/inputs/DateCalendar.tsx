@@ -9,6 +9,8 @@ import { pickersCalendarHeaderClasses } from '@mui/x-date-pickers/PickersCalenda
 import { pickersDayClasses } from '@mui/x-date-pickers/PickersDay/pickersDayClasses';
 import { PickerSelectionState } from '@mui/x-date-pickers/internals';
 import clsx from 'clsx';
+import { zhHK } from 'date-fns/locale';
+import { useLocale } from 'next-intl';
 import React from 'react';
 
 import AppThemeProvider from '../AppThemeProvider';
@@ -50,6 +52,8 @@ export default React.forwardRef<HTMLDivElement, DateCalendarProps>(function Date
   }: DateCalendarProps,
   ref
 ) {
+  const locale = useLocale();
+
   return (
     <AppThemeProvider
       theme={{
@@ -60,7 +64,10 @@ export default React.forwardRef<HTMLDivElement, DateCalendarProps>(function Date
         },
       }}
     >
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <LocalizationProvider
+        dateAdapter={AdapterDateFns}
+        adapterLocale={locale === 'zh' ? zhHK : undefined}
+      >
         <MuiDateCalendar
           ref={ref}
           disabled={disabled}
