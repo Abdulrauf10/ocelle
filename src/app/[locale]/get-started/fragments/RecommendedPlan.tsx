@@ -229,6 +229,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         error={!!errors?.recipe}
                         picture="/meal-plan/chicken.jpg"
+                        dialogPicture="/recipes/dispersion/chicken.gif"
                         price="cheap"
                         ingredients={[
                           i('chicken-breast'),
@@ -270,6 +271,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         error={!!errors?.recipe}
                         picture="/meal-plan/pork.jpg"
+                        dialogPicture="/recipes/dispersion/pork.gif"
                         price="cheap"
                         ingredients={[
                           i('pork-loin'),
@@ -311,6 +313,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         error={!!errors?.recipe}
                         picture="/meal-plan/duck.jpg"
+                        dialogPicture="/recipes/dispersion/duck.gif"
                         price="normal"
                         ingredients={[
                           i('duck-breast'),
@@ -351,6 +354,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         error={!!errors?.recipe}
                         picture="/meal-plan/beef.jpg"
+                        dialogPicture="/recipes/dispersion/beef.gif"
                         price="normal"
                         ingredients={[
                           i('beef-chuck'),
@@ -392,6 +396,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         error={!!errors?.recipe}
                         picture="/meal-plan/lamb.jpg"
+                        dialogPicture="/recipes/dispersion/lamb.gif"
                         price="expensive"
                         ingredients={[
                           i('lamb-leg-boneless'),

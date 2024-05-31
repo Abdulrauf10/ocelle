@@ -13,6 +13,7 @@ interface RecipeCheckboxProps<T extends FieldValues> extends InputControllerProp
   title: string;
   description: string;
   picture: string;
+  dialogPicture: string;
   price: 'cheap' | 'normal' | 'expensive';
   ingredients: string[];
   targetedNutrientBlendIngredients: string[];
@@ -30,6 +31,7 @@ interface RecipeCheckboxProps<T extends FieldValues> extends InputControllerProp
 
 export default function RecipeCheckbox<T extends FieldValues>({
   picture,
+  dialogPicture,
   title,
   name,
   control,
@@ -93,7 +95,7 @@ export default function RecipeCheckbox<T extends FieldValues>({
           <RecipeMediumDialog
             name={title}
             description={description}
-            picture="/meal-plan/chicken-recipe.jpg"
+            picture={dialogPicture}
             ingredients={ingredients}
             targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={calorie}
