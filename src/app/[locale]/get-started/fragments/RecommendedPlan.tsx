@@ -48,7 +48,7 @@ function recipesBoxPriceOptions(
   mealPlan: MealPlan
 ) {
   const dateOfBirth =
-    typeof age === 'string' ? age : getDateOfBirth(age.years, age.months).toISOString();
+    typeof age === 'string' ? age : getDateOfBirth(age?.years, age?.months).toISOString();
   return queryOptions({
     queryKey: [
       'recommendedPlan',
@@ -144,8 +144,8 @@ export default function RecommendedPlanFragment() {
       const { transition, recipe } = getValues();
       const { recipe1, recipe2 } = arrayToRecipe(recipe);
       setDog({ recipe1, recipe2, isEnabledTransitionPeriod: stringToBoolean(transition) });
-      nextDog();
       navigate(Stage.Dog);
+      nextDog();
     }
   }, [trigger, navigate, nextDog, setDog, getValues]);
 

@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
+import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import ProgressBar from './ProgressBar';
 import Stage from './Stage';
+import { useSurvey } from './SurveyContext';
 
 import Header from '@/components/Header';
 
@@ -39,6 +41,14 @@ function UnderlineBackButton({
 export default function View({ children }: React.PropsWithChildren) {
   const location = useLocation();
   const navigate = useNavigate();
+  const { prevDog } = useSurvey();
+
+  const handleBackClick = React.useCallback(() => {
+    if (location.pathname === Stage.Dog) {
+      prevDog();
+    }
+    navigate(-1);
+  }, [location.pathname, prevDog, navigate]);
 
   return (
     <>
@@ -54,7 +64,7 @@ export default function View({ children }: React.PropsWithChildren) {
                 location.pathname !== Stage.Calculating &&
                 location.pathname !== Stage.Processing
               }
-              onClick={() => navigate(-1)}
+              onClick={handleBackClick}
             />
           </div>
         }
@@ -66,7 +76,7 @@ export default function View({ children }: React.PropsWithChildren) {
                   <UnderlineBackButton
                     className="absolute -left-[80px] -top-2 select-none max-lg:hidden"
                     show={location.pathname !== Stage.Welcome}
-                    onClick={() => navigate(-1)}
+                    onClick={handleBackClick}
                   />
                   <ProgressBar stage={(location.pathname as Stage) || Stage.Welcome} />
                 </div>
