@@ -466,8 +466,9 @@ export default function DogForm({
                 label: t('just-right'),
                 descripton: (
                   <p className="body-3 text-primary">
-                    Clear waistline and tucked in belly. You can easily feel their ribs and / or
-                    spine, but they are not clearly visible.
+                    {t(
+                      'clear-waistline-and-tucked-in-belly-you-can-easily-feel-their-ribs-and-or-spine-but-they-are-not-clearly-visible'
+                    )}
                   </p>
                 ),
                 value: BodyCondition.JustRight,
@@ -484,14 +485,11 @@ export default function DogForm({
                 label: t('rounded'),
                 descripton: (
                   <p className="body-3 text-primary">
-                    Waistline is disappearing, difficult to feel ribs and spine. Broad back.
-                    <br />
-                    <br />
-                    <i>
-                      We’ll adjust their calories and help to manage their weight, so that it’s just
-                      right for optimum health and wellbeing!
-                    </i>
+                    {t('waistline-is-disappearing-difficult-to-feel-ribs-and-spine-broad-back')}
                   </p>
+                ),
+                selectedDescription: (
+                  <i className="body-3 text-primary">{t('adjust-their-calories')}</i>
                 ),
                 value: BodyCondition.Rounded,
                 children: (
@@ -507,15 +505,13 @@ export default function DogForm({
                 label: t('chunky'),
                 descripton: (
                   <p className="body-3 text-primary">
-                    Waistline is lost. You cannot feel their ribs and spine. Weight is a serious
-                    concern.
-                    <br />
-                    <br />
-                    <i>
-                      We’ll adjust their calories and help to manage their weight, so that it’s just
-                      right for optimum health and wellbeing!
-                    </i>
+                    {t(
+                      'waistline-is-lost-you-cannot-feel-their-ribs-and-spine-weight-is-a-serious-concern'
+                    )}
                   </p>
+                ),
+                selectedDescription: (
+                  <i className="body-3 text-primary">{t('adjust-their-calories')}</i>
                 ),
                 value: BodyCondition.Chunky,
                 children: (

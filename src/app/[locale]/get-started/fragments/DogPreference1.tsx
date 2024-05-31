@@ -126,8 +126,9 @@ export default function DogPreference1Fragment() {
                     label: t('just-right'),
                     descripton: (
                       <p className="body-3 text-primary">
-                        Clear waistline and tucked in belly. You can easily feel their ribs and / or
-                        spine, but they are not clearly visible.
+                        {t(
+                          'clear-waistline-and-tucked-in-belly-you-can-easily-feel-their-ribs-and-or-spine-but-they-are-not-clearly-visible'
+                        )}
                       </p>
                     ),
                     value: BodyCondition.JustRight,
@@ -144,7 +145,7 @@ export default function DogPreference1Fragment() {
                     label: t('rounded'),
                     descripton: (
                       <p className="body-3 text-primary">
-                        Waistline is disappearing, difficult to feel ribs and spine. Broad back.
+                        {t('waistline-is-disappearing-difficult-to-feel-ribs-and-spine-broad-back')}
                       </p>
                     ),
                     selectedDescription: (
@@ -164,8 +165,9 @@ export default function DogPreference1Fragment() {
                     label: t('chunky'),
                     descripton: (
                       <p className="body-3 text-primary">
-                        Waistline is lost. You cannot feel their ribs and spine. Weight is a serious
-                        concern.
+                        {t(
+                          'waistline-is-lost-you-cannot-feel-their-ribs-and-spine-weight-is-a-serious-concern'
+                        )}
                       </p>
                     ),
                     selectedDescription: (
