@@ -49,7 +49,8 @@ export default function ImageContentBlock({
           </div>
           <div
             className={clsx(
-              'w-1/2 px-[4vw]',
+              'w-1/2 md:px-[clamp(28px,4vw,80px)]',
+              reverse ? 'pr-6' : 'pl-6',
               breakpoint === 'sm'
                 ? 'max-sm:w-full max-sm:px-0 max-sm:pt-[30px]'
                 : 'max-md:w-full max-md:px-0 max-md:pt-[30px]'

@@ -193,7 +193,7 @@
   "fresh-full-plan": "Fresh Full Plan",
   "fresh-full-plan:description": "Everything needed in one simple serving. Reap the full benefits of fresh, nutritious meals for your dog, meticulously crafted and portioned by experts.",
   "fresh-half-plan": "Fresh Half Plan",
-  "fresh-half-plan:description": "Everything needed to supplement your dog’s current diet! Reinvigorate your dog’s current meals with a fresh, nutrient-packed addition.",
+  "fresh-half-plan:description": "Everything needed to supplement your dog's current diet! Reinvigorate your dog's current meals with a fresh, nutrient-packed addition.",
   "starting-at-{}-{}-per-day": "Starting at:<br></br>{price}{discountPrice}<h>/day</h>.",
   "enjoy-50-off-for-your-starter-box": "Enjoy <h>50%</h> off for <block>your starter box.</block>",
   "{}-recommended-plan": "{name}’s <span>Recommended Plan</span>",
@@ -874,7 +874,7 @@
     "block-2-item-3-title": "Real, good food, <block>regularly delivered</block>",
     "block-2-item-3-content": "Ultra-Convenience: Our meals are delivered direct to your door, fresh and bursting with flavour and nutrients.",
     "block-3-title": "Choose A Plan <block>That Suits</block><br></br>Your Dog & You",
-    "block-4-title": "All The Flavour<br></br>They Desire!",
+    "block-4-title": "All The Flavour <block>They Desire!</block>",
     "block-4-content": "Choose from five protein-rich fresh recipes, meticulously crafted with whole foods, slow-cooked to enhance both nutrition and taste. Mix-and-match according to your dog’s needs. After all, you know your dog best of all!",
     "block-5-title": "A Lifetime Of <block>Tailored Nutrition!</block>",
     "block-5-content": "From puppy food to senior dog food – we're with you every step of the way. Our meals evolve with your dog, delivering maximum benefits at every bowl.",
@@ -886,7 +886,7 @@
     "block-7-content-1-content": "Easily tweak your delivery timings or choose new recipes based on what's perfect for you and your dog.",
     "block-7-content-2-title": "More Dogs?",
     "block-7-content-2-content": "No problem! Add them to your account for easy fresh meal management.",
-    "block-7-content-3-title": "<i>A Paws-itively</i> Simple Subscription",
+    "block-7-content-3-title": "<i>A Paws-itively</i> <block>Simple Subscription</block>",
     "block-7-content-3-content": "Skip deliveries, cancel, and come back any time!"
   }
 }
