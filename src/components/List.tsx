@@ -5,6 +5,7 @@ import { ReactNode } from 'react';
 interface ListProps {
   className?: {
     root?: string;
+    list?: string;
     row?: string;
     item?: string;
   };
@@ -15,15 +16,17 @@ interface ListProps {
 export default function List({ className, picture, items }: ListProps) {
   const t = useTranslations();
   return (
-    <ul className={clsx('list-none', className?.root)}>
-      {items.map((item, idx) => {
-        return (
-          <li key={idx} className={clsx('mx-0 my-2.5 flex items-start', className?.row)}>
-            <div>{picture}</div>
-            <div className={clsx('w-[calc(100%_-_40px)]', className?.item)}>{item}</div>
-          </li>
-        );
-      })}
-    </ul>
+    <div className={className?.root}>
+      <ul className={clsx('list-none', className?.list)}>
+        {items.map((item, idx) => {
+          return (
+            <li key={idx} className={clsx('mx-0 flex items-start', className?.row)}>
+              <div>{picture}</div>
+              <div className={clsx('w-[calc(100%_-_40px)]', className?.item)}>{item}</div>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }

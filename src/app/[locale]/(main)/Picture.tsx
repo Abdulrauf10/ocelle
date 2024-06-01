@@ -22,14 +22,14 @@ export default function Picture() {
         <div className="flex flex-wrap items-center max-md:flex-col-reverse">
           <div className="relative flex-1 pr-0 text-primary max-md:w-full max-md:border-t-[10px] max-md:border-primary max-md:p-[30px]">
             <h1 className="heading-headline heading-weight-1">{t.rich('block-1-title-1')}</h1>
-            <div className="my-6"></div>
+            <div className="pt-6"></div>
             <List
               picture={
                 <div className="">
                   <DogFoot className="mr-5 h-6 w-6 fill-primary" />
                 </div>
               }
-              className={{ row: 'py-1', item: 'body-1 !pt-[2px]' }}
+              className={{ list: '-my-[9px]', row: 'py-[9px]', item: 'body-1 !pt-[2px]' }}
               items={[
                 t('block-1-content-1'),
                 t('block-1-content-2'),
@@ -37,10 +37,9 @@ export default function Picture() {
                 t('block-1-content-4'),
               ]}
             />
-            <div className="flex justify-center sm:justify-start ">
-              <Button className="mt-4" href="/get-started">
-                {b('get-started')}
-              </Button>
+            <div className="pt-7"></div>
+            <div className="text-center sm:text-left">
+              <Button href="/get-started">{b('get-started')}</Button>
             </div>
           </div>
           <div className="w-[500px] self-end max-xl:w-[375px] max-md:w-full">

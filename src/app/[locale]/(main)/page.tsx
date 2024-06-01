@@ -48,10 +48,10 @@ export default function Home() {
         right={
           <div className="py-tight">
             <h2 className="heading-1 heading-weight-1 text-primary">{t.rich('block-3-title')}</h2>
-            <div className="mt-tight"></div>
+            <div className="pt-tight"></div>
             <List
               picture={<Tickbox className="mr-4 h-5 w-5" />}
-              className={{ row: 'py-1.5', item: 'body-1' }}
+              className={{ list: '-my-[11px]', row: 'py-[11px]', item: 'body-1' }}
               items={[
                 t('block-3-content-1'),
                 t('block-3-content-2'),
@@ -60,7 +60,7 @@ export default function Home() {
                 t('block-3-content-5'),
               ]}
             />
-            <div className="mt-tight"></div>
+            <div className="pt-tight"></div>
             <div className="flex justify-center lg:justify-start">
               <Button href="/why-fresh/benefits-of-fresh-dog-food">{b('learn-more')}</Button>
             </div>
@@ -72,7 +72,8 @@ export default function Home() {
           <h2 className="heading-1 heading-weight-1 text-center text-primary">
             {t.rich('block-4-title')}
           </h2>
-          <div className="relative mt-10 flex-col-reverse items-center max-xl:flex">
+          <div className="pt-10"></div>
+          <div className="relative flex-col-reverse items-center max-xl:flex">
             <div className="pb-0 max-xl:flex max-xl:flex-wrap [&>*]:max-xl:m-0 [&>*]:max-xl:mt-3 [&>*]:max-xl:max-w-none [&>*]:max-xl:px-4 [&>*]:max-xl:py-3 [&>*]:max-xl:text-center [&>*]:max-sm:w-full [&_img]:max-xl:inline">
               <div className="ml-14 mt-5 md:w-1/2 xl:w-full">
                 <Image
@@ -82,9 +83,9 @@ export default function Home() {
                   width={81}
                   height={70}
                 />
-                <div className="mt-2"></div>
+                <div className="pt-2"></div>
                 <h3 className="heading-4 text-primary">{t.rich('block-4-item-1-title')}</h3>
-                <div className="mt-3"></div>
+                <div className="pt-4"></div>
                 <p className="body-1 xl:max-w-[320px]">{t('block-4-item-1-content')}</p>
               </div>
               <div className="mt-[6%] md:w-1/2 xl:w-full">
@@ -95,9 +96,9 @@ export default function Home() {
                   width={74}
                   height={70}
                 />
-                <div className="mt-2"></div>
+                <div className="pt-2"></div>
                 <h3 className="heading-4 text-primary">{t.rich('block-4-item-2-title')}</h3>
-                <div className="mt-3"></div>
+                <div className="pt-4"></div>
                 <p className="body-1 xl:max-w-[320px]">{t('block-4-item-2-content')}</p>
               </div>
               <div className="ml-32 mt-[6%]">
@@ -110,9 +111,9 @@ export default function Home() {
                       width={102}
                       height={70}
                     />
-                    <div className="mt-2"></div>
+                    <div className="pt-2"></div>
                     <h3 className="heading-4 text-primary">{t.rich('block-4-item-3-title')}</h3>
-                    <div className="mt-3"></div>
+                    <div className="pt-4"></div>
                     <p className="body-1">{t.rich('block-4-item-3-content')}</p>
                   </div>
                   <div className="w-full max-xl:mt-0 max-xl:p-3 md:w-1/2 xl:ml-[11%] xl:mt-[12%] xl:w-full xl:max-w-[320px]">
@@ -123,9 +124,9 @@ export default function Home() {
                       width={67}
                       height={70}
                     />
-                    <div className="mt-2"></div>
+                    <div className="pt-2"></div>
                     <h3 className="heading-4 text-primary">{t.rich('block-4-item-4-title')}</h3>
-                    <div className="mt-3"></div>
+                    <div className="pt-4"></div>
                     <p className="body-1">{t('block-4-item-4-content')}</p>
                   </div>
                   <div className="ml-[6%] mt-[21%] text-center max-xl:hidden">
@@ -247,10 +248,11 @@ export default function Home() {
       <Block className="bg-gold bg-opacity-10">
         <Container>
           <h2 className="heading-1 heading-weight-1 text-center text-gold">{t('block-6-title')}</h2>
-          <div className="mt-5"></div>
+          <div className="pt-6"></div>
           <div className="mx-auto max-w-screen-md">
             <p className="body-1 text-center text-gold">{t('block-6-content')}</p>
           </div>
+          <div className="pt-10"></div>
           <CaseSwiper />
           <div className="mt-8 text-center">
             <Button href="/get-started">{b('see-my-plan')}</Button>
@@ -261,9 +263,9 @@ export default function Home() {
         <Container>
           <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-6 text-center shadow-backdrop max-md:shadow-block">
             <div className="heading-3 heading-weight-2 text-primary">{t('block-7-title')}</div>
-            <div className="mt-5"></div>
+            <div className="pt-6"></div>
             <p className="body-1">{t.rich('block-7-content')}</p>
-            <div className="mt-8 text-center">
+            <div className="pt-8 text-center">
               <Button href="/get-started">{b('create-your-plan')}</Button>
             </div>
           </div>

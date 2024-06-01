@@ -20,11 +20,11 @@ export default function HowItWorksSubscription() {
           <div className="-mx-4 flex flex-wrap items-center max-lg:flex-col-reverse max-lg:items-center">
             <div className="w-2/5 px-4 py-[5vw] text-xl text-primary max-lg:w-full max-lg:pb-12">
               <h1 className="heading-headline heading-weight-1">{s.rich('block-1-title')}</h1>
-              <div className="mt-5"></div>
+              <div className="pt-6"></div>
               <p className="body-1 body-weight-1 italic">{s('block-1-subtitle')}</p>
-              <div className="mt-4"></div>
+              <div className="pt-5"></div>
               <p className="body-1">{s('block-1-content')}</p>
-              <div className="mt-8 max-lg:flex max-lg:justify-center">
+              <div className="pt-8 max-lg:flex max-lg:justify-center">
                 <Button href="/get-started">{b('get-started')}</Button>
               </div>
             </div>
@@ -34,23 +34,22 @@ export default function HowItWorksSubscription() {
       <Block className="bg-[#EEEEEE]">
         <Container>
           <h2 className="heading-1 text-center font-bold text-gray">{s('block-2-title')}</h2>
-          <div className="mt-6">
-            <HowPlanWorks
-              mark1={{
-                title: s.rich('block-2-item-1-title'),
-                content: s.rich('block-2-item-1-content'),
-              }}
-              mark2={{
-                title: s.rich('block-2-item-2-title'),
-                content: s.rich('block-2-item-2-content'),
-              }}
-              mark3={{
-                title: s.rich('block-2-item-3-title'),
-                content: s.rich('block-2-item-3-content'),
-              }}
-            />
-          </div>
-          <div className="mt-2 text-center">
+          <div className="pt-6"></div>
+          <HowPlanWorks
+            mark1={{
+              title: s.rich('block-2-item-1-title'),
+              content: s.rich('block-2-item-1-content'),
+            }}
+            mark2={{
+              title: s.rich('block-2-item-2-title'),
+              content: s.rich('block-2-item-2-content'),
+            }}
+            mark3={{
+              title: s.rich('block-2-item-3-title'),
+              content: s.rich('block-2-item-3-content'),
+            }}
+          />
+          <div className="pt-3 text-center">
             <Button href="/get-started">{b('build-my-plan')}</Button>
           </div>
         </Container>
@@ -60,7 +59,8 @@ export default function HowItWorksSubscription() {
           <h2 className="heading-1 text-center font-bold text-dark-green">
             {s.rich('block-3-title')}
           </h2>
-          <div className="mt-3 flex flex-wrap justify-center">
+          <div className="pt-3"></div>
+          <div className="flex flex-wrap justify-center">
             <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full max-sm:px-0">
               <div className="relative h-full w-full rounded-[40px] border border-dark-green bg-white p-10 pt-16 text-center max-xs:px-4">
                 <div className="absolute left-0 top-4 w-full text-center">
@@ -71,11 +71,11 @@ export default function HowItWorksSubscription() {
                 <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
                   <Image alt="Full Plan Meal" src="/meal-plan/full-plan.jpg" fill />
                 </div>
-                <div className="mt-6"></div>
+                <div className="pt-6"></div>
                 <h3 className="heading-4 font-bold uppercase text-dark-green">
                   {t('fresh-full-plan')}
                 </h3>
-                <div className="mt-2"></div>
+                <div className="pt-3"></div>
                 <p className="body-1">{t('fresh-full-plan:description')}</p>
               </div>
             </div>
@@ -84,16 +84,16 @@ export default function HowItWorksSubscription() {
                 <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
                   <Image alt="Full Plan Meal" src="/meal-plan/half-plan.jpg" fill />
                 </div>
-                <div className="mt-6"></div>
+                <div className="pt-6"></div>
                 <h3 className="heading-4 font-bold uppercase text-dark-green">
                   {t('fresh-half-plan')}
                 </h3>
-                <div className="mt-2"></div>
+                <div className="pt-3"></div>
                 <p className="body-1">{t('fresh-half-plan:description')}</p>
               </div>
             </div>
           </div>
-          <div className="mt-5 text-center">
+          <div className="pt-5 text-center">
             <Button href="/get-started">{b('get-started')}</Button>
           </div>
         </Container>
@@ -109,9 +109,9 @@ export default function HowItWorksSubscription() {
       >
         <div className="max-sm:px-7">
           <h2 className="heading-1 font-bold text-gold">{s.rich('block-4-title')}</h2>
-          <div className="mt-5"></div>
+          <div className="pt-6"></div>
           <p className="body-1">{s('block-4-content')}</p>
-          <div className="mt-5 max-lg:flex max-lg:justify-center">
+          <div className="pt-6 max-lg:flex max-lg:justify-center">
             <Button href="/get-started">{b('see-my-recipes')}</Button>
           </div>
         </div>
@@ -119,9 +119,9 @@ export default function HowItWorksSubscription() {
       <ImageContentBlock image="/dogs/three-dogs.jpg" alt="three of dogs" breakpoint="sm">
         <div className="max-sm:px-7">
           <h2 className="heading-1 font-bold text-primary">{s.rich('block-5-title')}</h2>
-          <div className="mt-5"></div>
+          <div className="pt-6"></div>
           <p className="body-1">{s.rich('block-5-content')}</p>
-          <div className="mt-5 max-lg:flex max-lg:justify-center">
+          <div className="pt-6 max-lg:flex max-lg:justify-center">
             <Button href="/get-started">{b('build-my-plan')}</Button>
           </div>
         </div>
@@ -150,11 +150,11 @@ export default function HowItWorksSubscription() {
               alt="ocelle truck"
             />
           </div>
-          <div className="mt-5"></div>
+          <div className="pt-6"></div>
           <p className="body-1">{s('block-6-content-1-title')}</p>
-          <div className="mt-5"></div>
+          <div className="pt-6"></div>
           <p className="body-1">{s('block-6-content-1-content')}</p>
-          <div className="mt-5 max-lg:flex max-lg:justify-center">
+          <div className="pt-6 max-lg:flex max-lg:justify-center">
             <Button href="/get-started">{b('get-started')}</Button>
           </div>
         </div>

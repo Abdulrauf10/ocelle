@@ -29,9 +29,9 @@ export default function HowPlanWorks({
         <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
           1
         </div>
-        <div className="mt-3"></div>
+        <div className="pt-3"></div>
         <h3 className="heading-4 text-gray">{mark1.title}</h3>
-        <div className="mt-3"></div>
+        <div className="pt-4"></div>
         <p className="body-1">{mark1.content}</p>
       </div>
       <div className=" w-1/3 px-8 py-5 text-center max-md:w-full">
@@ -45,9 +45,9 @@ export default function HowPlanWorks({
         <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
           2
         </div>
-        <div className="mt-3"></div>
+        <div className="pt-3"></div>
         <h3 className="heading-4 text-gray">{mark2.title}</h3>
-        <div className="mt-3"></div>
+        <div className="pt-4"></div>
         <p className="body-1">{mark2.content}</p>
       </div>
       <div className="w-1/3 px-8 py-5 text-center max-md:w-full">
@@ -61,9 +61,9 @@ export default function HowPlanWorks({
         <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
           3
         </div>
-        <div className="mt-3"></div>
+        <div className="pt-3"></div>
         <h3 className="heading-4 text-gray">{mark3.title}</h3>
-        <div className="mt-3"></div>
+        <div className="pt-4"></div>
         <p className="body-1">{mark3.content}</p>
       </div>
     </div>
