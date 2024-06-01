@@ -76,8 +76,8 @@ export default function FaQ() {
       </div>
       <div className="bg-primary bg-opacity-20 py-8">
         <Container className="max-w-screen-xl">
-          <div className="-m-2 flex flex-wrap items-center justify-between max-xl:justify-center max-xl:px-4 max-lg:justify-center max-sm:flex-col">
-            <div className="flex justify-center p-2 md:flex-[1_1_30%] xl:flex-1">
+          <div className="-mx-4 -my-2 flex flex-wrap justify-center">
+            <div className="px-4 py-2">
               <Link
                 href="#our-food"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
@@ -85,7 +85,7 @@ export default function FaQ() {
                 <span className="heading-4 font-bold text-white">Our Food</span>
               </Link>
             </div>
-            <div className="flex justify-center p-2 md:flex-[1_1_30%] xl:flex-1">
+            <div className="px-4 py-2">
               <Link
                 href="#our-quiz"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
@@ -93,7 +93,7 @@ export default function FaQ() {
                 <span className="heading-4 font-bold text-white">Our Quiz</span>
               </Link>
             </div>
-            <div className="flex justify-center p-2 md:flex-[1_1_30%] xl:flex-1">
+            <div className="px-4 py-2">
               <Link
                 href="#subscription"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
@@ -101,7 +101,8 @@ export default function FaQ() {
                 <span className="heading-4 font-bold text-white">Subscription</span>
               </Link>
             </div>
-            <div className="flex p-2 md:flex-[1_1_40%] md:justify-end md:pr-[5%] xl:flex-1 xl:justify-center xl:pr-2">
+            <div className="hidden w-full flex-auto md:block xl:hidden"></div>
+            <div className="px-4 py-2">
               <Link
                 href="#deliveries"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
@@ -109,7 +110,7 @@ export default function FaQ() {
                 <span className="heading-4 font-bold text-white">Deliveries</span>
               </Link>
             </div>
-            <div className="flex p-2 md:flex-[1_1_40%] md:justify-start md:pl-[5%] xl:flex-1 xl:justify-center xl:pl-2">
+            <div className="px-4 py-2">
               <Link
                 href="#payment"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
