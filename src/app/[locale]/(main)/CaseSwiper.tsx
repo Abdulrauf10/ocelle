@@ -45,7 +45,7 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
               <div className="-mt-px">
                 <Image
                   src="/brown-tick.png"
-                  className={'mr-3 h-[22px] w-[22px]'}
+                  className={'h-[22px] w-[22px]'}
                   width={22}
                   height={22}
                   alt="brown tick"
@@ -55,6 +55,7 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
             className={{
               list: '-my-1.5',
               row: 'py-1.5 text-gold',
+              icon: 'mr-3',
               item: 'body-1',
             }}
             items={listItems}

@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import Container from '@/components/Container';
+import List from '@/components/List';
 import Newsletter from '@/components/Newsletter';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
@@ -110,19 +111,21 @@ export default function RawDogFoodVsGentlyCooked() {
           <h2 className="heading-1 text-center font-bold text-primary">
             {i.rich('block-4-title')}
           </h2>
+          <div className="pt-10"></div>
           <div className="mx-auto max-w-6xl">
-            <div className="mt-10 flex">
-              <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-primary" />
-              <p className="body-1">{i.rich('block-4-content-1')}</p>
-            </div>
-            <div className="mt-10 flex">
-              <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-primary" />
-              <p className="body-1">{i.rich('block-4-content-2')}</p>
-            </div>
-            <div className="mt-10 flex">
-              <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-primary" />
-              <p className="body-1">{i.rich('block-4-content-3')}</p>
-            </div>
+            <List
+              className={{
+                list: '-my-5',
+                row: 'py-5',
+                icon: 'mr-4',
+              }}
+              picture={<DogFoot className="-mt-2 w-10 min-w-10 fill-primary" />}
+              items={[
+                <p className="body-1">{i.rich('block-4-content-1')}</p>,
+                <p className="body-1">{i.rich('block-4-content-2')}</p>,
+                <p className="body-1">{i.rich('block-4-content-3')}</p>,
+              ]}
+            />
           </div>
         </Container>
       </Block>

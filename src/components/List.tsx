@@ -7,6 +7,7 @@ interface ListProps {
     root?: string;
     list?: string;
     row?: string;
+    icon?: string;
     item?: string;
   };
   picture?: ReactNode;
@@ -21,8 +22,8 @@ export default function List({ className, picture, items }: ListProps) {
         {items.map((item, idx) => {
           return (
             <li key={idx} className={clsx('mx-0 flex items-start', className?.row)}>
-              <div>{picture}</div>
-              <div className={clsx('w-[calc(100%_-_40px)]', className?.item)}>{item}</div>
+              <div className={clsx(className?.icon)}>{picture}</div>
+              <div className={clsx(className?.item)}>{item}</div>
             </li>
           );
         })}

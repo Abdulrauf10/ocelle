@@ -26,10 +26,10 @@ export default function Picture() {
             <List
               picture={
                 <div className="-mt-0.5">
-                  <DogFoot className="mr-5 h-6 w-6 fill-primary" />
+                  <DogFoot className="h-6 w-6 fill-primary" />
                 </div>
               }
-              className={{ list: '-my-2.5', row: 'py-2.5', item: 'body-1' }}
+              className={{ list: '-my-2.5', row: 'py-2.5', icon: 'mr-5', item: 'body-1' }}
               items={[
                 t('block-1-content-1'),
                 t('block-1-content-2'),

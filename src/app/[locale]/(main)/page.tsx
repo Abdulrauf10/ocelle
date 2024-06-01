@@ -50,8 +50,8 @@ export default function Home() {
             <h2 className="heading-1 heading-weight-1 text-primary">{t.rich('block-3-title')}</h2>
             <div className="pt-tight"></div>
             <List
-              picture={<Tickbox className="mr-4 h-5 w-5" />}
-              className={{ list: '-my-[11px]', row: 'py-[11px]', item: 'body-1' }}
+              picture={<Tickbox className="h-5 w-5" />}
+              className={{ list: '-my-[11px]', row: 'py-[11px]', icon: 'mr-4', item: 'body-1' }}
               items={[
                 t('block-3-content-1'),
                 t('block-3-content-2'),

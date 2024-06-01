@@ -10,6 +10,7 @@ import { EffectCreative, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import Container from '@/components/Container';
+import List from '@/components/List';
 import Newsletter from '@/components/Newsletter';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
@@ -137,44 +138,43 @@ export default function ItsTimeToRethinkKibble() {
       <Block className="bg-gold bg-opacity-15">
         <Container>
           <h2 className="heading-1 text-center font-bold text-gold">{i.rich('block-2-title')}</h2>
-          <div className="-mx-4 mt-10 flex items-center max-md:flex-col">
+          <div className="pt-10"></div>
+          <div className="-mx-4 flex items-center max-md:flex-col">
             <div className="mx-4 flex-1">
-              <div className="flex">
-                <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
-                <p className="body-1">
-                  <span className="font-bold text-gold">
-                    {t('{}-colon', { value: i('block-2-mark-1-title') })}
-                  </span>
-                  <span>{i.rich('block-2-mark-1-content')}</span>
-                </p>
-              </div>
-              <div className="mt-6 flex">
-                <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
-                <p className="body-1">
-                  <span className="font-bold text-gold">
-                    {t('{}-colon', { value: i('block-2-mark-2-title') })}
-                  </span>
-                  <span>{i.rich('block-2-mark-2-content')}</span>
-                </p>
-              </div>
-              <div className="mt-6 flex">
-                <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
-                <p className="body-1">
-                  <span className="font-bold text-gold">
-                    {t('{}-colon', { value: i('block-2-mark-3-title') })}
-                  </span>
-                  <span>{i.rich('block-2-mark-3-content')}</span>
-                </p>
-              </div>
-              <div className="mt-6 flex">
-                <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
-                <p className="body-1">
-                  <span className="font-bold text-gold">
-                    {t('{}-colon', { value: i('block-2-mark-4-title') })}
-                  </span>
-                  <span>{i.rich('block-2-mark-4-content')}</span>
-                </p>
-              </div>
+              <List
+                className={{
+                  list: '-my-3',
+                  row: 'py-3',
+                  icon: 'mr-4',
+                }}
+                picture={<DogFoot className="-mt-2 w-10 min-w-10 fill-gold" />}
+                items={[
+                  <p className="body-1">
+                    <span className="font-bold text-gold">
+                      {t('{}-colon', { value: i('block-2-mark-1-title') })}
+                    </span>
+                    <span>{i.rich('block-2-mark-1-content')}</span>
+                  </p>,
+                  <p className="body-1">
+                    <span className="font-bold text-gold">
+                      {t('{}-colon', { value: i('block-2-mark-2-title') })}
+                    </span>
+                    <span>{i.rich('block-2-mark-2-content')}</span>
+                  </p>,
+                  <p className="body-1">
+                    <span className="font-bold text-gold">
+                      {t('{}-colon', { value: i('block-2-mark-3-title') })}
+                    </span>
+                    <span>{i.rich('block-2-mark-3-content')}</span>
+                  </p>,
+                  <p className="body-1">
+                    <span className="font-bold text-gold">
+                      {t('{}-colon', { value: i('block-2-mark-4-title') })}
+                    </span>
+                    <span>{i.rich('block-2-mark-4-content')}</span>
+                  </p>,
+                ]}
+              />
             </div>
             <div className="mx-4 flex-1 max-md:mt-8">
               <div className="ml-4 rounded-[40px] border-[3px] border-gold bg-white px-12 py-10 max-md:ml-0 max-md:px-6">

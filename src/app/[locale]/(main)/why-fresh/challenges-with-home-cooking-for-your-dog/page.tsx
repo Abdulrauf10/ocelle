@@ -2,6 +2,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import Container from '@/components/Container';
+import List from '@/components/List';
 import Newsletter from '@/components/Newsletter';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
@@ -11,7 +12,7 @@ import { Link } from '@/navigation';
 
 function Arrow() {
   return (
-    <svg viewBox="0 0 10.78 17.55" className="mx-2 inline-block w-3 align-middle">
+    <svg viewBox="0 0 10.78 17.55" className="mx-2 -mt-1 inline-block w-3 align-middle">
       <polyline
         className="fill-none stroke-gold stroke-2"
         strokeLinecap="round"
@@ -46,52 +47,51 @@ export default function ChallengesWithHomeCookingForYourDog() {
       <Block styles="tight" className="bg-secondary bg-opacity-[12%]">
         <Container className="!max-w-6xl">
           <h2 className="heading-1 text-center font-bold text-gold">{i.rich('block-3-title')}</h2>
-          <div className="mt-12 flex">
-            <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
-            <p className="body-1">
-              <span className="font-bold text-gold">{i.rich('block-3-mark-1-title')}</span>
-              <Arrow />
-              <span>{i.rich('block-3-mark-1-content')}</span>
-            </p>
-          </div>
-          <div className="mt-12 flex">
-            <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
-            <p className="body-1">
-              <span className="font-bold text-gold">{i.rich('block-3-mark-2-title')}</span>
-              <Arrow />
-              <span>{i.rich('block-3-mark-2-content')}</span>
-            </p>
-          </div>
-          <div className="mt-12 flex">
-            <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
-            <p className="body-1">
-              <span className="font-bold text-gold">{i.rich('block-3-mark-3-title')}</span>
-              <Arrow />
-              <span>{i.rich('block-3-mark-3-content')}</span>
-            </p>
-          </div>
-          <div className="mt-12 flex">
-            <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
-            <p className="body-1">
-              <span className="font-bold text-gold">{i.rich('block-3-mark-4-title')}</span>
-              <Arrow />
-              <span>
-                {i.rich('block-3-mark-4-content', {
-                  button: (chunks) => (
-                    <UnderlineButton label={chunks} href="/why-fresh/benefits-of-fresh-dog-food" />
-                  ),
-                })}
-              </span>
-            </p>
-          </div>
-          <div className="mt-12 flex">
-            <DogFoot className="-mt-2 mr-4 w-10 min-w-10 self-start fill-gold" />
-            <p className="body-1">
-              <span className="font-bold text-gold">{i.rich('block-3-mark-5-title')}</span>
-              <Arrow />
-              <span>{i.rich('block-3-mark-5-content')}</span>
-            </p>
-          </div>
+          <div className="pt-12"></div>
+          <List
+            className={{
+              list: '-my-6',
+              row: 'py-6',
+              icon: 'mr-4',
+            }}
+            picture={<DogFoot className="-mt-2 w-10 min-w-10 fill-gold" />}
+            items={[
+              <p className="body-1">
+                <span className="font-bold text-gold">{i.rich('block-3-mark-1-title')}</span>
+                <Arrow />
+                <span>{i.rich('block-3-mark-1-content')}</span>
+              </p>,
+              <p className="body-1">
+                <span className="font-bold text-gold">{i.rich('block-3-mark-2-title')}</span>
+                <Arrow />
+                <span>{i.rich('block-3-mark-2-content')}</span>
+              </p>,
+              <p className="body-1">
+                <span className="font-bold text-gold">{i.rich('block-3-mark-3-title')}</span>
+                <Arrow />
+                <span>{i.rich('block-3-mark-3-content')}</span>
+              </p>,
+              <p className="body-1">
+                <span className="font-bold text-gold">{i.rich('block-3-mark-4-title')}</span>
+                <Arrow />
+                <span>
+                  {i.rich('block-3-mark-4-content', {
+                    button: (chunks) => (
+                      <UnderlineButton
+                        label={chunks}
+                        href="/why-fresh/benefits-of-fresh-dog-food"
+                      />
+                    ),
+                  })}
+                </span>
+              </p>,
+              <p className="body-1">
+                <span className="font-bold text-gold">{i.rich('block-3-mark-5-title')}</span>
+                <Arrow />
+                <span>{i.rich('block-3-mark-5-content')}</span>
+              </p>,
+            ]}
+          />
         </Container>
       </Block>
       <Block styles="tight" className="bg-primary bg-opacity-[12%]">
