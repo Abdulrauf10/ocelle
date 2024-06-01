@@ -47,8 +47,8 @@
   "order-processing": "",
   "delivered": "",
   "submit": "",
-  "go-back": "",
-  "go-home": "",
+  "go-back": "返回",
+  "go-home": "返回主頁",
   "join-now": "",
   "back-to-{}": "",
   "cancel": "取消",
@@ -882,5 +882,9 @@
     "block-7-content-2-content": "只需將他們添加至「我的計劃」，方便管理。",
     "block-7-content-3-title": "至簡單的自動訂購計劃",
     "block-7-content-3-content": "隨時暫停配送、取消，及重新再次訂購！"
+  },
+  "NotFound": {
+    "block-1-title": "哎呀！此頁面去左行街街！",
+    "block-1-content": "請使用以下連結。<i>Woof!</i>"
   }
 }

@@ -13,6 +13,7 @@ import { useRouter } from '@/navigation';
 
 export default function NotFound() {
   const t = useTranslations();
+  const n = useTranslations('NotFound');
   const router = useRouter();
 
   return (
@@ -22,16 +23,9 @@ export default function NotFound() {
       <div className="bg-gold bg-opacity-20">
         <Container className="flex max-w-screen-xl items-center max-[951px]:flex-col max-[951px]:items-center">
           <div className="w-full py-20 max-[951px]:py-8 max-[951px]:text-center">
-            <h1 className="heading-1 font-bold text-primary">
-              <span className="inline-block">
-                <i>Aiya! </i>
-              </span>{' '}
-              <span className="inline-block">Page Gone Walkies!</span>
-            </h1>
+            <h1 className="heading-1 font-bold text-primary">{n.rich('block-1-title')}</h1>
             <div className="pt-4"></div>
-            <p className="body-1 text-primary">
-              Please use the links below. <i>Woof!</i>
-            </p>
+            <p className="body-1 text-primary">{n.rich('block-1-content')}</p>
             <div className="pt-4"></div>
             <div className="mx-0 max-w-[180px] max-[951px]:mx-auto">
               <Button fullWidth onClick={() => router.back()}>

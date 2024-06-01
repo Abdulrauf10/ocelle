@@ -888,5 +888,9 @@
     "block-7-content-2-content": "No problem! Add them to your account for easy fresh meal management.",
     "block-7-content-3-title": "<i>A Paws-itively</i> <block>Simple Subscription</block>",
     "block-7-content-3-content": "Skip deliveries, cancel, and come back any time!"
+  },
+  "NotFound": {
+    "block-1-title": "<block><i>Aiya! </i></block> <block>Page Gone Walkies!</block>",
+    "block-1-content": "Please use the links below. <i>Woof!</i>"
   }
 }
