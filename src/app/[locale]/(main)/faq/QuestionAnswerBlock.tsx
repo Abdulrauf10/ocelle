@@ -24,7 +24,7 @@ export default function QuestionAnswerBlock({ question, answer }: QuestionAnswer
       }}
     >
       <div className="px-2">
-        <div className="mt-1.5">
+        <div className="mt-0.5">
           <div
             className={clsx(
               'h-0 w-0 border-[8px] border-l-[12px] border-r-0 border-transparent border-l-primary transition',

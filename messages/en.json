@@ -892,5 +892,13 @@
   "NotFound": {
     "block-1-title": "<block><i>Aiya! </i></block> <block>Page Gone Walkies!</block>",
     "block-1-content": "Please use the links below. <i>Woof!</i>"
+  },
+  "FAQ": {
+    "block-1-content": "If you can’t find what you’re looking for, please contact us!",
+    "block-2-title": "Our Food",
+    "block-3-title": "Our Quiz",
+    "block-4-title": "Subscription",
+    "block-5-title": "Deliveries",
+    "block-6-title": "Payment"
   }
 }

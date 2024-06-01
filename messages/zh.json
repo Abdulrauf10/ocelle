@@ -886,5 +886,13 @@
   "NotFound": {
     "block-1-title": "哎呀！此頁面去左行街街！",
     "block-1-content": "請使用以下連結。<i>Woof!</i>"
+  },
+  "FAQ": {
+    "block-1-content": "找不到您需要的資訊？請隨時與我們聯繫！",
+    "block-2-title": "我們的鮮食",
+    "block-3-title": "問卷",
+    "block-4-title": "自動訂購計劃",
+    "block-5-title": "配送",
+    "block-6-title": "付款"
   }
 }

@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import Link from 'next/link';
 import React from 'react';
 
@@ -21,7 +22,7 @@ function Block({ id, title, faqs }: BlockProps) {
   return (
     <div className="py-10">
       <div id={id} className="relative -top-[140px]"></div>
-      <h2 className="heading-2 font-bold text-primary">{title}</h2>
+      <h2 className="heading-2 font-bold uppercase text-primary">{title}</h2>
       {faqs.map((faq, idx) => (
         <div key={idx} className="mt-5">
           <QuestionAnswerBlock question={faq.question} answer={faq.answer} />
@@ -32,6 +33,9 @@ function Block({ id, title, faqs }: BlockProps) {
 }
 
 export default function FaQ() {
+  const t = useTranslations();
+  const f = useTranslations('FAQ');
+
   return (
     <main>
       <div
@@ -44,9 +48,7 @@ export default function FaQ() {
             <h1 className="-ml-[9px] select-none text-[215px] font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] max-lg:text-[130px]">
               FAQ
             </h1>
-            <p className="body-1 text-white">
-              If you can’t find what you’re looking for, please contact us!
-            </p>
+            <p className="body-1 text-white">{f('block-1-content')}</p>
             <div className="mt-6">
               <Link
                 href="mailto:info@ocelle.dog"
@@ -82,7 +84,7 @@ export default function FaQ() {
                 href="#our-food"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                <span className="heading-4 font-bold text-white">Our Food</span>
+                <span className="heading-4 font-bold text-white">{f('block-2-title')}</span>
               </Link>
             </div>
             <div className="px-4 py-2">
@@ -90,7 +92,7 @@ export default function FaQ() {
                 href="#our-quiz"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                <span className="heading-4 font-bold text-white">Our Quiz</span>
+                <span className="heading-4 font-bold text-white">{f('block-3-title')}</span>
               </Link>
             </div>
             <div className="px-4 py-2">
@@ -98,7 +100,7 @@ export default function FaQ() {
                 href="#subscription"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                <span className="heading-4 font-bold text-white">Subscription</span>
+                <span className="heading-4 font-bold text-white">{f('block-4-title')}</span>
               </Link>
             </div>
             <div className="hidden w-full flex-auto md:block xl:hidden"></div>
@@ -107,7 +109,7 @@ export default function FaQ() {
                 href="#deliveries"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                <span className="heading-4 font-bold text-white">Deliveries</span>
+                <span className="heading-4 font-bold text-white">{f('block-5-title')}</span>
               </Link>
             </div>
             <div className="px-4 py-2">
@@ -115,7 +117,7 @@ export default function FaQ() {
                 href="#payment"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                <span className="heading-4 font-bold text-white">Payment</span>
+                <span className="heading-4 font-bold text-white">{f('block-6-title')}</span>
               </Link>
             </div>
           </div>
@@ -125,7 +127,7 @@ export default function FaQ() {
         <Container className="-my-8 max-w-8xl">
           <Block
             id="our-food"
-            title="OUR FOOD"
+            title={f('block-2-title')}
             faqs={[
               {
                 question:
@@ -149,7 +151,7 @@ export default function FaQ() {
           />
           <Block
             id="our-quiz"
-            title="OUR QUIZ"
+            title={f('block-3-title')}
             faqs={[
               {
                 question:
@@ -173,7 +175,7 @@ export default function FaQ() {
           />
           <Block
             id="subscription"
-            title="SUBSCRIPTION"
+            title={f('block-4-title')}
             faqs={[
               {
                 question:
@@ -197,7 +199,7 @@ export default function FaQ() {
           />
           <Block
             id="deliveries"
-            title="DELIVERIES"
+            title={f('block-5-title')}
             faqs={[
               {
                 question:
@@ -221,7 +223,7 @@ export default function FaQ() {
           />
           <Block
             id="payment"
-            title="PAYMENT"
+            title={f('block-6-title')}
             faqs={[
               {
                 question:
