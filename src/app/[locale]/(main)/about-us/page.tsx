@@ -133,8 +133,8 @@ export default function OurStory() {
             </div>
           </div>
         </div>
-        <div className="relative -left-6 w-1/2 text-white max-md:left-0 max-md:w-full max-md:px-4">
-          <div className="absolute left-16 -translate-y-full max-md:static max-md:mt-12 max-md:translate-y-0 md:top-[-56px]">
+        <div className="relative -left-6 -top-[25px] w-1/2 text-white max-md:left-0 max-md:w-full max-md:px-4">
+          <div className="absolute left-16 -translate-y-full max-md:static max-md:mt-12 max-md:translate-y-0 md:top-[0]">
             <Image
               src="/inspire.svg"
               alt="Inspire"
@@ -147,7 +147,7 @@ export default function OurStory() {
           <div className="mt-6"></div>
           <h2 className="heading-1 font-bold max-md:text-center">{a('block-3-title-1')}</h2>
           <div className="mt-4"></div>
-          <div className="w-2/3 max-xl:w-full">
+          <div className="min-h-[112px] w-2/3 max-xl:w-full">
             <p className="body-1">{a('block-3-content-1')}</p>
           </div>
         </div>
