@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
@@ -82,9 +83,10 @@ export default function OurStory() {
           breakpoint="lg"
           className={{
             bgLeft: 'bg-brown',
-            bgRight:
-              "min-h-[520px] bg-[length:auto_100%] bg-[5%] bg-no-repeat max-lg:min-h-[50vw] max-lg:bg-[url('./charlie-center.jpg')] max-lg:bg-[center] lg:bg-[url('./charlie.jpg')]",
-            // "min-h-[520px] bg-[url('./charlie.jpg')] bg-[length:auto_100%] bg-no-repeat max-lg:min-h-[60vw] max-lg:bg-[]",
+            bgRight: clsx(
+              "min-h-[520px] bg-[#d8b99b] bg-[url('./charlie.jpg')] bg-[length:auto_100%] bg-[-50px] bg-no-repeat max-2xl:bg-[-4vw] max-xl:bg-[calc(calc(650px-48vw)_*_-1)]",
+              "max-lg:h-[50vw] max-lg:max-h-[520px] max-lg:min-h-[380px] max-lg:bg-[url('./charlie-center.jpg')] max-lg:bg-center"
+            ),
             mbLeft: 'px-4',
           }}
           left={
@@ -158,7 +160,7 @@ export default function OurStory() {
           mbLeft: 'px-4 py-6',
         }}
         bgRight={
-          <div className="ml-[12%] w-full max-w-[620px] max-lg:mx-auto max-lg:px-4">
+          <div className="ml-[80px] w-full max-w-[620px] max-2xl:mx-auto max-lg:mx-auto max-lg:px-4">
             <div className="relative pt-[117.2%]">
               <Image
                 src="/about-us-food.gif"
@@ -188,7 +190,7 @@ export default function OurStory() {
           </div>
         }
         right={
-          <div className="relative w-full max-w-[600px] max-lg:mx-auto max-lg:max-w-[450px] lg:ml-[6%]">
+          <div className="relative w-full max-w-[600px] max-lg:mx-auto max-lg:max-w-[450px] max-lg:pt-4 lg:ml-[6%]">
             <div className="pt-[117.2%]">
               <Image
                 src="/about-us-food.gif"
