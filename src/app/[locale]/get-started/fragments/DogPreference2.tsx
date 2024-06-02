@@ -75,6 +75,8 @@ export default function DogPreference2Fragment() {
     [currentDogIdx, navigate, setDog, auth.me]
   );
 
+  const eating = getValues('eating');
+
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <Container className="text-center">
@@ -176,6 +178,9 @@ export default function DogPreference2Fragment() {
                         },
                       }}
                       onChange={() => trigger('eating')}
+                      disabled={
+                        eating.filter((v) => v === true).length >= 2 && eating[idx] !== true
+                      }
                     />
                   </div>
                 );

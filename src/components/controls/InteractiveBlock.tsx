@@ -14,6 +14,7 @@ interface InteractiveBlockBase<
 > extends InputControllerProps<TFieldValues, TFieldName> {
   label: string;
   className?: string;
+  disabled?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
@@ -45,12 +46,13 @@ export default function InteractiveBlock<
   error,
   className,
   type,
+  disabled,
   onChange: parentOnChange,
   ...props
 }: InteractiveBlockProps<TFieldValues, TFieldName>) {
   const {
     field: { onChange, ...field },
-  } = useController<TFieldValues>({ name, control, rules });
+  } = useController<TFieldValues>({ name, control, rules, disabled });
   const isSelected =
     type === 'checkbox'
       ? field.value === true
@@ -65,6 +67,7 @@ export default function InteractiveBlock<
           : isSelected
             ? 'border-primary bg-primary text-white'
             : 'bg-brown bg-opacity-10 text-brown',
+        disabled && 'opacity-60',
         className
       )}
     >
