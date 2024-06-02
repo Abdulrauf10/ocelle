@@ -56,22 +56,22 @@ export default function ChallengesWithHomeCookingForYourDog() {
             }}
             picture={<DogFoot className="-mt-2 w-10 min-w-10 fill-gold" />}
             items={[
-              <p className="body-1">
+              <p key="block-3-mark-1" className="body-1">
                 <span className="font-bold text-gold">{i.rich('block-3-mark-1-title')}</span>
                 <Arrow />
                 <span>{i.rich('block-3-mark-1-content')}</span>
               </p>,
-              <p className="body-1">
+              <p key="block-3-mark-2" className="body-1">
                 <span className="font-bold text-gold">{i.rich('block-3-mark-2-title')}</span>
                 <Arrow />
                 <span>{i.rich('block-3-mark-2-content')}</span>
               </p>,
-              <p className="body-1">
+              <p key="block-3-mark-3" className="body-1">
                 <span className="font-bold text-gold">{i.rich('block-3-mark-3-title')}</span>
                 <Arrow />
                 <span>{i.rich('block-3-mark-3-content')}</span>
               </p>,
-              <p className="body-1">
+              <p key="block-3-mark-4" className="body-1">
                 <span className="font-bold text-gold">{i.rich('block-3-mark-4-title')}</span>
                 <Arrow />
                 <span>
@@ -85,7 +85,7 @@ export default function ChallengesWithHomeCookingForYourDog() {
                   })}
                 </span>
               </p>,
-              <p className="body-1">
+              <p key="block-3-mark-5" className="body-1">
                 <span className="font-bold text-gold">{i.rich('block-3-mark-5-title')}</span>
                 <Arrow />
                 <span>{i.rich('block-3-mark-5-content')}</span>

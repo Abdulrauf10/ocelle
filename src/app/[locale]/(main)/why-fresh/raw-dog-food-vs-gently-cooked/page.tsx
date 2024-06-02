@@ -121,9 +121,15 @@ export default function RawDogFoodVsGentlyCooked() {
               }}
               picture={<DogFoot className="-mt-2 w-10 min-w-10 fill-primary" />}
               items={[
-                <p className="body-1">{i.rich('block-4-content-1')}</p>,
-                <p className="body-1">{i.rich('block-4-content-2')}</p>,
-                <p className="body-1">{i.rich('block-4-content-3')}</p>,
+                <p key="block-4-content-1" className="body-1">
+                  {i.rich('block-4-content-1')}
+                </p>,
+                <p key="block-4-content-2" className="body-1">
+                  {i.rich('block-4-content-2')}
+                </p>,
+                <p key="block-4-content-3" className="body-1">
+                  {i.rich('block-4-content-3')}
+                </p>,
               ]}
             />
           </div>

@@ -152,25 +152,25 @@ export default function ItsTimeToRethinkKibble() {
                 }}
                 picture={<DogFoot className="-mt-2 w-10 min-w-10 fill-gold" />}
                 items={[
-                  <p className="body-1">
+                  <p key="block-2-mark-1" className="body-1">
                     <span className="font-bold text-gold">
                       {t('{}-colon', { value: i('block-2-mark-1-title') })}
                     </span>
                     <span>{i.rich('block-2-mark-1-content')}</span>
                   </p>,
-                  <p className="body-1">
+                  <p key="block-2-mark-2" className="body-1">
                     <span className="font-bold text-gold">
                       {t('{}-colon', { value: i('block-2-mark-2-title') })}
                     </span>
                     <span>{i.rich('block-2-mark-2-content')}</span>
                   </p>,
-                  <p className="body-1">
+                  <p key="block-2-mark-3" className="body-1">
                     <span className="font-bold text-gold">
                       {t('{}-colon', { value: i('block-2-mark-3-title') })}
                     </span>
                     <span>{i.rich('block-2-mark-3-content')}</span>
                   </p>,
-                  <p className="body-1">
+                  <p key="block-2-mark-4" className="body-1">
                     <span className="font-bold text-gold">
                       {t('{}-colon', { value: i('block-2-mark-4-title') })}
                     </span>
