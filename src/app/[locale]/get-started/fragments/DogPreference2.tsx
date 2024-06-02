@@ -161,7 +161,7 @@ export default function DogPreference2Fragment() {
           </Section>
           <SectionBreak />
           <Section title={t.rich('what-is-{}-currently-eating', { name })}>
-            <div className="mx-auto -mt-4 flex max-w-[460px] flex-wrap justify-between max-sm:max-w-[360px] max-sm:justify-center">
+            <div className="mx-auto -mt-4 flex max-w-[480px] flex-wrap justify-center max-sm:max-w-[360px]">
               {currentEatingOptions.map((option, idx) => {
                 return (
                   <div key={idx} className="mt-4 px-3">
@@ -185,7 +185,12 @@ export default function DogPreference2Fragment() {
                   </div>
                 );
               })}
-              <div className="min-w-[152px] px-3"></div>
+              <div className="px-3">
+                <div className="min-w-[128px]"></div>
+              </div>
+              <div className="px-3">
+                <div className="min-w-[128px]"></div>
+              </div>
             </div>
           </Section>
           <SectionBreak />
