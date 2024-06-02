@@ -147,7 +147,7 @@ export default function RawDogFoodVsGentlyCooked() {
       <Block className="overflow-hidden bg-gold bg-opacity-15">
         <Container>
           <h2 className="heading-1 text-center font-bold text-gold">{w.rich('block-1-title')}</h2>
-          <div className="mt-4"></div>
+          <div className="pt-4"></div>
           <p className="body-1 text-center">
             {w.rich('block-1-content-1', {
               button: (chunks) => (
@@ -158,7 +158,8 @@ export default function RawDogFoodVsGentlyCooked() {
               ),
             })}
           </p>
-          <div className="-mx-6 flex flex-wrap items-stretch pt-normal max-lg:-mx-3">
+          <div className="pt-normal"></div>
+          <div className="-mx-6 flex flex-wrap items-stretch max-lg:-mx-3">
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/benefits-of-fresh-dog-food"

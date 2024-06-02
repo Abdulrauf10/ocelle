@@ -50,10 +50,11 @@ export default function BenefitsOfFreshDogFood() {
           <h1 className="heading-headline heading-weight-1 text-center text-brown">
             {i.rich('block-1-title')}
           </h1>
-          <div className="mt-6"></div>
+          <div className="pt-8"></div>
           <p className="body-1 text-center">{i.rich('block-1-content-1')}</p>
-          <div className="mx-auto -mb-[3%] mt-6 max-w-[1200px]">
-            <div className="relative pt-[56%] max-md:mt-[12%] max-md:scale-[1.25]">
+          <div className="pt-8"></div>
+          <div className="mx-auto -mb-[3%] max-w-[1200px]">
+            <div className="relative pt-[56%] max-md:mt-[8%] max-md:scale-[1.25]">
               <Image src="/why-fresh/a-running-dog.jpg" alt="running dog" fill />
             </div>
           </div>
@@ -70,9 +71,9 @@ export default function BenefitsOfFreshDogFood() {
         left={
           <div className="text-white">
             <h2 className="heading-1 font-bold max-md:text-center">{i.rich('block-2-title')}</h2>
-            <div className="mt-6"></div>
+            <div className="pt-8"></div>
             <p className="body-1">{i.rich('block-2-content-1')}</p>
-            <div className="mt-4"></div>
+            <div className="pt-5"></div>
             <p className="body-1">{i.rich('block-2-content-2')}</p>
           </div>
         }
@@ -135,7 +136,7 @@ export default function BenefitsOfFreshDogFood() {
             </div>
             <div className="max-md:mt-normal mx-4 flex-1 max-md:text-center">
               <p className="body-1">{i.rich('block-3-content-1')}</p>
-              <div className="mt-normal"></div>
+              <div className="pt-8"></div>
               <Button href="/why-fresh/its-time-to-rethink-kibble">{t('learn-more')}</Button>
             </div>
           </div>
@@ -143,10 +144,10 @@ export default function BenefitsOfFreshDogFood() {
       </Block>
       <Block className="bg-primary bg-opacity-10">
         <h2 className="heading-1 text-center font-bold text-primary">{i.rich('block-4-title')}</h2>
-        <div className="mt-4"></div>
+        <div className="pt-6"></div>
         <Container className="!max-w-5xl">
           <p className="body-1 text-center text-primary">{i.rich('block-4-content-1')}</p>
-          <div className="mt-10"></div>
+          <div className="pt-10"></div>
           <Toggler
             title={
               <BenefitsTitle
@@ -359,7 +360,7 @@ export default function BenefitsOfFreshDogFood() {
       <Block className="overflow-hidden bg-gold bg-opacity-15">
         <Container>
           <h2 className="heading-1 text-center font-bold text-gold">{w.rich('block-1-title')}</h2>
-          <div className="mt-4"></div>
+          <div className="pt-4"></div>
           <p className="body-1 text-center">
             {w.rich('block-1-content-1', {
               button: (chunks) => (
@@ -370,7 +371,8 @@ export default function BenefitsOfFreshDogFood() {
               ),
             })}
           </p>
-          <div className="-mx-6 flex flex-wrap items-stretch pt-normal max-lg:-mx-3">
+          <div className="pt-normal"></div>
+          <div className="-mx-6 flex flex-wrap items-stretch max-lg:-mx-3">
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/its-time-to-rethink-kibble"

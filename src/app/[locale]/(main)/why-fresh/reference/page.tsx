@@ -11,12 +11,12 @@ export default function WhyFreshReference() {
       <Block className="bg-primary bg-opacity-10">
         <Container>
           <h1 className="heading-2 font-bold text-primary">{i('title')}</h1>
-          <div className="mt-10"></div>
+          <div className="pt-10"></div>
           <div id="benefits-of-fresh-dog-food" className="relative -top-[140px]"></div>
           <h2 className="border-b pb-5 text-primary">
             <span className="heading-4">{i('block-1-title')}</span>
           </h2>
-          <div className="mt-5"></div>
+          <div className="pt-5"></div>
           <ol className="list-decimal pl-[18px] [&_li]:pb-2 [&_li]:pl-2">
             <li>{i('block-1-content-1')}</li>
             <li>{i('block-1-content-2')}</li>
@@ -49,7 +49,7 @@ export default function WhyFreshReference() {
           <h2 className="border-b pb-5 text-gold">
             <span className="heading-4">{i('block-2-title')}</span>
           </h2>
-          <div className="mt-5"></div>
+          <div className="pt-5"></div>
           <ol className="list-decimal pl-[18px] [&_li]:pb-2 [&_li]:pl-2">
             <li>{i('block-2-content-1')}</li>
             <li>{i('block-2-content-2')}</li>
@@ -84,7 +84,7 @@ export default function WhyFreshReference() {
           <h2 className="border-b pb-5 text-dark-green">
             <span className="heading-4">{i('block-3-title')}</span>
           </h2>
-          <div className="mt-5"></div>
+          <div className="pt-5"></div>
           <ol className="list-decimal pl-[18px] [&_li]:pb-2 [&_li]:pl-2">
             <li>{i('block-3-content-1')}</li>
             <li>{i('block-3-content-2')}</li>
@@ -116,7 +116,7 @@ export default function WhyFreshReference() {
           <h2 className="border-b pb-5 text-gray">
             <span className="heading-4">{i('block-4-title')}</span>
           </h2>
-          <div className="mt-5"></div>
+          <div className="pt-5"></div>
           <ol className="list-decimal pl-[18px] [&_li]:pb-2 [&_li]:pl-2">
             <li>{i('block-4-content-1')}</li>
             <li>{i('block-4-content-2')}</li>

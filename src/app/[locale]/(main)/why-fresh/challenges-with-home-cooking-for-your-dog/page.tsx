@@ -104,17 +104,16 @@ export default function ChallengesWithHomeCookingForYourDog() {
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center text-white">
           <h1 className="heading-1 font-bold">{i.rich('block-5-title')}</h1>
-          <div className="mt-6"></div>
+          <div className="pt-6"></div>
           <p className="body-1">{i.rich('block-5-content-1')}</p>
-          <Button className="mt-6" href="/get-started">
-            {b('try-it-today')}
-          </Button>
+          <div className="pt-6"></div>
+          <Button href="/get-started">{b('try-it-today')}</Button>
         </Container>
       </Block>
       <Block className="overflow-hidden bg-gold bg-opacity-15">
         <Container>
           <h2 className="heading-1 text-center font-bold text-gold">{w.rich('block-1-title')}</h2>
-          <div className="mt-4"></div>
+          <div className="pt-4"></div>
           <p className="body-1 text-center">
             {w.rich('block-1-content-1', {
               button: (chunks) => (
@@ -125,7 +124,8 @@ export default function ChallengesWithHomeCookingForYourDog() {
               ),
             })}
           </p>
-          <div className="-mx-6 flex flex-wrap items-stretch pt-normal max-lg:-mx-3">
+          <div className="pt-normal"></div>
+          <div className="-mx-6 flex flex-wrap items-stretch max-lg:-mx-3">
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/benefits-of-fresh-dog-food"
