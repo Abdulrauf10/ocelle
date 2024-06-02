@@ -41,16 +41,19 @@ function ConcernTitle({
   title: React.ReactNode;
 }) {
   return (
-    <div className="heading-4 flex items-center justify-center text-center font-bold text-primary max-sm:flex-col sm:pl-[80px]">
-      <div className="relative inline-block sm:py-3">
-        <Image
-          src={`/why-fresh/${icon}`}
-          alt=""
-          width={width}
-          height={height}
-          className="mr-5 inline-block max-sm:mb-2 max-sm:mr-0 sm:absolute sm:right-[100%] sm:top-1/2 sm:-translate-y-1/2"
-        />
-        <p>{title}</p>
+    <div className="flex items-center justify-center text-center max-sm:flex-col sm:pl-[80px]">
+      <div className="sm:py-3">
+        <div className="relative sm:inline">
+          <Image
+            src={`/why-fresh/${icon}`}
+            alt=""
+            width={width}
+            height={height}
+            className="mr-5 inline-block max-sm:mr-0 sm:absolute sm:right-[100%] sm:top-1/2 sm:-translate-y-1/2"
+          />
+          <div className="pt-3 sm:hidden"></div>
+          <p className="heading-4 font-bold text-primary sm:inline">{title}</p>
+        </div>
       </div>
     </div>
   );
