@@ -167,6 +167,7 @@ export default function OurStory() {
                 alt="foods"
                 fill
                 className="select-none object-contain object-bottom"
+                unoptimized
               />
             </div>
           </div>
