@@ -39,12 +39,11 @@ export default function FaQ() {
   return (
     <main>
       <div
-        className="bg-[#4b8dbd] bg-[url('/faq_banner_img.jpg')] bg-[length:auto_100%] bg-[44%_center] bg-no-repeat py-[12em] max-2xl:py-[11%] 
-                  max-md:min-h-[800px] max-md:bg-[url('/ocelle-faq-mb-bg.jpg')] max-md:bg-[length:768px_960px] max-md:bg-[bottom_center]  max-md:bg-no-repeat max-md:pb-8
-                  max-md:pt-4"
+        className="bg-[#4b88b4] bg-[url('/faq_banner_img.jpg')] bg-[length:auto_100%] bg-[calc(50%+110px)] bg-no-repeat py-[10em] max-2xl:py-[11%] max-xl:bg-[calc(50%+50px)] 
+                  max-md:bg-[url('/ocelle-faq-mb-bg.jpg')] max-md:bg-[length:768px_960px] max-md:bg-[bottom_center]  max-md:bg-no-repeat max-md:py-8"
       >
         <Container>
-          <div className="max-w-8xl px-10 py-3">
+          <div className="max-md:pl-8 max-xs:pl-0">
             <h1 className="-ml-[9px] select-none text-[215px] font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] max-lg:text-[130px]">
               FAQ
             </h1>
@@ -74,11 +73,12 @@ export default function FaQ() {
               </Link>
             </div>
           </div>
+          <div className="max-md:pt-[500px]"></div>
         </Container>
       </div>
       <div className="bg-primary bg-opacity-20 py-8">
-        <Container className="max-w-screen-xl">
-          <div className="-mx-4 -my-2 flex flex-wrap justify-center">
+        <Container>
+          <div className="-mx-4 -my-2 flex flex-wrap justify-between max-xl:justify-center">
             <div className="px-4 py-2">
               <Link
                 href="#our-food"
