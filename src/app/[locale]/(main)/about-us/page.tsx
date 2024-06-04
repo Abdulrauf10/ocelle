@@ -16,33 +16,36 @@ export default function OurStory() {
 
   return (
     <main className="overflow-x-hidden">
-      <Block
-        styles="normal"
-        className=" flex min-h-[600px] flex-col justify-center bg-gold bg-opacity-10 py-4"
-      >
+      <Block className="flex flex-col justify-center bg-gold bg-opacity-10">
         <Container>
           <h1 className="heading-headline heading-weight-1 text-center text-primary">
             {a('we-do-it-for-them')}
           </h1>
-          <div className="mx-auto mt-10 rounded-[30px] border border-primary bg-white p-12 text-[1.6vw] leading-[1.2] max-3xl:text-[2.4vw] max-2xl:text-[2.8vw] max-xl:mt-5 max-xl:p-10 max-xl:text-[3.4vw] max-lg:text-[3.8vw] max-md:p-8 max-md:text-[4.8vw] max-sm:text-[36px] max-xs:p-6 max-xs:text-[32px]">
-            <strong className="flex flex-col text-left text-[1em]  text-primary xs:flex-row xs:items-center">
-              <div className="inline-block">Ocelle |&nbsp;</div>
+          <div className="pt-tight"></div>
+          <div className="rounded-[30px] border border-primary bg-white p-12 max-xl:p-10 max-md:p-8 max-xs:p-6">
+            <strong className="heading-2 text-left text-primary">
+              <div className="inline-block">Ocelle&nbsp;</div>
               <div className="inline-block min-w-[240px]">
-                oh-chell-i | <Sound className="ml-[.8vw] inline-block w-[.8em] pb-1" />
+                | oh-chell-i | <Sound className="-mt-2 ml-2 inline-block w-[.8em]" />
               </div>
             </strong>
-            <p className="text-[.73em] text-primary">
-              {/* <Sound className="mr-3 inline-block w-[1.2em] max-sm:hidden" /> */}
-              noun。Latin
-            </p>
-            <table className=" text-left">
+            <div className="mt-2">
+              <p className="heading-3 text-primary">
+                {/* <Sound className="mr-3 inline-block w-[1.2em] max-sm:hidden" /> */}
+                noun。Latin
+              </p>
+            </div>
+            <table className="text-left">
               <tbody>
                 <tr>
+                  <td className="pt-4"></td>
+                </tr>
+                <tr>
                   <th>
-                    <strong className="text-[.6em] font-bold text-primary ">1.</strong>
+                    <strong className="heading-4 font-bold text-primary">1.</strong>
                   </th>
                   <th>
-                    <strong className="text-[.6em] font-bold text-primary ">
+                    <strong className="heading-4 font-bold text-primary">
                       {a('block-1-title-1')}:
                     </strong>
                   </th>
@@ -50,27 +53,32 @@ export default function OurStory() {
                 <tr>
                   <th></th>
                   <th>
-                    <p className="mt-3 flex text-[.5em] ">
+                    <div className="pt-4"></div>
+                    <p className="body-1 flex">
                       <span className="mr-2 font-medium">a.</span>
-                      <span className="font-normal">{a.rich('block-1-content-1')}</span>
+                      <span>{a.rich('block-1-content-1')}</span>
                     </p>
-                    <p className="mt-3 flex text-[.5em] ">
+                    <div className="pt-4"></div>
+                    <p className="body-1 flex">
                       <span className="mr-2 font-medium">b.</span>
-                      <span className="font-normal">{a.rich('block-1-content-3')}</span>
+                      <span>{a.rich('block-1-content-3')}</span>
                     </p>
                   </th>
                 </tr>
                 <tr>
+                  <td className="pt-4"></td>
+                </tr>
+                <tr>
                   <th>
                     <div>
-                      <strong className="text-[.6em] font-bold text-primary">2. </strong>
+                      <strong className="heading-4 font-bold text-primary">2. </strong>
                     </div>
                   </th>
                   <th>
-                    <strong className="text-[.6em] font-bold text-primary">
+                    <strong className="heading-4 font-bold text-primary">
                       {a('block-1-title-2')}:
                     </strong>
-                    <span className="text-[.5em] font-normal"> {a.rich('block-1-content-4')}</span>
+                    <span className="body-1"> {a.rich('block-1-content-4')}</span>
                   </th>
                 </tr>
               </tbody>
@@ -84,13 +92,13 @@ export default function OurStory() {
           className={{
             bgLeft: 'bg-brown',
             bgRight: clsx(
-              "min-h-[520px] bg-[#d8b99b] bg-[url('./charlie.jpg')] bg-[length:auto_100%] bg-[-50px] bg-no-repeat max-2xl:bg-[-4vw] max-xl:bg-[calc(calc(650px-48vw)_*_-1)]",
+              "min-h-[520px] bg-[#d8b99b] bg-[url('./charlie.jpg')] bg-[length:auto_100%] bg-[-50px] bg-no-repeat max-2xl:bg-[-4vw] max-xl:bg-[calc(calc(650px-47vw)_*_-1)]",
               "max-lg:h-[50vw] max-lg:max-h-[520px] max-lg:min-h-[380px] max-lg:bg-[url('./charlie-center.jpg')] max-lg:bg-center"
             ),
             mbLeft: 'px-4',
           }}
           left={
-            <div className="py-[clamp(20px,3.5vw,60px)] text-white">
+            <div className="py-normal text-white">
               <h2 className="heading-1 font-bold lg:hidden">{a.rich('block-2-title-1')}</h2>
               <h2 className="heading-1 font-bold max-lg:hidden">{a.rich('block-2-title-1-lg')}</h2>
               <div className="mt-8"></div>
@@ -127,7 +135,7 @@ export default function OurStory() {
           loading="eager"
         />
         <div className="z-40 flex w-1/2 justify-end max-md:w-full max-md:justify-center">
-          <div className="mr-8 w-full max-w-[380px] pt-10 max-md:mx-4">
+          <div className="mr-8 w-full max-w-[380px] pt-10 max-md:mx-4 md:max-lg:pl-1">
             <div className="relative pt-[168%]">
               <Image src="/dog-with-owner.png" alt="Dog with owner" fill loading="eager" />
             </div>
@@ -156,7 +164,7 @@ export default function OurStory() {
         breakpoint="lg"
         className={{
           bgLeft: 'bg-secondary bg-opacity-20',
-          bgRight: 'bg-stop flex items-end bg-gradient-to-b from-[#f7c1b5] from-30% to-white',
+          bgRight: 'bg-stop flex items-center bg-gradient-to-b from-[#f7c1b5] from-30% to-white',
           mbLeft: 'px-4 py-6',
         }}
         bgRight={
@@ -166,7 +174,7 @@ export default function OurStory() {
                 src="/about-us-food.gif"
                 alt="foods"
                 fill
-                className="select-none object-contain object-bottom"
+                className="select-none object-contain"
                 unoptimized
               />
             </div>
@@ -197,7 +205,7 @@ export default function OurStory() {
                 src="/about-us-food.gif"
                 alt="foods"
                 fill
-                className="select-none object-contain object-bottom lg:hidden"
+                className="select-none object-contain lg:hidden"
                 unoptimized
               />
             </div>
