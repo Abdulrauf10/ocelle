@@ -27,40 +27,44 @@ export default function RawDogFoodVsGentlyCooked() {
         <Container className="py-normal">
           <div className="relative flex items-center max-md:flex-col">
             <div className="flex-1">
-              <div className="flex flex-col max-md:flex-row max-md:items-center">
+              <div className="max-md:flex max-md:flex-row max-md:items-center">
                 <h2 className="heading-headline heading-weight-1 text-center text-white max-md:text-left">
                   {i.rich('block-1-title-1')}
                 </h2>
-                <div className="relative min-h-[480px] flex-1 max-md:left-4 max-md:-my-3 max-md:min-h-[180px] max-md:min-w-[180px] max-sm:min-h-[155px] max-sm:min-w-[155px] md:-mb-9">
-                  <Image
-                    src="/why-fresh/raw-dog-food.png"
-                    alt=""
-                    fill
-                    className="object-contain object-[calc(50%_+_15px)_calc(50%_+_15px)] max-md:object-center"
-                  />
+                <div className="mx-auto max-w-[480px] flex-1 max-md:relative max-md:left-4 max-md:w-[250px] max-sm:w-[155px] max-sm:min-w-[155px]">
+                  <div className="relative pt-[100%] max-md:-my-3 md:-mb-9">
+                    <Image
+                      src="/why-fresh/raw-dog-food.png"
+                      alt=""
+                      fill
+                      className="object-contain object-[calc(50%_+_8px)_calc(50%_+_15px)] max-md:object-center"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="px-[5%] py-[65px]"></div>
+            <div className="px-[8%] py-[55px]"></div>
             <div className="flex-1">
-              <div className="flex flex-col max-md:flex-row max-md:items-center">
+              <div className="max-md:flex max-md:flex-row max-md:items-center">
                 <h2 className="heading-headline heading-weight-1 text-center text-dark-green max-md:text-left">
                   {i.rich('block-1-title-2')}
                 </h2>
-                <div className="relative min-h-[480px] flex-1 max-md:left-4 max-md:-my-3 max-md:min-h-[180px] max-md:min-w-[180px] max-sm:min-h-[155px] max-sm:min-w-[155px] md:-mb-9">
-                  <Image
-                    src="/why-fresh/gently-cooked.png"
-                    alt=""
-                    fill
-                    className="object-contain object-[calc(50%_+_15px)_calc(50%_+_15px)] max-md:object-center"
-                  />
+                <div className="mx-auto max-w-[480px] flex-1 max-md:relative max-md:left-4 max-md:w-[250px] max-sm:w-[155px] max-sm:min-w-[155px]">
+                  <div className="relative pt-[100%] max-md:-my-3 md:-mb-9">
+                    <Image
+                      src="/why-fresh/gently-cooked.png"
+                      alt=""
+                      fill
+                      className="object-contain object-[calc(50%_+_8px)_calc(50%_+_15px)] max-md:object-center"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </Container>
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white p-6 shadow-block">
-          <span className="heading-headline heading-weight-1 relative -top-1 text-center text-primary">
+          <span className="heading-headline heading-weight-1 relative -top-1.5 text-center text-primary">
             vs.
           </span>
         </div>
@@ -137,7 +141,7 @@ export default function RawDogFoodVsGentlyCooked() {
       </Block>
       <Block className="bg-brown bg-opacity-[12%]">
         <Container className="!max-w-6xl">
-          <p className="heading-3 text-center text-gold">{i.rich('block-5-content-1')}</p>
+          <p className="heading-4 text-center text-gold">{i.rich('block-5-content-1')}</p>
         </Container>
       </Block>
       <Block styles="tight" className="bg-dark-green">

@@ -125,7 +125,7 @@ export default function ItsTimeToRethinkKibble() {
 
   return (
     <main>
-      <Block className="bg-[#f6ece0] bg-[url('./its-time-to-rethink-kibble-bg.jpg')] bg-[length:auto_100%] bg-center bg-no-repeat max-xs:bg-[length:auto_88%] max-xs:bg-[52%_bottom]">
+      <Block className="bg-[#f6ece1] bg-[url('./its-time-to-rethink-kibble-bg.jpg')] bg-[length:auto_100%] bg-center bg-no-repeat max-sm:bg-[53%_bottom] max-xs:bg-[length:auto_88%] max-xs:bg-[53%_bottom]">
         <Container className="pb-[clamp(420px,30%,650px)] max-xs:pb-[340px]">
           <h1 className="heading-headline heading-weight-1 text-center text-brown">
             {i.rich('block-1-title')}

@@ -554,8 +554,8 @@
     "block-3-fish": "Fish",
     "block-3-beef": "Beef",
     "block-3-content-1": "Kibble is ultra-processed ‘food’. It’s typically produced using high heat pressure—stripping away many of the natural nutrients and benefits contained in the ingredients—amongst a myriad of other potential concerns.<sup>1-5</sup>",
-    "block-4-title": "Benefits Of Fresh Food Diets",
-    "block-4-content-1": "If you're considering to switch to a freshly prepared diet for your dog, Veterinary research suggests it’s a positive move. Here are some of the benefits to consider...",
+    "block-4-title": "Benefits Of <block>Fresh Food Diets</block>",
+    "block-4-content-1": "If you're considering to switch to a scientifically formulated, freshly prepared diet for your dog, Veterinary research suggests it’s a positive move. Here are some of the benefits...",
     "block-4-benefits-1-title": "Improved Digestion, More Energy…<block>& Better Poops!</block>",
     "block-4-benefits-1-content-1": "One of the main benefits of a fresh food diet is improved digestion. Several peer-reviewed studies have shown that fresh, lightly cooked food is more digestible compared to over-processed diets.<sup>6-9</sup>",
     "block-4-benefits-1-content-2": "This allows your dog to absorb more nutrients and reap the full benefits. Unlike fleeting energy spikes followed by an energy ‘crash’, fresh diets offer a steady release of energy throughout the day. It also means they produce smaller, firmer poops.<sup>9</sup>",
@@ -673,7 +673,7 @@
     "block-5-mark-1-content-1": "What counts as a ‘meat’ source in dog food can vary and range in description, due to industry regulation and standard production methods.",
     "block-5-mark-1-content-2": "Whole, ground carcasses, unfit for human consumption may be used, including animals that are sick, diseased, or dying.",
     "block-5-mark-1-content-3": "Some products use unspecified meat by-products or ‘meat meals’, rather than whole, high-quality meat sources. While not inherently harmful, these by-products are often sourced from less desirable parts of animals, like connective tissue, beaks, or bones, and may contain a minimal amount of quality meat.",
-    "block-5-mark-2-title": "Overreliance on Carbohydrates & Unnecessary Fillers",
+    "block-5-mark-2-title": "Overreliance on Carbohydrates & <block>Unnecessary Fillers</block>",
     "block-5-mark-2-content-1": "Many kibble formulas contain a high percentage of carbohydrates, as it’s an essential binding agent in the production process. Unsurprisingly, today’s kibble is estimated to contain ~4 times<sup>10, 11</sup> the carbohydrate content historically found in the canine diet.",
     "block-5-mark-2-content-2": "<b>Carbs can be beneficial for dogs and provide a practical source of energy and fibre, but excessive carbs simply act as a filler.</b> Fillers are ingredients that provide little to no nutritional value to dogs and are primarily used to bulk-up food and reduce production costs. Common fillers include corn, wheat, soy, and cellulose.",
     "block-5-mark-2-content-3": "While not necessarily harmful, fillers can dilute the overall nutritional quality of food, making it harder to get all the essential nutrients needed for optimal health. Excessive use of fillers may also lead to digestive issues and contribute to health problems like obesity, high blood sugar, and food allergies.",
@@ -692,7 +692,7 @@
     "block-6-content-2": "Not all kibble is created equal, and indeed, it serves a purpose in the diverse landscape of canine nutrition. There are commendable brands out there striving to elevate the standards of their products.",
     "block-6-content-3": "Recognizing this, we also firmly believe that every dog deserves nutrition that does more than just satisfy hunger. Just because it’s ‘always been that way’, doesn’t mean it should stay that way. Like any other member of the family, they deserve to be fed properly. That’s why we started OCELLE, to make fresh feeding as easy as possible.",
     "block-7-title": "Make The Switch. <block>See The Difference.</block>",
-    "block-7-content-1": "The key to our dog’s well-being is real food in their bowls, not just pictures of it on a bag or a tin.",
+    "block-7-content-1": "The key to our dog’s well-being is real food in their bowls, not just pictures of it on a bag <block>or a tin.</block>",
     "block-7-content-2": "After all, pet food should actually be – real food."
   },
   "WhyFresh-Reference": {

@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
@@ -11,11 +12,15 @@ import TwoToneBlock from '@/components/layouts/TwoToneBlock';
 import { Link } from '@/navigation';
 
 function BenefitsTitle({
+  className,
   width,
   height,
   icon,
   title,
 }: {
+  className?: {
+    icon?: string;
+  };
   width: number;
   height: number;
   icon: string;
@@ -30,7 +35,10 @@ function BenefitsTitle({
             alt=""
             width={width}
             height={height}
-            className="mr-5 inline-block max-sm:mb-2 max-sm:mr-0 sm:absolute sm:right-[100%] sm:top-1/2 sm:-translate-y-1/2"
+            className={clsx(
+              'mr-5 inline-block max-sm:mb-2 max-sm:mr-0 sm:absolute sm:right-[100%] sm:top-1/2 sm:-translate-y-1/2',
+              className?.icon
+            )}
           />
           <div className="pt-3 sm:hidden"></div>
           <p className="heading-4 font-bold text-primary sm:inline">{title}</p>
@@ -70,6 +78,7 @@ export default function BenefitsOfFreshDogFood() {
           container: 'py-tight',
           mbLeft: 'px-4 py-tight',
           mbRight: 'py-6',
+          separator: 'max-lg:px-4',
         }}
         left={
           <div className="text-white">
@@ -87,7 +96,7 @@ export default function BenefitsOfFreshDogFood() {
                 src="/why-fresh/fresh-food-diet.png"
                 alt=""
                 fill
-                className="object-contain object-[right_calc(50%_+_14px)] max-md:object-[calc(50%_+_14px)_calc(50%_+_14px)]"
+                className="object-contain object-[16px_13px]"
               />
             </div>
           </div>
@@ -154,6 +163,7 @@ export default function BenefitsOfFreshDogFood() {
           <Toggler
             title={
               <BenefitsTitle
+                className={{ icon: '!top-[18%]' }}
                 width={50}
                 height={50}
                 icon="benefits-1.svg"
@@ -240,6 +250,7 @@ export default function BenefitsOfFreshDogFood() {
               {i.rich('block-4-benefits-4-content-2', {
                 button: (chunks) => (
                   <UnderlineButton
+                    className="inline"
                     label={chunks}
                     href="/why-fresh/its-time-to-rethink-kibble"
                     underline
@@ -269,7 +280,7 @@ export default function BenefitsOfFreshDogFood() {
             <div className="mt-6"></div>
             <p className="body-1">{i.rich('block-4-benefits-5-content-4')}</p>
             <div className="-mx-4 -my-2 mt-6 flex flex-wrap justify-center">
-              <p className="min-w-80 flex-1 px-4 py-2">
+              <p className="min-w-72 flex-1 px-4 py-2 sm:min-w-[520px]">
                 <span className="body-1">{i.rich('block-4-benefits-5-content-5')}</span>
               </p>
               <div className="flex px-4 py-2">
@@ -309,6 +320,7 @@ export default function BenefitsOfFreshDogFood() {
           <Toggler
             title={
               <BenefitsTitle
+                className={{ icon: '!top-[20%]' }}
                 width={90}
                 height={46}
                 icon="benefits-6.svg"
