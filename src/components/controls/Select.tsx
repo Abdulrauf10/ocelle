@@ -1,6 +1,11 @@
 'use client';
 
-import { FormControl, InputLabel, Select as MuiSelect } from '@mui/material';
+import {
+  FormControl,
+  InputBaseComponentProps,
+  InputLabel,
+  Select as MuiSelect,
+} from '@mui/material';
 import React from 'react';
 import { Controller, type FieldValues } from 'react-hook-form';
 
@@ -13,6 +18,7 @@ interface SelectProps<T extends FieldValues> extends InputControllerProps<T> {
   children?: React.ReactNode;
   variant?: 'standard' | 'outlined' | 'filled';
   disableUnderline?: boolean;
+  inputProps?: InputBaseComponentProps;
 }
 
 export default function Select<T extends FieldValues>({
@@ -25,6 +31,7 @@ export default function Select<T extends FieldValues>({
   variant,
   disableUnderline,
   children,
+  inputProps,
 }: SelectProps<T>) {
   const id = React.useId();
 
@@ -46,6 +53,7 @@ export default function Select<T extends FieldValues>({
             error={!!error && value && (value as string).length !== 0}
             variant={variant}
             disableUnderline={disableUnderline}
+            inputProps={inputProps}
           >
             {children}
           </MuiSelect>

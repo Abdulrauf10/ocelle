@@ -11,13 +11,12 @@ import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 import { Career } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
 
+invariant(process.env.NODEMAILER_SERVICE, 'Missing NODEMAILER_SERVICE env variable');
 invariant(process.env.SMTP_USER, 'Missing SMTP_USER env variable');
 invariant(process.env.SMTP_PASS, 'Missing SMTP_PASS env variable');
 
 const transporter = nodemailer.createTransport({
-  host: 'smtp.ethereal.email',
-  port: 587,
-  secure: false, // Use `true` for port 465, `false` for all other ports
+  service: process.env.NODEMAILER_SERVICE,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
@@ -29,7 +28,8 @@ interface ApplyCareerAction {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phoneCountryCode: string;
+  phoneValue: string;
   resume: File;
   coverLetter: File;
 }
@@ -39,7 +39,8 @@ const schema = Joi.object<ApplyCareerAction>({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   email: Joi.string().required(),
-  phone: Joi.string().required(),
+  phoneCountryCode: Joi.string().required(),
+  phoneValue: Joi.string().required(),
   resume: Joi.custom((value, helpers) =>
     value instanceof File ? value : helpers.message({ custom: 'must be a file' })
   ).required(),
@@ -49,7 +50,6 @@ const schema = Joi.object<ApplyCareerAction>({
 });
 
 export async function applyCareerAction(formData: FormData) {
-  invariant(process.env.SMTP_FROM, 'Missing SMTP_FROM env variable');
   invariant(process.env.CAREER_MAILTO, 'Missing CAREER_MAILTO env variable');
 
   const { value, error } = schema.validate({
@@ -57,7 +57,8 @@ export async function applyCareerAction(formData: FormData) {
     firstName: formData.get('firstName'),
     lastName: formData.get('lastName'),
     email: formData.get('email'),
-    phone: formData.get('phone'),
+    phoneCountryCode: formData.get('phoneCountryCode'),
+    phoneValue: formData.get('phoneValue'),
     resume: formData.get('resume'),
     coverLetter: formData.get('coverLetter'),
   });
@@ -100,7 +101,7 @@ export async function applyCareerAction(formData: FormData) {
     firstName: value.firstName,
     lastName: value.lastName,
     email: value.email,
-    phone: value.phone,
+    phone: '+' + value.phoneCountryCode + ' ' + value.phoneValue,
     career: {
       name: data.name,
     },
@@ -108,7 +109,7 @@ export async function applyCareerAction(formData: FormData) {
 
   // TODO: setup email api for sending the submission
   const info = await transporter.sendMail({
-    from: process.env.SMTP_FROM,
+    from: process.env.SMTP_USER,
     to: process.env.CAREER_MAILTO,
     subject: `Career Submission - ${data.name}`,
     text: convert(html),

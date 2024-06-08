@@ -28,12 +28,12 @@ async function fetchData(id: number) {
 function CareerBlock({ title, lines }: { title: string; lines: CareerLine[] }) {
   return (
     <div className="overflow-hidden rounded-[30px] border-2 border-primary">
-      <h2 className="body-1 body-weight-1 bg-primary px-8 pb-[18px] pt-4 text-white ">{title}</h2>
+      <h2 className="body-1 body-weight-1 bg-primary px-8 py-4 text-white">{title}</h2>
       <div className="bg-white px-8 py-6">
         <ul className="-my-2 list-none">
           {lines.map((line) => (
             <li key={line.id} className="flex py-2">
-              <div className="mr-2 flex h-[20px] items-center">
+              <div className="mr-2 flex h-[13px] items-center">
                 <div className="h-2 w-2 min-w-2 rounded-full bg-primary"></div>
               </div>
               <p className="body-3">{line.name}</p>
@@ -58,7 +58,7 @@ export default async function CareerView({ params }: { params: { id: string } })
   }
 
   return (
-    <main className="flex grow flex-col">
+    <main className="flex flex-1 flex-col">
       <Title career={career} />
       <Block styles="custom" className="flex grow flex-col bg-gold bg-opacity-10 py-6">
         <Container className="flex max-w-screen-lg grow flex-col">

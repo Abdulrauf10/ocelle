@@ -797,7 +797,7 @@
   "required": "Required",
   "submit-your-application": "Submit Your Application",
   "thank-you-for-applying": "Thank You For Applying!",
-  "thank-you-for-applying:description": "Your application for the {title} role has been successfully submitted. We’re excited to learn more about you and will be in touch if you move forward in the process.",
+  "thank-you-for-applying:description": "Your application for the {title} role has been successfully submitted. We're excited to learn more about you and will be in touch if you move forward in the process.",
   "this-{}-doesn-t-look-correct-please-update-it": "This {name} doesn’t look correct, please update it.",
   "looks-like-you-already-have-an-account-with-us-to-continue-please-log-in-using-the-link-below": "Looks like you already have an account with us! To continue, please log in using the link below.",
   "your-password-is-not-match": "Your password is not match",
@@ -830,8 +830,8 @@
     "block-6-content-1": "Are you as passionate as we are about giving your dog(s) the best? We’re firm believers in the strength of community to bring about real transformation. If you’re interested in helping us spread our mission to make a <i>paws-itive</i> impact on canine lives, <link>apply here</link> to become an OCELLE Affiliate."
   },
   "Careers": {
-    "what-you’ll-do": "What You’ll Do:",
-    "what-you’ll-need": "What You’ll Need:",
+    "what-you’ll-do": "What You'll Do:",
+    "what-you’ll-need": "What You'll Need:",
     "benefits": "Benefits:",
     "block-1-title": "Dog People Wanted",
     "block-1-content": "Make a living helping dogs live happier, healthier lives.",
@@ -839,8 +839,8 @@
     "block-2-content-2": "If you're eager to make a difference, please send your resume to ",
     "block-2-content-3": ". You never know, the paw-fect opportunity might just arise!",
     "block-2-content-4": "We look forward to hearing from you!",
-    "detail-content-1": "OCELLE was born with the mission of improving the lives of pets and pet parents nationwide. We make human-grade pet food, tailored for each dog’s nutritional needs, and deliver directly to our customers’ doors. Through OCELLE’s carefully crafted meals and health services for members, dogs can truly live their healthiest, happiest lives.",
-    "detail-content-2": "As a member of our growing team, you’ll take part in a company culture that cares deeply about its work and its team members. We move fast, value autonomy and ownership, and are always looking for new ideas.",
+    "detail-content-1": "OCELLE was born with the mission of improving the lives of pets and pet parents nationwide. We make human-grade pet food, tailored for each dog's nutritional needs, and deliver directly to our customers’ doors. Through OCELLE’s carefully crafted meals and health services for members, dogs can truly live their healthiest, happiest lives.",
+    "detail-content-2": "As a member of our growing team, you'll take part in a company culture that cares deeply about its work and its team members. We move fast, value autonomy and ownership, and are always looking for new ideas.",
     "detail-content-3": "At OCELLE we know that people are the heart of the business, and we prioritise their welfare. OCELLE embraces diversity and equal opportunity. We're committed to building a team that represents a variety of backgrounds, perspectives, and skills. OCELLE is an equal opportunity employer and does not discriminate on the basis of race, national origin, gender, gender identity, sexual orientation, disability, age, or other legally protected status. For individuals with disabilities who would like to request an accommodation, please include that in your application.",
     "file-types-{}": "File Types: {value} ",
 

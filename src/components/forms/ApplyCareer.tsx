@@ -1,10 +1,12 @@
 'use client';
 
+import { MenuItem } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { type FieldValues, useController, useForm } from 'react-hook-form';
 import { mergeRefs } from 'react-merge-refs';
 
+import Select from '../controls/Select';
 import TextField from '../controls/TextField';
 import Close from '../icons/Close';
 
@@ -12,6 +14,7 @@ import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import Block from '@/components/layouts/Block';
 import { EMAIL_REGEXP, MAX_FILE_SIZE_MB, PHONE_REGEXP } from '@/consts';
+import { getCountryCodes } from '@/helpers/string';
 import { InputControllerProps } from '@/types';
 
 interface FileInputProps<T extends FieldValues> extends InputControllerProps<T> {
@@ -71,14 +74,12 @@ function FileInput<T extends FieldValues>({
       />
       {filename && !error ? (
         <>
-          <div className="flex flex-row items-start">
-            <div className="mt-2"></div>
-            <span className="body-2 !mt-[8px] mr-2 inline-block break-all">
+          <div className="flex flex-row items-start pt-[13px]">
+            <span className="body-3 mr-2 inline-block break-all">
               {/* {label}: {filename} */}
               {filename}
             </span>
-            <div className="mt-2"></div>
-            <button className="mt-[8px] h-6" onClick={handleDetach}>
+            <button className="mt-[1px]" onClick={handleDetach}>
               <Close className="w-3" />
             </button>
           </div>
@@ -100,13 +101,13 @@ function FileInput<T extends FieldValues>({
       )}
 
       {helperText && !(filename && !error) && (
-        <div className="mt-1">
+        <div className="pl-2 pt-1">
           <p className="body-4">{helperText}</p>
         </div>
       )}
       {(filename || !!error) && (
-        <div className="mt-1 flex w-full items-center ">
-          {error ? <span className="body-4  text-error">{error.message}</span> : <></>}
+        <div className="flex w-full items-center pt-1">
+          {error ? <span className="body-4 text-error">{error.message}</span> : <></>}
         </div>
       )}
     </div>
@@ -117,7 +118,8 @@ interface IApplyCareerForm {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string;
+  phoneCountryCode: string;
+  phoneValue: string;
   resume: File;
   coverLetter?: File;
 }
@@ -137,16 +139,18 @@ export default function ApplyCareerForm({
   const {
     control,
     formState: { isValid, errors },
-  } = useForm<IApplyCareerForm>({ mode: 'onBlur' });
+  } = useForm<IApplyCareerForm>({
+    mode: 'onChange',
+    defaultValues: {
+      phoneCountryCode: '852',
+    },
+  });
   const [completed, setCompleted] = React.useState(false);
 
   if (completed) {
     return (
-      <div className=" grow bg-gold bg-opacity-10 py-10">
-        <Block
-          styles="normal"
-          className="flex h-full flex-col justify-center text-center text-primary"
-        >
+      <div className="flex flex-1 flex-col justify-center bg-gold bg-opacity-10 py-10">
+        <Block styles="normal" className="justify-center text-center text-primary">
           <Container className="max-w-[700px]">
             {/* <Image
             src="/ocelle-logo.png"
@@ -156,7 +160,7 @@ export default function ApplyCareerForm({
             className="mx-auto"
           /> */}
             <p className="heading-4 font-bold">{t('thank-you-for-applying')}</p>
-            <div className="mt-4"></div>
+            <div className="pt-4"></div>
             <p className="body-3">{t('thank-you-for-applying:description', { title })}</p>
           </Container>
         </Block>
@@ -198,10 +202,14 @@ export default function ApplyCareerForm({
                       sx={{ input: { fontSize: '14px' } }}
                       id="firstName"
                       name="firstName"
-                      className="rounded-md bg-white"
                       control={control}
                       rules={{ required: true }}
                       fullWidth
+                      InputProps={{
+                        classes: {
+                          root: 'bg-white',
+                        },
+                      }}
                     />
                   </div>
                 </div>
@@ -215,10 +223,14 @@ export default function ApplyCareerForm({
                       sx={{ input: { fontSize: '14px' } }}
                       id="lastName"
                       name="lastName"
-                      className="rounded-md bg-white"
                       control={control}
                       rules={{ required: true }}
                       fullWidth
+                      InputProps={{
+                        classes: {
+                          root: 'bg-white',
+                        },
+                      }}
                     />
                   </div>
                 </div>
@@ -242,7 +254,6 @@ export default function ApplyCareerForm({
                       }}
                       id="email"
                       name="email"
-                      className=" rounded-md bg-white"
                       control={control}
                       rules={{
                         required: true,
@@ -254,6 +265,11 @@ export default function ApplyCareerForm({
                         },
                       }}
                       fullWidth
+                      InputProps={{
+                        classes: {
+                          root: 'bg-white',
+                        },
+                      }}
                     />
                   </div>
                 </div>
@@ -269,19 +285,40 @@ export default function ApplyCareerForm({
                         backgroundColor: '#f9f3eb',
                       }}
                       id="phone"
-                      name="phone"
-                      className=" rounded-md bg-white "
+                      name="phoneValue"
                       control={control}
                       rules={{
                         required: true,
                         pattern: {
                           value: PHONE_REGEXP,
                           message: t('please-enter-a-valid-{}', {
-                            name: t('phone').toLowerCase(),
+                            name: t('phone-number').toLowerCase(),
                           }),
                         },
                       }}
                       fullWidth
+                      InputProps={{
+                        classes: {
+                          root: 'bg-white',
+                        },
+                        startAdornment: (
+                          <div className="w-auto">
+                            <Select
+                              variant="standard"
+                              name="phoneCountryCode"
+                              control={control}
+                              rules={{ required: true }}
+                              disableUnderline
+                            >
+                              {getCountryCodes().map((code, idx) => (
+                                <MenuItem key={idx} value={code}>
+                                  +{code}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </div>
+                        ),
+                      }}
                     />
                   </div>
                 </div>
