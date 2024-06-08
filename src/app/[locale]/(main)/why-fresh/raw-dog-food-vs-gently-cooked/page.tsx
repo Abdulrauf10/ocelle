@@ -63,7 +63,7 @@ export default function RawDogFoodVsGentlyCooked() {
             </div>
           </div>
         </Container>
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white p-6 shadow-block">
+        <div className="drop-shadow-style-3 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white p-6 shadow-black/40">
           <span className="heading-headline heading-weight-1 relative -top-1.5 text-center text-primary">
             vs.
           </span>
@@ -173,7 +173,7 @@ export default function RawDogFoodVsGentlyCooked() {
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/benefits-of-fresh-dog-food"
-                className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"
+                className="drop-shadow-style-1 mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30"
               >
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/benefits-of-fresh-dog-food.jpg" alt="" fill />
@@ -186,7 +186,7 @@ export default function RawDogFoodVsGentlyCooked() {
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
               <Link
                 href="/why-fresh/its-time-to-rethink-kibble"
-                className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"
+                className="drop-shadow-style-1 mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30"
               >
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/its-time-to-rethink-kibble.jpg" alt="" fill />
@@ -199,7 +199,7 @@ export default function RawDogFoodVsGentlyCooked() {
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
               <Link
                 href="/why-fresh/challenges-with-home-cooking-for-your-dog"
-                className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-block"
+                className="drop-shadow-style-1 mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30"
               >
                 <div className="relative pt-[68.5%]">
                   <Image

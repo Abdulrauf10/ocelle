@@ -20,7 +20,7 @@ export default function Toggler({
   return (
     <div
       className={clsx(
-        'sh shadow-block rounded-[20px] border border-gray bg-white px-8 py-6 max-md:p-6',
+        'sh drop-shadow-style-2 rounded-[20px] border border-gray bg-white px-8 py-6 shadow-black/20 max-md:p-6',
         className?.root
       )}
     >

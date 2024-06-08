@@ -74,7 +74,7 @@ export default function RecipesPage() {
   const sentence = useSentence();
   const className = {
     container: 'lg:px-20',
-    image: 'pt-[80.6%] shadow-[7px_7px_15px_rgba(0,0,0,0.05)]',
+    image: 'pt-[80.6%] drop-shadow-style-6 shadow-[rgba(65,62,56,0.3)]',
   };
 
   const ingredients = {

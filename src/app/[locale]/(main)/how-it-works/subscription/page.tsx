@@ -62,13 +62,13 @@ export default function HowItWorksSubscription() {
           <div className="pt-3"></div>
           <div className="flex flex-wrap justify-center">
             <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full max-sm:px-0">
-              <div className="relative h-full w-full rounded-[40px] border border-dark-green bg-white p-10 pt-16 text-center max-xs:px-4">
+              <div className="relative h-full w-full rounded-[40px] border border-dark-green bg-white p-10 pt-16 text-center drop-shadow-[12px_12px_5px_rgba(0,0,0,0.2)] max-xs:px-4">
                 <div className="absolute left-0 top-4 w-full text-center">
                   <div className="inline-block rounded-[30px] bg-secondary px-7 py-0.5 text-center font-open-sans text-xl uppercase italic text-white">
                     {t('recommended')}
                   </div>
                 </div>
-                <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
+                <div className="drop-shadow-style-6 relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-black/20">
                   <Image alt="Full Plan Meal" src="/meal-plan/full-plan.jpg" fill />
                 </div>
                 <div className="pt-6"></div>
@@ -80,8 +80,8 @@ export default function HowItWorksSubscription() {
               </div>
             </div>
             <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full max-sm:px-0">
-              <div className="relative h-full w-full rounded-[40px] border border-dark-green bg-white p-10 pt-16 text-center max-xs:px-4">
-                <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]">
+              <div className="relative h-full w-full rounded-[40px] border border-dark-green bg-white p-10 pt-16 text-center drop-shadow-[12px_12px_5px_rgba(0,0,0,0.2)] max-xs:px-4">
+                <div className="drop-shadow-style-6 relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-black/20">
                   <Image alt="Full Plan Meal" src="/meal-plan/half-plan.jpg" fill />
                 </div>
                 <div className="pt-6"></div>
@@ -105,6 +105,7 @@ export default function HowItWorksSubscription() {
         breakpoint="sm"
         className={{
           block: 'bg-primary bg-opacity-10',
+          image: 'drop-shadow-[12px_12px_5px_rgba(65,62,56,0.3)]',
         }}
       >
         <div className="max-sm:px-7">
@@ -116,7 +117,14 @@ export default function HowItWorksSubscription() {
           </div>
         </div>
       </ImageContentBlock>
-      <ImageContentBlock image="/dogs/three-dogs.jpg" alt="three of dogs" breakpoint="sm">
+      <ImageContentBlock
+        image="/dogs/three-dogs.jpg"
+        alt="three of dogs"
+        breakpoint="sm"
+        className={{
+          image: 'drop-shadow-[12px_12px_5px_rgba(65,62,56,0.3)]',
+        }}
+      >
         <div className="max-sm:px-7">
           <h2 className="heading-1 font-bold text-primary">{s.rich('block-5-title')}</h2>
           <div className="pt-6"></div>
@@ -133,6 +141,7 @@ export default function HowItWorksSubscription() {
         reverse
         className={{
           block: 'bg-primary bg-opacity-10',
+          image: 'drop-shadow-[12px_12px_5px_rgba(65,62,56,0.3)]',
         }}
         startAdornment={
           <div className="mb-10">

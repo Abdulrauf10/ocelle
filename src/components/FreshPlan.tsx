@@ -35,12 +35,12 @@ export default function FreshPlan({
   return (
     <div
       className={clsx(
-        'mx-auto flex h-full max-w-[400px] cursor-pointer flex-col rounded-[30px] border bg-white p-6 text-left shadow-[8px_8px_20px_rgba(0,0,0,0.2)]',
+        'drop-shadow-style-1 mx-auto flex h-full max-w-[400px] cursor-pointer flex-col rounded-[30px] border bg-white p-6 text-left shadow-black/20',
         error
           ? 'border-error'
           : selected
             ? 'border-primary'
-            : 'border-transparent shadow-[8px_8px_20px_rgba(0,0,0,0.4)]'
+            : 'border-transparent drop-shadow-[0_0_5px_rgba(0,0,0,0.4)]'
       )}
       tabIndex={0}
       onClick={onSelect}

@@ -51,6 +51,13 @@ export default async function RootLayout({
             </AuthProvider>
           </QueryClientProvider>
         </IntlProvider>
+        <filter id="drop-shadow-2" filterUnits="userSpaceOnUse">
+          <feOffset dx="10.2" dy="10.2" />
+          <feGaussianBlur result="blur" stdDeviation="4.59" />
+          <feFlood floodColor="#000" floodOpacity=".2" />
+          <feComposite in2="blur" operator="in" />
+          <feComposite in="SourceGraphic" />
+        </filter>
       </body>
     </html>
   );

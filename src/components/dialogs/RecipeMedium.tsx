@@ -44,7 +44,7 @@ export default function RecipeMediumDialog({
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="p-3">
-        <div className="relative flex max-w-[1016px] items-start rounded-3xl border-2 border-primary bg-white px-5 py-4 text-left max-md:flex-wrap max-md:pt-9">
+        <div className="drop-shadow-style-1 relative flex max-w-[1016px] items-start rounded-3xl border-2 border-primary bg-white px-5 py-4 text-left shadow-black/20 max-md:flex-wrap max-md:pt-9">
           <div className="w-[400px] min-w-[400px] max-lg:min-w-[320px] max-xs:w-full max-xs:min-w-full">
             <div className="relative overflow-hidden rounded-2xl pt-[100%]">
               <Image src={picture} alt={name} fill />

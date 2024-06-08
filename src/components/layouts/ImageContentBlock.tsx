@@ -39,10 +39,7 @@ export default function ImageContentBlock({
         >
           <div className={clsx('w-1/2', breakpoint === 'sm' ? 'max-sm:w-full' : 'max-md:w-full')}>
             <div
-              className={clsx(
-                'relative overflow-hidden rounded-[30px] pt-[80%] shadow-[7px_7px_10px_rgba(0,0,0,0.2)]',
-                className?.image
-              )}
+              className={clsx('relative overflow-hidden rounded-[30px] pt-[80%]', className?.image)}
             >
               <Image alt={alt} src={image} fill />
             </div>

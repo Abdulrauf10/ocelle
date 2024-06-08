@@ -26,9 +26,13 @@ const config: Config = {
         'how-it-works-dark-green': '#269D9E',
         'why-fresh-dark-green': '#0D889D',
       },
-      boxShadow: {
-        block: '5px 5px 20px rgba(0, 0, 0, 0.2)',
-        backdrop: '13px 13px 15px rgba(0, 0, 0, 0.4)',
+      dropShadow: {
+        'style-1': '5px 5px 2px var(--tw-shadow-color)',
+        'style-2': '10px 10px 5px var(--tw-shadow-color)',
+        'style-3': '7px 7px 5px var(--tw-shadow-color)',
+        'style-4': '-7px 7px 5px var(--tw-shadow-color)',
+        'style-5': '3px 3px 1px var(--tw-shadow-color)',
+        'style-6': '7px 7px 3px var(--tw-shadow-color)',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',

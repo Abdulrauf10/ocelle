@@ -52,7 +52,7 @@ export default function RecipeCheckbox<T extends FieldValues>({
   return (
     <div
       className={clsx(
-        'relative mx-auto mt-[70px] min-w-[230px] max-w-[280px] rounded-[20px] border p-[10px] shadow-[3px_3px_10px_rgba(0,0,0,.2)]',
+        'drop-shadow-style-1 relative mx-auto mt-[70px] min-w-[230px] max-w-[280px] rounded-[20px] border p-[10px] shadow-black/20',
         disabled
           ? 'pointer-events-none select-none border-[#7B8D97] bg-[#F2F4F5]'
           : 'border-gold bg-white'
@@ -73,7 +73,7 @@ export default function RecipeCheckbox<T extends FieldValues>({
           alt={title}
           width={140}
           height={140}
-          className="min-w-[140px] rounded-2xl shadow-[3px_3px_10px_rgba(0,0,0,.2)]"
+          className="drop-shadow-style-5 min-w-[140px] rounded-2xl shadow-black/20"
         />
       </div>
       <div className="h-[70px]"></div>
