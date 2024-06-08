@@ -35,25 +35,20 @@ export default function OurStory() {
                 noun。Latin
               </p>
             </div>
-            <table className="text-left">
-              <tbody>
-                <tr>
-                  <td className="pt-4"></td>
-                </tr>
-                <tr>
-                  <th>
-                    <strong className="heading-4 font-bold text-primary">1.</strong>
-                  </th>
-                  <th>
-                    <strong className="heading-4 font-bold text-primary">
-                      {a('block-1-title-1')}:
-                    </strong>
-                  </th>
-                </tr>
-                <tr>
-                  <th></th>
-                  <th>
-                    <div className="pt-4"></div>
+            <div className="pt-4"></div>
+            <div className="table text-left">
+              <div className="table-row-group">
+                <div className="table-row">
+                  <div className="table-cell">
+                    <strong className="heading-4 text-primary">1.</strong>
+                  </div>
+                  <div className="table-cell">
+                    <strong className="heading-4 text-primary">{a('block-1-title-1')}:</strong>
+                  </div>
+                </div>
+                <div className="table-row">
+                  <div className="table-cell"></div>
+                  <div className="table-cell pt-4">
                     <p className="body-1 flex">
                       <span className="mr-2 font-medium">a.</span>
                       <span>{a.rich('block-1-content-1')}</span>
@@ -63,26 +58,22 @@ export default function OurStory() {
                       <span className="mr-2 font-medium">b.</span>
                       <span>{a.rich('block-1-content-3')}</span>
                     </p>
-                  </th>
-                </tr>
-                <tr>
-                  <td className="pt-4"></td>
-                </tr>
-                <tr>
-                  <th>
-                    <div>
-                      <strong className="heading-4 font-bold text-primary">2. </strong>
-                    </div>
-                  </th>
-                  <th>
-                    <strong className="heading-4 font-bold text-primary">
-                      {a('block-1-title-2')}:
-                    </strong>
+                  </div>
+                </div>
+                <div className="table-row">
+                  <div className="table-cell pt-4"></div>
+                </div>
+                <div className="table-row">
+                  <div className="table-cell">
+                    <strong className="heading-4 relative -left-[3px] text-primary">2.</strong>
+                  </div>
+                  <div className="table-cell">
+                    <strong className="heading-4 text-primary">{a('block-1-title-2')}:</strong>
                     <span className="body-1"> {a.rich('block-1-content-4')}</span>
-                  </th>
-                </tr>
-              </tbody>
-            </table>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </Container>
       </Block>
@@ -92,7 +83,7 @@ export default function OurStory() {
           className={{
             bgLeft: 'bg-brown',
             bgRight: clsx(
-              "min-h-[520px] bg-[#d8b99b] bg-[url('./charlie.jpg')] bg-[length:auto_100%] bg-[-50px] bg-no-repeat max-2xl:bg-[-4vw] max-xl:bg-[calc(calc(650px-47vw)_*_-1)]",
+              "min-h-[520px] bg-[#e1bd98] bg-[url('./charlie.jpg')] bg-[length:auto_100%] bg-[-50px] bg-no-repeat max-2xl:bg-[-4vw] max-xl:bg-[calc(calc(650px-47vw)_*_-1)]",
               "max-lg:h-[50vw] max-lg:max-h-[520px] max-lg:min-h-[380px] max-lg:bg-[url('./charlie-center.jpg')] max-lg:bg-center"
             ),
             mbLeft: 'px-4',
@@ -135,7 +126,7 @@ export default function OurStory() {
           loading="eager"
         />
         <div className="z-40 flex w-1/2 justify-end max-md:w-full max-md:justify-center">
-          <div className="mr-8 w-full max-w-[380px] pt-10 max-md:mx-4 md:max-lg:pl-1">
+          <div className="mr-8 w-full max-w-[350px] pt-10 max-md:mx-4 md:max-lg:pl-1 xl:max-w-[380px]">
             <div className="relative pt-[168%]">
               <Image src="/dog-with-owner.png" alt="Dog with owner" fill loading="eager" />
             </div>
@@ -155,7 +146,7 @@ export default function OurStory() {
           <div className="mt-6"></div>
           <h2 className="heading-1 font-bold max-md:text-center">{a('block-3-title-1')}</h2>
           <div className="mt-4"></div>
-          <div className="min-h-[112px] w-2/3 max-xl:w-full">
+          <div className="max-w-[650px] md:min-h-[140px] xl:min-h-[112px] xl:pr-8">
             <p className="body-1">{a('block-3-content-1')}</p>
           </div>
         </div>
