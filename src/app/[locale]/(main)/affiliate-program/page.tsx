@@ -13,9 +13,9 @@ export default function AffiliateProgram() {
 
   return (
     <main>
-      <div className="bg-[#0b405f] bg-[url('./affiliate-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%+100px)] bg-no-repeat py-10 max-lg:bg-[calc(50%+80px)]">
+      <div className="bg-[#0b405f] bg-[url('./affiliate-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%+100px)] bg-no-repeat py-[clamp(70px,7vw,160px)] max-lg:bg-[calc(50%+80px)]">
         <Container>
-          <div className="py-[4vw] text-white">
+          <div className="text-white">
             <h1 className="heading-headline font-bold">
               Become An OCELLE
               <br />
@@ -39,7 +39,7 @@ export default function AffiliateProgram() {
         </Container>
       </div>
       <div className="flex flex-wrap max-lg:flex-col-reverse">
-        <div className="min-h-[460px] w-1/2 bg-[url('./glass-dog.jpg')] bg-cover bg-[center_right] max-lg:w-full"></div>
+        <div className="min-h-[460px] w-1/2 bg-[url('./glass-dog.jpg')] bg-[length:auto_100%] bg-[center_right] bg-no-repeat max-lg:w-full"></div>
         <div className="w-1/2 bg-primary bg-opacity-10 max-lg:w-full">
           <Block className="px-4 text-primary lg:max-w-[705px]">
             <h2 className="heading-1 text-center font-bold">The Program</h2>
