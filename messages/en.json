@@ -894,7 +894,7 @@
     "block-1-content": "Please use the links below. <i>Woof!</i>"
   },
   "FAQ": {
-    "block-1-content": "If you can’t find what you’re looking for, please contact us!",
+    "block-1-content": "If you can’t find what you’re looking for, <block>please contact us!</block>",
     "block-2-title": "Our Food",
     "block-3-title": "Our Quiz",
     "block-4-title": "Subscription",
