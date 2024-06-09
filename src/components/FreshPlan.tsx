@@ -40,7 +40,7 @@ export default function FreshPlan({
           ? 'border-error'
           : selected
             ? 'border-primary'
-            : 'border-transparent drop-shadow-[0_0_5px_rgba(0,0,0,0.4)]'
+            : 'border-transparent !drop-shadow-[0_0_5px_rgba(0,0,0,0.4)]'
       )}
       tabIndex={0}
       onClick={onSelect}
