@@ -39,7 +39,7 @@ export default function AffiliateProgram() {
         </Container>
       </div>
       <div className="flex flex-wrap max-lg:flex-col-reverse">
-        <div className="min-h-[460px] w-1/2 bg-[url('./glass-dog.jpg')] bg-[length:auto_100%] bg-[center_right] bg-no-repeat max-lg:w-full"></div>
+        <div className="min-h-[300px] w-1/2 bg-[#383a4f] bg-[url('./glass-dog.jpg')] bg-[length:auto_100%] bg-[center_right] bg-no-repeat max-lg:w-full max-lg:bg-cover max-lg:pt-[54.8%]"></div>
         <div className="w-1/2 bg-primary bg-opacity-10 max-lg:w-full">
           <Block className="px-4 text-primary lg:max-w-[705px]">
             <h2 className="heading-1 text-center font-bold">The Program</h2>
@@ -119,9 +119,9 @@ export default function AffiliateProgram() {
             And We’ll Share The Wealth!
           </h2>
           <div className="pt-normal"></div>
-          <div className="-mx-4 -my-4 flex flex-wrap">
-            <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
-              <div className="drop-shadow-style-1 h-full rounded-3xl bg-white p-6 shadow-black/30">
+          <div className="-m-4 flex flex-wrap">
+            <div className="w-1/3 p-4 max-lg:w-full">
+              <div className="drop-shadow-style-1 mx-auto h-full max-w-screen-xs rounded-3xl bg-white px-6 py-8 shadow-black/30">
                 <h3 className="heading-4 font-bold text-gold">1. Join The Program</h3>
                 <div className="mt-4"></div>
                 <p className="body-1">
@@ -138,8 +138,8 @@ export default function AffiliateProgram() {
                 </p>
               </div>
             </div>
-            <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
-              <div className="drop-shadow-style-1 h-full rounded-3xl bg-white p-6 shadow-black/30">
+            <div className="w-1/3 p-4 max-lg:w-full">
+              <div className="drop-shadow-style-1 mx-auto h-full max-w-screen-xs rounded-3xl bg-white px-6 py-8 shadow-black/30">
                 <h3 className="heading-4 font-bold text-gold">2. Learn About Fresh Food</h3>
                 <div className="mt-4"></div>
                 <p className="body-1">
@@ -149,8 +149,8 @@ export default function AffiliateProgram() {
                 </p>
               </div>
             </div>
-            <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
-              <div className="drop-shadow-style-1 h-full rounded-3xl bg-white p-6 shadow-black/30">
+            <div className="w-1/3 p-4 max-lg:w-full">
+              <div className="drop-shadow-style-1 mx-auto h-full max-w-screen-xs rounded-3xl bg-white px-6 py-8 shadow-black/30">
                 <h3 className="heading-4 font-bold text-gold">3. Earn Money</h3>
                 <div className="mt-4"></div>
                 <p className="body-1">
@@ -160,7 +160,7 @@ export default function AffiliateProgram() {
               </div>
             </div>
           </div>
-          <div className="pt-10"></div>
+          <div className="pt-tight"></div>
           <Button>{t('join-now')}</Button>
         </Container>
       </Block>
