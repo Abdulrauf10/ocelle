@@ -22,7 +22,7 @@ import PlasticBox from '@/components/layouts/PlasticBox';
 import PlasticBoxPreview from '@/components/layouts/PlasticBoxPreview';
 import { ActivityLevel, BodyCondition, MealPlan, Recipe } from '@/enums';
 import { getDateOfBirth, isAllergies, isRecommendedRecipe } from '@/helpers/dog';
-import { arrayToRecipe, recipeToArray } from '@/helpers/form';
+import { arrayToRecipe, getRecipeOptions, recipeToArray } from '@/helpers/form';
 import { nativeRound } from '@/helpers/number';
 import { booleanToString, stringToBoolean } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
@@ -185,6 +185,28 @@ export default function RecommendedPlanFragment() {
     t('taurine'),
     t('choline-bitartrate'),
   ];
+
+  const defaultRecommendedRecipes = React.useMemo(() => {
+    let recipe1: Recipe | undefined = undefined;
+    let recipe2: Recipe | undefined = undefined;
+
+    for (const recipe of getRecipeOptions()) {
+      const recommended = isRecommendedRecipe(
+        recipe,
+        pickiness!,
+        activityLevel!,
+        bodyCondition!,
+        foodAllergies!
+      );
+      if (recommended) {
+        if (!recipe1) recipe1 = recipe;
+        else if (!recipe2) recipe2 = recipe;
+        else break;
+      }
+    }
+
+    return { recipe1, recipe2 };
+  }, [pickiness, activityLevel, bodyCondition, foodAllergies]);
 
   const selectedRecipes = recipeValues.filter((x) => x === true).length > 0;
   const containsTwoRecipes = recipeValues.filter((x) => x === true).length >= 2;
@@ -466,8 +488,10 @@ export default function RecommendedPlanFragment() {
                       <div className="relative w-full">
                         <PlasticBoxPreview
                           name={name!}
-                          recipe1={recipes.recipe1 ?? Recipe.Pork}
-                          recipe2={recipes.recipe2}
+                          recipe1={
+                            recipes.recipe1 ?? defaultRecommendedRecipes.recipe1 ?? Recipe.Pork
+                          }
+                          recipe2={recipes.recipe2 ?? defaultRecommendedRecipes.recipe2}
                         />
                       </div>
                     </div>
@@ -477,8 +501,12 @@ export default function RecommendedPlanFragment() {
                   <div className="flex h-full items-center pt-[40px]">
                     <PlasticBoxPreview
                       name={name!}
-                      recipe1={recipes.recipe1 ?? Recipe.Pork}
-                      recipe2={recipes.recipe2}
+                      recipe1={recipes.recipe1 ?? defaultRecommendedRecipes.recipe1 ?? Recipe.Pork}
+                      recipe2={
+                        recipes.recipe2 ?? recipes.recipe1
+                          ? undefined
+                          : defaultRecommendedRecipes.recipe2
+                      }
                     />
                   </div>
                 </div>
