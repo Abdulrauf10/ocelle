@@ -13,7 +13,7 @@ interface RecipeCheckboxProps<T extends FieldValues> extends InputControllerProp
   title: string;
   description: string;
   picture: string;
-  dialogPicture: string;
+  dialogPicture: React.ReactNode;
   price: 'cheap' | 'normal' | 'expensive';
   ingredients: string[];
   targetedNutrientBlendIngredients: string[];

@@ -2,6 +2,8 @@ import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
+import PlasticBox from './PlasticBox';
+
 import { Recipe } from '@/enums';
 import { getRecipeSlug } from '@/helpers/dog';
 
@@ -30,31 +32,11 @@ export default function PlasticBoxPreview({
               : 'left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'
           )}
         >
-          <div className="w-full pt-[128%]" style={{ containerType: 'size' }}>
-            <Image
-              src={`/plastic/${getRecipeSlug(recipe1)}.png`}
-              alt="ocelle food"
-              fill
-              className="object-contain"
-            />
-            <span className="absolute left-1/2 top-[46%] -translate-x-1/2 text-[5cqw] font-bold leading-none">
-              {t('{}-apostrophe', { value: name })}
-            </span>
-          </div>
+          <PlasticBox name={name} recipe={recipe1} />
         </div>
         {recipe2 && (
           <div className="absolute right-[2.5%] top-1/2 w-[55%] -translate-y-1/2">
-            <div className="w-full pt-[128%]" style={{ containerType: 'size' }}>
-              <Image
-                src={`/plastic/${getRecipeSlug(recipe2)}.png`}
-                alt="ocelle food"
-                fill
-                className="object-contain"
-              />
-              <span className="absolute left-1/2 top-[46%] -translate-x-1/2 text-[5cqw] font-bold leading-none">
-                {t('{}-apostrophe', { value: name })}
-              </span>
-            </div>
+            <PlasticBox name={name} recipe={recipe2} />
           </div>
         )}
       </div>

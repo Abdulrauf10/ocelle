@@ -134,7 +134,11 @@ export default function Product({
                   description={description.map((content, idx) => (
                     <div key={idx} dangerouslySetInnerHTML={{ __html: xss(content) }} />
                   ))}
-                  picture={dialogPicture!}
+                  picture={
+                    <div className="relative overflow-hidden rounded-2xl pt-[100%]">
+                      <Image src={dialogPicture!} alt={product.name} fill />
+                    </div>
+                  }
                   ingredients={ingredients}
                   targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                   calorie={calorie}

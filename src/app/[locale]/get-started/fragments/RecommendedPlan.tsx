@@ -14,11 +14,12 @@ import { getBoxPrices } from '../actions';
 import { pageVariants } from '../transition';
 
 import Container from '@/components/Container';
-import PlasticBoxPreview from '@/components/PlasticBoxPreview';
 import Price from '@/components/Price';
 import Button from '@/components/buttons/Button';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import RecipeCheckbox from '@/components/controls/RecipeCheckbox';
+import PlasticBox from '@/components/layouts/PlasticBox';
+import PlasticBoxPreview from '@/components/layouts/PlasticBoxPreview';
 import { ActivityLevel, BodyCondition, MealPlan, Recipe } from '@/enums';
 import { getDateOfBirth, isAllergies, isRecommendedRecipe } from '@/helpers/dog';
 import { arrayToRecipe, recipeToArray } from '@/helpers/form';
@@ -229,7 +230,14 @@ export default function RecommendedPlanFragment() {
                         }}
                         error={!!errors?.recipe}
                         picture="/meal-plan/chicken.jpg"
-                        dialogPicture="/recipes/dispersion/chicken.gif"
+                        dialogPicture={
+                          <div className="relative overflow-hidden rounded-2xl pt-[100%]">
+                            <Image src="/plastic/background/chicken.jpg" alt="" fill />
+                            <div className="absolute bottom-2 left-0 right-0 mx-auto w-[65%]">
+                              <PlasticBox name={name!} recipe={Recipe.Chicken} />
+                            </div>
+                          </div>
+                        }
                         price="cheap"
                         ingredients={[
                           i('chicken-breast'),
@@ -271,7 +279,14 @@ export default function RecommendedPlanFragment() {
                         }}
                         error={!!errors?.recipe}
                         picture="/meal-plan/pork.jpg"
-                        dialogPicture="/recipes/dispersion/pork.gif"
+                        dialogPicture={
+                          <div className="relative overflow-hidden rounded-2xl pt-[100%]">
+                            <Image src="/plastic/background/pork.jpg" alt="" fill />
+                            <div className="absolute bottom-2 left-0 right-0 mx-auto w-[65%]">
+                              <PlasticBox name={name!} recipe={Recipe.Pork} />
+                            </div>
+                          </div>
+                        }
                         price="cheap"
                         ingredients={[
                           i('pork-loin'),
@@ -313,7 +328,14 @@ export default function RecommendedPlanFragment() {
                         }}
                         error={!!errors?.recipe}
                         picture="/meal-plan/duck.jpg"
-                        dialogPicture="/recipes/dispersion/duck.gif"
+                        dialogPicture={
+                          <div className="relative overflow-hidden rounded-2xl pt-[100%]">
+                            <Image src="/plastic/background/duck.jpg" alt="" fill />
+                            <div className="absolute bottom-2 left-0 right-0 mx-auto w-[65%]">
+                              <PlasticBox name={name!} recipe={Recipe.Duck} />
+                            </div>
+                          </div>
+                        }
                         price="normal"
                         ingredients={[
                           i('duck-breast'),
@@ -354,7 +376,14 @@ export default function RecommendedPlanFragment() {
                         }}
                         error={!!errors?.recipe}
                         picture="/meal-plan/beef.jpg"
-                        dialogPicture="/recipes/dispersion/beef.gif"
+                        dialogPicture={
+                          <div className="relative overflow-hidden rounded-2xl pt-[100%]">
+                            <Image src="/plastic/background/beef.jpg" alt="" fill />
+                            <div className="absolute bottom-2 left-0 right-0 mx-auto w-[65%]">
+                              <PlasticBox name={name!} recipe={Recipe.Beef} />
+                            </div>
+                          </div>
+                        }
                         price="normal"
                         ingredients={[
                           i('beef-chuck'),
@@ -396,7 +425,14 @@ export default function RecommendedPlanFragment() {
                         }}
                         error={!!errors?.recipe}
                         picture="/meal-plan/lamb.jpg"
-                        dialogPicture="/recipes/dispersion/lamb.gif"
+                        dialogPicture={
+                          <div className="relative overflow-hidden rounded-2xl pt-[100%]">
+                            <Image src="/plastic/background/lamb.jpg" alt="" fill />
+                            <div className="absolute bottom-2 left-0 right-0 mx-auto w-[65%]">
+                              <PlasticBox name={name!} recipe={Recipe.Lamb} />
+                            </div>
+                          </div>
+                        }
                         price="expensive"
                         ingredients={[
                           i('lamb-leg-boneless'),

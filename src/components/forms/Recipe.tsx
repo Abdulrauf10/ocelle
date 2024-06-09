@@ -3,6 +3,7 @@
 import { useQuery } from '@tanstack/react-query';
 import equal from 'deep-equal';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import pluralize from 'pluralize';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -10,6 +11,7 @@ import { toast } from 'react-toastify';
 
 import Button from '../buttons/Button';
 import RecipeCheckbox from '../controls/RecipeCheckbox';
+import PlasticBox from '../layouts/PlasticBox';
 
 import { ActivityLevel, BodyCondition, FoodAllergies, Pickiness, Recipe } from '@/enums';
 import { isAllergies, isRecommendedRecipe } from '@/helpers/dog';
@@ -139,7 +141,14 @@ export default function RecipeForm({
             }}
             error={!!errors?.recipe}
             picture="/meal-plan/chicken.jpg"
-            dialogPicture="/recipes/dispersion/chicken.gif"
+            dialogPicture={
+              <div className="relative overflow-hidden rounded-2xl pt-[100%]">
+                <Image src="/plastic/background/chicken.jpg" alt="" fill />
+                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[65%]">
+                  <PlasticBox name={name!} recipe={Recipe.Chicken} />
+                </div>
+              </div>
+            }
             price="cheap"
             ingredients={[
               i('chicken-breast'),
@@ -181,7 +190,14 @@ export default function RecipeForm({
             }}
             error={!!errors?.recipe}
             picture="/meal-plan/pork.jpg"
-            dialogPicture="/recipes/dispersion/pork.gif"
+            dialogPicture={
+              <div className="relative overflow-hidden rounded-2xl pt-[100%]">
+                <Image src="/plastic/background/pork.jpg" alt="" fill />
+                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[65%]">
+                  <PlasticBox name={name!} recipe={Recipe.Pork} />
+                </div>
+              </div>
+            }
             price="cheap"
             ingredients={[
               i('pork-loin'),
@@ -223,7 +239,14 @@ export default function RecipeForm({
             }}
             error={!!errors?.recipe}
             picture="/meal-plan/duck.jpg"
-            dialogPicture="/recipes/dispersion/duck.gif"
+            dialogPicture={
+              <div className="relative overflow-hidden rounded-2xl pt-[100%]">
+                <Image src="/plastic/background/duck.jpg" alt="" fill />
+                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[65%]">
+                  <PlasticBox name={name!} recipe={Recipe.Duck} />
+                </div>
+              </div>
+            }
             price="normal"
             ingredients={[
               i('duck-breast'),
@@ -264,7 +287,14 @@ export default function RecipeForm({
             }}
             error={!!errors?.recipe}
             picture="/meal-plan/beef.jpg"
-            dialogPicture="/recipes/dispersion/beef.gif"
+            dialogPicture={
+              <div className="relative overflow-hidden rounded-2xl pt-[100%]">
+                <Image src="/plastic/background/beef.jpg" alt="" fill />
+                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[65%]">
+                  <PlasticBox name={name!} recipe={Recipe.Beef} />
+                </div>
+              </div>
+            }
             price="normal"
             ingredients={[
               i('beef-chuck'),
@@ -306,7 +336,14 @@ export default function RecipeForm({
             }}
             error={!!errors?.recipe}
             picture="/meal-plan/lamb.jpg"
-            dialogPicture="/recipes/dispersion/lamb.gif"
+            dialogPicture={
+              <div className="relative overflow-hidden rounded-2xl pt-[100%]">
+                <Image src="/plastic/background/lamb.jpg" alt="" fill />
+                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[65%]">
+                  <PlasticBox name={name!} recipe={Recipe.Lamb} />
+                </div>
+              </div>
+            }
             price="expensive"
             ingredients={[
               i('lamb-leg-boneless'),
