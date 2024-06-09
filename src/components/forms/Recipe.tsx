@@ -144,7 +144,7 @@ export default function RecipeForm({
             dialogPicture={
               <div className="relative overflow-hidden rounded-2xl pt-[100%]">
                 <Image src="/plastic/background/chicken.jpg" alt="" fill />
-                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[65%]">
+                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                   <PlasticBox name={name!} recipe={Recipe.Chicken} />
                 </div>
               </div>
@@ -193,7 +193,7 @@ export default function RecipeForm({
             dialogPicture={
               <div className="relative overflow-hidden rounded-2xl pt-[100%]">
                 <Image src="/plastic/background/pork.jpg" alt="" fill />
-                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[65%]">
+                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                   <PlasticBox name={name!} recipe={Recipe.Pork} />
                 </div>
               </div>
@@ -242,7 +242,7 @@ export default function RecipeForm({
             dialogPicture={
               <div className="relative overflow-hidden rounded-2xl pt-[100%]">
                 <Image src="/plastic/background/duck.jpg" alt="" fill />
-                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[65%]">
+                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                   <PlasticBox name={name!} recipe={Recipe.Duck} />
                 </div>
               </div>
@@ -290,7 +290,7 @@ export default function RecipeForm({
             dialogPicture={
               <div className="relative overflow-hidden rounded-2xl pt-[100%]">
                 <Image src="/plastic/background/beef.jpg" alt="" fill />
-                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[65%]">
+                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                   <PlasticBox name={name!} recipe={Recipe.Beef} />
                 </div>
               </div>
@@ -339,7 +339,7 @@ export default function RecipeForm({
             dialogPicture={
               <div className="relative overflow-hidden rounded-2xl pt-[100%]">
                 <Image src="/plastic/background/lamb.jpg" alt="" fill />
-                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[65%]">
+                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                   <PlasticBox name={name!} recipe={Recipe.Lamb} />
                 </div>
               </div>
