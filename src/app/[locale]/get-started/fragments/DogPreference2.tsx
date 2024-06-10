@@ -186,10 +186,10 @@ export default function DogPreference2Fragment() {
                 );
               })}
               <div className="px-3">
-                <div className="min-w-[128px]"></div>
+                <div className="min-w-[120px]"></div>
               </div>
               <div className="px-3">
-                <div className="min-w-[128px]"></div>
+                <div className="min-w-[120px]"></div>
               </div>
             </div>
           </Section>
@@ -238,7 +238,7 @@ export default function DogPreference2Fragment() {
           </Section>
           <SectionBreak />
           <Section title={t.rich('how-picky-is-{}-at-mealtimes', { name })}>
-            <div className="mx-auto mt-10 max-w-[640px]">
+            <div className="mx-auto mt-10 max-w-[520px]">
               <PictureRadio
                 name="pickiness"
                 watch={watch}
@@ -251,7 +251,7 @@ export default function DogPreference2Fragment() {
                     value: Pickiness.Picky,
                     children: (
                       <div className="flex items-end">
-                        <Image src="/question/picky.svg" alt="Picky dog" width={130} height={50} />
+                        <Image src="/question/picky.svg" alt="Picky dog" width={110} height={42} />
                       </div>
                     ),
                   },
@@ -263,8 +263,8 @@ export default function DogPreference2Fragment() {
                         <Image
                           src="/question/good-eater.svg"
                           alt="Eater dog"
-                          width={80}
-                          height={73}
+                          width={60}
+                          height={55}
                         />
                       </div>
                     ),
@@ -276,8 +276,8 @@ export default function DogPreference2Fragment() {
                       <Image
                         src="/question/eat-anything.svg"
                         alt="Eat anything dog"
-                        width={70}
-                        height={81}
+                        width={53}
+                        height={62}
                       />
                     ),
                   },

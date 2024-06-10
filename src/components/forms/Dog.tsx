@@ -439,7 +439,7 @@ export default function DogForm({
         )}
       </EditDogBlock>
       <EditDogBlock title={t('current-{}', { value: t('body-condition') })}>
-        <div className="mt-4 max-w-[840px]">
+        <div className="mt-4 max-w-[700px]">
           <PictureRadio
             name="bodyCondition"
             watch={watch}
@@ -459,7 +459,7 @@ export default function DogForm({
                 ),
                 value: BodyCondition.TooSkinny,
                 children: (
-                  <Image src="/question/body-skinny.svg" alt="dog skinny" width={120} height={99} />
+                  <Image src="/question/body-skinny.svg" alt="dog skinny" width={91} height={75} />
                 ),
               },
               {
@@ -476,8 +476,8 @@ export default function DogForm({
                   <Image
                     src="/question/body-just-right.svg"
                     alt="dog just right"
-                    width={120}
-                    height={99}
+                    width={91}
+                    height={75}
                   />
                 ),
               },
@@ -496,8 +496,8 @@ export default function DogForm({
                   <Image
                     src="/question/body-rounded.svg"
                     alt="dog rounded"
-                    width={120}
-                    height={99}
+                    width={91}
+                    height={75}
                   />
                 ),
               },
@@ -515,7 +515,7 @@ export default function DogForm({
                 ),
                 value: BodyCondition.Chunky,
                 children: (
-                  <Image src="/question/body-chunky.svg" alt="dog chunky" width={120} height={99} />
+                  <Image src="/question/body-chunky.svg" alt="dog chunky" width={91} height={75} />
                 ),
               },
             ]}
@@ -523,7 +523,7 @@ export default function DogForm({
         </div>
       </EditDogBlock>
       <EditDogBlock title={t('activity-level')}>
-        <div className="mt-4 max-w-[640px]">
+        <div className="mt-4 max-w-[440px]">
           <PictureRadio
             name="activityLevel"
             watch={watch}
@@ -540,7 +540,7 @@ export default function DogForm({
                 ),
                 value: ActivityLevel.Mellow,
                 children: (
-                  <Image src="/question/mellow.svg" alt="Mellow dog" width={100} height={95} />
+                  <Image src="/question/mellow.svg" alt="Mellow dog" width={68} height={43} />
                 ),
               },
               {
@@ -552,7 +552,7 @@ export default function DogForm({
                 ),
                 value: ActivityLevel.Active,
                 children: (
-                  <Image src="/question/active.svg" alt="Active dog" width={80} height={95} />
+                  <Image src="/question/active.svg" alt="Active dog" width={51} height={61} />
                 ),
               },
               {
@@ -567,8 +567,8 @@ export default function DogForm({
                   <Image
                     src="/question/very-active.svg"
                     alt="Very Active dog"
-                    width={110}
-                    height={95}
+                    width={79}
+                    height={61}
                   />
                 ),
               },
@@ -690,7 +690,7 @@ export default function DogForm({
         </div>
       </EditDogBlock>
       <EditDogBlock title={t('pickiness-around-mealtime')}>
-        <div className="mt-4 max-w-[640px]">
+        <div className="mt-4 max-w-[520px]">
           <PictureRadio
             name="pickiness"
             watch={watch}
@@ -703,7 +703,7 @@ export default function DogForm({
                 value: Pickiness.Picky,
                 children: (
                   <div className="flex items-end">
-                    <Image src="/question/picky.svg" alt="Picky dog" width={130} height={50} />
+                    <Image src="/question/picky.svg" alt="Picky dog" width={110} height={42} />
                   </div>
                 ),
               },
@@ -712,7 +712,7 @@ export default function DogForm({
                 value: Pickiness.GoodEater,
                 children: (
                   <div className="flex items-end">
-                    <Image src="/question/good-eater.svg" alt="Eater dog" width={80} height={73} />
+                    <Image src="/question/good-eater.svg" alt="Eater dog" width={60} height={55} />
                   </div>
                 ),
               },
@@ -723,8 +723,8 @@ export default function DogForm({
                   <Image
                     src="/question/eat-anything.svg"
                     alt="Eat anything dog"
-                    width={70}
-                    height={81}
+                    width={53}
+                    height={62}
                   />
                 ),
               },

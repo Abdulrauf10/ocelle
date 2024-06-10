@@ -94,7 +94,7 @@ export default function DogPreference1Fragment() {
           </Section>
           <SectionBreak />
           <Section title={t('what-best-represents-their-current-body-condition')}>
-            <div className="mx-auto mt-10 max-w-[840px]">
+            <div className="mx-auto mt-10 max-w-[700px]">
               <PictureRadio
                 name="bodyCondition"
                 watch={watch}
@@ -117,8 +117,8 @@ export default function DogPreference1Fragment() {
                       <Image
                         src="/question/body-skinny.svg"
                         alt="dog skinny"
-                        width={120}
-                        height={99}
+                        width={91}
+                        height={75}
                       />
                     ),
                   },
@@ -136,8 +136,8 @@ export default function DogPreference1Fragment() {
                       <Image
                         src="/question/body-just-right.svg"
                         alt="dog just right"
-                        width={120}
-                        height={99}
+                        width={91}
+                        height={75}
                       />
                     ),
                   },
@@ -156,8 +156,8 @@ export default function DogPreference1Fragment() {
                       <Image
                         src="/question/body-rounded.svg"
                         alt="dog rounded"
-                        width={120}
-                        height={99}
+                        width={91}
+                        height={75}
                       />
                     ),
                   },
@@ -178,8 +178,8 @@ export default function DogPreference1Fragment() {
                       <Image
                         src="/question/body-chunky.svg"
                         alt="dog chunky"
-                        width={120}
-                        height={99}
+                        width={91}
+                        height={75}
                       />
                     ),
                   },
@@ -189,7 +189,7 @@ export default function DogPreference1Fragment() {
           </Section>
           <SectionBreak />
           <Section title={t('how-active-is', { name })}>
-            <div className="mx-auto mt-10 max-w-[640px]">
+            <div className="mx-auto mt-10 max-w-[440px]">
               <PictureRadio
                 name="activityLevel"
                 watch={watch}
@@ -206,7 +206,7 @@ export default function DogPreference1Fragment() {
                     ),
                     value: ActivityLevel.Mellow,
                     children: (
-                      <Image src="/question/mellow.svg" alt="Mellow dog" width={100} height={95} />
+                      <Image src="/question/mellow.svg" alt="Mellow dog" width={68} height={43} />
                     ),
                   },
                   {
@@ -218,7 +218,7 @@ export default function DogPreference1Fragment() {
                     ),
                     value: ActivityLevel.Active,
                     children: (
-                      <Image src="/question/active.svg" alt="Active dog" width={80} height={95} />
+                      <Image src="/question/active.svg" alt="Active dog" width={51} height={61} />
                     ),
                   },
                   {
@@ -233,8 +233,8 @@ export default function DogPreference1Fragment() {
                       <Image
                         src="/question/very-active.svg"
                         alt="Very Active dog"
-                        width={110}
-                        height={95}
+                        width={79}
+                        height={61}
                       />
                     ),
                   },
