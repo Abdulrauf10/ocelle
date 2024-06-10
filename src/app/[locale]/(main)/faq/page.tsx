@@ -6,8 +6,8 @@ import QuestionAnswerBlock from './QuestionAnswerBlock';
 
 import Container from '@/components/Container';
 import Newsletter from '@/components/Newsletter';
-import Email from '@/components/icons/Email';
-import Whatsapp from '@/components/icons/Whatsapp';
+import Mail from '@/components/icons/Mail';
+import WhatsappFilled from '@/components/icons/WhatsappFilled';
 
 interface BlockProps {
   id: string;
@@ -53,7 +53,7 @@ export default function FaQ() {
                 href="mailto:info@ocelle.dog"
                 className="inline-flex items-center text-white hover:underline"
               >
-                <Email className="w-7" />
+                <Mail className="h-5 w-6" />
                 <div className="ml-3">
                   <span className="body-1 body-weight-1">info@ocelle.dog</span>
                 </div>
@@ -64,9 +64,7 @@ export default function FaQ() {
                 href="whatsapp://send/?text=Hello%20World!&phone=92267236"
                 className="inline-flex items-center text-white hover:underline"
               >
-                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-white">
-                  <Whatsapp className="w-4 text-primary" />
-                </div>
+                <WhatsappFilled className="-mx-0.5 h-7 w-7 text-white" />
                 <div className="ml-3">
                   <span className="body-1 body-weight-1">9226 7236</span>
                 </div>
