@@ -42,7 +42,7 @@ function Radio<T extends FieldValues>({
       <div>
         <div
           className={clsx(
-            'flex min-w-[128px] select-none justify-center rounded-full border border-current px-4 py-[9px]',
+            'flex min-w-[120px] select-none justify-center rounded-full border border-current px-4 py-2',
             error
               ? 'bg-white text-error'
               : isSelected

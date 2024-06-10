@@ -61,7 +61,7 @@ export default function InteractiveBlock<
   return (
     <label
       className={clsx(
-        'relative flex min-w-[128px] select-none justify-center rounded-full border border-current px-4 py-[9px]',
+        'relative flex min-w-[120px] select-none justify-center rounded-full border border-current px-4 py-2',
         error
           ? 'bg-white text-error'
           : isSelected
