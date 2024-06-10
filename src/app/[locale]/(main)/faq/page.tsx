@@ -44,7 +44,7 @@ export default function FaQ() {
       >
         <Container>
           <div className="max-md:pl-8 max-xs:pl-0 md:max-w-[50%]">
-            <h1 className="-ml-[9px] select-none text-[130px] font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] xl:text-[215px]">
+            <h1 className="-ml-[.07em] select-none text-[130px] font-bold leading-none text-white drop-shadow-[5px_5px_12px_rgba(0,0,0,.5)] xl:text-[215px]">
               FAQ
             </h1>
             <p className="body-1 text-white">{f.rich('block-1-content')}</p>
