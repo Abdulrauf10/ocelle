@@ -61,7 +61,7 @@ export default function InteractiveBlock<
   return (
     <label
       className={clsx(
-        'flex min-w-[128px] select-none items-center rounded-full border border-current px-4 py-2.5',
+        'relative flex min-w-[128px] select-none justify-center rounded-full border border-current px-4 py-[9px]',
         error
           ? 'bg-white text-error'
           : isSelected
@@ -71,27 +71,20 @@ export default function InteractiveBlock<
         className
       )}
     >
-      <div
-        className={clsx(
-          'relative mr-2 h-[13px] w-[13px] rounded-full ',
-          isSelected ? 'border-white bg-secondary' : 'border-brown bg-white'
-        )}
-      >
-        <input
-          {...field}
-          type={type}
-          className="absolute bottom-0 left-0 right-0 top-0 opacity-0"
-          onChange={(e) => {
-            onChange(e);
-            if (parentOnChange && typeof parentOnChange === 'function') {
-              parentOnChange(e);
-            }
-          }}
-          value={(props as any).value}
-          checked={type === 'checkbox' && !!field.value}
-        />
-      </div>
-      <span className="body-3 min-w-[55px] text-left">{label}</span>
+      <input
+        {...field}
+        type={type}
+        className="absolute bottom-0 left-0 right-0 top-0 opacity-0"
+        onChange={(e) => {
+          onChange(e);
+          if (parentOnChange && typeof parentOnChange === 'function') {
+            parentOnChange(e);
+          }
+        }}
+        value={(props as any).value}
+        checked={type === 'checkbox' && !!field.value}
+      />
+      <span className="body-3 min-w-[55px]">{label}</span>
     </label>
   );
 }
