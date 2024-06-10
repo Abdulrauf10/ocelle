@@ -25,7 +25,7 @@ function EndAdornment({
     spacing?: number;
     picture: string;
     title: string;
-    description: string;
+    description: React.ReactNode;
   }>;
   calorie: number;
   analysis: {
@@ -201,7 +201,7 @@ export default function RecipesPage() {
     'duck-breast': {
       picture: '/recipes/ingredients/duck-breast.png',
       title: i('duck-breast'),
-      description: i('duck-breast-description'),
+      description: i.rich('duck-breast-description'),
     },
     'winter-melon': {
       picture: '/recipes/ingredients/winter-melon.png',

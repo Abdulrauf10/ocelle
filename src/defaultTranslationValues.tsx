@@ -9,8 +9,10 @@ const defaultTranslationValues: RichTranslationValues = {
   nowrap: (chunks) => <span className="whitespace-nowrap">{chunks}</span>,
   block: (chunks) => <span className="inline-block">{chunks}</span>,
   baskerville: (chunks) => (
-    <span className="font-baskerville relative -top-px font-bold">{chunks}</span>
+    <span className="relative -top-px font-baskerville font-bold">{chunks}</span>
   ),
+  apos1: () => <span style={{ marginRight: '-.13em' }}>’</span>,
+  apos2: () => <span style={{ marginRight: '-.13em' }}>&apos;</span>,
 };
 
 export default defaultTranslationValues;

@@ -86,7 +86,7 @@ export default function Home() {
                 <div className="pt-2"></div>
                 <h3 className="heading-4 text-primary">{t.rich('block-4-item-1-title')}</h3>
                 <div className="pt-4"></div>
-                <p className="body-1 xl:max-w-[320px]">{t('block-4-item-1-content')}</p>
+                <p className="body-1 xl:max-w-[320px]">{t.rich('block-4-item-1-content')}</p>
               </div>
               <div className="mt-[6%] md:w-1/2 xl:w-full">
                 <Image
@@ -99,7 +99,7 @@ export default function Home() {
                 <div className="pt-2"></div>
                 <h3 className="heading-4 text-primary">{t.rich('block-4-item-2-title')}</h3>
                 <div className="pt-4"></div>
-                <p className="body-1 xl:max-w-[320px]">{t('block-4-item-2-content')}</p>
+                <p className="body-1 xl:max-w-[320px]">{t.rich('block-4-item-2-content')}</p>
               </div>
               <div className="ml-32 mt-[6%]">
                 <div className="flex flex-1 flex-wrap max-xl:-m-3">
@@ -127,7 +127,7 @@ export default function Home() {
                     <div className="pt-2"></div>
                     <h3 className="heading-4 text-primary">{t.rich('block-4-item-4-title')}</h3>
                     <div className="pt-4"></div>
-                    <p className="body-1">{t('block-4-item-4-content')}</p>
+                    <p className="body-1">{t.rich('block-4-item-4-content')}</p>
                   </div>
                   <div className="ml-[6%] mt-[21%] text-center max-xl:hidden">
                     <Button href="/get-started">{b('get-started')}</Button>
@@ -262,7 +262,7 @@ export default function Home() {
       <div className="bg-[#f7e9de] bg-[url('./recommended-plan-bg.jpg')] bg-[length:auto_100%] bg-center bg-no-repeat py-[clamp(120px,10vw,230px)] max-md:bg-primary max-md:bg-opacity-10 max-md:bg-none max-md:px-4 max-md:py-16 max-xs:px-0">
         <Container>
           <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-6 text-center drop-shadow-[13px_13px_5.5px_rgba(0,0,0,0.4)] max-md:drop-shadow-[8px_8px_5.5px_rgba(0,0,0,0.25)]">
-            <div className="heading-3 heading-weight-2 text-primary">{t('block-7-title')}</div>
+            <div className="heading-3 heading-weight-2 text-primary">{t.rich('block-7-title')}</div>
             <div className="pt-6"></div>
             <p className="body-1">{t.rich('block-7-content')}</p>
             <div className="pt-8 text-center">

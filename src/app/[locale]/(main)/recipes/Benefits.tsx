@@ -19,7 +19,7 @@ export default function RecipeBenefits() {
       },
       {
         title: r('block-7-title-2'),
-        description: r('block-7-content-2'),
+        description: r.rich('block-7-content-2'),
       },
       {
         title: r('block-7-title-3'),

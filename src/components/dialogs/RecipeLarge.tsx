@@ -15,7 +15,7 @@ function Hr() {
   return <hr className="my-10 border-t-2 border-primary"></hr>;
 }
 
-function DialogBlock({ title, children }: React.PropsWithChildren<{ title: string }>) {
+function DialogBlock({ title, children }: React.PropsWithChildren<{ title: React.ReactNode }>) {
   return (
     <div>
       <strong className="block text-center text-5xl text-primary">{title}</strong>
@@ -38,7 +38,7 @@ export default function RecipeLargeDialog({
     spacing?: number;
     picture: string;
     title: string;
-    description: string;
+    description: React.ReactNode;
     className?: string;
   }>;
   calorie: number;
@@ -72,7 +72,7 @@ export default function RecipeLargeDialog({
             </div>
           </div>
           <Hr />
-          <DialogBlock title={r('whats-inside')}>
+          <DialogBlock title={r.rich('whats-inside')}>
             <Swiper
               slidesPerView={1}
               spaceBetween={50}
@@ -117,7 +117,7 @@ export default function RecipeLargeDialog({
             </Swiper>
           </DialogBlock>
           <Hr />
-          <DialogBlock title={r('whats-not-inside')}>
+          <DialogBlock title={r.rich('whats-not-inside')}>
             <div className="pt-2"></div>
             <div className="-mx-3 -my-4 flex flex-wrap justify-evenly max-lg:justify-start">
               <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 max-[420px]:w-full ">

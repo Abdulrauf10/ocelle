@@ -31,10 +31,10 @@ export default function Picture() {
               }
               className={{ list: '-my-2.5', row: 'py-2.5', icon: 'mr-5', item: 'body-1' }}
               items={[
-                t('block-1-content-1'),
-                t('block-1-content-2'),
-                t('block-1-content-3'),
-                t('block-1-content-4'),
+                t.rich('block-1-content-1'),
+                t.rich('block-1-content-2'),
+                t.rich('block-1-content-3'),
+                t.rich('block-1-content-4'),
               ]}
             />
             <div className="pt-8"></div>
