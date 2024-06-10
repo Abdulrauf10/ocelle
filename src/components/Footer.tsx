@@ -79,8 +79,9 @@ export default function Footer({ hideNav }: FooterProps) {
               </Link> */}
               <br />
               <Link
-                href="whatsapp://send?text=Hello World!&phone=92267236"
+                href="https://wa.me/92267236"
                 className="mt-3 inline-flex items-center"
+                referrerPolicy="no-referrer"
               >
                 <Whatsapp className="w-5 min-w-5" />
                 <span className="pl-2">9226 7236</span>

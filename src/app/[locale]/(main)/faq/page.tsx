@@ -61,8 +61,9 @@ export default function FaQ() {
             </div>
             <div className="mt-4">
               <Link
-                href="whatsapp://send/?text=Hello%20World!&phone=92267236"
+                href="https://wa.me/92267236"
                 className="inline-flex items-center text-white hover:underline"
+                referrerPolicy="no-referrer"
               >
                 <WhatsappFilled className="-mx-0.5 h-7 w-7 text-white" />
                 <div className="ml-3">
