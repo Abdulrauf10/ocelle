@@ -439,8 +439,11 @@ export default function DogForm({
         )}
       </EditDogBlock>
       <EditDogBlock title={t('current-{}', { value: t('body-condition') })}>
-        <div className="mt-4 max-w-[700px]">
+        <div className="mt-4">
           <PictureRadio
+            className={{
+              radioGroup: 'max-w-[630px]',
+            }}
             name="bodyCondition"
             watch={watch}
             rules={{ required: true }}
@@ -523,8 +526,11 @@ export default function DogForm({
         </div>
       </EditDogBlock>
       <EditDogBlock title={t('activity-level')}>
-        <div className="mt-4 max-w-[440px]">
+        <div className="mt-4">
           <PictureRadio
+            className={{
+              radioGroup: 'max-w-[440px]',
+            }}
             name="activityLevel"
             watch={watch}
             rules={{ required: true }}
@@ -690,8 +696,11 @@ export default function DogForm({
         </div>
       </EditDogBlock>
       <EditDogBlock title={t('pickiness-around-mealtime')}>
-        <div className="mt-4 max-w-[520px]">
+        <div className="mt-4">
           <PictureRadio
+            className={{
+              radioGroup: 'max-w-[520px]',
+            }}
             name="pickiness"
             watch={watch}
             rules={{ required: true }}

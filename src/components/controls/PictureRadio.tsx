@@ -71,6 +71,9 @@ interface PictureRadioProps<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > extends InputControllerProps<TFieldValues, TFieldName> {
+  className?: {
+    radioGroup?: string;
+  };
   watch: UseFormWatch<TFieldValues>;
   radios: PictureRadioOption<TFieldValues, TFieldName>[];
 }
@@ -78,7 +81,15 @@ interface PictureRadioProps<
 export default function PictureRadio<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({ name, control, watch, rules, radios, error }: PictureRadioProps<TFieldValues, TFieldName>) {
+>({
+  className,
+  name,
+  control,
+  watch,
+  rules,
+  radios,
+  error,
+}: PictureRadioProps<TFieldValues, TFieldName>) {
   const currentValue = watch(name);
   const selectedRadio = React.useMemo(() => {
     if (!currentValue) {
@@ -106,21 +117,23 @@ export default function PictureRadio<
 
   return (
     <>
-      <div className="-mx-3 flex">
-        {radios.map((radio, idx) => (
-          <Radio
-            key={idx}
-            name={name}
-            control={control}
-            rules={rules}
-            value={radio.value}
-            label={radio.label}
-            error={error}
-            onHover={handleOnHover(radio.value)}
-          >
-            {radio.children}
-          </Radio>
-        ))}
+      <div className={clsx(className?.radioGroup)}>
+        <div className="-mx-3 flex">
+          {radios.map((radio, idx) => (
+            <Radio
+              key={idx}
+              name={name}
+              control={control}
+              rules={rules}
+              value={radio.value}
+              label={radio.label}
+              error={error}
+              onHover={handleOnHover(radio.value)}
+            >
+              {radio.children}
+            </Radio>
+          ))}
+        </div>
       </div>
       {description && <div className="mt-5 flex justify-center">{description}</div>}
       {selectedDescription && <div className="mt-5 flex justify-center">{selectedDescription}</div>}

@@ -94,8 +94,11 @@ export default function DogPreference1Fragment() {
           </Section>
           <SectionBreak />
           <Section title={t('what-best-represents-their-current-body-condition')}>
-            <div className="mx-auto mt-10 max-w-[700px]">
+            <div className="mt-10">
               <PictureRadio
+                className={{
+                  radioGroup: 'mx-auto max-w-[630px]',
+                }}
                 name="bodyCondition"
                 watch={watch}
                 rules={{ required: true }}
@@ -189,8 +192,11 @@ export default function DogPreference1Fragment() {
           </Section>
           <SectionBreak />
           <Section title={t('how-active-is', { name })}>
-            <div className="mx-auto mt-10 max-w-[440px]">
+            <div className="mt-10">
               <PictureRadio
+                className={{
+                  radioGroup: 'mx-auto max-w-[440px]',
+                }}
                 name="activityLevel"
                 watch={watch}
                 rules={{ required: true }}

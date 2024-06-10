@@ -238,8 +238,11 @@ export default function DogPreference2Fragment() {
           </Section>
           <SectionBreak />
           <Section title={t.rich('how-picky-is-{}-at-mealtimes', { name })}>
-            <div className="mx-auto mt-10 max-w-[520px]">
+            <div className="mt-10">
               <PictureRadio
+                className={{
+                  radioGroup: 'mx-auto max-w-[520px]',
+                }}
                 name="pickiness"
                 watch={watch}
                 rules={{ required: true }}
