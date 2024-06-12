@@ -453,12 +453,12 @@ export default function DogForm({
               {
                 label: t('too-skinny'),
                 descripton: (
-                  <p className="body-3 text-primary">
+                  <p className="body-3 w-full text-primary">
                     {t('visible-rib-cage-spine-noticeable-loss-of-muscle-mass')}
-                    <br />
-                    <br />
-                    <i>{t('adjust-their-calories')}</i>
                   </p>
+                ),
+                selectedDescription: (
+                  <i className="body-3 w-full text-primary">{t('adjust-their-calories')}</i>
                 ),
                 value: BodyCondition.TooSkinny,
                 children: (
@@ -468,7 +468,7 @@ export default function DogForm({
               {
                 label: t('just-right'),
                 descripton: (
-                  <p className="body-3 text-primary">
+                  <p className="body-3 w-full text-primary">
                     {t(
                       'clear-waistline-and-tucked-in-belly-you-can-easily-feel-their-ribs-and-or-spine-but-they-are-not-clearly-visible'
                     )}
@@ -487,12 +487,12 @@ export default function DogForm({
               {
                 label: t('rounded'),
                 descripton: (
-                  <p className="body-3 text-primary">
+                  <p className="body-3 w-full text-primary">
                     {t('waistline-is-disappearing-difficult-to-feel-ribs-and-spine-broad-back')}
                   </p>
                 ),
                 selectedDescription: (
-                  <i className="body-3 text-primary">{t('adjust-their-calories')}</i>
+                  <i className="body-3 w-full text-primary">{t('adjust-their-calories')}</i>
                 ),
                 value: BodyCondition.Rounded,
                 children: (
@@ -507,14 +507,14 @@ export default function DogForm({
               {
                 label: t('chunky'),
                 descripton: (
-                  <p className="body-3 text-primary">
+                  <p className="body-3 w-full text-primary">
                     {t(
                       'waistline-is-lost-you-cannot-feel-their-ribs-and-spine-weight-is-a-serious-concern'
                     )}
                   </p>
                 ),
                 selectedDescription: (
-                  <i className="body-3 text-primary">{t('adjust-their-calories')}</i>
+                  <i className="body-3 w-full text-primary">{t('adjust-their-calories')}</i>
                 ),
                 value: BodyCondition.Chunky,
                 children: (
@@ -540,7 +540,7 @@ export default function DogForm({
               {
                 label: t('mellow'),
                 descripton: (
-                  <p className="body-3 text-primary">
+                  <p className="body-3 w-full text-primary">
                     {t('less-than-30-minutes-of-daily-outdoor-activity')}
                   </p>
                 ),
@@ -552,7 +552,7 @@ export default function DogForm({
               {
                 label: t('active'),
                 descripton: (
-                  <p className="body-3 text-primary">
+                  <p className="body-3 w-full text-primary">
                     {t('around-1-2-hours-of-daily-outdoor-activity')}
                   </p>
                 ),
@@ -564,7 +564,7 @@ export default function DogForm({
               {
                 label: t('very-active'),
                 descripton: (
-                  <p className="body-3 text-primary">
+                  <p className="body-3 w-full text-primary">
                     {t('more-than-2-hours-of-daily-outdoor-activity')}
                   </p>
                 ),
