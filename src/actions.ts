@@ -204,7 +204,7 @@ export async function getCurrentSelectedDogIdCookie(defaultValue: number) {
       //
     }
   } else {
-    cookies().set(DOG_SELECT_COOKIE, defaultValue.toString());
+    // cookies().set(DOG_SELECT_COOKIE, defaultValue.toString());
     return defaultValue;
   }
 }
