@@ -101,7 +101,7 @@ export default function CaseSwiper() {
             h('improved-allergies'),
           ]}
         >
-          {h('muffin-content')}
+          {h.rich('muffin-content')}
         </Slide>
       </SwiperSlide>
       <SwiperSlide>
@@ -111,7 +111,7 @@ export default function CaseSwiper() {
           picture="/dogs/pixie.jpg"
           listItems={[h('eye-health'), h('joint-support'), h('sustained-energy')]}
         >
-          {h('pixie-content')}
+          {h.rich('pixie-content')}
         </Slide>
       </SwiperSlide>
       <SwiperSlide>
@@ -125,7 +125,7 @@ export default function CaseSwiper() {
             h('improved-allergies'),
           ]}
         >
-          {h('toast-content')}
+          {h.rich('toast-content')}
         </Slide>
       </SwiperSlide>
     </Swiper>
