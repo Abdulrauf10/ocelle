@@ -38,7 +38,7 @@ export default async function loginAction(data: LoginAction) {
 
   if (tokenCreate.errors.length > 0) {
     console.error(tokenCreate.errors);
-    return 'email or password is invaild';
+    return 'email or password is in-vaild';
   }
 
   const { me } = await executeGraphQL(GetCurrentUserDocument, {});
@@ -55,7 +55,7 @@ export default async function loginAction(data: LoginAction) {
   if (user.dogs.length === 0) {
     // not yet completed any surveys
     saleorAuthClient.signOut();
-    return 'please completed the dog survey before login into the system';
+    return 'please completed the dog survey before log in the system.';
   }
 
   redirect('/account/plan');

@@ -21,7 +21,7 @@ export default function LoginForm({
   className?: {
     button?: string;
   };
-  action(data: ILoginForm): Promise<void>;
+  action(data: ILoginForm): Promise<void | string>;
 }) {
   const t = useTranslations();
   const [pending, startTransition] = React.useTransition();
@@ -34,10 +34,9 @@ export default function LoginForm({
   const onSubmit = React.useCallback(
     (values: ILoginForm) => {
       startTransition(async () => {
-        try {
-          await action(values);
-        } catch (e) {
-          e instanceof Error && toast.error(e.message);
+        const errorMessage = await action(values);
+        if (errorMessage) {
+          toast.error(errorMessage);
         }
       });
     },
