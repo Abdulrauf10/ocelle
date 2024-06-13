@@ -69,7 +69,7 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
           className="relative z-10 -ml-12 mt-48 text-left max-lg:m-0"
         > */}
         <div className="relative z-10 -ml-12 mt-48 text-left max-lg:m-0">
-          <div className="max-lg:drop-shadow-style-3 drop-shadow-style-4 relative w-[420px] overflow-hidden rounded-[30px] pt-[89.2%] shadow-gold/30 max-lg:w-[280px] max-sm:w-[240px]">
+          <div className="max-lg:drop-shadow-style-3 drop-shadow-style-4 relative w-[420px] overflow-hidden rounded-[30px] pt-[89.2%] shadow-gold/30 will-change-transform max-lg:w-[280px] max-sm:w-[240px]">
             <Image alt={dog} src={picture} fill />
           </div>
         </div>
