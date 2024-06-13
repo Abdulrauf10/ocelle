@@ -23,7 +23,7 @@ export default async function loginAction(data: LoginAction) {
   const { value, error } = schema.validate(data);
 
   if (error) {
-    throw new Error('schema is not valid');
+    return 'schema is not valid';
   }
 
   const {
@@ -38,7 +38,7 @@ export default async function loginAction(data: LoginAction) {
 
   if (tokenCreate.errors.length > 0) {
     console.error(tokenCreate.errors);
-    throw new Error('email or password is invaild');
+    return 'email or password is invaild';
   }
 
   const { me } = await executeGraphQL(GetCurrentUserDocument, {});
@@ -49,13 +49,13 @@ export default async function loginAction(data: LoginAction) {
 
   if (!user) {
     saleorAuthClient.signOut();
-    throw new Error('cannot find the user in the database, login failed');
+    return 'the user account is not initialled, please contact info@ocelle.dog for more.';
   }
 
   if (user.dogs.length === 0) {
     // not yet completed any surveys
     saleorAuthClient.signOut();
-    throw new Error('not yet completed any surveys, login failed');
+    return 'please completed the dog survey before login into the system';
   }
 
   redirect('/account/plan');
