@@ -71,7 +71,15 @@ export async function isAvailableEmailAddress(email: string) {
     },
   });
 
-  return !user;
+  if (!user) {
+    return true;
+  }
+
+  const exists = await executeQuery(async (queryRunner) => {
+    return queryRunner.manager.exists(User, { where: { id: user.id } });
+  });
+
+  return !exists;
 }
 
 export async function calculateDogsTotalPerDayPrice(dogs: DogDto[]) {
