@@ -18,11 +18,11 @@ export function isLegalDeliveryDate(date: Date, events: CalendarEvent[]) {
   if (getDay(date) === 1) {
     return false;
   }
-  for (const event of events) {
-    if (event.start <= date && event.end > date) {
-      return false;
-    }
-  }
+  // for (const event of events) {
+  //   if (event.start <= date && event.end > date) {
+  //     return false;
+  //   }
+  // }
   return true;
 }
 
