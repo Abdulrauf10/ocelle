@@ -50,6 +50,7 @@ export function getClosestDeliveryDateByDate(events: CalendarEvent[], refDate = 
 
   // pick up + delivery stick together
   while (
+    !isOperationDate(addDays(refDate, totalProductionDates + dates[3]), events) ||
     !isLegalDeliveryDate(addDays(refDate, totalProductionDates + dates[3] + dates[4]), events)
   ) {
     dates[3] += 1;
