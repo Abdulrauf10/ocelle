@@ -87,6 +87,7 @@ export default function CartRows({
                   min={0}
                   value={line.quantity}
                   onChange={(value) => onUpdateClick(line.id, value)}
+                  buttonDelayMs={1000}
                 />
               </div>
               <div className="px-2">${line.totalPrice.gross.amount.toFixed(2)}</div>

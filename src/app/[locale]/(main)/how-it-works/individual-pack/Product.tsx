@@ -164,6 +164,7 @@ export default function Product({
                   min={0}
                   value={currentLine.quantity}
                   onChange={handleQuantityChange}
+                  buttonDelayMs={1000}
                 />
               </label>
             ) : (

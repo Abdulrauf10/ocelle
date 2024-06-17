@@ -14,26 +14,32 @@ import { useRouter } from '@/navigation';
 export default function CartSection() {
   const router = useRouter();
   const { lines, totalPrice, setLines, setTotalPrice } = useCart();
-  const [pending, startTransition] = React.useTransition();
+  const [querying, setQuerying] = React.useState(false);
 
   const handleCartItemUpdate = React.useCallback(
     async (lineId: string, quantity: number) => {
-      startTransition(async () => {
+      try {
+        setQuerying(true);
         const { lines, totalPrice } = await updateCartLine(lineId, quantity);
         setLines(lines);
         setTotalPrice(totalPrice);
-      });
+      } finally {
+        setQuerying(false);
+      }
     },
     [setLines, setTotalPrice]
   );
 
   const handleCartItemDelete = React.useCallback(
     async (lineId: string) => {
-      startTransition(async () => {
+      try {
+        setQuerying(true);
         const { lines, totalPrice } = await deleteCartLine(lineId);
         setLines(lines);
         setTotalPrice(totalPrice);
-      });
+      } finally {
+        setQuerying(false);
+      }
     },
     [setLines, setTotalPrice]
   );
@@ -49,12 +55,12 @@ export default function CartSection() {
           lines={lines}
           onUpdateClick={handleCartItemUpdate}
           onDeleteClick={handleCartItemDelete}
-          disabled={pending}
+          disabled={querying}
         />
       }
       subtotal={totalPrice?.amount ?? 0}
       onCheckoutClick={() => router.push('/checkout')}
-      disabled={pending}
+      disabled={querying}
     >
       <div className="fixed left-0 top-40 w-full max-lg:top-[340px]">
         <Container className="text-right">
