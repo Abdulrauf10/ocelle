@@ -1,7 +1,7 @@
-import { printIsRecommendedRecipe } from './dog';
+import { printDefaultDeliveryDate, printIsRecommendedRecipe } from './dog';
 
 async function run() {
-  console.log('IsRecommendedRecipe');
+  await printDefaultDeliveryDate();
   printIsRecommendedRecipe();
 }
 
