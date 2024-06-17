@@ -151,7 +151,7 @@ export default function Product({
               </div>
             )}
             {currentLine ? (
-              <label className="mt-6 block">
+              <div className="mt-6">
                 <span className={clsx('body-1 body-weight-1 mr-3 inline-block', className.content)}>
                   {t('{}-colon', { value: t('quantity') })}
                 </span>
