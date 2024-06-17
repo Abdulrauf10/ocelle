@@ -5,9 +5,10 @@ import { notFound } from 'next/navigation';
 
 import '../globals.css';
 
-import { getClientLoginedMe, logout } from '@/actions';
+import { getCart, getClientLoginedMe, logout } from '@/actions';
 import QueryClientProvider from '@/components/QueryClientProvider';
 import { AuthProvider } from '@/contexts/auth';
+import { CartContextProvider } from '@/contexts/cart';
 import IntlProvider from '@/providers/intl';
 
 const jost = Jost({ subsets: ['latin'], variable: '--font-jost' });
@@ -32,6 +33,7 @@ export default async function RootLayout({
   params: { locale: string };
 }) {
   const me = await getClientLoginedMe();
+  const cart = await getCart();
 
   let messages;
   try {
@@ -47,7 +49,14 @@ export default async function RootLayout({
         <IntlProvider locale={locale} messages={messages}>
           <QueryClientProvider>
             <AuthProvider me={me} logout={logout}>
-              {children}
+              <CartContextProvider
+                lines={cart ? cart.lines : []}
+                subtotalPrice={cart?.subtotalPrice.gross}
+                shippingPrice={cart?.shippingPrice.gross}
+                totalPrice={cart?.totalPrice.gross}
+              >
+                {children}
+              </CartContextProvider>
             </AuthProvider>
           </QueryClientProvider>
         </IntlProvider>

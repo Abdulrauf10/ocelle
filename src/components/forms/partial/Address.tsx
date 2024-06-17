@@ -108,7 +108,7 @@ export default function PartialAddressForm<T extends FieldValues>({
           fullWidth
         />
       </div>
-      <div className="w-1/3 p-2 max-sm:w-full">
+      <div className="w-1/3 p-2 max-lg:w-full">
         <Controller
           name={getPath('region')}
           control={control}
@@ -134,7 +134,7 @@ export default function PartialAddressForm<T extends FieldValues>({
           }}
         />
       </div>
-      <div className="w-1/3 p-2 max-sm:w-full">
+      <div className="w-1/3 p-2 max-lg:w-full">
         <Controller
           name={getPath('district')}
           control={control}
@@ -163,7 +163,7 @@ export default function PartialAddressForm<T extends FieldValues>({
           }}
         />
       </div>
-      <div className="w-1/3 p-2 max-sm:w-full">
+      <div className="w-1/3 p-2 max-lg:w-full">
         <Controller
           defaultValue={'HK' as PathValue<T, FieldPath<T>>}
           name={getPath('country')}

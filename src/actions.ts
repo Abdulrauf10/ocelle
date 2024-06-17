@@ -2,12 +2,14 @@
 
 import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import { cookies } from 'next/headers';
+import invariant from 'ts-invariant';
 
 import { CART_COOKIE, DOG_SELECT_COOKIE, LOGIN_PATH, ORDER_COOKIE } from './consts';
 import { Breed, User } from './entities';
 import {
   AddressValidationRulesDocument,
   CountryCode,
+  GetCheckoutDocument,
   GetCurrentUserDocument,
   GetCurrentUserFullSizeDocument,
 } from './gql/graphql';
@@ -79,6 +81,25 @@ export async function getDistricts(locale: string, countryArea: CountryCode) {
   });
 
   return districts;
+}
+
+export async function getCart() {
+  invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
+
+  const cartOrCheckoutId = await getCartCookie();
+
+  if (cartOrCheckoutId) {
+    const { checkout } = await executeGraphQL(GetCheckoutDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: { id: cartOrCheckoutId },
+    });
+    if (checkout) {
+      return checkout;
+    }
+  }
 }
 
 export async function getClientLoginedMe() {

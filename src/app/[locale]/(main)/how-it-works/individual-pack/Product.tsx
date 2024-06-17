@@ -17,7 +17,6 @@ import Block from '@/components/layouts/Block';
 import { useCart } from '@/contexts/cart';
 import { IndividualRecipePack } from '@/enums';
 import { ProductFragment } from '@/gql/graphql';
-import { getRecipeSlug } from '@/helpers/dog';
 import { weightToGrams } from '@/helpers/saleor';
 import { individualPackProducts } from '@/products';
 
@@ -59,7 +58,7 @@ export default function Product({
 }) {
   const t = useTranslations();
   const b = useTranslations('Button');
-  const { setLines, setTotalPrice, lines } = useCart();
+  const { lines, setCart } = useCart();
   const currentLine = React.useMemo(() => {
     return lines.find((line) => line.variant.product.slug === individualPackProducts[pack].slug);
   }, [lines, pack]);
@@ -69,18 +68,16 @@ export default function Product({
       if (!currentLine) {
         return;
       }
-      const { lines, totalPrice } = await updateCartLine(currentLine.id, quantity);
-      setLines(lines);
-      setTotalPrice(totalPrice);
+      const cart = await updateCartLine(currentLine.id, quantity);
+      setCart(cart);
     },
-    [currentLine, setLines, setTotalPrice]
+    [currentLine, setCart]
   );
 
   const handleButtonClick = React.useCallback(async () => {
-    const { lines, totalPrice } = await addToCart(pack, 1);
-    setLines(lines);
-    setTotalPrice(totalPrice);
-  }, [pack, setLines, setTotalPrice]);
+    const cart = await addToCart(pack, 1);
+    setCart(cart);
+  }, [pack, setCart]);
 
   const getPrice = (product: ProductFragment) => {
     return product.variants![0].channelListings![0].price!.amount;
@@ -105,7 +102,7 @@ export default function Product({
             reverse && 'flex-row-reverse'
           )}
         >
-          <div className="w-[480px] min-w-[480px] px-6 py-4 max-lg:w-[420px] max-lg:min-w-[420px] max-xs:w-full max-xs:min-w-0">
+          <div className="w-[450px] min-w-[450px] px-6 py-4 max-lg:w-[420px] max-lg:min-w-[420px] max-xs:w-full max-xs:min-w-0">
             <div className="relative pt-[100%]">
               <Image
                 src={picture}
@@ -119,16 +116,18 @@ export default function Product({
             <h2 className={clsx('heading-2 font-bold', className.title)}>
               {product.name} ({t('{}-g', { value: getWeight(product) })})
             </h2>
-            <p className={clsx('mt-4 text-[30px]', className.title)}>${getPrice(product)}</p>
-            <div className={clsx('mt-4', className.content)}>
+            <div className="pt-4"></div>
+            <p className={clsx('text-[30px]', className.title)}>${getPrice(product)}</p>
+            <div className="pt-4"></div>
+            <div className={clsx('-my-3', className.content)}>
               {description.map((content, idx) => (
-                <div key={idx} className="my-5 block">
+                <div key={idx} className="block py-3">
                   <div className="body-1" dangerouslySetInnerHTML={{ __html: xss(content) }} />
                 </div>
               ))}
             </div>
             {pack !== IndividualRecipePack.Bundle && (
-              <div className="mt-6">
+              <div className="pt-6">
                 <RecipeMediumDialog
                   name={product.name}
                   description={description.map((content, idx) => (
@@ -151,7 +150,7 @@ export default function Product({
               </div>
             )}
             {currentLine ? (
-              <div className="mt-6">
+              <div className="pt-6">
                 <span className={clsx('body-1 body-weight-1 mr-3 inline-block', className.content)}>
                   {t('{}-colon', { value: t('quantity') })}
                 </span>
@@ -166,9 +165,9 @@ export default function Product({
                   onChange={handleQuantityChange}
                   buttonDelayMs={1000}
                 />
-              </label>
+              </div>
             ) : (
-              <div className="mt-6">
+              <div className="pt-6">
                 <Button type="button" theme={theme} onClick={handleButtonClick}>
                   {t('add-to-cart')}
                 </Button>

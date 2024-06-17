@@ -5,7 +5,6 @@ import {
   applyCoupon,
   deleteCartLine,
   finalizeCheckout,
-  initializeCheckout,
   initializeStripeTranscation,
   updateCartLine,
   updateCheckoutData,
@@ -19,13 +18,11 @@ import StripeLoader from '@/components/StripeLoader';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import CouponForm from '@/components/forms/Coupon';
 import GuestCheckoutForm from '@/components/forms/GuestCheckout';
-import { CartContextProvider } from '@/contexts/cart';
 import { getRecurringBoxMinDeliveryDate } from '@/helpers/shipment';
 import { getCalendarEvents } from '@/services/calendar';
 
 export default async function Checkout() {
   const t = await getTranslations();
-  const checkout = await initializeCheckout();
   const calendarEvents = await getCalendarEvents();
   const minDeliveryDate = getRecurringBoxMinDeliveryDate(calendarEvents);
   const { paymentIntent, publishableKey } = await initializeStripeTranscation();
@@ -64,14 +61,10 @@ export default async function Checkout() {
     >
       <Promotion />
       <Header disableLanguageSwitch disableGetStartedButton disableMenuButton disableLoginButton />
-      <CartContextProvider
-        lines={checkout.lines}
-        shippingPrice={checkout.shippingPrice.gross}
-        totalPrice={checkout.totalPrice.gross}
-      >
-        <StripeLoader clientSecret={paymentIntent.client_secret} publishableKey={publishableKey}>
-          <div className="py-10">
-            <Container className="mb-4 text-right">
+      <StripeLoader clientSecret={paymentIntent.client_secret} publishableKey={publishableKey}>
+        <div className="py-10">
+          <div className="relative">
+            <Container className="mb-4 text-right max-md:absolute max-md:right-0">
               <UnderlineButton
                 href="/how-it-works/individual-pack"
                 theme="primary"
@@ -90,8 +83,8 @@ export default async function Checkout() {
               onCompleteTransaction={finalizeCheckout}
             />
           </div>
-        </StripeLoader>
-      </CartContextProvider>
+        </div>
+      </StripeLoader>
     </AppThemeProvider>
   );
 }

@@ -4,20 +4,18 @@ import pluralize from 'pluralize';
 
 import CartSection from './CartSection';
 import Product from './Product';
-import { getCartOrCheckout, getProducts } from './actions';
+import { getProducts } from './actions';
 
 import Container from '@/components/Container';
 import Newsletter from '@/components/Newsletter';
 import Button from '@/components/buttons/Button';
 import Block from '@/components/layouts/Block';
-import { CartContextProvider } from '@/contexts/cart';
 import { IndividualRecipePack } from '@/enums';
 
 export default async function HowItWorksIndividual() {
   const t = await getTranslations();
   const i = await getTranslations('Ingredients');
   const products = await getProducts();
-  const cart = await getCartOrCheckout(false);
 
   const targetedNutrientBlendIngredients = [
     t('selenium-yeast'),
@@ -43,9 +41,9 @@ export default async function HowItWorksIndividual() {
   ];
 
   return (
-    <CartContextProvider lines={cart ? cart.lines : []} totalPrice={cart?.totalPrice.gross}>
+    <>
       <main>
-        <div className="relative flex items-center bg-[url('./individual-pack-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_40px)_center] bg-no-repeat max-lg:bg-[url('./individual-pack-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-bottom">
+        <div className="relative flex items-center bg-white bg-[url('./individual-pack-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_40px)_center] bg-no-repeat max-lg:bg-[url('./individual-pack-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-bottom">
           <div className="w-full pt-[clamp(450px,31.5%,700px)] max-lg:hidden"></div>
           <div className="w-full py-[4vw] text-white max-lg:w-full max-lg:py-10 max-lg:pb-[95%] lg:absolute lg:pr-0">
             <Container className="max-lg:text-center">
@@ -288,6 +286,6 @@ export default async function HowItWorksIndividual() {
         <Newsletter />
       </main>
       <CartSection />
-    </CartContextProvider>
+    </>
   );
 }

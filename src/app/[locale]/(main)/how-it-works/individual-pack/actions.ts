@@ -13,6 +13,7 @@ import {
   GetCheckoutDocument,
   RemoveCheckoutLinesDocument,
   UpdateCheckoutLinesDocument,
+  UpdateCheckoutShippingMethodDocument,
 } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
 import { individualPackProducts, individualPackProductsValues } from '@/products';
@@ -150,9 +151,40 @@ export async function addToCart(pack: IndividualRecipePack, quantity: number): P
     throw new Error('unable add item to cart');
   }
 
+  const checkout = checkoutLinesAdd.checkout!;
+
+  if (checkout.shippingMethods.length === 0) {
+    throw new Error('there have no available shipping method');
+  }
+
+  const shippingMethod =
+    checkout.shippingMethods.find((method) => method.name === 'SF Express (Fixed)') ??
+    checkout.shippingMethods[0];
+
+  const { checkoutDeliveryMethodUpdate } = await executeGraphQL(
+    UpdateCheckoutShippingMethodDocument,
+    {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: {
+        checkoutId: checkout.id,
+        shippingMethodId: shippingMethod.id,
+      },
+    }
+  );
+
+  if (!checkoutDeliveryMethodUpdate || checkoutDeliveryMethodUpdate.errors.length > 0) {
+    checkoutDeliveryMethodUpdate && console.error(checkoutDeliveryMethodUpdate.errors);
+    throw new Error('failed to update shipping method');
+  }
+
   return {
-    lines: checkoutLinesAdd.checkout!.lines,
-    totalPrice: checkoutLinesAdd.checkout!.totalPrice.gross,
+    lines: checkoutDeliveryMethodUpdate.checkout!.lines,
+    subtotalPrice: checkoutDeliveryMethodUpdate.checkout!.subtotalPrice.gross,
+    shippingPrice: checkoutDeliveryMethodUpdate.checkout!.shippingPrice.gross,
+    totalPrice: checkoutDeliveryMethodUpdate.checkout!.totalPrice.gross,
   };
 }
 
@@ -182,6 +214,8 @@ export async function updateCartLine(lineId: string, quantity: number): Promise<
 
   return {
     lines: checkoutLinesUpdate.checkout!.lines,
+    subtotalPrice: checkoutLinesUpdate.checkout!.subtotalPrice.gross,
+    shippingPrice: checkoutLinesUpdate.checkout!.shippingPrice.gross,
     totalPrice: checkoutLinesUpdate.checkout!.totalPrice.gross,
   };
 }
@@ -207,6 +241,8 @@ export async function deleteCartLine(lineId: string): Promise<CartReturn> {
 
   return {
     lines: checkoutLinesDelete.checkout!.lines,
+    subtotalPrice: checkoutLinesDelete.checkout!.subtotalPrice.gross,
+    shippingPrice: checkoutLinesDelete.checkout!.shippingPrice.gross,
     totalPrice: checkoutLinesDelete.checkout!.totalPrice.gross,
   };
 }

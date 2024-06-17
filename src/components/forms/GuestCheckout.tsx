@@ -3,6 +3,7 @@
 import { MenuItem } from '@mui/material';
 import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import clsx from 'clsx';
+import { subDays } from 'date-fns';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -21,7 +22,7 @@ import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import Select from '@/components/controls/Select';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 import { useCart } from '@/contexts/cart';
-import { isLegalDeliveryDate } from '@/helpers/shipment';
+import { isLegalDeliveryDate, isOperationDate } from '@/helpers/shipment';
 import { getCountryCodes } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
 import { CalendarEvent } from '@/types';
@@ -114,7 +115,7 @@ export default function GuestCheckoutForm({
   const elements = useElements();
   const form = useCardStripeForm();
   const sentence = useSentence();
-  const { lines, shippingPrice, totalPrice, setLines, setTotalPrice } = useCart();
+  const { lines, shippingPrice, totalPrice, setCart } = useCart();
   const t = useTranslations();
   const {
     control,
@@ -409,8 +410,11 @@ export default function GuestCheckoutForm({
                 <div ref={datePickerRef} className="mt-4 w-fit">
                   <DatePickerForm
                     initialDate={watch('deliveryDate')}
-                    minDate={minDeliveryDate}
-                    shouldDisableDate={(day) => !isLegalDeliveryDate(day, calendarEvents)}
+                    // minDate={minDeliveryDate}
+                    shouldDisableDate={(day) =>
+                      !isOperationDate(subDays(day, 1), calendarEvents) ||
+                      !isLegalDeliveryDate(day, calendarEvents)
+                    }
                     view={['day']}
                     action={async ({ date }) => {
                       setValue('deliveryDate', date);
@@ -421,8 +425,8 @@ export default function GuestCheckoutForm({
               )}
             </Section>
           </div>
-          <div className="w-1/3 px-6 max-lg:w-2/5 max-lg:px-3 max-md:mt-8 max-md:w-full">
-            <div className="rounded-3xl bg-gold bg-opacity-10 px-6 py-10">
+          <div className="px-6 max-lg:px-3 max-md:mt-8 max-md:w-full">
+            <div className="w-[400px] rounded-3xl bg-gold bg-opacity-10 px-6 py-10 max-xl:w-[340px] max-md:w-full">
               <h2 className="heading-4 font-bold text-gold">{t('order-summary')}</h2>
               <SummaryBlock>
                 <CartRows
@@ -430,9 +434,8 @@ export default function GuestCheckoutForm({
                   onUpdateClick={async (lineId, quantity) => {
                     try {
                       setUpdatingCart(true);
-                      const { lines, totalPrice } = await onCartUpdate(lineId, quantity);
-                      setLines(lines);
-                      setTotalPrice(totalPrice);
+                      const cart = await onCartUpdate(lineId, quantity);
+                      setCart(cart);
                     } finally {
                       setUpdatingCart(false);
                     }
@@ -440,18 +443,15 @@ export default function GuestCheckoutForm({
                   onDeleteClick={async (lineId) => {
                     try {
                       setUpdatingCart(true);
-                      const { lines, totalPrice } = await onCartDelete(lineId);
-                      setLines(lines);
-                      setTotalPrice(totalPrice);
+                      const cart = await onCartDelete(lineId);
+                      setCart(cart);
                     } finally {
                       setUpdatingCart(false);
                     }
                   }}
                 />
               </SummaryBlock>
-              <SummaryBlock title={t('{}-colon', { value: t('promo-code') })}>
-                {couponForm}
-              </SummaryBlock>
+              <SummaryBlock title={t('promo-code')}>{couponForm}</SummaryBlock>
               <SummaryBlock>
                 <div className="-mx-1 flex flex-wrap justify-between">
                   <div className="body-3 px-1">{t('promo-code')}</div>
@@ -459,7 +459,7 @@ export default function GuestCheckoutForm({
                 </div>
                 <div className="mt-3"></div>
                 <div className="-mx-1 flex flex-wrap justify-between">
-                  <div className="body-3 px-1">{t('{}-colon', { value: t('delivery') })}</div>
+                  <div className="body-3 px-1">{t('delivery')}</div>
                   <div className="body-3 px-1">
                     {!shippingPrice || shippingPrice.amount === 0 ? (
                       <Price className="font-bold uppercase" value={t('free')} dollorSign={false} />

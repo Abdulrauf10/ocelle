@@ -17,6 +17,11 @@ fragment Checkout on Checkout {
   availablePaymentGateways {
     ...PaymentGateway
   }
+  subtotalPrice {
+    gross {
+      ...Money
+    }
+  }
   totalPrice {
     gross {
       ...Money
