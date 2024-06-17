@@ -34,8 +34,8 @@ export default function NumberInput({
 
   const minMax = React.useCallback(
     (value: number) => {
-      const _min = min ? Math.max(min, value) : value;
-      const _max = max ? Math.min(max, _min) : _min;
+      const _min = min === undefined || min === null ? value : Math.max(min, value);
+      const _max = max === undefined || max === null ? _min : Math.min(max, _min);
       return _max;
     },
     [min, max]
