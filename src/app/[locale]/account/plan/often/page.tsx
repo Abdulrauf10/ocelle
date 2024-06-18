@@ -65,7 +65,7 @@ export default async function PlanOften() {
         <Container>
           <div className="mx-auto flex max-w-[1120px] justify-end">
             <DogSwitch
-              selectedDogId={currentSelectedDogId ?? dogs[0].id}
+              selectedDogId={dog.id}
               dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}
             />
           </div>

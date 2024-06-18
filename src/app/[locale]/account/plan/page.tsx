@@ -70,7 +70,7 @@ export default async function Plan() {
             </div>
             <div className="px-4 py-3">
               <DogSwitch
-                selectedDogId={currentSelectedDogId ?? dogs[0].id}
+                selectedDogId={dog.id}
                 dogs={dogs.map((dog) => ({ id: dog.id, name: dog.name }))}
               />
             </div>
