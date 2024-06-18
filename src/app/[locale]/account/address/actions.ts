@@ -4,7 +4,7 @@ import Joi from 'joi';
 
 import { getLoginedMeFullSize } from '@/actions';
 import { User } from '@/entities';
-import { UpdateAddressDocument } from '@/gql/graphql';
+import { UpdateSelfAddressDocument } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
 
@@ -39,7 +39,7 @@ export async function changeShippingAddressAction(data: ChangeShippingAddressAct
 
   const { id, defaultShippingAddress } = await getLoginedMeFullSize();
 
-  const { accountAddressUpdate } = await executeGraphQL(UpdateAddressDocument, {
+  const { accountAddressUpdate } = await executeGraphQL(UpdateSelfAddressDocument, {
     variables: {
       id: defaultShippingAddress!.id,
       firstName: value.firstName,
@@ -96,7 +96,7 @@ export async function changeBillingAddressAction(data: ChangeBillingAddressActio
 
   const { defaultBillingAddress } = await getLoginedMeFullSize();
 
-  const { accountAddressUpdate } = await executeGraphQL(UpdateAddressDocument, {
+  const { accountAddressUpdate } = await executeGraphQL(UpdateSelfAddressDocument, {
     variables: {
       id: defaultBillingAddress!.id,
       firstName: value.firstName,

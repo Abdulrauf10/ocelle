@@ -18,6 +18,7 @@ import UpdateAddressError from '@/errors/api/UpdateAddressError';
 import {
   CompleteDraftOrderDocument,
   CountryCode,
+  CreateAddressDocument,
   CreateDraftOrderDocument,
   FindProductsDocument,
   FindProductsQueryVariables,
@@ -30,6 +31,7 @@ import {
   OrderChargeStatusEnum,
   ProductFragment,
   RegisterAccountDocument,
+  SetDefaultAddressDocument,
   UpdateDraftOrderDocument,
   UpdateDraftOrderMutationVariables,
 } from '@/gql/graphql';
@@ -262,7 +264,7 @@ export async function upsertUser(
   return accountRegister.user!;
 }
 
-export async function updateOrderAddress(
+export async function createUserAddress(
   id: string,
   deliveryAddress: {
     firstName: string;
@@ -281,16 +283,107 @@ export async function updateOrderAddress(
     region: string;
   }
 ) {
-  const shippingAddress = {
-    firstName: deliveryAddress.firstName,
-    lastName: deliveryAddress.lastName,
-    streetAddress1: deliveryAddress.streetAddress1,
-    streetAddress2: deliveryAddress.streetAddress2,
-    city: deliveryAddress.district,
-    countryArea: deliveryAddress.region,
-    country: CountryCode.Hk,
-  };
+  const { addressCreate: shippingAddressCreate } = await executeGraphQL(CreateAddressDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      id,
+      firstName: deliveryAddress.firstName,
+      lastName: deliveryAddress.lastName,
+      streetAddress1: deliveryAddress.streetAddress1,
+      streetAddress2: deliveryAddress.streetAddress2,
+      city: deliveryAddress.district,
+      countryArea: deliveryAddress.region,
+      country: CountryCode.Hk,
+    },
+  });
 
+  if (!shippingAddressCreate || shippingAddressCreate.errors.length > 0) {
+    throw new UpdateAddressError(shippingAddressCreate);
+  }
+
+  if (!billingAddress) {
+    return addressSetDefault(
+      id,
+      shippingAddressCreate.address!.id,
+      shippingAddressCreate.address!.id
+    );
+  }
+
+  const { addressCreate: billingAddressCreate } = await executeGraphQL(CreateAddressDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      id,
+      firstName: billingAddress.firstName,
+      lastName: billingAddress.lastName,
+      streetAddress1: billingAddress.streetAddress1,
+      streetAddress2: billingAddress.streetAddress2,
+      city: billingAddress.district,
+      countryArea: billingAddress.region,
+      country: CountryCode.Hk,
+    },
+  });
+
+  if (!billingAddressCreate || billingAddressCreate.errors.length > 0) {
+    throw new UpdateAddressError(billingAddressCreate);
+  }
+
+  return addressSetDefault(id, shippingAddressCreate.address!.id, billingAddressCreate.address!.id);
+}
+
+export async function addressSetDefault(
+  id: string,
+  shippingAddressId: string,
+  billingAddressId: string
+) {
+  const { shippingAddressSetDefault, billingAddressSetDefault } = await executeGraphQL(
+    SetDefaultAddressDocument,
+    {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: {
+        id,
+        shippingAddressId: shippingAddressId,
+        billingAddressId: billingAddressId,
+      },
+    }
+  );
+
+  if (!shippingAddressSetDefault || shippingAddressSetDefault.errors.length > 0) {
+    throw new UpdateAddressError(shippingAddressSetDefault);
+  }
+
+  if (!billingAddressSetDefault || billingAddressSetDefault.errors.length > 0) {
+    throw new UpdateAddressError(billingAddressSetDefault);
+  }
+}
+
+export async function updateOrderAddress(
+  id: string,
+  deliveryAddress: {
+    firstName: string;
+    lastName: string;
+    streetAddress1: string;
+    streetAddress2: string;
+    district: string;
+    region: string;
+  },
+  billingAddress: {
+    firstName: string;
+    lastName: string;
+    streetAddress1: string;
+    streetAddress2: string;
+    district: string;
+    region: string;
+  }
+) {
   const { draftOrderUpdate } = await executeGraphQL(UpdateDraftOrderDocument, {
     withAuth: false,
     headers: {
@@ -299,18 +392,24 @@ export async function updateOrderAddress(
     variables: {
       id,
       input: {
-        shippingAddress,
-        billingAddress: billingAddress
-          ? {
-              firstName: billingAddress.firstName,
-              lastName: billingAddress.lastName,
-              streetAddress1: billingAddress.streetAddress1,
-              streetAddress2: billingAddress.streetAddress2,
-              city: billingAddress.district,
-              countryArea: billingAddress.region,
-              country: CountryCode.Hk,
-            }
-          : shippingAddress,
+        shippingAddress: {
+          firstName: deliveryAddress.firstName,
+          lastName: deliveryAddress.lastName,
+          streetAddress1: deliveryAddress.streetAddress1,
+          streetAddress2: deliveryAddress.streetAddress2,
+          city: deliveryAddress.district,
+          countryArea: deliveryAddress.region,
+          country: CountryCode.Hk,
+        },
+        billingAddress: {
+          firstName: billingAddress.firstName,
+          lastName: billingAddress.lastName,
+          streetAddress1: billingAddress.streetAddress1,
+          streetAddress2: billingAddress.streetAddress2,
+          city: billingAddress.district,
+          countryArea: billingAddress.region,
+          country: CountryCode.Hk,
+        },
       },
     },
   });

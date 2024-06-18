@@ -133,7 +133,58 @@ query GetAddresses {
   }
 }
 
-mutation UpdateAddress(
+mutation CreateAddress(
+  $id: ID!
+  $firstName: String!
+  $lastName: String!
+  $streetAddress1: String!
+  $streetAddress2: String!
+  $city: String!
+  $countryArea: String!
+) {
+  addressCreate(
+    userId: $id
+    input: {
+      firstName: $firstName
+      lastName: $lastName
+      streetAddress1: $streetAddress1
+      streetAddress2: $streetAddress2
+      city: $city
+      countryArea: $countryArea
+      country: HK
+    }
+  ) {
+    errors {
+      ...UserError
+    }
+    address {
+      ...UserAddress
+    }
+  }
+}
+
+mutation SetDefaultAddress($id: ID!, $shippingAddressId: ID!, $billingAddressId: ID!) {
+  shippingAddressSetDefault: addressSetDefault(
+    userId: $id
+    type: SHIPPING
+    addressId: $shippingAddressId
+  ) {
+    errors {
+      ...UserError
+    }
+  }
+  billingAddressSetDefault: addressSetDefault(
+    userId: $id
+    type: BILLING
+    addressId: $billingAddressId
+  ) {
+    errors {
+      ...UserError
+    }
+  }
+}
+
+mutation UpdateSelfAddress(
   $id: ID!
   $firstName: String!
   $lastName: String!

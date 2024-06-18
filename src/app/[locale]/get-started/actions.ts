@@ -38,6 +38,7 @@ import { subscriptionProducts } from '@/products';
 import {
   calculateTotalPerDayPrice,
   calculateTotalPriceInBox,
+  createUserAddress,
   findProducts,
   getThrowableChannel,
   updateDraftOrder,
@@ -564,6 +565,12 @@ export async function handleMutateDraftOrder(data: HandleMutateDraftOrderAction)
     redirectUrl: `${origin}/auth/verify-email`,
   });
 
+  await createUserAddress(
+    user.id,
+    value.deliveryAddress,
+    value.isSameBillingAddress ? undefined : value.billingAddress
+  );
+
   if (!order.user) {
     await updateDraftOrder({
       id: order.id,
@@ -578,7 +585,7 @@ export async function handleMutateDraftOrder(data: HandleMutateDraftOrderAction)
   await updateOrderAddress(
     order.id,
     value.deliveryAddress,
-    value.isSameBillingAddress ? undefined : value.billingAddress!
+    value.isSameBillingAddress ? value.deliveryAddress : value.billingAddress!
   );
 
   // link stripe customer to user
