@@ -8,9 +8,9 @@ import Section from '../Section';
 import SectionBreak from '../SectionBreak';
 import Stage from '../Stage';
 import { useSurvey } from '../SurveyContext';
-import { isAvailableEmailAddress } from '../actions';
 import { pageVariants } from '../transition';
 
+import { isAvailableEmailAddress } from '@/actions';
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';

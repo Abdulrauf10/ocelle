@@ -9,6 +9,7 @@ import { Breed, User } from './entities';
 import {
   AddressValidationRulesDocument,
   CountryCode,
+  FindUserDocument,
   GetCheckoutDocument,
   GetCurrentUserDocument,
   GetCurrentUserFullSizeDocument,
@@ -183,6 +184,28 @@ export async function getLoginedMeFullSize() {
 export async function logout() {
   saleorAuthClient.signOut();
   redirect(LOGIN_PATH);
+}
+
+export async function isAvailableEmailAddress(email: string) {
+  const { user } = await executeGraphQL(FindUserDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      email,
+    },
+  });
+
+  if (!user) {
+    return true;
+  }
+
+  const exists = await executeQuery(async (queryRunner) => {
+    return queryRunner.manager.exists(User, { where: { id: user.id } });
+  });
+
+  return !exists;
 }
 
 /**
