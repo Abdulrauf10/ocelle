@@ -64,28 +64,6 @@ import {
 } from '@/services/stripe';
 import { BreedDto, DogDto, MinPricesDto } from '@/types/dto';
 
-export async function isAvailableEmailAddress(email: string) {
-  const { user } = await executeGraphQL(FindUserDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: {
-      email,
-    },
-  });
-
-  if (!user) {
-    return true;
-  }
-
-  const exists = await executeQuery(async (queryRunner) => {
-    return queryRunner.manager.exists(User, { where: { id: user.id } });
-  });
-
-  return !exists;
-}
-
 export async function calculateDogsTotalPerDayPrice(dogs: DogDto[]) {
   const values = [];
   for (const dog of dogs) {
