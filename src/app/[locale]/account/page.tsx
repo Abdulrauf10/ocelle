@@ -85,18 +85,22 @@ export default async function Account() {
             title={t('address')}
             href="/account/address"
           >
-            <div className="mt-4 flex max-xs:flex-wrap">
-              <strong className="min-w-[82px] text-gold">
-                {t('{}-colon', { value: t('delivery') })}
-              </strong>
-              <span className="w-full">{sentence.address(defaultShippingAddress!)}</span>
-            </div>
-            <div className="mt-3 flex max-xs:flex-wrap">
-              <strong className="min-w-[82px] text-gold">
-                {t('{}-colon', { value: t('billing') })}
-              </strong>
-              <span className="w-full">{sentence.address(defaultBillingAddress!)}</span>
-            </div>
+            {defaultShippingAddress && (
+              <div className="mt-4 flex max-xs:flex-wrap">
+                <strong className="min-w-[82px] text-gold">
+                  {t('{}-colon', { value: t('delivery') })}
+                </strong>
+                <span className="w-full">{sentence.address(defaultShippingAddress)}</span>
+              </div>
+            )}
+            {defaultBillingAddress && (
+              <div className="mt-3 flex max-xs:flex-wrap">
+                <strong className="min-w-[82px] text-gold">
+                  {t('{}-colon', { value: t('billing') })}
+                </strong>
+                <span className="w-full">{sentence.address(defaultBillingAddress)}</span>
+              </div>
+            )}
           </ClickableBlock>
           <ClickableBlock
             className="mt-8"
