@@ -1,6 +1,6 @@
 'use server';
 
-import { startOfDay } from 'date-fns';
+import { startOfDay, subDays } from 'date-fns';
 import Joi from 'joi';
 import { headers } from 'next/headers';
 import invariant from 'ts-invariant';
@@ -28,7 +28,11 @@ import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
 import { recipeToVariant } from '@/helpers/saleor';
-import { getRecurringBoxMinDeliveryDate, isLegalDeliveryDate } from '@/helpers/shipment';
+import {
+  getRecurringBoxMinDeliveryDate,
+  isLegalDeliveryDate,
+  isOperationDate,
+} from '@/helpers/shipment';
 import { redirect } from '@/navigation';
 import { subscriptionProducts } from '@/products';
 import {
@@ -560,6 +564,7 @@ export async function handleMutateDraftOrder(data: HandleMutateDraftOrderAction)
   }
 
   if (
+    !isOperationDate(subDays(value.deliveryDate, 1), calendarEvents) ||
     !isLegalDeliveryDate(value.deliveryDate, calendarEvents) ||
     getRecurringBoxMinDeliveryDate(calendarEvents) > startOfDay(value.deliveryDate)
   ) {

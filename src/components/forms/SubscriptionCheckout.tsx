@@ -3,7 +3,7 @@
 import { MenuItem } from '@mui/material';
 import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import clsx from 'clsx';
-import { addWeeks } from 'date-fns';
+import { addWeeks, subDays } from 'date-fns';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -26,7 +26,7 @@ import { MealPlan, Recipe } from '@/enums';
 import { OrderDiscountType, OrderFragment } from '@/gql/graphql';
 import { getRecipeSlug } from '@/helpers/dog';
 import { nativeRound } from '@/helpers/number';
-import { isLegalDeliveryDate } from '@/helpers/shipment';
+import { isLegalDeliveryDate, isOperationDate } from '@/helpers/shipment';
 import { getCountryCodes } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
 import { CalendarEvent } from '@/types';
@@ -487,7 +487,10 @@ export default function SubscriptionCheckoutForm({
                   <DatePickerForm
                     initialDate={watch('deliveryDate')}
                     minDate={closestDeliveryDate}
-                    shouldDisableDate={(day) => !isLegalDeliveryDate(day, calendarEvents)}
+                    shouldDisableDate={(day) =>
+                      !isOperationDate(subDays(day, 1), calendarEvents) ||
+                      !isLegalDeliveryDate(day, calendarEvents)
+                    }
                     view={['day']}
                     action={async ({ date }) => {
                       setValue('deliveryDate', date);
