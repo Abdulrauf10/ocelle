@@ -105,7 +105,7 @@ export default function HowItWorksSubscription() {
         breakpoint="sm"
         className={{
           block: 'bg-primary bg-opacity-10',
-          image: 'drop-shadow-[12px_12px_5px_rgba(65,62,56,0.3)]',
+          image: 'drop-shadow-[12px_12px_5px_rgba(65,62,56,0.3)] will-change-transform',
         }}
       >
         <div className="max-sm:px-7">
@@ -122,7 +122,7 @@ export default function HowItWorksSubscription() {
         alt="three of dogs"
         breakpoint="sm"
         className={{
-          image: 'drop-shadow-[12px_12px_5px_rgba(65,62,56,0.3)]',
+          image: 'drop-shadow-[12px_12px_5px_rgba(65,62,56,0.3)] will-change-transform',
         }}
       >
         <div className="max-sm:px-7">
@@ -141,7 +141,7 @@ export default function HowItWorksSubscription() {
         reverse
         className={{
           block: 'bg-primary bg-opacity-10',
-          image: 'drop-shadow-[12px_12px_5px_rgba(65,62,56,0.3)]',
+          image: 'drop-shadow-[12px_12px_5px_rgba(65,62,56,0.3)] will-change-transform',
         }}
         startAdornment={
           <div className="mb-10">

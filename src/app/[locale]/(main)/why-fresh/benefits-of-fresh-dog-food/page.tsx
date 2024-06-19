@@ -391,7 +391,7 @@ export default function BenefitsOfFreshDogFood() {
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/its-time-to-rethink-kibble"
-                className="drop-shadow-style-1 mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30"
+                className="drop-shadow-style-1 mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30 will-change-transform"
               >
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/its-time-to-rethink-kibble.jpg" alt="" fill />
@@ -404,7 +404,7 @@ export default function BenefitsOfFreshDogFood() {
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
               <Link
                 href="/why-fresh/raw-dog-food-vs-gently-cooked"
-                className="drop-shadow-style-1 mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30"
+                className="drop-shadow-style-1 mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30 will-change-transform"
               >
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/raw-vs-gently-cooked-diets.jpg" alt="" fill />
@@ -417,7 +417,7 @@ export default function BenefitsOfFreshDogFood() {
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
               <Link
                 href="/why-fresh/challenges-with-home-cooking-for-your-dog"
-                className="drop-shadow-style-1 mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30"
+                className="drop-shadow-style-1 mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30 will-change-transform"
               >
                 <div className="relative pt-[68.5%]">
                   <Image
