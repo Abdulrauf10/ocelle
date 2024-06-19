@@ -23,6 +23,7 @@ interface I1823ICalendar {
   }>;
 }
 
+const TEXT_TO_SPEECH_PARAMS_EX = 60 * 60 * 24 * 30; // cache alive 30 days
 const CHECKOUT_PARAMS_EX = 60 * 60 * 24 * 60; // cache alive 60 days
 
 export function createRedisClient() {
@@ -43,6 +44,23 @@ export async function set1823PublicHolidays(calendar: I1823ICalendar) {
     JSON.stringify(calendar),
     'EX',
     60 * 60 * 24 * 30 // cache alive 30 days
+  );
+}
+
+export async function getOcelleTextToSpeech() {
+  const value = await createRedisClient().get(`${process.env.REDIS_PREFIX}:ocelle-text-to-speech`);
+  if (value === null) {
+    return value;
+  }
+  return new Uint8Array(Buffer.from(value, 'base64'));
+}
+
+export async function setOcelleTextToSpeech(array: Uint8Array) {
+  return createRedisClient().set(
+    `${process.env.REDIS_PREFIX}:ocelle-text-to-speech`,
+    Buffer.from(array).toString('base64'),
+    'EX',
+    TEXT_TO_SPEECH_PARAMS_EX
   );
 }
 

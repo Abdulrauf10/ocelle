@@ -2,11 +2,12 @@ import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
+import PlayerButton from './PlayerButton';
+
 import Container from '@/components/Container';
 import Newsletter from '@/components/Newsletter';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
-import Sound from '@/components/icons/Sound';
 import Block from '@/components/layouts/Block';
 import TwoToneBlock from '@/components/layouts/TwoToneBlock';
 
@@ -26,7 +27,7 @@ export default function OurStory() {
             <strong className="heading-2 text-left text-primary">
               <div className="inline-block">Ocelle&nbsp;</div>
               <div className="inline-block min-w-[240px]">
-                | oh-chell-i | <Sound className="-mt-2 ml-2 inline-block w-[.8em]" />
+                | oh-chell-i | <PlayerButton />
               </div>
             </strong>
             <div className="mt-2">
