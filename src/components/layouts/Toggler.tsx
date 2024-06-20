@@ -1,5 +1,6 @@
 'use client';
 
+import Collapse from '@mui/material/Collapse';
 import clsx from 'clsx';
 import React from 'react';
 
@@ -30,12 +31,10 @@ export default function Toggler({
           {open ? <Sub className="w-4" /> : <Plus className="w-4" />}
         </button>
       </div>
-      {open && (
-        <>
-          <hr className="my-4 border-gray" />
-          <div className="mb-2 mt-6">{children}</div>
-        </>
-      )}
+      <Collapse in={open}>
+        <hr className="my-4 border-gray" />
+        <div className="mb-2 mt-6">{children}</div>
+      </Collapse>
     </div>
   );
 }
