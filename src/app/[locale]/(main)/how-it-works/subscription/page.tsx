@@ -155,7 +155,7 @@ export default function HowItWorksSubscription() {
               src="/ocelle-truck.png"
               width={170}
               height={85}
-              className="-ml-4"
+              className="-ml-4 max-sm:pt-4"
               alt="ocelle truck"
             />
           </div>

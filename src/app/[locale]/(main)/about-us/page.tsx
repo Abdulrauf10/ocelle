@@ -127,7 +127,7 @@ export default function OurStory() {
           loading="eager"
         />
         <div className="z-40 flex w-1/2 justify-end max-md:w-full max-md:justify-center">
-          <div className="mr-8 w-full max-w-[350px] pt-10 max-md:mx-4 md:max-lg:pl-1 xl:max-w-[380px]">
+          <div className="mr-8 w-full max-w-[350px] pt-10 max-md:mx-4 max-md:pt-4 md:max-lg:pl-1 xl:max-w-[380px]">
             <div className="relative pt-[168%]">
               <Image src="/dog-with-owner.png" alt="Dog with owner" fill loading="eager" />
             </div>

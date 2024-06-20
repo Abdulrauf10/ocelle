@@ -225,7 +225,7 @@ export default function RecipesPage() {
 
   return (
     <main className="overflow-x-hidden">
-      <div className="bg-[#3c2215] bg-[url('./recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-no-repeat py-[55px] max-lg:pb-[55%] lg:bg-[#4f3d33] lg:bg-[url('./recipes-bg.jpg')] lg:bg-[length:auto_100%] lg:bg-[calc(50%+60px)_center]">
+      <div className="bg-[#3c2215] bg-[url('./recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-no-repeat py-[55px] max-lg:pb-[60%] lg:bg-[#4f3d33] lg:bg-[url('./recipes-bg.jpg')] lg:bg-[length:auto_100%] lg:bg-[calc(50%+60px)_center]">
         <Container>
           {/* <div className="py-[4vw] text-xl text-white max-lg:w-full lg:pr-0"> */}
           <div className="text-xl text-white max-lg:w-full lg:pr-0">
