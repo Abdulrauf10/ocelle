@@ -80,7 +80,7 @@ export function SurveyContextProvider({ children }: React.PropsWithChildren) {
     [currentDog, dogs]
   );
 
-  const prevDog = React.useCallback(() => setCurrentDog((current) => current - 1 || 0), []);
+  const prevDog = React.useCallback(() => setCurrentDog((current) => Math.max(current - 1, 0)), []);
 
   const nextDog = React.useCallback(() => setCurrentDog((current) => current + 1), []);
 
