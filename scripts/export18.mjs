@@ -5,7 +5,7 @@ import zh from '../messages/zh.json' assert { type: 'json' };
 const data = en;
 
 async function createExcelFile() {
-    const excelName ="translations.v5.xlsx";
+    const excelName ="translations.v6.xlsx";
     const workbook = new ExcelJS.Workbook();
     workbook.creator = 'Me';
     workbook.lastModifiedBy = 'Me';
