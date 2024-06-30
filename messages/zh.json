@@ -120,6 +120,7 @@
   "enter-age": "輸入年齡",
   "select-birthday": "選擇出生日期",
   "if-youre-unsure-just-give-us-your-best-guess": "如不確定, 請嘗試推測!",
+  "come-back-when-your-puppy-is-12-weeks-old": "",
   "what-is-{}-current-weight": "{name}現時的體重？",
   "if-youre-unsure-you-can-always-adjust-this-information-in-your-account-later": "如不確定，可隨時在「我的賬戶」中更改有關資料。",
   "ocelle-is-currently-available-to-dogs-between-05-to-50-kg": "OCELLE 目前提供的鮮食只適用於體重介於 0.5 至 50 公斤的狗狗。",
@@ -171,6 +172,7 @@
   "fresh-full-plan:description": "一份專屬的營養鮮食餐單已包含了狗狗全部所需，由專家精心設計和預先調配份量，讓他們獲得最佳的健康效益。",
   "fresh-half-plan": "半鮮食計劃",
   "fresh-half-plan:description": "提升您狗狗的現有飲食！為他們的每一餐增添新鮮、含豐富營養的補充品。",
+  "starting-at-{}-{}-per-day": "",
   "enjoy-50-off-for-your-starter-box": "可享 <h>5 折</h>優惠訂購鮮食體驗包！",
   "{}-recommended-plan": "為{name}推薦的鮮食計劃",
   "{}-recommended-plan:description": "根據您提供的資料，我們為{name}推薦以下鮮食計劃。所有鮮食均使用人類食用級別的肉類及新鮮蔬菜烹調，完全符合{name}的營養需要。",
@@ -349,6 +351,7 @@
   "thank-you-for-applying": "",
   "thank-you-for-applying:description": "",
   "this-{}-doesn-t-look-correct-please-update-it": "",
+  "looks-like-you-already-have-an-account-with-us-to-continue-please-log-in-using-the-link-below": "",
   "your-password-is-not-match": "",
   "You-ve-indicated-that-{}-has-no-allergies-None-as-well-as-allergies-to-{}-please-check-your-selection": "根據您的回答，{name}沒有任何敏感(「沒有！」)，但卻對{value}有過敏反應。請重新核查並更新您的選擇。",
   "unfortunately-all-our-recipes-contain-an-ingredient-{}-is-allergic-sensitive-to": "抱歉，我們的食譜含有雞肉，牛肉，豬肉，羊肉，鴨肉有過敏成分。如您仍然有興趣餵飼 OCELLE 鮮食包，請聯絡我們的客戶服務以提供協助！",
@@ -571,12 +574,12 @@
     "lamb-leg-boneless-description": ""
   },
   "WhyFresh": {
-    "its-time-to-rethink-kibble": "",
-    "raw-vs-gently-cooked-diets": "",
-    "challenges-with-home-cooking-for-your-dog": "",
-    "benefits-of-fresh-dog-food": "",
-    "block-1-title": "",
-    "block-1-content-1": ""
+    "its-time-to-rethink-kibble": "是時候重新審視乾糧",
+    "raw-vs-gently-cooked-diets": "「生肉飲食」vs.「慢煮烹調飲食」",
+    "challenges-with-home-cooking-for-your-dog": "自家烹調面對的挑戰",
+    "benefits-of-fresh-dog-food": "鮮食對狗狗的益處",
+    "block-1-title": "有興趣了解更多?",
+    "block-1-content-1": "<button>按此</button>查看更多我們參考的文獻，或瀏覽下方了解更多寵物食品資訊。"
   },
   "WhyFresh-BenefitsOfFreshDogFood": {
     "block-1-title": "",
@@ -633,22 +636,51 @@
     "block-5-title": ""
   },
   "WhyFresh-RawVsGentlyCookedDiets": {
-    "block-1-title-1": "",
-    "block-1-title-2": "",
-    "block-2-content-1": "",
-    "block-2-content-2": "",
-    "block-2-content-3": "",
-    "block-2-quota": "",
-    "block-2-quota-person": "",
-    "block-3-title": "",
-    "block-3-content-1": "",
-    "block-4-title": "",
-    "block-4-content-1": "",
-    "block-4-content-2": "",
-    "block-4-content-3": "",
-    "block-5-content-1": "",
-    "block-6-title": "",
-    "block-6-content-1": ""
+    "block-1-title-1": "「生肉飲食」",
+    "block-1-title-2": "「慢煮烹調飲食」",
+    "block-2-content-1": "考慮狗狗鮮食飲食時，主人通常有兩個主要選擇：生肉或熟食。",
+    "block-2-content-2": "儘管生肉飲食被其擁護者認為更接近狗狗的原始飲食習慣，但經過數萬年的馴化飼養，使他們對於生食中的骨頭碎片或硬物難於消化及吸收。",
+    "block-2-content-3": "而事實上，大多數獸醫及監管機構（例如：美國食品藥物管理局 (FDA)）均不建議飲食生肉，原因在於其潛在營養失衡及污染等風險。<sup>1-12</sup>",
+    "block-2-quota": "<baskerville>“</baskerville>There are also no clinically proven benefits of a raw food diet, but there are documented hazards and risks.<baskerville>”</baskerville>",
+    "block-2-quota-person": "- Malcolm Weir (DVM, MSc, MPH) & <br></br>Robin Downing (DVM, CVPP, CCRP, DAAPM)",
+    "block-3-title": "生肉飲食就像輪盤遊戲：對狗狗來說是安全還是危險？",
+    "block-3-content-1": "市面上部分出售的生肉狗糧被發現細菌/病菌含量甚高（如沙門氏菌和大腸桿菌），有些甚至超出了安全水平。<sup>13-17</sup>這對主人和狗狗都構成了真正的風險。",
+    "block-4-title": "新鮮、慢煮烹調飲食的好處",
+    "block-4-content-1": "經慢煮烹調的食物更易被狗狗消化，並且對您和狗狗來說處理起來更安全。",
+    "block-4-content-2": {
+      "richText": [
+        {
+          "text": "狗狗主要是從肉類攝取蛋白質，但許多生肉飲食的肉類含量高達"
+        },
+        {
+          "font": {
+            "size": 11,
+            "color": {
+              "theme": 1
+            },
+            "name": "Aptos",
+            "family": 2
+          },
+          "text": "90%"
+        },
+        {
+          "font": {
+            "size": 11,
+            "color": {
+              "theme": 1
+            },
+            "name": "PMingLiU",
+            "family": 1,
+            "charset": 136
+          },
+          "text": "，如此高肉類含量比例往往也意味著高脂肪，同時亦可能會導致消化問題。"
+        }
+      ]
+    },
+    "block-4-content-3": "熟食飲食普遍含有較多蔬菜，為狗狗提供必需的纖維、維生素、礦物質及抗氧化物質，維持健康的免疫系統。甚至有研究指出，這類飲食方法可能有助減低患上某些癌症的風險。<sup>18</sup>",
+    "block-5-content-1": "對於您是選擇「生肉飲食」或「烹調鮮食飲食」，最終是取決於每隻狗的需要及您對給予生肉的信心程度。如您決定餵飼生肉，請務必謹慎處理食材，並確保飲食營養均衡。",
+    "block-6-title": "讓科學引領，為寵物飲食帶來新改變",
+    "block-6-content-1": "訂購專為狗狗度身定製的鮮食計劃並直送到您家"
   },
   "WhyFresh-Challenges": {
     "block-1-title": "",
@@ -729,7 +761,8 @@
     "block-6-content-2": "",
     "block-6-content-3": "",
     "block-7-title": "",
-    "block-7-content-1": ""
+    "block-7-content-1": "",
+    "block-7-content-2": ""
   },
   "WhyFresh-Reference": {
     "title": "",
@@ -781,7 +814,7 @@
     "block-2-content-22": "",
     "block-2-content-23": "",
     "block-2-content-24": "",
-    "block-3-title": "",
+    "block-3-title": "「生肉飲食」vs.「慢煮烹調飲食」",
     "block-3-content-1": "",
     "block-3-content-2": "",
     "block-3-content-3": "",
@@ -809,18 +842,17 @@
     "block-1-title-1": "",
     "block-1-title-2": "",
     "block-1-content-1": "",
-    "block-1-content-2": "",
     "block-1-content-3": "",
     "block-1-content-4": "",
-    "block-2-title-1-1": "",
-    "block-2-title-1-2": "",
+    "block-2-title-1": "",
+    "block-2-title-1-lg": "",
     "block-2-content-1": "",
     "block-2-content-2": "",
     "block-2-content-3": "",
     "block-3-title-1": "",
     "block-3-content-1": "",
-    "block-4-title-1-1": "",
-    "block-4-title-1-2": "",
+    "block-4-title-lg": "",
+    "block-4-title": "",
     "block-4-content-1": "",
     "block-4-content-2": "",
     "block-4-content-3": "",
