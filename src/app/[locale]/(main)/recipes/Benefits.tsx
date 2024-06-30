@@ -10,6 +10,7 @@ import Sub from '@/components/icons/Sub';
 export default function RecipeBenefits() {
   const t = useTranslations();
   const r = useTranslations('Recipes');
+  const b = useTranslations('Button');
 
   const benefits = React.useMemo(() => {
     return [
@@ -36,10 +37,6 @@ export default function RecipeBenefits() {
       {
         title: r('block-7-title-6'),
         description: r('block-7-content-6'),
-      },
-      {
-        title: r('block-7-title-7'),
-        description: r('block-7-content-7'),
       },
     ];
   }, [r]);
@@ -76,7 +73,7 @@ export default function RecipeBenefits() {
         );
       })}
       <div className="mt-6 text-center">
-        <Button href="/why-fresh/benefits-of-fresh-dog-food">{t('learn-more')}</Button>
+        <Button href="/why-fresh/benefits-of-fresh-dog-food">{b('learn-more')}</Button>
       </div>
     </div>
   );
