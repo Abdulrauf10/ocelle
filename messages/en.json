@@ -22,7 +22,6 @@
   "{}-years-and-{}-months-old": "{years} years and {months} months old",
   "is-{}": "is {value}",
   "quantity": "Quantity",
-  "add-to-cart": "Add To Cart",
   "subtotal": "Subtotal",
   "continue-browsing": "Continue Browsing",
   "continue-to-checkout": "Continue To Checkout",
@@ -362,7 +361,7 @@
     "submit-application": "Submit Application",
     "select": "Select",
     "selected": "Selected",
-    
+    "add-to-cart":"Add To Cart",
     "refer-a-friend": "Refer a Friend",
     "recipes": "Recipes",
     "start-your-fresh-journey": "Start Your Fresh Journey"
@@ -466,8 +465,8 @@
     "block-7-content-5": "Fresh food focuses on using whole, unprocessed ingredients like meat, vegetables, and fruits. These ingredients better retain their natural flavours and textures, enticing even the pickiest of eaters, making mealtimes more exciting for your dog.",
     "block-7-title-6": "Enhance Quality of Life",
     "block-7-content-6": "More excitement at mealtimes; smaller firmer stools (better poops!); soft and shiny coats; more energy; increased stamina…and much, much more!",
-    "block-8-title":"Freshen Up With A Science First Approach To Pet Food",
-    "block-8-content":"Get fresh food conveniently delivered with our customised meal plans.",
+    "block-8-title": "Freshen Up With A Science First Approach To Pet Food",
+    "block-8-content": "Get fresh food conveniently delivered with our customised meal plans.",
     "calorie-content": "Calorie Content",
     "guaranteed-analysis": "Guaranteed Analysis",
     "crude-protein": "Crude Protein",
@@ -530,6 +529,19 @@
     "whole-grain-pasta-description": "A source of complex carbohydrates, whole grain pasta provides sustained energy. It is also a good source of fibre, which aids in digestion, and B vitamins for energy metabolism.",
     "lamb-leg-boneless": "Lamb Leg (Boneless)",
     "lamb-leg-boneless-description": "Lamb is a highly palatable meat and an excellent source of quality protein and essential fats, which help with energy levels, proper growth, and overall health. It's also a good source of iron and zinc, which are crucial for immune function and skin health."
+  },
+  "IndividualPack": {
+    "block-1-title": "Feeding Fresh Is <br></br>Easy With OCELLE",
+    "block-1-content": "If you’re not ready for a subscription, our individual packs come in set weights and can be ordered anytime.",
+    "block-8-title": "Your Dog Deserves A Fresh Start",
+    "block-8-title-1":"Developed By Vet Nutritionists",
+    "block-8-content-1":"Many of the health issues dogs face are related to diet. That’s why our team is devoted to determining exactly what dogs need to live happier, healthier lives.",
+    "block-8-title-2":"Crafted With Premium Ingredients",
+    "block-8-content-2":"No heat-blasted ingredients. No preservatives. No fillers. No nonsense. Just real ingredients you can see, nutrition dogs need, and the flavours they crave.",
+    "block-8-title-3":"Freshly Made To Lock In Nutrients",
+    "block-8-content-3":"Our ingredients are gently cooked to maximize digestibility and preserve vital nutrients, texture, and taste.",
+    "block-9-title":"Easier For You. Better For Them.",
+    "block-9-content":"Get fresh food conveniently delivered with our customised meal plans."
   },
   "WhyFresh": {
     "its-time-to-rethink-kibble": "It<apos1></apos1>s Time To Rethink Kibble",
@@ -810,7 +822,7 @@
     "block-1-content-3": "Treasured object or person: Something or someone held in high regard and considered valuable.",
     "block-1-content-4": "Little eye.",
     "block-2-title-1": "A <i>Tail</i> Of <block> Transformation</block>",
-    "block-2-title-1-lg":"A <i>Tail</i> Of <br></br> Transformation",
+    "block-2-title-1-lg": "A <i>Tail</i> Of <br></br> Transformation",
     "block-2-content-1": "OCELLE starts not in a lab, but in a loving home. Our founder, Kevan, faced a challenge many pet parents know only too well – a beloved furry family member with unique needs. Kevan’s dog, Charlie, wasn’t just picky; he struggled with allergies, making mealtimes a constant battle.",
     "block-2-content-2": "Despite trying an array of regular brands and diets, nothing suited Charlie. The breakthrough came with a simple suggestion from his Vet: Why not try homemade meals? Sceptical but determined, Kevan swapped processed foods for real, home-cooked meals.",
     "block-2-content-3": "The transformation was nothing short of miraculous. Charlie, previously lethargic and uninterested, began to thrive. His allergies subsided, his energy returned, and his tail wouldn’t stop wagging.",

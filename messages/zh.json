@@ -22,8 +22,7 @@
   "{}-months-old": "{months}月",
   "{}-years-and-{}-months-old": "",
   "is-{}": "",
-  "quantity": "",
-  "add-to-cart": "",
+  "quantity": "數量",
   "subtotal": "",
   "continue-browsing": "",
   "continue-to-checkout": "前往結賬",
@@ -403,6 +402,7 @@
     "submit-application": "",
     "select": "請選擇",
     "selected": "已選",
+    "add-to-cart": "加入購物車",
     "refer-a-friend": "",
     "recipes": "",
     "start-your-fresh-journey": ""
@@ -570,6 +570,19 @@
     "whole-grain-pasta-description": "",
     "lamb-leg-boneless": "羊腿肉（去骨）",
     "lamb-leg-boneless-description": ""
+  },
+  "IndividualPack": {
+    "block-1-title": "OCELLE讓鮮食餵飼變得更簡單",
+    "block-1-content": "還未決定自動訂購計劃? OCELLE備有獨立鮮食包組合，歡迎隨時訂購試食。",
+    "block-8-title": "讓您的狗狗有一個「新」的開始",
+    "block-8-title-1": "由專業獸醫營養師精心調配",
+    "block-8-content-1": "很多狗狗患的疾病都跟飲食有關。所以我們的團隊致力研究如何令狗狗獲得更開心及更健康的生活。",
+    "block-8-title-2": "精選優質食材，匠心製造",
+    "block-8-content-2": "無高溫加工食物成分，無填料或動物副製品，無防腐劑。只有真材實料，滿是狗狗所需要的營養及他們喜歡的味道。",
+    "block-8-title-3": "新鮮製造，鎖住所有營養",
+    "block-8-content-3": "食材以慢煮烹調，讓鮮食更容易被消化，充分保留重要的營養，質感及味道。",
+    "block-9-title": "為您帶來方便，為狗狗帶來健康！ ",
+    "block-9-content": "訂購專為狗狗度身定製的鮮食並直送到您家"
   },
   "WhyFresh": {
     "its-time-to-rethink-kibble": "是時候重新審視乾糧",
