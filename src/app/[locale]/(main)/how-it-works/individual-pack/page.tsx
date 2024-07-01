@@ -15,6 +15,8 @@ import { IndividualRecipePack } from '@/enums';
 export default async function HowItWorksIndividual() {
   const t = await getTranslations();
   const i = await getTranslations('Ingredients');
+  const b = await getTranslations('Button');
+  const ip = await getTranslations('IndividualPack');
   const products = await getProducts();
 
   const targetedNutrientBlendIngredients = [
@@ -47,16 +49,10 @@ export default async function HowItWorksIndividual() {
           <div className="w-full pt-[clamp(450px,31.5%,700px)] max-lg:hidden"></div>
           <div className="w-full py-[4vw] text-white max-lg:w-full max-lg:py-10 max-lg:pb-[95%] lg:absolute lg:pr-0">
             <Container className="max-lg:text-center">
-              <h1 className="heading-headline heading-weight-1">
-                Feeding Fresh Is <br />
-                Easy With OCELLE
-              </h1>
+              <h1 className="heading-headline heading-weight-1">{ip.rich('block-1-title')}</h1>
               <div className="mt-4"></div>
               <div className="max-w-[45%] max-lg:max-w-none">
-                <p className="body-1">
-                  If you’re not ready for a subscription, our individual packs come in set weights
-                  and can be ordered anytime.
-                </p>
+                <p className="body-1">{ip('block-1-content')}</p>
               </div>
             </Container>
           </div>
@@ -207,7 +203,7 @@ export default async function HowItWorksIndividual() {
         />
         <Block className="bg-gray bg-opacity-20">
           <Container className="max-w-screen-lg text-center">
-            <h2 className="heading-1 font-bold text-gray">Your Dog Deserves A Fresh Start</h2>
+            <h2 className="heading-1 font-bold text-gray">{ip('block-8-title')}</h2>
             <div className="mt-10">
               <div className="-mx-4 -my-4 flex flex-wrap">
                 <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
@@ -220,12 +216,9 @@ export default async function HowItWorksIndividual() {
                     />
                   </div>
                   <div className="mt-6"></div>
-                  <h3 className="heading-4 font-bold text-gray">Developed By Vet Nutritionists</h3>
+                  <h3 className="heading-4 font-bold text-gray">{ip('block-8-title-1')}</h3>
                   <div className="mt-3"></div>
-                  <p className="body-1">
-                    Many of the health issues dogs face are related to diet. That’s why our team is
-                    devoted to determining exactly what dogs need to live happier, healthier lives.
-                  </p>
+                  <p className="body-1">{ip('block-8-content-1')}</p>
                 </div>
                 <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
                   <div className="relative pt-[89.4%]">
@@ -237,14 +230,9 @@ export default async function HowItWorksIndividual() {
                     />
                   </div>
                   <div className="mt-6"></div>
-                  <h3 className="heading-4 font-bold text-gray">
-                    Crafted With Premium Ingredients
-                  </h3>
+                  <h3 className="heading-4 font-bold text-gray">{ip('block-8-title-2')}</h3>
                   <div className="mt-3"></div>
-                  <p className="body-1">
-                    No heat-blasted ingredients. No preservatives. No fillers. No nonsense. Just
-                    real ingredients you can see, nutrition dogs need, and the flavours they crave.
-                  </p>
+                  <p className="body-1">{ip('block-8-content-2')}</p>
                 </div>
                 <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
                   <div className="relative pt-[89.4%]">
@@ -256,31 +244,24 @@ export default async function HowItWorksIndividual() {
                     />
                   </div>
                   <div className="mt-6"></div>
-                  <h3 className="heading-4 font-bold text-gray">
-                    Freshly Made To Lock In Nutrients
-                  </h3>
+                  <h3 className="heading-4 font-bold text-gray">{ip('block-8-title-3')}</h3>
                   <div className="mt-3"></div>
-                  <p className="body-1">
-                    Our ingredients are gently cooked to maximize digestibility and preserve vital
-                    nutrients, texture, and taste.
-                  </p>
+                  <p className="body-1">{ip('block-8-content-3')}</p>
                 </div>
               </div>
             </div>
             <div className="mt-10">
-              <Button href="/why-fresh/benefits-of-fresh-dog-food">{t('learn-more')}</Button>
+              <Button href="/why-fresh/benefits-of-fresh-dog-food">{b('learn-more')}</Button>
             </div>
           </Container>
         </Block>
         <Block styles="tight" className="bg-dark-green">
           <Container className="text-center text-white">
-            <h2 className="heading-1 font-bold">Easier For You. Better For Them.</h2>
+            <h2 className="heading-1 font-bold">{ip('block-9-title')}</h2>
             <div className="mt-2"></div>
-            <p className="body-1">
-              Get fresh food conveniently delivered with our customised meal plans.
-            </p>
+            <p className="body-1">{ip('block-9-content')}</p>
             <div className="mt-8"></div>
-            <Button href="/get-started">Try It Today</Button>
+            <Button href="/get-started">{b('try-it-today')}</Button>
           </Container>
         </Block>
         <Newsletter />

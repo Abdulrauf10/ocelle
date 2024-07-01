@@ -65,7 +65,7 @@ span.swiper-pagination-bullet-active {
 }
 
 .heading-weight-1 {
-  @apply lang-en:font-bold lang-zh:font-light;
+  @apply lang-en:font-bold lang-zh:font-medium;
 }
 
 .heading-weight-2 {

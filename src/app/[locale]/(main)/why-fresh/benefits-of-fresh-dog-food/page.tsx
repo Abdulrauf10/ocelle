@@ -149,7 +149,7 @@ export default function BenefitsOfFreshDogFood() {
             <div className="mx-4 flex-1 max-md:mt-normal max-md:text-center">
               <p className="body-1">{i.rich('block-3-content-1')}</p>
               <div className="pt-8"></div>
-              <Button href="/why-fresh/its-time-to-rethink-kibble">{t('learn-more')}</Button>
+              <Button href="/why-fresh/its-time-to-rethink-kibble">{b('learn-more')}</Button>
             </div>
           </div>
         </Container>
@@ -181,21 +181,27 @@ export default function BenefitsOfFreshDogFood() {
             <ul className="-mb-2 mt-2 list-item pl-7">
               <li className="relative flex items-center py-2">
                 <div className="absolute -left-5 select-none text-[60px] text-primary">
-                  <span className="relative top-1">•</span>
+                  <span className="relative lang-en:top-1 lang-zh:-top-[2px]">•</span>
                 </div>
-                <p className="body-1">{i.rich('block-4-benefits-1-content-4-mark-1')}</p>
+                <p className="body-1 lang-zh:pl-6">
+                  {i.rich('block-4-benefits-1-content-4-mark-1')}
+                </p>
               </li>
               <li className="relative flex items-center py-2">
                 <div className="absolute -left-5 select-none text-[60px] text-primary">
-                  <span className="relative top-1">•</span>
+                  <span className="relative lang-en:top-1 lang-zh:-top-[2px]">•</span>
                 </div>
-                <p className="body-1">{i.rich('block-4-benefits-1-content-4-mark-2')}</p>
+                <p className="body-1 lang-zh:pl-6">
+                  {i.rich('block-4-benefits-1-content-4-mark-2')}
+                </p>
               </li>
               <li className="relative flex items-center py-2">
                 <div className="absolute -left-5 select-none text-[60px] text-primary">
-                  <span className="relative top-1">•</span>
+                  <span className="relative lang-en:top-1 lang-zh:-top-[2px]">•</span>
                 </div>
-                <p className="body-1">{i.rich('block-4-benefits-1-content-4-mark-3')}</p>
+                <p className="body-1 lang-zh:pl-6">
+                  {i.rich('block-4-benefits-1-content-4-mark-3')}
+                </p>
               </li>
             </ul>
           </Toggler>
@@ -391,7 +397,7 @@ export default function BenefitsOfFreshDogFood() {
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/its-time-to-rethink-kibble"
-                className="drop-shadow-style-1 mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30 will-change-transform"
+                className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30 drop-shadow-style-1 will-change-transform"
               >
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/its-time-to-rethink-kibble.jpg" alt="" fill />
@@ -404,7 +410,7 @@ export default function BenefitsOfFreshDogFood() {
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
               <Link
                 href="/why-fresh/raw-dog-food-vs-gently-cooked"
-                className="drop-shadow-style-1 mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30 will-change-transform"
+                className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30 drop-shadow-style-1 will-change-transform"
               >
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/raw-vs-gently-cooked-diets.jpg" alt="" fill />
@@ -417,7 +423,7 @@ export default function BenefitsOfFreshDogFood() {
             <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
               <Link
                 href="/why-fresh/challenges-with-home-cooking-for-your-dog"
-                className="drop-shadow-style-1 mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30 will-change-transform"
+                className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30 drop-shadow-style-1 will-change-transform"
               >
                 <div className="relative pt-[68.5%]">
                   <Image
