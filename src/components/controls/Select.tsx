@@ -42,7 +42,12 @@ export default function Select<T extends FieldValues>({
       rules={rules}
       disabled={disabled}
       render={({ field: { value, ...field }, fieldState: { error } }) => (
-        <FormControl fullWidth={fullWidth} disabled={disabled}>
+        <FormControl
+          fullWidth={fullWidth}
+          error={!!error && value && (value as string).length !== 0}
+          disabled={disabled}
+          variant={variant}
+        >
           {label && <InputLabel id={`${id}-select`}>{label}</InputLabel>}
           <MuiSelect
             {...field}
@@ -50,8 +55,6 @@ export default function Select<T extends FieldValues>({
             label={label}
             value={value ?? ''}
             fullWidth={fullWidth}
-            error={!!error && value && (value as string).length !== 0}
-            variant={variant}
             disableUnderline={disableUnderline}
             inputProps={inputProps}
           >
