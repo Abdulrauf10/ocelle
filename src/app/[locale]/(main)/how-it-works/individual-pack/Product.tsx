@@ -169,7 +169,7 @@ export default function Product({
             ) : (
               <div className="pt-6">
                 <Button type="button" theme={theme} onClick={handleButtonClick}>
-                  {t('add-to-cart')}
+                  {b('add-to-cart')}
                 </Button>
               </div>
             )}
