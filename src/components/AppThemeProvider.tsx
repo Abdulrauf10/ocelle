@@ -105,12 +105,12 @@ const baseTheme: ThemeOptions = {
     },
     MuiInputLabel: {
       styleOverrides: {
-        root: {
-          transform: 'translate(16px, 14px) scale(1)',
-          ['&.Mui-focused, &.MuiFormLabel-filled']: {
-            transform: 'translate(16px, -9px) scale(.75)',
-          },
-        },
+        root: ({ ownerState }) => ({
+          transform:
+            ownerState.filled || ownerState.focused
+              ? 'translate(16px, -9px) scale(.75)'
+              : 'translate(16px, 14px) scale(1)',
+        }),
         shrink: {
           transform: 'translate(16px, -9px) scale(.75)',
         },
