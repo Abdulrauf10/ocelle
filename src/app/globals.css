@@ -41,7 +41,7 @@ span.swiper-pagination-bullet-active {
 }
 
 .heading-headline {
-  @apply text-[clamp(40px,5vw,68px)] leading-[1.25em] -my-[clamp(5px,0.625vw,8.5px)] lang-zh:leading-[1.35em] lang-zh:-my-[clamp(7px,0.875vw,11.9px)];
+  @apply text-[clamp(40px,5vw,68px)] leading-[1.25em] -my-[clamp(5px,0.625vw,8.5px)] lang-zh:leading-[1.35em] lang-zh:-my-[clamp(7px,0.875vw,11.9px)] ;
 }
 
 .heading-1 {
@@ -65,7 +65,7 @@ span.swiper-pagination-bullet-active {
 }
 
 .heading-weight-1 {
-  @apply lang-en:font-bold lang-zh:font-medium;
+  @apply lang-en:font-bold lang-zh:font-normal;
 }
 
 .heading-weight-2 {
@@ -73,7 +73,7 @@ span.swiper-pagination-bullet-active {
 }
 
 .body-1 {
-  @apply text-[20px] leading-[28px] -my-[4px] lang-en:font-normal lang-zh:font-light lang-zh:leading-[32px] lang-zh:-my-[6px];
+  @apply text-[20px] leading-[28px] -my-[4px] lang-en:font-normal lang-zh:text-[18px] lang-zh:font-light lang-zh:leading-[32px] lang-zh:-my-[6px];
 }
 
 .body-2 {
