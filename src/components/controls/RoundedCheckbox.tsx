@@ -17,6 +17,7 @@ interface RoundedCheckboxProps<
   label: React.ReactNode;
   className?: string;
   disabled?: boolean;
+  readonly?: boolean;
   value?: FieldPathValue<TFieldValues, TFieldName>;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
@@ -33,6 +34,7 @@ export default function RoundedCheckbox<
   className,
   value,
   disabled,
+  readonly,
   onChange: parentOnChange,
 }: RoundedCheckboxProps<TFieldValues, TFieldName>) {
   const {
@@ -42,7 +44,11 @@ export default function RoundedCheckbox<
 
   return (
     <label
-      className={clsx('inline-flex cursor-pointer select-none items-start', error && '!text-error')}
+      className={clsx(
+        'inline-flex cursor-pointer select-none items-start',
+        error && '!text-error',
+        readonly && 'pointer-events-none'
+      )}
     >
       <div
         className={clsx(

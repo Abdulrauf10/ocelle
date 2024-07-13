@@ -10,11 +10,16 @@ import TextField from './TextField';
 
 import { InputControllerProps } from '@/types';
 
+type TextFieldHTMLElement = HTMLInputElement | HTMLTextAreaElement;
+
 interface PasswordFieldProps<T extends FieldValues> extends InputControllerProps<T> {
   label: string;
   fullWidth?: boolean;
   disabled?: boolean;
   disableErrorMessage?: boolean;
+  errorOnEmpty?: boolean;
+  onChange?: React.ChangeEventHandler<TextFieldHTMLElement>;
+  onBlur?: React.FocusEventHandler<TextFieldHTMLElement>;
 }
 
 export default function PasswordField<T extends FieldValues>({
@@ -25,6 +30,9 @@ export default function PasswordField<T extends FieldValues>({
   fullWidth,
   disabled,
   disableErrorMessage,
+  errorOnEmpty,
+  onChange,
+  onBlur,
 }: PasswordFieldProps<T>) {
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -44,6 +52,9 @@ export default function PasswordField<T extends FieldValues>({
       type={showPassword ? 'text' : 'password'}
       disabled={disabled}
       disableErrorMessage={disableErrorMessage}
+      errorOnEmpty={errorOnEmpty}
+      onChange={onChange}
+      onBlur={onBlur}
       InputProps={{
         endAdornment: (
           <InputAdornment position="end">

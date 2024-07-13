@@ -51,7 +51,15 @@ export default function FreshPlan({
         }
       }}
     >
-      <div className="flex items-start max-xs:flex-wrap">
+      <div
+        className={clsx(
+          'mt-0.5 inline-block rounded-3xl bg-secondary px-3 py-0.5 text-center font-open-sans text-sm italic text-white max-xs:items-center xs:hidden',
+          !recommended && 'opacity-0'
+        )}
+      >
+        {t('recommended')}
+      </div>
+      <div className="flex items-start max-xs:mt-4 max-xs:flex-wrap max-xs:justify-center max-xs:text-center">
         <Image
           src={picture}
           alt={title}
@@ -70,7 +78,7 @@ export default function FreshPlan({
           </h3>
           <div
             className={clsx(
-              'mt-0.5 inline-block rounded-3xl bg-secondary px-3 py-0.5 text-center font-open-sans text-sm italic text-white',
+              'mt-0.5 hidden rounded-3xl bg-secondary px-3 py-0.5 text-center font-open-sans text-sm italic text-white xs:inline-block',
               !recommended && 'opacity-0'
             )}
           >

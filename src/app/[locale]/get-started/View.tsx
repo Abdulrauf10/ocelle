@@ -8,13 +8,14 @@ import Stage from './Stage';
 import { useSurvey } from './SurveyContext';
 
 import Header from '@/components/Header';
+import { useRouter } from '@/navigation';
 
 function UnderlineBackButton({
   show,
   className,
   onClick,
 }: {
-  show: boolean;
+  show?: boolean;
   className?: string;
   onClick(): void;
 }) {
@@ -39,16 +40,20 @@ function UnderlineBackButton({
 }
 
 export default function View({ children }: React.PropsWithChildren) {
+  const router = useRouter();
   const location = useLocation();
   const navigate = useNavigate();
   const { prevDog } = useSurvey();
 
   const handleBackClick = React.useCallback(() => {
+    if (location.pathname === Stage.Welcome) {
+      return router.push('/');
+    }
     if (location.pathname === Stage.Dog) {
       prevDog();
     }
     navigate(-1);
-  }, [location.pathname, prevDog, navigate]);
+  }, [location.pathname, router, prevDog, navigate]);
 
   return (
     <>
@@ -60,9 +65,7 @@ export default function View({ children }: React.PropsWithChildren) {
           <div className="mt-1 hidden px-2 max-lg:block">
             <UnderlineBackButton
               show={
-                location.pathname !== Stage.Welcome &&
-                location.pathname !== Stage.Calculating &&
-                location.pathname !== Stage.Processing
+                location.pathname !== Stage.Calculating && location.pathname !== Stage.Processing
               }
               onClick={handleBackClick}
             />
@@ -75,8 +78,8 @@ export default function View({ children }: React.PropsWithChildren) {
                 <div className="relative w-full max-w-[460px]">
                   <UnderlineBackButton
                     className="absolute -left-[80px] -top-2 select-none max-lg:hidden"
-                    show={location.pathname !== Stage.Welcome}
                     onClick={handleBackClick}
+                    show
                   />
                   <ProgressBar stage={(location.pathname as Stage) || Stage.Welcome} />
                 </div>
@@ -85,7 +88,7 @@ export default function View({ children }: React.PropsWithChildren) {
           )
         }
       />
-      <main className="py-[clamp(16px,2.4vw,30px)]">{children}</main>
+      <main className="py-[30px]">{children}</main>
     </>
   );
 }

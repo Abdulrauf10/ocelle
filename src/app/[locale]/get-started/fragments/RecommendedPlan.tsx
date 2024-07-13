@@ -1,10 +1,11 @@
 import { queryOptions, useQuery } from '@tanstack/react-query';
+import deepEqual from 'deep-equal';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import pluralize from 'pluralize';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { UseFormWatch, useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import Section from '../Section';
@@ -18,6 +19,7 @@ import Price from '@/components/Price';
 import Button from '@/components/buttons/Button';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import RecipeCheckbox from '@/components/controls/RecipeCheckbox';
+import CircleTick from '@/components/icons/CircleTick';
 import PlasticBox from '@/components/layouts/PlasticBox';
 import PlasticBoxPreview from '@/components/layouts/PlasticBoxPreview';
 import { ActivityLevel, BodyCondition, MealPlan, Recipe } from '@/enums';
@@ -77,6 +79,16 @@ function recipesBoxPriceOptions(
   });
 }
 
+function useRecipeStatus(watch: UseFormWatch<RecommendedPlanForm>) {
+  const recipes = watch('recipe');
+
+  return {
+    recipes: arrayToRecipe(recipes),
+    selectedRecipes: recipes.filter((x) => x === true).length > 0,
+    containsTwoRecipes: recipes.filter((x) => x === true).length >= 2,
+  };
+}
+
 export default function RecommendedPlanFragment() {
   const t = useTranslations();
   const r = useTranslations('Recipes');
@@ -113,8 +125,7 @@ export default function RecommendedPlanFragment() {
       transition: booleanToString(isEnabledTransitionPeriod) ?? 'Y',
     },
   });
-  const recipeValues = watch('recipe');
-  const recipes = arrayToRecipe(recipeValues);
+  const { recipes, selectedRecipes, containsTwoRecipes } = useRecipeStatus(watch);
   const { data: boxPrice, isLoading } = useQuery(
     recipesBoxPriceOptions(
       breeds!,
@@ -208,9 +219,6 @@ export default function RecommendedPlanFragment() {
     return { recipe1, recipe2 };
   }, [pickiness, activityLevel, bodyCondition, foodAllergies]);
 
-  const selectedRecipes = recipeValues.filter((x) => x === true).length > 0;
-  const containsTwoRecipes = recipeValues.filter((x) => x === true).length >= 2;
-
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <form className="text-center" onSubmit={handleSubmit(onSubmit)}>
@@ -229,7 +237,7 @@ export default function RecommendedPlanFragment() {
             </span>
           }
         >
-          <div className="-mb-[clamp(16px,2.4vw,30px)] bg-[#F8F3EB] pb-[40px] pt-5">
+          <div className="-mb-[30px] bg-[#F8F3EB] pb-[40px] pt-5">
             <Container>
               <div className="-mx-2 flex justify-center">
                 <div className="px-2">
@@ -250,7 +258,6 @@ export default function RecommendedPlanFragment() {
                         rules={{
                           validate: validateRecipeCheckbox,
                         }}
-                        error={!!errors?.recipe}
                         picture="/meal-plan/chicken.jpg"
                         dialogPicture={
                           <div className="relative overflow-hidden rounded-2xl pt-[100%]">
@@ -283,10 +290,8 @@ export default function RecommendedPlanFragment() {
                           bodyCondition!,
                           foodAllergies!
                         )}
-                        disabled={
-                          isAllergies(Recipe.Chicken, foodAllergies!) ||
-                          (containsTwoRecipes && !watch('recipe')[0])
-                        }
+                        disabled={isAllergies(Recipe.Chicken, foodAllergies!)}
+                        readonly={containsTwoRecipes && !watch('recipe')[0]}
                         onChange={() => trigger('recipe')}
                       />
                     </div>
@@ -299,7 +304,6 @@ export default function RecommendedPlanFragment() {
                         rules={{
                           validate: validateRecipeCheckbox,
                         }}
-                        error={!!errors?.recipe}
                         picture="/meal-plan/pork.jpg"
                         dialogPicture={
                           <div className="relative overflow-hidden rounded-2xl pt-[100%]">
@@ -332,10 +336,8 @@ export default function RecommendedPlanFragment() {
                           bodyCondition!,
                           foodAllergies!
                         )}
-                        disabled={
-                          isAllergies(Recipe.Pork, foodAllergies!) ||
-                          (containsTwoRecipes && !watch('recipe')[1])
-                        }
+                        disabled={isAllergies(Recipe.Pork, foodAllergies!)}
+                        readonly={containsTwoRecipes && !watch('recipe')[1]}
                         onChange={() => trigger('recipe')}
                       />
                     </div>
@@ -348,7 +350,6 @@ export default function RecommendedPlanFragment() {
                         rules={{
                           validate: validateRecipeCheckbox,
                         }}
-                        error={!!errors?.recipe}
                         picture="/meal-plan/duck.jpg"
                         dialogPicture={
                           <div className="relative overflow-hidden rounded-2xl pt-[100%]">
@@ -358,7 +359,7 @@ export default function RecommendedPlanFragment() {
                             </div>
                           </div>
                         }
-                        price="normal"
+                        price="expensive"
                         ingredients={[
                           i('duck-breast'),
                           i('chicken-liver'),
@@ -380,10 +381,8 @@ export default function RecommendedPlanFragment() {
                           bodyCondition!,
                           foodAllergies!
                         )}
-                        disabled={
-                          isAllergies(Recipe.Duck, foodAllergies!) ||
-                          (containsTwoRecipes && !watch('recipe')[2])
-                        }
+                        disabled={isAllergies(Recipe.Duck, foodAllergies!)}
+                        readonly={containsTwoRecipes && !watch('recipe')[2]}
                         onChange={() => trigger('recipe')}
                       />
                     </div>
@@ -396,7 +395,6 @@ export default function RecommendedPlanFragment() {
                         rules={{
                           validate: validateRecipeCheckbox,
                         }}
-                        error={!!errors?.recipe}
                         picture="/meal-plan/beef.jpg"
                         dialogPicture={
                           <div className="relative overflow-hidden rounded-2xl pt-[100%]">
@@ -429,10 +427,8 @@ export default function RecommendedPlanFragment() {
                           bodyCondition!,
                           foodAllergies!
                         )}
-                        disabled={
-                          isAllergies(Recipe.Beef, foodAllergies!) ||
-                          (containsTwoRecipes && !watch('recipe')[3])
-                        }
+                        disabled={isAllergies(Recipe.Beef, foodAllergies!)}
+                        readonly={containsTwoRecipes && !watch('recipe')[3]}
                         onChange={() => trigger('recipe')}
                       />
                     </div>
@@ -445,7 +441,6 @@ export default function RecommendedPlanFragment() {
                         rules={{
                           validate: validateRecipeCheckbox,
                         }}
-                        error={!!errors?.recipe}
                         picture="/meal-plan/lamb.jpg"
                         dialogPicture={
                           <div className="relative overflow-hidden rounded-2xl pt-[100%]">
@@ -477,21 +472,21 @@ export default function RecommendedPlanFragment() {
                           bodyCondition!,
                           foodAllergies!
                         )}
-                        disabled={
-                          isAllergies(Recipe.Lamb, foodAllergies!) ||
-                          (containsTwoRecipes && !watch('recipe')[4])
-                        }
+                        disabled={isAllergies(Recipe.Lamb, foodAllergies!)}
+                        readonly={containsTwoRecipes && !watch('recipe')[4]}
                         onChange={() => trigger('recipe')}
                       />
                     </div>
-                    <div className="mt-5 flex items-center px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
-                      <div className="relative w-full">
+                    <div className="mt-5 flex items-center px-5 max-xl:w-full">
+                      <div className="relative mx-auto w-full max-w-[520px]">
                         <PlasticBoxPreview
                           name={name!}
                           recipe1={
                             recipes.recipe1 ?? defaultRecommendedRecipes.recipe1 ?? Recipe.Pork
                           }
-                          recipe2={recipes.recipe2 ?? defaultRecommendedRecipes.recipe2}
+                          recipe2={
+                            recipes.recipe1 ? recipes.recipe2 : defaultRecommendedRecipes.recipe2
+                          }
                         />
                       </div>
                     </div>
@@ -503,9 +498,7 @@ export default function RecommendedPlanFragment() {
                       name={name!}
                       recipe1={recipes.recipe1 ?? defaultRecommendedRecipes.recipe1 ?? Recipe.Pork}
                       recipe2={
-                        recipes.recipe2 ?? recipes.recipe1
-                          ? undefined
-                          : defaultRecommendedRecipes.recipe2
+                        recipes.recipe1 ? recipes.recipe2 : defaultRecommendedRecipes.recipe2
                       }
                     />
                   </div>
@@ -524,7 +517,17 @@ export default function RecommendedPlanFragment() {
                       value="N"
                       control={control}
                       name="transition"
-                      label={t('dont-use-transition')}
+                      label={(checked) => {
+                        if (!checked) {
+                          return t('dont-use-transition');
+                        }
+                        return (
+                          <>
+                            <CircleTick className="-mt-0.5 mr-2 inline-block h-4 w-4" />
+                            {t('dont-use-transition')}
+                          </>
+                        );
+                      }}
                       rules={{ required: true }}
                       error={!!errors?.transition}
                       className="w-[180px]"
@@ -536,7 +539,17 @@ export default function RecommendedPlanFragment() {
                       value="Y"
                       control={control}
                       name="transition"
-                      label={t('use-transition')}
+                      label={(checked) => {
+                        if (!checked) {
+                          return t('use-transition');
+                        }
+                        return (
+                          <>
+                            <CircleTick className="-mt-0.5 mr-2 inline-block h-4 w-4" />
+                            {t('use-transition')}
+                          </>
+                        );
+                      }}
                       rules={{ required: true }}
                       error={!!errors?.transition}
                       className="w-[180px]"

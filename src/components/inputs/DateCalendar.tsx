@@ -1,13 +1,16 @@
 import { alpha } from '@mui/material';
 import { DateView } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
-import { DateCalendar as MuiDateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import {
+  DateCalendar as MuiDateCalendar,
+  DateCalendarProps as MuiDateCalendarProps,
+} from '@mui/x-date-pickers/DateCalendar';
 import { dateCalendarClasses } from '@mui/x-date-pickers/DateCalendar/dateCalendarClasses';
 import { dayPickerClasses } from '@mui/x-date-pickers/DateCalendar/dayCalendarClasses';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { pickersCalendarHeaderClasses } from '@mui/x-date-pickers/PickersCalendarHeader/pickersCalendarHeaderClasses';
 import { pickersDayClasses } from '@mui/x-date-pickers/PickersDay/pickersDayClasses';
-import { PickerSelectionState } from '@mui/x-date-pickers/internals';
+import { yearCalendarClasses } from '@mui/x-date-pickers/YearCalendar/yearCalendarClasses';
 import clsx from 'clsx';
 import { zhHK } from 'date-fns/locale';
 import { useLocale } from 'next-intl';
@@ -16,7 +19,7 @@ import React from 'react';
 import AppThemeProvider from '../AppThemeProvider';
 import DogFoot from '../icons/DogFoot';
 
-interface DateCalendarProps {
+export interface DateCalendarProps {
   defaultValue?: Date | null;
   value?: Date | null;
   error?: boolean;
@@ -28,11 +31,7 @@ interface DateCalendarProps {
   minDate?: Date;
   maxDate?: Date;
   actions?: Array<{ label: string; disabled?: boolean; onClick(): void }>;
-  onChange?(
-    value: any,
-    selectionState?: PickerSelectionState | undefined,
-    selectedView?: DateView | undefined
-  ): void;
+  onChange?: MuiDateCalendarProps<any>['onChange'];
 }
 
 export default React.forwardRef<HTMLDivElement, DateCalendarProps>(function DateCalendar(
@@ -87,6 +86,9 @@ export default React.forwardRef<HTMLDivElement, DateCalendarProps>(function Date
             padding: 0.5,
             paddingBottom: 0,
             height: '302px',
+            [`& .${yearCalendarClasses.root}`]: {
+              height: '260px',
+            },
             [`& .${dateCalendarClasses.viewTransitionContainer}`]: {
               backgroundColor: '#fff',
               borderTopLeftRadius: '16px',

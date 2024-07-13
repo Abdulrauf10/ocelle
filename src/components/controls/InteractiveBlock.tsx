@@ -12,7 +12,7 @@ interface InteractiveBlockBase<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 > extends InputControllerProps<TFieldValues, TFieldName> {
-  label: string;
+  label: React.ReactNode | ((checked: boolean) => React.ReactNode);
   className?: string;
   disabled?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
@@ -84,7 +84,9 @@ export default function InteractiveBlock<
         value={(props as any).value}
         checked={type === 'checkbox' && !!field.value}
       />
-      <span className="body-3 min-w-[55px] text-center">{label}</span>
+      <span className="body-3 min-w-[55px] text-center">
+        {typeof label === 'function' ? label(isSelected) : label}
+      </span>
     </label>
   );
 }

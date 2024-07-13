@@ -14,6 +14,8 @@ import MaskedInput, { type Mask } from 'react-text-mask';
 
 import { InputControllerProps } from '@/types';
 
+type TextFieldHTMLElement = HTMLInputElement | HTMLTextAreaElement;
+
 interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> {
   id?: string;
   type?: React.InputHTMLAttributes<unknown>['type'];
@@ -34,7 +36,13 @@ interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> 
     char?: string;
     guide?: boolean;
   };
-  onChange?: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  errorOnEmpty?: boolean;
+  onKeyDown?: React.KeyboardEventHandler<HTMLDivElement>;
+  beforeOnChange?: (
+    event: React.ChangeEvent<TextFieldHTMLElement>
+  ) => React.ChangeEvent<TextFieldHTMLElement>;
+  onChange?: React.ChangeEventHandler<TextFieldHTMLElement>;
+  onBlur?: React.FocusEventHandler<TextFieldHTMLElement>;
 }
 
 export default function TextField<T extends FieldValues>({
@@ -54,9 +62,13 @@ export default function TextField<T extends FieldValues>({
   InputProps,
   InputLabelProps,
   FormHelperTextProps,
+  errorOnEmpty,
   sx,
   mask,
+  onKeyDown,
+  beforeOnChange,
   onChange: parentOnChange,
+  onBlur: parentOnBlur,
 }: TextFieldProps<T>) {
   if (mask?.pattern == null || (Array.isArray(mask.pattern) && mask.pattern.length === 0)) {
     return (
@@ -65,7 +77,7 @@ export default function TextField<T extends FieldValues>({
         control={control}
         rules={rules}
         disabled={disabled}
-        render={({ field: { value, onChange, ...field }, fieldState: { error } }) => (
+        render={({ field: { value, onChange, onBlur, ...field }, fieldState: { error } }) => (
           <MuiTextField
             {...field}
             id={id}
@@ -74,18 +86,31 @@ export default function TextField<T extends FieldValues>({
             value={value ?? ''}
             label={label}
             fullWidth={fullWidth}
-            error={!!error && value && (value as string).length !== 0}
+            error={!!error && ((value && (value as string).length !== 0) || errorOnEmpty)}
             sx={sx}
             FormHelperTextProps={FormHelperTextProps}
             InputLabelProps={InputLabelProps}
             inputProps={inputProps}
             InputProps={InputProps}
             className={className}
-            helperText={(!disableErrorMessage && error?.message) || helperText}
+            helperText={
+              (!disableErrorMessage && error?.message && (
+                <span className="body-3">{error.message}</span>
+              )) ||
+              helperText
+            }
+            onKeyDown={onKeyDown}
+            onBlur={(e) => {
+              onBlur();
+              if (parentOnBlur && typeof parentOnBlur === 'function') {
+                parentOnBlur(e);
+              }
+            }}
             onChange={(e) => {
-              onChange(e);
+              const _e = typeof beforeOnChange === 'function' ? beforeOnChange(e) : e;
+              onChange(_e);
               if (parentOnChange && typeof parentOnChange === 'function') {
-                parentOnChange(e);
+                parentOnChange(_e);
               }
             }}
           />
@@ -118,15 +143,22 @@ export default function TextField<T extends FieldValues>({
           fullWidth={fullWidth}
           error={!!error}
           inputProps={inputProps}
-          helperText={helperText}
+          helperText={
+            (!disableErrorMessage && error?.message && (
+              <span className="body-3">{error.message}</span>
+            )) ||
+            helperText
+          }
           InputProps={{
             ...InputProps,
             inputComponent: MaskInput,
           }}
+          onKeyDown={onKeyDown}
           onChange={(e) => {
-            onChange(e);
+            const _e = typeof beforeOnChange === 'function' ? beforeOnChange(e) : e;
+            onChange(_e);
             if (parentOnChange && typeof parentOnChange === 'function') {
-              parentOnChange(e);
+              parentOnChange(_e);
             }
           }}
         />

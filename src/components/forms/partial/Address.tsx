@@ -74,8 +74,13 @@ export default function PartialAddressForm<T extends FieldValues>({
           name={getPath('firstName')}
           label={t('first-name')}
           control={control}
-          rules={{ required: !disabled }}
+          rules={{
+            required: disabled
+              ? false
+              : t('please-enter-your-{}', { name: t('first-name').toLowerCase() }),
+          }}
           disabled={disabled}
+          errorOnEmpty
           fullWidth
         />
       </div>
@@ -84,8 +89,13 @@ export default function PartialAddressForm<T extends FieldValues>({
           name={getPath('lastName')}
           label={t('last-name')}
           control={control}
-          rules={{ required: !disabled }}
+          rules={{
+            required: disabled
+              ? false
+              : t('please-enter-your-{}', { name: t('last-name').toLowerCase() }),
+          }}
           disabled={disabled}
+          errorOnEmpty
           fullWidth
         />
       </div>
@@ -94,8 +104,13 @@ export default function PartialAddressForm<T extends FieldValues>({
           name={getPath('streetAddress1')}
           label={t('address-line-1')}
           control={control}
-          rules={{ required: !disabled }}
+          rules={{
+            required: disabled
+              ? false
+              : t('please-enter-your-{}', { name: t('address').toLowerCase() }),
+          }}
           disabled={disabled}
+          errorOnEmpty
           fullWidth
         />
       </div>
@@ -110,9 +125,50 @@ export default function PartialAddressForm<T extends FieldValues>({
       </div>
       <div className="w-1/3 p-2 max-lg:w-full">
         <Controller
+          defaultValue={'HK' as PathValue<T, FieldPath<T>>}
+          name={getPath('country')}
+          control={control}
+          rules={{
+            required: disabled
+              ? false
+              : t('please-enter-your-{}', { name: t('country').toLowerCase() }),
+          }}
+          render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
+            return (
+              <Autocomplete
+                fullWidth
+                disableClearable
+                disabled={disabled || isLoading}
+                options={['HK']}
+                value={value}
+                getOptionLabel={(option) => countryMaps[option] ?? ''}
+                renderInput={(params) => (
+                  <MuiTextField
+                    {...params}
+                    {...field}
+                    label={t('country')}
+                    error={!!error}
+                    helperText={error?.message && <span className="body-3">{error.message}</span>}
+                  />
+                )}
+                onChange={(event, selectedValue) =>
+                  selectedValue &&
+                  onChange(Array.isArray(selectedValue) ? selectedValue[0] : selectedValue)
+                }
+              />
+            );
+          }}
+        />
+      </div>
+      <div className="w-1/3 p-2 max-lg:w-full">
+        <Controller
           name={getPath('region')}
           control={control}
-          rules={{ required: !disabled }}
+          rules={{
+            required: disabled
+              ? false
+              : t('please-enter-your-{}', { name: t('region').toLowerCase() }),
+          }}
           render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
             return (
               <Autocomplete
@@ -123,7 +179,13 @@ export default function PartialAddressForm<T extends FieldValues>({
                 value={value}
                 getOptionLabel={(option) => t(option.toLowerCase().replace(/\s/g, '-') as any)}
                 renderInput={(params) => (
-                  <MuiTextField {...params} {...field} label={t('region')} error={!!error} />
+                  <MuiTextField
+                    {...params}
+                    {...field}
+                    label={t('region')}
+                    error={!!error}
+                    helperText={error?.message && <span className="body-3">{error.message}</span>}
+                  />
                 )}
                 onChange={(event, selectedValue) =>
                   selectedValue &&
@@ -138,7 +200,11 @@ export default function PartialAddressForm<T extends FieldValues>({
         <Controller
           name={getPath('district')}
           control={control}
-          rules={{ required: !disabled }}
+          rules={{
+            required: disabled
+              ? false
+              : t('please-enter-your-{}', { name: t('district').toLowerCase() }),
+          }}
           render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
             const _districts = districts || [];
             return (
@@ -152,34 +218,13 @@ export default function PartialAddressForm<T extends FieldValues>({
                   _districts.find((district) => district.raw === option)?.verbose || ''
                 }
                 renderInput={(params) => (
-                  <MuiTextField {...params} {...field} label={t('district')} error={!!error} />
-                )}
-                onChange={(event, selectedValue) =>
-                  selectedValue &&
-                  onChange(Array.isArray(selectedValue) ? selectedValue[0] : selectedValue)
-                }
-              />
-            );
-          }}
-        />
-      </div>
-      <div className="w-1/3 p-2 max-lg:w-full">
-        <Controller
-          defaultValue={'HK' as PathValue<T, FieldPath<T>>}
-          name={getPath('country')}
-          control={control}
-          rules={{ required: !disabled }}
-          render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
-            return (
-              <Autocomplete
-                fullWidth
-                disableClearable
-                disabled={disabled || isLoading}
-                options={['HK']}
-                value={value}
-                getOptionLabel={(option) => countryMaps[option] ?? ''}
-                renderInput={(params) => (
-                  <MuiTextField {...params} {...field} label={t('country')} error={!!error} />
+                  <MuiTextField
+                    {...params}
+                    {...field}
+                    label={t('district')}
+                    error={!!error}
+                    helperText={error?.message && <span className="body-3">{error.message}</span>}
+                  />
                 )}
                 onChange={(event, selectedValue) =>
                   selectedValue &&

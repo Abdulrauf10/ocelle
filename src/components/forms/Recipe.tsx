@@ -247,7 +247,7 @@ export default function RecipeForm({
                 </div>
               </div>
             }
-            price="normal"
+            price="expensive"
             ingredients={[
               i('duck-breast'),
               i('chicken-liver'),

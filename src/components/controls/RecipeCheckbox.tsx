@@ -25,6 +25,7 @@ interface RecipeCheckboxProps<T extends FieldValues> extends InputControllerProp
     moisture: number;
   };
   disabled?: boolean;
+  readonly?: boolean;
   recommended?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
@@ -39,6 +40,7 @@ export default function RecipeCheckbox<T extends FieldValues>({
   error,
   recommended,
   disabled,
+  readonly,
   description,
   price,
   ingredients,
@@ -50,7 +52,7 @@ export default function RecipeCheckbox<T extends FieldValues>({
   const t = useTranslations();
   const b = useTranslations('Button');
   return (
-    <div className="relative mx-auto mt-[70px] min-w-[230px] max-w-[280px]">
+    <div className="relative mx-auto mt-[70px] w-[220px] max-w-[230px] max-lg:w-[210px] max-md:w-full">
       <div
         className={clsx(
           'drop-shadow-style-1 rounded-[20px] border p-[10px] shadow-black/20',
@@ -70,9 +72,10 @@ export default function RecipeCheckbox<T extends FieldValues>({
             className="font-bold text-gold"
             disabled={disabled}
             onChange={onChange}
+            readonly={readonly}
           />
           <div className={clsx('mt-0.5 text-[#7B8D97]', disabled && 'text-opacity-50')}>
-            {price === 'cheap' ? '$$' : price === 'normal' ? '$$$' : '$$$$'}
+            {price === 'cheap' ? '$$' : price === 'expensive' ? '$$$$' : '$$$'}
           </div>
           <div className="mt-0.5">
             <RecipeMediumDialog

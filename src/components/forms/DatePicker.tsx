@@ -64,7 +64,7 @@ export default React.forwardRef<HTMLDivElement, T>(function DatePickerForm(
           onClick: () => setDate(defaultValues.date),
         },
         {
-          label: t('save-changes'),
+          label: t('save'),
           disabled: isSameAsDefaultValue || pending,
           onClick: onSubmit,
         },

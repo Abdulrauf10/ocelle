@@ -66,11 +66,15 @@ const baseTheme: ThemeOptions = {
       },
       styleOverrides: {
         standard: {
-          paddingRight: '26px !important',
-          backgroundColor: 'transparent !important',
+          '&&&': {
+            paddingRight: '26px',
+            backgroundColor: 'transparent',
+          },
         },
         outlined: {
-          paddingRight: '36px !important',
+          '&&&': {
+            paddingRight: '36px',
+          },
         },
         iconOutlined: {
           marginRight: 10,

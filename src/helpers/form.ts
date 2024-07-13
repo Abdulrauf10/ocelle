@@ -48,7 +48,7 @@ function getRecipeOptions() {
   return [Recipe.Chicken, Recipe.Pork, Recipe.Duck, Recipe.Beef, Recipe.Lamb] as const;
 }
 
-function arrayToRecipe(array: boolean[]): { recipe1?: Recipe; recipe2?: Recipe } {
+function arrayToRecipe(array: (boolean | undefined)[]): { recipe1?: Recipe; recipe2?: Recipe } {
   const options = getRecipeOptions();
 
   let r1: Recipe | undefined = undefined;

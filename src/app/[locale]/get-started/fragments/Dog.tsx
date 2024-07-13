@@ -13,6 +13,7 @@ import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import TextField from '@/components/controls/TextField';
+import useFormFieldDisplayState from '@/hooks/useFormFieldState';
 
 interface DogForm {
   name: string;
@@ -25,6 +26,9 @@ export default function DogFragment() {
   const { name } = getDog();
   const {
     handleSubmit,
+    watch,
+    getValues,
+    getFieldState,
     control,
     formState: { isValid },
   } = useForm<DogForm>({
@@ -32,6 +36,14 @@ export default function DogFragment() {
       name,
     },
   });
+  const { displayButton } = useFormFieldDisplayState<DogForm>(
+    {
+      name: undefined,
+    },
+    watch,
+    getValues,
+    getFieldState
+  );
   const [showMoreDogs, setShowMoreDogs] = React.useState(false);
 
   const onSubmit = React.useCallback(
@@ -41,11 +53,13 @@ export default function DogFragment() {
     },
     [navigate, setDog]
   );
+
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <Container className="text-center">
         <Section title={t('whats-your-dogs-name')}>
-          <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-6 max-w-[320px]">
+          <div className="mt-6"></div>
+          <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-[320px]">
             <TextField
               name="name"
               placeholder={t('your-dogs-name')}
@@ -53,19 +67,25 @@ export default function DogFragment() {
               rules={{ required: true }}
               fullWidth
             />
-            <Button className="mt-10" disabled={!isValid}>
-              {t('continue')}
-            </Button>
+            {displayButton && (
+              <>
+                <div className="pt-10"></div>
+                <Button disabled={!isValid}>{t('continue')}</Button>
+              </>
+            )}
           </form>
-          <div className="mt-10"></div>
-          <UnderlineButton
-            className="body-2"
-            onClick={() => setShowMoreDogs(!showMoreDogs)}
-            label={t('i-have-more-dogs')}
-          />
+          <div className="pt-10"></div>
+          <div className="flex justify-center">
+            <UnderlineButton
+              onClick={() => setShowMoreDogs(!showMoreDogs)}
+              label={<p className="body-2">{t('i-have-more-dogs')}</p>}
+            />
+          </div>
           {showMoreDogs && (
-            <div className="mt-3">
-              <p className="body-3 italic text-primary">{t.rich('i-have-more-dogs:reply')}</p>
+            <div className="pt-4">
+              <p className="body-3 italic text-primary">
+                {t.rich('i-have-more-dogs:reply', { br: () => <br className="max-md:hidden" /> })}
+              </p>
             </div>
           )}
         </Section>

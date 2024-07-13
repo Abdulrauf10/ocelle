@@ -1,7 +1,9 @@
 import { DateView } from '@mui/x-date-pickers';
 import { type FieldValues, type Path, type PathValue, useController } from 'react-hook-form';
 
-import DateCalendarInput from '../inputs/DateCalendar';
+import DateCalendarInput, {
+  DateCalendarProps as DateCalendarInputProps,
+} from '../inputs/DateCalendar';
 
 import { InputControllerProps } from '@/types';
 
@@ -9,6 +11,7 @@ interface DateCalendarProps<T extends FieldValues> extends InputControllerProps<
   defaultValue?: PathValue<T, Path<T>>;
   shouldDisableDate?(day: Date): boolean;
   shouldDisableYear?(year: Date): boolean;
+  onChange?: DateCalendarInputProps['onChange'];
   view?: readonly DateView[];
   minDate?: Date;
   maxDate?: Date;
@@ -23,13 +26,14 @@ export default function DateCalendar<T extends FieldValues>({
   defaultValue,
   shouldDisableDate,
   shouldDisableYear,
+  onChange,
   view,
   minDate,
   maxDate,
   actions,
 }: DateCalendarProps<T>) {
   const {
-    field: { onChange, value, ...field },
+    field: { onChange: _onChange, value, ...field },
   } = useController({ name, control, rules, defaultValue });
 
   return (
@@ -39,7 +43,10 @@ export default function DateCalendar<T extends FieldValues>({
       value={value ?? null}
       minDate={minDate}
       maxDate={maxDate}
-      onChange={(value) => onChange(value)}
+      onChange={(...args) => {
+        _onChange(args[0]);
+        if (typeof onChange === 'function') onChange(...args);
+      }}
       view={view}
       disableHighlightToday
       shouldDisableYear={shouldDisableYear}

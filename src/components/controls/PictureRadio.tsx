@@ -30,28 +30,27 @@ function Radio<T extends FieldValues>({
   const isSelected = field.value == value;
 
   return (
-    <label className="relative flex flex-1 flex-col px-3" onMouseEnter={onHover}>
+    <label className="relative flex flex-1 flex-col" onMouseEnter={onHover}>
       <div className="flex h-full justify-center px-1">{children}</div>
-      <input
-        {...field}
-        type="radio"
-        className="absolute bottom-0 left-0 right-0 top-0 opacity-0"
-        value={value}
-      />
-      <div className="pt-4"></div>
-      <div>
+      <div className="relative mt-6 flex items-center justify-center">
+        <div className={clsx('absolute h-0.5 w-full', error ? 'bg-error' : 'bg-primary')}></div>
         <div
           className={clsx(
-            'flex min-w-[120px] select-none justify-center rounded-full border border-current px-4 py-2',
-            error
-              ? 'bg-white text-error'
-              : isSelected
-                ? 'border-primary bg-primary text-white'
-                : 'bg-brown bg-opacity-10 text-brown'
+            'relative mx-auto h-4 w-4 rounded-full border-2',
+            isSelected ? 'bg-secondary' : 'bg-white',
+            error ? 'border-error' : 'border-primary'
           )}
         >
-          <div className="body-3 whitespace-nowrap px-1 text-center">{label}</div>
+          <input
+            {...field}
+            type="radio"
+            className="absolute bottom-0 left-0 right-0 top-0 opacity-0"
+            value={value}
+          />
         </div>
+      </div>
+      <div className="whitespace-nowrap px-1 pt-1 text-center">
+        <p className="body-3">{label}</p>
       </div>
     </label>
   );

@@ -193,7 +193,7 @@ export async function isAvailableEmailAddress(email: string) {
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
-      email,
+      email: email.toLowerCase(),
     },
   });
 

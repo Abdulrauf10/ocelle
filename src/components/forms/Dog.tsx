@@ -25,9 +25,10 @@ import {
   DogFood,
   FoodAllergies,
   Pickiness,
+  Recipe,
   Sex,
 } from '@/enums';
-import { getDateOfBirth } from '@/helpers/dog';
+import { getDateOfBirth, isAllergies } from '@/helpers/dog';
 import {
   arrayToAllergies,
   arrayToFoods,
@@ -36,6 +37,7 @@ import {
   getFoodAllergiesOptions,
 } from '@/helpers/form';
 import useDefaultValues from '@/hooks/defaultValues';
+import { subscriptionProducts } from '@/products';
 import { BreedDto } from '@/types/dto';
 
 interface EditDogBlockProps {
@@ -620,8 +622,12 @@ export default function DogForm({
                       required: (value, formValues) =>
                         formValues.allergies.some((value: unknown) => !!value),
                       conflict: (value, formValues) => !value || !formValues.allergies[0],
-                      selectedAll: (value, formValues) =>
-                        formValues.allergies.slice(-5).some((x) => !x),
+                      allAllergies: (value, { allergies }) => {
+                        const foodAllergies = arrayToAllergies(allergies);
+                        return !Object.keys(subscriptionProducts).every((recipe) =>
+                          isAllergies(recipe as Recipe, foodAllergies)
+                        );
+                      },
                     },
                   }}
                   onChange={() => trigger('allergies')}
@@ -631,23 +637,25 @@ export default function DogForm({
           })}
         </div>
         {Array.isArray(errors.allergies) && errors.allergies.some((x) => x.type === 'conflict') && (
-          <p className="mt-3 text-sm text-error">
-            {t(
-              'You-ve-indicated-that-{}-has-no-allergies-None-as-well-as-allergies-to-{}-please-check-your-selection',
-              {
-                name: watch('name'),
-                value: getValues('allergies')
-                  .map((v: unknown, i: number) => (v ? allergiesOptions[i].label : v))
-                  .filter((v: unknown, i: number) => !!v && i !== 0)
-                  .join(', '),
-              }
-            )}
+          <p className="mt-3 text-error">
+            <span className="body-3">
+              {t(
+                'You-ve-indicated-that-{}-has-no-allergies-None-as-well-as-allergies-to-{}-please-check-your-selection',
+                {
+                  name: watch('name'),
+                  value: getValues('allergies')
+                    .map((v: unknown, i: number) => (v ? allergiesOptions[i].label : v))
+                    .filter((v: unknown, i: number) => !!v && i !== 0)
+                    .join(', '),
+                }
+              )}
+            </span>
           </p>
         )}
         {Array.isArray(errors.allergies) &&
-          errors.allergies.some((x) => x.type === 'selectedAll') && (
-            <p className="mx-auto mt-3 max-w-[360px] text-error">
-              <span className="body-4">
+          errors.allergies.some((x) => x.type === 'allAllergies') && (
+            <p className="mt-3 text-error">
+              <span className="body-3">
                 {t(
                   'unfortunately-all-our-recipes-contain-an-ingredient-{}-is-allergic-sensitive-to',
                   {

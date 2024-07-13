@@ -21,12 +21,16 @@ import UnderlineButton from '@/components/buttons/UnderlineButton';
 import PasswordField from '@/components/controls/PasswordField';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import Select from '@/components/controls/Select';
-import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
+import { EMAIL_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP } from '@/consts';
 import { MealPlan, Recipe } from '@/enums';
 import { OrderDiscountType, OrderFragment } from '@/gql/graphql';
 import { getRecipeSlug } from '@/helpers/dog';
 import { nativeRound } from '@/helpers/number';
-import { isLegalDeliveryDate, isOperationDate } from '@/helpers/shipment';
+import {
+  getEditableRecurringBoxDeadline,
+  isLegalDeliveryDate,
+  isOperationDate,
+} from '@/helpers/shipment';
 import { getCountryCodes } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
 import { CalendarEvent } from '@/types';
@@ -148,10 +152,12 @@ export default function SubscriptionCheckoutForm({
     control,
     setValue,
     handleSubmit,
-    formState: { errors, isValid },
     watch,
+    trigger,
+    getValues,
+    formState: { errors, isValid },
   } = useForm<ISubscriptionCheckoutForm>({
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: {
       ...defaultValues,
       isSameBillingAddress: true,
@@ -165,8 +171,6 @@ export default function SubscriptionCheckoutForm({
       },
       deliveryDate: closestDeliveryDate,
       billingAddress: {
-        firstName: defaultValues?.firstName,
-        lastName: defaultValues?.lastName,
         streetAddress2: '',
       },
       deliveryAddress: {
@@ -289,8 +293,12 @@ export default function SubscriptionCheckoutForm({
                     name="firstName"
                     label={t('first-name')}
                     control={control}
-                    rules={{ required: true }}
+                    rules={{
+                      required: t('please-enter-your-{}', { name: t('first-name').toLowerCase() }),
+                    }}
                     disabled={isSubmitInProgress}
+                    error={!!errors.firstName}
+                    errorOnEmpty
                     fullWidth
                   />
                 </div>
@@ -299,8 +307,12 @@ export default function SubscriptionCheckoutForm({
                     name="lastName"
                     label={t('last-name')}
                     control={control}
-                    rules={{ required: true }}
+                    rules={{
+                      required: t('please-enter-your-{}', { name: t('last-name').toLowerCase() }),
+                    }}
                     disabled={isSubmitInProgress}
+                    error={!!errors.lastName}
+                    errorOnEmpty
                     fullWidth
                   />
                 </div>
@@ -310,7 +322,7 @@ export default function SubscriptionCheckoutForm({
                     label={t('email')}
                     control={control}
                     rules={{
-                      required: true,
+                      required: t('please-enter-your-{}', { name: t('email').toLowerCase() }),
                       pattern: {
                         value: EMAIL_REGEXP,
                         message: t('this-{}-doesn-t-look-correct-please-update-it', {
@@ -319,6 +331,8 @@ export default function SubscriptionCheckoutForm({
                       },
                     }}
                     disabled={isSubmitInProgress}
+                    error={!!errors.email}
+                    errorOnEmpty
                     fullWidth
                   />
                 </div>
@@ -326,10 +340,26 @@ export default function SubscriptionCheckoutForm({
                   <PasswordField
                     name="password"
                     control={control}
-                    rules={{ required: true }}
+                    rules={{
+                      required: t('please-enter-a-valid-{}', { name: t('password') }),
+                      pattern: {
+                        value: PASSWORD_REGEXP,
+                        message: t(
+                          'passwords-must-be-at-least-8-characters-long-and-include-at-least-one-uppercase-letter-and-one-number'
+                        ),
+                      },
+                    }}
                     label={t('password')}
                     fullWidth
                     disabled={isSubmitInProgress}
+                    error={!!errors.password}
+                    errorOnEmpty
+                    onBlur={() => {
+                      const value = getValues('confirmPassword');
+                      if (value !== undefined && value.length > 0) {
+                        trigger('confirmPassword');
+                      }
+                    }}
                   />
                 </div>
                 <div className="w-1/2 p-2 max-sm:w-full">
@@ -338,13 +368,15 @@ export default function SubscriptionCheckoutForm({
                     control={control}
                     rules={{
                       required: true,
-                      validate: (value) => {
-                        return value === watch('password') || t('your-password-is-not-match');
+                      validate: (value, { password }) => {
+                        return value === password || t('your-passwords-do-not-match');
                       },
                     }}
                     label={t('confirm-{}', { value: t('password') })}
                     fullWidth
                     disabled={isSubmitInProgress}
+                    error={!!errors.confirmPassword}
+                    errorOnEmpty
                   />
                 </div>
                 <div className="w-1/2 p-2 max-lg:w-full">
@@ -353,15 +385,27 @@ export default function SubscriptionCheckoutForm({
                     label={t('phone-number')}
                     control={control}
                     rules={{
-                      required: true,
+                      required: t('please-enter-your-{}', {
+                        name: t('phone-number').toLowerCase(),
+                      }),
                       pattern: {
                         value: PHONE_REGEXP,
                         message: t('this-{}-doesn-t-look-correct-please-update-it', {
                           name: t('phone-number').toLowerCase(),
                         }),
                       },
+                      validate: (value, { phone: { code } }) => {
+                        if (code !== '852') {
+                          return true;
+                        }
+                        return String(value).length === 8
+                          ? true
+                          : t('please-enter-a-valid-{}', { name: t('phone-number') });
+                      },
                     }}
                     disabled={isSubmitInProgress}
+                    error={!!errors.phone?.value}
+                    errorOnEmpty
                     fullWidth
                     InputProps={{
                       startAdornment: (
@@ -372,6 +416,7 @@ export default function SubscriptionCheckoutForm({
                             control={control}
                             rules={{ required: true }}
                             disableUnderline
+                            onChange={() => trigger('phone.value')}
                           >
                             {getCountryCodes().map((code, idx) => (
                               <MenuItem key={idx} value={code}>
@@ -387,7 +432,7 @@ export default function SubscriptionCheckoutForm({
                 <div className="w-1/2 p-2 max-lg:w-full">
                   <TextField
                     name="whatsapp.value"
-                    label="WhatsApp"
+                    label={t('whatsapp-optional')}
                     control={control}
                     rules={{
                       pattern: {
@@ -398,6 +443,8 @@ export default function SubscriptionCheckoutForm({
                       },
                     }}
                     disabled={isSubmitInProgress}
+                    error={!!errors.whatsapp?.value}
+                    errorOnEmpty
                     fullWidth
                     InputProps={{
                       startAdornment: (
@@ -479,7 +526,9 @@ export default function SubscriptionCheckoutForm({
               <div className="mt-3"></div>
               <p className="body-3">
                 {t.rich('after-checkout-you-can-adjust-your-delivery-date-until-the-{}', {
-                  date: sentence.date(new Date()),
+                  date: sentence.date(
+                    getEditableRecurringBoxDeadline(calendarEvents, watch('deliveryDate'), true)
+                  ),
                 })}
               </p>
               {openDeliveryDate && (
@@ -609,6 +658,9 @@ export default function SubscriptionCheckoutForm({
                   <RoundedCheckbox
                     name="tnc"
                     control={control}
+                    rules={{
+                      required: true,
+                    }}
                     label={t.rich('i-have-read-and-understood-the-terms-conditions', {
                       button: (chunks) => (
                         <UnderlineButton type="button" theme="primary" label={chunks} />

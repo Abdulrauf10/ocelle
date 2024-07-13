@@ -15,7 +15,7 @@ export default function PlasticBox({ name, recipe }: { name: string; recipe: Rec
         fill
         className="object-contain"
       />
-      <span className="absolute left-1/2 top-[46%] -translate-x-1/2 text-[5cqw] font-bold leading-none">
+      <span className="absolute left-1/2 top-[46%] -translate-x-1/2 select-none text-[5cqw] font-bold leading-none">
         {t('{}-apostrophe', { value: name })}
       </span>
     </div>

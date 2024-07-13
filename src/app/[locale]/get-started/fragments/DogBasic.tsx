@@ -29,6 +29,14 @@ interface DogBasicForm {
   isNeutered: 'Y' | 'N';
 }
 
+// https://stackoverflow.com/questions/990904/remove-accents-diacritics-in-a-string-in-javascript
+// Give up on IE11 support for this feature
+function stripDiacritics(string: string) {
+  return typeof string.normalize !== 'undefined'
+    ? string.normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+    : string;
+}
+
 export default function DogBasicFragment() {
   const t = useTranslations();
   const navigate = useNavigate();
@@ -38,8 +46,10 @@ export default function DogBasicFragment() {
     handleSubmit,
     control,
     watch,
+    setValue,
     formState: { errors, isValid },
   } = useForm<DogBasicForm>({
+    mode: 'onChange',
     defaultValues: {
       breeds: breeds || [],
       sex,
@@ -64,6 +74,8 @@ export default function DogBasicFragment() {
     },
     [navigate, setDog]
   );
+
+  const values = watch();
 
   return (
     <AppThemeProvider
@@ -91,7 +103,12 @@ export default function DogBasicFragment() {
                 <Controller
                   name="breeds"
                   control={control}
-                  rules={{ required: !watch('isUnknownBreed', isUnknownBreed ?? false) }}
+                  rules={{
+                    validate: {
+                      required: (value, formValues) =>
+                        formValues.isUnknownBreed ? true : value.length > 0,
+                    },
+                  }}
                   render={({ field: { onChange, ...field } }) => (
                     <Autocomplete
                       multiple
@@ -100,7 +117,7 @@ export default function DogBasicFragment() {
                       loading={isLoading}
                       getOptionLabel={(option) => option.name}
                       freeSolo={false}
-                      getOptionDisabled={(option) => watch('breeds').length > 1}
+                      getOptionDisabled={() => watch('breeds').length > 1}
                       isOptionEqualToValue={(option, value) => option.id === value.id}
                       renderInput={(params) => (
                         <TextField
@@ -122,6 +139,44 @@ export default function DogBasicFragment() {
                         ))
                       }
                       onChange={(e, data) => onChange(data)}
+                      filterOptions={(options, { inputValue, getOptionLabel }) => {
+                        // reference to the source code from
+                        // https://github.com/mui/material-ui/blob/v5.15.20/packages/mui-base/src/useAutocomplete/useAutocomplete.js#L20-L57
+                        const input = stripDiacritics(inputValue.toLowerCase());
+                        if (!input) {
+                          return options;
+                        }
+                        const intermediaryMaps: { [key: string]: string } = {};
+                        const filteredOptions: BreedDto[] = [];
+                        for (const option of options) {
+                          const raw = stripDiacritics(getOptionLabel(option).toLowerCase());
+                          if (raw.indexOf(input) > -1) {
+                            filteredOptions.push(option);
+                            intermediaryMaps[getOptionLabel(option)] = raw;
+                          }
+                        }
+                        // filter the option by starting with the input value and then by alphabetical order
+                        return filteredOptions.sort((a, b) => {
+                          const lowerA = intermediaryMaps[getOptionLabel(a)].substring(
+                            0,
+                            input.length
+                          );
+                          const lowerB = intermediaryMaps[getOptionLabel(b)].substring(
+                            0,
+                            input.length
+                          );
+
+                          if (lowerA == input) {
+                            if (lowerB != input) {
+                              return -1;
+                            }
+                          } else if (lowerB == input) {
+                            return 1;
+                          }
+
+                          return a < b ? -1 : a > b ? 1 : 0;
+                        });
+                      }}
                       {...field}
                     />
                   )}
@@ -131,8 +186,7 @@ export default function DogBasicFragment() {
                     control={control}
                     name="isUnknownBreed"
                     label={t('dont-know-the-breed')}
-                    //TODO need to clear the breeds`
-                    onClick={() => {}}
+                    onChange={() => setValue('breeds', [])}
                   />
                 </div>
               </div>
@@ -164,42 +218,50 @@ export default function DogBasicFragment() {
                 </div>
               </div>
             </Section>
-            <SectionBreak />
-            <Section title={t('is-{}-', { name })}>
-              <div className="flex justify-center">
-                <div className="px-3">
-                  <InteractiveBlock
-                    type="radio"
-                    value="N"
-                    error={!!errors.isNeutered}
-                    control={control}
-                    name="isNeutered"
-                    label={watch('sex', sex ?? Sex.M) == Sex.M ? t('neutered') : t('spayed')}
-                    rules={{ required: true }}
-                  />
-                </div>
-                <div className="px-3">
-                  <InteractiveBlock
-                    type="radio"
-                    value="Y"
-                    error={!!errors.isNeutered}
-                    control={control}
-                    name="isNeutered"
-                    label={
-                      watch('sex', sex ?? Sex.M) == Sex.M ? t('not-neutered') : t('not-spayed')
-                    }
-                    rules={{ required: true }}
-                  />
-                </div>
-              </div>
-              <div className="mt-6"></div>
-              <p className="body-3 italic text-primary">
-                {t('spayed-and-neutered-dogs-require-fewer-calories')}
-              </p>
-            </Section>
-            <Button className="mt-10" disabled={!isValid}>
-              {t('continue')}
-            </Button>
+            {values.sex !== undefined && (
+              <>
+                <SectionBreak />
+                <Section title={t('is-{}-', { name })}>
+                  <div className="flex justify-center">
+                    <div className="px-3">
+                      <InteractiveBlock
+                        type="radio"
+                        value="N"
+                        error={!!errors.isNeutered}
+                        control={control}
+                        name="isNeutered"
+                        label={watch('sex', sex ?? Sex.M) == Sex.M ? t('neutered') : t('spayed')}
+                        rules={{ required: true }}
+                      />
+                    </div>
+                    <div className="px-3">
+                      <InteractiveBlock
+                        type="radio"
+                        value="Y"
+                        error={!!errors.isNeutered}
+                        control={control}
+                        name="isNeutered"
+                        label={
+                          watch('sex', sex ?? Sex.M) == Sex.M ? t('not-neutered') : t('not-spayed')
+                        }
+                        rules={{ required: true }}
+                      />
+                    </div>
+                  </div>
+                  <div className="mt-6"></div>
+                  <p className="body-3 italic text-primary">
+                    {t('spayed-and-neutered-dogs-require-fewer-calories')}
+                  </p>
+                </Section>
+              </>
+            )}
+            {values.sex !== undefined &&
+              values.isNeutered !== undefined &&
+              (values.breeds.length > 0 || values.isUnknownBreed !== undefined) && (
+                <Button className="mt-10" disabled={!isValid}>
+                  {t('continue')}
+                </Button>
+              )}
           </form>
         </Container>
       </motion.div>

@@ -19,6 +19,9 @@ interface SelectProps<T extends FieldValues> extends InputControllerProps<T> {
   variant?: 'standard' | 'outlined' | 'filled';
   disableUnderline?: boolean;
   inputProps?: InputBaseComponentProps;
+  IconComponent?: React.ElementType;
+  className?: string;
+  onChange?: () => void;
 }
 
 export default function Select<T extends FieldValues>({
@@ -32,6 +35,9 @@ export default function Select<T extends FieldValues>({
   disableUnderline,
   children,
   inputProps,
+  IconComponent,
+  className,
+  onChange: parentOnChange,
 }: SelectProps<T>) {
   const id = React.useId();
 
@@ -41,7 +47,7 @@ export default function Select<T extends FieldValues>({
       control={control}
       rules={rules}
       disabled={disabled}
-      render={({ field: { value, ...field }, fieldState: { error } }) => (
+      render={({ field: { value, onChange, ...field }, fieldState: { error } }) => (
         <FormControl
           fullWidth={fullWidth}
           error={!!error && value && (value as string).length !== 0}
@@ -57,6 +63,14 @@ export default function Select<T extends FieldValues>({
             fullWidth={fullWidth}
             disableUnderline={disableUnderline}
             inputProps={inputProps}
+            IconComponent={IconComponent}
+            className={className}
+            onChange={(e) => {
+              onChange(e);
+              if (parentOnChange && typeof parentOnChange === 'function') {
+                parentOnChange();
+              }
+            }}
           >
             {children}
           </MuiSelect>

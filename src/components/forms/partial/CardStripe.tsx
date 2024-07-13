@@ -32,6 +32,8 @@ interface CardStripeFieldState {
   };
 }
 
+type ElementType = 'cardNumber' | 'cardExpiry' | 'cardCvc';
+
 interface UseCardStripeFormReturn {
   formState: {
     cardNo?: CardStripeFieldState;
@@ -41,6 +43,7 @@ interface UseCardStripeFormReturn {
   empty: boolean;
   complete: boolean;
   handleCardFieldChange(field: CardFieldType, event: StripeElementChangeEvent): void;
+  handleCardFieldBlur(event: { elementType: ElementType }): void;
   reset(): void;
 }
 
@@ -72,6 +75,34 @@ export function useCardStripeForm(): UseCardStripeFormReturn {
     []
   );
 
+  const handleCardFieldBlur = React.useCallback(
+    (event: { elementType: ElementType }) => {
+      switch (event.elementType) {
+        case 'cardNumber': {
+          if (numberState === undefined) {
+            setNumberState({ empty: true, complete: false });
+          }
+          break;
+        }
+        case 'cardExpiry': {
+          if (expireState === undefined) {
+            setExpireState({ empty: true, complete: false });
+          }
+          break;
+        }
+        case 'cardCvc': {
+          if (cvcState === undefined) {
+            setCvcState({ empty: true, complete: false });
+          }
+          break;
+        }
+        default:
+          throw new Error('unknown card field type of ' + event.elementType);
+      }
+    },
+    [numberState, expireState, cvcState]
+  );
+
   const reset = React.useCallback(() => {
     if (!elements) {
       return;
@@ -94,6 +125,7 @@ export function useCardStripeForm(): UseCardStripeFormReturn {
     empty: (numberState?.empty || expireState?.empty || cvcState?.empty) ?? true,
     complete: (numberState?.complete && expireState?.complete && cvcState?.complete) ?? false,
     handleCardFieldChange,
+    handleCardFieldBlur,
     reset,
   };
 }
@@ -107,7 +139,7 @@ export interface IPartialCardStripeForm {
 export default function PartialCardStripeForm({ form }: { form: UseCardStripeFormReturn }) {
   const t = useTranslations();
   const elements = useElements();
-  const { formState, handleCardFieldChange } = form;
+  const { formState, handleCardFieldChange, handleCardFieldBlur } = form;
 
   const handleChange = React.useCallback(
     (field: CardFieldType) => {
@@ -128,12 +160,18 @@ export default function PartialCardStripeForm({ form }: { form: UseCardStripeFor
     elements.getElement(CardNumberElement)?.on('change', handleCardNumberChange);
     elements.getElement(CardExpiryElement)?.on('change', handleCardExpireChange);
     elements.getElement(CardCvcElement)?.on('change', handleCardCvcChange);
+    elements.getElement(CardNumberElement)?.on('blur', handleCardFieldBlur);
+    elements.getElement(CardExpiryElement)?.on('blur', handleCardFieldBlur);
+    elements.getElement(CardCvcElement)?.on('blur', handleCardFieldBlur);
     return () => {
       elements.getElement(CardNumberElement)?.off('change', handleCardNumberChange);
       elements.getElement(CardExpiryElement)?.off('change', handleCardExpireChange);
       elements.getElement(CardCvcElement)?.off('change', handleCardCvcChange);
+      elements.getElement(CardNumberElement)?.off('blur', handleCardFieldBlur);
+      elements.getElement(CardExpiryElement)?.off('blur', handleCardFieldBlur);
+      elements.getElement(CardCvcElement)?.off('blur', handleCardFieldBlur);
     };
-  }, [elements, handleChange]);
+  }, [elements, handleChange, handleCardFieldBlur]);
 
   return (
     <>
@@ -187,8 +225,14 @@ export default function PartialCardStripeForm({ form }: { form: UseCardStripeFor
           <div className="w-full p-2">
             <StripeTextFieldNumber
               label={t('card-number')}
-              error={!!formState.cardNo?.error}
-              labelErrorMessage={formState.cardNo?.error?.message}
+              error={!!formState.cardNo?.empty || !!formState.cardNo?.error}
+              labelErrorMessage={
+                !!formState.cardNo?.empty
+                  ? t('please-enter-your-{}', {
+                      name: t('card-number').toLowerCase(),
+                    })
+                  : formState.cardNo?.error?.message
+              }
               InputProps={{
                 inputProps: {
                   options: {
@@ -206,8 +250,14 @@ export default function PartialCardStripeForm({ form }: { form: UseCardStripeFor
           <div className="w-1/2 p-2 max-sm:w-full">
             <StripeTextFieldExpiry
               label={t('expiration-date')}
-              error={!!formState.cardExp?.error}
-              labelErrorMessage={formState.cardExp?.error?.message}
+              error={!!formState.cardExp?.empty || !!formState.cardExp?.error}
+              labelErrorMessage={
+                !!formState.cardNo?.empty
+                  ? t('please-enter-your-{}', {
+                      name: t('expiration-date').toLowerCase(),
+                    })
+                  : formState.cardExp?.error?.message
+              }
               InputProps={{
                 inputProps: {
                   options: {
@@ -225,8 +275,14 @@ export default function PartialCardStripeForm({ form }: { form: UseCardStripeFor
           <div className="w-1/2 p-2 max-sm:w-full">
             <StripeTextFieldCVC
               label={t('cvc')}
-              error={!!formState.cardCvc?.error}
-              labelErrorMessage={formState.cardCvc?.error?.message}
+              error={!!formState.cardCvc?.empty || !!formState.cardCvc?.error}
+              labelErrorMessage={
+                !!formState.cardNo?.empty
+                  ? t('please-enter-your-{}', {
+                      name: t('cvc').toLowerCase(),
+                    })
+                  : formState.cardCvc?.error?.message
+              }
               InputProps={{
                 inputProps: {
                   options: {
