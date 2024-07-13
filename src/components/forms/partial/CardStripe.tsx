@@ -6,7 +6,12 @@ import {
   CardNumberElement,
   useElements,
 } from '@stripe/react-stripe-js';
-import { StripeElementChangeEvent } from '@stripe/stripe-js';
+import {
+  StripeCardCvcElementChangeEvent,
+  StripeCardExpiryElementChangeEvent,
+  StripeCardNumberElementChangeEvent,
+  StripeElementChangeEvent,
+} from '@stripe/stripe-js';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
@@ -20,8 +25,6 @@ import {
   StripeTextFieldNumber,
 } from '@/components/controls/StripeTextField';
 
-type CardFieldType = 'no' | 'exp' | 'cvc';
-
 interface CardStripeFieldState {
   empty: boolean;
   complete: boolean;
@@ -34,6 +37,11 @@ interface CardStripeFieldState {
 
 type ElementType = 'cardNumber' | 'cardExpiry' | 'cardCvc';
 
+type ChangeEvent =
+  | StripeCardNumberElementChangeEvent
+  | StripeCardExpiryElementChangeEvent
+  | StripeCardCvcElementChangeEvent;
+
 interface UseCardStripeFormReturn {
   formState: {
     cardNo?: CardStripeFieldState;
@@ -42,8 +50,8 @@ interface UseCardStripeFormReturn {
   };
   empty: boolean;
   complete: boolean;
-  handleCardFieldChange(field: CardFieldType, event: StripeElementChangeEvent): void;
-  handleCardFieldBlur(event: { elementType: ElementType }): void;
+  handleChange(event: ChangeEvent): void;
+  handleBlur(event: { elementType: ElementType }): void;
   reset(): void;
 }
 
@@ -53,29 +61,24 @@ export function useCardStripeForm(): UseCardStripeFormReturn {
   const [expireState, setExpireState] = React.useState<CardStripeFieldState>();
   const [cvcState, setCvcState] = React.useState<CardStripeFieldState>();
 
-  const handleCardFieldChange = React.useCallback(
-    (field: CardFieldType, event: StripeElementChangeEvent) => {
-      switch (field) {
-        case 'no': {
-          setNumberState({ empty: event.empty, complete: event.complete, error: event.error });
-          break;
-        }
-        case 'exp': {
-          setExpireState({ empty: event.empty, complete: event.complete, error: event.error });
-          break;
-        }
-        case 'cvc': {
-          setCvcState({ empty: event.empty, complete: event.complete, error: event.error });
-          break;
-        }
-        default:
-          throw new Error('unknown card field type of ' + field);
+  const handleChange = React.useCallback((event: ChangeEvent) => {
+    switch (event.elementType) {
+      case 'cardNumber': {
+        setNumberState({ empty: event.empty, complete: event.complete, error: event.error });
+        break;
       }
-    },
-    []
-  );
+      case 'cardExpiry': {
+        setExpireState({ empty: event.empty, complete: event.complete, error: event.error });
+        break;
+      }
+      case 'cardCvc': {
+        setCvcState({ empty: event.empty, complete: event.complete, error: event.error });
+        break;
+      }
+    }
+  }, []);
 
-  const handleCardFieldBlur = React.useCallback(
+  const handleBlur = React.useCallback(
     (event: { elementType: ElementType }) => {
       switch (event.elementType) {
         case 'cardNumber': {
@@ -124,8 +127,8 @@ export function useCardStripeForm(): UseCardStripeFormReturn {
     },
     empty: (numberState?.empty || expireState?.empty || cvcState?.empty) ?? true,
     complete: (numberState?.complete && expireState?.complete && cvcState?.complete) ?? false,
-    handleCardFieldChange,
-    handleCardFieldBlur,
+    handleChange,
+    handleBlur,
     reset,
   };
 }
@@ -139,39 +142,27 @@ export interface IPartialCardStripeForm {
 export default function PartialCardStripeForm({ form }: { form: UseCardStripeFormReturn }) {
   const t = useTranslations();
   const elements = useElements();
-  const { formState, handleCardFieldChange, handleCardFieldBlur } = form;
-
-  const handleChange = React.useCallback(
-    (field: CardFieldType) => {
-      return (event: StripeElementChangeEvent) => {
-        handleCardFieldChange(field, event);
-      };
-    },
-    [handleCardFieldChange]
-  );
+  const { formState, handleChange, handleBlur } = form;
 
   React.useEffect(() => {
     if (!elements) {
       return;
     }
-    const handleCardNumberChange = handleChange('no');
-    const handleCardExpireChange = handleChange('exp');
-    const handleCardCvcChange = handleChange('cvc');
-    elements.getElement(CardNumberElement)?.on('change', handleCardNumberChange);
-    elements.getElement(CardExpiryElement)?.on('change', handleCardExpireChange);
-    elements.getElement(CardCvcElement)?.on('change', handleCardCvcChange);
-    elements.getElement(CardNumberElement)?.on('blur', handleCardFieldBlur);
-    elements.getElement(CardExpiryElement)?.on('blur', handleCardFieldBlur);
-    elements.getElement(CardCvcElement)?.on('blur', handleCardFieldBlur);
+    elements.getElement(CardNumberElement)?.on('change', handleChange);
+    elements.getElement(CardExpiryElement)?.on('change', handleChange);
+    elements.getElement(CardCvcElement)?.on('change', handleChange);
+    elements.getElement(CardNumberElement)?.on('blur', handleBlur);
+    elements.getElement(CardExpiryElement)?.on('blur', handleBlur);
+    elements.getElement(CardCvcElement)?.on('blur', handleBlur);
     return () => {
-      elements.getElement(CardNumberElement)?.off('change', handleCardNumberChange);
-      elements.getElement(CardExpiryElement)?.off('change', handleCardExpireChange);
-      elements.getElement(CardCvcElement)?.off('change', handleCardCvcChange);
-      elements.getElement(CardNumberElement)?.off('blur', handleCardFieldBlur);
-      elements.getElement(CardExpiryElement)?.off('blur', handleCardFieldBlur);
-      elements.getElement(CardCvcElement)?.off('blur', handleCardFieldBlur);
+      elements.getElement(CardNumberElement)?.off('change', handleChange);
+      elements.getElement(CardExpiryElement)?.off('change', handleChange);
+      elements.getElement(CardCvcElement)?.off('change', handleChange);
+      elements.getElement(CardNumberElement)?.off('blur', handleBlur);
+      elements.getElement(CardExpiryElement)?.off('blur', handleBlur);
+      elements.getElement(CardCvcElement)?.off('blur', handleBlur);
     };
-  }, [elements, handleChange, handleCardFieldBlur]);
+  }, [elements, handleChange, handleBlur]);
 
   return (
     <>
