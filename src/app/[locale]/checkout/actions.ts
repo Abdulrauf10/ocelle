@@ -1,236 +1,76 @@
 'use server';
 
 import { startOfDay } from 'date-fns';
-import Joi from 'joi';
 import invariant from 'ts-invariant';
 
+import { UpdateCheckoutDataAction } from './types';
+import { updateCheckoutDataActionSchema } from './validators';
+
 import { deleteCartCookie, getCartCookie } from '@/actions';
-import {
-  AddPromoCodeDocument,
-  CheckoutAuthorizeStatusEnum,
-  CheckoutChargeStatusEnum,
-  CheckoutFragment,
-  CompleteCheckoutDocument,
-  CountryCode,
-  GetCheckoutDocument,
-  InitializeTransactionDocument,
-  RemoveCheckoutLinesDocument,
-  UpdateCheckoutAddressDocument,
-  UpdateCheckoutEmailDocument,
-  UpdateCheckoutLinesDocument,
-  UpdateCheckoutShippingMethodDocument,
-} from '@/gql/graphql';
-import { awaitable } from '@/helpers/async';
-import { getStripeAppId } from '@/helpers/env';
-import { executeGraphQL } from '@/helpers/graphql';
 import { getRecurringBoxMinDeliveryDate, isLegalDeliveryDate } from '@/helpers/shipment';
 import { redirect } from '@/navigation';
 import { getCalendarEvents } from '@/services/calendar';
+import checkoutService from '@/services/checkout';
 import { getStoreDeliveryDate, setStoreDeliveryDate } from '@/services/redis';
 import { CartReturn } from '@/types/dto';
 
-export async function getCartOrCheckout(): Promise<CheckoutFragment> {
-  const cartOrCheckoutId = await getCartCookie();
-
-  if (!cartOrCheckoutId) {
-    console.error('checkout id cannot be found');
-    return redirect('/');
-  }
-
-  const { checkout } = await executeGraphQL(GetCheckoutDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: { id: cartOrCheckoutId },
-  });
-
-  if (!checkout) {
-    console.error('cart or checkout not found');
-    return redirect('/');
-  }
-
-  if (checkout.lines.length === 0) {
-    return redirect('/');
-  }
-
-  return checkout;
-}
-
 export async function initializeStripeTranscation() {
-  const checkout = await getCartOrCheckout();
+  const checkoutId = await getCartCookie();
 
-  const { transactionInitialize } = await executeGraphQL(InitializeTransactionDocument, {
-    variables: {
-      checkoutOrOrderId: checkout.id,
-      paymentGateway: {
-        id: getStripeAppId(),
-        data: {
-          automatic_payment_methods: {
-            enabled: true,
-          },
-        },
-      },
-    },
-  });
+  invariant(checkoutId, 'checkout not found in the cookie');
 
-  if (!transactionInitialize || transactionInitialize.errors.length > 0) {
-    transactionInitialize && console.error(transactionInitialize);
-    throw new Error('cannot initialize transaction');
-  }
-
-  return transactionInitialize.data as {
-    paymentIntent: { client_secret: string };
-    publishableKey: string;
-  };
+  return await checkoutService.initialTransaction(checkoutId);
 }
 
 export async function applyCoupon({ coupon }: { coupon: string }) {
-  const checkout = await getCartOrCheckout();
+  const checkoutId = await getCartCookie();
 
-  const { checkoutAddPromoCode } = await executeGraphQL(AddPromoCodeDocument, {
-    variables: {
-      promoCode: coupon,
-      checkoutId: checkout.id,
-    },
-  });
+  invariant(checkoutId, 'checkout not found in the cookie');
 
-  if (!checkoutAddPromoCode || checkoutAddPromoCode.errors.length > 0) {
-    checkoutAddPromoCode && console.error(checkoutAddPromoCode.errors);
-    throw new Error('failed to add coupon to checkout');
-  }
+  await checkoutService.setCoupon(checkoutId, coupon);
 }
 
 export async function updateCartLine(lineId: string, quantity: number): Promise<CartReturn> {
-  const cart = await getCartOrCheckout();
+  const checkoutId = await getCartCookie();
 
-  const { checkoutLinesUpdate } = await executeGraphQL(UpdateCheckoutLinesDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: {
-      checkoutId: cart!.id,
-      lines: [
-        {
-          lineId,
-          quantity,
-        },
-      ],
-    },
-  });
+  invariant(checkoutId, 'checkout not found in the cookie');
 
-  if (!checkoutLinesUpdate || checkoutLinesUpdate.errors.length > 0) {
-    checkoutLinesUpdate && console.error(checkoutLinesUpdate?.errors);
-    throw new Error('unable update item from cart');
-  }
-
-  if (checkoutLinesUpdate.checkout!.lines.length === 0) {
-    redirect('/');
-  }
-
+  const checkout = await checkoutService.updateLine(checkoutId, lineId, quantity);
   return {
-    lines: checkoutLinesUpdate.checkout!.lines,
-    subtotalPrice: checkoutLinesUpdate.checkout!.subtotalPrice.gross,
-    shippingPrice: checkoutLinesUpdate.checkout!.shippingPrice.gross,
-    totalPrice: checkoutLinesUpdate.checkout!.totalPrice.gross,
+    lines: checkout.lines,
+    subtotalPrice: checkout.subtotalPrice.gross,
+    shippingPrice: checkout.shippingPrice.gross,
+    totalPrice: checkout.totalPrice.gross,
   };
 }
 
 export async function deleteCartLine(lineId: string): Promise<CartReturn> {
-  const cart = await getCartOrCheckout();
+  const checkoutId = await getCartCookie();
 
-  const { checkoutLinesDelete } = await executeGraphQL(RemoveCheckoutLinesDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: {
-      checkoutId: cart!.id,
-      linesIds: [lineId],
-    },
-  });
+  invariant(checkoutId, 'checkout not found in the cookie');
 
-  if (!checkoutLinesDelete || checkoutLinesDelete.errors.length > 0) {
-    checkoutLinesDelete && console.error(checkoutLinesDelete?.errors);
-    throw new Error('unable delete item from cart');
-  }
-
-  if (checkoutLinesDelete.checkout!.lines.length === 0) {
-    redirect('/');
-  }
-
+  const checkout = await checkoutService.deleteLine(checkoutId, lineId);
   return {
-    lines: checkoutLinesDelete.checkout!.lines,
-    subtotalPrice: checkoutLinesDelete.checkout!.subtotalPrice.gross,
-    shippingPrice: checkoutLinesDelete.checkout!.shippingPrice.gross,
-    totalPrice: checkoutLinesDelete.checkout!.totalPrice.gross,
+    lines: checkout.lines,
+    subtotalPrice: checkout.subtotalPrice.gross,
+    shippingPrice: checkout.shippingPrice.gross,
+    totalPrice: checkout.totalPrice.gross,
   };
 }
-
-interface Address {
-  firstName: string;
-  lastName: string;
-  streetAddress1: string;
-  streetAddress2: string;
-  district: string;
-  region: string;
-  country: string;
-}
-
-interface UpdateCheckoutDataAction {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phone: { code: string; value: string };
-  whatsapp?: { code: string; value: string };
-  receiveNews?: boolean;
-  isSameBillingAddress?: boolean;
-  deliveryDate: Date;
-  deliveryAddress: Address;
-  billingAddress?: Address;
-}
-
-const addressSchema = Joi.object({
-  firstName: Joi.string().required(),
-  lastName: Joi.string().required(),
-  streetAddress1: Joi.string().required(),
-  streetAddress2: Joi.string().required().allow(''),
-  district: Joi.string().required(),
-  region: Joi.string().required(),
-  country: Joi.string().required(),
-});
-
-const schema = Joi.object<UpdateCheckoutDataAction>({
-  firstName: Joi.string().required(),
-  lastName: Joi.string().required(),
-  email: Joi.string().required(),
-  phone: Joi.object({
-    code: Joi.string().required(),
-    value: Joi.string().required(),
-  }).required(),
-  whatsapp: Joi.object({
-    code: Joi.string().required(),
-    value: Joi.string().required(),
-  }).optional(),
-  receiveNews: Joi.boolean().optional(),
-  isSameBillingAddress: Joi.boolean().optional(),
-  deliveryDate: Joi.date().required(),
-  deliveryAddress: addressSchema.required(),
-  billingAddress: addressSchema,
-});
 
 export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
-  const { value, error } = schema.validate(data);
+  const checkoutId = await getCartCookie();
+
+  invariant(checkoutId, 'checkout not found in the cookie');
+
+  const { value, error } = updateCheckoutDataActionSchema.validate(data);
 
   if (error) {
     console.log(error);
     throw new Error('schema is not valid');
   }
-
-  const checkout = await getCartOrCheckout();
 
   const calendarEvents = await getCalendarEvents();
 
@@ -241,104 +81,24 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
     throw new Error('delivery date is unavailable');
   }
 
+  const checkout = await checkoutService.getById(checkoutId);
+
   await setStoreDeliveryDate(checkout.id, value.deliveryDate);
 
-  const { checkoutEmailUpdate } = await executeGraphQL(UpdateCheckoutEmailDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: {
-      checkoutId: checkout.id,
-      email: value.email,
-    },
-  });
-
-  if (!checkoutEmailUpdate || checkoutEmailUpdate.errors.length > 0) {
-    checkoutEmailUpdate && console.error(checkoutEmailUpdate?.errors);
-    throw new Error('unable update the checkout email address');
-  }
-
-  const shippingAddress = {
-    firstName: value.deliveryAddress.firstName,
-    lastName: value.deliveryAddress.lastName,
-    streetAddress1: value.deliveryAddress.streetAddress1,
-    streetAddress2: value.deliveryAddress.streetAddress2,
-    city: value.deliveryAddress.district,
-    countryArea: value.deliveryAddress.region,
-    country: CountryCode.Hk,
-  };
-
-  const { checkoutShippingAddressUpdate, checkoutBillingAddressUpdate } = await executeGraphQL(
-    UpdateCheckoutAddressDocument,
-    {
-      withAuth: false,
-      headers: {
-        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-      },
-      variables: {
-        checkoutId: checkout.id,
-        shippingAddress,
-        billingAddress: value.isSameBillingAddress
-          ? shippingAddress
-          : {
-              firstName: value.billingAddress!.firstName,
-              lastName: value.billingAddress!.lastName,
-              streetAddress1: value.billingAddress!.streetAddress1,
-              streetAddress2: value.billingAddress!.streetAddress2,
-              city: value.billingAddress!.district,
-              countryArea: value.billingAddress!.region,
-              country: CountryCode.Hk,
-            },
-      },
-    }
+  await checkoutService.updateEmail(checkout.id, value.email);
+  await checkoutService.updateAddress(
+    checkout.id,
+    value.deliveryAddress,
+    value.isSameBillingAddress ? value.deliveryAddress : value.billingAddress!
   );
-
-  if (
-    !checkoutShippingAddressUpdate ||
-    !checkoutBillingAddressUpdate ||
-    checkoutShippingAddressUpdate.errors.length > 0 ||
-    checkoutBillingAddressUpdate.errors.length > 0
-  ) {
-    checkoutShippingAddressUpdate && console.error(checkoutShippingAddressUpdate.errors);
-    checkoutBillingAddressUpdate && console.error(checkoutBillingAddressUpdate.errors);
-    throw new Error('checkout address update failed');
-  }
 }
 
 export async function finalizeCheckout() {
-  const checkout = await getCartOrCheckout();
+  const checkoutId = await getCartCookie();
 
-  console.dir(checkout, { depth: null });
+  invariant(checkoutId, 'checkout not found in the cookie');
 
-  if (!checkout.email) {
-    throw new Error('checkout is not linked with email, please contact ocelle for more.');
-  }
-
-  // we need to wait for the payment hook to be called before completing the checkout
-  await awaitable(
-    getCartOrCheckout,
-    ({ authorizeStatus, chargeStatus }) =>
-      authorizeStatus !== CheckoutAuthorizeStatusEnum.None &&
-      chargeStatus !== CheckoutChargeStatusEnum.None
-  );
-
-  await new Promise((resolve) => setTimeout(resolve, 3000));
-
-  const { checkoutComplete } = await executeGraphQL(CompleteCheckoutDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: {
-      checkoutId: checkout.id,
-    },
-  });
-
-  if (!checkoutComplete || checkoutComplete.errors.length > 0) {
-    checkoutComplete && console.error(checkoutComplete.errors);
-    throw new Error('checkout cannot completed');
-  }
+  await checkoutService.completeCheckout(checkoutId);
 
   redirect('/checkout/complete');
 }
