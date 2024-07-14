@@ -1,17 +1,13 @@
-'use server';
-
 import invariant from 'ts-invariant';
 
 import { DEFUALT_SHIPPING_ZONE } from '@/consts';
+import { ShippingDistrictsError, ShippingMethodNotFoundError } from '@/errors/shipping';
 import {
   AddressValidationRulesDocument,
   CountryCode,
   FindShippingZonesDocument,
 } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
-
-export class ShippingMethodNotFoundError extends Error {}
-export class ShippingDistrictsError extends Error {}
 
 class ShippingService {
   async districts(locale: string, countryArea: CountryCode) {

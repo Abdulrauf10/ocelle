@@ -1,9 +1,15 @@
-'use server';
-
 import { headers } from 'next/headers';
 import { FindOneOptions } from 'typeorm';
 
+import stripeClient from '@/clients/stripe';
 import { User } from '@/entities';
+import {
+  UserAssignAddressError,
+  UserCreateError,
+  UserMeError,
+  UserNotFoundError,
+  UserUpdateAddressError,
+} from '@/errors/user';
 import {
   CountryCode,
   CreateAddressDocument,
@@ -15,12 +21,6 @@ import {
 } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
-
-export class UserMeError extends Error {}
-export class UserNotFoundError extends Error {}
-export class UserCreateError extends Error {}
-export class UserAssignAddressError extends Error {}
-export class UserUpdateAddressError extends Error {}
 
 async function findOrCreateSaleorUser(
   firstName: string,
@@ -314,7 +314,6 @@ class UserService {
   async attachStripe(id: string) {
     const user = await this.find(id);
     if (!user.stripe) {
-      const { default: stripeClient } = await import('@/clients/stripe');
       const cus = await stripeClient.createCustomer({ email: user.email });
       await executeQuery(async (queryRunner) => {
         await queryRunner.manager.update(User, id, { stripe: cus.id });

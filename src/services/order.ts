@@ -1,13 +1,19 @@
-'use server';
-
 import Stripe from 'stripe';
 import invariant from 'ts-invariant';
 
 import channelService from './channel';
-import { CheckoutInitialTransactionError } from './checkout';
 import productService from './product';
 
 import { ActivityLevel, BodyCondition, Frequency, MealPlan, Recipe } from '@/enums';
+import {
+  OrderAddDiscountError,
+  OrderCompleteError,
+  OrderCreateError,
+  OrderDeleteError,
+  OrderInitialTransactionError,
+  OrderNotFoundError,
+  OrderUpdateError,
+} from '@/errors/order';
 import {
   AddOrderDiscountDocument,
   CompleteDraftOrderDocument,
@@ -29,21 +35,6 @@ import { executeGraphQL } from '@/helpers/graphql';
 import { recipeToVariant } from '@/helpers/saleor';
 import { subscriptionProducts } from '@/products';
 import { BreedDto } from '@/types/dto';
-
-export class OrderCreateError extends Error {}
-export class OrderNotFoundError extends Error {}
-export class OrderInitialTransactionError extends Error {}
-export class OrderAppendLineError extends Error {}
-export class OrderUpdateLineError extends Error {}
-export class OrderDeleteLineError extends Error {}
-export class OrderSetCouponError extends Error {}
-export class OrderNotLinkedEmailError extends Error {}
-export class OrderCompleteError extends Error {}
-export class OrderUpdateError extends Error {}
-export class OrderUpdateEmailError extends Error {}
-export class OrderUpdateAddressError extends Error {}
-export class OrderAddDiscountError extends Error {}
-export class OrderDeleteError extends Error {}
 
 interface DogOrderCreate {
   breeds: BreedDto[];
@@ -204,7 +195,7 @@ class OrderService {
 
     if (!transactionInitialize || transactionInitialize.errors.length > 0) {
       transactionInitialize && console.error(transactionInitialize);
-      throw new CheckoutInitialTransactionError();
+      throw new OrderInitialTransactionError();
     }
 
     const initializeData = transactionInitialize.data as {

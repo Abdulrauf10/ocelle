@@ -1,5 +1,3 @@
-'use server';
-
 import { addDays, startOfDay } from 'date-fns';
 import { In, LessThan, MoreThan, MoreThanOrEqual } from 'typeorm';
 

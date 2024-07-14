@@ -1,5 +1,3 @@
-'use server';
-
 import { Redis } from 'ioredis';
 import invariant from 'ts-invariant';
 

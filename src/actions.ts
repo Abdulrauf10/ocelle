@@ -4,15 +4,17 @@ import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import { cookies } from 'next/headers';
 
 import { CART_COOKIE, DOG_SELECT_COOKIE, LOGIN_PATH, ORDER_COOKIE } from './consts';
+import { CheckoutNotFoundError } from './errors/checkout';
+import { UserMeError, UserNotFoundError } from './errors/user';
 import { CountryCode } from './gql/graphql';
 import { getRecurringBoxMinDeliveryDate } from './helpers/shipment';
 import { redirect } from './navigation';
 import saleorAuthClient from './saleorAuthClient';
 import breedService from './services/breed';
 import calendarService from './services/calendar';
-import checkoutService, { CheckoutNotFoundError } from './services/checkout';
+import checkoutService from './services/checkout';
 import shippingService from './services/shipping';
-import userService, { UserMeError, UserNotFoundError } from './services/user';
+import userService from './services/user';
 import { BreedDto } from './types/dto';
 
 // here for global actions

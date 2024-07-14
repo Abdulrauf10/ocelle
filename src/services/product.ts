@@ -1,5 +1,3 @@
-'use server';
-
 import { FindProductsDocument, FindProductsQueryVariables } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
 

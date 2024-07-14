@@ -1,5 +1,3 @@
-'use server';
-
 import Stripe from 'stripe';
 import invariant from 'ts-invariant';
 

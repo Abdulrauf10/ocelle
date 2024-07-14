@@ -1,5 +1,3 @@
-'use server';
-
 import { In } from 'typeorm';
 
 import { Breed } from '@/entities';

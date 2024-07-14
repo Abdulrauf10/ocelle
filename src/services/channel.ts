@@ -1,11 +1,8 @@
-'use server';
-
 import invariant from 'ts-invariant';
 
+import { ChannelNotFoundError } from '@/errors/channel';
 import { GetChannelDocument } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
-
-export class ChannelNotFoundError extends Error {}
 
 class ChannelService {
   async getDefault() {
