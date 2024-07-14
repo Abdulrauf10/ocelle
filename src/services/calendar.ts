@@ -1,3 +1,5 @@
+'use server';
+
 import { fromZonedTime } from 'date-fns-tz';
 
 import redisService from './redis';

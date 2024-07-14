@@ -1,3 +1,5 @@
+'use server';
+
 import invariant from 'ts-invariant';
 
 import { DEFUALT_SHIPPING_ZONE } from '@/consts';

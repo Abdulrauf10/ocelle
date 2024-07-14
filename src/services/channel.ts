@@ -1,3 +1,5 @@
+'use server';
+
 import invariant from 'ts-invariant';
 
 import { GetChannelDocument } from '@/gql/graphql';
