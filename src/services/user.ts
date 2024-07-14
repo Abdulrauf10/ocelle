@@ -57,30 +57,48 @@ async function findOrCreateSaleorUser(
 }
 
 class UserService {
-  async me({ fullsize }: { fullsize?: boolean } = {}) {
-    const { me } = await executeGraphQL(
-      fullsize ? GetCurrentUserFullSizeDocument : GetCurrentUserDocument,
-      {
-        cache: 'no-cache',
-      }
-    );
+  meRelations: FindOneOptions<User>['relations'] = {
+    orders: true,
+    dogs: {
+      plan: true,
+      breeds: { breed: true },
+    },
+  };
+  async me() {
+    const { me } = await executeGraphQL(GetCurrentUserDocument, {
+      cache: 'no-cache',
+    });
 
     if (!me) {
       throw new UserMeError('saleor me not found');
     }
 
-    const relations: FindOneOptions<User>['relations'] = {
-      orders: true,
-      dogs: {
-        plan: true,
-        breeds: { breed: true },
-      },
-    };
+    const user = await executeQuery((queryRunner) =>
+      queryRunner.manager.findOne(User, {
+        where: { id: me.id },
+        relations: this.meRelations,
+      })
+    );
+
+    if (!user) {
+      throw new UserMeError('database me not found');
+    }
+
+    return Object.freeze({ ...user, ...me });
+  }
+  async meFullsize() {
+    const { me } = await executeGraphQL(GetCurrentUserFullSizeDocument, {
+      cache: 'no-cache',
+    });
+
+    if (!me) {
+      throw new UserMeError('saleor me not found');
+    }
 
     const user = await executeQuery((queryRunner) =>
       queryRunner.manager.findOne(User, {
         where: { id: me.id },
-        relations,
+        relations: this.meRelations,
       })
     );
 

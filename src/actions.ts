@@ -72,7 +72,7 @@ export async function getLoginedMe() {
 
 export async function getLoginedMeFullSize() {
   try {
-    return await userService.me({ fullsize: true });
+    return await userService.meFullsize();
   } catch (err) {
     throw err instanceof UserMeError ? redirect(LOGIN_PATH) : err;
   }
