@@ -124,7 +124,7 @@ export default function GuestCheckoutForm({
     formState: { errors, isValid },
     watch,
   } = useForm<IGuestCheckoutForm>({
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: {
       phone: {
         code: '852',
@@ -246,8 +246,11 @@ export default function GuestCheckoutForm({
                     name="firstName"
                     label={t('first-name')}
                     control={control}
-                    rules={{ required: true }}
+                    rules={{
+                      required: t('please-enter-your-{}', { name: t('first-name').toLowerCase() }),
+                    }}
                     disabled={isSubmitInProgress}
+                    errorOnEmpty
                     fullWidth
                   />
                 </div>
@@ -256,8 +259,11 @@ export default function GuestCheckoutForm({
                     name="lastName"
                     label={t('last-name')}
                     control={control}
-                    rules={{ required: true }}
+                    rules={{
+                      required: t('please-enter-your-{}', { name: t('last-name').toLowerCase() }),
+                    }}
                     disabled={isSubmitInProgress}
+                    errorOnEmpty
                     fullWidth
                   />
                 </div>
@@ -267,7 +273,7 @@ export default function GuestCheckoutForm({
                     label={t('email')}
                     control={control}
                     rules={{
-                      required: true,
+                      required: t('please-enter-your-{}', { name: t('email').toLowerCase() }),
                       pattern: {
                         value: EMAIL_REGEXP,
                         message: t('this-{}-doesn-t-look-correct-please-update-it', {
@@ -276,6 +282,7 @@ export default function GuestCheckoutForm({
                       },
                     }}
                     disabled={isSubmitInProgress}
+                    errorOnEmpty
                     fullWidth
                   />
                 </div>
@@ -285,15 +292,27 @@ export default function GuestCheckoutForm({
                     label={t('phone-number')}
                     control={control}
                     rules={{
-                      required: true,
+                      required: t('please-enter-your-{}', {
+                        name: t('phone-number').toLowerCase(),
+                      }),
                       pattern: {
                         value: PHONE_REGEXP,
                         message: t('this-{}-doesn-t-look-correct-please-update-it', {
                           name: t('phone-number').toLowerCase(),
                         }),
                       },
+                      validate: (value, { phone: { code } }) => {
+                        if (code !== '852') {
+                          return true;
+                        }
+                        return String(value).length === 8
+                          ? true
+                          : t('please-enter-a-valid-{}', { name: t('phone-number') });
+                      },
                     }}
                     disabled={isSubmitInProgress}
+                    error={!!errors.phone?.value}
+                    errorOnEmpty
                     fullWidth
                     InputProps={{
                       startAdornment: (
@@ -330,6 +349,8 @@ export default function GuestCheckoutForm({
                       },
                     }}
                     disabled={isSubmitInProgress}
+                    error={!!errors.whatsapp?.value}
+                    errorOnEmpty
                     fullWidth
                     InputProps={{
                       startAdornment: (
