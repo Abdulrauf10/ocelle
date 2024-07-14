@@ -11,7 +11,7 @@ import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import OrderSizeForm from '@/components/forms/Frequency';
 import ShippableNote from '@/components/notes/Shippable';
 import { Frequency } from '@/enums';
-import { calculateTotalPerDayPrice } from '@/services/api';
+import priceService from '@/services/price';
 
 export default async function PlanOften() {
   const t = await getTranslations();
@@ -25,7 +25,7 @@ export default async function PlanOften() {
     (await dogs.reduce(async (price, dog) => {
       return (
         (await price) +
-        (await calculateTotalPerDayPrice(
+        (await priceService.calculateTotalPerDayPrice(
           dog.breeds.map(({ breed }) => breed),
           new Date(dog.dateOfBirth),
           dog.isNeutered,
@@ -44,7 +44,7 @@ export default async function PlanOften() {
     (await dogs.reduce(async (price, dog) => {
       return (
         (await price) +
-        (await calculateTotalPerDayPrice(
+        (await priceService.calculateTotalPerDayPrice(
           dog.breeds.map(({ breed }) => breed),
           new Date(dog.dateOfBirth),
           dog.isNeutered,

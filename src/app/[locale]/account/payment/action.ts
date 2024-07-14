@@ -3,10 +3,9 @@
 import Joi from 'joi';
 
 import { getLoginedMe } from '@/actions';
-import { User } from '@/entities';
+import stripeClient from '@/clients/stripe';
 import StripeNotReadyError from '@/errors/StripeNotReadyError';
-import { executeQuery } from '@/helpers/queryRunner';
-import { attachPaymentMethod, detachPaymentMethod, retrievePaymentMethod } from '@/services/stripe';
+import userService from '@/services/user';
 
 interface UpdateCreditCardAction {
   paymentMethodId: string;
@@ -29,19 +28,16 @@ export default async function updateCreditCardAction(data: UpdateCreditCardActio
     throw new StripeNotReadyError(me.id);
   }
 
-  const paymentMethod = await retrievePaymentMethod(value.paymentMethodId);
+  const paymentMethod = await stripeClient.retrievePaymentMethod(value.paymentMethodId);
 
   // TODO: 3D secure handler while updating card, default cannot handle auto payment
 
-  await attachPaymentMethod(paymentMethod.id, me.stripe);
-
-  await executeQuery(async (queryRunner) => {
-    await queryRunner.manager.update(User, me.id, { stripePaymentMethod: paymentMethod.id });
-  });
+  await stripeClient.attachPaymentMethod(paymentMethod.id, me.stripe);
+  await userService.attachStripePaymentMethod(me.id, paymentMethod.id);
 
   try {
     // slient mode
-    await detachPaymentMethod(me.stripePaymentMethod);
+    await stripeClient.detachPaymentMethod(me.stripePaymentMethod);
   } catch (e) {
     console.error(e);
   }

@@ -1,5 +1,6 @@
 import { differenceInMonths, differenceInYears, startOfDay, subMonths, subYears } from 'date-fns';
 
+import { recipePriorities } from '@/consts';
 import {
   ActivityLevel,
   BodyCondition,
@@ -12,29 +13,6 @@ import {
 } from '@/enums';
 import { LifeStage } from '@/types';
 import { BreedDto } from '@/types/dto';
-
-/**
- * Refer to `Excel: customization variables v1.01 > Price Matrix`
- * Priorities order by cheaply
- */
-const recipePriorities = {
-  [Recipe.Pork]: 1,
-  [Recipe.Chicken]: 2,
-  [Recipe.Beef]: 3,
-  [Recipe.Lamb]: 4,
-  [Recipe.Duck]: 5,
-};
-
-export function getTheCheapestRecipe() {
-  let cheapest: Recipe = Recipe.Beef;
-  for (const _recipe of Object.keys(recipePriorities)) {
-    const recipe = Recipe[_recipe as keyof typeof Recipe];
-    if (recipePriorities[recipe] < recipePriorities[cheapest]) {
-      cheapest = recipe;
-    }
-  }
-  return cheapest;
-}
 
 export function getDateOfBirth(years?: number, months?: number) {
   return subMonths(subYears(startOfDay(new Date()), years ?? 0), months ?? 0);

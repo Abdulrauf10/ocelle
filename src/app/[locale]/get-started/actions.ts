@@ -2,30 +2,26 @@
 
 import { startOfDay, subDays } from 'date-fns';
 import invariant from 'ts-invariant';
-import { In } from 'typeorm';
 
 import { HandleMutateDraftOrderAction } from './types';
 import { handleMutateDraftOrderActionSchema } from './validators';
 
 import { deleteOrderCookie, getOrderCookie, setOrderCookie } from '@/actions';
-import { Breed } from '@/entities';
+import stripeClient from '@/clients/stripe';
 import { ActivityLevel, BodyCondition, Frequency, MealPlan, Recipe } from '@/enums';
 import { OrderFragment } from '@/gql/graphql';
-import { getTheCheapestRecipe } from '@/helpers/dog';
-import { executeQuery } from '@/helpers/queryRunner';
 import {
   getRecurringBoxMinDeliveryDate,
   isLegalDeliveryDate,
   isOperationDate,
 } from '@/helpers/shipment';
 import { redirect } from '@/navigation';
-import { calculateTotalPerDayPrice, calculateTotalPriceInBox } from '@/services/api';
 import breedService from '@/services/breed';
 import calendarService from '@/services/calendar';
 import orderService from '@/services/order';
+import priceService from '@/services/price';
 import recurringService from '@/services/recurring';
 import redisService from '@/services/redis';
-import { attachPaymentMethod, retrivePaymentIntent, updatePaymentIntent } from '@/services/stripe';
 import userService from '@/services/user';
 import { BreedDto, DogDto, MinPricesDto } from '@/types/dto';
 
@@ -33,16 +29,8 @@ export async function calculateDogsTotalPerDayPrice(dogs: DogDto[]) {
   const values = [];
   for (const dog of dogs) {
     const breeds =
-      dog.breeds && dog.breeds.length > 0
-        ? await executeQuery(async (queryRunner) => {
-            return queryRunner.manager.find(Breed, {
-              where: {
-                id: In(dog.breeds!),
-              },
-            });
-          })
-        : [];
-    const price = await calculateTotalPerDayPrice(
+      dog.breeds && dog.breeds.length > 0 ? await breedService.getByIds(dog.breeds) : [];
+    const price = await priceService.calculateTotalPerDayPrice(
       breeds,
       new Date(dog.dateOfBirth),
       dog.isNeutered,
@@ -77,7 +65,7 @@ export async function getBoxPrices(
     };
   }
   return {
-    total: await calculateTotalPriceInBox(
+    total: await priceService.calculateTotalPriceInBox(
       breeds,
       new Date(dateOfBirth),
       isNeutered,
@@ -89,7 +77,7 @@ export async function getBoxPrices(
       Frequency.TwoWeek,
       isEnabledTransitionPeriod
     ),
-    daily: await calculateTotalPerDayPrice(
+    daily: await priceService.calculateTotalPerDayPrice(
       breeds,
       new Date(dateOfBirth),
       isNeutered,
@@ -110,37 +98,28 @@ export async function getMinPerDayPrice(
     'breeds' | 'dateOfBirth' | 'isNeutered' | 'weight' | 'bodyCondition' | 'activityLevel'
   >
 ): Promise<MinPricesDto> {
-  const breeds =
-    dog.breeds && dog.breeds.length > 0
-      ? await executeQuery(async (queryRunner) => {
-          return queryRunner.manager.find(Breed, {
-            where: {
-              id: In(dog.breeds!),
-            },
-          });
-        })
-      : [];
+  const breeds = dog.breeds && dog.breeds.length > 0 ? await breedService.getByIds(dog.breeds) : [];
   return {
-    halfPlan: await calculateTotalPerDayPrice(
+    halfPlan: await priceService.calculateTotalPerDayPrice(
       breeds,
       new Date(dog.dateOfBirth),
       dog.isNeutered,
       dog.weight,
       dog.bodyCondition,
       dog.activityLevel,
-      { recipe1: getTheCheapestRecipe() },
+      { recipe1: priceService.cheapestRecipe() },
       MealPlan.Half,
       Frequency.TwoWeek,
       true
     ),
-    fullPlan: await calculateTotalPerDayPrice(
+    fullPlan: await priceService.calculateTotalPerDayPrice(
       breeds,
       new Date(dog.dateOfBirth),
       dog.isNeutered,
       dog.weight,
       dog.bodyCondition,
       dog.activityLevel,
-      { recipe1: getTheCheapestRecipe() },
+      { recipe1: priceService.cheapestRecipe() },
       MealPlan.Full,
       Frequency.TwoWeek,
       true
@@ -207,7 +186,7 @@ export async function initializeStripeTranscation() {
     setup_future_usage: 'off_session',
   });
 
-  const paymentIntent = await retrivePaymentIntent(transaction.pspReference);
+  const paymentIntent = await stripeClient.retrivePaymentIntent(transaction.pspReference);
 
   await redisService.setStorePaymentIntent(order.id, paymentIntent.id);
 
@@ -281,7 +260,7 @@ export async function handleMutateDraftOrder(data: HandleMutateDraftOrderAction)
   );
 
   // link user to the payment intent
-  await updatePaymentIntent(paymentIntent, { customer: user.stripe });
+  await stripeClient.updatePaymentIntent(paymentIntent, { customer: user.stripe });
 }
 
 export async function finalizeDraftOrder(paymentMethodId: string) {
@@ -317,7 +296,7 @@ export async function finalizeDraftOrder(paymentMethodId: string) {
       throw new Error('user is not linked with stripe');
     }
 
-    await attachPaymentMethod(paymentMethodId, user.stripe);
+    await stripeClient.attachPaymentMethod(paymentMethodId, user.stripe);
     await userService.attachStripePaymentMethod(user.id, paymentMethodId);
 
     await recurringService.setup(user.id, surveyDogs, deliveryDate, order);

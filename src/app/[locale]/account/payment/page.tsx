@@ -5,12 +5,12 @@ import invariant from 'ts-invariant';
 import updateCreditCardAction from './action';
 
 import { getLoginedMe } from '@/actions';
+import stripeClient from '@/clients/stripe';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
 import StripeLoader from '@/components/StripeLoader';
 import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import CardForm from '@/components/forms/Card';
-import { createSetupIntent } from '@/services/stripe';
 
 invariant(
   process.env.STRIPE_PUBLISHABLE_KEY,
@@ -20,7 +20,7 @@ invariant(
 export default async function Payments() {
   const t = await getTranslations();
   const me = await getLoginedMe();
-  const setupIntent = await createSetupIntent({
+  const setupIntent = await stripeClient.createSetupIntent({
     customer: me.stripe,
     payment_method_types: ['card'],
     usage: 'off_session',

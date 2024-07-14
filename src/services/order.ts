@@ -1,8 +1,9 @@
 import Stripe from 'stripe';
 import invariant from 'ts-invariant';
 
-import { findProducts, getThrowableChannel } from './api';
+import channelService from './channel';
 import { CheckoutInitialTransactionError } from './checkout';
+import productService from './product';
 
 import { ActivityLevel, BodyCondition, Frequency, MealPlan, Recipe } from '@/enums';
 import {
@@ -75,7 +76,7 @@ class OrderService {
   async create(dogs: DogOrderCreate[], starterBox: boolean) {
     invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
-    const channel = await getThrowableChannel();
+    const channel = await channelService.getDefault();
 
     const productSlugsToBeAddToLine = [];
 
@@ -93,7 +94,7 @@ class OrderService {
     }
 
     // make sure the settings of saleor is ready for create checkout
-    const products = await findProducts({
+    const products = await productService.find({
       channel: process.env.SALEOR_CHANNEL_SLUG,
       where: {
         slug: {

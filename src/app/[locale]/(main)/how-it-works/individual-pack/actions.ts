@@ -5,14 +5,14 @@ import invariant from 'ts-invariant';
 import { getCartCookie, setCartCookie } from '@/actions';
 import { IndividualRecipePack } from '@/enums';
 import { individualPackProducts, individualPackProductsValues } from '@/products';
-import { findProducts } from '@/services/api';
 import checkoutService from '@/services/checkout';
+import productService from '@/services/product';
 import { CartReturn } from '@/types/dto';
 
 export async function getProducts() {
   invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
-  const products = await findProducts({
+  const products = await productService.find({
     channel: process.env.SALEOR_CHANNEL_SLUG,
     where: {
       slug: {

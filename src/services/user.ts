@@ -1,7 +1,6 @@
 import { headers } from 'next/headers';
 
-import { createCustomer } from './stripe';
-
+import stripeClient from '@/clients/stripe';
 import { User } from '@/entities';
 import {
   CountryCode,
@@ -241,7 +240,7 @@ class UserService {
   async attachStripe(id: string) {
     const user = await this.find(id);
     if (!user.stripe) {
-      const cus = await createCustomer({ email: user.email });
+      const cus = await stripeClient.createCustomer({ email: user.email });
       await executeQuery(async (queryRunner) => {
         await queryRunner.manager.update(User, id, { stripe: cus.id });
       });

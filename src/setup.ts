@@ -45,7 +45,7 @@ import { executeGraphQL } from './helpers/graphql';
 import { nativeCeil } from './helpers/number';
 import { executeQuery } from './helpers/queryRunner';
 import { individualPackProductsValues, subscriptionProductsValues } from './products';
-import { findProducts } from './services/api';
+import productService from './services/product';
 
 import AppDataSource from '@/AppDataSource';
 import seeders from '@/seeders';
@@ -542,7 +542,7 @@ async function setupSubscriptionProducts(
   console.log('setup subscription products...');
 
   // create placeholder product if not exists
-  const products = await findProducts({
+  const products = await productService.find({
     where: {
       slug: {
         oneOf: subscriptionProductsValues.map((product) => product.slug),
@@ -635,7 +635,7 @@ async function setupIndividualProducts(
 ): Promise<ProductFragment[]> {
   console.log('setup individual products...');
 
-  const products = await findProducts({
+  const products = await productService.find({
     where: {
       slug: {
         oneOf: individualPackProductsValues.map((product) => product.slug),

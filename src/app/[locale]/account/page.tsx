@@ -6,6 +6,7 @@ import React from 'react';
 import ClickableBlock from './ClickableBlock';
 
 import { getLoginedMeFullSize } from '@/actions';
+import stripeClient from '@/clients/stripe';
 import Container from '@/components/Container';
 import Bell from '@/components/icons/Bell';
 import Billing from '@/components/icons/Billing';
@@ -16,7 +17,6 @@ import StripeNotReadyError from '@/errors/StripeNotReadyError';
 import { GetOrderDocument } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
 import getSentence from '@/servers/getSentence';
-import { retrieveCustomerPaymentMethod } from '@/services/stripe';
 
 export default async function Account() {
   const t = await getTranslations();
@@ -36,7 +36,7 @@ export default async function Account() {
     throw new StripeNotReadyError(id);
   }
 
-  const { card } = await retrieveCustomerPaymentMethod(stripePaymentMethod, stripe);
+  const { card } = await stripeClient.retrieveCustomerPaymentMethod(stripePaymentMethod, stripe);
 
   if (!card) {
     throw new Error('unknown error in stripe');
