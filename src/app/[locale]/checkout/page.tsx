@@ -19,11 +19,11 @@ import UnderlineButton from '@/components/buttons/UnderlineButton';
 import CouponForm from '@/components/forms/Coupon';
 import GuestCheckoutForm from '@/components/forms/GuestCheckout';
 import { getRecurringBoxMinDeliveryDate } from '@/helpers/shipment';
-import { getCalendarEvents } from '@/services/calendar';
+import calendarService from '@/services/calendar';
 
 export default async function Checkout() {
   const t = await getTranslations();
-  const calendarEvents = await getCalendarEvents();
+  const calendarEvents = await calendarService.getCalendarEvents();
   const minDeliveryDate = getRecurringBoxMinDeliveryDate(calendarEvents);
   const { paymentIntent, publishableKey } = await initializeStripeTranscation();
 

@@ -48,7 +48,8 @@ function recipesBoxPriceOptions(
   bodyCondition: BodyCondition,
   activityLevel: ActivityLevel,
   recipes: { recipe1?: Recipe; recipe2?: Recipe },
-  mealPlan: MealPlan
+  mealPlan: MealPlan,
+  isEnabledTransitionPeriod: boolean
 ) {
   const dateOfBirth =
     typeof age === 'string' ? age : getDateOfBirth(age?.years, age?.months).toISOString();
@@ -64,6 +65,7 @@ function recipesBoxPriceOptions(
       recipes.recipe1,
       recipes.recipe2,
       mealPlan,
+      isEnabledTransitionPeriod,
     ],
     queryFn: () =>
       getBoxPrices(
@@ -74,7 +76,8 @@ function recipesBoxPriceOptions(
         bodyCondition,
         activityLevel,
         recipes,
-        mealPlan
+        mealPlan,
+        isEnabledTransitionPeriod
       ),
   });
 }
@@ -126,6 +129,7 @@ export default function RecommendedPlanFragment() {
     },
   });
   const { recipes, selectedRecipes, containsTwoRecipes } = useRecipeStatus(watch);
+  const enabledTransitionPeriod = stringToBoolean(watch('transition'));
   const { data: boxPrice, isLoading } = useQuery(
     recipesBoxPriceOptions(
       breeds!,
@@ -135,7 +139,8 @@ export default function RecommendedPlanFragment() {
       bodyCondition!,
       activityLevel!,
       recipes,
-      mealPlan!
+      mealPlan!,
+      enabledTransitionPeriod!
     )
   );
 

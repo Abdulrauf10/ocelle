@@ -19,13 +19,13 @@ import { executeQuery } from './helpers/queryRunner';
 import { getRecurringBoxMinDeliveryDate } from './helpers/shipment';
 import { redirect } from './navigation';
 import saleorAuthClient from './saleorAuthClient';
-import { getCalendarEvents } from './services/calendar';
+import calendarService from './services/calendar';
 import { BreedDto } from './types/dto';
 
 // here for global actions
 
 export async function getEvents() {
-  return await getCalendarEvents();
+  return await calendarService.getCalendarEvents();
 }
 
 export async function getBreeds(): Promise<BreedDto[]> {
@@ -212,7 +212,7 @@ export async function isAvailableEmailAddress(email: string) {
  * calculate the delivery date after order placement
  */
 export async function getClosestDeliveryDate() {
-  return getRecurringBoxMinDeliveryDate(await getCalendarEvents()).toISOString();
+  return getRecurringBoxMinDeliveryDate(await calendarService.getCalendarEvents()).toISOString();
 }
 
 export async function setCartCookie(value: string) {

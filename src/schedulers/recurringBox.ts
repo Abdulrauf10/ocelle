@@ -1,6 +1,6 @@
 import { User } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
-import { handleRecurringBox } from '@/services/recurring';
+import recurringService from '@/services/recurring';
 
 export default async function recurringBoxScheduler() {
   console.log('[Recurring Box] Start: %s', new Date());
@@ -18,7 +18,7 @@ export default async function recurringBoxScheduler() {
   console.log('[Recurring Box] Total user to handle: %s', users.length);
   for (const user of users) {
     try {
-      await handleRecurringBox(user);
+      await recurringService.handle(user);
     } catch (e) {
       console.error('[Recurring Box] Failed to handle user with id: %s', user.id);
       console.error(e);

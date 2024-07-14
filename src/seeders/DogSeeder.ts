@@ -21,7 +21,7 @@ import {
   getEditableRecurringBoxDeadline,
   getRecurringBoxMinDeliveryDate,
 } from '@/helpers/shipment';
-import { getCalendarEvents } from '@/services/calendar';
+import calendarService from '@/services/calendar';
 
 export default class DogSeeder extends Seeder {
   /**
@@ -43,7 +43,7 @@ export default class DogSeeder extends Seeder {
   }
 
   async run(queryRunner: QueryRunner): Promise<void> {
-    const events = await getCalendarEvents();
+    const events = await calendarService.getCalendarEvents();
     const today = startOfDay(new Date());
     const userRepository = queryRunner.manager.getRepository(User);
     const dogRepository = queryRunner.manager.getRepository(Dog);

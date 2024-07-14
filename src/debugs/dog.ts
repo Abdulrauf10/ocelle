@@ -3,7 +3,7 @@ import { startOfDay } from 'date-fns';
 import { ActivityLevel, BodyCondition, FoodAllergies, Pickiness, Recipe } from '@/enums';
 import { isRecommendedRecipe } from '@/helpers/dog';
 import { getClosestDeliveryDateByDate } from '@/helpers/shipment';
-import { getCalendarEvents } from '@/services/calendar';
+import calendarService from '@/services/calendar';
 import { CalendarEvent } from '@/types';
 
 function getRecommendedRecipeData(
@@ -41,7 +41,7 @@ function getDeliveryDateData(events: CalendarEvent[], startDate: Date) {
 }
 
 export async function printDefaultDeliveryDate() {
-  const events = await getCalendarEvents();
+  const events = await calendarService.getCalendarEvents();
   const table = [
     getDeliveryDateData(events, new Date('2024-04-17')),
     getDeliveryDateData(events, new Date('2024-04-26')),

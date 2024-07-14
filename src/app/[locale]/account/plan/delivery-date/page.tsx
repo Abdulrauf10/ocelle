@@ -12,12 +12,12 @@ import ShippableNote from '@/components/notes/Shippable';
 import { Shipment } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getRecurringBoxMinDeliveryDate } from '@/helpers/shipment';
-import { getCalendarEvents } from '@/services/calendar';
+import calendarService from '@/services/calendar';
 
 export default async function PlanDeliveryDate() {
   const { id } = await getLoginedMe();
   const t = await getTranslations();
-  const calendarEvents = await getCalendarEvents();
+  const calendarEvents = await calendarService.getCalendarEvents();
   const minDeliveryDate = getRecurringBoxMinDeliveryDate(calendarEvents);
   const shipments = await executeQuery(async (queryRunner) => {
     return await queryRunner.manager.find(Shipment, {

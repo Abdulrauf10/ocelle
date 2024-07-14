@@ -10,7 +10,6 @@ import {
   StripeCardCvcElementChangeEvent,
   StripeCardExpiryElementChangeEvent,
   StripeCardNumberElementChangeEvent,
-  StripeElementChangeEvent,
 } from '@stripe/stripe-js';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';

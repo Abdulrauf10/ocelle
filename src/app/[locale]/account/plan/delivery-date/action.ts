@@ -8,7 +8,7 @@ import { getLoginedMe } from '@/actions';
 import { Shipment } from '@/entities';
 import { executeQuery } from '@/helpers/queryRunner';
 import { getEditableRecurringBoxDeadline } from '@/helpers/shipment';
-import { getCalendarEvents } from '@/services/calendar';
+import calendarService from '@/services/calendar';
 
 interface SetDeliveryDateAction {
   date: Date;
@@ -27,7 +27,7 @@ export default async function setDeliveryDateAction(data: SetDeliveryDateAction)
 
   const deliveryDate = startOfDay(value.date);
   const me = await getLoginedMe();
-  const events = await getCalendarEvents();
+  const events = await calendarService.getCalendarEvents();
   const today = startOfDay(new Date());
   const editableDeadline = getEditableRecurringBoxDeadline(events, deliveryDate);
 

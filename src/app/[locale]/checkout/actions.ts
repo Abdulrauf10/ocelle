@@ -9,9 +9,9 @@ import { updateCheckoutDataActionSchema } from './validators';
 import { deleteCartCookie, getCartCookie } from '@/actions';
 import { getRecurringBoxMinDeliveryDate, isLegalDeliveryDate } from '@/helpers/shipment';
 import { redirect } from '@/navigation';
-import { getCalendarEvents } from '@/services/calendar';
+import calendarService from '@/services/calendar';
 import checkoutService from '@/services/checkout';
-import { getStoreDeliveryDate, setStoreDeliveryDate } from '@/services/redis';
+import redisService from '@/services/redis';
 import { CartReturn } from '@/types/dto';
 
 export async function initializeStripeTranscation() {
@@ -19,7 +19,11 @@ export async function initializeStripeTranscation() {
 
   invariant(checkoutId, 'checkout not found in the cookie');
 
-  return await checkoutService.initialTransaction(checkoutId);
+  return await checkoutService.initialTransaction(checkoutId, {
+    automatic_payment_methods: {
+      enabled: true,
+    },
+  });
 }
 
 export async function applyCoupon({ coupon }: { coupon: string }) {
@@ -72,7 +76,7 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
     throw new Error('schema is not valid');
   }
 
-  const calendarEvents = await getCalendarEvents();
+  const calendarEvents = await calendarService.getCalendarEvents();
 
   if (
     !isLegalDeliveryDate(value.deliveryDate, calendarEvents) ||
@@ -83,7 +87,7 @@ export async function updateCheckoutData(data: UpdateCheckoutDataAction) {
 
   const checkout = await checkoutService.getById(checkoutId);
 
-  await setStoreDeliveryDate(checkout.id, value.deliveryDate);
+  await redisService.setStoreDeliveryDate(checkout.id, value.deliveryDate);
 
   await checkoutService.updateEmail(checkout.id, value.email);
   await checkoutService.updateAddress(
@@ -110,7 +114,7 @@ export async function getOrderConfigurations() {
     return undefined;
   }
 
-  const deliveryDate = await getStoreDeliveryDate(id);
+  const deliveryDate = await redisService.getStoreDeliveryDate(id);
 
   if (!deliveryDate) {
     return undefined;

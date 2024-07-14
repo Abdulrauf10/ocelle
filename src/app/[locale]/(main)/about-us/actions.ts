@@ -4,7 +4,7 @@ import textToSpeech from '@google-cloud/text-to-speech';
 import { GoogleAuth, grpc } from 'google-gax';
 import invariant from 'ts-invariant';
 
-import { getOcelleTextToSpeech, setOcelleTextToSpeech } from '@/services/redis';
+import redisService from '@/services/redis';
 
 function getApiKeyCredentials() {
   invariant(process.env.GOOGLE_API_KEY, 'Missing GOOGLE_API_KEY env variable');
@@ -20,7 +20,7 @@ function getApiKeyCredentials() {
 }
 
 export async function getSpeech() {
-  const cache = await getOcelleTextToSpeech();
+  const cache = await redisService.getOcelleTextToSpeech();
   if (cache) {
     return cache;
   }
@@ -39,7 +39,7 @@ export async function getSpeech() {
     throw new Error('failed to request the speech');
   }
 
-  await setOcelleTextToSpeech(response.audioContent);
+  await redisService.setOcelleTextToSpeech(response.audioContent);
 
   return response.audioContent;
 }

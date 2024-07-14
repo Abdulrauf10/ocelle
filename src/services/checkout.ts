@@ -1,3 +1,4 @@
+import Stripe from 'stripe';
 import invariant from 'ts-invariant';
 
 import {
@@ -92,7 +93,10 @@ class CheckoutService {
 
     return checkoutCreate.checkout!;
   }
-  async initialTransaction(id: string) {
+  async initialTransaction(
+    id: string,
+    data: Omit<Stripe.PaymentIntentCreateParams, 'amount' | 'currency'>
+  ) {
     const checkout = await this.getById(id);
 
     const { transactionInitialize } = await executeGraphQL(InitializeTransactionDocument, {
@@ -100,11 +104,7 @@ class CheckoutService {
         checkoutOrOrderId: checkout.id,
         paymentGateway: {
           id: getStripeAppId(),
-          data: {
-            automatic_payment_methods: {
-              enabled: true,
-            },
-          },
+          data,
         },
       },
     });

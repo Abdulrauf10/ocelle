@@ -26,109 +26,119 @@ interface I1823ICalendar {
 const TEXT_TO_SPEECH_PARAMS_EX = 60 * 60 * 24 * 30; // cache alive 30 days
 const CHECKOUT_PARAMS_EX = 60 * 60 * 24 * 60; // cache alive 60 days
 
-export function createRedisClient() {
-  return new Redis();
-}
+class RedisService {
+  createRedisClient() {
+    return new Redis();
+  }
 
-export async function get1823PublicHolidays() {
-  const value = await createRedisClient().get(`${process.env.REDIS_PREFIX}:1823-public-holidays`);
-  if (value === null) {
+  async get1823PublicHolidays() {
+    const value = await this.createRedisClient().get(
+      `${process.env.REDIS_PREFIX}:1823-public-holidays`
+    );
+    if (value === null) {
+      return value;
+    }
+    return JSON.parse(value) as I1823ICalendar;
+  }
+
+  async set1823PublicHolidays(calendar: I1823ICalendar) {
+    return this.createRedisClient().set(
+      `${process.env.REDIS_PREFIX}:1823-public-holidays`,
+      JSON.stringify(calendar),
+      'EX',
+      60 * 60 * 24 * 30 // cache alive 30 days
+    );
+  }
+
+  async getOcelleTextToSpeech() {
+    const value = await this.createRedisClient().get(
+      `${process.env.REDIS_PREFIX}:ocelle-text-to-speech`
+    );
+    if (value === null) {
+      return value;
+    }
+    return new Uint8Array(Buffer.from(value, 'base64'));
+  }
+
+  async setOcelleTextToSpeech(array: Uint8Array) {
+    return this.createRedisClient().set(
+      `${process.env.REDIS_PREFIX}:ocelle-text-to-speech`,
+      Buffer.from(array).toString('base64'),
+      'EX',
+      TEXT_TO_SPEECH_PARAMS_EX
+    );
+  }
+
+  async getStoreDeliveryDate(id: string) {
+    const k = `${process.env.REDIS_PREFIX}:store:deliveryDate:${id}`;
+    const value = await this.createRedisClient().get(k);
+    if (value === null) {
+      return value;
+    }
+    return typeof value === 'string' ? new Date(value) : value;
+  }
+
+  async setStoreDeliveryDate(id: string, deliveryDate?: Date) {
+    const k = `${process.env.REDIS_PREFIX}:store:deliveryDate:${id}`;
+    if (!deliveryDate) {
+      return this.createRedisClient().del(k);
+    }
+    return this.createRedisClient().set(k, deliveryDate.toISOString(), 'EX', CHECKOUT_PARAMS_EX);
+  }
+
+  async getStoreDogs(id: string) {
+    const k = `${process.env.REDIS_PREFIX}:store:dogs:${id}`;
+    const value = await this.createRedisClient().get(k);
+    if (value === null) {
+      return value;
+    }
+    return JSON.parse(value) as DogDto[];
+  }
+
+  async setStoreDogs(id: string, dogs?: DogDto[]) {
+    const k = `${process.env.REDIS_PREFIX}:store:dogs:${id}`;
+    if (!dogs) {
+      return this.createRedisClient().del(k);
+    }
+    return this.createRedisClient().set(k, JSON.stringify(dogs), 'EX', CHECKOUT_PARAMS_EX);
+  }
+
+  async getStoreEmail(id: string) {
+    const k = `${process.env.REDIS_PREFIX}:store:email:${id}`;
+    const value = await this.createRedisClient().get(k);
     return value;
   }
-  return JSON.parse(value) as I1823ICalendar;
-}
 
-export async function set1823PublicHolidays(calendar: I1823ICalendar) {
-  return createRedisClient().set(
-    `${process.env.REDIS_PREFIX}:1823-public-holidays`,
-    JSON.stringify(calendar),
-    'EX',
-    60 * 60 * 24 * 30 // cache alive 30 days
-  );
-}
+  async setStoreEmail(id: string, email?: string) {
+    const k = `${process.env.REDIS_PREFIX}:store:email:${id}`;
+    if (!email) {
+      return this.createRedisClient().del(k);
+    }
+    return this.createRedisClient().set(k, email, 'EX', CHECKOUT_PARAMS_EX);
+  }
 
-export async function getOcelleTextToSpeech() {
-  const value = await createRedisClient().get(`${process.env.REDIS_PREFIX}:ocelle-text-to-speech`);
-  if (value === null) {
+  async getStorePaymentIntent(id: string) {
+    const k = `${process.env.REDIS_PREFIX}:store:paymentIntent:${id}`;
+    const value = await this.createRedisClient().get(k);
     return value;
   }
-  return new Uint8Array(Buffer.from(value, 'base64'));
-}
 
-export async function setOcelleTextToSpeech(array: Uint8Array) {
-  return createRedisClient().set(
-    `${process.env.REDIS_PREFIX}:ocelle-text-to-speech`,
-    Buffer.from(array).toString('base64'),
-    'EX',
-    TEXT_TO_SPEECH_PARAMS_EX
-  );
-}
-
-export async function getStoreDeliveryDate(id: string) {
-  const k = `${process.env.REDIS_PREFIX}:store:deliveryDate:${id}`;
-  const value = await createRedisClient().get(k);
-  if (value === null) {
-    return value;
+  async setStorePaymentIntent(id: string, paymentIntent?: string) {
+    const k = `${process.env.REDIS_PREFIX}:store:paymentIntent:${id}`;
+    if (!paymentIntent) {
+      return this.createRedisClient().del(k);
+    }
+    return this.createRedisClient().set(k, paymentIntent, 'EX', CHECKOUT_PARAMS_EX);
   }
-  return typeof value === 'string' ? new Date(value) : value;
-}
 
-export async function setStoreDeliveryDate(id: string, deliveryDate?: Date) {
-  const k = `${process.env.REDIS_PREFIX}:store:deliveryDate:${id}`;
-  if (!deliveryDate) {
-    return createRedisClient().del(k);
+  async deleteStoreKeys(id: string) {
+    await this.setStoreEmail(id);
+    await this.setStoreDogs(id);
+    await this.setStoreDeliveryDate(id);
+    await this.setStorePaymentIntent(id);
   }
-  return createRedisClient().set(k, deliveryDate.toISOString(), 'EX', CHECKOUT_PARAMS_EX);
 }
 
-export async function getStoreDogs(id: string) {
-  const k = `${process.env.REDIS_PREFIX}:store:dogs:${id}`;
-  const value = await createRedisClient().get(k);
-  if (value === null) {
-    return value;
-  }
-  return JSON.parse(value) as DogDto[];
-}
+const redisService = new RedisService();
 
-export async function setStoreDogs(id: string, dogs?: DogDto[]) {
-  const k = `${process.env.REDIS_PREFIX}:store:dogs:${id}`;
-  if (!dogs) {
-    return createRedisClient().del(k);
-  }
-  return createRedisClient().set(k, JSON.stringify(dogs), 'EX', CHECKOUT_PARAMS_EX);
-}
-
-export async function getStoreEmail(id: string) {
-  const k = `${process.env.REDIS_PREFIX}:store:email:${id}`;
-  const value = await createRedisClient().get(k);
-  return value;
-}
-
-export async function setStoreEmail(id: string, email?: string) {
-  const k = `${process.env.REDIS_PREFIX}:store:email:${id}`;
-  if (!email) {
-    return createRedisClient().del(k);
-  }
-  return createRedisClient().set(k, email, 'EX', CHECKOUT_PARAMS_EX);
-}
-
-export async function getStorePaymentIntent(id: string) {
-  const k = `${process.env.REDIS_PREFIX}:store:paymentIntent:${id}`;
-  const value = await createRedisClient().get(k);
-  return value;
-}
-
-export async function setStorePaymentIntent(id: string, paymentIntent?: string) {
-  const k = `${process.env.REDIS_PREFIX}:store:paymentIntent:${id}`;
-  if (!paymentIntent) {
-    return createRedisClient().del(k);
-  }
-  return createRedisClient().set(k, paymentIntent, 'EX', CHECKOUT_PARAMS_EX);
-}
-
-export async function deleteStoreKeys(id: string) {
-  await setStoreEmail(id);
-  await setStoreDogs(id);
-  await setStoreDeliveryDate(id);
-  await setStorePaymentIntent(id);
-}
+export default redisService;

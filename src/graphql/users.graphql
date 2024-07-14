@@ -116,8 +116,8 @@ mutation RequestPasswordReset($email: String!, $redirectUrl: String!) {
   }
 }
 
-query FindUser($email: String!) {
-  user(email: $email) {
+query FindUser($id: ID, $email: String) {
+  user(id: $id, email: $email) {
     ...UserDetails
   }
 }
