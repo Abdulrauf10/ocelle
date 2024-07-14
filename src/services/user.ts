@@ -1,23 +1,95 @@
 import { headers } from 'next/headers';
+import { FindOneOptions } from 'typeorm';
 
-import stripeClient from '@/clients/stripe';
 import { User } from '@/entities';
 import {
   CountryCode,
   CreateAddressDocument,
   FindUserDocument,
+  GetCurrentUserDocument,
+  GetCurrentUserFullSizeDocument,
   RegisterAccountDocument,
   SetDefaultAddressDocument,
 } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
 
+export class UserMeError extends Error {}
 export class UserNotFoundError extends Error {}
 export class UserCreateError extends Error {}
 export class UserAssignAddressError extends Error {}
 export class UserUpdateAddressError extends Error {}
 
+async function findOrCreateSaleorUser(
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string
+) {
+  const { user } = await executeGraphQL(FindUserDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: { email },
+  });
+  if (user) {
+    return user;
+  }
+  const headersList = headers();
+  const origin = headersList.get('origin');
+  const { accountRegister } = await executeGraphQL(RegisterAccountDocument, {
+    variables: {
+      input: {
+        firstName,
+        lastName,
+        password,
+        email,
+        redirectUrl: `${origin}/auth/verify-email`,
+        channel: process.env.SALEOR_CHANNEL_SLUG,
+      },
+    },
+  });
+  if (!accountRegister || accountRegister.errors.length > 0) {
+    throw new UserCreateError();
+  }
+  return accountRegister.user!;
+}
+
 class UserService {
+  async me({ fullsize }: { fullsize?: boolean } = {}) {
+    const { me } = await executeGraphQL(
+      fullsize ? GetCurrentUserFullSizeDocument : GetCurrentUserDocument,
+      {
+        cache: 'no-cache',
+      }
+    );
+
+    if (!me) {
+      throw new UserMeError('saleor me not found');
+    }
+
+    const relations: FindOneOptions<User>['relations'] = {
+      orders: true,
+      dogs: {
+        plan: true,
+        breeds: { breed: true },
+      },
+    };
+
+    const user = await executeQuery((queryRunner) =>
+      queryRunner.manager.findOne(User, {
+        where: { id: me.id },
+        relations,
+      })
+    );
+
+    if (!user) {
+      throw new UserMeError('database me not found');
+    }
+
+    return Object.freeze({ ...user, ...me });
+  }
   async getById(id: string) {
     const { user } = await executeGraphQL(FindUserDocument, {
       withAuth: false,
@@ -31,7 +103,7 @@ class UserService {
       throw new UserNotFoundError('not found in saleor');
     }
 
-    const model = await executeQuery(async (queryRunner) =>
+    const model = await executeQuery((queryRunner) =>
       queryRunner.manager.findOne(User, { where: { id } })
     );
 
@@ -54,7 +126,7 @@ class UserService {
       throw new UserNotFoundError('not found in saleor');
     }
 
-    const model = await executeQuery(async (queryRunner) =>
+    const model = await executeQuery((queryRunner) =>
       queryRunner.manager.findOne(User, { where: { id: user.id } })
     );
 
@@ -73,25 +145,7 @@ class UserService {
     phone: { code: string; value: string },
     whatsapp?: { code: string; value: string }
   ) {
-    const headersList = headers();
-    const origin = headersList.get('origin');
-    const { accountRegister } = await executeGraphQL(RegisterAccountDocument, {
-      variables: {
-        input: {
-          firstName,
-          lastName,
-          password,
-          email,
-          redirectUrl: `${origin}/auth/verify-email`,
-          channel: process.env.SALEOR_CHANNEL_SLUG,
-        },
-      },
-    });
-    // TODO: patch saleor acccount created but not database record
-    if (!accountRegister || accountRegister.errors.length > 0) {
-      throw new UserCreateError();
-    }
-    const saleorUser = accountRegister.user!;
+    const saleorUser = await findOrCreateSaleorUser(firstName, lastName, email, password);
 
     const user = await executeQuery(async (queryRunner) => {
       const user = queryRunner.manager.create(User, {
@@ -240,6 +294,7 @@ class UserService {
   async attachStripe(id: string) {
     const user = await this.find(id);
     if (!user.stripe) {
+      const { default: stripeClient } = await import('@/clients/stripe');
       const cus = await stripeClient.createCustomer({ email: user.email });
       await executeQuery(async (queryRunner) => {
         await queryRunner.manager.update(User, id, { stripe: cus.id });

@@ -2,24 +2,17 @@
 
 import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import { cookies } from 'next/headers';
-import invariant from 'ts-invariant';
 
 import { CART_COOKIE, DOG_SELECT_COOKIE, LOGIN_PATH, ORDER_COOKIE } from './consts';
-import { Breed, User } from './entities';
-import {
-  AddressValidationRulesDocument,
-  CountryCode,
-  FindUserDocument,
-  GetCheckoutDocument,
-  GetCurrentUserDocument,
-  GetCurrentUserFullSizeDocument,
-} from './gql/graphql';
-import { executeGraphQL } from './helpers/graphql';
-import { executeQuery } from './helpers/queryRunner';
+import { CountryCode } from './gql/graphql';
 import { getRecurringBoxMinDeliveryDate } from './helpers/shipment';
 import { redirect } from './navigation';
 import saleorAuthClient from './saleorAuthClient';
+import breedService from './services/breed';
 import calendarService from './services/calendar';
+import checkoutService, { CheckoutNotFoundError } from './services/checkout';
+import shippingService from './services/shipping';
+import userService, { UserMeError, UserNotFoundError } from './services/user';
 import { BreedDto } from './types/dto';
 
 // here for global actions
@@ -29,156 +22,60 @@ export async function getEvents() {
 }
 
 export async function getBreeds(): Promise<BreedDto[]> {
-  const breeds = await executeQuery(async (queryRunner) => await queryRunner.manager.find(Breed));
+  const breeds = await breedService.list();
   return breeds.map((breed) => {
-    return {
-      id: breed.id,
-      name: breed.name,
-      size: breed.size,
-      uid: breed.uid,
-    };
+    return { id: breed.id, name: breed.name, size: breed.size, uid: breed.uid };
   });
 }
 
 export async function getDistricts(locale: string, countryArea: CountryCode) {
-  const { addressValidationRules } = await executeGraphQL(AddressValidationRulesDocument, {
-    variables: {
-      countryArea,
-    },
-  });
-
-  if (!addressValidationRules) {
-    throw new Error('failed to get districts');
-  }
-
-  const districts: Array<{ raw: string; verbose: string }> = [];
-
-  for (const city of addressValidationRules.cityChoices) {
-    if (city.raw && city.verbose) {
-      if (locale === 'en') {
-        if (/^[a-zA-Z\s]+$/.test(city.verbose)) {
-          districts.push({
-            raw: city.raw,
-            verbose: city.verbose,
-          });
-        }
-      } else {
-        districts.push({
-          raw: city.raw,
-          verbose: city.verbose,
-        });
-      }
-    }
-  }
-
-  districts.sort((a, b) => {
-    if (a.verbose < b.verbose) {
-      return -1;
-    }
-    if (a.verbose > b.verbose) {
-      return 1;
-    }
-    return 0;
-  });
-
-  return districts;
+  return shippingService.districts(locale, countryArea);
 }
 
 export async function getCart() {
-  invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
+  const cartId = await getCartCookie();
 
-  const cartOrCheckoutId = await getCartCookie();
+  if (!cartId) {
+    return undefined;
+  }
 
-  if (cartOrCheckoutId) {
-    const { checkout } = await executeGraphQL(GetCheckoutDocument, {
-      withAuth: false,
-      headers: {
-        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-      },
-      variables: { id: cartOrCheckoutId },
-    });
-    if (checkout) {
-      return checkout;
+  try {
+    return await checkoutService.getById(cartId);
+  } catch (err) {
+    if (err instanceof CheckoutNotFoundError) {
+      return undefined;
+    } else {
+      throw err;
     }
   }
 }
 
 export async function getClientLoginedMe() {
-  const { me } = await executeGraphQL(GetCurrentUserDocument, {
-    cache: 'no-cache',
-  });
-
-  if (!me) {
-    return null;
+  try {
+    return structuredClone(await userService.me());
+  } catch (err) {
+    if (err instanceof UserMeError) {
+      return undefined;
+    } else {
+      throw err;
+    }
   }
-
-  const user = await executeQuery(async (queryRunner) => {
-    return queryRunner.manager.findOne(User, { where: { id: me.id } });
-  });
-
-  if (!user) {
-    return null;
-  }
-
-  return { ...user, ...me };
 }
 
 export async function getLoginedMe() {
-  const { me } = await executeGraphQL(GetCurrentUserDocument, {
-    cache: 'no-cache',
-  });
-
-  if (!me) {
-    throw redirect(LOGIN_PATH);
+  try {
+    return await userService.me();
+  } catch (err) {
+    throw err instanceof UserMeError ? redirect(LOGIN_PATH) : err;
   }
-
-  const user = await executeQuery(async (queryRunner) => {
-    return queryRunner.manager.findOne(User, {
-      where: { id: me.id },
-      relations: {
-        orders: true,
-        dogs: {
-          plan: true,
-          breeds: { breed: true },
-        },
-      },
-    });
-  });
-
-  if (!user) {
-    throw redirect(LOGIN_PATH);
-  }
-
-  return { ...user, ...me };
 }
 
 export async function getLoginedMeFullSize() {
-  const { me } = await executeGraphQL(GetCurrentUserFullSizeDocument, {
-    cache: 'no-cache',
-  });
-
-  if (!me) {
-    throw redirect(LOGIN_PATH);
+  try {
+    return await userService.me({ fullsize: true });
+  } catch (err) {
+    throw err instanceof UserMeError ? redirect(LOGIN_PATH) : err;
   }
-
-  const user = await executeQuery(async (queryRunner) => {
-    return queryRunner.manager.findOne(User, {
-      where: { id: me.id },
-      relations: {
-        orders: true,
-        dogs: {
-          plan: true,
-          breeds: { breed: true },
-        },
-      },
-    });
-  });
-
-  if (!user) {
-    throw redirect(LOGIN_PATH);
-  }
-
-  return { ...user, ...me };
 }
 
 export async function logout() {
@@ -187,25 +84,15 @@ export async function logout() {
 }
 
 export async function isAvailableEmailAddress(email: string) {
-  const { user } = await executeGraphQL(FindUserDocument, {
-    withAuth: false,
-    headers: {
-      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-    },
-    variables: {
-      email: email.toLowerCase(),
-    },
-  });
-
-  if (!user) {
-    return true;
+  try {
+    await userService.find(email);
+    return false;
+  } catch (err) {
+    if (err instanceof UserNotFoundError) {
+      return true;
+    }
+    throw err;
   }
-
-  const exists = await executeQuery(async (queryRunner) => {
-    return queryRunner.manager.exists(User, { where: { id: user.id } });
-  });
-
-  return !exists;
 }
 
 /**

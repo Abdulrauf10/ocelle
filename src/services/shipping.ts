@@ -1,12 +1,58 @@
 import invariant from 'ts-invariant';
 
 import { DEFUALT_SHIPPING_ZONE } from '@/consts';
-import { FindShippingZonesDocument } from '@/gql/graphql';
+import {
+  AddressValidationRulesDocument,
+  CountryCode,
+  FindShippingZonesDocument,
+} from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
 
 export class ShippingMethodNotFoundError extends Error {}
+export class ShippingDistrictsError extends Error {}
 
 class ShippingService {
+  async districts(locale: string, countryArea: CountryCode) {
+    const { addressValidationRules } = await executeGraphQL(AddressValidationRulesDocument, {
+      variables: {
+        countryArea,
+      },
+    });
+
+    if (!addressValidationRules) {
+      throw new ShippingDistrictsError();
+    }
+
+    const districts: Array<{ raw: string; verbose: string }> = [];
+
+    for (const city of addressValidationRules.cityChoices) {
+      if (city.raw && city.verbose) {
+        if (locale === 'en') {
+          if (/^[a-zA-Z\s]+$/.test(city.verbose)) {
+            districts.push({
+              raw: city.raw,
+              verbose: city.verbose,
+            });
+          }
+        } else {
+          districts.push({
+            raw: city.raw,
+            verbose: city.verbose,
+          });
+        }
+      }
+    }
+
+    return districts.sort((a, b) => {
+      if (a.verbose < b.verbose) {
+        return -1;
+      }
+      if (a.verbose > b.verbose) {
+        return 1;
+      }
+      return 0;
+    });
+  }
   async findShippingMethod(name: string) {
     invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
