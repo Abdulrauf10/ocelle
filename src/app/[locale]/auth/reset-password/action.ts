@@ -2,7 +2,7 @@
 
 import Joi from 'joi';
 
-import saleorAuthClient from '@/saleorAuthClient';
+import { getServerAuthClient } from '@/saleorAuthClient';
 
 interface ResetPasswordAction {
   email: string;
@@ -25,7 +25,7 @@ export default async function resetPasswordAction(data: ResetPasswordAction) {
 
   const {
     data: { setPassword },
-  } = await saleorAuthClient.resetPassword(value);
+  } = await getServerAuthClient().resetPassword(value);
 
   if (setPassword.errors) {
     console.error(setPassword.errors);

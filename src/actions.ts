@@ -9,7 +9,7 @@ import { UserMeError, UserNotFoundError } from './errors/user';
 import { CountryCode } from './gql/graphql';
 import { getRecurringBoxMinDeliveryDate } from './helpers/shipment';
 import { redirect } from './navigation';
-import saleorAuthClient from './saleorAuthClient';
+import { getServerAuthClient } from './saleorAuthClient';
 import breedService from './services/breed';
 import calendarService from './services/calendar';
 import checkoutService from './services/checkout';
@@ -81,7 +81,7 @@ export async function getLoginedMeFullSize() {
 }
 
 export async function logout() {
-  saleorAuthClient.signOut();
+  getServerAuthClient().signOut();
   redirect(LOGIN_PATH);
 }
 

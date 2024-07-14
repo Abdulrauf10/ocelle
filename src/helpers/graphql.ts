@@ -2,7 +2,7 @@ import { invariant } from 'ts-invariant';
 
 import { type TypedDocumentString } from '../gql/graphql';
 
-import saleorAuthClient from '@/saleorAuthClient';
+import { getServerAuthClient } from '@/saleorAuthClient';
 
 type GraphQLErrorResponse = {
   errors: readonly {
@@ -39,7 +39,7 @@ export async function executeGraphQL<Result, Variables>(
   };
 
   const response = withAuth
-    ? await saleorAuthClient.fetchWithAuth(process.env.SALEOR_API_URL, input)
+    ? await getServerAuthClient().fetchWithAuth(process.env.SALEOR_API_URL, input)
     : await fetch(process.env.SALEOR_API_URL, input);
 
   if (!response.ok) {

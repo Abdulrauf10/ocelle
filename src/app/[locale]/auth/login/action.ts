@@ -7,7 +7,7 @@ import { GetCurrentUserDocument } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
 import { redirect } from '@/navigation';
-import saleorAuthClient from '@/saleorAuthClient';
+import { getServerAuthClient } from '@/saleorAuthClient';
 
 interface LoginAction {
   email: string;
@@ -28,7 +28,7 @@ export default async function loginAction(data: LoginAction) {
 
   const {
     data: { tokenCreate },
-  } = await saleorAuthClient.signIn(
+  } = await getServerAuthClient().signIn(
     {
       email: value.email,
       password: value.password,
@@ -48,13 +48,13 @@ export default async function loginAction(data: LoginAction) {
   });
 
   if (!user) {
-    saleorAuthClient.signOut();
+    getServerAuthClient().signOut();
     return 'the user account is not initialled, please contact info@ocelle.dog for more.';
   }
 
   if (user.dogs.length === 0) {
     // not yet completed any surveys
-    saleorAuthClient.signOut();
+    getServerAuthClient().signOut();
     return 'please completed the dog survey before log in the system.';
   }
 
