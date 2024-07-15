@@ -1,3 +1,4 @@
+import { roundToUp } from 'round-to';
 import invariant from 'ts-invariant';
 
 import {
@@ -42,7 +43,6 @@ import {
   WeightUnitsEnum,
 } from './gql/graphql';
 import { executeGraphQL } from './helpers/graphql';
-import { nativeCeil } from './helpers/number';
 import { executeQuery } from './helpers/queryRunner';
 import { individualPackProductsValues, subscriptionProductsValues } from './products';
 import productService from './services/product';
@@ -609,7 +609,7 @@ async function setupSubscriptionProducts(
               channelListings: [
                 {
                   channelId: channel.id,
-                  price: nativeCeil(variant.pricePerUnit, 2),
+                  price: roundToUp(variant.pricePerUnit, 2),
                 },
               ],
             };

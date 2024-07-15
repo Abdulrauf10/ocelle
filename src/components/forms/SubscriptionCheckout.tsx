@@ -7,6 +7,7 @@ import { addWeeks, subDays } from 'date-fns';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { roundTo } from 'round-to';
 
 import TextField from '../controls/TextField';
 import DatePickerForm from './DatePicker';
@@ -25,7 +26,6 @@ import { EMAIL_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP } from '@/consts';
 import { MealPlan, Recipe } from '@/enums';
 import { OrderDiscountType, OrderFragment } from '@/gql/graphql';
 import { getRecipeSlug } from '@/helpers/dog';
-import { nativeRound } from '@/helpers/number';
 import {
   getEditableRecurringBoxDeadline,
   isLegalDeliveryDate,
@@ -564,7 +564,7 @@ export default function SubscriptionCheckoutForm({
                               ? t('fresh-full-plan')
                               : t('fresh-half-plan'),
                           name: dog.name,
-                          price: `\$${nativeRound(dog.perDayPrice)}`,
+                          price: `\$${roundTo(dog.perDayPrice, 1)}`,
                         })}
                       </p>
                     </div>

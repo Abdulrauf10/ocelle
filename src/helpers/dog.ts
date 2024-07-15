@@ -1,5 +1,6 @@
 import { startOfDay, subMonths, subYears } from 'date-fns';
 import dayjs from 'dayjs';
+import { roundTo } from 'round-to';
 
 import { recipePriorities } from '@/consts';
 import {
@@ -107,7 +108,7 @@ export function getWeightModifier(condition: BodyCondition) {
  * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
 export function calculateIdealWeight(currentWeight: number, condition: BodyCondition) {
-  return currentWeight * getWeightModifier(condition);
+  return roundTo(currentWeight * getWeightModifier(condition), 2);
 }
 
 /**

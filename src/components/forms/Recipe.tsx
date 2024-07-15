@@ -8,6 +8,7 @@ import pluralize from 'pluralize';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
+import { roundTo } from 'round-to';
 
 import Button from '../buttons/Button';
 import RecipeCheckbox from '../controls/RecipeCheckbox';
@@ -16,7 +17,6 @@ import PlasticBox from '../layouts/PlasticBox';
 import { ActivityLevel, BodyCondition, FoodAllergies, Pickiness, Recipe } from '@/enums';
 import { isAllergies, isRecommendedRecipe } from '@/helpers/dog';
 import { arrayToRecipe, recipeToArray } from '@/helpers/form';
-import { nativeRound } from '@/helpers/number';
 import useDefaultValues from '@/hooks/defaultValues';
 
 interface RecipeForm {
@@ -376,7 +376,7 @@ export default function RecipeForm({
       </div>
       {boxPrice && (
         <div className="mt-10 text-center font-bold text-dark-green">
-          Total Price: ${nativeRound(boxPrice.total)} (${nativeRound(boxPrice.daily)}/Day)
+          Total Price: ${roundTo(boxPrice.total, 1)} (${roundTo(boxPrice.daily, 1)}/Day)
         </div>
       )}
       <div className="mx-auto mt-10 max-w-[480px]">

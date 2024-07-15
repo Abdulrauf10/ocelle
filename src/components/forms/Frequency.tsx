@@ -3,10 +3,10 @@
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { toast } from 'react-toastify';
+import { roundTo } from 'round-to';
 
 import Button from '@/components/buttons/Button';
 import { Frequency } from '@/enums';
-import { nativeRound } from '@/helpers/number';
 import useDefaultValues from '@/hooks/defaultValues';
 
 export default function FrequencyForm({
@@ -48,7 +48,7 @@ export default function FrequencyForm({
             >
               <div className="flex-1 px-2">
                 <h2 className="heading-4 font-bold text-primary">{t('{}-days', { value: 7 })}</h2>
-                <p className="mt-1">${t('{}-per-day', { value: nativeRound(oneWeekPrice) })}</p>
+                <p className="mt-1">${t('{}-per-day', { value: roundTo(oneWeekPrice, 1) })}</p>
               </div>
               <div className="px-2">
                 {frequency === Frequency.OneWeek ? (
@@ -71,7 +71,7 @@ export default function FrequencyForm({
             >
               <div className="flex-1 px-2">
                 <h2 className="heading-4 font-bold text-primary">{t('{}-days', { value: 14 })}</h2>
-                <p className="mt-1">${t('{}-per-day', { value: nativeRound(twoWeekPrice) })}</p>
+                <p className="mt-1">${t('{}-per-day', { value: roundTo(twoWeekPrice, 1) })}</p>
               </div>
               <div className="px-2">
                 {frequency === Frequency.TwoWeek ? (

@@ -2,12 +2,12 @@
 
 import { useTranslations } from 'next-intl';
 import React from 'react';
+import { roundTo } from 'round-to';
 
 import FreshPlan from '../FreshPlan';
 import Button from '../buttons/Button';
 
 import { MealPlan } from '@/enums';
-import { nativeRound } from '@/helpers/number';
 import useDefaultValues from '@/hooks/defaultValues';
 
 export default function FreshPlanForm({
@@ -47,7 +47,7 @@ export default function FreshPlanForm({
           <FreshPlan
             title={t('fresh-full-plan')}
             picture="/meal-plan/full-plan.jpg"
-            pricePerDay={nativeRound(fullPlanPrice)}
+            pricePerDay={roundTo(fullPlanPrice, 1)}
             recommended
             selected={plan === MealPlan.Full}
             onSelect={() => setPlan(MealPlan.Full)}
@@ -59,7 +59,7 @@ export default function FreshPlanForm({
           <FreshPlan
             title={t('fresh-half-plan')}
             picture="/meal-plan/half-plan.jpg"
-            pricePerDay={nativeRound(halfPlanPrice)}
+            pricePerDay={roundTo(halfPlanPrice, 1)}
             selected={plan === MealPlan.Half}
             onSelect={() => setPlan(MealPlan.Half)}
           >

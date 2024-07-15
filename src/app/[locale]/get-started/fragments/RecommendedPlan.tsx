@@ -7,6 +7,7 @@ import pluralize from 'pluralize';
 import React from 'react';
 import { UseFormWatch, useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { roundTo } from 'round-to';
 
 import Section from '../Section';
 import Stage from '../Stage';
@@ -25,7 +26,6 @@ import PlasticBoxPreview from '@/components/layouts/PlasticBoxPreview';
 import { ActivityLevel, BodyCondition, MealPlan, Recipe } from '@/enums';
 import { getDateOfBirth, isAllergies, isRecommendedRecipe } from '@/helpers/dog';
 import { arrayToRecipe, getRecipeOptions, recipeToArray } from '@/helpers/form';
-import { nativeRound } from '@/helpers/number';
 import { booleanToString, stringToBoolean } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
 import { BreedDto } from '@/types/dto';
@@ -509,7 +509,7 @@ export default function RecommendedPlanFragment() {
                   </div>
                 </div>
               </div>
-              <div className="drop-shadow-style-1 mx-auto mt-10 max-w-[840px] rounded-[20px] border border-primary bg-white p-7 text-primary shadow-black/20">
+              <div className="mx-auto mt-10 max-w-[840px] rounded-[20px] border border-primary bg-white p-7 text-primary shadow-black/20 drop-shadow-style-1">
                 <h2 className="heading-4 font-bold">
                   {t('use-a-transition-period-in-starter-box')}
                 </h2>
@@ -575,14 +575,14 @@ export default function RecommendedPlanFragment() {
                     <div className="mr-1">{t('{}-colon', { value: t('starter-box') })}</div>
                     <div>
                       <span className="inline-block">
-                        <Price value={nativeRound(boxPrice.total)} discount />
+                        <Price value={roundTo(boxPrice.total, 1)} discount />
                         <Price
                           className="ml-1 font-bold"
-                          value={nativeRound(boxPrice.total / 2)}
+                          value={roundTo(boxPrice.total / 2, 1)}
                         />{' '}
                         (
-                        <Price value={nativeRound(boxPrice.daily)} discount />
-                        <Price className="ml-1 font-bold" value={nativeRound(boxPrice.daily / 2)} />
+                        <Price value={roundTo(boxPrice.daily, 1)} discount />
+                        <Price className="ml-1 font-bold" value={roundTo(boxPrice.daily / 2, 1)} />
                         <span className="font-bold text-dark-green">{t('per-day')}</span>)
                       </span>
                       &nbsp;

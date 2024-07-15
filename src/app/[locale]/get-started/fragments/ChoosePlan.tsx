@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { roundTo } from 'round-to';
 
 import Section from '../Section';
 import Stage from '../Stage';
@@ -14,11 +15,6 @@ import Button from '@/components/buttons/Button';
 import { MealPlan } from '@/enums';
 import { getSurveySessionStore } from '@/helpers/session';
 import { MinPricesDto } from '@/types/dto';
-
-function nativeRound(num: number, decimalPlaces: number = 1) {
-  const p = Math.pow(10, decimalPlaces);
-  return Math.round(num * p + Number.EPSILON) / p;
-}
 
 export default function ChoosePlanFragment() {
   const t = useTranslations();
@@ -69,8 +65,8 @@ export default function ChoosePlanFragment() {
               <FreshPlan
                 title={t('fresh-full-plan')}
                 picture="/meal-plan/full-plan.jpg"
-                pricePerDay={nativeRound(minPrices.fullPlan)}
-                discountedPricePerDay={nativeRound(minPrices.fullPlan / 2)}
+                pricePerDay={roundTo(minPrices.fullPlan, 1)}
+                discountedPricePerDay={roundTo(minPrices.fullPlan / 2, 1)}
                 firstDiscount
                 error={!!error}
                 recommended
@@ -84,8 +80,8 @@ export default function ChoosePlanFragment() {
               <FreshPlan
                 title={t('fresh-half-plan')}
                 picture="/meal-plan/half-plan.jpg"
-                pricePerDay={nativeRound(minPrices.halfPlan)}
-                discountedPricePerDay={nativeRound(minPrices.halfPlan / 2)}
+                pricePerDay={roundTo(minPrices.halfPlan, 1)}
+                discountedPricePerDay={roundTo(minPrices.halfPlan / 2, 1)}
                 firstDiscount
                 error={!!error}
                 selected={currentMealPlan === MealPlan.Half}
