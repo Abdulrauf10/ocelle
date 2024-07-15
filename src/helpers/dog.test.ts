@@ -1,9 +1,9 @@
 import { addDays, subMonths, subYears } from 'date-fns';
 import { describe, expect, test } from 'vitest';
 
-import { getLifeStage } from './dog';
+import { getDerMultiplier, getLifeStage } from './dog';
 
-import { Size } from '@/enums';
+import { ActivityLevel, Size } from '@/enums';
 import { LifeStage } from '@/types';
 import { BreedDto } from '@/types/dto';
 
@@ -28,18 +28,18 @@ const breeds: BreedDto[] = [
   },
 ];
 
-describe('getLifeStage', () => {
-  const lessThan12Months = addDays(subMonths(new Date(), 12), 1);
-  const lessThan16Months = addDays(subMonths(new Date(), 16), 1);
-  const exact12Months = subMonths(new Date(), 12);
-  const exact16Months = subMonths(new Date(), 16);
-  const lessThan5Years = addDays(subYears(new Date(), 5), 1);
-  const lessThan7Years = addDays(subYears(new Date(), 7), 1);
-  const lessThan9Years = addDays(subYears(new Date(), 9), 1);
-  const exact5Years = subYears(new Date(), 5);
-  const exact7Years = subYears(new Date(), 7);
-  const exact9Years = subYears(new Date(), 9);
+const lessThan12Months = addDays(subMonths(new Date(), 12), 1);
+const lessThan16Months = addDays(subMonths(new Date(), 16), 1);
+const exact12Months = subMonths(new Date(), 12);
+const exact16Months = subMonths(new Date(), 16);
+const lessThan5Years = addDays(subYears(new Date(), 5), 1);
+const lessThan7Years = addDays(subYears(new Date(), 7), 1);
+const lessThan9Years = addDays(subYears(new Date(), 9), 1);
+const exact5Years = subYears(new Date(), 5);
+const exact7Years = subYears(new Date(), 7);
+const exact9Years = subYears(new Date(), 9);
 
+describe('getLifeStage', () => {
   test('isPuppy 1', () => {
     expect(getLifeStage([breeds[0]], lessThan12Months)).toBe<LifeStage>('Puppy');
   });
@@ -113,5 +113,29 @@ describe('getLifeStage', () => {
   });
   test('isSenior 6', () => {
     expect(getLifeStage([breeds[1], breeds[2]], exact5Years)).toBe<LifeStage>('Senior');
+  });
+});
+
+describe('getDerMultiplier', () => {
+  test('puppy to be equal 2.0', () => {
+    expect(getDerMultiplier([breeds[0]], lessThan12Months, false, ActivityLevel.Mellow)).toBe(2);
+  });
+  test('equal 1.1', () => {
+    expect(getDerMultiplier([breeds[0]], exact12Months, true, ActivityLevel.Mellow)).toBe(1.1);
+  });
+  test('equal 1.2', () => {
+    expect(getDerMultiplier([breeds[0]], exact12Months, false, ActivityLevel.Mellow)).toBe(1.2);
+  });
+  test('equal 1.4', () => {
+    expect(getDerMultiplier([breeds[0]], exact12Months, true, ActivityLevel.Active)).toBe(1.4);
+  });
+  test('equal 1.5', () => {
+    expect(getDerMultiplier([breeds[0]], exact12Months, false, ActivityLevel.Active)).toBe(1.5);
+  });
+  test('equal 1.6', () => {
+    expect(getDerMultiplier([breeds[0]], exact12Months, true, ActivityLevel.VeryActive)).toBe(1.6);
+  });
+  test('equal 1.8', () => {
+    expect(getDerMultiplier([breeds[0]], exact12Months, false, ActivityLevel.VeryActive)).toBe(1.8);
   });
 });
