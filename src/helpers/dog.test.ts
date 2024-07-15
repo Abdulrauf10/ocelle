@@ -1,9 +1,9 @@
 import { addDays, subMonths, subYears } from 'date-fns';
 import { describe, expect, test } from 'vitest';
 
-import { getDerMultiplier, getLifeStage } from './dog';
+import { getDerMultiplier, getLifeStage, isAllergies } from './dog';
 
-import { ActivityLevel, Size } from '@/enums';
+import { ActivityLevel, FoodAllergies, Recipe, Size } from '@/enums';
 import { LifeStage } from '@/types';
 import { BreedDto } from '@/types/dto';
 
@@ -137,5 +137,25 @@ describe('getDerMultiplier', () => {
   });
   test('equal 1.8', () => {
     expect(getDerMultiplier([breeds[0]], exact12Months, false, ActivityLevel.VeryActive)).toBe(1.8);
+  });
+});
+
+describe('isAllergies', () => {
+  test('chicken', () => {
+    expect(isAllergies(Recipe.Chicken, FoodAllergies.Chicken)).toBe(true);
+  });
+  test('beef', () => {
+    expect(isAllergies(Recipe.Beef, FoodAllergies.Beef)).toBe(true);
+  });
+  test('pork', () => {
+    expect(isAllergies(Recipe.Pork, FoodAllergies.Pork)).toBe(true);
+  });
+  test('lamb', () => {
+    expect(isAllergies(Recipe.Lamb, FoodAllergies.Beef)).toBe(true);
+    expect(isAllergies(Recipe.Lamb, FoodAllergies.Lamb)).toBe(true);
+  });
+  test('duck', () => {
+    expect(isAllergies(Recipe.Duck, FoodAllergies.Chicken)).toBe(true);
+    expect(isAllergies(Recipe.Duck, FoodAllergies.Duck)).toBe(true);
   });
 });
