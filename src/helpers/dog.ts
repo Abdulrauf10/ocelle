@@ -172,18 +172,30 @@ export function calculateTotalDaysInBox(
 ) {
   const { recipeToBeCalcuate, recipeReference } = recipes;
   const totalRecipes = recipeReference ? 2 : 1;
+  // transitionPeriod only availabel 14 days box
   if (transitionPeriod) {
     return {
       transitionPeriodDays: 6 / totalRecipes,
       normalDays: 8 / totalRecipes,
     };
   }
-  if (frequency === Frequency.OneWeek && recipeReference) {
-    return {
-      transitionPeriodDays: 0,
-      normalDays: recipePriorities[recipeToBeCalcuate] > recipePriorities[recipeReference] ? 4 : 3,
-    };
+  // recipes === 2
+  if (recipeReference) {
+    if (frequency === Frequency.OneWeek) {
+      return {
+        transitionPeriodDays: 0,
+        normalDays:
+          recipePriorities[recipeToBeCalcuate] < recipePriorities[recipeReference] ? 4 : 3,
+      };
+    }
+    if (frequency === Frequency.TwoWeek) {
+      return {
+        transitionPeriodDays: 0,
+        normalDays: 7,
+      };
+    }
   }
+  // recipe === 1
   return {
     transitionPeriodDays: 0,
     normalDays: frequency === Frequency.TwoWeek ? 14 : 7,
