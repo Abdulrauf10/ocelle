@@ -5,24 +5,12 @@ import {
 } from '../helpers/dog';
 import productService from './product';
 
-import { recipePriorities } from '@/consts';
 import { ActivityLevel, BodyCondition, Frequency, MealPlan, Recipe } from '@/enums';
 import { ProductFragment } from '@/gql/graphql';
 import { subscriptionProducts } from '@/products';
 import { BreedDto } from '@/types/dto';
 
 class PriceService {
-  cheapestRecipe() {
-    let cheapest: Recipe = Recipe.Beef;
-    for (const _recipe of Object.keys(recipePriorities)) {
-      const recipe = Recipe[_recipe as keyof typeof Recipe];
-      if (recipePriorities[recipe] < recipePriorities[cheapest]) {
-        cheapest = recipe;
-      }
-    }
-    return cheapest;
-  }
-
   calculateRecipeTotalPriceInBox(
     products: ProductFragment[],
     breeds: BreedDto[],
@@ -111,6 +99,49 @@ class PriceService {
         transitionPeriod
       )
     );
+  }
+
+  // single recipe only
+  async findMinPerDayPrice(
+    breeds: BreedDto[],
+    dateOfBirth: Date,
+    neutered: boolean,
+    currentWeight: number,
+    condition: BodyCondition,
+    activityLevel: ActivityLevel,
+    plan: MealPlan
+  ) {
+    const products = await productService.find({
+      where: {
+        slug: {
+          oneOf: Object.values(subscriptionProducts).map((product) => product.slug),
+        },
+      },
+    });
+    const boxPrices = Object.keys(subscriptionProducts).map((recipe) => {
+      const price = this.calculateRecipeTotalPriceInBox(
+        products,
+        breeds,
+        dateOfBirth,
+        neutered,
+        currentWeight,
+        condition,
+        activityLevel,
+        { recipeToBeCalcuate: recipe as Recipe },
+        plan,
+        Frequency.TwoWeek,
+        true
+      );
+      const { transitionPeriodDays, normalDays } = calculateTotalDaysInBox(
+        { recipeToBeCalcuate: recipe as Recipe },
+        Frequency.TwoWeek,
+        true
+      );
+
+      return price / (transitionPeriodDays + normalDays);
+    });
+
+    return Math.min(...boxPrices);
   }
 
   async calculateTotalPerDayPrice(

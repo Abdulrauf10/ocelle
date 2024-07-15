@@ -100,29 +100,23 @@ export async function getMinPerDayPrice(
 ): Promise<MinPricesDto> {
   const breeds = dog.breeds && dog.breeds.length > 0 ? await breedService.getByIds(dog.breeds) : [];
   return {
-    halfPlan: await priceService.calculateTotalPerDayPrice(
+    halfPlan: await priceService.findMinPerDayPrice(
       breeds,
       new Date(dog.dateOfBirth),
       dog.isNeutered,
       dog.weight,
       dog.bodyCondition,
       dog.activityLevel,
-      { recipe1: priceService.cheapestRecipe() },
-      MealPlan.Half,
-      Frequency.TwoWeek,
-      true
+      MealPlan.Half
     ),
-    fullPlan: await priceService.calculateTotalPerDayPrice(
+    fullPlan: await priceService.findMinPerDayPrice(
       breeds,
       new Date(dog.dateOfBirth),
       dog.isNeutered,
       dog.weight,
       dog.bodyCondition,
       dog.activityLevel,
-      { recipe1: priceService.cheapestRecipe() },
-      MealPlan.Full,
-      Frequency.TwoWeek,
-      true
+      MealPlan.Full
     ),
   };
 }
