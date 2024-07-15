@@ -6,12 +6,21 @@ import {
   calculateDailyCalorieRequirement,
   calculateDailyProtionSize,
   calculateIdealWeight,
+  calculateTotalPortionSizeInBox,
   getDerMultiplier,
   getLifeStage,
   isAllergies,
 } from './dog';
 
-import { ActivityLevel, BodyCondition, FoodAllergies, MealPlan, Recipe, Size } from '@/enums';
+import {
+  ActivityLevel,
+  BodyCondition,
+  FoodAllergies,
+  Frequency,
+  MealPlan,
+  Recipe,
+  Size,
+} from '@/enums';
 import { LifeStage } from '@/types';
 import { BreedDto } from '@/types/dto';
 
@@ -46,6 +55,17 @@ const lessThan9Years = addDays(subYears(new Date(), 9), 1);
 const exact5Years = subYears(new Date(), 5);
 const exact7Years = subYears(new Date(), 7);
 const exact9Years = subYears(new Date(), 9);
+
+const dailyProtionSizeCase1 = calculateDailyCalorieRequirement(
+  calculateIdealWeight(0.5, BodyCondition.TooSkinny),
+  2,
+  MealPlan.Full
+);
+const dailyProtionSizeCase2 = calculateDailyCalorieRequirement(
+  calculateIdealWeight(0.6847, BodyCondition.JustRight),
+  2,
+  MealPlan.Half
+);
 
 describe('getLifeStage', () => {
   test('isPuppy 1', () => {
@@ -202,34 +222,370 @@ describe('calculateDailyProtionSize', () => {
     MealPlan.Half
   );
   test('chicken 1', () => {
-    expect(Math.round(calculateDailyProtionSize(case1, Recipe.Chicken))).toBe(60);
+    expect(Math.round(calculateDailyProtionSize(dailyProtionSizeCase1, Recipe.Chicken))).toBe(60);
   });
   test('chicken 2', () => {
-    expect(Math.round(calculateDailyProtionSize(case2, Recipe.Chicken))).toBe(34);
+    expect(Math.round(calculateDailyProtionSize(dailyProtionSizeCase2, Recipe.Chicken))).toBe(34);
   });
   test('beef 1', () => {
-    expect(Math.round(calculateDailyProtionSize(case1, Recipe.Beef))).toBe(61);
+    expect(Math.round(calculateDailyProtionSize(dailyProtionSizeCase1, Recipe.Beef))).toBe(61);
   });
   test('beef 2', () => {
-    expect(Math.round(calculateDailyProtionSize(case2, Recipe.Beef))).toBe(35);
+    expect(Math.round(calculateDailyProtionSize(dailyProtionSizeCase2, Recipe.Beef))).toBe(35);
   });
   test('pork 1', () => {
-    expect(Math.round(calculateDailyProtionSize(case1, Recipe.Pork))).toBe(71);
+    expect(Math.round(calculateDailyProtionSize(dailyProtionSizeCase1, Recipe.Pork))).toBe(71);
   });
   test('pork 2', () => {
-    expect(Math.round(calculateDailyProtionSize(case2, Recipe.Pork))).toBe(41);
+    expect(Math.round(calculateDailyProtionSize(dailyProtionSizeCase2, Recipe.Pork))).toBe(41);
   });
   test('lamb 1', () => {
-    expect(Math.round(calculateDailyProtionSize(case1, Recipe.Lamb))).toBe(50);
+    expect(Math.round(calculateDailyProtionSize(dailyProtionSizeCase1, Recipe.Lamb))).toBe(50);
   });
   test('lamb 2', () => {
-    expect(Math.round(calculateDailyProtionSize(case2, Recipe.Lamb))).toBe(28);
+    expect(Math.round(calculateDailyProtionSize(dailyProtionSizeCase2, Recipe.Lamb))).toBe(28);
   });
   test('duck 1', () => {
-    expect(Math.round(calculateDailyProtionSize(case1, Recipe.Duck))).toBe(68);
+    expect(Math.round(calculateDailyProtionSize(dailyProtionSizeCase1, Recipe.Duck))).toBe(68);
   });
   test('duck 2', () => {
-    expect(Math.round(calculateDailyProtionSize(case2, Recipe.Duck))).toBe(39);
+    expect(Math.round(calculateDailyProtionSize(dailyProtionSizeCase2, Recipe.Duck))).toBe(39);
+  });
+});
+
+describe('calculateTotalPortionSizeInBox', () => {
+  describe('normal box, order size = 7', () => {
+    test('chicken', () => {
+      const totalProtionsInBox = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Chicken },
+        Frequency.OneWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox)).toBe(420);
+    });
+    test('beef', () => {
+      const totalProtionsInBox = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Beef },
+        Frequency.OneWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox)).toBe(429);
+    });
+    test('pork', () => {
+      const totalProtionsInBox = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Pork },
+        Frequency.OneWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox)).toBe(500);
+    });
+    test('lamb', () => {
+      const totalProtionsInBox = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Lamb },
+        Frequency.OneWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox)).toBe(347);
+    });
+    test('duck', () => {
+      const totalProtionsInBox = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Duck },
+        Frequency.OneWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox)).toBe(478);
+    });
+    test('chicken + beef', () => {
+      const totalProtionsInBox1 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Chicken, recipeReference: Recipe.Beef },
+        Frequency.OneWeek,
+        false
+      );
+      const totalProtionsInBox2 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Beef, recipeReference: Recipe.Chicken },
+        Frequency.OneWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox1)).toBe(240);
+      expect(Math.round(totalProtionsInBox2)).toBe(184);
+    });
+    test('beef + lamb', () => {
+      const totalProtionsInBox1 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Beef, recipeReference: Recipe.Lamb },
+        Frequency.OneWeek,
+        false
+      );
+      const totalProtionsInBox2 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Lamb, recipeReference: Recipe.Beef },
+        Frequency.OneWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox1)).toBe(245);
+      expect(Math.round(totalProtionsInBox2)).toBe(149);
+    });
+    test('pork + duck', () => {
+      const totalProtionsInBox1 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Pork, recipeReference: Recipe.Duck },
+        Frequency.OneWeek,
+        false
+      );
+      const totalProtionsInBox2 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Duck, recipeReference: Recipe.Pork },
+        Frequency.OneWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox1)).toBe(286);
+      expect(Math.round(totalProtionsInBox2)).toBe(205);
+    });
+    test('lamb + duck', () => {
+      const totalProtionsInBox1 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Lamb, recipeReference: Recipe.Duck },
+        Frequency.OneWeek,
+        false
+      );
+      const totalProtionsInBox2 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Duck, recipeReference: Recipe.Lamb },
+        Frequency.OneWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox1)).toBe(198);
+      expect(Math.round(totalProtionsInBox2)).toBe(205);
+    });
+  });
+  describe('normal box, order size = 14', () => {
+    test('chicken', () => {
+      const totalProtionsInBox = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Chicken },
+        Frequency.TwoWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox)).toBe(840);
+    });
+    test('beef', () => {
+      const totalProtionsInBox = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Beef },
+        Frequency.TwoWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox)).toBe(858);
+    });
+    test('pork', () => {
+      const totalProtionsInBox = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Pork },
+        Frequency.TwoWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox)).toBe(1001);
+    });
+    test('lamb', () => {
+      const totalProtionsInBox = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Lamb },
+        Frequency.TwoWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox)).toBe(694);
+    });
+    test('duck', () => {
+      const totalProtionsInBox = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Duck },
+        Frequency.TwoWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox)).toBe(955);
+    });
+    test('chicken + beef', () => {
+      const totalProtionsInBox1 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Chicken, recipeReference: Recipe.Beef },
+        Frequency.TwoWeek,
+        false
+      );
+      const totalProtionsInBox2 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Beef, recipeReference: Recipe.Chicken },
+        Frequency.TwoWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox1)).toBe(420);
+      expect(Math.round(totalProtionsInBox2)).toBe(429);
+    });
+    test('beef + lamb', () => {
+      const totalProtionsInBox1 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Beef, recipeReference: Recipe.Lamb },
+        Frequency.TwoWeek,
+        false
+      );
+      const totalProtionsInBox2 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Lamb, recipeReference: Recipe.Beef },
+        Frequency.TwoWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox1)).toBe(429);
+      expect(Math.round(totalProtionsInBox2)).toBe(347);
+    });
+    test('pork + duck', () => {
+      const totalProtionsInBox1 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Pork, recipeReference: Recipe.Duck },
+        Frequency.TwoWeek,
+        false
+      );
+      const totalProtionsInBox2 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Duck, recipeReference: Recipe.Pork },
+        Frequency.TwoWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox1)).toBe(500);
+      expect(Math.round(totalProtionsInBox2)).toBe(478);
+    });
+    test('lamb + duck', () => {
+      const totalProtionsInBox1 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Lamb, recipeReference: Recipe.Duck },
+        Frequency.TwoWeek,
+        false
+      );
+      const totalProtionsInBox2 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Duck, recipeReference: Recipe.Lamb },
+        Frequency.TwoWeek,
+        false
+      );
+      expect(Math.round(totalProtionsInBox1)).toBe(347);
+      expect(Math.round(totalProtionsInBox2)).toBe(478);
+    });
+  });
+  describe('transition box, order size = 14', () => {
+    test('chicken', () => {
+      const totalProtionsInBox = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Chicken },
+        Frequency.TwoWeek,
+        true
+      );
+      expect(Math.round(totalProtionsInBox)).toBe(660);
+    });
+    test('beef', () => {
+      const totalProtionsInBox = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Beef },
+        Frequency.TwoWeek,
+        true
+      );
+      expect(Math.round(totalProtionsInBox)).toBe(674);
+    });
+    test('pork', () => {
+      const totalProtionsInBox = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Pork },
+        Frequency.TwoWeek,
+        true
+      );
+      expect(Math.round(totalProtionsInBox)).toBe(786);
+    });
+    test('lamb', () => {
+      const totalProtionsInBox = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Lamb },
+        Frequency.TwoWeek,
+        true
+      );
+      expect(Math.round(totalProtionsInBox)).toBe(545);
+    });
+    test('duck', () => {
+      const totalProtionsInBox = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Duck },
+        Frequency.TwoWeek,
+        true
+      );
+      expect(Math.round(totalProtionsInBox)).toBe(750);
+    });
+    test('chicken + beef', () => {
+      const totalProtionsInBox1 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Chicken, recipeReference: Recipe.Beef },
+        Frequency.TwoWeek,
+        true
+      );
+      const totalProtionsInBox2 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Beef, recipeReference: Recipe.Chicken },
+        Frequency.TwoWeek,
+        true
+      );
+      expect(Math.round(totalProtionsInBox1)).toBe(330);
+      expect(Math.round(totalProtionsInBox2)).toBe(337);
+    });
+    test('beef + lamb', () => {
+      const totalProtionsInBox1 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Beef, recipeReference: Recipe.Lamb },
+        Frequency.TwoWeek,
+        true
+      );
+      const totalProtionsInBox2 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Lamb, recipeReference: Recipe.Beef },
+        Frequency.TwoWeek,
+        true
+      );
+      expect(Math.round(totalProtionsInBox1)).toBe(337);
+      expect(Math.round(totalProtionsInBox2)).toBe(273);
+    });
+    test('pork + duck', () => {
+      const totalProtionsInBox1 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Pork, recipeReference: Recipe.Duck },
+        Frequency.TwoWeek,
+        true
+      );
+      const totalProtionsInBox2 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Duck, recipeReference: Recipe.Pork },
+        Frequency.TwoWeek,
+        true
+      );
+      expect(Math.round(totalProtionsInBox1)).toBe(393);
+      expect(Math.round(totalProtionsInBox2)).toBe(375);
+    });
+    test('lamb + duck', () => {
+      const totalProtionsInBox1 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Lamb, recipeReference: Recipe.Duck },
+        Frequency.TwoWeek,
+        true
+      );
+      const totalProtionsInBox2 = calculateTotalPortionSizeInBox(
+        dailyProtionSizeCase1,
+        { recipeToBeCalcuate: Recipe.Duck, recipeReference: Recipe.Lamb },
+        Frequency.TwoWeek,
+        true
+      );
+      expect(Math.round(totalProtionsInBox1)).toBe(273);
+      expect(Math.round(totalProtionsInBox2)).toBe(375);
+    });
   });
 });
 
