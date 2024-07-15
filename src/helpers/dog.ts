@@ -1,4 +1,5 @@
-import { differenceInMonths, differenceInYears, startOfDay, subMonths, subYears } from 'date-fns';
+import { startOfDay, subMonths, subYears } from 'date-fns';
+import dayjs from 'dayjs';
 
 import { recipePriorities } from '@/consts';
 import {
@@ -40,15 +41,15 @@ function isExactSize(breeds: BreedDto[], sizes: Array<Size>) {
 }
 
 function isContainsSize(breeds: BreedDto[], sizes: Array<Size>) {
-  return breeds.filter((x) => sizes.indexOf(x.size) > -1).length > -1;
+  return breeds.filter((x) => sizes.indexOf(x.size) > -1).length > 0;
 }
 
 /**
  * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
 export function getLifeStage(breeds: BreedDto[], dateOfBirth: Date): LifeStage {
-  const ageM = differenceInMonths(dateOfBirth, new Date());
-  const ageY = differenceInYears(dateOfBirth, new Date());
+  const ageM = dayjs().diff(startOfDay(dateOfBirth), 'month', true);
+  const ageY = dayjs().diff(startOfDay(dateOfBirth), 'year', true);
 
   // Puppy
   if (isExactSize(breeds, [Size.Small])) {
@@ -76,8 +77,8 @@ export function getLifeStage(breeds: BreedDto[], dateOfBirth: Date): LifeStage {
   }
 
   if (isContainsSize(breeds, [Size.Medium]) && isContainsSize(breeds, [Size.Large])) {
-    if (ageM < 12) return 'Puppy';
-    else if (ageM >= 12 && ageY < 5) return 'Adult';
+    if (ageM < 16) return 'Puppy';
+    else if (ageM >= 16 && ageY < 5) return 'Adult';
     else return 'Senior';
   }
 
@@ -89,7 +90,7 @@ export function getLifeStage(breeds: BreedDto[], dateOfBirth: Date): LifeStage {
  * @deprecated v1.01
  */
 export function isYoungPuppy(birth: Date) {
-  const age = differenceInMonths(birth, new Date());
+  const age = dayjs().diff(birth, 'month', true);
   return age < 4;
 }
 
