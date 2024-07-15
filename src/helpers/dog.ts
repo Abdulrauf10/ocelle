@@ -108,7 +108,7 @@ export function getWeightModifier(condition: BodyCondition) {
  * Refer to `Excel: customization variables v1.01 > Customization Variables`
  */
 export function calculateIdealWeight(currentWeight: number, condition: BodyCondition) {
-  return roundTo(currentWeight * getWeightModifier(condition), 2);
+  return currentWeight * getWeightModifier(condition);
 }
 
 /**

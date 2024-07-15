@@ -1,9 +1,17 @@
 import { addDays, subMonths, subYears } from 'date-fns';
+import { roundTo } from 'round-to';
 import { describe, expect, test } from 'vitest';
 
-import { getDerMultiplier, getLifeStage, isAllergies } from './dog';
+import {
+  calculateDailyCalorieRequirement,
+  calculateDailyProtionSize,
+  calculateIdealWeight,
+  getDerMultiplier,
+  getLifeStage,
+  isAllergies,
+} from './dog';
 
-import { ActivityLevel, FoodAllergies, Recipe, Size } from '@/enums';
+import { ActivityLevel, BodyCondition, FoodAllergies, MealPlan, Recipe, Size } from '@/enums';
 import { LifeStage } from '@/types';
 import { BreedDto } from '@/types/dto';
 
@@ -137,6 +145,91 @@ describe('getDerMultiplier', () => {
   });
   test('equal 1.8', () => {
     expect(getDerMultiplier([breeds[0]], exact12Months, false, ActivityLevel.VeryActive)).toBe(1.8);
+  });
+});
+
+describe('calculateIdealWeight', () => {
+  test('case 1', () => {
+    expect(roundTo(calculateIdealWeight(0.5, BodyCondition.TooSkinny), 2)).toBe(0.58);
+  });
+  test('case 2', () => {
+    expect(roundTo(calculateIdealWeight(0.6847, BodyCondition.JustRight), 2)).toBe(0.68);
+  });
+  test('case 3', () => {
+    expect(roundTo(calculateIdealWeight(0.8694, BodyCondition.Rounded), 2)).toBe(0.74);
+  });
+  test('case 4', () => {
+    expect(roundTo(calculateIdealWeight(1.0541, BodyCondition.Chunky), 2)).toBe(0.9);
+  });
+});
+
+describe('calculateDailyCalorieRequirement', () => {
+  test('case 1', () => {
+    const idealWeight = calculateIdealWeight(0.5, BodyCondition.TooSkinny);
+    expect(Math.round(calculateDailyCalorieRequirement(idealWeight, 2, MealPlan.Full))).toBe(92);
+  });
+  test('case 2', () => {
+    const idealWeight = calculateIdealWeight(0.6847, BodyCondition.JustRight);
+    expect(Math.round(calculateDailyCalorieRequirement(idealWeight, 2, MealPlan.Half))).toBe(53);
+  });
+  test('case 3', () => {
+    const idealWeight = calculateIdealWeight(0.8694, BodyCondition.Rounded);
+    expect(Math.round(calculateDailyCalorieRequirement(idealWeight, 2, MealPlan.Full))).toBe(112);
+  });
+  test('case 4', () => {
+    const idealWeight = calculateIdealWeight(1.0541, BodyCondition.Chunky);
+    expect(Math.round(calculateDailyCalorieRequirement(idealWeight, 2, MealPlan.Full))).toBe(129);
+  });
+  test('case 5', () => {
+    const idealWeight = calculateIdealWeight(3.4552, BodyCondition.TooSkinny);
+    expect(Math.round(calculateDailyCalorieRequirement(idealWeight, 1.4, MealPlan.Full))).toBe(276);
+  });
+  test('case 6', () => {
+    const idealWeight = calculateIdealWeight(3.6399, BodyCondition.JustRight);
+    expect(Math.round(calculateDailyCalorieRequirement(idealWeight, 1.5, MealPlan.Half))).toBe(138);
+  });
+});
+
+describe('calculateDailyProtionSize', () => {
+  const case1 = calculateDailyCalorieRequirement(
+    calculateIdealWeight(0.5, BodyCondition.TooSkinny),
+    2,
+    MealPlan.Full
+  );
+  const case2 = calculateDailyCalorieRequirement(
+    calculateIdealWeight(0.6847, BodyCondition.JustRight),
+    2,
+    MealPlan.Half
+  );
+  test('chicken 1', () => {
+    expect(Math.round(calculateDailyProtionSize(case1, Recipe.Chicken))).toBe(60);
+  });
+  test('chicken 2', () => {
+    expect(Math.round(calculateDailyProtionSize(case2, Recipe.Chicken))).toBe(34);
+  });
+  test('beef 1', () => {
+    expect(Math.round(calculateDailyProtionSize(case1, Recipe.Beef))).toBe(61);
+  });
+  test('beef 2', () => {
+    expect(Math.round(calculateDailyProtionSize(case2, Recipe.Beef))).toBe(35);
+  });
+  test('pork 1', () => {
+    expect(Math.round(calculateDailyProtionSize(case1, Recipe.Pork))).toBe(71);
+  });
+  test('pork 2', () => {
+    expect(Math.round(calculateDailyProtionSize(case2, Recipe.Pork))).toBe(41);
+  });
+  test('lamb 1', () => {
+    expect(Math.round(calculateDailyProtionSize(case1, Recipe.Lamb))).toBe(50);
+  });
+  test('lamb 2', () => {
+    expect(Math.round(calculateDailyProtionSize(case2, Recipe.Lamb))).toBe(28);
+  });
+  test('duck 1', () => {
+    expect(Math.round(calculateDailyProtionSize(case1, Recipe.Duck))).toBe(68);
+  });
+  test('duck 2', () => {
+    expect(Math.round(calculateDailyProtionSize(case2, Recipe.Duck))).toBe(39);
   });
 });
 
