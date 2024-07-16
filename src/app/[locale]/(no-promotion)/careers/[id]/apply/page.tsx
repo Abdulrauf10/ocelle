@@ -51,7 +51,7 @@ export default async function CareerApply({ params }: { params: { id: string } }
           action={async (data) => {
             'use server';
             data.set('id', String(career.id));
-            await applyCareerAction(data);
+            return await applyCareerAction(data);
           }}
         />
       </AppThemeProvider>

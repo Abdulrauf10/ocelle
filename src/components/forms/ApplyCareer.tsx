@@ -131,7 +131,7 @@ export default function ApplyCareerForm({
 }: {
   title: string;
   startAdornment?: React.ReactNode;
-  action(formData: FormData): Promise<void>;
+  action(formData: FormData): Promise<{ ok: boolean }>;
 }) {
   const t = useTranslations();
   const c = useTranslations('Careers');
@@ -184,8 +184,10 @@ export default function ApplyCareerForm({
             <form
               action={async (data) => {
                 try {
-                  await action(data);
-                  setCompleted(true);
+                  const res = await action(data);
+                  if (res?.ok) {
+                    setCompleted(true);
+                  }
                 } catch (e) {
                   console.log(e);
                 }

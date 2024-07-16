@@ -9,12 +9,14 @@ import { Career } from '@/entities';
 import { CareerNotFoundError } from '@/errors/career';
 import { executeQuery } from '@/helpers/queryRunner';
 
-invariant(process.env.NODEMAILER_SERVICE, 'Missing NODEMAILER_SERVICE env variable');
+invariant(process.env.SMTP_HOST, 'Missing SMTP_HOST env variable');
 invariant(process.env.SMTP_USER, 'Missing SMTP_USER env variable');
 invariant(process.env.SMTP_PASS, 'Missing SMTP_PASS env variable');
 
 const transporter = nodemailer.createTransport({
-  service: process.env.NODEMAILER_SERVICE,
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT ? parseInt(process.env.SMTP_PORT) : 465,
+  secure: true,
   auth: {
     user: process.env.SMTP_USER,
     pass: process.env.SMTP_PASS,
