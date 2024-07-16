@@ -1,29 +1,14 @@
 import { getTranslations } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 
 import Title from './Title';
 
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import Block from '@/components/layouts/Block';
-import { Career, CareerLine } from '@/entities';
+import { CareerLine } from '@/entities';
 import { CareerLineType } from '@/enums';
-import { executeQuery } from '@/helpers/queryRunner';
-
-async function fetchData(id: number) {
-  return executeQuery(async (queryRunner) => {
-    return await queryRunner.manager.findOne(Career, {
-      where: {
-        id,
-        applyDate: LessThanOrEqual(new Date()),
-        endDate: MoreThanOrEqual(new Date()),
-        isDisabled: false,
-      },
-      relations: { lines: true },
-    });
-  });
-}
+import careerService from '@/services/career';
 
 function CareerBlock({ title, lines }: { title: string; lines: CareerLine[] }) {
   return (
@@ -50,7 +35,7 @@ export default async function CareerView({ params }: { params: { id: string } })
   if (Number.isNaN(id)) {
     notFound();
   }
-  const career = await fetchData(id);
+  const career = await careerService.get(id);
   const c = await getTranslations('Careers');
   const b = await getTranslations('Button');
   if (!career) {

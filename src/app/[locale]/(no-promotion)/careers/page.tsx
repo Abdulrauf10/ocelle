@@ -1,7 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 import React from 'react';
-import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
@@ -9,30 +8,38 @@ import UnderlineButton from '@/components/buttons/UnderlineButton';
 import Block from '@/components/layouts/Block';
 import { Career } from '@/entities';
 import { Classification, WorkPattern, WorkType } from '@/enums';
-import { executeQuery } from '@/helpers/queryRunner';
+import careerService from '@/services/career';
 
 async function fetchData() {
-  return executeQuery(async (queryRunner) => {
-    const data = await queryRunner.manager.find(Career, {
-      where: {
-        applyDate: LessThanOrEqual(new Date()),
-        endDate: MoreThanOrEqual(new Date()),
-        isDisabled: false,
-      },
-      relations: { lines: true },
-    });
-
-    return {
-      count: data.length,
-      operations: data.filter((d) => d.classification === Classification.Operations),
-      marketing: data.filter((d) => d.classification === Classification.Marketing),
-      financeAndAccounting: data.filter(
-        (d) => d.classification === Classification.FinanceAndAccounting
-      ),
-      technology: data.filter((d) => d.classification === Classification.Technology),
-      sales: data.filter((d) => d.classification === Classification.Sales),
-    };
-  });
+  const careers = await careerService.list();
+  const operations = [];
+  const marketing = [];
+  const financeAndAccounting = [];
+  const technology = [];
+  const sales = [];
+  for (const career of careers) {
+    if (career.classification === Classification.Operations) {
+      operations.push(career);
+      continue;
+    }
+    if (career.classification === Classification.Marketing) {
+      marketing.push(career);
+      continue;
+    }
+    if (career.classification === Classification.FinanceAndAccounting) {
+      financeAndAccounting.push(career);
+      continue;
+    }
+    if (career.classification === Classification.Technology) {
+      technology.push(career);
+      continue;
+    }
+    if (career.classification === Classification.Sales) {
+      sales.push(career);
+      continue;
+    }
+  }
+  return { count: careers.length, operations, marketing, financeAndAccounting, technology, sales };
 }
 
 function CareerBlock({ career }: { career: Career }) {
