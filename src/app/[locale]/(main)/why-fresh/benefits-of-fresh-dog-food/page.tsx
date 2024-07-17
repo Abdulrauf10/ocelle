@@ -406,6 +406,7 @@ export default function BenefitsOfFreshDogFood() {
             {w.rich('block-1-content-1', {
               button: (chunks) => (
                 <UnderlineButton
+                  className="lang-zh:font-normal"
                   label={chunks}
                   href="/why-fresh/reference#benefits-of-fresh-dog-food"
                 />
@@ -444,7 +445,7 @@ export default function BenefitsOfFreshDogFood() {
                 </div>
               </Link>
             </div>
-            <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
+            <div className="max-md:pt-normal` w-1/3 px-6 max-lg:px-3 max-md:w-full">
               <Link
                 href="/why-fresh/challenges-with-home-cooking-for-your-dog"
                 className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30 drop-shadow-style-1 will-change-transform"
