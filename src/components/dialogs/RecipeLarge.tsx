@@ -19,6 +19,7 @@ function DialogBlock({ title, children }: React.PropsWithChildren<{ title: React
   return (
     <div>
       <strong className="block text-center text-5xl text-primary">{title}</strong>
+      <div className="pt-2"></div>
       <div className="mt-6">{children}</div>
     </div>
   );
@@ -59,7 +60,7 @@ export default function RecipeLargeDialog({
         <div className="relative w-full max-w-[1076px] rounded-[40px] border-[6px] border-primary bg-white px-12 py-10 text-left shadow-[7px_7px_15px_rgba(0,0,0,0.05)] max-md:px-6 max-md:pt-9 md:border-8">
           <div className="md:px-6">
             <div className="-m-3 flex items-center max-md:flex-wrap">
-              <div className="p-3 text-[90px] font-bold leading-none text-primary max-lg:text-[70px] max-md:text-[85px] max-xs:text-[60px]">
+              <div className="p-3 text-[90px] font-bold leading-none text-primary lang-zh:font-normal max-lg:text-[70px] max-md:text-[85px] max-xs:text-[60px]">
                 {recipe}
               </div>
               <div className="w-full p-3">
@@ -105,7 +106,7 @@ export default function RecipeLargeDialog({
                       />
                     </div>
                     <div className="mt-6"></div>
-                    <strong className="heading-4 block text-center text-primary">
+                    <strong className="heading-4 block text-center text-primary lang-zh:font-normal">
                       {ingredient.title}
                     </strong>
                     <div className="mt-2"></div>
@@ -216,6 +217,7 @@ export default function RecipeLargeDialog({
           </DialogBlock>
           <Hr />
           <DialogBlock title={r('nutrition-profile')}>
+            <div className="pt-2"></div>
             <div className="-mx-6 -my-3 flex flex-wrap">
               <div className="w-1/2 px-6 py-3 max-md:w-full">
                 <div className="mt-2"></div>

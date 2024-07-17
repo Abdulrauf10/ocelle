@@ -332,11 +332,13 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Chicken)}</h2>
+          <h2 className="heading-3 font-bold text-primary lang-zh:font-normal">
+            {sentence.recipe(Recipe.Chicken)}
+          </h2>
           <div className="mt-4"></div>
           <p className="body-1">{r('chicken:description')}</p>
           <div className="mt-6"></div>
-          <p className="heading-4 font-bold text-[rgb(190,135,59)]">
+          <p className="heading-4 font-bold text-[rgb(190,135,59)] lang-zh:font-normal">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
           </p>
           <div className="mt-1"></div>
@@ -348,7 +350,7 @@ export default function RecipesPage() {
               pluralize.plural(i('shiitake-mushroom')),
               i('spinach'),
               i('peas'),
-              pluralize.plural(i('cranberries')),
+              pluralize.plural(i('cranberry')),
               i('flaxseed'),
               i('salmon-oil'),
               i('ocelle-targeted-nutrient-blend'),
@@ -382,11 +384,13 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Beef)}</h2>
+          <h2 className="heading-3 font-bold text-primary lang-zh:font-normal">
+            {sentence.recipe(Recipe.Beef)}
+          </h2>
           <div className="mt-4"></div>
           <p className="body-1">{r('beef:description')}</p>
           <div className="mt-6"></div>
-          <p className="heading-4 font-bold text-gold">
+          <p className="heading-4 font-bold text-gold lang-zh:font-normal">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
           </p>
           <div className="mt-1"></div>
@@ -434,11 +438,13 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Pork)}</h2>
+          <h2 className="heading-3 font-bold text-primary lang-zh:font-normal">
+            {sentence.recipe(Recipe.Pork)}
+          </h2>
           <div className="mt-4"></div>
           <p className="body-1">{r('pork:description')}</p>
           <div className="mt-6"></div>
-          <p className="heading-4 font-bold text-gold">
+          <p className="heading-4 font-bold text-gold  lang-zh:font-normal">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
           </p>
           <div className="mt-1"></div>
@@ -483,11 +489,13 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Lamb)}</h2>
+          <h2 className="heading-3 font-bold text-primary  lang-zh:font-normal">
+            {sentence.recipe(Recipe.Lamb)}
+          </h2>
           <div className="mt-4"></div>
           <p className="body-1">{r('lamb:description')}</p>
           <div className="mt-6"></div>
-          <p className="heading-4 font-bold text-gold">
+          <p className="heading-4 font-bold text-gold  lang-zh:font-normal">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
           </p>
           <div className="mt-1"></div>
@@ -533,7 +541,9 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary">{sentence.recipe(Recipe.Duck)}</h2>
+          <h2 className="heading-3 font-bold text-primary lang-zh:font-normal">
+            {sentence.recipe(Recipe.Duck)}
+          </h2>
           <div className="mt-4"></div>
           <p className="body-1">{r('duck:description')}</p>
           <div className="mt-6"></div>

@@ -28,7 +28,7 @@ export default function Home() {
           <h1 className="heading-1 heading-weight-1">{t.rich('block-2-title')}</h1>
           <div className="mt-6"></div>
           <p className="body-1">
-            {t.rich('blcok-2-content', {
+            {t.rich('block-2-content', {
               br: () => <br className="max-lg:hidden" />,
             })}
           </p>
@@ -250,7 +250,7 @@ export default function Home() {
           <h2 className="heading-1 heading-weight-1 text-center text-gold">{t('block-6-title')}</h2>
           <div className="pt-6"></div>
           <div className="mx-auto max-w-screen-md">
-            <p className="body-1 text-center text-gold">{t('block-6-content')}</p>
+            <p className="body-1 text-center text-gold">{t.rich('block-6-content')}</p>
           </div>
           <div className="pt-10"></div>
           <CaseSwiper />
@@ -261,7 +261,7 @@ export default function Home() {
       </Block>
       <div className="bg-[#f7e9de] bg-[url('./recommended-plan-bg.jpg')] bg-[length:auto_100%] bg-center bg-no-repeat py-[clamp(120px,10vw,230px)] max-md:bg-primary max-md:bg-opacity-10 max-md:bg-none max-md:px-4 max-md:py-16 max-xs:px-0">
         <Container>
-          <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-6 text-center drop-shadow-[13px_13px_5.5px_rgba(0,0,0,0.4)] max-md:drop-shadow-[8px_8px_5.5px_rgba(0,0,0,0.25)]">
+          <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-6 text-center drop-shadow-[13px_13px_5.5px_rgba(0,0,0,0.4)] lang-zh:max-w-[550px] lang-zh:px-4 max-md:drop-shadow-[8px_8px_5.5px_rgba(0,0,0,0.25)]">
             <div className="heading-3 heading-weight-2 text-primary">{t.rich('block-7-title')}</div>
             <div className="pt-6"></div>
             <p className="body-1">{t.rich('block-7-content')}</p>

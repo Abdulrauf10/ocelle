@@ -345,7 +345,8 @@
   "deliveries": "Deliveries",
   "Promotion": {
     "content-1": "Get 50% off your starter box! ",
-    "content-2": "Order NOW!"
+    "content-2": "Order NOW",
+    "content-3": "!"
   },
   "Button": {
     "see-my-plan": "See My Plan",
@@ -363,7 +364,7 @@
     "submit-application": "Submit Application",
     "select": "Select",
     "selected": "Selected",
-    "add-to-cart":"Add To Cart",
+    "add-to-cart": "Add To Cart",
     "refer-a-friend": "Refer a Friend",
     "recipes": "Recipes",
     "start-your-fresh-journey": "Start Your Fresh Journey"
@@ -375,7 +376,7 @@
     "block-1-content-3": "Vet developed formula",
     "block-1-content-4": "Easier for you, better for them!",
     "block-2-title": "They<apos1></apos1>re My Dogs. <block>They<apos1></apos1>re My Family.</block>",
-    "blcok-2-content": "Trade guesswork for peace of mind. Relax, knowing that your dog is getting the highest quality <br></br>nutrition for a longer and more vibrant life! It’s science...and it’s delicious.",
+    "block-2-content": "Trade guesswork for peace of mind. Relax, knowing that your dog is getting the highest quality <br></br>nutrition for a longer and more vibrant life! It’s science...and it’s delicious.",
     "block-3-title": "More Years, <block>Happier Years.</block> <br></br>It<apos2></apos2>s Time To Go Fresh.",
     "block-3-content-1": "Increased Lifespan",
     "block-3-content-2": "Delayed Onset of Chronic Disease",
@@ -402,6 +403,9 @@
     "block-6-title": "Proof Is In The Eating",
     "block-6-content": "Choose OCELLE and watch your dog thrive – from better gut health (cleaner poops!) and luxurious fur, to optimised energy for life. But you don't have to take our word for it:",
     "{}-plan": "{name}'s plan",
+    "fresh-duck": "FRESH DUCK",
+    "fresh-beef": "FRESH BEEF",
+    "fresh-pork": "FRESH PORK",
     "muffin-content": "An active 9-year-old Poodle with allergies who<apos1></apos1>s on a weight loss journey. She needs flavourful food without excess calories that are easy to digest. Her Fresh Duck plan ensures:",
     "pixie-content": "A mellow 10-year-old Bichon Friese, who<apos1></apos1>s a picky eater and needs nutrients that support her physical health with the flavours she loves. Her Fresh Beef plan ensures:",
     "toast-content": "A very active 6-year-old Pug with severe allergies, who needs nutrient-rich food to fuel his active lifestyle, while being easy on his stomach. His Fresh Pork plan ensures:",
@@ -536,14 +540,14 @@
     "block-1-title": "Feeding Fresh Is <br></br>Easy With OCELLE",
     "block-1-content": "If you’re not ready for a subscription, our individual packs come in set weights and can be ordered anytime.",
     "block-8-title": "Your Dog Deserves A Fresh Start",
-    "block-8-title-1":"Developed By Vet Nutritionists",
-    "block-8-content-1":"Many of the health issues dogs face are related to diet. That’s why our team is devoted to determining exactly what dogs need to live happier, healthier lives.",
-    "block-8-title-2":"Crafted With Premium Ingredients",
-    "block-8-content-2":"No heat-blasted ingredients. No preservatives. No fillers. No nonsense. Just real ingredients you can see, nutrition dogs need, and the flavours they crave.",
-    "block-8-title-3":"Freshly Made To Lock In Nutrients",
-    "block-8-content-3":"Our ingredients are gently cooked to maximize digestibility and preserve vital nutrients, texture, and taste.",
-    "block-9-title":"Easier For You. Better For Them.",
-    "block-9-content":"Get fresh food conveniently delivered with our customised meal plans."
+    "block-8-title-1": "Developed By Vet Nutritionists",
+    "block-8-content-1": "Many of the health issues dogs face are related to diet. That’s why our team is devoted to determining exactly what dogs need to live happier, healthier lives.",
+    "block-8-title-2": "Crafted With Premium Ingredients",
+    "block-8-content-2": "No heat-blasted ingredients. No preservatives. No fillers. No nonsense. Just real ingredients you can see, nutrition dogs need, and the flavours they crave.",
+    "block-8-title-3": "Freshly Made To Lock In Nutrients",
+    "block-8-content-3": "Our ingredients are gently cooked to maximize digestibility and preserve vital nutrients, texture, and taste.",
+    "block-9-title": "Easier For You. Better For Them.",
+    "block-9-content": "Get fresh food conveniently delivered with our customised meal plans."
   },
   "WhyFresh": {
     "its-time-to-rethink-kibble": "It<apos1></apos1>s Time To Rethink Kibble",

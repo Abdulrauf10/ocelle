@@ -21,9 +21,11 @@ export default function HowItWorksSubscription() {
             <div className="w-2/5 px-4 py-[5vw] text-xl text-primary max-lg:w-full max-lg:pb-12">
               <h1 className="heading-headline heading-weight-1">{s.rich('block-1-title')}</h1>
               <div className="pt-6"></div>
-              <p className="body-1 body-weight-1 italic">{s('block-1-subtitle')}</p>
+              <p className="body-1 body-weight-1 italic lang-zh:font-bold">
+                {s('block-1-subtitle')}
+              </p>
               <div className="pt-5"></div>
-              <p className="body-1">{s('block-1-content')}</p>
+              <p className="body-1">{s.rich('block-1-content')}</p>
               <div className="pt-8 max-lg:flex max-lg:justify-center">
                 <Button href="/get-started">{b('get-started')}</Button>
               </div>
@@ -33,7 +35,9 @@ export default function HowItWorksSubscription() {
       </div>
       <Block className="bg-[#EEEEEE]">
         <Container>
-          <h2 className="heading-1 text-center font-bold text-gray">{s('block-2-title')}</h2>
+          <h2 className="heading-1 text-center font-bold text-gray lang-zh:font-normal">
+            {s.rich('block-2-title')}
+          </h2>
           <div className="pt-6"></div>
           <HowPlanWorks
             mark1={{
@@ -56,7 +60,7 @@ export default function HowItWorksSubscription() {
       </Block>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <h2 className="heading-1 text-center font-bold text-dark-green">
+          <h2 className="heading-1 text-center font-bold text-dark-green lang-zh:font-normal">
             {s.rich('block-3-title')}
           </h2>
           <div className="pt-3"></div>
@@ -68,11 +72,11 @@ export default function HowItWorksSubscription() {
                     {t('recommended')}
                   </div>
                 </div>
-                <div className="drop-shadow-style-6 relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-black/20">
+                <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-black/20 drop-shadow-style-6">
                   <Image alt="Full Plan Meal" src="/meal-plan/full-plan.jpg" fill />
                 </div>
                 <div className="pt-6"></div>
-                <h3 className="heading-4 font-bold uppercase text-dark-green">
+                <h3 className="heading-4 font-bold uppercase text-dark-green lang-zh:font-normal">
                   {t('fresh-full-plan')}
                 </h3>
                 <div className="pt-3"></div>
@@ -81,11 +85,11 @@ export default function HowItWorksSubscription() {
             </div>
             <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full max-sm:px-0">
               <div className="relative h-full w-full rounded-[40px] border border-dark-green bg-white p-10 pt-16 text-center drop-shadow-[12px_12px_5px_rgba(0,0,0,0.2)] max-xs:px-4">
-                <div className="drop-shadow-style-6 relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-black/20">
+                <div className="relative mx-auto h-[240px] w-[240px] overflow-hidden rounded-[30px] shadow-black/20 drop-shadow-style-6">
                   <Image alt="Full Plan Meal" src="/meal-plan/half-plan.jpg" fill />
                 </div>
                 <div className="pt-6"></div>
-                <h3 className="heading-4 font-bold uppercase text-dark-green">
+                <h3 className="heading-4 font-bold uppercase text-dark-green lang-zh:font-normal">
                   {t('fresh-half-plan')}
                 </h3>
                 <div className="pt-3"></div>
@@ -109,7 +113,9 @@ export default function HowItWorksSubscription() {
         }}
       >
         <div className="max-sm:px-7">
-          <h2 className="heading-1 font-bold text-gold">{s.rich('block-4-title')}</h2>
+          <h2 className="heading-1 font-bold text-gold lang-zh:font-normal">
+            {s.rich('block-4-title')}
+          </h2>
           <div className="pt-6"></div>
           <p className="body-1">{s('block-4-content')}</p>
           <div className="pt-6 max-lg:flex max-lg:justify-center">
@@ -126,7 +132,9 @@ export default function HowItWorksSubscription() {
         }}
       >
         <div className="max-sm:px-7">
-          <h2 className="heading-1 font-bold text-primary">{s.rich('block-5-title')}</h2>
+          <h2 className="heading-1 font-bold text-primary lang-zh:font-normal">
+            {s.rich('block-5-title')}
+          </h2>
           <div className="pt-6"></div>
           <p className="body-1">{s.rich('block-5-content')}</p>
           <div className="pt-6 max-lg:flex max-lg:justify-center">
@@ -145,7 +153,9 @@ export default function HowItWorksSubscription() {
         }}
         startAdornment={
           <div className="mb-10">
-            <h2 className="heading-1 text-center font-bold text-primary">{s('block-6-title')}</h2>
+            <h2 className="heading-1 text-center font-bold text-primary lang-zh:font-normal">
+              {s.rich('block-6-title')}
+            </h2>
           </div>
         }
       >
@@ -170,11 +180,13 @@ export default function HowItWorksSubscription() {
       </ImageContentBlock>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <h2 className="heading-1 text-center font-bold text-gold">{s.rich('block-7-title')}</h2>
+          <h2 className="heading-1 text-center font-bold text-gold lang-zh:font-normal">
+            {s.rich('block-7-title')}
+          </h2>
           <div className="mx-auto mt-10 max-w-[820px] rounded-[30px] bg-white p-12 max-sm:p-8">
             <div className="flex max-sm:block max-sm:items-center">
               <h3 className="inline-flex w-[190px] min-w-[190px] items-center justify-center max-sm:w-full">
-                <span className="body-1 body-weight-1 text-center text-primary">
+                <span className="body-1 body-weight-1 text-center text-primary lang-zh:font-normal">
                   {s('block-7-content-1-title')}
                 </span>
               </h3>
@@ -185,7 +197,7 @@ export default function HowItWorksSubscription() {
             </div>
             <div className="mt-6 flex items-center max-sm:block">
               <h3 className="inline-flex w-[190px] min-w-[190px] items-center justify-center max-sm:w-full">
-                <span className="body-1 body-weight-1 text-center text-primary">
+                <span className="body-1 body-weight-1 text-center text-primary lang-zh:font-normal">
                   {s('block-7-content-2-title')}
                 </span>
               </h3>
@@ -196,7 +208,7 @@ export default function HowItWorksSubscription() {
             </div>
             <div className="mt-6 flex items-center max-sm:block">
               <h3 className="inline-flex w-[190px] min-w-[190px] items-center justify-center max-sm:w-full">
-                <span className="body-1 body-weight-1 text-center text-primary">
+                <span className="body-1 body-weight-1 text-center text-primary lang-zh:font-normal">
                   {s.rich('block-7-content-3-title')}
                 </span>
               </h3>

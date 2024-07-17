@@ -45,7 +45,7 @@ export default function RecipeBenefits() {
   return (
     <div className="rounded-[30px] border border-gray bg-white p-10 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:p-6">
       <div className="flex max-md:items-end">
-        <h2 className="heading-4 flex-1 text-center font-bold text-primary">
+        <h2 className="heading-4 flex-1 text-center font-bold text-primary lang-zh:font-normal">
           {r('block-7-title')}
         </h2>
         <button className="ml-3" onClick={() => setOpened(!opened)}>

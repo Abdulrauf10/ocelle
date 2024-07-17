@@ -13,6 +13,7 @@ const defaultTranslationValues: RichTranslationValues = {
   ),
   apos1: () => <span style={{ marginRight: '-.13em' }}>’</span>,
   apos2: () => <span style={{ marginRight: '-.13em' }}>&apos;</span>,
+  bold: (chunks) => <span className="font-bold">{chunks}</span>,
 };
 
 export default defaultTranslationValues;
