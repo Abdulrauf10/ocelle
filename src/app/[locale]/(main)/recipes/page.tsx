@@ -56,7 +56,7 @@ function EndAdornment({
           </RecipeLargeDialog>
         </div>
         <div className="flex-1 p-2 text-center">
-          <Button className="w-[232px]" href="/get-started">
+          <Button className="w-[232px] lang-zh:px-[8px]" href="/get-started">
             {b('build-my-plan')}
           </Button>
         </div>
