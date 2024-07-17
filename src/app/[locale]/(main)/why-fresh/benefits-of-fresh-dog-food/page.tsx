@@ -41,7 +41,7 @@ function BenefitsTitle({
             )}
           />
           <div className="pt-3 sm:hidden"></div>
-          <p className="heading-4 font-bold text-primary sm:inline">{title}</p>
+          <p className="heading-4 font-bold text-primary lang-zh:font-normal sm:inline">{title}</p>
         </div>
       </div>
     </div>
@@ -82,7 +82,9 @@ export default function BenefitsOfFreshDogFood() {
         }}
         left={
           <div className="text-white">
-            <h2 className="heading-1 font-bold max-md:text-center">{i.rich('block-2-title')}</h2>
+            <h2 className="heading-1 font-bold lang-zh:font-normal max-md:text-center">
+              {i.rich('block-2-title')}
+            </h2>
             <div className="pt-8"></div>
             <p className="body-1">{i.rich('block-2-content-1')}</p>
             <div className="pt-5"></div>
@@ -104,7 +106,9 @@ export default function BenefitsOfFreshDogFood() {
       />
       <Block className="bg-gold bg-opacity-15">
         <Container>
-          <h2 className="heading-1 text-center font-bold text-gold">{i.rich('block-3-title')}</h2>
+          <h2 className="heading-1 text-center font-bold text-gold lang-zh:font-normal">
+            {i.rich('block-3-title')}
+          </h2>
           <div className="-mx-4 flex items-center pt-normal max-md:flex-col">
             <div className="mx-4 flex-1">
               <div className="ml-4 mr-10 rounded-[40px] border-[3px] border-gold bg-white px-12 py-10 max-xl:ml-0 max-xl:mr-4 max-md:mr-0 max-md:max-w-xl max-md:px-6">
@@ -155,7 +159,9 @@ export default function BenefitsOfFreshDogFood() {
         </Container>
       </Block>
       <Block className="bg-primary bg-opacity-10">
-        <h2 className="heading-1 text-center font-bold text-primary">{i.rich('block-4-title')}</h2>
+        <h2 className="heading-1 text-center font-bold text-primary lang-zh:font-normal">
+          {i.rich('block-4-title')}
+        </h2>
         <div className="pt-6"></div>
         <Container className="!max-w-5xl">
           <p className="body-1 text-center text-primary">{i.rich('block-4-content-1')}</p>
@@ -181,7 +187,9 @@ export default function BenefitsOfFreshDogFood() {
             <ul className="-mb-2 mt-2 list-item pl-7">
               <li className="relative flex items-center py-2">
                 <div className="absolute -left-5 select-none text-[60px] text-primary">
-                  <span className="relative lang-en:top-1 lang-zh:-top-[2px]">•</span>
+                  <span className="relative lang-en:top-1 lang-zh:-top-[12px] lang-zh:left-[16px] lang-zh:text-[36px]">
+                    •
+                  </span>
                 </div>
                 <p className="body-1 lang-zh:pl-6">
                   {i.rich('block-4-benefits-1-content-4-mark-1')}
@@ -189,7 +197,9 @@ export default function BenefitsOfFreshDogFood() {
               </li>
               <li className="relative flex items-center py-2">
                 <div className="absolute -left-5 select-none text-[60px] text-primary">
-                  <span className="relative lang-en:top-1 lang-zh:-top-[2px]">•</span>
+                  <span className="relative lang-en:top-1 lang-zh:-top-[12px] lang-zh:left-[16px] lang-zh:text-[36px]">
+                    •
+                  </span>
                 </div>
                 <p className="body-1 lang-zh:pl-6">
                   {i.rich('block-4-benefits-1-content-4-mark-2')}
@@ -197,7 +207,9 @@ export default function BenefitsOfFreshDogFood() {
               </li>
               <li className="relative flex items-center py-2">
                 <div className="absolute -left-5 select-none text-[60px] text-primary">
-                  <span className="relative lang-en:top-1 lang-zh:-top-[2px]">•</span>
+                  <span className="relative lang-en:top-1 lang-zh:-top-[12px] lang-zh:left-[16px] lang-zh:text-[36px]">
+                    •
+                  </span>
                 </div>
                 <p className="body-1 lang-zh:pl-6">
                   {i.rich('block-4-benefits-1-content-4-mark-3')}
@@ -299,7 +311,9 @@ export default function BenefitsOfFreshDogFood() {
                     className="inline-block min-w-28"
                   />
                   <div className="mt-1"></div>
-                  <p className="body-4 font-bold text-primary">500 calories of OCELLE</p>
+                  <p className="body-4 font-bold text-primary">
+                    {i('block-4-benefits-5-content-5-image-1-desc')}
+                  </p>
                 </div>
                 <div className="mx-6 mt-2 h-[115.5px] w-px bg-primary"></div>
                 <div className="flex">
@@ -312,7 +326,9 @@ export default function BenefitsOfFreshDogFood() {
                       className="inline-block min-w-28"
                     />
                     <div className="mt-1"></div>
-                    <p className="body-4 font-bold text-brown">500 calories of kibble</p>
+                    <p className="body-4 font-bold text-brown">
+                      {i('block-4-benefits-5-content-5-image-2-desc')}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -372,7 +388,9 @@ export default function BenefitsOfFreshDogFood() {
       </Block>
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center">
-          <h2 className="heading-1 font-bold text-white">{i.rich('block-5-title')}</h2>
+          <h2 className="heading-1 font-bold text-white lang-zh:font-normal">
+            {i.rich('block-5-title')}
+          </h2>
           <Button className="mt-8" href="/get-started">
             {b('try-it-today')}
           </Button>
@@ -380,7 +398,9 @@ export default function BenefitsOfFreshDogFood() {
       </Block>
       <Block className="overflow-hidden bg-gold bg-opacity-15">
         <Container>
-          <h2 className="heading-1 text-center font-bold text-gold">{w.rich('block-1-title')}</h2>
+          <h2 className="heading-1 text-center font-bold text-gold lang-zh:font-normal">
+            {w.rich('block-1-title')}
+          </h2>
           <div className="pt-4"></div>
           <p className="body-1 text-center">
             {w.rich('block-1-content-1', {
@@ -403,7 +423,9 @@ export default function BenefitsOfFreshDogFood() {
                   <Image src="/why-fresh/its-time-to-rethink-kibble.jpg" alt="" fill />
                 </div>
                 <div className="flex h-full items-center justify-center px-4 py-6">
-                  <span className="body-1 text-center">{w.rich('its-time-to-rethink-kibble')}</span>
+                  <span className="body-1 text-center lang-zh:font-normal">
+                    {w.rich('its-time-to-rethink-kibble')}
+                  </span>
                 </div>
               </Link>
             </div>
@@ -416,7 +438,9 @@ export default function BenefitsOfFreshDogFood() {
                   <Image src="/why-fresh/raw-vs-gently-cooked-diets.jpg" alt="" fill />
                 </div>
                 <div className="flex h-full items-center justify-center px-4 py-6">
-                  <span className="body-1 text-center">{w.rich('raw-vs-gently-cooked-diets')}</span>
+                  <span className="body-1 text-center lang-zh:font-normal">
+                    {w.rich('raw-vs-gently-cooked-diets')}
+                  </span>
                 </div>
               </Link>
             </div>
@@ -433,7 +457,7 @@ export default function BenefitsOfFreshDogFood() {
                   />
                 </div>
                 <div className="flex h-full items-center justify-center px-4 py-6">
-                  <span className="body-1 text-center">
+                  <span className="body-1 text-center lang-zh:font-normal">
                     {w.rich('challenges-with-home-cooking-for-your-dog')}
                   </span>
                 </div>
