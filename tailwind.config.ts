@@ -58,7 +58,12 @@ const config: Config = {
         baskerville: ['baskerville', 'emoji', 'serif'],
         jost: ['var(--font-jost)', ...defaultTheme.fontFamily.sans],
         'open-sans': ['var(--font-open-sans)', ...defaultTheme.fontFamily.sans],
-        zh: ['"PingFang HK"', 'var(--font-noto-sans-tc)', ...defaultTheme.fontFamily.sans],
+        zh: [
+          'var(--font-jost)',
+          '"PingFang HK"',
+          'var(--font-noto-sans-tc)',
+          ...defaultTheme.fontFamily.sans,
+        ],
       },
       padding: {
         tight: 'clamp(40px,2.4vw,50px)',
