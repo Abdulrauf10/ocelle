@@ -22,7 +22,7 @@ function Block({ id, title, faqs }: BlockProps) {
   return (
     <div className="py-10">
       <div id={id} className="relative -top-[140px]"></div>
-      <h2 className="heading-2 font-bold uppercase text-primary">{title}</h2>
+      <h2 className="heading-2 font-bold uppercase text-primary lang-zh:font-normal">{title}</h2>
       {faqs.map((faq, idx) => (
         <div key={idx} className="mt-5">
           <QuestionAnswerBlock question={faq.question} answer={faq.answer} />
@@ -83,7 +83,9 @@ export default function FaQ() {
                 href="#our-food"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                <span className="heading-4 font-bold text-white">{f('block-2-title')}</span>
+                <span className="heading-4 font-bold text-white lang-zh:font-normal">
+                  {f('block-2-title')}
+                </span>
               </Link>
             </div>
             <div className="px-4 py-2">
@@ -91,7 +93,9 @@ export default function FaQ() {
                 href="#our-quiz"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                <span className="heading-4 font-bold text-white">{f('block-3-title')}</span>
+                <span className="heading-4 font-bold text-white lang-zh:font-normal">
+                  {f('block-3-title')}
+                </span>
               </Link>
             </div>
             <div className="px-4 py-2">
@@ -99,7 +103,9 @@ export default function FaQ() {
                 href="#subscription"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                <span className="heading-4 font-bold text-white">{f('block-4-title')}</span>
+                <span className="heading-4 font-bold text-white lang-zh:font-normal">
+                  {f('block-4-title')}
+                </span>
               </Link>
             </div>
             <div className="hidden w-full flex-auto md:block xl:hidden"></div>
@@ -108,7 +114,9 @@ export default function FaQ() {
                 href="#deliveries"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                <span className="heading-4 font-bold text-white">{f('block-5-title')}</span>
+                <span className="heading-4 font-bold text-white lang-zh:font-normal lang-zh:font-normal">
+                  {f('block-5-title')}
+                </span>
               </Link>
             </div>
             <div className="px-4 py-2">
@@ -116,7 +124,9 @@ export default function FaQ() {
                 href="#payment"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                <span className="heading-4 font-bold text-white">{f('block-6-title')}</span>
+                <span className="heading-4 font-bold text-white lang-zh:font-normal">
+                  {f('block-6-title')}
+                </span>
               </Link>
             </div>
           </div>

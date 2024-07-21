@@ -203,7 +203,9 @@ export default async function HowItWorksIndividual() {
         />
         <Block className="bg-gray bg-opacity-20">
           <Container className="max-w-screen-lg text-center">
-            <h2 className="heading-1 font-bold text-gray">{ip('block-8-title')}</h2>
+            <h2 className="heading-1 font-bold text-gray lang-zh:font-normal">
+              {ip('block-8-title')}
+            </h2>
             <div className="mt-10">
               <div className="-mx-4 -my-4 flex flex-wrap">
                 <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
@@ -216,7 +218,9 @@ export default async function HowItWorksIndividual() {
                     />
                   </div>
                   <div className="mt-6"></div>
-                  <h3 className="heading-4 font-bold text-gray">{ip('block-8-title-1')}</h3>
+                  <h3 className="heading-4 font-bold text-gray lang-zh:font-normal">
+                    {ip('block-8-title-1')}
+                  </h3>
                   <div className="mt-3"></div>
                   <p className="body-1">{ip('block-8-content-1')}</p>
                 </div>
@@ -230,7 +234,9 @@ export default async function HowItWorksIndividual() {
                     />
                   </div>
                   <div className="mt-6"></div>
-                  <h3 className="heading-4 font-bold text-gray">{ip('block-8-title-2')}</h3>
+                  <h3 className="heading-4 font-bold text-gray lang-zh:font-normal">
+                    {ip('block-8-title-2')}
+                  </h3>
                   <div className="mt-3"></div>
                   <p className="body-1">{ip('block-8-content-2')}</p>
                 </div>
@@ -244,7 +250,9 @@ export default async function HowItWorksIndividual() {
                     />
                   </div>
                   <div className="mt-6"></div>
-                  <h3 className="heading-4 font-bold text-gray">{ip('block-8-title-3')}</h3>
+                  <h3 className="heading-4 font-bold text-gray lang-zh:font-normal">
+                    {ip('block-8-title-3')}
+                  </h3>
                   <div className="mt-3"></div>
                   <p className="body-1">{ip('block-8-content-3')}</p>
                 </div>

@@ -573,7 +573,9 @@ export default function RecipesPage() {
       </Block>
       <Block>
         <Container className="text-center">
-          <h2 className="heading-3 font-bold text-primary">{r('block-8-title')}</h2>
+          <h2 className="heading-3 font-bold text-primary lang-zh:font-normal">
+            {r('block-8-title')}
+          </h2>
           <div className="mt-6"></div>
           <p className="body-1">{r('block-8-content')}</p>
           <Button className="mt-6" href="/get-started">
