@@ -113,7 +113,7 @@ export default function HowItWorksSubscription() {
         }}
       >
         <div className="max-sm:px-7">
-          <h2 className="heading-1 font-bold text-gold lang-zh:font-normal">
+          <h2 className="heading-1 font-bold text-gold lang-zh:whitespace-nowrap lang-zh:font-normal">
             {s.rich('block-4-title')}
           </h2>
           <div className="pt-6"></div>
@@ -186,7 +186,7 @@ export default function HowItWorksSubscription() {
           <div className="mx-auto mt-10 max-w-[820px] rounded-[30px] bg-white p-12 max-sm:p-8">
             <div className="flex max-sm:block max-sm:items-center">
               <h3 className="inline-flex w-[190px] min-w-[190px] items-center justify-center max-sm:w-full">
-                <span className="body-1 body-weight-1 text-center text-primary lang-zh:font-normal">
+                <span className="body-1 body-weight-1 text-center text-primary lang-zh:font-light">
                   {s('block-7-content-1-title')}
                 </span>
               </h3>
@@ -197,7 +197,7 @@ export default function HowItWorksSubscription() {
             </div>
             <div className="mt-6 flex items-center max-sm:block">
               <h3 className="inline-flex w-[190px] min-w-[190px] items-center justify-center max-sm:w-full">
-                <span className="body-1 body-weight-1 text-center text-primary lang-zh:font-normal">
+                <span className="body-1 body-weight-1 text-center text-primary lang-zh:font-light">
                   {s('block-7-content-2-title')}
                 </span>
               </h3>
@@ -208,7 +208,7 @@ export default function HowItWorksSubscription() {
             </div>
             <div className="mt-6 flex items-center max-sm:block">
               <h3 className="inline-flex w-[190px] min-w-[190px] items-center justify-center max-sm:w-full">
-                <span className="body-1 body-weight-1 text-center text-primary lang-zh:font-normal">
+                <span className="body-1 body-weight-1 text-center text-primary lang-zh:font-light">
                   {s.rich('block-7-content-3-title')}
                 </span>
               </h3>

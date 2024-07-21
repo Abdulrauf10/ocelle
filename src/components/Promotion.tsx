@@ -21,7 +21,7 @@ export default function Promotion() {
         {t('content-1')}
         <Link
           href="/get-started"
-          className="border-b border-solid border-b-white pb-1.5 font-bold leading-[38px]"
+          className="border-b border-solid border-b-white font-bold leading-[38px]"
         >
           {t('content-2')}
         </Link>
