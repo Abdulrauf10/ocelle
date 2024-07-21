@@ -18,7 +18,9 @@ function Hr() {
 function DialogBlock({ title, children }: React.PropsWithChildren<{ title: React.ReactNode }>) {
   return (
     <div>
-      <strong className="block text-center text-5xl text-primary">{title}</strong>
+      <strong className="block text-center text-5xl text-primary lang-zh:font-normal">
+        {title}
+      </strong>
       <div className="pt-2"></div>
       <div className="mt-6">{children}</div>
     </div>
@@ -130,7 +132,7 @@ export default function RecipeLargeDialog({
                   height={80}
                 />
                 <div className="mt-3"></div>
-                <strong className="heading-4 block text-center font-bold text-primary">
+                <strong className="heading-4 block text-center font-bold text-primary lang-zh:font-normal">
                   {m('no-colours')}
                 </strong>
               </div>
@@ -143,7 +145,7 @@ export default function RecipeLargeDialog({
                   height={80}
                 />
                 <div className="mt-3"></div>
-                <strong className="heading-4 block text-center font-bold text-primary">
+                <strong className="heading-4 block text-center font-bold text-primary lang-zh:font-normal">
                   {m('no-fillers')}
                 </strong>
               </div>
@@ -156,7 +158,7 @@ export default function RecipeLargeDialog({
                   height={80}
                 />
                 <div className="mt-3"></div>
-                <strong className="heading-4 block text-center font-bold text-primary">
+                <strong className="heading-4 block text-center font-bold text-primary lang-zh:font-normal">
                   {m('no-flavourings')}
                 </strong>
               </div>
@@ -169,7 +171,7 @@ export default function RecipeLargeDialog({
                   height={80}
                 />
                 <div className="mt-3"></div>
-                <strong className="heading-4 block text-center font-bold text-primary">
+                <strong className="heading-4 block text-center font-bold text-primary lang-zh:font-normal">
                   {m('no-preservatives')}
                 </strong>
               </div>
@@ -183,7 +185,7 @@ export default function RecipeLargeDialog({
                   height={80}
                 />
                 <div className="mt-3"></div>
-                <strong className="heading-4 block text-center font-bold text-primary">
+                <strong className="heading-4 block text-center font-bold text-primary lang-zh:font-normal">
                   {m('no-additives')}
                 </strong>
               </div>
@@ -196,7 +198,7 @@ export default function RecipeLargeDialog({
                   height={80}
                 />
                 <div className="mt-3"></div>
-                <strong className="heading-4 block text-center font-bold text-primary">
+                <strong className="heading-4 block text-center font-bold text-primary lang-zh:font-normal">
                   {m('no-artificial-flavours')}
                 </strong>
               </div>
@@ -209,7 +211,7 @@ export default function RecipeLargeDialog({
                   height={80}
                 />
                 <div className="mt-3"></div>
-                <strong className="heading-4 block text-center font-bold text-primary">
+                <strong className="heading-4 block text-center font-bold text-primary lang-zh:font-normal">
                   {m('no-hormones')}
                 </strong>
               </div>
