@@ -56,7 +56,7 @@ export default function ChallengesWithHomeCookingForYourDog() {
               row: 'py-6',
               icon: 'mr-4',
             }}
-            picture={<DogFoot className="-mt-2 w-10 min-w-10 fill-gold" />}
+            picture={<DogFoot className="-mt-1 w-8 fill-gold" />}
             items={[
               <p key="block-3-mark-1" className="body-1">
                 <span className="font-bold text-gold lang-zh:font-normal">

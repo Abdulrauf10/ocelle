@@ -124,7 +124,7 @@ export default function RawDogFoodVsGentlyCooked() {
                 row: 'py-5',
                 icon: 'mr-4',
               }}
-              picture={<DogFoot className=" w-6 fill-primary" />}
+              picture={<DogFoot className="-mt-1 w-8 fill-primary" />}
               items={[
                 <p key="block-4-content-1" className="body-1">
                   {i.rich('block-4-content-1')}
