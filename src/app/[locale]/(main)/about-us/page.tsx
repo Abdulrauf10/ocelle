@@ -44,7 +44,9 @@ export default function OurStory() {
                     <strong className="heading-4 text-primary">1.</strong>
                   </div>
                   <div className="table-cell">
-                    <strong className="heading-4 text-primary">{a('block-1-title-1')}:</strong>
+                    <strong className="heading-4 text-primary lang-zh:font-normal">
+                      {a('block-1-title-1')}:
+                    </strong>
                   </div>
                 </div>
                 <div className="table-row">
@@ -69,7 +71,9 @@ export default function OurStory() {
                     <strong className="heading-4 relative -left-[3px] text-primary">2.</strong>
                   </div>
                   <div className="table-cell">
-                    <strong className="heading-4 text-primary">{a('block-1-title-2')}:</strong>
+                    <strong className="heading-4 text-primary lang-zh:font-normal">
+                      {a('block-1-title-2')}:
+                    </strong>
                     <span className="body-1"> {a.rich('block-1-content-4')}</span>
                   </div>
                 </div>
@@ -91,8 +95,12 @@ export default function OurStory() {
           }}
           left={
             <div className="py-normal text-white">
-              <h2 className="heading-1 font-bold lg:hidden">{a.rich('block-2-title-1')}</h2>
-              <h2 className="heading-1 font-bold max-lg:hidden">{a.rich('block-2-title-1-lg')}</h2>
+              <h2 className="heading-1 font-bold lang-zh:font-normal lg:hidden">
+                {a.rich('block-2-title-1')}
+              </h2>
+              <h2 className="heading-1 font-bold lang-zh:font-normal max-lg:hidden">
+                {a.rich('block-2-title-1-lg')}
+              </h2>
               <div className="mt-8"></div>
               <p className="body-1">{a('block-2-content-1')}</p>
               <div className="mt-4"></div>
@@ -145,7 +153,9 @@ export default function OurStory() {
             />
           </div>
           <div className="mt-6"></div>
-          <h2 className="heading-1 font-bold max-md:text-center">{a('block-3-title-1')}</h2>
+          <h2 className="heading-1 font-bold lang-zh:font-normal max-md:text-center">
+            {a('block-3-title-1')}
+          </h2>
           <div className="mt-4"></div>
           <div className="max-w-[650px] md:min-h-[140px] xl:min-h-[112px] xl:pr-8">
             <p className="body-1">{a('block-3-content-1')}</p>
@@ -175,8 +185,8 @@ export default function OurStory() {
         left={
           <div className="py-[clamp(20px,3.5vw,60px)]">
             <h2 className="heading-1 inline-block font-bold text-secondary max-[300px]:block">
-              <span className="max-lg:hidden">{a.rich('block-4-title')}</span>
-              <span className="lg:hidden">{a.rich('block-4-title-lg')}</span>
+              <span className="lang-zh:font-normal max-lg:hidden">{a.rich('block-4-title')}</span>
+              <span className="lang-zh:font-normal lg:hidden">{a.rich('block-4-title-lg')}</span>
             </h2>
             <div className="mt-8"></div>
             <p className="body-1">{a('block-4-content-1')}</p>
@@ -206,7 +216,7 @@ export default function OurStory() {
       />
       <Block styles="normal" className="bg-dark-green py-10">
         <Container className="text-center text-white" screen>
-          <h2 className="heading-1 font-bold">{a.rich('block-5-title-1')}</h2>
+          <h2 className="heading-1 font-bold lang-zh:font-normal">{a.rich('block-5-title-1')}</h2>
           <div className="mb-1 mt-10">
             <Button href="/get-started">{b('start-your-fresh-journey')}</Button>
           </div>
@@ -214,7 +224,7 @@ export default function OurStory() {
       </Block>
       <Block>
         <Container className="text-center text-primary">
-          <h2 className="heading-1 font-bold">{a('block-6-title-1')}</h2>
+          <h2 className="heading-1 font-bold lang-zh:font-normal">{a('block-6-title-1')}</h2>
           <div className="mt-6"></div>
           <div className="mx-auto max-w-4xl">
             <p className="body-1">
