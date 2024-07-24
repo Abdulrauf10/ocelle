@@ -105,7 +105,7 @@ export default function Home() {
                 <div className="flex flex-1 flex-wrap max-xl:-m-3">
                   <div className="w-full max-xl:p-3 md:w-1/2 xl:w-full xl:max-w-[300px]">
                     <Image
-                      className="h-20 w-[114px]"
+                      className="h-18 w-[114px]"
                       alt="good food"
                       src="/meal-plan/icon-3.svg"
                       width={102}
@@ -124,7 +124,7 @@ export default function Home() {
                       width={67}
                       height={70}
                     />
-                    <div className="pt-2"></div>
+                    <div className="pt-[9px]"></div>
                     <h3 className="heading-4 text-primary">{t.rich('block-4-item-4-title')}</h3>
                     <div className="pt-4"></div>
                     <p className="body-1">{t.rich('block-4-item-4-content')}</p>

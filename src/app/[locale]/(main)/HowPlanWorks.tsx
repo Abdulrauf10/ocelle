@@ -22,8 +22,8 @@ export default function HowPlanWorks({
         <Image
           src="/plan-works/icon-1.png"
           alt="your furry friend"
-          width={110}
-          height={110}
+          width={112}
+          height={112}
           className="inline-block"
         />
         <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
@@ -54,8 +54,8 @@ export default function HowPlanWorks({
         <Image
           src="/plan-works/icon-3.png"
           alt="deliver"
-          width={165}
-          height={110}
+          width={180}
+          height={120}
           className="mr-[20px] inline-block"
         />
         <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">

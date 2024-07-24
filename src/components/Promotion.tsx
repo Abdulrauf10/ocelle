@@ -19,10 +19,7 @@ export default function Promotion() {
     <div className="bg-primary py-2 text-center text-xl text-white max-xl:text-base">
       <Container>
         {t('content-1')}
-        <Link
-          href="/get-started"
-          className="border-b border-solid border-b-white font-bold leading-[38px]"
-        >
+        <Link href="/get-started" className="font-bold leading-[38px] underline underline-offset-4">
           {t('content-2')}
         </Link>
         {t('content-3')}
