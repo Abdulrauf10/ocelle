@@ -136,7 +136,7 @@ export default function HowItWorksSubscription() {
             {s.rich('block-5-title')}
           </h2>
           <div className="pt-6"></div>
-          <p className="body-1">{s.rich('block-5-content')}</p>
+          <p className="body-1 lang-zh:lg:w-[450px]">{s.rich('block-5-content')}</p>
           <div className="pt-6 max-lg:flex max-lg:justify-center">
             <Button href="/get-started">{b('build-my-plan')}</Button>
           </div>
