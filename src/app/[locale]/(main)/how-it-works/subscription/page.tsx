@@ -183,7 +183,7 @@ export default function HowItWorksSubscription() {
           <h2 className="heading-1 text-center font-bold text-gold lang-zh:font-normal">
             {s.rich('block-7-title')}
           </h2>
-          <div className="mx-auto mt-10 max-w-[820px] rounded-[30px] bg-white p-12 max-sm:p-8">
+          <div className="mx-auto mt-10 max-w-[820px] rounded-[30px] bg-white p-12 max-sm:p-8 max-sm:lang-zh:p-4">
             <div className="flex max-sm:block max-sm:items-center">
               <h3 className="inline-flex w-[190px] min-w-[190px] items-center justify-center max-sm:w-full">
                 <span className="body-1 body-weight-1 text-center text-primary lang-zh:font-light">
