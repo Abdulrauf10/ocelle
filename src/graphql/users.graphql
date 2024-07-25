@@ -133,27 +133,8 @@ query GetAddresses {
   }
 }
 
-mutation CreateAddress(
-  $id: ID!
-  $firstName: String!
-  $lastName: String!
-  $streetAddress1: String!
-  $streetAddress2: String!
-  $city: String!
-  $countryArea: String!
-) {
-  addressCreate(
-    userId: $id
-    input: {
-      firstName: $firstName
-      lastName: $lastName
-      streetAddress1: $streetAddress1
-      streetAddress2: $streetAddress2
-      city: $city
-      countryArea: $countryArea
-      country: HK
-    }
-  ) {
+mutation CreateAddress($id: ID!, $input: AddressInput!) {
+  addressCreate(userId: $id, input: $input) {
     errors {
       ...UserError
     }
@@ -211,8 +192,8 @@ mutation UpdateSelfAddress(
   }
 }
 
-query addressValidationRules($countryArea: String!) {
-  addressValidationRules(countryCode: HK, countryArea: $countryArea) {
+query addressValidationRules($countryCode: CountryCode!, $countryArea: String) {
+  addressValidationRules(countryCode: $countryCode, countryArea: $countryArea) {
     addressFormat
     allowedFields
     requiredFields

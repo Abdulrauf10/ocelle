@@ -30,8 +30,12 @@ export async function getBreeds(): Promise<BreedDto[]> {
   });
 }
 
-export async function getDistricts(locale: string, countryArea: CountryCode) {
-  return shippingService.districts(locale, countryArea);
+export async function getCountryAreas(locale: string, countryArea: CountryCode) {
+  return shippingService.countryAreas(locale, countryArea);
+}
+
+export async function getDistricts(locale: string, countryCode: CountryCode, countryArea: string) {
+  return shippingService.districts(locale, countryCode, countryArea);
 }
 
 export async function getCart() {
@@ -87,8 +91,9 @@ export async function logout() {
 
 export async function isAvailableEmailAddress(email: string) {
   try {
-    await userService.find(email);
-    return false;
+    const { id } = await userService.find(email);
+    const orderCreated = await userService.isFirstOrderCreated(id);
+    return !orderCreated;
   } catch (err) {
     if (err instanceof UserNotFoundError) {
       return true;

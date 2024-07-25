@@ -53,6 +53,7 @@
     "framer-motion": "^11.1.9",
     "google-gax": "^4.3.6",
     "html-to-text": "^9.0.5",
+    "i18n-iso-countries": "^7.11.3",
     "ioredis": "^5.4.1",
     "joi": "^17.12.1",
     "js-cookie": "^3.0.5",

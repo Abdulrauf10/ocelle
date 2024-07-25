@@ -10,6 +10,7 @@ import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import BillingAddressForm from '@/components/forms/BillingAddress';
 import DeliveryAddressForm from '@/components/forms/DeliveryAddress';
 import { EditAddressProvider } from '@/contexts/editAddress';
+import { CountryCode } from '@/gql/graphql';
 
 export default async function Addresses() {
   const t = await getTranslations();
@@ -42,7 +43,7 @@ export default async function Addresses() {
                 streetAddress2={defaultShippingAddress?.streetAddress2}
                 district={defaultShippingAddress?.city}
                 region={defaultShippingAddress?.countryArea}
-                country={defaultShippingAddress?.country.code}
+                country={defaultShippingAddress?.country.code as CountryCode | undefined}
                 isSameAsBillingAddress={isDeliveryUsAsBillingAddress}
                 action={changeShippingAddressAction}
               />
@@ -58,7 +59,7 @@ export default async function Addresses() {
                 streetAddress2={defaultBillingAddress?.streetAddress2}
                 district={defaultBillingAddress?.city}
                 region={defaultBillingAddress?.countryArea}
-                country={defaultBillingAddress?.country.code}
+                country={defaultBillingAddress?.country.code as CountryCode | undefined}
                 action={changeBillingAddressAction}
               />
               <div className="mt-12 text-center">

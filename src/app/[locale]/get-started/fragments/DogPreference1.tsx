@@ -97,7 +97,7 @@ export default function DogPreference1Fragment() {
                 InputProps={{
                   sx: {
                     input: {
-                      '-moz-appearance': 'textfield',
+                      MozAppearance: 'textfield',
                       '&::-webkit-outer-spin-button': { appearance: 'none', margin: 0 },
                       '&::-webkit-inner-spin-button': { appearance: 'none', margin: 0 },
                     },

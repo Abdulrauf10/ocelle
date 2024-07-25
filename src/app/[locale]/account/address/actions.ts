@@ -4,7 +4,7 @@ import Joi from 'joi';
 
 import { getLoginedMeFullSize } from '@/actions';
 import { User } from '@/entities';
-import { UpdateSelfAddressDocument } from '@/gql/graphql';
+import { CountryCode, UpdateSelfAddressDocument } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
 
@@ -15,7 +15,7 @@ interface ChangeShippingAddressAction {
   streetAddress2: string;
   district: string;
   region: string;
-  country: string;
+  country: CountryCode;
   isSameAsBillingAddress: boolean;
 }
 
@@ -74,7 +74,7 @@ interface ChangeBillingAddressAction {
   streetAddress2: string;
   district: string;
   region: string;
-  country: string;
+  country: CountryCode;
 }
 
 const changeBillingAddressActionSchema = Joi.object<ChangeBillingAddressAction>({

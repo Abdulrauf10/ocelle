@@ -1,18 +1,37 @@
 import invariant from 'ts-invariant';
 
 import { DEFUALT_SHIPPING_ZONE } from '@/consts';
-import { ShippingDistrictsError, ShippingMethodNotFoundError } from '@/errors/shipping';
+import {
+  ShippingCountryAreasError,
+  ShippingDistrictsError,
+  ShippingMethodNotFoundError,
+} from '@/errors/shipping';
 import {
   AddressValidationRulesDocument,
   CountryCode,
   FindShippingZonesDocument,
 } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
+import { choiceToOptions } from '@/helpers/saleor';
 
 class ShippingService {
-  async districts(locale: string, countryArea: CountryCode) {
+  async countryAreas(locale: string, countryCode: CountryCode) {
     const { addressValidationRules } = await executeGraphQL(AddressValidationRulesDocument, {
       variables: {
+        countryCode,
+      },
+    });
+
+    if (!addressValidationRules) {
+      throw new ShippingCountryAreasError();
+    }
+
+    return choiceToOptions(addressValidationRules.countryAreaChoices, locale);
+  }
+  async districts(locale: string, countryCode: CountryCode, countryArea: string) {
+    const { addressValidationRules } = await executeGraphQL(AddressValidationRulesDocument, {
+      variables: {
+        countryCode,
         countryArea,
       },
     });
@@ -21,35 +40,7 @@ class ShippingService {
       throw new ShippingDistrictsError();
     }
 
-    const districts: Array<{ raw: string; verbose: string }> = [];
-
-    for (const city of addressValidationRules.cityChoices) {
-      if (city.raw && city.verbose) {
-        if (locale === 'en') {
-          if (/^[a-zA-Z\s]+$/.test(city.verbose)) {
-            districts.push({
-              raw: city.raw,
-              verbose: city.verbose,
-            });
-          }
-        } else {
-          districts.push({
-            raw: city.raw,
-            verbose: city.verbose,
-          });
-        }
-      }
-    }
-
-    return districts.sort((a, b) => {
-      if (a.verbose < b.verbose) {
-        return -1;
-      }
-      if (a.verbose > b.verbose) {
-        return 1;
-      }
-      return 0;
-    });
+    return choiceToOptions(addressValidationRules.cityChoices, locale);
   }
   async findShippingMethod(name: string) {
     invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');

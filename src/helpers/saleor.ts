@@ -1,7 +1,7 @@
 import { getLifeStage } from './dog';
 
 import { Recipe } from '@/enums';
-import { ProductFragment, WeightFragment, WeightUnitsEnum } from '@/gql/graphql';
+import { ChoiceValue, ProductFragment, WeightFragment, WeightUnitsEnum } from '@/gql/graphql';
 import { subscriptionProducts } from '@/products';
 import { BreedDto } from '@/types/dto';
 
@@ -40,4 +40,35 @@ export function recipeToVariant(
   return product.variants.find(
     (variant) => variant.sku === subscriptionRecipe.variants[lifeStage].sku
   );
+}
+
+export function choiceToOptions(choices: ChoiceValue[], locale: string) {
+  const options = [];
+  for (const choice of choices) {
+    if (choice.raw && choice.verbose) {
+      if (locale === 'en') {
+        if (/^[a-zA-Z\s]+$/.test(choice.verbose)) {
+          options.push({
+            raw: choice.raw,
+            verbose: choice.verbose,
+          });
+        }
+      } else {
+        options.push({
+          raw: choice.raw,
+          verbose: choice.verbose,
+        });
+      }
+    }
+  }
+
+  return options.sort((a, b) => {
+    if (a.verbose < b.verbose) {
+      return -1;
+    }
+    if (a.verbose > b.verbose) {
+      return 1;
+    }
+    return 0;
+  });
 }

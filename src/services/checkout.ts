@@ -37,16 +37,6 @@ import { awaitable } from '@/helpers/async';
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
 
-interface Address {
-  firstName: string;
-  lastName: string;
-  streetAddress1: string;
-  streetAddress2: string;
-  district: string;
-  region: string;
-  country: string;
-}
-
 class CheckoutService {
   async getById(id: string) {
     const { checkout } = await executeGraphQL(GetCheckoutDocument, {
@@ -261,7 +251,28 @@ class CheckoutService {
       throw new CheckoutUpdateEmailError();
     }
   }
-  async updateAddress(id: string, deliveryAddress: Address, billingAddress: Address) {
+  async updateAddress(
+    id: string,
+    deliveryAddress: {
+      firstName: string;
+      lastName: string;
+      streetAddress1: string;
+      streetAddress2: string;
+      district: string;
+      region: string;
+      country: CountryCode;
+    },
+    billingAddress: {
+      firstName: string;
+      lastName: string;
+      streetAddress1: string;
+      streetAddress2: string;
+      district: string;
+      region: string;
+      country: CountryCode;
+      postalCode?: string;
+    }
+  ) {
     const _shippingAddress = {
       firstName: deliveryAddress.firstName,
       lastName: deliveryAddress.lastName,
@@ -276,9 +287,12 @@ class CheckoutService {
       lastName: billingAddress.lastName,
       streetAddress1: billingAddress.streetAddress1,
       streetAddress2: billingAddress.streetAddress2,
-      city: billingAddress.district,
-      countryArea: billingAddress.region,
-      country: CountryCode.Hk,
+      city:
+        billingAddress.country === CountryCode.Hk ? billingAddress.district : billingAddress.region,
+      countryArea:
+        billingAddress.country === CountryCode.Hk ? billingAddress.region : billingAddress.district,
+      country: billingAddress.country,
+      postalCode: billingAddress.postalCode,
     };
 
     const { checkoutShippingAddressUpdate, checkoutBillingAddressUpdate } = await executeGraphQL(

@@ -156,6 +156,15 @@ class UserService {
 
     return { ...user, ...model };
   }
+  async isFirstOrderCreated(id: string) {
+    const model = await executeQuery((queryRunner) =>
+      queryRunner.manager.findOne(User, { where: { id }, relations: ['orders'] })
+    );
+    if (!model) {
+      return false;
+    }
+    return model.orders.length > 0;
+  }
   async create(
     firstName: string,
     lastName: string,
@@ -245,6 +254,7 @@ class UserService {
       streetAddress2: string;
       district: string;
       region: string;
+      country: CountryCode;
     },
     billingAddress?: {
       firstName: string;
@@ -253,6 +263,8 @@ class UserService {
       streetAddress2: string;
       district: string;
       region: string;
+      country: CountryCode;
+      postalCode?: string;
     }
   ) {
     const { addressCreate: shippingAddressCreate } = await executeGraphQL(CreateAddressDocument, {
@@ -262,13 +274,16 @@ class UserService {
       },
       variables: {
         id,
-        firstName: deliveryAddress.firstName,
-        lastName: deliveryAddress.lastName,
-        streetAddress1: deliveryAddress.streetAddress1,
-        streetAddress2: deliveryAddress.streetAddress2,
-        city: deliveryAddress.district,
-        countryArea: deliveryAddress.region,
-        country: CountryCode.Hk,
+        input: {
+          firstName: deliveryAddress.firstName,
+          lastName: deliveryAddress.lastName,
+          streetAddress1: deliveryAddress.streetAddress1,
+          streetAddress2: deliveryAddress.streetAddress2,
+          city: deliveryAddress.district,
+          countryArea: deliveryAddress.region,
+          country: deliveryAddress.country,
+          skipValidation: true,
+        },
       },
     });
 
@@ -291,17 +306,28 @@ class UserService {
       },
       variables: {
         id,
-        firstName: billingAddress.firstName,
-        lastName: billingAddress.lastName,
-        streetAddress1: billingAddress.streetAddress1,
-        streetAddress2: billingAddress.streetAddress2,
-        city: billingAddress.district,
-        countryArea: billingAddress.region,
-        country: CountryCode.Hk,
+        input: {
+          firstName: billingAddress.firstName,
+          lastName: billingAddress.lastName,
+          streetAddress1: billingAddress.streetAddress1,
+          streetAddress2: billingAddress.streetAddress2,
+          city:
+            billingAddress.country === CountryCode.Hk
+              ? billingAddress.district
+              : billingAddress.region,
+          countryArea:
+            billingAddress.country === CountryCode.Hk
+              ? billingAddress.region
+              : billingAddress.district,
+          country: billingAddress.country,
+          postalCode: billingAddress.postalCode,
+          skipValidation: true,
+        },
       },
     });
 
     if (!billingAddressCreate || billingAddressCreate.errors.length > 0) {
+      console.log(billingAddressCreate!.errors);
       throw new UserUpdateAddressError();
     }
 
@@ -312,7 +338,7 @@ class UserService {
     );
   }
   async attachStripe(id: string) {
-    const user = await this.find(id);
+    const user = await this.getById(id);
     if (!user.stripe) {
       const cus = await stripeClient.createCustomer({ email: user.email });
       await executeQuery(async (queryRunner) => {

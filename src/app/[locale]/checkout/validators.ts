@@ -2,7 +2,7 @@ import Joi from 'joi';
 
 import { UpdateCheckoutDataAction } from './types';
 
-const addressSchema = Joi.object({
+const baseAddress = {
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
   streetAddress1: Joi.string().required(),
@@ -10,7 +10,7 @@ const addressSchema = Joi.object({
   district: Joi.string().required(),
   region: Joi.string().required(),
   country: Joi.string().required(),
-});
+};
 
 const updateCheckoutDataActionSchema = Joi.object<UpdateCheckoutDataAction>({
   firstName: Joi.string().required(),
@@ -27,8 +27,12 @@ const updateCheckoutDataActionSchema = Joi.object<UpdateCheckoutDataAction>({
   receiveNews: Joi.boolean().optional(),
   isSameBillingAddress: Joi.boolean().optional(),
   deliveryDate: Joi.date().required(),
-  deliveryAddress: addressSchema.required(),
-  billingAddress: addressSchema,
+  deliveryAddress: Joi.object(baseAddress).required(),
+  billingAddress: Joi.object({
+    ...baseAddress,
+    district: Joi.string().optional(),
+    postalCode: Joi.string().optional(),
+  }),
 });
 
 export { updateCheckoutDataActionSchema };

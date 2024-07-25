@@ -6,12 +6,13 @@ import { useForm } from 'react-hook-form';
 
 import Button from '../buttons/Button';
 import RoundedCheckbox from '../controls/RoundedCheckbox';
-import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
+import PartialShippingAddressForm, { IPartialShippingAddressForm } from './partial/ShippingAddress';
 
 import { useEditAddress } from '@/contexts/editAddress';
+import { CountryCode } from '@/gql/graphql';
 import useDefaultValues from '@/hooks/defaultValues';
 
-interface IDeliveryAddressForm extends IPartialAddressForm {
+interface IDeliveryAddressForm extends IPartialShippingAddressForm {
   isSameAsBillingAddress: boolean;
 }
 
@@ -32,7 +33,7 @@ export default function DeliveryAddressForm({
   streetAddress2?: string;
   district?: string;
   region?: string;
-  country?: string;
+  country?: CountryCode;
   isSameAsBillingAddress?: boolean;
   action(data: IDeliveryAddressForm): Promise<void>;
 }) {
@@ -78,7 +79,7 @@ export default function DeliveryAddressForm({
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <PartialAddressForm control={control} watch={watch} />
+      <PartialShippingAddressForm control={control} watch={watch} />
       <div className="mt-4">
         <RoundedCheckbox
           name="isSameAsBillingAddress"

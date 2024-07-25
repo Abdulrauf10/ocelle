@@ -11,8 +11,9 @@ import { roundTo } from 'round-to';
 
 import TextField from '../controls/TextField';
 import DatePickerForm from './DatePicker';
-import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
+import PartialBillingAddressForm, { IPartialBillingAddressForm } from './partial/BillingAddress';
 import PartialCardStripeForm, { useCardStripeForm } from './partial/CardStripe';
+import PartialShippingAddressForm, { IPartialShippingAddressForm } from './partial/ShippingAddress';
 
 import Container from '@/components/Container';
 import Price from '@/components/Price';
@@ -24,7 +25,7 @@ import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import Select from '@/components/controls/Select';
 import { EMAIL_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP } from '@/consts';
 import { MealPlan, Recipe } from '@/enums';
-import { OrderDiscountType, OrderFragment } from '@/gql/graphql';
+import { CountryCode, OrderDiscountType, OrderFragment } from '@/gql/graphql';
 import { getRecipeSlug } from '@/helpers/dog';
 import {
   getEditableRecurringBoxDeadline,
@@ -90,8 +91,8 @@ interface ISubscriptionCheckoutForm {
   isSameBillingAddress: boolean;
   deliveryDate: Date;
   tnc: boolean;
-  deliveryAddress: IPartialAddressForm;
-  billingAddress: IPartialAddressForm;
+  deliveryAddress: IPartialShippingAddressForm;
+  billingAddress: IPartialBillingAddressForm;
 }
 
 type ISubscriptionCheckoutFormAction = Omit<
@@ -99,7 +100,7 @@ type ISubscriptionCheckoutFormAction = Omit<
   'whatsapp' | 'billingAddress' | 'confirmPassword'
 > & {
   whatsapp?: { code: string; value: string };
-  billingAddress?: IPartialAddressForm;
+  billingAddress?: Omit<IPartialBillingAddressForm, 'country'> & { country: CountryCode };
 };
 
 type DogData = {
@@ -155,6 +156,7 @@ export default function SubscriptionCheckoutForm({
     watch,
     trigger,
     getValues,
+    resetField,
     formState: { errors, isValid },
   } = useForm<ISubscriptionCheckoutForm>({
     mode: 'onBlur',
@@ -213,12 +215,21 @@ export default function SubscriptionCheckoutForm({
           ...values,
           whatsapp: values.whatsapp.value.length === 0 ? undefined : values.whatsapp,
         };
-        await onBeforeTransaction(values.isSameBillingAddress ? data : { ...data, billingAddress });
+        await onBeforeTransaction(
+          values.isSameBillingAddress
+            ? data
+            : {
+                ...data,
+                billingAddress: { ...billingAddress, country: billingAddress.country.value },
+              }
+        );
         const card = elements.getElement(CardNumberElement);
         if (!card) {
           throw new Error('cannot find card element');
         }
-        const address = values.isSameBillingAddress ? values.deliveryAddress : billingAddress!;
+        const address = values.isSameBillingAddress
+          ? values.deliveryAddress
+          : { ...billingAddress, country: billingAddress.country.value };
         const { paymentIntent, error } = await stripe.confirmCardPayment(clientSecret, {
           payment_method: {
             card,
@@ -481,7 +492,11 @@ export default function SubscriptionCheckoutForm({
             </Section>
             <div className="mt-10"></div>
             <Section dense title={t('delivery-address')}>
-              <PartialAddressForm control={control} watch={watch} prefix="deliveryAddress" />
+              <PartialShippingAddressForm
+                control={control}
+                watch={watch}
+                prefix="deliveryAddress"
+              />
               <div className="mt-3">
                 <RoundedCheckbox
                   name="isSameBillingAddress"
@@ -495,9 +510,10 @@ export default function SubscriptionCheckoutForm({
             {!watch('isSameBillingAddress') && (
               <>
                 <Section dense title={t('billing-address')}>
-                  <PartialAddressForm
+                  <PartialBillingAddressForm
                     control={control}
                     watch={watch}
+                    resetField={resetField}
                     prefix="billingAddress"
                     disabled={isSubmitInProgress}
                   />

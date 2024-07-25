@@ -11,8 +11,9 @@ import { useForm } from 'react-hook-form';
 import CartRows from '../CartRows';
 import TextField from '../controls/TextField';
 import DatePickerForm from './DatePicker';
-import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
+import PartialBillingAddressForm, { IPartialBillingAddressForm } from './partial/BillingAddress';
 import PartialCardStripeForm, { useCardStripeForm } from './partial/CardStripe';
+import PartialShippingAddressForm, { IPartialShippingAddressForm } from './partial/ShippingAddress';
 
 import Container from '@/components/Container';
 import Price from '@/components/Price';
@@ -22,6 +23,7 @@ import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import Select from '@/components/controls/Select';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 import { useCart } from '@/contexts/cart';
+import { CountryCode } from '@/gql/graphql';
 import { isLegalDeliveryDate, isOperationDate } from '@/helpers/shipment';
 import { getCountryCodes } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
@@ -80,8 +82,8 @@ interface IGuestCheckoutForm {
   receiveNews: boolean;
   isSameBillingAddress: boolean;
   deliveryDate: Date;
-  deliveryAddress: IPartialAddressForm;
-  billingAddress: IPartialAddressForm;
+  deliveryAddress: IPartialShippingAddressForm;
+  billingAddress: IPartialBillingAddressForm;
 }
 
 type IGuestCheckoutFormAction = Omit<
@@ -89,7 +91,7 @@ type IGuestCheckoutFormAction = Omit<
   'whatsapp' | 'billingAddress' | 'confirmPassword'
 > & {
   whatsapp?: { code: string; value: string };
-  billingAddress?: IPartialAddressForm;
+  billingAddress?: Omit<IPartialBillingAddressForm, 'country'> & { country: CountryCode };
 };
 
 export default function GuestCheckoutForm({
@@ -121,6 +123,7 @@ export default function GuestCheckoutForm({
     control,
     setValue,
     handleSubmit,
+    resetField,
     formState: { errors, isValid },
     watch,
   } = useForm<IGuestCheckoutForm>({
@@ -178,12 +181,21 @@ export default function GuestCheckoutForm({
           ...values,
           whatsapp: values.whatsapp.value.length === 0 ? undefined : values.whatsapp,
         };
-        await onBeforeTransaction(values.isSameBillingAddress ? data : { ...data, billingAddress });
+        await onBeforeTransaction(
+          values.isSameBillingAddress
+            ? data
+            : {
+                ...data,
+                billingAddress: { ...billingAddress, country: billingAddress.country.value },
+              }
+        );
         const card = elements.getElement(CardNumberElement);
         if (!card) {
           throw new Error('cannot find card element');
         }
-        const address = values.isSameBillingAddress ? values.deliveryAddress : billingAddress!;
+        const address = values.isSameBillingAddress
+          ? values.deliveryAddress
+          : { ...billingAddress, country: billingAddress.country.value };
         const { error } = await stripe.confirmCardPayment(clientSecret, {
           payment_method: {
             card,
@@ -387,7 +399,11 @@ export default function GuestCheckoutForm({
             </Section>
             <div className="mt-10"></div>
             <Section dense title={t('delivery-address')}>
-              <PartialAddressForm control={control} watch={watch} prefix="deliveryAddress" />
+              <PartialShippingAddressForm
+                control={control}
+                watch={watch}
+                prefix="deliveryAddress"
+              />
               <div className="mt-3">
                 <RoundedCheckbox
                   name="isSameBillingAddress"
@@ -401,9 +417,10 @@ export default function GuestCheckoutForm({
             {!watch('isSameBillingAddress') && (
               <>
                 <Section dense title={t('billing-address')}>
-                  <PartialAddressForm
+                  <PartialBillingAddressForm
                     control={control}
                     watch={watch}
+                    resetField={resetField}
                     prefix="billingAddress"
                     disabled={isSubmitInProgress}
                   />

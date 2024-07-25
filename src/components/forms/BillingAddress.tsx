@@ -1,16 +1,25 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import countries from 'i18n-iso-countries';
+import countriesEN from 'i18n-iso-countries/langs/en.json';
+import { useLocale, useTranslations } from 'next-intl';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
 import Button from '../buttons/Button';
-import PartialAddressForm, { IPartialAddressForm } from './partial/Address';
+import PartialBillingAddressForm, { IPartialBillingAddressForm } from './partial/BillingAddress';
 
 import { useEditAddress } from '@/contexts/editAddress';
+import { CountryCode } from '@/gql/graphql';
 import useDefaultValues from '@/hooks/defaultValues';
+import countriesZH from '@/i18n-iso-countries/zh.json';
 
-interface IBillingAddressForm extends IPartialAddressForm {}
+countries.registerLocale(countriesEN);
+countries.registerLocale(countriesZH);
+
+interface IBillingAddressForm extends IPartialBillingAddressForm {}
+
+type IGuestCheckoutFormAction = Omit<IBillingAddressForm, 'country'> & { country: CountryCode };
 
 export default function BillingAddressForm({
   firstName,
@@ -20,6 +29,7 @@ export default function BillingAddressForm({
   district,
   region,
   country,
+  postalCode,
   action,
 }: {
   firstName?: string;
@@ -28,9 +38,11 @@ export default function BillingAddressForm({
   streetAddress2?: string;
   district?: string;
   region?: string;
-  country?: string;
-  action(data: IBillingAddressForm): Promise<void>;
+  country?: CountryCode;
+  postalCode?: string;
+  action(data: IGuestCheckoutFormAction): Promise<void>;
 }) {
+  const locale = useLocale();
   const t = useTranslations();
   const { isDeliveryUsAsBillingAddress: disabled } = useEditAddress();
   const { defaultValues, setDefaultValues } = useDefaultValues({
@@ -40,15 +52,26 @@ export default function BillingAddressForm({
     streetAddress2: streetAddress2 ?? '',
     district,
     region,
-    country,
+    country: country
+      ? {
+          name: country === CountryCode.Hk ? t('hong-kong') : countries.getName(country, locale),
+          value: country,
+        }
+      : undefined,
+    postalCode,
   });
-  const { control, handleSubmit, reset, watch } = useForm<IBillingAddressForm>({ defaultValues });
+  const { control, handleSubmit, reset, resetField, watch } = useForm<IBillingAddressForm>({
+    defaultValues,
+  });
   const [pending, startTransition] = React.useTransition();
 
   const onSubmit = React.useCallback(
     (values: IBillingAddressForm) => {
       startTransition(async () => {
-        await action(values);
+        await action({
+          ...values,
+          country: values.country.value,
+        });
         setDefaultValues(values);
       });
     },
@@ -62,11 +85,17 @@ export default function BillingAddressForm({
     watch('streetAddress2') === defaultValues.streetAddress2 &&
     watch('district') === defaultValues.district &&
     watch('region') === defaultValues.region &&
-    watch('country') === defaultValues.country;
+    watch('country').value === defaultValues.country?.value &&
+    watch('postalCode') === defaultValues.postalCode;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <PartialAddressForm control={control} watch={watch} disabled={disabled} />
+      <PartialBillingAddressForm
+        control={control}
+        watch={watch}
+        resetField={resetField}
+        disabled={disabled}
+      />
       <div className="-mx-2 mt-10 flex">
         <div className="w-1/2 px-2">
           <Button

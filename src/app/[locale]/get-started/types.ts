@@ -1,12 +1,4 @@
-export interface Address {
-  firstName: string;
-  lastName: string;
-  streetAddress1: string;
-  streetAddress2: string;
-  district: string;
-  region: string;
-  country: string;
-}
+import { CountryCode } from '@/gql/graphql';
 
 export interface HandleMutateDraftOrderAction {
   firstName: string;
@@ -25,6 +17,23 @@ export interface HandleMutateDraftOrderAction {
   isSameBillingAddress?: boolean;
   deliveryDate: Date;
   tnc: boolean;
-  deliveryAddress: Address;
-  billingAddress?: Address;
+  deliveryAddress: {
+    firstName: string;
+    lastName: string;
+    streetAddress1: string;
+    streetAddress2: string;
+    district: string;
+    region: string;
+    country: CountryCode;
+  };
+  billingAddress?: {
+    firstName: string;
+    lastName: string;
+    streetAddress1: string;
+    streetAddress2: string;
+    district: string;
+    region: string;
+    country: CountryCode;
+    postalCode?: string;
+  };
 }

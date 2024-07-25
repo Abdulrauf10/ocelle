@@ -242,6 +242,8 @@ class OrderService {
       streetAddress2: string;
       district: string;
       region: string;
+      postalCode?: string;
+      country: CountryCode;
     }
   ) {
     return this.update(id, {
@@ -259,9 +261,16 @@ class OrderService {
         lastName: billingAddress.lastName,
         streetAddress1: billingAddress.streetAddress1,
         streetAddress2: billingAddress.streetAddress2,
-        city: billingAddress.district,
-        countryArea: billingAddress.region,
-        country: CountryCode.Hk,
+        city:
+          billingAddress.country === CountryCode.Hk
+            ? billingAddress.district
+            : billingAddress.region,
+        countryArea:
+          billingAddress.country === CountryCode.Hk
+            ? billingAddress.region
+            : billingAddress.district,
+        postalCode: billingAddress.postalCode,
+        country: billingAddress.country,
       },
     });
   }

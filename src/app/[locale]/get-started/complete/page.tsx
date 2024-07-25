@@ -38,6 +38,8 @@ export default function ThankYouPage() {
     }
   }, [configurations]);
 
+  React.useEffect(() => window.scrollTo(0, 0), []);
+
   if (isError) {
     router.replace('/get-started');
     return;

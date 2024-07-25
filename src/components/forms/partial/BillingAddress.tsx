@@ -2,6 +2,8 @@
 
 import { Autocomplete, TextField as MuiTextField } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
+import countries from 'i18n-iso-countries';
+import countriesEN from 'i18n-iso-countries/langs/en.json';
 import { useLocale, useTranslations } from 'next-intl';
 import React from 'react';
 import {
@@ -10,43 +12,67 @@ import {
   type FieldPath,
   type FieldValues,
   type PathValue,
+  type UseFormResetField,
   type UseFormWatch,
 } from 'react-hook-form';
 
 import { getDistricts } from '@/actions';
 import TextField from '@/components/controls/TextField';
+import { CountryCode } from '@/gql/graphql';
+import countriesZH from '@/i18n-iso-countries/zh.json';
 
-export type IPartialAddressForm = {
+countries.registerLocale(countriesEN);
+countries.registerLocale(countriesZH);
+
+export type IPartialBillingAddressForm = {
   firstName: string;
   lastName: string;
   streetAddress1: string;
   streetAddress2: string;
   region: string;
   district: string;
-  country: string;
+  country: {
+    name: string;
+    value: CountryCode;
+  };
+  postalCode: string | undefined;
 };
 
-interface PartialAddressFormProps<T extends FieldValues> {
+interface PartialBillingAddressFormProps<T extends FieldValues> {
   control: Control<T, any>;
   prefix?: string;
   disabled?: boolean;
   watch: UseFormWatch<T>;
+  resetField: UseFormResetField<T>;
 }
 
-export default function PartialAddressForm<T extends FieldValues>({
+export default function PartialBillingAddressForm<T extends FieldValues>({
   control,
   prefix,
   disabled,
   watch,
-}: PartialAddressFormProps<T>) {
+  resetField,
+}: PartialBillingAddressFormProps<T>) {
   const locale = useLocale();
   const t = useTranslations();
-  const id = React.useId();
-  const countryMaps: { [key: string]: string } = React.useMemo(() => {
-    return {
-      HK: t('hong-kong'),
-    };
-  }, [t]);
+  const countryOptions: Array<{ name: string; value: string }> = React.useMemo(() => {
+    return Object.values(CountryCode)
+      .map((code) => {
+        return {
+          name: code === CountryCode.Hk ? t('hong-kong') : countries.getName(code, locale) || code,
+          value: code,
+        };
+      })
+      .sort((a, b) => {
+        if (a.name < b.name) {
+          return -1;
+        }
+        if (a.name > b.name) {
+          return 1;
+        }
+        return 0;
+      });
+  }, [t, locale]);
 
   const getPath = React.useCallback(
     (key: string) => {
@@ -55,17 +81,21 @@ export default function PartialAddressForm<T extends FieldValues>({
     [prefix]
   );
 
+  const defaultCountry = countryOptions.find(
+    (option) => option.value === CountryCode.Hk
+  ) as PathValue<T, FieldPath<T>>;
+
+  const { value: country } = watch(getPath('country'), defaultCountry);
+
   const region = watch(getPath('region'));
 
-  const {
-    data: districts,
-    isLoading,
-    isError,
-  } = useQuery({
-    enabled: region !== undefined,
+  const districtsQuery = useQuery({
+    enabled: region !== undefined && country === CountryCode.Hk,
     queryKey: ['districts', region, locale],
-    queryFn: async () => await getDistricts(locale, region),
+    queryFn: async () => await getDistricts(locale, CountryCode.Hk, region),
   });
+
+  const isLoading = districtsQuery.isLoading;
 
   return (
     <div className="-m-2 flex flex-wrap">
@@ -125,7 +155,7 @@ export default function PartialAddressForm<T extends FieldValues>({
       </div>
       <div className="w-1/3 p-2 max-lg:w-full">
         <Controller
-          defaultValue={'HK' as PathValue<T, FieldPath<T>>}
+          defaultValue={defaultCountry}
           name={getPath('country')}
           control={control}
           rules={{
@@ -138,10 +168,11 @@ export default function PartialAddressForm<T extends FieldValues>({
               <Autocomplete
                 fullWidth
                 disableClearable
-                disabled={disabled || isLoading}
-                options={['HK']}
+                disabled={disabled}
+                options={countryOptions}
                 value={value}
-                getOptionLabel={(option) => countryMaps[option] ?? ''}
+                isOptionEqualToValue={(option, selected) => option.value === selected.value}
+                getOptionLabel={(option) => option.name}
                 renderInput={(params) => (
                   <MuiTextField
                     {...params}
@@ -151,10 +182,13 @@ export default function PartialAddressForm<T extends FieldValues>({
                     helperText={error?.message && <span className="body-3">{error.message}</span>}
                   />
                 )}
-                onChange={(event, selectedValue) =>
+                onChange={(event, selectedValue) => {
                   selectedValue &&
-                  onChange(Array.isArray(selectedValue) ? selectedValue[0] : selectedValue)
-                }
+                    onChange(Array.isArray(selectedValue) ? selectedValue[0] : selectedValue);
+                  resetField(getPath('region'));
+                  resetField(getPath('district'));
+                  resetField(getPath('postalCode'));
+                }}
               />
             );
           }}
@@ -167,9 +201,28 @@ export default function PartialAddressForm<T extends FieldValues>({
           rules={{
             required: disabled
               ? false
-              : t('please-enter-your-{}', { name: t('region').toLowerCase() }),
+              : t('please-enter-your-{}', {
+                  name:
+                    country === CountryCode.Hk
+                      ? t('region').toLowerCase()
+                      : t('city').toLowerCase(),
+                }),
           }}
           render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
+            if (country !== CountryCode.Hk) {
+              return (
+                <MuiTextField
+                  {...field}
+                  label={t('city')}
+                  error={!!error}
+                  helperText={error?.message && <span className="body-3">{error.message}</span>}
+                  onChange={onChange}
+                  value={value || ''}
+                  disabled={disabled || isLoading}
+                  fullWidth
+                />
+              );
+            }
             return (
               <Autocomplete
                 fullWidth
@@ -201,17 +254,36 @@ export default function PartialAddressForm<T extends FieldValues>({
           name={getPath('district')}
           control={control}
           rules={{
-            required: disabled
-              ? false
-              : t('please-enter-your-{}', { name: t('district').toLowerCase() }),
+            required:
+              disabled || country !== CountryCode.Hk
+                ? false
+                : t('please-enter-your-{}', {
+                    name: t('district').toLowerCase(),
+                  }),
           }}
           render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
-            const _districts = districts || [];
+            if (country !== CountryCode.Hk) {
+              return (
+                <MuiTextField
+                  {...field}
+                  label={t('state')}
+                  error={!!error}
+                  helperText={error?.message && <span className="body-3">{error.message}</span>}
+                  onChange={onChange}
+                  value={value || ''}
+                  disabled={disabled || isLoading}
+                  fullWidth
+                />
+              );
+            }
+            const _districts = districtsQuery.data || [];
             return (
               <Autocomplete
                 fullWidth
                 disableClearable
-                disabled={disabled || isLoading || isError || !districts || districts.length === 0}
+                disabled={
+                  disabled || isLoading || districtsQuery.isError || _districts.length === 0
+                }
                 options={_districts.map((district) => district.raw)}
                 value={value}
                 getOptionLabel={(option) =>
@@ -235,6 +307,36 @@ export default function PartialAddressForm<T extends FieldValues>({
           }}
         />
       </div>
+      {country !== CountryCode.Hk && (
+        <div className="w-full p-2">
+          <Controller
+            name={getPath('postalCode')}
+            control={control}
+            rules={{
+              required:
+                disabled || country === CountryCode.Hk
+                  ? false
+                  : t('please-enter-your-{}', {
+                      name: t('postal-code').toLowerCase(),
+                    }),
+            }}
+            render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
+              return (
+                <MuiTextField
+                  {...field}
+                  label={t('postal-code')}
+                  error={!!error}
+                  helperText={error?.message && <span className="body-3">{error.message}</span>}
+                  onChange={onChange}
+                  value={value || ''}
+                  disabled={disabled || isLoading}
+                  fullWidth
+                />
+              );
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }
