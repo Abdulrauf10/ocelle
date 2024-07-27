@@ -13,6 +13,7 @@ import {
   OrderInitialTransactionError,
   OrderNotFoundError,
   OrderUpdateError,
+  OrderVariantNotFoundError,
 } from '@/errors/order';
 import {
   AddOrderDiscountDocument,
@@ -105,7 +106,9 @@ class OrderService {
     for (const dog of dogs) {
       const recipe1Variant = recipeToVariant(products, dog.breeds, dog.dateOfBirth, dog.recipe1);
       if (!recipe1Variant) {
-        throw new OrderCreateError('failed to add recipe 1 to checkout, variant not found');
+        throw new OrderVariantNotFoundError(
+          'failed to add recipe 1 to checkout, variant not found'
+        );
       }
       const recipe1TotalProtions = calculateRecipeTotalProtionsInBox(
         dog.breeds,
@@ -126,7 +129,9 @@ class OrderService {
       if (dog.recipe2) {
         const recipe2Variant = recipeToVariant(products, dog.breeds, dog.dateOfBirth, dog.recipe2);
         if (!recipe2Variant) {
-          throw new OrderCreateError('failed to add recipe 2 to checkout, variant not found');
+          throw new OrderVariantNotFoundError(
+            'failed to add recipe 2 to checkout, variant not found'
+          );
         }
         const recipe2TotalProtions = calculateRecipeTotalProtionsInBox(
           dog.breeds,
@@ -162,8 +167,7 @@ class OrderService {
     });
 
     if (!draftOrderCreate || draftOrderCreate.errors.length > 0) {
-      draftOrderCreate && console.error(draftOrderCreate?.errors);
-      throw new OrderCreateError();
+      throw new OrderCreateError(draftOrderCreate?.errors);
     }
 
     if (starterBox) {
@@ -194,8 +198,8 @@ class OrderService {
     });
 
     if (!transactionInitialize || transactionInitialize.errors.length > 0) {
-      transactionInitialize && console.error(transactionInitialize);
-      throw new OrderInitialTransactionError();
+      transactionInitialize && console.error();
+      throw new OrderInitialTransactionError(transactionInitialize?.errors);
     }
 
     const initializeData = transactionInitialize.data as {
@@ -219,8 +223,7 @@ class OrderService {
     });
 
     if (!draftOrderUpdate || draftOrderUpdate.errors.length > 0) {
-      draftOrderUpdate && console.error(draftOrderUpdate.errors);
-      throw new OrderUpdateError();
+      throw new OrderUpdateError(draftOrderUpdate?.errors);
     }
 
     return draftOrderUpdate.order!;
@@ -287,8 +290,7 @@ class OrderService {
     });
 
     if (!orderDiscountAdd || orderDiscountAdd.errors.length > 0) {
-      orderDiscountAdd && console.error(orderDiscountAdd?.errors);
-      throw new OrderAddDiscountError();
+      throw new OrderAddDiscountError(orderDiscountAdd?.errors);
     }
 
     return orderDiscountAdd.order!;
@@ -303,8 +305,7 @@ class OrderService {
     });
 
     if (!draftOrderDelete || draftOrderDelete.errors.length > 0) {
-      draftOrderDelete && console.error(draftOrderDelete?.errors);
-      throw new OrderDeleteError();
+      throw new OrderDeleteError(draftOrderDelete?.errors);
     }
   }
   async complete(id: string) {
@@ -329,8 +330,7 @@ class OrderService {
     });
 
     if (!draftOrderComplete || draftOrderComplete.errors.length > 0) {
-      draftOrderComplete && console.error(draftOrderComplete.errors);
-      throw new OrderCompleteError();
+      throw new OrderCompleteError(draftOrderComplete?.errors);
     }
 
     return draftOrderComplete.order!;

@@ -53,7 +53,7 @@ async function findOrCreateSaleorUser(
     },
   });
   if (!accountRegister || accountRegister.errors.length > 0) {
-    throw new UserCreateError();
+    throw new UserCreateError(accountRegister?.errors);
   }
   return accountRegister.user!;
 }
@@ -238,11 +238,11 @@ class UserService {
     );
 
     if (!shippingAddressSetDefault || shippingAddressSetDefault.errors.length > 0) {
-      throw new UserAssignAddressError();
+      throw new UserAssignAddressError(shippingAddressSetDefault?.errors);
     }
 
     if (!billingAddressSetDefault || billingAddressSetDefault.errors.length > 0) {
-      throw new UserAssignAddressError();
+      throw new UserAssignAddressError(billingAddressSetDefault?.errors);
     }
   }
   async updateAddress(
@@ -288,7 +288,7 @@ class UserService {
     });
 
     if (!shippingAddressCreate || shippingAddressCreate.errors.length > 0) {
-      throw new UserUpdateAddressError();
+      throw new UserUpdateAddressError(shippingAddressCreate?.errors);
     }
 
     if (!billingAddress) {
@@ -327,8 +327,7 @@ class UserService {
     });
 
     if (!billingAddressCreate || billingAddressCreate.errors.length > 0) {
-      console.log(billingAddressCreate!.errors);
-      throw new UserUpdateAddressError();
+      throw new UserUpdateAddressError(billingAddressCreate?.errors);
     }
 
     return this.assignDefaultAddress(

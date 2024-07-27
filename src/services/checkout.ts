@@ -78,8 +78,7 @@ class CheckoutService {
     });
 
     if (!checkoutCreate || checkoutCreate.errors.length > 0) {
-      checkoutCreate && console.error(checkoutCreate?.errors);
-      throw new CheckoutCreateError();
+      throw new CheckoutCreateError(checkoutCreate?.errors);
     }
 
     return checkoutCreate.checkout!;
@@ -141,8 +140,7 @@ class CheckoutService {
     });
 
     if (!checkoutLinesAdd || checkoutLinesAdd.errors.length > 0) {
-      checkoutLinesAdd && console.error(checkoutLinesAdd?.errors);
-      throw new CheckoutAppendLineError();
+      throw new CheckoutAppendLineError(checkoutLinesAdd?.errors);
     }
 
     return checkoutLinesAdd.checkout!;
@@ -165,8 +163,7 @@ class CheckoutService {
     });
 
     if (!checkoutLinesUpdate || checkoutLinesUpdate.errors.length > 0) {
-      checkoutLinesUpdate && console.error(checkoutLinesUpdate?.errors);
-      throw new CheckoutUpdateLineError();
+      throw new CheckoutUpdateLineError(checkoutLinesUpdate?.errors);
     }
 
     return checkoutLinesUpdate.checkout!;
@@ -184,8 +181,7 @@ class CheckoutService {
     });
 
     if (!checkoutLinesDelete || checkoutLinesDelete.errors.length > 0) {
-      checkoutLinesDelete && console.error(checkoutLinesDelete?.errors);
-      throw new CheckoutDeleteLineError();
+      throw new CheckoutDeleteLineError(checkoutLinesDelete?.errors);
     }
 
     return checkoutLinesDelete.checkout!;
@@ -212,8 +208,7 @@ class CheckoutService {
     );
 
     if (!checkoutDeliveryMethodUpdate || checkoutDeliveryMethodUpdate.errors.length > 0) {
-      checkoutDeliveryMethodUpdate && console.error(checkoutDeliveryMethodUpdate.errors);
-      throw new CheckoutUpdateShippingMethodError();
+      throw new CheckoutUpdateShippingMethodError(checkoutDeliveryMethodUpdate?.errors);
     }
 
     return checkoutDeliveryMethodUpdate.checkout!;
@@ -227,8 +222,7 @@ class CheckoutService {
     });
 
     if (!checkoutAddPromoCode || checkoutAddPromoCode.errors.length > 0) {
-      checkoutAddPromoCode && console.error(checkoutAddPromoCode.errors);
-      throw new CheckoutSetCouponError();
+      throw new CheckoutSetCouponError(checkoutAddPromoCode?.errors);
     }
 
     return checkoutAddPromoCode;
@@ -246,8 +240,7 @@ class CheckoutService {
     });
 
     if (!checkoutEmailUpdate || checkoutEmailUpdate.errors.length > 0) {
-      checkoutEmailUpdate && console.error(checkoutEmailUpdate?.errors);
-      throw new CheckoutUpdateEmailError();
+      throw new CheckoutUpdateEmailError(checkoutEmailUpdate?.errors);
     }
   }
   async updateAddress(
@@ -315,9 +308,10 @@ class CheckoutService {
       checkoutShippingAddressUpdate.errors.length > 0 ||
       checkoutBillingAddressUpdate.errors.length > 0
     ) {
-      checkoutShippingAddressUpdate && console.error(checkoutShippingAddressUpdate.errors);
-      checkoutBillingAddressUpdate && console.error(checkoutBillingAddressUpdate.errors);
-      throw new CheckoutUpdateAddressError();
+      throw new CheckoutUpdateAddressError([
+        ...(checkoutShippingAddressUpdate?.errors || []),
+        ...(checkoutBillingAddressUpdate?.errors || []),
+      ]);
     }
   }
   assertCheckoutCompletable(checkout: CheckoutFragment) {
@@ -350,8 +344,7 @@ class CheckoutService {
     });
 
     if (!checkoutComplete || checkoutComplete.errors.length > 0) {
-      checkoutComplete && console.error(checkoutComplete.errors);
-      throw new CheckoutCompleteError();
+      throw new CheckoutCompleteError(checkoutComplete?.errors);
     }
 
     return checkoutComplete.order!;
