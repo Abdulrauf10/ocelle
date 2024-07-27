@@ -2,6 +2,8 @@ import ejs from 'ejs';
 import { convert } from 'html-to-text';
 import nodemailer from 'nodemailer';
 import type Mail from 'nodemailer/lib/mailer';
+import path from 'path';
+import shortUUID from 'short-uuid';
 import invariant from 'ts-invariant';
 import { LessThanOrEqual, MoreThanOrEqual } from 'typeorm';
 
@@ -60,6 +62,7 @@ class CareerService {
     coverLetter?: File
   ) {
     const career = await this.get(id);
+    const uuid = shortUUID.generate().slice(0, 5);
 
     if (!career) {
       throw new CareerNotFoundError();
@@ -67,14 +70,14 @@ class CareerService {
 
     const attachments: Mail.Attachment[] = [
       {
-        filename: 'Resume',
+        filename: 'Resume' + '-' + uuid + path.extname(resume.name),
         content: Buffer.from(await resume.arrayBuffer()),
       },
     ];
 
     if (coverLetter && coverLetter.size > 0) {
       attachments.push({
-        filename: 'Cover Letter',
+        filename: 'Cover-Letter' + '-' + uuid + path.extname(coverLetter.name),
         content: Buffer.from(await coverLetter.arrayBuffer()),
       });
     }
@@ -89,11 +92,10 @@ class CareerService {
       },
     });
 
-    // TODO: setup email api for sending the submission
     const info = await transporter.sendMail({
       from: process.env.SMTP_USER,
       to: process.env.CAREER_MAILTO,
-      subject: `Career Submission - ${career.name}`,
+      subject: `[${uuid}] Career Submission - ${career.name}`,
       text: convert(html),
       html,
       attachments,
