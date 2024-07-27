@@ -9,6 +9,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 
 import CartRows from '../CartRows';
+import UnderlineButton from '../buttons/UnderlineButton';
 import TextField from '../controls/TextField';
 import DatePickerForm from './DatePicker';
 import PartialBillingAddressForm, { IPartialBillingAddressForm } from './partial/BillingAddress';
@@ -84,6 +85,7 @@ interface IGuestCheckoutForm {
   deliveryDate: Date;
   deliveryAddress: IPartialShippingAddressForm;
   billingAddress: IPartialBillingAddressForm;
+  tnc: boolean;
 }
 
 type IGuestCheckoutFormAction = Omit<
@@ -350,7 +352,7 @@ export default function GuestCheckoutForm({
                 <div className="w-1/2 p-2 max-lg:w-full">
                   <TextField
                     name="whatsapp.value"
-                    label="WhatsApp"
+                    label={t('whatsapp-optional')}
                     control={control}
                     rules={{
                       pattern: {
@@ -448,6 +450,7 @@ export default function GuestCheckoutForm({
                 <div ref={datePickerRef} className="mt-4 w-fit">
                   <DatePickerForm
                     initialDate={watch('deliveryDate')}
+                    minDate={minDeliveryDate}
                     // minDate={minDeliveryDate}
                     shouldDisableDate={(day) =>
                       !isOperationDate(subDays(day, 1), calendarEvents) ||
@@ -510,6 +513,21 @@ export default function GuestCheckoutForm({
                 <div className="-mx-1 flex flex-wrap justify-between font-bold">
                   <div className="body-2 px-1">{t('{}-colon', { value: t('total') })}</div>
                   <div className="body-2 px-1">${totalPrice?.amount}</div>
+                </div>
+                <div className="mt-4">
+                  <RoundedCheckbox
+                    name="tnc"
+                    control={control}
+                    rules={{
+                      required: true,
+                    }}
+                    label={t.rich('i-have-read-and-understood-the-terms-conditions', {
+                      button: (chunks) => (
+                        <UnderlineButton type="button" theme="primary" label={chunks} />
+                      ),
+                    })}
+                    disabled={isSubmitInProgress}
+                  />
                 </div>
                 <div className="mt-5 text-center">
                   <Button

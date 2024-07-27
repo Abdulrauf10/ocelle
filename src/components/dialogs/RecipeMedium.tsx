@@ -43,8 +43,8 @@ export default function RecipeMediumDialog({
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="p-3">
-        <div className="drop-shadow-style-1 relative flex max-w-[1016px] items-start rounded-3xl border-2 border-primary bg-white px-5 py-4 text-left shadow-black/20 max-md:flex-wrap max-md:pt-9">
-          <div className="w-[400px] min-w-[400px] max-lg:min-w-[320px] max-xs:w-full max-xs:min-w-full">
+        <div className="relative flex max-w-[1016px] items-start rounded-3xl border-2 border-primary bg-white px-5 py-4 text-left shadow-black/20 drop-shadow-style-1 max-md:flex-wrap max-md:pt-9">
+          <div className="mx-auto w-[400px] min-w-[400px] max-lg:min-w-[320px] max-xs:w-full max-xs:min-w-full">
             {picture}
           </div>
           <div className="ml-6 py-1 max-md:mx-3 max-md:mt-4">

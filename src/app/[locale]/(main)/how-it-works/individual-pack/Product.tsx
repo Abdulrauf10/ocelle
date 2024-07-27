@@ -5,6 +5,7 @@ import edjsHTML from 'editorjs-html';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
+import { toast } from 'react-toastify';
 import xss from 'xss';
 
 import { addToCart, updateCartLine } from './actions';
@@ -77,6 +78,7 @@ export default function Product({
   const handleButtonClick = React.useCallback(async () => {
     const cart = await addToCart(pack, 1);
     setCart(cart);
+    toast('item added to the cart.');
   }, [pack, setCart]);
 
   const getPrice = (product: ProductFragment) => {
@@ -161,6 +163,7 @@ export default function Product({
                     icon: 'w-2.5',
                   }}
                   min={0}
+                  max={99}
                   value={currentLine.quantity}
                   onChange={handleQuantityChange}
                   buttonDelayMs={1000}

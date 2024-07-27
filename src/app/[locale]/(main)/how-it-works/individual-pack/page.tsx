@@ -45,14 +45,14 @@ export default async function HowItWorksIndividual() {
   return (
     <>
       <main>
-        <div className="relative flex items-center bg-white bg-[url('./individual-pack-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_40px)_center] bg-no-repeat max-lg:bg-[url('./individual-pack-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-bottom">
+        <div className="relative flex items-center bg-[#70aaca] bg-[url('./individual-pack-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_40px)_center] bg-no-repeat max-lg:bg-[url('./individual-pack-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-bottom">
           <div className="w-full pt-[clamp(450px,31.5%,700px)] max-lg:hidden"></div>
           <div className="w-full py-[4vw] text-white max-lg:w-full max-lg:py-10 max-lg:pb-[95%] lg:absolute lg:pr-0">
             <Container className="max-lg:text-center">
               <h1 className="heading-headline heading-weight-1">{ip.rich('block-1-title')}</h1>
               <div className="mt-4"></div>
               <div className="max-w-[45%] max-lg:max-w-none">
-                <p className="body-1">{ip('block-1-content')}</p>
+                <p className="body-1">{ip.rich('block-1-content')}</p>
               </div>
             </Container>
           </div>
@@ -181,7 +181,7 @@ export default async function HowItWorksIndividual() {
           picture="/recipes/individual/duck.jpg"
           dialogPicture="/recipes/dispersion/duck.gif"
           className={{
-            root: 'bg-secondary bg-opacity-[8%]',
+            root: 'bg-[#FCBB00] bg-opacity-[8%]',
             title: 'text-secondary',
           }}
           reverse

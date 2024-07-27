@@ -3,6 +3,7 @@ import Header from '@/components/Header';
 import Navigator from '@/components/Navigator';
 import Promotion from '@/components/Promotion';
 import Sticky from '@/components/Sticky';
+import Toast from '@/components/Toast';
 
 export default function MainLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -13,6 +14,7 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
       </Sticky>
       {children}
       <Footer />
+      <Toast />
     </>
   );
 }

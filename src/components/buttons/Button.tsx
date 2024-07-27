@@ -32,19 +32,25 @@ function ButtonIcon() {
   return <DogFoot className="ml-2 w-6 fill-current" />;
 }
 
-export default function Button({
-  fontSize,
-  theme,
-  children,
-  className,
-  onClick,
-  onTouchEnd,
-  reverse,
-  fullWidth,
-  disabled,
-  disableIcon,
-  ...props
-}: React.PropsWithChildren<ButtonProps | LinkbuttonProps>) {
+export default React.forwardRef<
+  HTMLAnchorElement | HTMLButtonElement,
+  React.PropsWithChildren<ButtonProps | LinkbuttonProps>
+>(function Button(
+  {
+    fontSize,
+    theme,
+    children,
+    className,
+    onClick,
+    onTouchEnd,
+    reverse,
+    fullWidth,
+    disabled,
+    disableIcon,
+    ...props
+  },
+  ref
+) {
   const buttonProps = props as ButtonProps;
   // check if icon is needed.
   let iconNeed = true;
@@ -116,6 +122,7 @@ export default function Button({
   if (linkProps.href) {
     return (
       <Link
+        ref={ref as React.ForwardedRef<HTMLAnchorElement>}
         href={linkProps.href}
         className={classes}
         target={linkProps.target}
@@ -134,6 +141,7 @@ export default function Button({
 
   return (
     <button
+      ref={ref as React.ForwardedRef<HTMLButtonElement>}
       className={classes}
       type={buttonProps.type}
       onClick={onClick as React.MouseEventHandler<HTMLButtonElement>}
@@ -146,4 +154,4 @@ export default function Button({
       {!disableIcon && <ButtonIcon />}
     </button>
   );
-}
+});

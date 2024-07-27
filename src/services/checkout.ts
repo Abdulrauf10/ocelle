@@ -101,8 +101,7 @@ class CheckoutService {
     });
 
     if (!transactionInitialize || transactionInitialize.errors.length > 0) {
-      transactionInitialize && console.error(transactionInitialize);
-      throw new CheckoutInitialTransactionError();
+      throw new CheckoutInitialTransactionError(transactionInitialize?.errors);
     }
 
     return transactionInitialize.data as {

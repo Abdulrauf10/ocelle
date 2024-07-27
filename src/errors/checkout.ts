@@ -1,6 +1,8 @@
+import SaleorError from './SaleorError';
+
 export class CheckoutCreateError extends Error {}
 export class CheckoutNotFoundError extends Error {}
-export class CheckoutInitialTransactionError extends Error {}
+export class CheckoutInitialTransactionError extends SaleorError {}
 export class CheckoutAppendLineError extends Error {}
 export class CheckoutUpdateLineError extends Error {}
 export class CheckoutDeleteLineError extends Error {}

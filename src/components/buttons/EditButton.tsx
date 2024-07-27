@@ -13,7 +13,10 @@ interface EditButtonProps {
 
 export default function EditButton({ className, href, onClick }: EditButtonProps) {
   const t = useTranslations();
-  const classes = clsx('inline-flex items-center text-primary [&:hover_span]:underline', className);
+  const classes = clsx(
+    'inline-flex items-center text-primary outline-none [&:hover_span]:underline',
+    className
+  );
 
   if (href) {
     return (
