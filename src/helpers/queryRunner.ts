@@ -16,12 +16,12 @@ async function executeQuery<T>(executable: Executable<T>) {
   try {
     const response = await executable(queryRunner);
     await queryRunner.commitTransaction();
+    if (!queryRunner.isReleased) await queryRunner.release();
     return response;
   } catch (e) {
     await queryRunner.rollbackTransaction();
-    throw e;
-  } finally {
     if (!queryRunner.isReleased) await queryRunner.release();
+    throw e;
   }
 }
 
