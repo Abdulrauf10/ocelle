@@ -29,6 +29,7 @@ fragment UserAddress on Address {
     code
     country
   }
+  postalCode
 }
 
 fragment UserError on AccountError {
@@ -144,6 +145,17 @@ mutation CreateAddress($id: ID!, $input: AddressInput!) {
   }
 }
 
+mutation UpdateAddress($id: ID!, $input: AddressInput!) {
+  addressUpdate(id: $id, input: $input) {
+    errors {
+      ...UserError
+    }
+    address {
+      ...UserAddress
+    }
+  }
+}
+
 mutation SetDefaultAddress($id: ID!, $shippingAddressId: ID!, $billingAddressId: ID!) {
   shippingAddressSetDefault: addressSetDefault(
     userId: $id
@@ -158,33 +170,6 @@ mutation SetDefaultAddress($id: ID!, $shippingAddressId: ID!, $billingAddressId:
     userId: $id
     type: BILLING
     addressId: $billingAddressId
-  ) {
-    errors {
-      ...UserError
-    }
-  }
-}
-
-mutation UpdateSelfAddress(
-  $id: ID!
-  $firstName: String!
-  $lastName: String!
-  $streetAddress1: String!
-  $streetAddress2: String!
-  $city: String!
-  $countryArea: String!
-) {
-  accountAddressUpdate(
-    id: $id
-    input: {
-      firstName: $firstName
-      lastName: $lastName
-      streetAddress1: $streetAddress1
-      streetAddress2: $streetAddress2
-      city: $city
-      countryArea: $countryArea
-      country: HK
-    }
   ) {
     errors {
       ...UserError

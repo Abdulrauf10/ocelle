@@ -5,10 +5,10 @@ import stripeClient from '@/clients/stripe';
 import { User } from '@/entities';
 import {
   UserAssignAddressError,
+  UserCreateAddressError,
   UserCreateError,
   UserMeError,
   UserNotFoundError,
-  UserUpdateAddressError,
 } from '@/errors/user';
 import {
   CountryCode,
@@ -18,6 +18,7 @@ import {
   GetCurrentUserFullSizeDocument,
   RegisterAccountDocument,
   SetDefaultAddressDocument,
+  UpdateAddressDocument,
 } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
@@ -245,7 +246,87 @@ class UserService {
       throw new UserAssignAddressError(billingAddressSetDefault?.errors);
     }
   }
+  async createAddress(
+    id: string,
+    address: {
+      firstName: string;
+      lastName: string;
+      streetAddress1: string;
+      streetAddress2: string;
+      district: string;
+      region: string;
+      country: CountryCode;
+      postalCode?: string;
+    }
+  ) {
+    const { addressCreate } = await executeGraphQL(CreateAddressDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: {
+        id,
+        input: {
+          firstName: address.firstName,
+          lastName: address.lastName,
+          streetAddress1: address.streetAddress1,
+          streetAddress2: address.streetAddress2,
+          city: address.country === CountryCode.Hk ? address.district : address.region,
+          countryArea: address.country === CountryCode.Hk ? address.region : address.district,
+          country: address.country,
+          postalCode: address.postalCode,
+          skipValidation: true,
+        },
+      },
+    });
+
+    if (!addressCreate || addressCreate.errors.length > 0) {
+      throw new UserCreateAddressError(addressCreate?.errors);
+    }
+
+    return addressCreate.address!;
+  }
   async updateAddress(
+    id: string,
+    address: {
+      firstName: string;
+      lastName: string;
+      streetAddress1: string;
+      streetAddress2: string;
+      district: string;
+      region: string;
+      country: CountryCode;
+      postalCode?: string;
+    }
+  ) {
+    const { addressUpdate } = await executeGraphQL(UpdateAddressDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: {
+        id,
+        input: {
+          firstName: address.firstName,
+          lastName: address.lastName,
+          streetAddress1: address.streetAddress1,
+          streetAddress2: address.streetAddress2,
+          city: address.country === CountryCode.Hk ? address.district : address.region,
+          countryArea: address.country === CountryCode.Hk ? address.region : address.district,
+          country: address.country,
+          postalCode: address.postalCode,
+          skipValidation: true,
+        },
+      },
+    });
+
+    if (!addressUpdate || addressUpdate.errors.length > 0) {
+      throw new UserCreateAddressError(addressUpdate?.errors);
+    }
+
+    return addressUpdate.address!;
+  }
+  async updateAndSetDefaultAddress(
     id: string,
     deliveryAddress: {
       firstName: string;
@@ -267,74 +348,59 @@ class UserService {
       postalCode?: string;
     }
   ) {
-    const { addressCreate: shippingAddressCreate } = await executeGraphQL(CreateAddressDocument, {
-      withAuth: false,
-      headers: {
-        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-      },
-      variables: {
-        id,
-        input: {
-          firstName: deliveryAddress.firstName,
-          lastName: deliveryAddress.lastName,
-          streetAddress1: deliveryAddress.streetAddress1,
-          streetAddress2: deliveryAddress.streetAddress2,
-          city: deliveryAddress.district,
-          countryArea: deliveryAddress.region,
-          country: deliveryAddress.country,
-          skipValidation: true,
-        },
-      },
-    });
-
-    if (!shippingAddressCreate || shippingAddressCreate.errors.length > 0) {
-      throw new UserUpdateAddressError(shippingAddressCreate?.errors);
-    }
+    const _shippingAddress = await this.createAddress(id, deliveryAddress);
 
     if (!billingAddress) {
-      return this.assignDefaultAddress(
-        id,
-        shippingAddressCreate.address!.id,
-        shippingAddressCreate.address!.id
+      return this.assignDefaultAddress(id, _shippingAddress.id, _shippingAddress.id);
+    }
+    const _billingAddress = await this.createAddress(id, billingAddress);
+
+    return this.assignDefaultAddress(id, _shippingAddress.id, _billingAddress.id);
+  }
+  async updateSelfDeliveryAddress(
+    deliveryAddress: {
+      firstName: string;
+      lastName: string;
+      streetAddress1: string;
+      streetAddress2: string;
+      district: string;
+      region: string;
+      country: CountryCode;
+    },
+    useAsBillingAddress: boolean
+  ) {
+    const { id, defaultShippingAddress, defaultBillingAddress } = await this.meFullsize();
+
+    await this.updateAddress(defaultShippingAddress!.id, deliveryAddress);
+
+    if (useAsBillingAddress && defaultBillingAddress?.id !== defaultShippingAddress?.id) {
+      await this.assignDefaultAddress(id, defaultShippingAddress!.id, defaultShippingAddress!.id);
+    } else if (defaultBillingAddress?.id === defaultShippingAddress?.id) {
+      const _billingAddress = await this.createAddress(id, deliveryAddress);
+      await this.assignDefaultAddress(id, defaultShippingAddress!.id, _billingAddress.id);
+    }
+
+    await executeQuery(async (queryRunner) => {
+      await queryRunner.manager.update(
+        User,
+        { id },
+        { isDeliveryUsAsBillingAddress: useAsBillingAddress }
       );
-    }
-
-    const { addressCreate: billingAddressCreate } = await executeGraphQL(CreateAddressDocument, {
-      withAuth: false,
-      headers: {
-        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-      },
-      variables: {
-        id,
-        input: {
-          firstName: billingAddress.firstName,
-          lastName: billingAddress.lastName,
-          streetAddress1: billingAddress.streetAddress1,
-          streetAddress2: billingAddress.streetAddress2,
-          city:
-            billingAddress.country === CountryCode.Hk
-              ? billingAddress.district
-              : billingAddress.region,
-          countryArea:
-            billingAddress.country === CountryCode.Hk
-              ? billingAddress.region
-              : billingAddress.district,
-          country: billingAddress.country,
-          postalCode: billingAddress.postalCode,
-          skipValidation: true,
-        },
-      },
     });
+  }
+  async updateSelfBillingAddress(billingAddress: {
+    firstName: string;
+    lastName: string;
+    streetAddress1: string;
+    streetAddress2: string;
+    district: string;
+    region: string;
+    country: CountryCode;
+    postalCode?: string;
+  }) {
+    const { defaultBillingAddress } = await this.meFullsize();
 
-    if (!billingAddressCreate || billingAddressCreate.errors.length > 0) {
-      throw new UserUpdateAddressError(billingAddressCreate?.errors);
-    }
-
-    return this.assignDefaultAddress(
-      id,
-      shippingAddressCreate.address!.id,
-      billingAddressCreate.address!.id
-    );
+    await this.updateAddress(defaultBillingAddress!.id, billingAddress);
   }
   async attachStripe(id: string) {
     const user = await this.getById(id);

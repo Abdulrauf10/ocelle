@@ -233,7 +233,7 @@ export async function handleMutateDraftOrder(data: HandleMutateDraftOrderAction)
     value.whatsapp
   );
 
-  await userService.updateAddress(
+  await userService.updateAndSetDefaultAddress(
     user.id,
     value.deliveryAddress,
     value.isSameBillingAddress ? undefined : value.billingAddress

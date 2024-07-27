@@ -57,9 +57,18 @@ export default async function Addresses() {
                 lastName={defaultBillingAddress?.lastName}
                 streetAddress1={defaultBillingAddress?.streetAddress1}
                 streetAddress2={defaultBillingAddress?.streetAddress2}
-                district={defaultBillingAddress?.city}
-                region={defaultBillingAddress?.countryArea}
+                district={
+                  defaultBillingAddress?.country.code === CountryCode.Hk
+                    ? defaultBillingAddress?.city
+                    : defaultBillingAddress?.countryArea
+                }
+                region={
+                  defaultBillingAddress?.country.code === CountryCode.Hk
+                    ? defaultBillingAddress?.countryArea
+                    : defaultBillingAddress?.city
+                }
                 country={defaultBillingAddress?.country.code as CountryCode | undefined}
+                postalCode={defaultBillingAddress?.postalCode}
                 action={changeBillingAddressAction}
               />
               <div className="mt-12 text-center">

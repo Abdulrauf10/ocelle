@@ -2,11 +2,8 @@
 
 import Joi from 'joi';
 
-import { getLoginedMeFullSize } from '@/actions';
-import { User } from '@/entities';
-import { CountryCode, UpdateSelfAddressDocument } from '@/gql/graphql';
-import { executeGraphQL } from '@/helpers/graphql';
-import { executeQuery } from '@/helpers/queryRunner';
+import { CountryCode } from '@/gql/graphql';
+import userService from '@/services/user';
 
 interface ChangeShippingAddressAction {
   firstName: string;
@@ -37,34 +34,18 @@ export async function changeShippingAddressAction(data: ChangeShippingAddressAct
     throw new Error('schema is not valid');
   }
 
-  const { id, defaultShippingAddress } = await getLoginedMeFullSize();
-
-  const { accountAddressUpdate } = await executeGraphQL(UpdateSelfAddressDocument, {
-    variables: {
-      id: defaultShippingAddress!.id,
+  await userService.updateSelfDeliveryAddress(
+    {
       firstName: value.firstName,
       lastName: value.lastName,
       streetAddress1: value.streetAddress1,
       streetAddress2: value.streetAddress2,
-      city: value.district,
-      countryArea: value.region,
+      district: value.district,
+      region: value.region,
+      country: CountryCode.Hk,
     },
-  });
-
-  if (!accountAddressUpdate || accountAddressUpdate.errors.length > 0) {
-    console.error(accountAddressUpdate?.errors);
-    throw new Error('change shipping address failed');
-  }
-
-  await executeQuery(async (queryRunner) => {
-    const user = await queryRunner.manager.findOne(User, { where: { id } });
-    user!.isDeliveryUsAsBillingAddress = value.isSameAsBillingAddress;
-    await queryRunner.manager.save(user);
-  });
-
-  if (value.isSameAsBillingAddress) {
-    await changeBillingAddressAction(value);
-  }
+    value.isSameAsBillingAddress
+  );
 }
 
 interface ChangeBillingAddressAction {
@@ -75,6 +56,7 @@ interface ChangeBillingAddressAction {
   district: string;
   region: string;
   country: CountryCode;
+  postalCode?: string;
 }
 
 const changeBillingAddressActionSchema = Joi.object<ChangeBillingAddressAction>({
@@ -85,6 +67,7 @@ const changeBillingAddressActionSchema = Joi.object<ChangeBillingAddressAction>(
   district: Joi.string().required(),
   region: Joi.string().required(),
   country: Joi.string().required(),
+  postalCode: Joi.string().optional(),
 });
 
 export async function changeBillingAddressAction(data: ChangeBillingAddressAction) {
@@ -94,22 +77,5 @@ export async function changeBillingAddressAction(data: ChangeBillingAddressActio
     throw new Error('schema is not valid');
   }
 
-  const { defaultBillingAddress } = await getLoginedMeFullSize();
-
-  const { accountAddressUpdate } = await executeGraphQL(UpdateSelfAddressDocument, {
-    variables: {
-      id: defaultBillingAddress!.id,
-      firstName: value.firstName,
-      lastName: value.lastName,
-      streetAddress1: value.streetAddress1,
-      streetAddress2: value.streetAddress2,
-      city: value.district,
-      countryArea: value.region,
-    },
-  });
-
-  if (!accountAddressUpdate || accountAddressUpdate.errors.length > 0) {
-    console.error(accountAddressUpdate?.errors);
-    throw new Error('change billing address failed');
-  }
+  await userService.updateSelfBillingAddress(value);
 }
