@@ -239,7 +239,7 @@ export async function handleMutateDraftOrder(data: HandleMutateDraftOrderAction)
     value.isSameBillingAddress ? undefined : value.billingAddress
   );
 
-  await userService.attachStripe(user.id);
+  const customer = await userService.attachStripe(user.id);
 
   if (!order.user) {
     await orderService.update(order.id, { user: user.id });
@@ -254,7 +254,7 @@ export async function handleMutateDraftOrder(data: HandleMutateDraftOrderAction)
   );
 
   // link user to the payment intent
-  await stripeClient.updatePaymentIntent(paymentIntent, { customer: user.stripe });
+  await stripeClient.updatePaymentIntent(paymentIntent, { customer });
 }
 
 export async function finalizeDraftOrder(paymentMethodId: string) {
