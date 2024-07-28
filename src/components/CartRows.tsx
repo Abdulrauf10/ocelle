@@ -28,22 +28,22 @@ export default function CartRows({
   const contents = React.useMemo(() => {
     return {
       [individualPackProducts[IndividualRecipePack.Bundle].variant.sku]: {
-        picture: '/recipes/individual/bundle.jpg',
+        picture: '/individual-pack/bundle.jpg',
       },
       [individualPackProducts[IndividualRecipePack.Chicken].variant.sku]: {
-        picture: '/recipes/individual/chicken.jpg',
+        picture: '/individual-pack/chicken.jpg',
       },
       [individualPackProducts[IndividualRecipePack.Beef].variant.sku]: {
-        picture: '/recipes/individual/beef.jpg',
+        picture: '/individual-pack/beef.jpg',
       },
       [individualPackProducts[IndividualRecipePack.Lamb].variant.sku]: {
-        picture: '/recipes/individual/lamb.jpg',
+        picture: '/individual-pack/lamb.jpg',
       },
       [individualPackProducts[IndividualRecipePack.Duck].variant.sku]: {
-        picture: '/recipes/individual/duck.jpg',
+        picture: '/individual-pack/duck.jpg',
       },
       [individualPackProducts[IndividualRecipePack.Pork].variant.sku]: {
-        picture: '/recipes/individual/pork.jpg',
+        picture: '/individual-pack/pork.jpg',
       },
     };
   }, []);
