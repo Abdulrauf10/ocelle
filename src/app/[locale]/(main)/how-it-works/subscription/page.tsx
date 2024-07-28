@@ -15,7 +15,7 @@ export default function HowItWorksSubscription() {
   const s = useTranslations('Subscription');
   return (
     <main>
-      <div className="bg-[#EFE9DD] bg-[url('/subscription-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_50px)_center] bg-no-repeat max-lg:bg-[#E8E4DB] max-lg:bg-[url('/subscription-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-top max-lg:pt-[68%]">
+      <div className="bg-[#EFE9DD] bg-[url('/subscription/subscription-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_50px)_center] bg-no-repeat max-lg:bg-[#E8E4DB] max-lg:bg-[url('/subscription/subscription-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-top max-lg:pt-[68%]">
         <Container>
           <div className="-mx-4 flex flex-wrap items-center max-lg:flex-col-reverse max-lg:items-center">
             <div className="w-2/5 px-4 py-[5vw] text-xl text-primary max-lg:w-full max-lg:pb-12">
@@ -103,7 +103,7 @@ export default function HowItWorksSubscription() {
         </Container>
       </Block>
       <ImageContentBlock
-        image="/dogs/favourite-dog.jpg"
+        image="/subscription/favourite-dog.jpg"
         alt="three of dogs"
         reverse
         breakpoint="sm"
@@ -124,7 +124,7 @@ export default function HowItWorksSubscription() {
         </div>
       </ImageContentBlock>
       <ImageContentBlock
-        image="/dogs/three-dogs.jpg"
+        image="/subscription/three-dogs.jpg"
         alt="three of dogs"
         breakpoint="sm"
         className={{
@@ -143,7 +143,7 @@ export default function HowItWorksSubscription() {
         </div>
       </ImageContentBlock>
       <ImageContentBlock
-        image="/dogs/eating-dog.jpg"
+        image="/subscription/eating-dog.jpg"
         alt="eating dog"
         breakpoint="sm"
         reverse
@@ -162,7 +162,7 @@ export default function HowItWorksSubscription() {
         <div className="max-sm:px-7">
           <div className="max-lg:flex max-lg:justify-center">
             <Image
-              src="/ocelle-truck.png"
+              src="/subscription/ocelle-truck.png"
               width={170}
               height={85}
               className="-ml-4 max-sm:pt-4"

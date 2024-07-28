@@ -283,7 +283,7 @@ export default function DogPreference2Fragment() {
                         children: (
                           <div className="flex items-end">
                             <Image
-                              src="/question/picky.svg"
+                              src="/get-started/picky.svg"
                               alt="Picky dog"
                               width={110}
                               height={42}
@@ -297,7 +297,7 @@ export default function DogPreference2Fragment() {
                         children: (
                           <div className="flex items-end">
                             <Image
-                              src="/question/good-eater.svg"
+                              src="/get-started/good-eater.svg"
                               alt="Eater dog"
                               width={60}
                               height={55}
@@ -310,7 +310,7 @@ export default function DogPreference2Fragment() {
                         value: Pickiness.EatAnything,
                         children: (
                           <Image
-                            src="/question/eat-anything.svg"
+                            src="/get-started/eat-anything.svg"
                             alt="Eat anything dog"
                             width={53}
                             height={62}

@@ -126,7 +126,7 @@ export default function RecipeLargeDialog({
               <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 max-[420px]:w-full ">
                 <Image
                   className="mx-auto"
-                  src="/recipes/not-inside/colours.svg"
+                  src="/whats-not-inside/colours.svg"
                   alt={m('no-colours')}
                   width={80}
                   height={80}
@@ -139,7 +139,7 @@ export default function RecipeLargeDialog({
               <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
-                  src="/recipes/not-inside/filters.svg"
+                  src="/whats-not-inside/filters.svg"
                   alt={m('no-fillers')}
                   width={80}
                   height={80}
@@ -152,7 +152,7 @@ export default function RecipeLargeDialog({
               <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
-                  src="/recipes/not-inside/flavourings.svg"
+                  src="/whats-not-inside/flavourings.svg"
                   alt={m('no-flavourings')}
                   width={80}
                   height={80}
@@ -165,7 +165,7 @@ export default function RecipeLargeDialog({
               <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
-                  src="/recipes/not-inside/preservatives.svg"
+                  src="/whats-not-inside/preservatives.svg"
                   alt={m('no-preservatives')}
                   width={80}
                   height={80}
@@ -179,7 +179,7 @@ export default function RecipeLargeDialog({
               <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
-                  src="/recipes/not-inside/additives.svg"
+                  src="/whats-not-inside/additives.svg"
                   alt={m('no-additives')}
                   width={80}
                   height={80}
@@ -192,7 +192,7 @@ export default function RecipeLargeDialog({
               <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
-                  src="/recipes/not-inside/artificial-ingredients.svg"
+                  src="/whats-not-inside/artificial-ingredients.svg"
                   alt={m('no-artificial-flavours')}
                   width={80}
                   height={80}
@@ -205,7 +205,7 @@ export default function RecipeLargeDialog({
               <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
-                  src="/recipes/not-inside/hormones.svg"
+                  src="/whats-not-inside/hormones.svg"
                   alt={m('no-hormones')}
                   width={80}
                   height={80}

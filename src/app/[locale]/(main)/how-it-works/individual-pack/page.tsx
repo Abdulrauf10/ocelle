@@ -45,7 +45,7 @@ export default async function HowItWorksIndividual() {
   return (
     <>
       <main>
-        <div className="relative flex items-center bg-[#70aaca] bg-[url('/individual-pack-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_40px)_center] bg-no-repeat max-lg:bg-[url('/individual-pack-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-bottom">
+        <div className="relative flex items-center bg-[#70aaca] bg-[url('/individual-pack/individual-pack-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_40px)_center] bg-no-repeat max-lg:bg-[url('/individual-pack/individual-pack-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-bottom">
           <div className="w-full pt-[clamp(450px,31.5%,700px)] max-lg:hidden"></div>
           <div className="w-full py-[4vw] text-white max-lg:w-full max-lg:py-10 max-lg:pb-[95%] lg:absolute lg:pr-0">
             <Container className="max-lg:text-center">
@@ -59,7 +59,7 @@ export default async function HowItWorksIndividual() {
         </div>
         <Product
           product={products[IndividualRecipePack.Bundle]}
-          picture="/recipes/individual/bundle.jpg"
+          picture="/individual-pack/bundle.jpg"
           pack={IndividualRecipePack.Bundle}
           className={{
             root: 'bg-[#E1D7CE]',
@@ -73,8 +73,8 @@ export default async function HowItWorksIndividual() {
         />
         <Product
           product={products[IndividualRecipePack.Chicken]}
-          picture="/recipes/individual/chicken.jpg"
-          dialogPicture="/recipes/dispersion/chicken.gif"
+          picture="/individual-pack/chicken.jpg"
+          dialogPicture="/dispersion/chicken.gif"
           theme="dark-green"
           className={{
             root: 'bg-how-it-works-dark-green bg-opacity-[8%]',
@@ -100,8 +100,8 @@ export default async function HowItWorksIndividual() {
         />
         <Product
           product={products[IndividualRecipePack.Beef]}
-          picture="/recipes/individual/beef.jpg"
-          dialogPicture="/recipes/dispersion/beef.gif"
+          picture="/individual-pack/beef.jpg"
+          dialogPicture="/dispersion/beef.gif"
           theme="red"
           className={{
             root: 'bg-how-it-works-red bg-opacity-[8%]',
@@ -126,8 +126,8 @@ export default async function HowItWorksIndividual() {
         />
         <Product
           product={products[IndividualRecipePack.Pork]}
-          picture="/recipes/individual/pork.jpg"
-          dialogPicture="/recipes/dispersion/pork.gif"
+          picture="/individual-pack/pork.jpg"
+          dialogPicture="/dispersion/pork.gif"
           theme="primary"
           className={{
             root: 'bg-primary bg-opacity-[8%]',
@@ -153,8 +153,8 @@ export default async function HowItWorksIndividual() {
         />
         <Product
           product={products[IndividualRecipePack.Lamb]}
-          picture="/recipes/individual/lamb.jpg"
-          dialogPicture="/recipes/dispersion/lamb.gif"
+          picture="/individual-pack/lamb.jpg"
+          dialogPicture="/dispersion/lamb.gif"
           theme="green"
           className={{
             root: 'bg-how-it-works-green bg-opacity-[8%]',
@@ -178,8 +178,8 @@ export default async function HowItWorksIndividual() {
         />
         <Product
           product={products[IndividualRecipePack.Duck]}
-          picture="/recipes/individual/duck.jpg"
-          dialogPicture="/recipes/dispersion/duck.gif"
+          picture="/individual-pack/duck.jpg"
+          dialogPicture="/dispersion/duck.gif"
           className={{
             root: 'bg-[#FCBB00] bg-opacity-[8%]',
             title: 'text-secondary',
@@ -211,7 +211,7 @@ export default async function HowItWorksIndividual() {
                 <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
                   <div className="relative pt-[89.4%]">
                     <Image
-                      src="/fresh-start-1.jpg"
+                      src="/individual-pack/fresh-start-1.jpg"
                       alt="dog 1"
                       fill
                       className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
@@ -227,7 +227,7 @@ export default async function HowItWorksIndividual() {
                 <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
                   <div className="relative pt-[89.4%]">
                     <Image
-                      src="/fresh-start-2.jpg"
+                      src="/individual-pack/fresh-start-2.jpg"
                       alt="dog 2"
                       fill
                       className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
@@ -243,7 +243,7 @@ export default async function HowItWorksIndividual() {
                 <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
                   <div className="relative pt-[89.4%]">
                     <Image
-                      src="/fresh-start-3.jpg"
+                      src="/individual-pack/fresh-start-3.jpg"
                       alt="dog 3"
                       fill
                       className="rounded-3xl shadow-[5px_5px_12px_rgba(0,0,0,.1)]"

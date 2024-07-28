@@ -464,7 +464,12 @@ export default function DogForm({
                 ),
                 value: BodyCondition.TooSkinny,
                 children: (
-                  <Image src="/question/body-skinny.svg" alt="dog skinny" width={91} height={75} />
+                  <Image
+                    src="/get-started/body-skinny.svg"
+                    alt="dog skinny"
+                    width={91}
+                    height={75}
+                  />
                 ),
               },
               {
@@ -479,7 +484,7 @@ export default function DogForm({
                 value: BodyCondition.JustRight,
                 children: (
                   <Image
-                    src="/question/body-just-right.svg"
+                    src="/get-started/body-just-right.svg"
                     alt="dog just right"
                     width={91}
                     height={75}
@@ -499,7 +504,7 @@ export default function DogForm({
                 value: BodyCondition.Rounded,
                 children: (
                   <Image
-                    src="/question/body-rounded.svg"
+                    src="/get-started/body-rounded.svg"
                     alt="dog rounded"
                     width={91}
                     height={75}
@@ -520,7 +525,12 @@ export default function DogForm({
                 ),
                 value: BodyCondition.Chunky,
                 children: (
-                  <Image src="/question/body-chunky.svg" alt="dog chunky" width={91} height={75} />
+                  <Image
+                    src="/get-started/body-chunky.svg"
+                    alt="dog chunky"
+                    width={91}
+                    height={75}
+                  />
                 ),
               },
             ]}
@@ -548,7 +558,7 @@ export default function DogForm({
                 ),
                 value: ActivityLevel.Mellow,
                 children: (
-                  <Image src="/question/mellow.svg" alt="Mellow dog" width={68} height={43} />
+                  <Image src="/get-started/mellow.svg" alt="Mellow dog" width={68} height={43} />
                 ),
               },
               {
@@ -560,7 +570,7 @@ export default function DogForm({
                 ),
                 value: ActivityLevel.Active,
                 children: (
-                  <Image src="/question/active.svg" alt="Active dog" width={51} height={61} />
+                  <Image src="/get-started/active.svg" alt="Active dog" width={51} height={61} />
                 ),
               },
               {
@@ -573,7 +583,7 @@ export default function DogForm({
                 value: ActivityLevel.VeryActive,
                 children: (
                   <Image
-                    src="/question/very-active.svg"
+                    src="/get-started/very-active.svg"
                     alt="Very Active dog"
                     width={79}
                     height={61}
@@ -720,7 +730,7 @@ export default function DogForm({
                 value: Pickiness.Picky,
                 children: (
                   <div className="flex items-end">
-                    <Image src="/question/picky.svg" alt="Picky dog" width={110} height={42} />
+                    <Image src="/get-started/picky.svg" alt="Picky dog" width={110} height={42} />
                   </div>
                 ),
               },
@@ -729,7 +739,12 @@ export default function DogForm({
                 value: Pickiness.GoodEater,
                 children: (
                   <div className="flex items-end">
-                    <Image src="/question/good-eater.svg" alt="Eater dog" width={60} height={55} />
+                    <Image
+                      src="/get-started/good-eater.svg"
+                      alt="Eater dog"
+                      width={60}
+                      height={55}
+                    />
                   </div>
                 ),
               },
@@ -738,7 +753,7 @@ export default function DogForm({
                 value: Pickiness.EatAnything,
                 children: (
                   <Image
-                    src="/question/eat-anything.svg"
+                    src="/get-started/eat-anything.svg"
                     alt="Eat anything dog"
                     width={53}
                     height={62}

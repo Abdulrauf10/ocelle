@@ -44,7 +44,7 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
             picture={
               <div className="-mt-px">
                 <Image
-                  src="/brown-tick.png"
+                  src="/home/brown-tick.png"
                   className={'h-[22px] w-[22px]'}
                   width={22}
                   height={22}
@@ -94,7 +94,7 @@ export default function CaseSwiper() {
         <Slide
           dog="Muffin"
           plan={h('fresh-duck')}
-          picture="/dogs/muffin.jpeg"
+          picture="/home/muffin.jpeg"
           listItems={[
             h('weight-loss-support'),
             h('improved-digestive-health'),
@@ -108,7 +108,7 @@ export default function CaseSwiper() {
         <Slide
           dog="Pixie"
           plan={h('fresh-beef')}
-          picture="/dogs/pixie.jpg"
+          picture="/home/pixie.jpg"
           listItems={[h('eye-health'), h('joint-support'), h('sustained-energy')]}
         >
           {h.rich('pixie-content')}
@@ -118,7 +118,7 @@ export default function CaseSwiper() {
         <Slide
           dog="Toast"
           plan={h('fresh-pork')}
-          picture="/dogs/toast.jpg"
+          picture="/home/toast.jpg"
           listItems={[
             h('healthier-coat-and-skin'),
             h('improved-immunity'),

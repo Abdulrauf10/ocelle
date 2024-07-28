@@ -45,7 +45,7 @@ function ConcernTitle({
       <div className="sm:py-3">
         <div className="relative sm:inline">
           <Image
-            src={`/why-fresh/${icon}`}
+            src={`/its-time-to-rethink-kibble/${icon}`}
             alt=""
             width={width}
             height={height}
@@ -78,7 +78,7 @@ function Card({
       className={clsx(
         'relative mx-auto flex h-full max-w-2xl flex-col rounded-3xl px-8 py-8 max-md:px-4',
         theme === 'dark'
-          ? 'bg-[#00616A] bg-[url("/dog-foot-bg.png")] bg-[length:156px_126px]'
+          ? 'bg-[#00616A] bg-[url("/its-time-to-rethink-kibble/dog-foot-bg.png")] bg-[length:156px_126px]'
           : 'bg-white'
       )}
     >
@@ -125,7 +125,7 @@ export default function ItsTimeToRethinkKibble() {
 
   return (
     <main>
-      <Block className="bg-[#f6ece1] bg-[url('/its-time-to-rethink-kibble-bg.jpg')] bg-[length:auto_100%] bg-center bg-no-repeat max-sm:bg-[53%_bottom] max-xs:bg-[length:auto_88%] max-xs:bg-[53%_bottom]">
+      <Block className="bg-[#f6ece1] bg-[url('/its-time-to-rethink-kibble/bg.jpg')] bg-[length:auto_100%] bg-center bg-no-repeat max-sm:bg-[53%_bottom] max-xs:bg-[length:auto_88%] max-xs:bg-[53%_bottom]">
         <Container className="pb-[clamp(420px,30%,650px)] max-xs:pb-[340px]">
           <h1 className="heading-headline heading-weight-1 text-center text-brown">
             {i.rich('block-1-title')}
@@ -238,7 +238,14 @@ export default function ItsTimeToRethinkKibble() {
               <Card
                 theme="dark"
                 title={i.rich('block-4-mark-1-title')}
-                icon={<Image src="/why-fresh/aafco-dark.jpg" alt="" width={210} height={66} />}
+                icon={
+                  <Image
+                    src="/its-time-to-rethink-kibble/aafco-dark.jpg"
+                    alt=""
+                    width={210}
+                    height={66}
+                  />
+                }
                 source={
                   <>
                     AAFCO<sup>6</sup>
@@ -262,7 +269,14 @@ export default function ItsTimeToRethinkKibble() {
               <Card
                 theme="light"
                 title={i.rich('block-4-mark-2-title')}
-                icon={<Image src="/why-fresh/aafco-light.jpg" alt="" width={210} height={66} />}
+                icon={
+                  <Image
+                    src="/its-time-to-rethink-kibble/aafco-light.jpg"
+                    alt=""
+                    width={210}
+                    height={66}
+                  />
+                }
                 source={
                   <>
                     AAFCO<sup>7</sup>
@@ -286,7 +300,14 @@ export default function ItsTimeToRethinkKibble() {
               <Card
                 theme="dark"
                 title={i.rich('block-4-mark-3-title')}
-                icon={<Image src="/why-fresh/aafco-dark.jpg" alt="" width={210} height={66} />}
+                icon={
+                  <Image
+                    src="/its-time-to-rethink-kibble/aafco-dark.jpg"
+                    alt=""
+                    width={210}
+                    height={66}
+                  />
+                }
                 source={
                   <>
                     AAFCO<sup>8</sup>
@@ -304,7 +325,14 @@ export default function ItsTimeToRethinkKibble() {
               <Card
                 theme="light"
                 title={i.rich('block-4-mark-4-title')}
-                icon={<Image src="/why-fresh/aafco-light.jpg" alt="" width={210} height={66} />}
+                icon={
+                  <Image
+                    src="/its-time-to-rethink-kibble/aafco-light.jpg"
+                    alt=""
+                    width={210}
+                    height={66}
+                  />
+                }
                 source={
                   <>
                     AAFCO<sup>6</sup>
@@ -346,7 +374,14 @@ export default function ItsTimeToRethinkKibble() {
               <Card
                 theme="dark"
                 title={i.rich('block-4-mark-5-title')}
-                icon={<Image src="/why-fresh/cdc.png" alt="" width={109.5} height={66} />}
+                icon={
+                  <Image
+                    src="/its-time-to-rethink-kibble/cdc.png"
+                    alt=""
+                    width={109.5}
+                    height={66}
+                  />
+                }
                 source={
                   <>
                     CDC<sup>9</sup>
@@ -469,21 +504,21 @@ export default function ItsTimeToRethinkKibble() {
           <div className="relative">
             <div className="absolute inset-0 max-xl:hidden">
               <Image
-                src="/why-fresh/chicken-kibble.png"
+                src="/its-time-to-rethink-kibble/chicken-kibble.png"
                 alt=""
                 width={50}
                 height={50}
                 className="absolute -left-24 top-1"
               />
               <Image
-                src="/why-fresh/turkey-kibble.png"
+                src="/its-time-to-rethink-kibble/turkey-kibble.png"
                 alt=""
                 width={50}
                 height={50}
                 className="absolute -right-24 top-1/2 -translate-y-20"
               />
               <Image
-                src="/why-fresh/beef-kibble.png"
+                src="/its-time-to-rethink-kibble/beef-kibble.png"
                 alt=""
                 width={50}
                 height={50}

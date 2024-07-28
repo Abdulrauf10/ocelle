@@ -88,8 +88,8 @@ export default function OurStory() {
           className={{
             bgLeft: 'bg-brown',
             bgRight: clsx(
-              "min-h-[520px] bg-[#e1bd98] bg-[url('/charlie.jpg')] bg-[length:auto_100%] bg-[-50px] bg-no-repeat max-2xl:bg-[-4vw] max-xl:bg-[calc(calc(650px-47vw)_*_-1)]",
-              "max-lg:h-[50vw] max-lg:max-h-[520px] max-lg:min-h-[380px] max-lg:bg-[url('/charlie-center.jpg')] max-lg:bg-center"
+              "min-h-[520px] bg-[#e1bd98] bg-[url('/about-us/charlie.jpg')] bg-[length:auto_100%] bg-[-50px] bg-no-repeat max-2xl:bg-[-4vw] max-xl:bg-[calc(calc(650px-47vw)_*_-1)]",
+              "max-lg:h-[50vw] max-lg:max-h-[520px] max-lg:min-h-[380px] max-lg:bg-[url('/about-us/charlie-center.jpg')] max-lg:bg-center"
             ),
             mbLeft: 'px-4',
           }}
@@ -111,23 +111,23 @@ export default function OurStory() {
           }
         />
       </div>
-      <div className="relative z-0 flex items-center bg-primary bg-cover bg-center bg-repeat-x max-md:flex-col-reverse lg:bg-[url('/about-us-bg.svg')] xl:h-[680px]">
+      <div className="relative z-0 flex items-center bg-primary bg-cover bg-center bg-repeat-x max-md:flex-col-reverse lg:bg-[url('/about-us/about-us-bg.svg')] xl:h-[680px]">
         <Image
-          src="/food-1.png"
+          src="/about-us/food-1.png"
           alt="food-1"
           width={300}
           height={250}
           className="absolute -left-[50px] bottom-[10%] lg:hidden"
         />
         <Image
-          src="/food-2.png"
+          src="/about-us/food-2.png"
           alt="food-2"
           width={320}
           height={220}
           className="left-30 clip-path: insea(0 40% 0 0) min-lg:hidden absolute -right-[60px] bottom-[15%] max-md:block max-[450px]:hidden lg:hidden"
         />
         <Image
-          src="/food-3.png"
+          src="/about-us/food-3.png"
           alt="food-3"
           width={220}
           height={220}
@@ -137,7 +137,7 @@ export default function OurStory() {
         <div className="z-40 flex w-1/2 justify-end max-md:w-full max-md:justify-center">
           <div className="mr-8 w-full max-w-[350px] pt-10 max-md:mx-4 max-md:pt-4 md:max-lg:pl-1 xl:max-w-[380px]">
             <div className="relative pt-[168%]">
-              <Image src="/dog-with-owner.png" alt="Dog with owner" fill loading="eager" />
+              <Image src="/about-us/dog-with-owner.png" alt="Dog with owner" fill loading="eager" />
             </div>
           </div>
         </div>
@@ -146,7 +146,7 @@ export default function OurStory() {
           <h2 className="heading-1 max-w-[650px] text-center font-bold lang-zh:font-normal max-md:text-center xl:pr-8">
             <div className="m  absolute flex w-full max-w-[650px] -translate-y-full flex-row justify-center max-md:static max-md:mt-12 max-md:translate-y-0 md:top-[0] xl:pr-8">
               <Image
-                src="/inspire.svg"
+                src="/about-us/inspire.svg"
                 alt="Inspire"
                 width={130}
                 height={140}
@@ -173,7 +173,7 @@ export default function OurStory() {
           <div className="ml-[80px] w-full max-w-[620px] max-2xl:mx-auto max-lg:mx-auto max-lg:px-4">
             <div className="relative pt-[117.2%]">
               <Image
-                src="/about-us-food.gif"
+                src="/about-us/about-us-food.gif"
                 alt="foods"
                 fill
                 className="select-none object-contain"
@@ -204,7 +204,7 @@ export default function OurStory() {
           <div className="relative w-full max-w-[600px] max-lg:mx-auto max-lg:max-w-[450px] max-lg:pt-4 lg:ml-[6%]">
             <div className="pt-[117.2%]">
               <Image
-                src="/about-us-food.gif"
+                src="/about-us/about-us-food.gif"
                 alt="foods"
                 fill
                 className="select-none object-contain lg:hidden"
@@ -236,7 +236,7 @@ export default function OurStory() {
           <div className="relative -z-10 -mx-32 -mt-[5%] flex justify-center overflow-hidden max-2xl:mx-0">
             <div className="w-full max-md:min-w-[110%]">
               <div className="relative pt-[76.9%]">
-                <Image src="/dog-circle.jpg" alt="dogs" fill />
+                <Image src="/about-us/dog-circle.jpg" alt="dogs" fill />
               </div>
             </div>
           </div>

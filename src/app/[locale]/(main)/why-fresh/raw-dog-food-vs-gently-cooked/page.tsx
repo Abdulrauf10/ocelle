@@ -34,7 +34,7 @@ export default function RawDogFoodVsGentlyCooked() {
                 <div className="mx-auto max-w-[480px] flex-1 max-md:relative max-md:left-4 max-md:w-[250px] max-sm:w-[155px] max-sm:min-w-[155px]">
                   <div className="relative pt-[100%] max-md:-my-3 md:-mb-9">
                     <Image
-                      src="/why-fresh/raw-dog-food.png"
+                      src="/raw-dog-food-vs-gently-cooked/raw-dog-food.png"
                       alt=""
                       fill
                       className="object-contain object-[calc(50%_+_8px)_calc(50%_+_15px)] max-md:object-center"
@@ -52,7 +52,7 @@ export default function RawDogFoodVsGentlyCooked() {
                 <div className="mx-auto max-w-[480px] flex-1 max-md:relative max-md:left-4 max-md:w-[250px] max-sm:w-[155px] max-sm:min-w-[155px]">
                   <div className="relative pt-[100%] max-md:-my-3 md:-mb-9">
                     <Image
-                      src="/why-fresh/gently-cooked.png"
+                      src="/raw-dog-food-vs-gently-cooked/gently-cooked.png"
                       alt=""
                       fill
                       className="object-contain object-[calc(50%_+_8px)_calc(50%_+_15px)] max-md:object-center"
@@ -97,7 +97,7 @@ export default function RawDogFoodVsGentlyCooked() {
           bg: 'inset-0',
           bgLeft: 'bg-secondary bg-opacity-[12%]',
           bgRight:
-            'bg-[#c8d4d0] bg-[url("/why-fresh-food-roulette.jpg")] bg-[length:auto_100%] bg-no-repeat max-md:bg-[url("/why-fresh-food-roulette-mb.jpg")]',
+            'bg-[#c8d4d0] bg-[url("/raw-dog-food-vs-gently-cooked/food-roulette.jpg")] bg-[length:auto_100%] bg-no-repeat max-md:bg-[url("/raw-dog-food-vs-gently-cooked/food-roulette-mb.jpg")]',
           container: 'py-10',
           mbLeft: 'px-4 py-10',
           mbRight: 'py-6 max-lg:pt-[98%]',

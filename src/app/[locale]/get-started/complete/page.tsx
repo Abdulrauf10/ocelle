@@ -49,7 +49,7 @@ export default function ThankYouPage() {
     return (
       <Container className="py-24 text-center">
         <Image
-          src="/question/loading.gif"
+          src="/get-started/loading.gif"
           alt="loading indicator"
           width={200}
           height={200}

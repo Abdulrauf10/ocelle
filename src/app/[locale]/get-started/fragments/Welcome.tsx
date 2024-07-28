@@ -26,7 +26,7 @@ export default function WelcomeFragment() {
           <div className="mt-5"></div>
           <p className="body-3 flex items-center justify-center text-left text-primary">
             <Image
-              src="/question/timer.svg"
+              src="/get-started/timer.svg"
               alt="Timer"
               width={30}
               height={26}

@@ -172,7 +172,7 @@ export default function DogPreference1Fragment() {
                         value: BodyCondition.TooSkinny,
                         children: (
                           <Image
-                            src="/question/body-skinny.svg"
+                            src="/get-started/body-skinny.svg"
                             alt="dog skinny"
                             width={91}
                             height={75}
@@ -191,7 +191,7 @@ export default function DogPreference1Fragment() {
                         value: BodyCondition.JustRight,
                         children: (
                           <Image
-                            src="/question/body-just-right.svg"
+                            src="/get-started/body-just-right.svg"
                             alt="dog just right"
                             width={91}
                             height={75}
@@ -213,7 +213,7 @@ export default function DogPreference1Fragment() {
                         value: BodyCondition.Rounded,
                         children: (
                           <Image
-                            src="/question/body-rounded.svg"
+                            src="/get-started/body-rounded.svg"
                             alt="dog rounded"
                             width={91}
                             height={75}
@@ -235,7 +235,7 @@ export default function DogPreference1Fragment() {
                         value: BodyCondition.Chunky,
                         children: (
                           <Image
-                            src="/question/body-chunky.svg"
+                            src="/get-started/body-chunky.svg"
                             alt="dog chunky"
                             width={91}
                             height={75}
@@ -278,7 +278,7 @@ export default function DogPreference1Fragment() {
                         value: ActivityLevel.Mellow,
                         children: (
                           <Image
-                            src="/question/mellow.svg"
+                            src="/get-started/mellow.svg"
                             alt="Mellow dog"
                             width={68}
                             height={43}
@@ -295,7 +295,7 @@ export default function DogPreference1Fragment() {
                         value: ActivityLevel.Active,
                         children: (
                           <Image
-                            src="/question/active.svg"
+                            src="/get-started/active.svg"
                             alt="Active dog"
                             width={51}
                             height={61}
@@ -312,7 +312,7 @@ export default function DogPreference1Fragment() {
                         value: ActivityLevel.VeryActive,
                         children: (
                           <Image
-                            src="/question/very-active.svg"
+                            src="/get-started/very-active.svg"
                             alt="Very Active dog"
                             width={79}
                             height={61}

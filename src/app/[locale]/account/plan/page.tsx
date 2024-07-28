@@ -119,7 +119,7 @@ export default async function Plan() {
                   )}
                 >
                   <Image
-                    src="/ocelle-box.jpg"
+                    src="/account/ocelle-box.jpg"
                     alt="Ocelle Box"
                     width={280}
                     height={274}
@@ -265,7 +265,12 @@ export default async function Plan() {
           <div className="rounded-[30px] bg-primary px-3 py-6 text-white max-md:py-8">
             <div className="flex items-center max-md:flex-col">
               <div className="px-4">
-                <Image src="/referral-box.svg" alt="Referral Box" width={300} height={300} />
+                <Image
+                  src="/account/referral-box.svg"
+                  alt="Referral Box"
+                  width={300}
+                  height={300}
+                />
               </div>
               <div className="px-4 max-md:text-center">
                 <h2 className="heading-4 font-bold">

@@ -566,7 +566,7 @@ export default function RecommendedPlanFragment() {
               {selectedRecipes && !isLoading && boxPrice && (
                 <div className="flex flex-wrap items-center justify-center">
                   <Image
-                    src="/question/eat-anything-gold.svg"
+                    src="/get-started/eat-anything-gold.svg"
                     alt="Eating Dog"
                     width={60}
                     height={70}

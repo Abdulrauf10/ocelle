@@ -31,7 +31,7 @@ function BenefitsTitle({
       <div className="sm:py-3">
         <div className="relative sm:inline">
           <Image
-            src={`/why-fresh/${icon}`}
+            src={`/benefits-of-fresh-dog-food/${icon}`}
             alt=""
             width={width}
             height={height}
@@ -66,7 +66,7 @@ export default function BenefitsOfFreshDogFood() {
           <div className="pt-8"></div>
           <div className="mx-auto -mb-[3%] max-w-[1200px]">
             <div className="relative pt-[56%] max-md:mt-[8%] max-md:scale-[1.25]">
-              <Image src="/why-fresh/a-running-dog.jpg" alt="running dog" fill />
+              <Image src="/benefits-of-fresh-dog-food/a-running-dog.jpg" alt="running dog" fill />
             </div>
           </div>
         </Container>
@@ -95,7 +95,7 @@ export default function BenefitsOfFreshDogFood() {
           <div className="relative mx-auto max-w-[480px] max-md:mx-auto">
             <div className="pt-[100%]">
               <Image
-                src="/why-fresh/fresh-food-diet.png"
+                src="/benefits-of-fresh-dog-food/fresh-food-diet.png"
                 alt=""
                 fill
                 className="object-contain object-[16px_13px]"
@@ -120,7 +120,7 @@ export default function BenefitsOfFreshDogFood() {
                   <div className="flex-1 text-center">
                     <div className="body-1 body-weight-1">{i.rich('block-3-chicken')}</div>
                     <Image
-                      src="/why-fresh/single-piece-of-dog-food.png"
+                      src="/benefits-of-fresh-dog-food/single-piece-of-dog-food.png"
                       alt=""
                       width={50}
                       height={50}
@@ -130,7 +130,7 @@ export default function BenefitsOfFreshDogFood() {
                   <div className="flex-1 text-center">
                     <div className="body-1 body-weight-1">{i.rich('block-3-fish')}</div>
                     <Image
-                      src="/why-fresh/single-piece-of-dog-food.png"
+                      src="/benefits-of-fresh-dog-food/single-piece-of-dog-food.png"
                       alt=""
                       width={50}
                       height={50}
@@ -140,7 +140,7 @@ export default function BenefitsOfFreshDogFood() {
                   <div className="flex-1 text-center">
                     <div className="body-1 body-weight-1">{i.rich('block-3-beef')}</div>
                     <Image
-                      src="/why-fresh/single-piece-of-dog-food.png"
+                      src="/benefits-of-fresh-dog-food/single-piece-of-dog-food.png"
                       alt=""
                       width={50}
                       height={50}
@@ -304,7 +304,7 @@ export default function BenefitsOfFreshDogFood() {
               <div className="flex px-4 py-2">
                 <div className="flex-1 text-center">
                   <Image
-                    src="/why-fresh/chicken-recipe-light.png"
+                    src="/benefits-of-fresh-dog-food/chicken-recipe-light.png"
                     alt=""
                     width={112}
                     height={115.5}
@@ -319,7 +319,7 @@ export default function BenefitsOfFreshDogFood() {
                 <div className="flex">
                   <div className="flex-1 text-center">
                     <Image
-                      src="/why-fresh/kibble-half.png"
+                      src="/benefits-of-fresh-dog-food/kibble-half.png"
                       alt=""
                       width={115.5}
                       height={115.5}

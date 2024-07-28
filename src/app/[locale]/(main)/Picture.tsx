@@ -17,7 +17,7 @@ export default function Picture() {
   const isInView = useInView(dogRef, { once: true });
 
   return (
-    <div className="bg-[#e6e6e6] bg-[url('/banner-bg.svg')] bg-[length:auto_100%] bg-center bg-repeat-x">
+    <div className="bg-[#e6e6e6] bg-[url('/home/banner-bg.svg')] bg-[length:auto_100%] bg-center bg-repeat-x">
       <Container className="max-md:px-0">
         <div className="flex flex-wrap items-center max-md:flex-col-reverse">
           <div className="relative flex-1 pr-0 text-primary max-md:w-full max-md:border-t-[10px] max-md:border-primary max-md:p-[30px]">
@@ -51,7 +51,7 @@ export default function Picture() {
                 transition={{ duration: 1.5 }}
                 className="relative left-0 pt-[158%]"
               >
-                <Image alt="dog" src="/home-banner-dog.png" fill />
+                <Image alt="dog" src="/home/home-banner-dog.png" fill />
               </motion.div>
             </div>
           </div>

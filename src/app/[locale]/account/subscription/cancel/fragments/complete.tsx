@@ -20,7 +20,7 @@ export default function CompleteFragment() {
       <div className="mt-6"></div>
       <div className="relative -m-2 mx-auto flex max-w-[780px] items-center justify-center max-lg:flex-col">
         <div className="absolute -left-24 p-2 max-lg:static">
-          <Image src="/sorry.svg" alt="Sorry dog" width={80} height={80} />
+          <Image src="/account/sorry.svg" alt="Sorry dog" width={80} height={80} />
         </div>
         <div className="p-2">
           <div className="text-center text-2xl font-bold text-gold">{t('till-we-meet-again')}</div>

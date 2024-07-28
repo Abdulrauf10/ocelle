@@ -69,7 +69,7 @@ export default function CalculatingFragment() {
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <Container className="text-center">
         <Image
-          src="/question/loading.gif"
+          src="/get-started/loading.gif"
           alt="loading indicator"
           width={200}
           height={200}

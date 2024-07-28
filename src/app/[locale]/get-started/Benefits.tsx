@@ -10,7 +10,7 @@ export default function Benefits() {
         <div className="relative h-full rounded-[20px] border border-gray p-6">
           <div className="absolute -top-[42px] left-1/2 w-[96px] -translate-x-1/2 bg-white">
             <Image
-              src="/question/icon-1.svg"
+              src="/get-started/icon-1.svg"
               alt="hot food"
               width={64}
               height={64}
@@ -27,7 +27,7 @@ export default function Benefits() {
         <div className="relative h-full rounded-[20px] border border-gray p-6">
           <div className="absolute -top-[56px] left-1/2 w-[96px] -translate-x-1/2 bg-white">
             <Image
-              src="/question/icon-2.svg"
+              src="/get-started/icon-2.svg"
               alt="hot food"
               width={60}
               height={64}
@@ -44,7 +44,7 @@ export default function Benefits() {
         <div className="relative h-full rounded-[20px] border border-gray p-6">
           <div className="absolute -top-[30px] left-1/2 w-[128px] -translate-x-1/2 bg-white">
             <Image
-              src="/question/icon-3.svg"
+              src="/get-started/icon-3.svg"
               alt="hot food"
               width={96}
               height={60}

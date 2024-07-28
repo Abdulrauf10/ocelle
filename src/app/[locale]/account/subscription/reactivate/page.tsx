@@ -165,7 +165,7 @@ export default async function Reactivate() {
                   <div className="-m-3 flex items-center max-sm:flex-col">
                     <div className="p-3">
                       <Image
-                        src="/reactivate-box.svg"
+                        src="/account/reactivate-box.svg"
                         alt="Reactivate box"
                         width={180}
                         height={180}

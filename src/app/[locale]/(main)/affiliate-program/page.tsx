@@ -6,14 +6,13 @@ import Newsletter from '@/components/Newsletter';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import Block from '@/components/layouts/Block';
-import { Link } from '@/navigation';
 
 export default function AffiliateProgram() {
   const t = useTranslations();
 
   return (
     <main>
-      <div className="bg-[#0b405f] bg-[url('/affiliate-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%+100px)] bg-no-repeat py-[clamp(70px,7vw,160px)] max-lg:bg-[calc(50%+80px)]">
+      <div className="bg-[#0b405f] bg-[url('/affiliate-program/affiliate-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%+100px)] bg-no-repeat py-[clamp(70px,7vw,160px)] max-lg:bg-[calc(50%+80px)]">
         <Container>
           <div className="text-white">
             <h1 className="heading-headline font-bold">
@@ -39,7 +38,7 @@ export default function AffiliateProgram() {
         </Container>
       </div>
       <div className="flex flex-wrap max-lg:flex-col-reverse">
-        <div className="min-h-[300px] w-1/2 bg-[#383a4f] bg-[url('/glass-dog.jpg')] bg-[length:auto_100%] bg-[center_right] bg-no-repeat max-lg:w-full max-lg:bg-cover max-lg:pt-[54.8%]"></div>
+        <div className="min-h-[300px] w-1/2 bg-[#383a4f] bg-[url('/affiliate-program/glass-dog.jpg')] bg-[length:auto_100%] bg-[center_right] bg-no-repeat max-lg:w-full max-lg:bg-cover max-lg:pt-[54.8%]"></div>
         <div className="w-1/2 bg-primary bg-opacity-10 max-lg:w-full">
           <Block className="px-4 text-primary lg:max-w-[705px]">
             <h2 className="heading-1 text-center font-bold">The Program</h2>
@@ -49,7 +48,7 @@ export default function AffiliateProgram() {
                 <div className="w-2/5 px-4 py-6 max-xs:w-full">
                   <div className="mx-auto w-16">
                     <div className="relative pt-[100%]">
-                      <Image src="/affiliate/no-fee.svg" alt="no fee" fill />
+                      <Image src="/affiliate-program/no-fee.svg" alt="no fee" fill />
                     </div>
                   </div>
                   <div className="pt-2"></div>
@@ -58,7 +57,7 @@ export default function AffiliateProgram() {
                 <div className="w-3/5 px-4 py-6 max-xs:w-full">
                   <div className="mx-auto w-16">
                     <div className="relative pt-[100%]">
-                      <Image src="/affiliate/commission.svg" alt="commission" fill />
+                      <Image src="/affiliate-program/commission.svg" alt="commission" fill />
                     </div>
                   </div>
                   <div className="pt-2"></div>
@@ -69,7 +68,7 @@ export default function AffiliateProgram() {
                 <div className="w-2/5 px-4 py-6 max-xs:w-full">
                   <div className="mx-auto w-16">
                     <div className="relative pt-[100%]">
-                      <Image src="/affiliate/monthly.svg" alt="no fee" fill />
+                      <Image src="/affiliate-program/monthly.svg" alt="no fee" fill />
                     </div>
                   </div>
                   <div className="pt-2"></div>
@@ -78,7 +77,7 @@ export default function AffiliateProgram() {
                 <div className="w-3/5 px-4 py-6 max-xs:w-full">
                   <div className="mx-auto w-16">
                     <div className="relative pt-[100%]">
-                      <Image src="/affiliate/gift.svg" alt="commission" fill />
+                      <Image src="/affiliate-program/gift.svg" alt="commission" fill />
                     </div>
                   </div>
                   <div className="pt-2"></div>
@@ -89,7 +88,7 @@ export default function AffiliateProgram() {
                 <div className="w-2/5 px-4 py-6 max-xs:w-full">
                   <div className="mx-auto w-16">
                     <div className="relative pt-[100%]">
-                      <Image src="/affiliate/tracking.svg" alt="no fee" fill />
+                      <Image src="/affiliate-program/tracking.svg" alt="no fee" fill />
                     </div>
                   </div>
                   <div className="pt-2"></div>
@@ -98,7 +97,7 @@ export default function AffiliateProgram() {
                 <div className="w-3/5 px-4 py-6 max-xs:w-full">
                   <div className="mx-auto w-16">
                     <div className="relative pt-[100%]">
-                      <Image src="/affiliate/orders.svg" alt="commission" fill />
+                      <Image src="/affiliate-program/orders.svg" alt="commission" fill />
                     </div>
                   </div>
                   <div className="pt-2"></div>
