@@ -34,6 +34,7 @@ export default function useFormFieldDisplayState<TFieldValues extends FieldValue
     () => Object.keys(defaultValues) as Path<TFieldValues>[],
     [defaultValues]
   );
+  const [inited, setInited] = React.useState(false);
   const [displayState, setDisplayState] = React.useState<DisplayState<TFieldValues>>(
     objectToBooleanValues(defaultValues)
   );
@@ -75,7 +76,12 @@ export default function useFormFieldDisplayState<TFieldValues extends FieldValue
     }
   }, [mode, checkFieldDisplayState, watch]);
 
-  React.useEffect(() => handleCheckDisplayState(), []);
+  React.useEffect(() => {
+    if (!inited) {
+      handleCheckDisplayState();
+      setInited(true);
+    }
+  }, [inited, handleCheckDisplayState]);
 
   return {
     displayState,
