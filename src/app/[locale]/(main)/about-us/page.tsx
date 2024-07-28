@@ -88,8 +88,8 @@ export default function OurStory() {
           className={{
             bgLeft: 'bg-brown',
             bgRight: clsx(
-              "min-h-[520px] bg-[#e1bd98] bg-[url('./charlie.jpg')] bg-[length:auto_100%] bg-[-50px] bg-no-repeat max-2xl:bg-[-4vw] max-xl:bg-[calc(calc(650px-47vw)_*_-1)]",
-              "max-lg:h-[50vw] max-lg:max-h-[520px] max-lg:min-h-[380px] max-lg:bg-[url('./charlie-center.jpg')] max-lg:bg-center"
+              "min-h-[520px] bg-[#e1bd98] bg-[url('/charlie.jpg')] bg-[length:auto_100%] bg-[-50px] bg-no-repeat max-2xl:bg-[-4vw] max-xl:bg-[calc(calc(650px-47vw)_*_-1)]",
+              "max-lg:h-[50vw] max-lg:max-h-[520px] max-lg:min-h-[380px] max-lg:bg-[url('/charlie-center.jpg')] max-lg:bg-center"
             ),
             mbLeft: 'px-4',
           }}
@@ -111,7 +111,7 @@ export default function OurStory() {
           }
         />
       </div>
-      <div className="relative z-0 flex items-center bg-primary bg-cover bg-center bg-repeat-x max-md:flex-col-reverse lg:bg-[url('./about-us-bg.svg')] xl:h-[680px]">
+      <div className="relative z-0 flex items-center bg-primary bg-cover bg-center bg-repeat-x max-md:flex-col-reverse lg:bg-[url('/about-us-bg.svg')] xl:h-[680px]">
         <Image
           src="/food-1.png"
           alt="food-1"

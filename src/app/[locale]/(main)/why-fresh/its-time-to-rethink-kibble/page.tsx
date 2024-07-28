@@ -78,7 +78,7 @@ function Card({
       className={clsx(
         'relative mx-auto flex h-full max-w-2xl flex-col rounded-3xl px-8 py-8 max-md:px-4',
         theme === 'dark'
-          ? 'bg-[#00616A] bg-[url("./dog-foot-bg.png")] bg-[length:156px_126px]'
+          ? 'bg-[#00616A] bg-[url("/dog-foot-bg.png")] bg-[length:156px_126px]'
           : 'bg-white'
       )}
     >
@@ -125,7 +125,7 @@ export default function ItsTimeToRethinkKibble() {
 
   return (
     <main>
-      <Block className="bg-[#f6ece1] bg-[url('./its-time-to-rethink-kibble-bg.jpg')] bg-[length:auto_100%] bg-center bg-no-repeat max-sm:bg-[53%_bottom] max-xs:bg-[length:auto_88%] max-xs:bg-[53%_bottom]">
+      <Block className="bg-[#f6ece1] bg-[url('/its-time-to-rethink-kibble-bg.jpg')] bg-[length:auto_100%] bg-center bg-no-repeat max-sm:bg-[53%_bottom] max-xs:bg-[length:auto_88%] max-xs:bg-[53%_bottom]">
         <Container className="pb-[clamp(420px,30%,650px)] max-xs:pb-[340px]">
           <h1 className="heading-headline heading-weight-1 text-center text-brown">
             {i.rich('block-1-title')}

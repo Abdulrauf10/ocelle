@@ -97,7 +97,7 @@ export default function RawDogFoodVsGentlyCooked() {
           bg: 'inset-0',
           bgLeft: 'bg-secondary bg-opacity-[12%]',
           bgRight:
-            'bg-[#c8d4d0] bg-[url("./why-fresh-food-roulette.jpg")] bg-[length:auto_100%] bg-no-repeat max-md:bg-[url("./why-fresh-food-roulette-mb.jpg")]',
+            'bg-[#c8d4d0] bg-[url("/why-fresh-food-roulette.jpg")] bg-[length:auto_100%] bg-no-repeat max-md:bg-[url("/why-fresh-food-roulette-mb.jpg")]',
           container: 'py-10',
           mbLeft: 'px-4 py-10',
           mbRight: 'py-6 max-lg:pt-[98%]',

@@ -45,7 +45,7 @@ export default async function HowItWorksIndividual() {
   return (
     <>
       <main>
-        <div className="relative flex items-center bg-[#70aaca] bg-[url('./individual-pack-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_40px)_center] bg-no-repeat max-lg:bg-[url('./individual-pack-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-bottom">
+        <div className="relative flex items-center bg-[#70aaca] bg-[url('/individual-pack-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_40px)_center] bg-no-repeat max-lg:bg-[url('/individual-pack-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-bottom">
           <div className="w-full pt-[clamp(450px,31.5%,700px)] max-lg:hidden"></div>
           <div className="w-full py-[4vw] text-white max-lg:w-full max-lg:py-10 max-lg:pb-[95%] lg:absolute lg:pr-0">
             <Container className="max-lg:text-center">

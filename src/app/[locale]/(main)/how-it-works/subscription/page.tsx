@@ -15,7 +15,7 @@ export default function HowItWorksSubscription() {
   const s = useTranslations('Subscription');
   return (
     <main>
-      <div className="bg-[#EFE9DD] bg-[url('./subscription-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_50px)_center] bg-no-repeat max-lg:bg-[#E8E4DB] max-lg:bg-[url('./subscription-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-top max-lg:pt-[68%]">
+      <div className="bg-[#EFE9DD] bg-[url('/subscription-bg.jpg')] bg-[length:auto_100%] bg-[calc(50%_+_50px)_center] bg-no-repeat max-lg:bg-[#E8E4DB] max-lg:bg-[url('/subscription-bg-mb.jpg')] max-lg:bg-[length:100%_auto] max-lg:bg-top max-lg:pt-[68%]">
         <Container>
           <div className="-mx-4 flex flex-wrap items-center max-lg:flex-col-reverse max-lg:items-center">
             <div className="w-2/5 px-4 py-[5vw] text-xl text-primary max-lg:w-full max-lg:pb-12">

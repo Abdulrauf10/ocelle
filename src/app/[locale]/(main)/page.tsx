@@ -38,10 +38,10 @@ export default function Home() {
         breakpoint="lg"
         className={{
           bgLeft: clsx(
-            'bg-[#f2f2f0] bg-[url("./homepage-go-fresh.jpg")] bg-[length:auto_100%] bg-[right_top] bg-no-repeat',
+            'bg-[#f2f2f0] bg-[url("/homepage-go-fresh.jpg")] bg-[length:auto_100%] bg-[right_top] bg-no-repeat',
             'max-xl:bg-[right_12%_top]',
-            'max-lg:bg-[url("./homepage-go-fresh-mb.jpg")] max-lg:bg-[length:100%_auto] max-lg:bg-[bottom_20%_center] max-lg:pt-[65%]',
-            'max-xs:bg-[url("./homepage-go-fresh-xs.jpg")] max-xs:bg-cover max-xs:bg-center max-xs:pt-[100%]'
+            'max-lg:bg-[url("/homepage-go-fresh-mb.jpg")] max-lg:bg-[length:100%_auto] max-lg:bg-[bottom_20%_center] max-lg:pt-[65%]',
+            'max-xs:bg-[url("/homepage-go-fresh-xs.jpg")] max-xs:bg-cover max-xs:bg-center max-xs:pt-[100%]'
           ),
           bgRight: 'max-lg:px-4',
         }}
@@ -259,7 +259,7 @@ export default function Home() {
           </div>
         </Container>
       </Block>
-      <div className="bg-[#f7e9de] bg-[url('./recommended-plan-bg.jpg')] bg-[length:auto_100%] bg-center bg-no-repeat py-[clamp(120px,10vw,230px)] max-md:bg-primary max-md:bg-opacity-10 max-md:bg-none max-md:px-4 max-md:py-16 max-xs:px-0">
+      <div className="bg-[#f7e9de] bg-[url('/recommended-plan-bg.jpg')] bg-[length:auto_100%] bg-center bg-no-repeat py-[clamp(120px,10vw,230px)] max-md:bg-primary max-md:bg-opacity-10 max-md:bg-none max-md:px-4 max-md:py-16 max-xs:px-0">
         <Container>
           <div className="mx-auto max-w-[600px] rounded-[30px] bg-white p-6 text-center drop-shadow-[13px_13px_5.5px_rgba(0,0,0,0.4)] lang-zh:max-w-[500px] lang-zh:px-4 max-md:drop-shadow-[8px_8px_5.5px_rgba(0,0,0,0.25)]">
             <div className="heading-3 heading-weight-2 text-primary">{t.rich('block-7-title')}</div>
@@ -271,7 +271,7 @@ export default function Home() {
           </div>
         </Container>
       </div>
-      <div className="bg-[url('./recommended-plan-bg-mb.jpg')] bg-[size:auto_100%] bg-center bg-no-repeat pt-[75%] md:hidden"></div>
+      <div className="bg-[url('/recommended-plan-bg-mb.jpg')] bg-[size:auto_100%] bg-center bg-no-repeat pt-[75%] md:hidden"></div>
       <Newsletter />
     </main>
   );
