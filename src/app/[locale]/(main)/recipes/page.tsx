@@ -225,14 +225,18 @@ export default function RecipesPage() {
 
   return (
     <main className="overflow-x-hidden">
-      <div className="bg-[#3c2215] bg-[url('/recipes/recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-no-repeat py-[55px] max-lg:pb-[60%] lg:bg-[#4f3d33] lg:bg-[url('/recipes/recipes-bg.jpg')] lg:bg-[length:auto_100%] lg:bg-[calc(50%+60px)_center]">
+      <div
+        className="bg-[#3c2215] bg-[url('/recipes/recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-no-repeat py-[55px]
+       max-xl:lang-zh:pb-[60%] max-lg:lang-en:pb-[60%] lg:lang-en:bg-[#4f3d33] lg:lang-en:bg-[url('/recipes/recipes-bg.jpg')] lg:lang-en:bg-[length:auto_100%]
+        lg:lang-en:bg-[calc(50%+60px)_center] xl:lang-zh:bg-[#4f3d33] xl:lang-zh:bg-[url('/recipes/recipes-bg.jpg')] xl:lang-zh:bg-[length:auto_100%] xl:lang-zh:bg-[calc(50%+60px)_center]"
+      >
         <Container>
           {/* <div className="py-[4vw] text-xl text-white max-lg:w-full lg:pr-0"> */}
-          <div className="text-xl text-white max-lg:w-full lg:pr-0">
+          <div className="text-xl text-white max-xl:lang-zh:w-full max-lg:lang-en:w-full lg:lang-en:pr-0 xl:lang-zh:pr-0">
             <h1 className="heading-headline heading-weight-1 grid">
               <span>{r.rich('block-1-title')}</span>
             </h1>
-            <div className="w-full lg:w-1/3">
+            <div className="w-full lg:lang-en:w-1/3 xl:lang-zh:w-1/3">
               <div className="mt-5"></div>
               <p className="body-1">{r('block-1-content-1')}</p>
               <div className="mt-4"></div>
@@ -574,7 +578,7 @@ export default function RecipesPage() {
       <Block>
         <Container className="text-center">
           <h2 className="heading-3 font-bold text-primary lang-zh:font-normal">
-            {r('block-8-title')}
+            {r.rich('block-8-title')}
           </h2>
           <div className="mt-6"></div>
           <p className="body-1">{r('block-8-content')}</p>

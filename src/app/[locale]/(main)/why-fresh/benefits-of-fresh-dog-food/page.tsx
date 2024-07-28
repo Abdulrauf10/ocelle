@@ -187,9 +187,7 @@ export default function BenefitsOfFreshDogFood() {
             <ul className="-mb-2 mt-2 list-item pl-7">
               <li className="relative flex items-center py-2">
                 <div className="absolute -left-5 select-none text-[60px] text-primary">
-                  <span className="relative lang-en:top-1 lang-zh:-top-[12px] lang-zh:left-[16px] lang-zh:text-[36px]">
-                    •
-                  </span>
+                  <span className="relative lang-en:top-1 lang-zh:left-6 lang-zh:top-1">•</span>
                 </div>
                 <p className="body-1 lang-zh:pl-6">
                   {i.rich('block-4-benefits-1-content-4-mark-1')}
@@ -197,9 +195,7 @@ export default function BenefitsOfFreshDogFood() {
               </li>
               <li className="relative flex items-center py-2">
                 <div className="absolute -left-5 select-none text-[60px] text-primary">
-                  <span className="relative lang-en:top-1 lang-zh:-top-[12px] lang-zh:left-[16px] lang-zh:text-[36px]">
-                    •
-                  </span>
+                  <span className="relative lang-en:top-1 lang-zh:left-6 lang-zh:top-1">•</span>
                 </div>
                 <p className="body-1 lang-zh:pl-6">
                   {i.rich('block-4-benefits-1-content-4-mark-2')}
@@ -207,9 +203,7 @@ export default function BenefitsOfFreshDogFood() {
               </li>
               <li className="relative flex items-center py-2">
                 <div className="absolute -left-5 select-none text-[60px] text-primary">
-                  <span className="relative lang-en:top-1 lang-zh:-top-[12px] lang-zh:left-[16px] lang-zh:text-[36px]">
-                    •
-                  </span>
+                  <span className="relative lang-en:top-1 lang-zh:left-6 lang-zh:top-1">•</span>
                 </div>
                 <p className="body-1 lang-zh:pl-6">
                   {i.rich('block-4-benefits-1-content-4-mark-3')}

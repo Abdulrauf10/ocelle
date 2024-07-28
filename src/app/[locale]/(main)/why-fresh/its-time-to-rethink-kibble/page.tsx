@@ -52,7 +52,7 @@ function ConcernTitle({
             className="mr-5 inline-block max-sm:mr-0 sm:absolute sm:right-[100%] sm:top-1/2 sm:-translate-y-1/2"
           />
           <div className="pt-3 sm:hidden"></div>
-          <p className="heading-4 font-bold text-primary sm:inline">{title}</p>
+          <p className="heading-4 font-bold text-primary lang-zh:font-normal  sm:inline">{title}</p>
         </div>
       </div>
     </div>
@@ -140,7 +140,7 @@ export default function ItsTimeToRethinkKibble() {
       </Block>
       <Block className="bg-gold bg-opacity-15">
         <Container>
-          <h2 className="heading-1 text-center font-bold text-gold lang-zh:!font-bold">
+          <h2 className="heading-1 text-center font-bold text-gold lang-zh:font-normal">
             {i.rich('block-2-title')}
           </h2>
           <div className="pt-10"></div>
@@ -152,28 +152,28 @@ export default function ItsTimeToRethinkKibble() {
                   row: 'py-3',
                   icon: 'mr-4',
                 }}
-                picture={<DogFoot className="-mt-2 w-10 min-w-10 fill-gold" />}
+                picture={<DogFoot className="-mt-1 w-8 fill-gold" />}
                 items={[
                   <p key="block-2-mark-1" className="body-1">
-                    <span className="font-bold text-gold">
+                    <span className="font-bold text-gold  lang-zh:font-normal">
                       {t('{}-colon', { value: i('block-2-mark-1-title') })}
                     </span>
                     <span>{i.rich('block-2-mark-1-content')}</span>
                   </p>,
                   <p key="block-2-mark-2" className="body-1">
-                    <span className="font-bold text-gold">
+                    <span className="font-bold text-gold  lang-zh:font-normal">
                       {t('{}-colon', { value: i('block-2-mark-2-title') })}
                     </span>
                     <span>{i.rich('block-2-mark-2-content')}</span>
                   </p>,
                   <p key="block-2-mark-3" className="body-1">
-                    <span className="font-bold text-gold">
+                    <span className="font-bold text-gold  lang-zh:font-normal">
                       {t('{}-colon', { value: i('block-2-mark-3-title') })}
                     </span>
                     <span>{i.rich('block-2-mark-3-content')}</span>
                   </p>,
                   <p key="block-2-mark-4" className="body-1">
-                    <span className="font-bold text-gold">
+                    <span className="font-bold text-gold  lang-zh:font-normal">
                       {t('{}-colon', { value: i('block-2-mark-4-title') })}
                     </span>
                     <span>{i.rich('block-2-mark-4-content')}</span>
@@ -193,14 +193,14 @@ export default function ItsTimeToRethinkKibble() {
       </Block>
       <Block styles="tight" className="bg-primary">
         <Container className="!max-w-6xl">
-          <p className="heading-3 text-center font-bold text-white">
+          <p className="heading-3 text-center font-bold text-white lang-zh:font-normal">
             {i.rich('block-3-content-1')}
           </p>
         </Container>
       </Block>
       <Block className="bg-gold bg-opacity-10">
         <Container>
-          <h2 className="heading-1 text-center font-bold text-why-fresh-dark-green">
+          <h2 className="heading-1 text-center font-bold text-why-fresh-dark-green  lang-zh:font-normal">
             {i.rich('block-4-title')}
           </h2>
           <Swiper
@@ -418,7 +418,7 @@ export default function ItsTimeToRethinkKibble() {
       </Block>
       <Block className="bg-primary bg-opacity-10">
         <Container className="!max-w-5xl">
-          <h2 className="heading-1 text-center font-bold text-primary">
+          <h2 className="heading-1 text-center font-bold text-primary lang-zh:font-normal">
             {i.rich('block-5-title')}
           </h2>
           <Toggler
@@ -525,7 +525,7 @@ export default function ItsTimeToRethinkKibble() {
                 className="absolute -left-12 bottom-1"
               />
             </div>
-            <h2 className="heading-1 relative text-center font-bold text-brown">
+            <h2 className="heading-1 relative text-center font-bold text-brown lang-zh:font-normal">
               {i.rich('block-6-title')}
             </h2>
             <hr className="my-10 border-brown" />
@@ -541,7 +541,9 @@ export default function ItsTimeToRethinkKibble() {
       </Block>
       <Block styles="tight" className="bg-dark-green">
         <Container className="text-center">
-          <h2 className="heading-1 font-bold text-white">{i.rich('block-7-title')}</h2>
+          <h2 className="heading-1 font-bold text-white  lang-zh:font-normal">
+            {i.rich('block-7-title')}
+          </h2>
           <div className="mt-6"></div>
           <p className="body-1 text-white">{i.rich('block-7-content-1')}</p>
           <div className="mt-1 max-md:mt-4"></div>
@@ -553,7 +555,9 @@ export default function ItsTimeToRethinkKibble() {
       </Block>
       <Block className="overflow-hidden bg-gold bg-opacity-15">
         <Container>
-          <h2 className="heading-1 text-center font-bold text-gold">{w.rich('block-1-title')}</h2>
+          <h2 className="heading-1 text-center font-bold text-gold lang-zh:font-normal">
+            {w.rich('block-1-title')}
+          </h2>
           <div className="pt-4"></div>
           <p className="body-1 text-center">
             {w.rich('block-1-content-1', {

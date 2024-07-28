@@ -18,7 +18,7 @@ function Hr() {
 function DialogBlock({ title, children }: React.PropsWithChildren<{ title: React.ReactNode }>) {
   return (
     <div>
-      <strong className="block text-center text-5xl text-primary lang-zh:font-normal">
+      <strong className="block text-center text-5xl text-primary lang-zh:font-normal max-sm:lang-zh:text-[40px]">
         {title}
       </strong>
       <div className="pt-2"></div>
@@ -62,7 +62,7 @@ export default function RecipeLargeDialog({
         <div className="relative w-full max-w-[1076px] rounded-[40px] border-[6px] border-primary bg-white px-12 py-10 text-left shadow-[7px_7px_15px_rgba(0,0,0,0.05)] max-md:px-6 max-md:pt-9 md:border-8">
           <div className="md:px-6">
             <div className="-m-3 flex items-center max-md:flex-wrap">
-              <div className="p-3 text-[90px] font-bold leading-none text-primary lang-zh:font-normal max-lg:text-[70px] max-md:text-[85px] max-xs:text-[60px]">
+              <div className="p-3 text-[90px] font-bold leading-none text-primary lang-zh:font-normal max-lg:lang-en:text-[70px] max-lg:lang-zh:text-[64px] max-md:text-[85px] max-xs:lang-en:text-[60px] max-xs:lang-zh:text-5xl">
                 {recipe}
               </div>
               <div className="w-full p-3">
