@@ -472,7 +472,9 @@ class UserService {
       await executeQuery(async (queryRunner) => {
         await queryRunner.manager.update(User, id, { stripe: cus.id });
       });
+      return cus.id;
     }
+    return user.stripe;
   }
   async attachStripePaymentMethod(id: string, paymentMethodId: string) {
     await executeQuery(async (queryRunner) => {
