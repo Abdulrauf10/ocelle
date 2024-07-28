@@ -4,7 +4,7 @@ import invariant from 'ts-invariant';
 import channelService from './channel';
 import productService from './product';
 
-import { ActivityLevel, BodyCondition, Frequency, MealPlan, Recipe } from '@/enums';
+import { Frequency } from '@/enums';
 import {
   OrderAddDiscountError,
   OrderCompleteError,
@@ -37,21 +37,7 @@ import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
 import { recipeToVariant } from '@/helpers/saleor';
 import { subscriptionProducts } from '@/products';
-import { BreedDto } from '@/types/dto';
-
-interface DogOrderCreate {
-  breeds: BreedDto[];
-  isNeutered: boolean;
-  dateOfBirth: Date;
-  weight: number;
-  bodyCondition: BodyCondition;
-  activityLevel: ActivityLevel;
-  mealPlan: MealPlan;
-  recipe1: Recipe;
-  recipe2?: Recipe;
-  frequency: Frequency;
-  isEnabledTransitionPeriod: boolean;
-}
+import { DogOrderDto } from '@/types/dto';
 
 class OrderService {
   async find(variables?: FindOrdersQueryVariables) {
@@ -79,7 +65,7 @@ class OrderService {
 
     return order;
   }
-  async create(dogs: DogOrderCreate[], starterBox: boolean) {
+  async create(dogs: DogOrderDto[], starterBox: boolean) {
     invariant(process.env.SALEOR_CHANNEL_SLUG, 'Missing SALEOR_CHANNEL_SLUG env variable');
 
     const channel = await channelService.getDefault();

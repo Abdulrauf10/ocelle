@@ -5,6 +5,7 @@ import {
   DateOfBirthMethod,
   DogFood,
   FoodAllergies,
+  Frequency,
   MealPlan,
   Pickiness,
   Recipe,
@@ -33,6 +34,20 @@ interface DogDto {
   isEnabledTransitionPeriod: boolean;
 }
 
+interface DogOrderDto {
+  breeds: BreedDto[];
+  isNeutered: boolean;
+  dateOfBirth: Date;
+  weight: number;
+  bodyCondition: BodyCondition;
+  activityLevel: ActivityLevel;
+  mealPlan: MealPlan;
+  recipe1: Recipe;
+  recipe2?: Recipe;
+  frequency: Frequency;
+  isEnabledTransitionPeriod: boolean;
+}
+
 interface DogPlanDto {
   id: number;
   name: string;
@@ -58,4 +73,4 @@ interface BreedDto {
   uid: string;
 }
 
-export type { DogDto, MinPricesDto, CartReturn, BreedDto, DogPlanDto };
+export type { DogDto, MinPricesDto, CartReturn, BreedDto, DogPlanDto, DogOrderDto };
