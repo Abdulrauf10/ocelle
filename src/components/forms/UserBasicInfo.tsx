@@ -10,7 +10,7 @@ import Button from '../buttons/Button';
 import Select from '../controls/Select';
 import TextField from '../controls/TextField';
 
-import { PHONE_REGEXP } from '@/consts';
+import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 import { getCountryCodes } from '@/helpers/string';
 import useDefaultValues from '@/hooks/defaultValues';
 
@@ -53,7 +53,16 @@ export default function UserBasicInfoForm({
     phone,
     whatsapp: whatsapp ?? { code: '852', value: '' },
   });
-  const { control, reset, watch, handleSubmit } = useForm<IUserBasicInfoForm>({ defaultValues });
+  const {
+    control,
+    formState: { errors, isValid },
+    reset,
+    watch,
+    handleSubmit,
+  } = useForm<IUserBasicInfoForm>({
+    defaultValues,
+    mode: 'onBlur',
+  });
   const [pending, startTransition] = React.useTransition();
 
   const onSubmit = React.useCallback(
@@ -81,8 +90,12 @@ export default function UserBasicInfoForm({
             name="firstName"
             label={t('first-name')}
             control={control}
-            rules={{ required: true }}
+            rules={{
+              required: t('please-enter-your-{}', { name: t('first-name').toLowerCase() }),
+            }}
             fullWidth
+            error={!!errors.firstName}
+            errorOnEmpty
           />
         </div>
         <div className="w-1/2 p-2">
@@ -90,8 +103,12 @@ export default function UserBasicInfoForm({
             name="lastName"
             label={t('last-name')}
             control={control}
-            rules={{ required: true }}
+            rules={{
+              required: t('please-enter-your-{}', { name: t('last-name').toLowerCase() }),
+            }}
             fullWidth
+            error={!!errors.lastName}
+            errorOnEmpty
           />
         </div>
         <div className="w-1/2 p-2">
@@ -99,8 +116,18 @@ export default function UserBasicInfoForm({
             name="email"
             label={t('email')}
             control={control}
-            rules={{ required: true }}
+            rules={{
+              required: t('please-enter-your-{}', { name: t('email').toLowerCase() }),
+              pattern: {
+                value: EMAIL_REGEXP,
+                message: t('this-{}-doesn-t-look-correct-please-update-it', {
+                  name: t('email').toLowerCase(),
+                }),
+              },
+            }}
             fullWidth
+            error={!!errors.email}
+            errorOnEmpty
           />
         </div>
         <div className="w-1/2 p-2">
@@ -109,12 +136,22 @@ export default function UserBasicInfoForm({
             label={t('phone-number')}
             control={control}
             rules={{
-              required: true,
+              required: t('please-enter-your-{}', {
+                name: t('phone-number').toLowerCase(),
+              }),
               pattern: {
                 value: PHONE_REGEXP,
                 message: t('this-{}-doesn-t-look-correct-please-update-it', {
                   name: t('phone-number').toLowerCase(),
                 }),
+              },
+              validate: (value, { phone: { code } }) => {
+                if (code !== '852') {
+                  return true;
+                }
+                return String(value).length === 8
+                  ? true
+                  : t('please-enter-a-valid-{}', { name: t('phone-number') });
               },
             }}
             fullWidth
@@ -137,6 +174,8 @@ export default function UserBasicInfoForm({
                 </div>
               ),
             }}
+            error={!!errors.phone?.value}
+            errorOnEmpty
           />
         </div>
       </div>
@@ -153,7 +192,7 @@ export default function UserBasicInfoForm({
           </Button>
         </div>
         <div className="w-1/2 px-2">
-          <Button fullWidth disabled={pending || isSameAsDefaultValue}>
+          <Button fullWidth disabled={pending || isSameAsDefaultValue || !isValid}>
             {t('save-changes')}
           </Button>
         </div>
