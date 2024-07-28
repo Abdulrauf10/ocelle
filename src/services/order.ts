@@ -22,6 +22,8 @@ import {
   CreateDraftOrderDocument,
   DeleteDraftOrderDocument,
   DiscountValueTypeEnum,
+  FindOrdersDocument,
+  FindOrdersQueryVariables,
   GetOrderDocument,
   InitializeTransactionDocument,
   OrderAuthorizeStatusEnum,
@@ -52,6 +54,16 @@ interface DogOrderCreate {
 }
 
 class OrderService {
+  async find(variables?: FindOrdersQueryVariables) {
+    const { orders } = await executeGraphQL(FindOrdersDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: variables ?? {},
+    });
+    return orders?.edges.map((edge) => edge.node) || [];
+  }
   async getById(id: string) {
     const { order } = await executeGraphQL(GetOrderDocument, {
       withAuth: false,

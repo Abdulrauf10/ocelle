@@ -2,8 +2,7 @@
 
 import Joi from 'joi';
 
-import { ChangePasswordDocument } from '@/gql/graphql';
-import { executeGraphQL } from '@/helpers/graphql';
+import authService from '@/services/auth';
 
 interface ChangePasswordAction {
   currentPassword: string;
@@ -22,15 +21,5 @@ export default async function changePasswordAction(data: ChangePasswordAction) {
     throw new Error('schema is not valid');
   }
 
-  const { passwordChange } = await executeGraphQL(ChangePasswordDocument, {
-    variables: {
-      oldPassword: value.currentPassword,
-      newPassword: value.newPassword,
-    },
-  });
-
-  if (!passwordChange || passwordChange.errors.length > 0) {
-    console.error(passwordChange?.errors);
-    throw new Error('change password failed');
-  }
+  await authService.changePassword(value.currentPassword, value.newPassword);
 }

@@ -1,23 +1,7 @@
 'use server';
 
-import textToSpeech from '@google-cloud/text-to-speech';
-import { GoogleAuth, grpc } from 'google-gax';
-import invariant from 'ts-invariant';
-
 import redisService from '@/services/redis';
-
-function getApiKeyCredentials() {
-  invariant(process.env.GOOGLE_API_KEY, 'Missing GOOGLE_API_KEY env variable');
-
-  const sslCreds = grpc.credentials.createSsl();
-  const googleAuth = new GoogleAuth();
-  const authClient = googleAuth.fromAPIKey(process.env.GOOGLE_API_KEY);
-  const credentials = grpc.credentials.combineChannelCredentials(
-    sslCreds,
-    grpc.credentials.createFromGoogleCredential(authClient)
-  );
-  return credentials;
-}
+import speechService from '@/services/speech';
 
 export async function getSpeech() {
   const cache = await redisService.getOcelleTextToSpeech();
@@ -25,21 +9,9 @@ export async function getSpeech() {
     return cache;
   }
 
-  const client = new textToSpeech.TextToSpeechClient({
-    sslCreds: getApiKeyCredentials(),
-  });
+  const audio = await speechService.getSpeech('ocelle');
 
-  const [response] = await client.synthesizeSpeech({
-    input: { text: 'ocelle' },
-    voice: { languageCode: 'en-GB', ssmlGender: 'NEUTRAL' },
-    audioConfig: { audioEncoding: 'MP3' },
-  });
+  await redisService.setOcelleTextToSpeech(audio);
 
-  if (!response.audioContent || typeof response.audioContent === 'string') {
-    throw new Error('failed to request the speech');
-  }
-
-  await redisService.setOcelleTextToSpeech(response.audioContent);
-
-  return response.audioContent;
+  return audio;
 }

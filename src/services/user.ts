@@ -1,14 +1,17 @@
 import { headers } from 'next/headers';
 import { FindOneOptions } from 'typeorm';
 
+import orderService from './order';
+
 import stripeClient from '@/clients/stripe';
-import { User } from '@/entities';
+import { Order, User } from '@/entities';
 import {
   UserAssignAddressError,
   UserCreateAddressError,
   UserCreateError,
   UserMeError,
   UserNotFoundError,
+  UserUpdateError,
 } from '@/errors/user';
 import {
   CountryCode,
@@ -19,6 +22,7 @@ import {
   RegisterAccountDocument,
   SetDefaultAddressDocument,
   UpdateAddressDocument,
+  UpdateUserDocument,
 } from '@/gql/graphql';
 import { executeGraphQL } from '@/helpers/graphql';
 import { executeQuery } from '@/helpers/queryRunner';
@@ -110,6 +114,41 @@ class UserService {
     }
 
     return Object.freeze({ ...user, ...me });
+  }
+  async orders() {
+    const me = await this.me();
+
+    const orders = await executeQuery(async (queryRunner) =>
+      queryRunner.manager.find(Order, {
+        where: {
+          user: { id: me.id },
+        },
+        relations: {
+          boxs: {
+            shipment: true,
+          },
+        },
+      })
+    );
+
+    // find all subscription orders
+    const saleorOrders = await orderService.find({
+      filter: {
+        ids: orders.map((order) => order.id),
+      },
+    });
+
+    if (saleorOrders.length !== orders.length) {
+      throw new Error('order length not match');
+    }
+
+    return orders.map((order) => {
+      const _order = saleorOrders.find((x) => x.id === order.id)!;
+      return {
+        order: _order,
+        shipment: order.boxs[0].shipment,
+      };
+    });
   }
   async getById(id: string) {
     const { user } = await executeGraphQL(FindUserDocument, {
@@ -221,6 +260,30 @@ class UserService {
         throw e;
       }
     }
+  }
+  async update(
+    id: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    phone: { code: string; value: string },
+    whatsapp?: { code: string; value: string }
+  ) {
+    const { customerUpdate } = await executeGraphQL(UpdateUserDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
+      variables: { id, firstName, lastName, email },
+    });
+
+    if (!customerUpdate || customerUpdate.errors.length > 0) {
+      throw new UserUpdateError(customerUpdate?.errors);
+    }
+
+    await executeQuery(async (queryRunner) => {
+      await queryRunner.manager.update(User, id, { phone, whatsapp });
+    });
   }
   async assignDefaultAddress(id: string, deliveryAddressId: string, billingAddressId: string) {
     const { shippingAddressSetDefault, billingAddressSetDefault } = await executeGraphQL(

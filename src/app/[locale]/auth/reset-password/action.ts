@@ -2,7 +2,7 @@
 
 import Joi from 'joi';
 
-import { getServerAuthClient } from '@/saleorAuthClient';
+import authService from '@/services/auth';
 
 interface ResetPasswordAction {
   email: string;
@@ -23,12 +23,5 @@ export default async function resetPasswordAction(data: ResetPasswordAction) {
     throw new Error('schema is not valid');
   }
 
-  const {
-    data: { setPassword },
-  } = await getServerAuthClient().resetPassword(value);
-
-  if (setPassword.errors) {
-    console.error(setPassword.errors);
-    throw new Error('reset password failed');
-  }
+  await authService.resetPassword(value.email, value.password, value.token);
 }

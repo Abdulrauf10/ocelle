@@ -1,17 +1,16 @@
 import { format, isBefore, startOfDay } from 'date-fns';
 import { getTranslations } from 'next-intl/server';
 
-import getOrders from './action';
-
 import Container from '@/components/Container';
 import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { isDeliveredRecurringBox } from '@/helpers/shipment';
+import userService from '@/services/user';
 
 export default async function Orders() {
   const t = await getTranslations();
   const b = await getTranslations('Button');
-  const orders = await getOrders();
+  const orders = await userService.orders();
   const today = startOfDay(new Date());
 
   return (
