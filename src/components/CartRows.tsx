@@ -1,6 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
 
@@ -8,9 +8,17 @@ import TrashBin from './icons/TrashBin';
 import NumberInput from './inputs/Number';
 
 import { IndividualRecipePack } from '@/enums';
-import { CheckoutLineFragment } from '@/gql/graphql';
+import { CheckoutLineFragment, ProductFragment } from '@/gql/graphql';
 import { weightToGrams } from '@/helpers/saleor';
 import { individualPackProducts } from '@/products';
+
+function getProductName(product: ProductFragment, locale: string) {
+  if (locale === 'zh') {
+    return product.translation?.name ?? product.name;
+  } else {
+    return product.name;
+  }
+}
 
 export default function CartRows({
   lines,
@@ -23,6 +31,7 @@ export default function CartRows({
   onUpdateClick(lineId: string, quantity: number): Promise<void>;
   onDeleteClick(lineId: string): Promise<void>;
 }) {
+  const locale = useLocale();
   const t = useTranslations();
 
   const contents = React.useMemo(() => {
@@ -53,6 +62,7 @@ export default function CartRows({
     if (!content) {
       return <React.Fragment key={line.id}></React.Fragment>;
     }
+
     return (
       <React.Fragment key={line.id}>
         <div className="-mx-2 flex">
@@ -64,7 +74,7 @@ export default function CartRows({
           <div className="w-full px-2">
             <div className="-mx-2 flex justify-between">
               <div className="px-2">
-                <div className="font-bold">{line.variant.product.name}</div>
+                <div className="font-bold">{getProductName(line.variant.product, locale)}</div>
                 <div className="mt-1">
                   {t('{}-g', { value: weightToGrams(line.variant.weight!) })}
                 </div>
