@@ -27,7 +27,7 @@
     "i18n:export": "node scripts/export18.mjs"
   },
   "dependencies": {
-    "@dotenvx/dotenvx": "^0.38.0",
+    "@dotenvx/dotenvx": "^1.6.4",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@floating-ui/react": "^0.26.13",
