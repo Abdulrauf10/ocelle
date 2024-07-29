@@ -2,7 +2,7 @@
 
 import clsx from 'clsx';
 import edjsHTML from 'editorjs-html';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
 import { toast } from 'react-toastify';
@@ -57,12 +57,29 @@ export default function Product({
     moisture: number;
   };
 }) {
+  const locale = useLocale();
   const t = useTranslations();
   const b = useTranslations('Button');
   const { lines, setCart } = useCart();
   const currentLine = React.useMemo(() => {
     return lines.find((line) => line.variant.product.slug === individualPackProducts[pack].slug);
   }, [lines, pack]);
+  const name = React.useMemo(() => {
+    if (locale === 'zh') {
+      return product.translation?.name ?? product.name;
+    } else {
+      return product.name;
+    }
+  }, [locale, product]);
+  const description = React.useMemo(() => {
+    if (locale === 'zh') {
+      return parser.parse(
+        JSON.parse(product.translation?.description ?? product.description ?? '')
+      );
+    } else {
+      return parser.parse(JSON.parse(product.description ?? ''));
+    }
+  }, [locale, product]);
 
   const handleQuantityChange = React.useCallback(
     async (quantity: number) => {
@@ -89,8 +106,6 @@ export default function Product({
     return weightToGrams(product.variants![0].weight!);
   };
 
-  const description = parser.parse(JSON.parse(product.description ?? ''));
-
   if (pack !== IndividualRecipePack.Bundle && !dialogPicture) {
     throw new Error('dialogPicture props is required');
   }
@@ -108,7 +123,7 @@ export default function Product({
             <div className="relative pt-[100%]">
               <Image
                 src={picture}
-                alt={product.name}
+                alt={name}
                 fill
                 className="rounded-[40px] shadow-[5px_5px_12px_rgba(0,0,0,.1)]"
               />
@@ -116,7 +131,7 @@ export default function Product({
           </div>
           <div className="w-full px-6 py-4">
             <h2 className={clsx('heading-2 font-bold', className.title)}>
-              {product.name} ({t('{}-g', { value: getWeight(product) })})
+              {name} ({t('{}-g', { value: getWeight(product) })})
             </h2>
             <div className="pt-4"></div>
             <p className={clsx('text-[30px]', className.title)}>${getPrice(product)}</p>
@@ -131,13 +146,13 @@ export default function Product({
             {pack !== IndividualRecipePack.Bundle && (
               <div className="pt-6">
                 <RecipeMediumDialog
-                  name={product.name}
+                  name={name}
                   description={description.map((content, idx) => (
                     <div key={idx} dangerouslySetInnerHTML={{ __html: xss(content) }} />
                   ))}
                   picture={
                     <div className="relative overflow-hidden rounded-2xl pt-[100%]">
-                      <Image src={dialogPicture!} alt={product.name} fill />
+                      <Image src={dialogPicture!} alt={name} fill />
                     </div>
                   }
                   ingredients={ingredients}

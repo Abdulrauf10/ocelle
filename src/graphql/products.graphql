@@ -168,6 +168,15 @@ mutation CreateProducts($products: [ProductBulkCreateInput!]!) {
   }
 }
 
+mutation TranslateProducts($translations: [ProductBulkTranslateInput!]!) {
+  productBulkTranslate(translations: $translations) {
+    errors {
+      code
+      message
+    }
+  }
+}
+
 mutation UpdateProductChannelListing($productId: ID!, $channels: [ProductChannelListingAddInput!]) {
   productChannelListingUpdate(id: $productId, input: { updateChannels: $channels }) {
     errors {

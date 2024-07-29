@@ -30,11 +30,14 @@ import {
   FindWarehousesDocument,
   GetChannelDocument,
   GetShippingZoneDocument,
+  LanguageCodeEnum,
+  ProductBulkTranslateInput,
   ProductFragment,
   ProductTypeFragment,
   ShippingMethodTypeEnum,
   ShippingMethodTypeFragment,
   ShippingZoneFragment,
+  TranslateProductsDocument,
   UpdateChannelDocument,
   UpdateShippingMethodChannelListingDocument,
   UpdateShopSettingsDocument,
@@ -723,6 +726,54 @@ async function setupIndividualProducts(
   return [...products, ...productBulkCreate.results.map((result) => result.product!)];
 }
 
+async function setupIndividualProductTranslations(products: ProductFragment[]) {
+  const translations: ProductBulkTranslateInput[] = [];
+  for (const product of products) {
+    if (!product.translation) {
+      const config = individualPackProductsValues.find((value) => product.slug === value.slug);
+      if (!config) {
+        console.error('unknown individual pack product slug', product.slug);
+        continue;
+      }
+      translations.push({
+        id: product.id,
+        languageCode: LanguageCodeEnum.ZhHant,
+        translationFields: {
+          name: config.translation.ZH_HANT.name,
+          description: JSON.stringify({
+            time: Date.now(),
+            blocks: config.translation.ZH_HANT.description.map((description) => {
+              return {
+                id: 'CMRIgvbpUG',
+                data: {
+                  text: description,
+                },
+                type: 'paragraph',
+              };
+            }),
+            version: '2.22.2',
+          }),
+        },
+      });
+    }
+  }
+
+  const { productBulkTranslate } = await executeGraphQL(TranslateProductsDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      translations,
+    },
+  });
+
+  if (!productBulkTranslate || productBulkTranslate.errors.length > 0) {
+    productBulkTranslate && console.error(productBulkTranslate.errors);
+    throw new Error('failed to create individual product translations');
+  }
+}
+
 async function setupExcludeShippingMethodProducts(
   shippingMethodId: string,
   products: ProductFragment[]
@@ -803,6 +854,8 @@ async function setup() {
     category,
     warehouse
   );
+
+  await setupIndividualProductTranslations(individualProducts);
 
   await setupExcludeShippingMethodProducts(freeShippingMethod.id, individualProducts);
   await setupExcludeShippingMethodProducts(fixedShippingMethod.id, subscriptionProducts);
