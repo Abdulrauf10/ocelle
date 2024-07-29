@@ -43,7 +43,7 @@ export default function Home() {
             'max-lg:bg-[url("/home/homepage-go-fresh-mb.jpg")] max-lg:bg-[length:100%_auto] max-lg:bg-[bottom_20%_center] max-lg:pt-[65%]',
             'max-xs:bg-[url("/home/homepage-go-fresh-xs.jpg")] max-xs:bg-cover max-xs:bg-center max-xs:pt-[100%]'
           ),
-          bgRight: 'max-lg:px-4',
+          bgRight: 'max-lg:px-4 max-sm:lang-zh:px-1',
         }}
         right={
           <div className="py-tight">
@@ -72,7 +72,7 @@ export default function Home() {
           <h2 className="heading-1 heading-weight-1 text-center text-primary">
             {t.rich('block-4-title')}
           </h2>
-          <div className="pt-10"></div>
+          <div className="pt-6"></div>
           <div className="relative flex-col-reverse items-center max-xl:flex">
             <div className="pb-0 max-xl:flex max-xl:flex-wrap [&>*]:max-xl:m-0 [&>*]:max-xl:mt-3 [&>*]:max-xl:max-w-none [&>*]:max-xl:px-4 [&>*]:max-xl:py-3 [&>*]:max-xl:text-center [&>*]:max-sm:w-full [&_img]:max-xl:inline">
               <div className="ml-14 mt-5 md:w-1/2 xl:w-full">
@@ -105,7 +105,7 @@ export default function Home() {
                 <div className="flex flex-1 flex-wrap max-xl:-m-3">
                   <div className="w-full max-xl:p-3 md:w-1/2 xl:w-full xl:max-w-[300px]">
                     <Image
-                      className="h-18 w-[114px]"
+                      className="w-26"
                       alt="good food"
                       src="/home/icon-3.svg"
                       width={102}
@@ -116,7 +116,7 @@ export default function Home() {
                     <div className="pt-4"></div>
                     <p className="body-1">{t.rich('block-4-item-3-content')}</p>
                   </div>
-                  <div className="w-full max-xl:mt-0 max-xl:p-3 md:w-1/2 xl:ml-[11%] xl:mt-[12%] xl:w-full xl:max-w-[320px]">
+                  <div className="w-full max-xl:mt-0 max-xl:p-3 max-sm:lang-zh:mt-3 md:w-1/2 xl:ml-[11%] xl:mt-[12%] xl:w-full xl:max-w-[320px]">
                     <Image
                       className="h-20 w-20"
                       alt="good food"
@@ -124,7 +124,7 @@ export default function Home() {
                       width={67}
                       height={70}
                     />
-                    <div className="pt-[9px]"></div>
+                    <div className="pt-[8px]"></div>
                     <h3 className="heading-4 text-primary">{t.rich('block-4-item-4-title')}</h3>
                     <div className="pt-4"></div>
                     <p className="body-1">{t.rich('block-4-item-4-content')}</p>

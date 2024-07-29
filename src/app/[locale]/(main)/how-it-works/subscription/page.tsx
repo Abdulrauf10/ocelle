@@ -165,7 +165,8 @@ export default function HowItWorksSubscription() {
               src="/subscription/ocelle-truck.png"
               width={170}
               height={85}
-              className="-ml-4 max-sm:pt-4"
+              // className="-ml-4 max-sm:pt-4"
+              className=" max-sm:pt-4"
               alt="ocelle truck"
             />
           </div>
@@ -203,7 +204,7 @@ export default function HowItWorksSubscription() {
               </h3>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
               <div className="max-sm:mt-1">
-                <p className="body-1 max-sm:text-center">{s('block-7-content-2-content')}</p>
+                <p className="body-1 max-sm:text-center">{s.rich('block-7-content-2-content')}</p>
               </div>
             </div>
             <div className="mt-6 flex items-center max-sm:block">
@@ -214,7 +215,7 @@ export default function HowItWorksSubscription() {
               </h3>
               <div className="mx-5 w-px min-w-px self-stretch bg-primary max-sm:hidden"></div>
               <div className="max-sm:mt-1">
-                <p className="body-1 max-sm:text-center">{s('block-7-content-3-content')}</p>
+                <p className="body-1 max-sm:text-center">{s.rich('block-7-content-3-content')}</p>
               </div>
             </div>
             <div className="text-center">

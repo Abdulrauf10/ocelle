@@ -18,7 +18,7 @@ export default function HowPlanWorks({
   const t = useTranslations('Home');
   return (
     <div className="flex flex-row flex-wrap">
-      <div className="w-1/3 px-8 py-5 text-center max-lg:lang-zh:px-4 max-md:w-full">
+      <div className="w-1/3 px-8 py-5 text-center max-lg:lang-zh:px-2 max-md:w-full">
         <Image
           src="/plan-works/icon-1.png"
           alt="your furry friend"
@@ -34,7 +34,7 @@ export default function HowPlanWorks({
         <div className="pt-4"></div>
         <p className="body-1">{mark1.content}</p>
       </div>
-      <div className="w-1/3 px-8 py-5 text-center max-lg:lang-zh:px-4 max-md:w-full">
+      <div className="w-1/3 px-8 py-5 text-center max-lg:lang-zh:px-2 max-md:w-full max-md:py-6">
         <Image
           src="/plan-works/icon-2.png"
           alt="starter box"
@@ -50,12 +50,12 @@ export default function HowPlanWorks({
         <div className="pt-4"></div>
         <p className="body-1">{mark2.content}</p>
       </div>
-      <div className="w-1/3 px-8 py-5 text-center max-lg:lang-zh:px-4 max-md:w-full">
+      <div className="w-1/3 px-8 py-5 text-center max-lg:lang-zh:px-2 max-md:w-full">
         <Image
           src="/plan-works/icon-3.png"
           alt="deliver"
-          width={180}
-          height={120}
+          width={185}
+          height={115}
           className="mr-[20px] inline-block"
         />
         <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
