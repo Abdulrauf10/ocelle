@@ -17,7 +17,7 @@ export default function Promotion() {
 
   return (
     <div className="bg-primary py-2 text-center text-xl text-white max-xl:text-base">
-      <Container>
+      <Container className="max-sm:lang-zh:!px-2">
         {t('content-1')}
         <Link href="/get-started" className="font-bold leading-[38px] underline underline-offset-4">
           {t('content-2')}
