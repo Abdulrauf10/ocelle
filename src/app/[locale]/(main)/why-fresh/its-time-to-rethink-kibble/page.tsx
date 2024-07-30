@@ -9,6 +9,8 @@ import 'swiper/css/pagination';
 import { EffectCreative, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
+import Concern from './concern';
+
 import Container from '@/components/Container';
 import List from '@/components/List';
 import Newsletter from '@/components/Newsletter';
@@ -16,7 +18,6 @@ import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import DogFoot from '@/components/icons/DogFoot';
 import Block from '@/components/layouts/Block';
-import Toggler from '@/components/layouts/Toggler';
 import { Link } from '@/navigation';
 
 function Hightlight({ theme, children }: React.PropsWithChildren<{ theme: 'light' | 'dark' }>) {
@@ -416,89 +417,7 @@ export default function ItsTimeToRethinkKibble() {
           </Swiper>
         </Container>
       </Block>
-      <Block className="bg-primary bg-opacity-10">
-        <Container className="!max-w-5xl">
-          <h2 className="heading-1 text-center font-bold text-primary lang-zh:font-normal">
-            {i.rich('block-5-title')}
-          </h2>
-          <Toggler
-            className={{ root: 'mt-6' }}
-            title={
-              <ConcernTitle
-                width={60}
-                height={53}
-                icon="concern-1.svg"
-                title={i.rich('block-5-mark-1-title')}
-              />
-            }
-          >
-            <p className="body-1">{i.rich('block-5-mark-1-content-1')}</p>
-            <div className="mt-6"></div>
-            <p className="body-1">{i.rich('block-5-mark-1-content-2')}</p>
-            <div className="mt-6"></div>
-            <p className="body-1">{i.rich('block-5-mark-1-content-3')}</p>
-          </Toggler>
-          <Toggler
-            className={{ root: 'mt-6' }}
-            title={
-              <ConcernTitle
-                width={65}
-                height={39}
-                icon="concern-2.svg"
-                title={i.rich('block-5-mark-2-title')}
-              />
-            }
-          >
-            <p className="body-1">{i.rich('block-5-mark-2-content-1')}</p>
-            <div className="mt-6"></div>
-            <p className="body-1">{i.rich('block-5-mark-2-content-2')}</p>
-            <div className="mt-6"></div>
-            <p className="body-1">{i.rich('block-5-mark-2-content-3')}</p>
-            <div className="mt-6"></div>
-            <p className="body-1">{i.rich('block-5-mark-2-content-4')}</p>
-          </Toggler>
-          <Toggler
-            className={{ root: 'mt-6' }}
-            title={
-              <ConcernTitle
-                width={58}
-                height={52}
-                icon="concern-3.svg"
-                title={i.rich('block-5-mark-3-title')}
-              />
-            }
-          >
-            <p className="body-1">{i.rich('block-5-mark-3-content-1')}</p>
-            <div className="mt-6"></div>
-            <p className="body-1">{i.rich('block-5-mark-3-content-2')}</p>
-            <div className="mt-6"></div>
-            <p className="body-1">{i.rich('block-5-mark-3-content-3')}</p>
-            <div className="mt-6"></div>
-            <p className="body-1">{i.rich('block-5-mark-3-content-4')}</p>
-          </Toggler>
-          <Toggler
-            className={{ root: 'mt-6' }}
-            title={
-              <ConcernTitle
-                width={38}
-                height={52}
-                icon="concern-4.svg"
-                title={i.rich('block-5-mark-4-title')}
-              />
-            }
-          >
-            <p className="body-1">{i.rich('block-5-mark-4-content-1')}</p>
-            <div className="mt-6"></div>
-            <p className="body-1">
-              {i.rich('block-5-mark-4-content-2', {
-                h: (chunks) => <span className="text-secondary">{chunks}</span>,
-              })}
-            </p>
-            <div className="mt-6"></div>
-            <p className="body-1">{i.rich('block-5-mark-4-content-3')}</p>
-          </Toggler>
-        </Container>
-      </Block>
+      <Concern></Concern>
       <Block>
         <Container className="!max-w-5xl">
           <div className="relative">
