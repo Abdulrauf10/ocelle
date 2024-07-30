@@ -17,7 +17,6 @@ export default function Toggler({
   children: React.ReactNode;
 }) {
   const [open, setOpen] = React.useState(false);
-
   return (
     <div
       className={clsx(
