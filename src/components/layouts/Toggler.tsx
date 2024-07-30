@@ -21,13 +21,14 @@ export default function Toggler({
   return (
     <div
       className={clsx(
-        'sh drop-shadow-style-2 rounded-[20px] border border-gray bg-white px-8 py-6 shadow-black/20 max-md:p-6',
+        'sh rounded-[20px] border border-gray bg-white px-8 py-6 shadow-black/20 drop-shadow-style-2 max-md:p-6',
         className?.root
       )}
+      onClick={() => setOpen(!open)}
     >
       <div className="relative flex max-md:items-center">
         <div className="flex-1">{title}</div>
-        <button className="right-3 top-3 ml-3 max-sm:absolute" onClick={() => setOpen(!open)}>
+        <button className="right-3 top-3 ml-3 max-sm:absolute">
           {open ? <Sub className="w-4" /> : <Plus className="w-4" />}
         </button>
       </div>
