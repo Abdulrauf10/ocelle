@@ -482,6 +482,7 @@ export default function ItsTimeToRethinkKibble() {
             {w.rich('block-1-content-1', {
               button: (chunks) => (
                 <UnderlineButton
+                  className="lang-zh:!font-normal"
                   label={chunks}
                   href="/why-fresh/reference#its-time-to-rethink-kibble"
                 />
@@ -499,7 +500,9 @@ export default function ItsTimeToRethinkKibble() {
                   <Image src="/why-fresh/benefits-of-fresh-dog-food.jpg" alt="" fill />
                 </div>
                 <div className="flex h-full items-center justify-center px-4 py-6">
-                  <span className="body-1 text-center">{w.rich('benefits-of-fresh-dog-food')}</span>
+                  <span className="body-1 text-center lang-zh:font-normal">
+                    {w.rich('benefits-of-fresh-dog-food')}
+                  </span>
                 </div>
               </Link>
             </div>
@@ -512,7 +515,9 @@ export default function ItsTimeToRethinkKibble() {
                   <Image src="/why-fresh/raw-vs-gently-cooked-diets.jpg" alt="" fill />
                 </div>
                 <div className="flex h-full items-center justify-center px-4 py-6">
-                  <span className="body-1 text-center">{w.rich('raw-vs-gently-cooked-diets')}</span>
+                  <span className="body-1 text-center lang-zh:font-normal">
+                    {w.rich('raw-vs-gently-cooked-diets')}
+                  </span>
                 </div>
               </Link>
             </div>
@@ -529,7 +534,7 @@ export default function ItsTimeToRethinkKibble() {
                   />
                 </div>
                 <div className="flex h-full items-center justify-center px-4 py-6">
-                  <span className="body-1 text-center">
+                  <span className="body-1 text-center lang-zh:font-normal">
                     {w.rich('challenges-with-home-cooking-for-your-dog')}
                   </span>
                 </div>

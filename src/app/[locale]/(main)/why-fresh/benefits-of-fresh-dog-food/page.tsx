@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
-import Benefits from './benefits';
+import Benefits from './Benefits';
 
 import Container from '@/components/Container';
 import Newsletter from '@/components/Newsletter';

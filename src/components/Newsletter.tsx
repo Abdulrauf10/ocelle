@@ -14,7 +14,7 @@ export default function Newsletter() {
             <div className="flex min-h-[38px] items-center">
               <EmailStroke className="w-[60px] min-w-[60px] text-primary" />
               <div className="ml-5">
-                <span className="body-1 font-normal">
+                <span className="body-1 !font-normal">
                   {n.rich('content-1')}
                   <strong className="inline-block font-jost font-bold text-primary">
                     {n.rich('content-2')}

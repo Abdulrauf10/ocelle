@@ -236,7 +236,7 @@ export default function RecipesPage() {
             <h1 className="heading-headline heading-weight-1 grid">
               <span>{r.rich('block-1-title')}</span>
             </h1>
-            <div className="w-full lg:lang-en:w-1/3 xl:lang-zh:w-1/3">
+            <div className="w-full lg:lang-en:w-1/3 xl:lang-zh:w-2/5">
               <div className="mt-5"></div>
               <p className="body-1">{r('block-1-content-1')}</p>
               <div className="mt-4"></div>

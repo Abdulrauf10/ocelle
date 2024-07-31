@@ -252,7 +252,7 @@ export default function Benefits() {
                   {i('block-4-benefits-5-content-5-image-1-desc')}
                 </p>
               </div>
-              <div className="mx-6 mt-2 h-[115.5px] w-px bg-primary"></div>
+              <div className="mx-6 mt-2 h-[115.5px] w-px bg-primary max-sm:lang-zh:mx-3"></div>
               <div className="flex">
                 <div className="flex-1 text-center">
                   <Image

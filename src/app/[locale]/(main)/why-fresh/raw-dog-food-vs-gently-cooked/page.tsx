@@ -26,9 +26,9 @@ export default function RawDogFoodVsGentlyCooked() {
         </div>
         <Container className="py-normal">
           <div className="relative flex items-center max-md:flex-col">
-            <div className="flex-1">
+            <div className="flex-1 max-sm:w-full">
               <div className="max-md:flex max-md:flex-row max-md:items-center">
-                <h2 className="heading-headline heading-weight-1 text-center text-white max-md:text-left">
+                <h2 className="heading-headline heading-weight-1 text-center text-white max-md:text-left max-sm:w-2/3">
                   {i.rich('block-1-title-1')}
                 </h2>
                 <div className="mx-auto max-w-[480px] flex-1 max-md:relative max-md:left-4 max-md:w-[250px] max-sm:w-[155px] max-sm:min-w-[155px]">
@@ -46,7 +46,7 @@ export default function RawDogFoodVsGentlyCooked() {
             <div className="px-[8%] py-[55px]"></div>
             <div className="flex-1">
               <div className="max-md:flex max-md:flex-row max-md:items-center">
-                <h2 className="heading-headline heading-weight-1 text-center text-dark-green max-md:text-left">
+                <h2 className="heading-headline heading-weight-1 text-center text-dark-green max-md:text-left max-sm:w-2/3">
                   {i.rich('block-1-title-2')}
                 </h2>
                 <div className="mx-auto max-w-[480px] flex-1 max-md:relative max-md:left-4 max-md:w-[250px] max-sm:w-[155px] max-sm:min-w-[155px]">
@@ -97,14 +97,14 @@ export default function RawDogFoodVsGentlyCooked() {
           bg: 'inset-0',
           bgLeft: 'bg-secondary bg-opacity-[12%]',
           bgRight:
-            'bg-[#c8d4d0] bg-[url("/raw-dog-food-vs-gently-cooked/food-roulette.jpg")] bg-[length:auto_100%] bg-no-repeat max-md:bg-[url("/raw-dog-food-vs-gently-cooked/food-roulette-mb.jpg")]',
+            'bg-[#c8d4d0] bg-[url("/raw-dog-food-vs-gently-cooked/food-roulette.jpg")] bg-[length:auto_100%] bg-no-repeat max-md:bg-[url("/raw-dog-food-vs-gently-cooked/food-roulette.jpg")]',
           container: 'py-10',
           mbLeft: 'px-4 py-10',
-          mbRight: 'py-6 max-lg:pt-[98%]',
+          mbRight: 'py-6 max-lg:pt-[72%]',
         }}
         left={
           <div className="py-24 max-lg:py-0">
-            <h2 className="heading-headline heading-weight-1 text-gold lang-zh:font-[56.7px] max-lg:text-center">
+            <h2 className="heading-headline heading-weight-1 text-gold lang-zh:font-[57.6px] max-lg:text-center">
               {i.rich('block-3-title')}
             </h2>
             <p className="body-1 pt-6">{i.rich('block-3-content-1')}</p>
@@ -165,7 +165,7 @@ export default function RawDogFoodVsGentlyCooked() {
             {w.rich('block-1-content-1', {
               button: (chunks) => (
                 <UnderlineButton
-                  className="lang-zh:font-normal"
+                  className="lang-zh:!font-normal"
                   label={chunks}
                   href="/why-fresh/reference#raw-dog-food-vs-gently-cooked"
                 />
