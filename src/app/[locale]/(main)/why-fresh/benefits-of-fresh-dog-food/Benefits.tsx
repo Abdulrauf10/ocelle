@@ -248,7 +248,7 @@ export default function Benefits() {
                   className="inline-block min-w-28"
                 />
                 <div className="mt-1"></div>
-                <p className="body-4 font-bold text-primary">
+                <p className="body-4 text-primary lang-en:font-bold lang-zh:font-medium">
                   {i('block-4-benefits-5-content-5-image-1-desc')}
                 </p>
               </div>
@@ -263,7 +263,7 @@ export default function Benefits() {
                     className="inline-block min-w-28"
                   />
                   <div className="mt-1"></div>
-                  <p className="body-4 font-bold text-brown">
+                  <p className="body-4 text-brown lang-en:font-bold lang-zh:font-medium">
                     {i('block-4-benefits-5-content-5-image-2-desc')}
                   </p>
                 </div>

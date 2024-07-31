@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 import { EffectCreative, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import Concern from './concern';
+import Concern from './Concern';
 
 import Container from '@/components/Container';
 import List from '@/components/List';
