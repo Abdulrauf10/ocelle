@@ -219,7 +219,7 @@ export default async function HowItWorksIndividual() {
                   </div>
                   <div className="mt-6"></div>
                   <h3 className="heading-4 font-bold text-gray lang-zh:font-normal">
-                    {ip('block-8-title-1')}
+                    {ip.rich('block-8-title-1')}
                   </h3>
                   <div className="mt-3"></div>
                   <p className="body-1">{ip('block-8-content-1')}</p>
@@ -235,7 +235,7 @@ export default async function HowItWorksIndividual() {
                   </div>
                   <div className="mt-6"></div>
                   <h3 className="heading-4 font-bold text-gray lang-zh:font-normal">
-                    {ip('block-8-title-2')}
+                    {ip.rich('block-8-title-2')}
                   </h3>
                   <div className="mt-3"></div>
                   <p className="body-1">{ip('block-8-content-2')}</p>
@@ -251,7 +251,7 @@ export default async function HowItWorksIndividual() {
                   </div>
                   <div className="mt-6"></div>
                   <h3 className="heading-4 font-bold text-gray lang-zh:font-normal">
-                    {ip('block-8-title-3')}
+                    {ip.rich('block-8-title-3')}
                   </h3>
                   <div className="mt-3"></div>
                   <p className="body-1">{ip('block-8-content-3')}</p>
