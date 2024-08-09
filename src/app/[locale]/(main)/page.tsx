@@ -111,7 +111,7 @@ export default function Home() {
                       width={102}
                       height={70}
                     />
-                    <div className="pt-2"></div>
+                    <div className="pt-3"></div>
                     <h3 className="heading-4 text-primary">{t.rich('block-4-item-3-title')}</h3>
                     <div className="pt-4"></div>
                     <p className="body-1">{t.rich('block-4-item-3-content')}</p>
@@ -124,7 +124,7 @@ export default function Home() {
                       width={67}
                       height={70}
                     />
-                    <div className="pt-[8px]"></div>
+                    <div className="pt-[10px]"></div>
                     <h3 className="heading-4 text-primary">{t.rich('block-4-item-4-title')}</h3>
                     <div className="pt-4"></div>
                     <p className="body-1">{t.rich('block-4-item-4-content')}</p>

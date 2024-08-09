@@ -72,7 +72,7 @@ export default function OurStory() {
                   </div>
                   <div className="table-cell">
                     <strong className="heading-4 text-primary lang-zh:font-normal">
-                      {a('block-1-title-2')}:
+                      {a('block-1-title-2')}
                     </strong>
                     <span className="body-1"> {a.rich('block-1-content-4')}</span>
                   </div>
