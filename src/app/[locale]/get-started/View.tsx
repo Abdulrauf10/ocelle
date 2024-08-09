@@ -88,7 +88,7 @@ export default function View({ children }: React.PropsWithChildren) {
           )
         }
       />
-      <main className="py-[30px]">{children}</main>
+      <main className="overflow-hidden py-[30px]">{children}</main>
     </>
   );
 }
