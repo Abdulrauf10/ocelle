@@ -4,7 +4,7 @@ export default function CloseCircle({ className }: IconProps) {
   return (
     <svg viewBox="0 0 14 14" className={className}>
       <title>Close Circle</title>
-      <circle className="fill-primary stroke-0" cx="7" cy="7" r="7" />
+      <circle className="fill-current stroke-0" cx="7" cy="7" r="7" />
       <line
         className="fill-none stroke-white"
         strokeLinecap="round"

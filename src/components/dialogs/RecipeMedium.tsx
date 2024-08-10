@@ -136,7 +136,7 @@ export default function RecipeMediumDialog({
               </>
             )}
             <DialogClose className="absolute right-4 top-3 cursor-pointer">
-              <CloseCircle className="h-5 w-5" />
+              <CloseCircle className="h-5 w-5 text-primary" />
             </DialogClose>
           </div>
         </div>

@@ -924,5 +924,15 @@
     "block-4-title": "Subscription",
     "block-5-title": "Deliveries",
     "block-6-title": "Payment"
+  },
+  "Referral": {
+    "block-1-title-1": "Know More Dog People?<br></br>Refer A Friend, Earn <highlight>${value}</highlight>",
+    "block-1-content-1": "Start your friend’s fresh food journey with a healthy discount and make it simple for their pets to eat healthy food!",
+    "block-1-content-2": "Gift <highlight>60% OFF</highlight> their starter box and get <highlight>${value} OFF</highlight> your next box.",
+    "block-1-content-3": "Get Referral Code",
+    "block-2-title-2": "Share Your Referral Code",
+    "block-2-content-1": "When your friend uses your referral code, they'll get <highlight>60% OFF</highlight> OFF their starter box and you'll get <highlight>${value} OFF</highlight> OFF your next box.",
+    "block-2-content-2": "or share via",
+    "block-2-content-3": "We will email you at {value} about your rewards."
   }
 }

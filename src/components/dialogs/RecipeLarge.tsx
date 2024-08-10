@@ -290,7 +290,7 @@ export default function RecipeLargeDialog({
             </div>
           </DialogBlock>
           <DialogClose className="absolute right-5 top-4 cursor-pointer">
-            <CloseCircle className="h-7 w-7 md:h-8 md:w-8" />
+            <CloseCircle className="h-7 w-7 text-primary md:h-8 md:w-8" />
           </DialogClose>
         </div>
       </DialogContent>

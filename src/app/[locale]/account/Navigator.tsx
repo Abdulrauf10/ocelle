@@ -1,8 +1,13 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
+
+import { useReferralDialogContext } from './ReferralDialog';
 
 import { Link } from '@/navigation';
 
 export default function Navigator() {
+  const dialog = useReferralDialogContext();
   const n = useTranslations('Navigator');
 
   return (
@@ -18,7 +23,14 @@ export default function Navigator() {
         </Link>
       </li>
       <li>
-        <Link href="#" className="block px-4 py-2">
+        <Link
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            dialog.openDialog();
+          }}
+          className="block px-4 py-2"
+        >
           {n('refer-a-friend')}
         </Link>
       </li>
