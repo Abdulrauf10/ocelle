@@ -265,7 +265,7 @@ export default async function HowItWorksIndividual() {
         </Block>
         <Block styles="tight" className="bg-dark-green">
           <Container className="text-center text-white">
-            <h2 className="heading-1 font-bold">{ip('block-9-title')}</h2>
+            <h2 className="heading-1 font-bold lang-zh:font-normal">{ip('block-9-title')}</h2>
             <div className="mt-2"></div>
             <p className="body-1">{ip('block-9-content')}</p>
             <div className="mt-8"></div>
