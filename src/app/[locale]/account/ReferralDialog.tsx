@@ -3,6 +3,8 @@
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { toast } from 'react-toastify';
 
 import { Dialog, DialogContent } from '@/components/Dialog';
 import Button from '@/components/buttons/Button';
@@ -14,6 +16,7 @@ export default function ReferralDialog({ children }: React.PropsWithChildren) {
   const r = useTranslations('Referral');
   const [open, setOpen] = React.useState(false);
   const [referral, setReferral] = React.useState(false);
+  const [copied, setCopied] = React.useState(false);
 
   const openDialog = React.useCallback(() => setOpen(true), []);
   const closeDialog = React.useCallback(() => {
@@ -53,9 +56,11 @@ export default function ReferralDialog({ children }: React.PropsWithChildren) {
                   <div className="pt-4"></div>
                   <div className="w-[200px] overflow-hidden rounded-[10px] border-[1.5px] border-primary text-[0px]">
                     <div className="text-[14px] leading-[30px]">xxxx38</div>
-                    <button className="w-full bg-primary text-[16px] leading-[30px] text-white outline-none">
-                      Copy Code
-                    </button>
+                    <CopyToClipboard text="xxxx38" onCopy={() => setCopied(true)}>
+                      <button className="w-full bg-primary text-[16px] leading-[30px] text-white outline-none">
+                        {copied ? 'Copied the code' : 'Copy Code'}
+                      </button>
+                    </CopyToClipboard>
                   </div>
                   <div className="pt-2.5"></div>
                   <div className="body-3">{r('block-2-content-2')}</div>
