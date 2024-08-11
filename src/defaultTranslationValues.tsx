@@ -11,6 +11,11 @@ const defaultTranslationValues: RichTranslationValues = {
       {chunks}
     </sup>
   ),
+  ctsup: (chunks) => (
+    <sup className="body-4 inlinse-block !top-[-0.8em]" style={{ fontWeight: 400, top: '-0.8em' }}>
+      {chunks}
+    </sup>
+  ),
   sub: (chunks) => <sub className="body-4 inline-block">{chunks}</sub>,
   nowrap: (chunks) => <span className="whitespace-nowrap">{chunks}</span>,
   block: (chunks) => <span className="inline-block">{chunks}</span>,
