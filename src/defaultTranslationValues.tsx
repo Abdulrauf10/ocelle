@@ -19,6 +19,7 @@ const defaultTranslationValues: RichTranslationValues = {
   sub: (chunks) => <sub className="body-4 inline-block">{chunks}</sub>,
   nowrap: (chunks) => <span className="whitespace-nowrap">{chunks}</span>,
   block: (chunks) => <span className="inline-block">{chunks}</span>,
+  mbblock: (chunks) => <span className="inline max-sm:inline-block">{chunks}</span>,
   baskerville: (chunks) => (
     <span className="relative -top-px font-baskerville font-bold">{chunks}</span>
   ),
