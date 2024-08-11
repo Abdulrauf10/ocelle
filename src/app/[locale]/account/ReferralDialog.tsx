@@ -12,8 +12,8 @@ const ReferralDialogContext = React.createContext({ openDialog: () => {} });
 
 export default function ReferralDialog({ children }: React.PropsWithChildren) {
   const r = useTranslations('Referral');
-  const [open, setOpen] = React.useState(true);
-  const [referral, setReferral] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
+  const [referral, setReferral] = React.useState(false);
 
   const openDialog = React.useCallback(() => setOpen(true), []);
   const closeDialog = React.useCallback(() => {
