@@ -173,8 +173,8 @@ export default function Product({
                 </span>
                 <NumberInput
                   className={{
-                    root: 'w-20 border-brown',
-                    input: 'body-1 body-inline w-[78px] px-4 py-1',
+                    root: 'w-20 border-brown py-1 lang-zh:py-1.5',
+                    input: 'body-1 w-[78px] px-4 py-1 !leading-[28px]',
                     icon: 'w-2.5',
                   }}
                   min={0}
