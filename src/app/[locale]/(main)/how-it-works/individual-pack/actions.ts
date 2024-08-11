@@ -4,6 +4,7 @@ import invariant from 'ts-invariant';
 
 import { getCartCookie, setCartCookie } from '@/actions';
 import { IndividualRecipePack } from '@/enums';
+import { CheckoutNotFoundError } from '@/errors/checkout';
 import { individualPackProducts, individualPackProductsValues } from '@/products';
 import checkoutService from '@/services/checkout';
 import productService from '@/services/product';
@@ -47,9 +48,17 @@ export async function getOrCreateCheckout() {
   const cartOrCheckoutId = await getCartCookie();
 
   if (cartOrCheckoutId) {
-    const checkout = await checkoutService.getById(cartOrCheckoutId);
-    if (checkout) {
-      return checkout;
+    try {
+      const checkout = await checkoutService.getById(cartOrCheckoutId);
+      if (checkout) {
+        return checkout;
+      }
+    } catch (e) {
+      if (e instanceof CheckoutNotFoundError) {
+        // skip
+      } else {
+        throw e;
+      }
     }
   }
 
