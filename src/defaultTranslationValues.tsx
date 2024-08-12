@@ -4,6 +4,7 @@ const defaultTranslationValues: RichTranslationValues = {
   i: (chunks) => <i>{chunks}</i>,
   b: (chunks) => <b>{chunks}</b>,
   br: () => <br />,
+  dtbr: () => <br className="max-lg:hidden" />,
   sup: (chunks) => <sup className="body-4 inline-block">{chunks}</sup>,
   //TODO Change style to tailwind
   csup: (chunks) => (

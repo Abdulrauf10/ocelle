@@ -43,12 +43,15 @@ export default function RecipeBenefits() {
   const [opened, setOpened] = React.useState(false);
 
   return (
-    <div className="rounded-[30px] border border-gray bg-white p-10 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:p-6">
+    <div
+      onClick={() => setOpened(!opened)}
+      className="rounded-[30px] border border-gray bg-white p-10 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-md:p-6"
+    >
       <div className="flex max-md:items-end">
         <h2 className="heading-4 flex-1 text-center font-bold text-primary lang-zh:font-normal">
           {r.rich('block-7-title')}
         </h2>
-        <button className="ml-3" onClick={() => setOpened(!opened)}>
+        <button className="ml-3">
           {opened ? <Sub className="w-4" /> : <Plus className="w-4" />}
         </button>
       </div>
@@ -56,8 +59,8 @@ export default function RecipeBenefits() {
       {benefits.map((benefit, idx) => {
         return (
           <div key={idx} className="mt-4 text-lg">
-            <div className="flex items-center">
-              <div className="flex h-4 w-4 min-w-4 items-center justify-center rounded-full bg-primary text-sm font-bold leading-none text-white">
+            <div className="flex items-start">
+              <div className="mt-[2px] flex h-4 w-4 min-w-4 items-center justify-center rounded-full bg-primary text-sm font-bold leading-none text-white">
                 {idx + 1}
               </div>
               <div className="ml-2">

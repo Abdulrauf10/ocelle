@@ -50,7 +50,7 @@ export default function HowPlanWorks({
         <div className="pt-4"></div>
         <p className="body-1">{mark2.content}</p>
       </div>
-      <div className="w-1/3 px-8 py-5 text-center max-lg:lang-zh:px-2 max-md:w-full">
+      <div className="w-1/3 px-8 py-5 text-center max-lg:lang-zh:px-2 max-md:w-full max-sm:pb-5 max-sm:pt-3">
         <Image
           src="/plan-works/icon-3.png"
           alt="deliver"
