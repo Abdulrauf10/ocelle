@@ -242,7 +242,7 @@ export default function PartialCardStripeForm({ form }: { form: UseCardStripeFor
               label={t('expiration-date')}
               error={!!formState.cardExp?.empty || !!formState.cardExp?.error}
               labelErrorMessage={
-                !!formState.cardNo?.empty
+                !!formState.cardExp?.empty
                   ? t('please-enter-your-{}', {
                       name: t('expiration-date').toLowerCase(),
                     })
@@ -267,7 +267,7 @@ export default function PartialCardStripeForm({ form }: { form: UseCardStripeFor
               label={t('cvc')}
               error={!!formState.cardCvc?.empty || !!formState.cardCvc?.error}
               labelErrorMessage={
-                !!formState.cardNo?.empty
+                !!formState.cardCvc?.empty
                   ? t('please-enter-your-{}', {
                       name: t('cvc').toLowerCase(),
                     })
