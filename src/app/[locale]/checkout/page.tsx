@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server';
 import React from 'react';
 
 import CheckoutForm from './CheckoutForm';
-import { initializeStripeTranscation } from './actions';
+import { getCheckout, initializeStripeTranscation } from './actions';
 
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
@@ -11,12 +11,17 @@ import Promotion from '@/components/Promotion';
 import StripeLoader from '@/components/StripeLoader';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { getRecurringBoxMinDeliveryDate } from '@/helpers/shipment';
+import { redirect } from '@/navigation';
 import calendarService from '@/services/calendar';
 
 export default async function Checkout() {
   const t = await getTranslations();
   const calendarEvents = await calendarService.getCalendarEvents();
   const minDeliveryDate = getRecurringBoxMinDeliveryDate(calendarEvents);
+  const checkout = await getCheckout();
+  if (checkout.lines.length === 0) {
+    redirect('/');
+  }
   const { paymentIntent, publishableKey } = await initializeStripeTranscation();
 
   return (

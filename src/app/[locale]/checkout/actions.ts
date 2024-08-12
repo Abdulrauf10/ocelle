@@ -14,6 +14,14 @@ import checkoutService from '@/services/checkout';
 import redisService from '@/services/redis';
 import { CartReturn } from '@/types/dto';
 
+export async function getCheckout() {
+  const checkoutId = await getCartCookie();
+
+  invariant(checkoutId, 'checkout not found in the cookie');
+
+  return await checkoutService.getById(checkoutId);
+}
+
 export async function initializeStripeTranscation() {
   const checkoutId = await getCartCookie();
 

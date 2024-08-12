@@ -28,6 +28,7 @@ import { CountryCode } from '@/gql/graphql';
 import { isLegalDeliveryDate, isOperationDate } from '@/helpers/shipment';
 import { getCountryCodes } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
+import { redirect, useRouter } from '@/navigation';
 import { CalendarEvent } from '@/types';
 import { CartReturn } from '@/types/dto';
 
@@ -115,6 +116,7 @@ export default function GuestCheckoutForm({
   onBeforeTransaction(data: IGuestCheckoutFormAction): Promise<void>;
   onCompleteTransaction(): Promise<void>;
 }) {
+  const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
   const form = useCardStripeForm();
@@ -481,6 +483,9 @@ export default function GuestCheckoutForm({
                       setUpdatingCart(true);
                       const cart = await onCartUpdate(lineId, quantity);
                       setCart(cart);
+                      if (cart.lines.length === 0) {
+                        router.push('/');
+                      }
                     } finally {
                       setUpdatingCart(false);
                     }
@@ -490,6 +495,9 @@ export default function GuestCheckoutForm({
                       setUpdatingCart(true);
                       const cart = await onCartDelete(lineId);
                       setCart(cart);
+                      if (cart.lines.length === 0) {
+                        router.push('/');
+                      }
                     } finally {
                       setUpdatingCart(false);
                     }
