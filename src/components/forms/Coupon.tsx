@@ -20,7 +20,11 @@ export default function CouponForm({ disabled, action }: CouponFormProps) {
   const t = useTranslations();
   const b = useTranslations('Button');
   const [pending, startTransition] = React.useTransition();
-  const { control, handleSubmit } = useForm<ICouponForm>({ defaultValues: { coupon: '' } });
+  const {
+    control,
+    formState: { isValid },
+    handleSubmit,
+  } = useForm<ICouponForm>({ defaultValues: { coupon: '' } });
   const [applied, setApplied] = React.useState(false);
 
   const onSubmit = React.useCallback(
@@ -53,7 +57,7 @@ export default function CouponForm({ disabled, action }: CouponFormProps) {
         <div className="px-1">
           <button
             type="button"
-            disabled={pending || disabled}
+            disabled={!isValid || pending || disabled}
             className="rounded-lg bg-secondary px-6 py-[9.5px] transition-all duration-300 ease-in-out disabled:bg-gray disabled:bg-opacity-50 disabled:hover:opacity-100 mouse:hover:opacity-85"
             onClick={() => handleSubmit(onSubmit)()}
           >
