@@ -102,14 +102,14 @@ export default function Home() {
                 <p className="body-1 xl:max-w-[320px]">{t.rich('block-4-item-2-content')}</p>
               </div>
               <div className="ml-32 mt-[6%]">
-                <div className="flex flex-1 flex-wrap max-xl:-m-3">
+                <div className="flex flex-1 flex-wrap max-xl:-m-1">
                   <div className="w-full max-xl:p-3 md:w-1/2 xl:w-full xl:max-w-[300px]">
                     <Image
                       className="w-26"
                       alt="good food"
                       src="/home/icon-3.svg"
-                      width={102}
-                      height={70}
+                      width={152}
+                      height={80}
                     />
                     <div className="pt-3"></div>
                     <h3 className="heading-4 text-primary">{t.rich('block-4-item-3-title')}</h3>
@@ -124,7 +124,7 @@ export default function Home() {
                       width={67}
                       height={70}
                     />
-                    <div className="pt-[10px]"></div>
+                    <div className="pt-4"></div>
                     <h3 className="heading-4 text-primary">{t.rich('block-4-item-4-title')}</h3>
                     <div className="pt-4"></div>
                     <p className="body-1">{t.rich('block-4-item-4-content')}</p>
