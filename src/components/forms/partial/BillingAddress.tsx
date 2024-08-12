@@ -137,7 +137,7 @@ export default function PartialBillingAddressForm<T extends FieldValues>({
           rules={{
             required: disabled
               ? false
-              : t('please-enter-your-{}', { name: t('address').toLowerCase() }),
+              : t('please-enter-your-{}', { name: t('address-line-1').toLowerCase() }),
           }}
           disabled={disabled}
           errorOnEmpty

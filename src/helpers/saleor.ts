@@ -53,6 +53,14 @@ export function choiceToOptions(choices: ChoiceValue[], locale: string) {
             verbose: choice.verbose,
           });
         }
+      }
+      if (locale === 'zh') {
+        if (/^[\p{Script=Han}]+$/u.test(choice.verbose)) {
+          options.push({
+            raw: choice.raw,
+            verbose: choice.verbose,
+          });
+        }
       } else {
         options.push({
           raw: choice.raw,
