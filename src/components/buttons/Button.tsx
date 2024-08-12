@@ -64,37 +64,37 @@ export default React.forwardRef<
     'border-primary',
     reverse
       ? clsx(reverseBaseClasses, 'bg-white text-primary')
-      : 'bg-primary text-white mouse:hover:opacity-85'
+      : 'bg-primary text-white mouse:hover:bg-white mouse:hover:text-primary'
   );
   const secondaryClasses = clsx(
     'border-secondary',
     reverse
       ? clsx(reverseBaseClasses, 'bg-white text-secondary')
-      : 'bg-secondary text-white mouse:hover:opacity-85'
+      : 'bg-secondary text-white mouse:hover:bg-white mouse:hover:text-secondary'
   );
   const redClasses = clsx(
     'border-how-it-works-red',
     reverse
       ? clsx(reverseBaseClasses, 'bg-white text-how-it-works-red')
-      : 'bg-how-it-works-red text-white mouse:hover:opacity-85'
+      : 'bg-how-it-works-red text-white mouse:hover:bg-white mouse:hover:text-how-it-works-red'
   );
   const yellowClasses = clsx(
     'border-how-it-works-yellow',
     reverse
       ? clsx(reverseBaseClasses, 'bg-white text-how-it-works-yellow')
-      : 'bg-how-it-works-yellow text-white mouse:hover:opacity-85'
+      : 'bg-how-it-works-yellow text-white mouse:hover:bg-white mouse:hover:text-how-it-works-yellow'
   );
   const greenClasses = clsx(
     'border-how-it-works-green',
     reverse
       ? clsx(reverseBaseClasses, 'bg-white text-how-it-works-green')
-      : 'bg-how-it-works-green text-white mouse:hover:opacity-85'
+      : 'bg-how-it-works-green text-white mouse:hover:bg-white mouse:hover:text-how-it-works-green'
   );
   const darkGreenClasses = clsx(
     'border-how-it-works-dark-green',
     reverse
       ? clsx(reverseBaseClasses, 'bg-white text-how-it-works-dark-green')
-      : 'bg-how-it-works-dark-green text-white mouse:hover:opacity-85'
+      : 'bg-how-it-works-dark-green text-white mouse:hover:bg-white mouse:hover:text-how-it-works-dark-green'
   );
   const classes = disabled
     ? clsx(

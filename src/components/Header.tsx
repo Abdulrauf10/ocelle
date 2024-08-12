@@ -112,7 +112,7 @@ export default function Header({
                       <div className="p-2">
                         <Link
                           href="/get-started"
-                          className="rounded-2xl bg-secondary px-4 py-[5px] font-open-sans text-white hover:opacity-90"
+                          className="rounded-2xl border-2 border-secondary bg-secondary px-4 py-[3px] font-open-sans text-white mouse:hover:bg-white mouse:hover:text-secondary"
                         >
                           {b('get-started')}
                         </Link>
