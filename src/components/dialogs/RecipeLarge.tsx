@@ -41,7 +41,7 @@ function SwiperDialogBlock({
         {title}
       </strong>
       <div className="pt-2 max-sm:pt-0"></div>
-      <div className="mt-6">{children}</div>
+      <div className="-mx-4 sm:mt-6">{children}</div>
     </div>
   );
 }
@@ -78,7 +78,7 @@ export default function RecipeLargeDialog({
     <Dialog>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="p-3">
-        <div className="relative mt-10 w-full max-w-[1076px] rounded-[40px] border-[6px] border-primary bg-white px-12 py-10 text-left shadow-[7px_7px_15px_rgba(0,0,0,0.05)] max-md:px-6 max-md:pt-9 md:border-8">
+        <div className="relative mt-10 w-full max-w-[1076px] rounded-[40px] border-[6px] border-primary bg-white px-12 py-10 text-left shadow-[7px_7px_15px_rgba(0,0,0,0.05)] max-md:px-6 max-md:pt-10 md:border-8">
           <div className="md:px-6">
             <div className="-m-3 flex items-center max-md:flex-wrap">
               <div className="p-3 text-[90px] font-bold leading-none text-primary lang-zh:font-normal max-lg:lang-en:text-[70px] max-lg:lang-zh:text-[64px] max-md:text-[85px] max-xs:lang-en:text-[60px] max-xs:lang-zh:text-5xl">
