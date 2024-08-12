@@ -60,6 +60,7 @@ export default function Product({
   const locale = useLocale();
   const t = useTranslations();
   const b = useTranslations('Button');
+  const ip = useTranslations('IndividualPack');
   const { lines, setCart } = useCart();
   const currentLine = React.useMemo(() => {
     return lines.find((line) => line.variant.product.slug === individualPackProducts[pack].slug);
@@ -95,8 +96,8 @@ export default function Product({
   const handleButtonClick = React.useCallback(async () => {
     const cart = await addToCart(pack, 1);
     setCart(cart);
-    toast('item added to the cart.');
-  }, [pack, setCart]);
+    toast(ip('block-6-content'));
+  }, [pack, ip, setCart]);
 
   const getPrice = (product: ProductFragment) => {
     return product.variants![0].channelListings![0].price!.amount;
