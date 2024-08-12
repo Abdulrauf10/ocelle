@@ -12,11 +12,11 @@ interface ICouponForm {
 }
 
 interface CouponFormProps {
+  disabled?: boolean;
   action(data: ICouponForm): Promise<void>;
-  onStatusChange?(status: 'applying' | 'applied' | 'failed', value?: string): void;
 }
 
-export default function CouponForm({ action }: CouponFormProps) {
+export default function CouponForm({ disabled, action }: CouponFormProps) {
   const t = useTranslations();
   const b = useTranslations('Button');
   const [pending, startTransition] = React.useTransition();
@@ -47,13 +47,14 @@ export default function CouponForm({ action }: CouponFormProps) {
             rules={{ required: true }}
             inputProps={{ className: '!bg-white' }}
             fullWidth
+            disabled={disabled}
           />
         </div>
         <div className="px-1">
           <button
             type="button"
-            disabled={pending}
-            className="rounded-lg bg-secondary px-6 py-[9.5px] transition-all duration-300 ease-in-out mouse:hover:opacity-85"
+            disabled={pending || disabled}
+            className="rounded-lg bg-secondary px-6 py-[9.5px] transition-all duration-300 ease-in-out disabled:bg-gray disabled:bg-opacity-50 disabled:hover:opacity-100 mouse:hover:opacity-85"
             onClick={() => handleSubmit(onSubmit)()}
           >
             <span className="font-open-sans font-bold text-white">{b('apply')}</span>

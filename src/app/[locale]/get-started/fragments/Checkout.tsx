@@ -70,7 +70,9 @@ export default function CheckoutFragment() {
             clientSecret={state.stripe.paymentIntent.client_secret}
             closestDeliveryDate={state.closestDeliveryDate}
             calendarEvents={state.calendarEvents}
-            couponForm={<CouponForm action={applyCoupon} />}
+            renderCouponForm={({ disabled }) => (
+              <CouponForm disabled={disabled} action={applyCoupon} />
+            )}
             onEditMealPlan={() => navigate(Stage.ChoosePlan, { state: { isEdit: true } })}
             onEditRecipes={() => navigate(Stage.RecommendedPlan, { state: { isEdit: true } })}
             onEditTransitionPeriod={() =>

@@ -138,7 +138,13 @@ export interface IPartialCardStripeForm {
   cardCvc: string;
 }
 
-export default function PartialCardStripeForm({ form }: { form: UseCardStripeFormReturn }) {
+export default function PartialCardStripeForm({
+  form,
+  disabled,
+}: {
+  form: UseCardStripeFormReturn;
+  disabled?: boolean;
+}) {
   const t = useTranslations();
   const elements = useElements();
   const { formState, handleChange, handleBlur } = form;
@@ -235,6 +241,7 @@ export default function PartialCardStripeForm({ form }: { form: UseCardStripeFor
                   },
                 },
               }}
+              disabled={disabled}
             />
           </div>
           <div className="w-1/2 p-2 max-sm:w-full">
@@ -260,6 +267,7 @@ export default function PartialCardStripeForm({ form }: { form: UseCardStripeFor
                   },
                 },
               }}
+              disabled={disabled}
             />
           </div>
           <div className="w-1/2 p-2 max-sm:w-full">
@@ -285,6 +293,7 @@ export default function PartialCardStripeForm({ form }: { form: UseCardStripeFor
                   },
                 },
               }}
+              disabled={disabled}
             />
           </div>
         </div>

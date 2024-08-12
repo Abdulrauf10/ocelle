@@ -119,7 +119,7 @@ export default function SubscriptionCheckoutForm({
   clientSecret,
   closestDeliveryDate,
   calendarEvents,
-  couponForm,
+  renderCouponForm,
   onEditMealPlan,
   onEditRecipes,
   onEditTransitionPeriod,
@@ -136,7 +136,7 @@ export default function SubscriptionCheckoutForm({
   clientSecret: string;
   closestDeliveryDate: Date;
   calendarEvents: CalendarEvent[];
-  couponForm: React.ReactNode;
+  renderCouponForm(state: { disabled: boolean }): React.ReactNode;
   onEditMealPlan(): void;
   onEditRecipes(): void;
   onEditTransitionPeriod(): void;
@@ -428,6 +428,7 @@ export default function SubscriptionCheckoutForm({
                             rules={{ required: true }}
                             disableUnderline
                             onChange={() => trigger('phone.value')}
+                            disabled={isSubmitInProgress}
                           >
                             {getCountryCodes().map((code, idx) => (
                               <MenuItem key={idx} value={code}>
@@ -466,6 +467,7 @@ export default function SubscriptionCheckoutForm({
                             control={control}
                             rules={{ required: true }}
                             disableUnderline
+                            disabled={isSubmitInProgress}
                           >
                             {getCountryCodes().map((code, idx) => (
                               <MenuItem key={idx} value={code}>
@@ -496,6 +498,7 @@ export default function SubscriptionCheckoutForm({
                 control={control}
                 watch={watch}
                 prefix="deliveryAddress"
+                disabled={isSubmitInProgress}
               />
               <div className="mt-3">
                 <RoundedCheckbox
@@ -522,7 +525,7 @@ export default function SubscriptionCheckoutForm({
               </>
             )}
             <Section dense title={t('payment-information')}>
-              <PartialCardStripeForm form={form} />
+              <PartialCardStripeForm form={form} disabled={isSubmitInProgress} />
             </Section>
             <div className="mt-10"></div>
             <Section dense title={t('delivery-date')}>
@@ -533,6 +536,7 @@ export default function SubscriptionCheckoutForm({
                   date: sentence.date(watch('deliveryDate'), true),
                 })}{' '}
                 <EditButton
+                  disabled={isSubmitInProgress}
                   onClick={(e) => {
                     e.stopPropagation();
                     setOpenDeliveryDate(true);
@@ -598,7 +602,7 @@ export default function SubscriptionCheckoutForm({
                             ? t('fresh-full-plan')
                             : t('fresh-half-plan')}
                         </strong>
-                        <EditButton onClick={onEditMealPlan} />
+                        <EditButton disabled={isSubmitInProgress} onClick={onEditMealPlan} />
                       </div>
                     </div>
                     <div className="mt-3"></div>
@@ -609,7 +613,7 @@ export default function SubscriptionCheckoutForm({
                           {t(getRecipeSlug(dog.recipe1))}
                           {dog.recipe2 != null && `, ${t(getRecipeSlug(dog.recipe2))}`}
                         </strong>
-                        <EditButton onClick={onEditRecipes} />
+                        <EditButton disabled={isSubmitInProgress} onClick={onEditRecipes} />
                       </div>
                     </div>
                     <div className="mt-3"></div>
@@ -627,13 +631,18 @@ export default function SubscriptionCheckoutForm({
                         <strong className="mr-1.5">
                           {dog.isEnabledTransitionPeriod ? t('yes') : t('no')}
                         </strong>
-                        <EditButton onClick={onEditTransitionPeriod} />
+                        <EditButton
+                          disabled={isSubmitInProgress}
+                          onClick={onEditTransitionPeriod}
+                        />
                       </div>
                     </div>
                   </SummaryBlock>
                 );
               })}
-              <SummaryBlock title={t('promo-code')}>{couponForm}</SummaryBlock>
+              <SummaryBlock title={t('promo-code')}>
+                {renderCouponForm({ disabled: isSubmitInProgress })}
+              </SummaryBlock>
               <SummaryBlock>
                 <div className="-mx-1 flex flex-wrap justify-between">
                   <div className="body-3 px-1">{t('fresh-food-box-subtotal')}</div>

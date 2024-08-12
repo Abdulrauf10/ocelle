@@ -1,14 +1,8 @@
 import { getTranslations } from 'next-intl/server';
 import React from 'react';
 
-import {
-  applyCoupon,
-  deleteCartLine,
-  finalizeCheckout,
-  initializeStripeTranscation,
-  updateCartLine,
-  updateCheckoutData,
-} from './actions';
+import CheckoutForm from './CheckoutForm';
+import { initializeStripeTranscation } from './actions';
 
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
@@ -16,8 +10,6 @@ import Header from '@/components/Header';
 import Promotion from '@/components/Promotion';
 import StripeLoader from '@/components/StripeLoader';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
-import CouponForm from '@/components/forms/Coupon';
-import GuestCheckoutForm from '@/components/forms/GuestCheckout';
 import { getRecurringBoxMinDeliveryDate } from '@/helpers/shipment';
 import calendarService from '@/services/calendar';
 
@@ -72,15 +64,10 @@ export default async function Checkout() {
                 underline
               />
             </Container>
-            <GuestCheckoutForm
+            <CheckoutForm
               clientSecret={paymentIntent.client_secret}
               minDeliveryDate={minDeliveryDate}
               calendarEvents={calendarEvents}
-              couponForm={<CouponForm action={applyCoupon} />}
-              onCartUpdate={updateCartLine}
-              onCartDelete={deleteCartLine}
-              onBeforeTransaction={updateCheckoutData}
-              onCompleteTransaction={finalizeCheckout}
             />
           </div>
         </div>

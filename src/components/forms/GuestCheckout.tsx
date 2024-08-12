@@ -100,7 +100,7 @@ export default function GuestCheckoutForm({
   clientSecret,
   minDeliveryDate,
   calendarEvents,
-  couponForm,
+  renderCouponForm,
   onCartUpdate,
   onCartDelete,
   onBeforeTransaction,
@@ -109,7 +109,7 @@ export default function GuestCheckoutForm({
   clientSecret: string;
   minDeliveryDate: Date;
   calendarEvents: CalendarEvent[];
-  couponForm: React.ReactNode;
+  renderCouponForm(state: { disabled: boolean }): React.ReactNode;
   onCartUpdate(lineId: string, quantity: number): Promise<CartReturn>;
   onCartDelete(lineId: string): Promise<CartReturn>;
   onBeforeTransaction(data: IGuestCheckoutFormAction): Promise<void>;
@@ -337,6 +337,7 @@ export default function GuestCheckoutForm({
                             control={control}
                             rules={{ required: true }}
                             disableUnderline
+                            disabled={isSubmitInProgress}
                           >
                             {getCountryCodes().map((code, idx) => (
                               <MenuItem key={idx} value={code}>
@@ -375,6 +376,7 @@ export default function GuestCheckoutForm({
                             control={control}
                             rules={{ required: true }}
                             disableUnderline
+                            disabled={isSubmitInProgress}
                           >
                             {getCountryCodes().map((code, idx) => (
                               <MenuItem key={idx} value={code}>
@@ -405,6 +407,7 @@ export default function GuestCheckoutForm({
                 control={control}
                 watch={watch}
                 prefix="deliveryAddress"
+                disabled={isSubmitInProgress}
               />
               <div className="mt-3">
                 <RoundedCheckbox
@@ -431,7 +434,7 @@ export default function GuestCheckoutForm({
               </>
             )}
             <Section dense title={t('payment-information')}>
-              <PartialCardStripeForm form={form} />
+              <PartialCardStripeForm form={form} disabled={isSubmitInProgress} />
             </Section>
             <div className="mt-10"></div>
             <Section dense title={t('delivery-date')}>
@@ -440,6 +443,7 @@ export default function GuestCheckoutForm({
                   date: sentence.date(watch('deliveryDate'), true),
                 })}{' '}
                 <EditButton
+                  disabled={isSubmitInProgress}
                   onClick={(e) => {
                     e.stopPropagation();
                     setOpenDeliveryDate(true);
@@ -490,9 +494,12 @@ export default function GuestCheckoutForm({
                       setUpdatingCart(false);
                     }
                   }}
+                  disabled={isSubmitInProgress}
                 />
               </SummaryBlock>
-              <SummaryBlock title={t('promo-code')}>{couponForm}</SummaryBlock>
+              <SummaryBlock title={t('promo-code')}>
+                {renderCouponForm({ disabled: isSubmitInProgress })}
+              </SummaryBlock>
               <SummaryBlock>
                 <div className="-mx-1 flex flex-wrap justify-between">
                   <div className="body-3 px-1">{t('promo-code')}</div>

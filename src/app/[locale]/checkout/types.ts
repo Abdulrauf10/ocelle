@@ -9,6 +9,7 @@ export interface UpdateCheckoutDataAction {
   receiveNews?: boolean;
   isSameBillingAddress?: boolean;
   deliveryDate: Date;
+  tnc: boolean;
   deliveryAddress: {
     firstName: string;
     lastName: string;

@@ -8,13 +8,14 @@ import { Link } from '@/navigation';
 interface EditButtonProps {
   href?: string;
   className?: string;
+  disabled?: boolean;
   onClick?(e: React.MouseEvent<HTMLElement>): void;
 }
 
-export default function EditButton({ className, href, onClick }: EditButtonProps) {
+export default function EditButton({ className, href, disabled, onClick }: EditButtonProps) {
   const t = useTranslations();
   const classes = clsx(
-    'inline-flex items-center text-primary outline-none [&:hover_span]:underline',
+    'inline-flex items-center text-primary outline-none [&:hover_span]:underline [&:disabled:hover_span]:no-underline',
     className
   );
 
@@ -28,7 +29,7 @@ export default function EditButton({ className, href, onClick }: EditButtonProps
   }
 
   return (
-    <button type="button" className={classes} onClick={onClick}>
+    <button type="button" className={classes} onClick={onClick} disabled={disabled}>
       <span className="font-bold uppercase">{t('edit')}</span>
       <Pen className="ml-1.5 w-[1em]" />
     </button>

@@ -27,6 +27,7 @@ const updateCheckoutDataActionSchema = Joi.object<UpdateCheckoutDataAction>({
   receiveNews: Joi.boolean().optional(),
   isSameBillingAddress: Joi.boolean().optional(),
   deliveryDate: Joi.date().required(),
+  tnc: Joi.boolean().required(),
   deliveryAddress: Joi.object(baseAddress).required(),
   billingAddress: Joi.object({
     ...baseAddress,

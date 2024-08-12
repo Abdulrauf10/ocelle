@@ -129,7 +129,9 @@ export default function NumberInput({
             setTempInputValue(undefined);
           }
         }}
-        disabled={waiting || (tempButtonValue !== undefined && tempButtonValue !== null)}
+        disabled={
+          waiting || disabled || (tempButtonValue !== undefined && tempButtonValue !== null)
+        }
       />
       <button
         type="button"
