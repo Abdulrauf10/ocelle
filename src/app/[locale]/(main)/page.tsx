@@ -51,7 +51,12 @@ export default function Home() {
             <div className="pt-tight"></div>
             <List
               picture={<Tickbox className="h-5 w-5" />}
-              className={{ list: '-my-[11px]', row: 'py-[11px]', icon: 'mr-4', item: 'body-1' }}
+              className={{
+                list: '-my-[11px]',
+                row: 'px-4 py-[11px]',
+                icon: 'mr-4',
+                item: 'body-1',
+              }}
               items={[
                 t('block-3-content-1'),
                 t('block-3-content-2'),
@@ -72,7 +77,7 @@ export default function Home() {
           <h2 className="heading-1 heading-weight-1 text-center text-primary">
             {t.rich('block-4-title')}
           </h2>
-          <div className="pt-6"></div>
+          <div className="pt-6 max-lg:pt-5"></div>
           <div className="relative flex-col-reverse items-center max-xl:flex">
             <div className="pb-0 max-xl:flex max-xl:flex-wrap [&>*]:max-xl:m-0 [&>*]:max-xl:mt-3 [&>*]:max-xl:max-w-none [&>*]:max-xl:px-4 [&>*]:max-xl:py-3 [&>*]:max-xl:text-center [&>*]:max-sm:w-full [&_img]:max-xl:inline">
               <div className="ml-14 mt-5 md:w-1/2 xl:w-full">
@@ -116,7 +121,7 @@ export default function Home() {
                     <div className="pt-4"></div>
                     <p className="body-1">{t.rich('block-4-item-3-content')}</p>
                   </div>
-                  <div className="w-full max-xl:mt-0 max-xl:p-3 max-sm:lang-zh:mt-3 md:w-1/2 xl:ml-[11%] xl:mt-[12%] xl:w-full xl:max-w-[320px]">
+                  <div className="w-full max-xl:mt-0 max-xl:p-3 max-md:mt-3 max-sm:lang-zh:mt-3 md:w-1/2 xl:ml-[11%] xl:mt-[12%] xl:w-full xl:max-w-[320px]">
                     <Image
                       className="h-20 w-20"
                       alt="good food"
@@ -124,7 +129,7 @@ export default function Home() {
                       width={67}
                       height={70}
                     />
-                    <div className="pt-4"></div>
+                    <div className="pt-3"></div>
                     <h3 className="heading-4 text-primary">{t.rich('block-4-item-4-title')}</h3>
                     <div className="pt-4"></div>
                     <p className="body-1">{t.rich('block-4-item-4-content')}</p>

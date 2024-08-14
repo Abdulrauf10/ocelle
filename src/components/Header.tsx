@@ -73,7 +73,9 @@ export default function Header({
                 '-mx-2 flex flex-1 flex-row items-center justify-between max-lg:h-screen max-lg:flex-col-reverse max-lg:pb-3 max-lg:pt-5'
               )}
             >
-              <div className="flex-1 px-2">{nav && <div className="max-lg:pt-4">{nav}</div>}</div>
+              <div className="flex-1 pl-2 pr-1">
+                {nav && <div className="max-lg:pt-4">{nav}</div>}
+              </div>
               {(!disableLanguageSwitch || !disableGetStartedButton) && (
                 <div className="relative z-10 px-2">
                   <div className="-m-2 flex flex-nowrap items-center whitespace-nowrap max-lg:flex-col">
