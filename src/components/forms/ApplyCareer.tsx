@@ -149,7 +149,7 @@ export default function ApplyCareerForm({
 
   if (completed) {
     return (
-      <div className="flex flex-1 flex-col justify-center bg-gold bg-opacity-10 py-10">
+      <div className="flex flex-1 flex-col justify-center bg-gold bg-opacity-10 pb-[76px]  pt-[4px]">
         <Block styles="normal" className="justify-center text-center text-primary">
           <Container className="max-w-[700px]">
             {/* <Image
