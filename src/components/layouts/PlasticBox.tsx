@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import { Recipe } from '@/enums';
-import { getRecipeSlug } from '@/helpers/dog';
+import RecipeHelper from '@/helpers/recipe';
 
 export default function PlasticBox({ name, recipe }: { name: string; recipe: Recipe }) {
   const t = useTranslations();
@@ -10,7 +10,7 @@ export default function PlasticBox({ name, recipe }: { name: string; recipe: Rec
   return (
     <div className="w-full pt-[128%]" style={{ containerType: 'size' }}>
       <Image
-        src={`/plastic/${getRecipeSlug(recipe)}.png`}
+        src={`/plastic/${RecipeHelper.getSlug(recipe)}.png`}
         alt="ocelle food"
         fill
         className="object-contain"

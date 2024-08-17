@@ -1,12 +1,9 @@
-import {
-  calculateRecipeTotalProtionsInBox,
-  calculateTotalDaysInBox,
-  getLifeStage,
-} from '../helpers/dog';
 import productService from './product';
 
 import { ActivityLevel, BodyCondition, Frequency, MealPlan, Recipe } from '@/enums';
 import { ProductFragment } from '@/gql/graphql';
+import DogHelper from '@/helpers/dog';
+import RecipeHelper from '@/helpers/recipe';
 import { subscriptionProducts } from '@/products';
 import { BreedDto } from '@/types/dto';
 
@@ -24,7 +21,7 @@ class PriceService {
     frequency: Frequency,
     transitionPeriod: boolean
   ) {
-    const lifeStage = getLifeStage(breeds, dateOfBirth);
+    const lifeStage = DogHelper.getLifeStage(breeds, dateOfBirth);
     const meta = subscriptionProducts[recipes.recipeToBeCalcuate];
     const channelPrice = products
       .find((product) => product.slug === meta.slug)
@@ -33,7 +30,7 @@ class PriceService {
     if (!channelPrice) {
       throw new Error('product or varient not found in any channels');
     }
-    const totalProtionsInBox = calculateRecipeTotalProtionsInBox(
+    const totalProtionsInBox = RecipeHelper.calculateRecipeTotalProtionsInBox(
       breeds,
       dateOfBirth,
       neutered,
@@ -45,7 +42,7 @@ class PriceService {
       frequency,
       transitionPeriod
     );
-    return totalProtionsInBox * channelPrice.price!.amount;
+    return (totalProtionsInBox / 10000) * channelPrice.price!.amount;
   }
 
   async calculateTotalPriceInBox(
@@ -132,7 +129,7 @@ class PriceService {
         Frequency.TwoWeek,
         true
       );
-      const { transitionPeriodDays, normalDays } = calculateTotalDaysInBox(
+      const { transitionPeriodDays, normalDays } = RecipeHelper.calculateTotalDaysInBox(
         { recipeToBeCalcuate: recipe as Recipe },
         Frequency.TwoWeek,
         true
@@ -163,7 +160,7 @@ class PriceService {
         },
       },
     });
-    const recipe1Days = calculateTotalDaysInBox(
+    const recipe1Days = RecipeHelper.calculateTotalDaysInBox(
       { recipeToBeCalcuate: recipes.recipe1, recipeReference: recipes.recipe2 },
       frequency,
       transitionPeriod
@@ -188,7 +185,7 @@ class PriceService {
       return recipe1PerDayPrice;
     }
 
-    const recipe2Days = calculateTotalDaysInBox(
+    const recipe2Days = RecipeHelper.calculateTotalDaysInBox(
       { recipeToBeCalcuate: recipes.recipe2, recipeReference: recipes.recipe1 },
       frequency,
       transitionPeriod

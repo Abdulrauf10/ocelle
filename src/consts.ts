@@ -20,15 +20,3 @@ export const PHONE_REGEXP = /^[0-9]+$/;
 export const PASSWORD_REGEXP = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
 
 export const MAX_FILE_SIZE_MB = 5;
-
-/**
- * Refer to `Excel: customization variables v1.01 > Price Matrix`
- * Priorities order by cheaply
- */
-export const recipePriorities = {
-  [Recipe.Pork]: 1,
-  [Recipe.Chicken]: 2,
-  [Recipe.Beef]: 3,
-  [Recipe.Lamb]: 4,
-  [Recipe.Duck]: 5,
-};

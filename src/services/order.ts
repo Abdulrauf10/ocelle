@@ -32,9 +32,9 @@ import {
   UpdateDraftOrderMutationVariables,
 } from '@/gql/graphql';
 import { awaitable } from '@/helpers/async';
-import { calculateRecipeTotalProtionsInBox } from '@/helpers/dog';
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
+import RecipeHelper from '@/helpers/recipe';
 import { recipeToVariant } from '@/helpers/saleor';
 import { subscriptionProducts } from '@/products';
 import { DogOrderDto } from '@/types/dto';
@@ -108,7 +108,7 @@ class OrderService {
           'failed to add recipe 1 to checkout, variant not found'
         );
       }
-      const recipe1TotalProtions = calculateRecipeTotalProtionsInBox(
+      const recipe1TotalProtions = RecipeHelper.calculateRecipeTotalProtionsInBox(
         dog.breeds,
         dog.dateOfBirth,
         dog.isNeutered,
@@ -131,7 +131,7 @@ class OrderService {
             'failed to add recipe 2 to checkout, variant not found'
           );
         }
-        const recipe2TotalProtions = calculateRecipeTotalProtionsInBox(
+        const recipe2TotalProtions = RecipeHelper.calculateRecipeTotalProtionsInBox(
           dog.breeds,
           dog.dateOfBirth,
           dog.isNeutered,

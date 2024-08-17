@@ -1,7 +1,7 @@
 import { useLocale, useTranslations } from 'next-intl';
 
 import { Recipe } from '@/enums';
-import { getRecipeSlug } from '@/helpers/dog';
+import RecipeHelper from '@/helpers/recipe';
 
 export default function useSentence() {
   const locale = useLocale();
@@ -12,7 +12,7 @@ export default function useSentence() {
       return array.join(t('comma')) + t('dot');
     },
     recipe(recipe: Recipe) {
-      return t('Recipes.fresh-{}-recipe', { value: t(getRecipeSlug(recipe)) });
+      return t('Recipes.fresh-{}-recipe', { value: t(RecipeHelper.getSlug(recipe)) });
     },
     date(date: Date, displayYear?: boolean) {
       const dateTimeFormat = new Intl.DateTimeFormat(locale === 'zh' ? 'zh-HK' : 'en-US', {

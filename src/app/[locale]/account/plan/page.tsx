@@ -13,8 +13,8 @@ import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { RecurringBox } from '@/entities';
 import { Frequency, MealPlan } from '@/enums';
-import { getRecipeSlug } from '@/helpers/dog';
 import { executeQuery } from '@/helpers/queryRunner';
+import RecipeHelper from '@/helpers/recipe';
 import { getEditableRecurringBoxDeadline } from '@/helpers/shipment';
 import getSentence from '@/servers/getSentence';
 import calendarService from '@/services/calendar';
@@ -203,9 +203,9 @@ export default async function Plan() {
                     <div className="-mx-2 -my-4 flex justify-between max-sm:flex-col">
                       <div className="px-2 py-4">
                         <Image
-                          src={`/meal-plan/${getRecipeSlug(dog.plan.recipe1)}.jpg`}
+                          src={`/meal-plan/${RecipeHelper.getSlug(dog.plan.recipe1)}.jpg`}
                           alt={r('fresh-{}-recipe', {
-                            value: t(getRecipeSlug(dog.plan.recipe1)),
+                            value: t(RecipeHelper.getSlug(dog.plan.recipe1)),
                           })}
                           width={195}
                           height={195}
@@ -213,7 +213,7 @@ export default async function Plan() {
                         />
                         <p className="mt-2 text-center">
                           {r('fresh-{}-recipe', {
-                            value: t(getRecipeSlug(dog.plan.recipe1)),
+                            value: t(RecipeHelper.getSlug(dog.plan.recipe1)),
                           })}
                         </p>
                       </div>
@@ -224,9 +224,9 @@ export default async function Plan() {
                           </div>
                           <div className="px-2 py-4">
                             <Image
-                              src={`/meal-plan/${getRecipeSlug(dog.plan.recipe2)}.jpg`}
+                              src={`/meal-plan/${RecipeHelper.getSlug(dog.plan.recipe2)}.jpg`}
                               alt={r('fresh-{}-recipe', {
-                                value: t(getRecipeSlug(dog.plan.recipe2)),
+                                value: t(RecipeHelper.getSlug(dog.plan.recipe2)),
                               })}
                               width={195}
                               height={195}
@@ -234,7 +234,7 @@ export default async function Plan() {
                             />
                             <p className="mt-2 text-center">
                               {r('fresh-{}-recipe', {
-                                value: t(getRecipeSlug(dog.plan.recipe2)),
+                                value: t(RecipeHelper.getSlug(dog.plan.recipe2)),
                               })}
                             </p>
                           </div>

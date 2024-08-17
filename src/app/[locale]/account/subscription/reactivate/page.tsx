@@ -11,7 +11,7 @@ import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import EditButton from '@/components/buttons/EditButton';
 import { Frequency, MealPlan } from '@/enums';
-import { getRecipeSlug } from '@/helpers/dog';
+import RecipeHelper from '@/helpers/recipe';
 import getSentence from '@/servers/getSentence';
 
 function SectionTitle({ children }: React.PropsWithChildren) {
@@ -68,11 +68,11 @@ export default async function Reactivate() {
                 <div className="flex-1 px-2">
                   <SectionTitle>{t('fresh-{}', { value: n('recipes') })}</SectionTitle>
                   <p>
-                    {t('fresh-{}', { value: t(getRecipeSlug(dog.plan.recipe1)) })}
+                    {t('fresh-{}', { value: t(RecipeHelper.getSlug(dog.plan.recipe1)) })}
                     {dog.plan.recipe2 && (
                       <>
                         {t('comma')}
-                        {t('fresh-{}', { value: t(getRecipeSlug(dog.plan.recipe2)) })}
+                        {t('fresh-{}', { value: t(RecipeHelper.getSlug(dog.plan.recipe2)) })}
                       </>
                     )}
                   </p>
@@ -189,11 +189,11 @@ export default async function Reactivate() {
                           {t('{}-colon', { value: n('recipes') })}
                         </div>
                         <div className="flex-1 text-right">
-                          {t('fresh-{}', { value: t(getRecipeSlug(dog.plan.recipe1)) })}
+                          {t('fresh-{}', { value: t(RecipeHelper.getSlug(dog.plan.recipe1)) })}
                           {dog.plan.recipe2 && (
                             <>
                               {t('comma')}
-                              {t('fresh-{}', { value: t(getRecipeSlug(dog.plan.recipe2)) })}
+                              {t('fresh-{}', { value: t(RecipeHelper.getSlug(dog.plan.recipe2)) })}
                             </>
                           )}
                         </div>

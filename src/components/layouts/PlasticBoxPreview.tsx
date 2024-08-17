@@ -1,11 +1,9 @@
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
-import Image from 'next/image';
 
 import PlasticBox from './PlasticBox';
 
 import { Recipe } from '@/enums';
-import { getRecipeSlug } from '@/helpers/dog';
 
 export default function PlasticBoxPreview({
   recipe1,

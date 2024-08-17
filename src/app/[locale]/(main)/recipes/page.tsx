@@ -11,7 +11,7 @@ import RecipeLargeDialog from '@/components/dialogs/RecipeLarge';
 import Block from '@/components/layouts/Block';
 import ImageContentBlock from '@/components/layouts/ImageContentBlock';
 import { Recipe } from '@/enums';
-import { getRecipeSlug } from '@/helpers/dog';
+import RecipeHelper from '@/helpers/recipe';
 import useSentence from '@/hooks/useSentence';
 
 function EndAdornment({
@@ -45,7 +45,7 @@ function EndAdornment({
         <div className="flex-1 p-2 text-center">
           <RecipeLargeDialog
             recipe={sentence.recipe(recipe)}
-            recipePicture={`/dispersion/${getRecipeSlug(recipe)}.gif`}
+            recipePicture={`/dispersion/${RecipeHelper.getSlug(recipe)}.gif`}
             ingredients={ingredients}
             calorie={calorie}
             analysis={analysis}
@@ -313,7 +313,7 @@ export default function RecipesPage() {
           ...className,
           block: 'bg-primary bg-opacity-10',
         }}
-        image={`/recipes/${getRecipeSlug(Recipe.Chicken)}.jpg`}
+        image={`/recipes/${RecipeHelper.getSlug(Recipe.Chicken)}.jpg`}
         alt={sentence.recipe(Recipe.Chicken)}
         endAdornment={
           <EndAdornment
@@ -364,7 +364,7 @@ export default function RecipesPage() {
       </ImageContentBlock>
       <ImageContentBlock
         className={className}
-        image={`/recipes/${getRecipeSlug(Recipe.Beef)}.jpg`}
+        image={`/recipes/${RecipeHelper.getSlug(Recipe.Beef)}.jpg`}
         alt={sentence.recipe(Recipe.Beef)}
         reverse
         endAdornment={
@@ -419,7 +419,7 @@ export default function RecipesPage() {
           ...className,
           block: 'bg-gold bg-opacity-10',
         }}
-        image={`/recipes/${getRecipeSlug(Recipe.Pork)}.jpg`}
+        image={`/recipes/${RecipeHelper.getSlug(Recipe.Pork)}.jpg`}
         alt={sentence.recipe(Recipe.Pork)}
         endAdornment={
           <EndAdornment
@@ -470,7 +470,7 @@ export default function RecipesPage() {
       </ImageContentBlock>
       <ImageContentBlock
         className={className}
-        image={`/recipes/${getRecipeSlug(Recipe.Lamb)}.jpg`}
+        image={`/recipes/${RecipeHelper.getSlug(Recipe.Lamb)}.jpg`}
         alt={sentence.recipe(Recipe.Lamb)}
         reverse
         endAdornment={
@@ -523,7 +523,7 @@ export default function RecipesPage() {
           ...className,
           block: 'bg-primary bg-opacity-10',
         }}
-        image={`/recipes/${getRecipeSlug(Recipe.Duck)}.jpg`}
+        image={`/recipes/${RecipeHelper.getSlug(Recipe.Duck)}.jpg`}
         alt={sentence.recipe(Recipe.Duck)}
         endAdornment={
           <EndAdornment

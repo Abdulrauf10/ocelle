@@ -28,7 +28,7 @@ import {
   Recipe,
   Sex,
 } from '@/enums';
-import { getDateOfBirth, isAllergies } from '@/helpers/dog';
+import DogHelper from '@/helpers/dog';
 import {
   arrayToAllergies,
   arrayToFoods,
@@ -199,7 +199,9 @@ export default function DogForm({
           dateOfBirthMethod:
             tab === 'Birthday' ? DateOfBirthMethod.Calendar : DateOfBirthMethod.Manually,
           dateOfBirth:
-            tab === 'Birthday' ? values.dateOfBirth! : getDateOfBirth(values.years, values.months),
+            tab === 'Birthday'
+              ? values.dateOfBirth!
+              : DogHelper.getDateOfBirth(values.years, values.months),
           weight: values.weight,
           bodyCondition: values.bodyCondition,
           activityLevel: values.activityLevel,
@@ -635,7 +637,7 @@ export default function DogForm({
                       allAllergies: (value, { allergies }) => {
                         const foodAllergies = arrayToAllergies(allergies);
                         return !Object.keys(subscriptionProducts).every((recipe) =>
-                          isAllergies(recipe as Recipe, foodAllergies)
+                          DogHelper.isAllergies(recipe as Recipe, foodAllergies)
                         );
                       },
                     },

@@ -12,15 +12,15 @@ export const subscriptionProducts = {
     variants: {
       Puppy: {
         sku: 'subs-chicken-puppy',
-        pricePerUnit: 0.17976,
+        pricePerUnit: 1797.6,
       },
       Adult: {
         sku: 'subs-chicken-adult',
-        pricePerUnit: 0.16976,
+        pricePerUnit: 1697.6,
       },
       Senior: {
         sku: 'subs-chicken-senior',
-        pricePerUnit: 0.16476,
+        pricePerUnit: 1647.6,
       },
     },
   },
@@ -30,15 +30,15 @@ export const subscriptionProducts = {
     variants: {
       Puppy: {
         sku: 'subs-beef-puppy',
-        pricePerUnit: 0.18922,
+        pricePerUnit: 1892.19,
       },
       Adult: {
         sku: 'subs-beef-adult',
-        pricePerUnit: 0.17922,
+        pricePerUnit: 1792.19,
       },
       Senior: {
         sku: 'subs-beef-senior',
-        pricePerUnit: 0.17422,
+        pricePerUnit: 1742.19,
       },
     },
   },
@@ -48,15 +48,15 @@ export const subscriptionProducts = {
     variants: {
       Puppy: {
         sku: 'subs-duck-puppy',
-        pricePerUnit: 0.36791,
+        pricePerUnit: 3679.06,
       },
       Adult: {
         sku: 'subs-duck-adult',
-        pricePerUnit: 0.35791,
+        pricePerUnit: 3579.06,
       },
       Senior: {
         sku: 'subs-duck-senior',
-        pricePerUnit: 0.35291,
+        pricePerUnit: 3529.06,
       },
     },
   },
@@ -66,15 +66,15 @@ export const subscriptionProducts = {
     variants: {
       Puppy: {
         sku: 'subs-lamb-puppy',
-        pricePerUnit: 0.29342,
+        pricePerUnit: 2934.25,
       },
       Adult: {
         sku: 'subs-lamb-adult',
-        pricePerUnit: 0.28342,
+        pricePerUnit: 2834.25,
       },
       Senior: {
         sku: 'subs-lamb-senior',
-        pricePerUnit: 0.27842,
+        pricePerUnit: 2784.25,
       },
     },
   },
@@ -84,15 +84,15 @@ export const subscriptionProducts = {
     variants: {
       Puppy: {
         sku: 'subs-pork-puppy',
-        pricePerUnit: 0.15093,
+        pricePerUnit: 1509.3,
       },
       Adult: {
         sku: 'subs-pork-adult',
-        pricePerUnit: 0.14093,
+        pricePerUnit: 1409.3,
       },
       Senior: {
         sku: 'subs-pork-senior',
-        pricePerUnit: 0.13593,
+        pricePerUnit: 1359.3,
       },
     },
   },

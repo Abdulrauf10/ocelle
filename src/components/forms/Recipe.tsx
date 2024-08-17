@@ -15,8 +15,9 @@ import RecipeCheckbox from '../controls/RecipeCheckbox';
 import PlasticBox from '../layouts/PlasticBox';
 
 import { ActivityLevel, BodyCondition, FoodAllergies, Pickiness, Recipe } from '@/enums';
-import { isAllergies, isRecommendedRecipe } from '@/helpers/dog';
+import DogHelper from '@/helpers/dog';
 import { arrayToRecipe, recipeToArray } from '@/helpers/form';
+import RecipeHelper from '@/helpers/recipe';
 import useDefaultValues from '@/hooks/defaultValues';
 
 interface RecipeForm {
@@ -165,7 +166,7 @@ export default function RecipeForm({
             targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={1540}
             analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-            recommended={isRecommendedRecipe(
+            recommended={RecipeHelper.isRecommended(
               Recipe.Chicken,
               pickiness!,
               activityLevel!,
@@ -173,7 +174,7 @@ export default function RecipeForm({
               foodAllergies!
             )}
             disabled={
-              isAllergies(Recipe.Chicken, foodAllergies!) ||
+              DogHelper.isAllergies(Recipe.Chicken, foodAllergies!) ||
               (containsTwoRecipes && !watch('recipe')[0])
             }
             onChange={() => trigger('recipe')}
@@ -214,7 +215,7 @@ export default function RecipeForm({
             targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={1540}
             analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-            recommended={isRecommendedRecipe(
+            recommended={RecipeHelper.isRecommended(
               Recipe.Pork,
               pickiness!,
               activityLevel!,
@@ -222,7 +223,7 @@ export default function RecipeForm({
               foodAllergies!
             )}
             disabled={
-              isAllergies(Recipe.Pork, foodAllergies!) ||
+              DogHelper.isAllergies(Recipe.Pork, foodAllergies!) ||
               (containsTwoRecipes && !watch('recipe')[1])
             }
             onChange={() => trigger('recipe')}
@@ -262,7 +263,7 @@ export default function RecipeForm({
             targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={1540}
             analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-            recommended={isRecommendedRecipe(
+            recommended={RecipeHelper.isRecommended(
               Recipe.Duck,
               pickiness!,
               activityLevel!,
@@ -270,7 +271,7 @@ export default function RecipeForm({
               foodAllergies!
             )}
             disabled={
-              isAllergies(Recipe.Duck, foodAllergies!) ||
+              DogHelper.isAllergies(Recipe.Duck, foodAllergies!) ||
               (containsTwoRecipes && !watch('recipe')[2])
             }
             onChange={() => trigger('recipe')}
@@ -311,7 +312,7 @@ export default function RecipeForm({
             targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={1540}
             analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-            recommended={isRecommendedRecipe(
+            recommended={RecipeHelper.isRecommended(
               Recipe.Beef,
               pickiness!,
               activityLevel!,
@@ -319,7 +320,7 @@ export default function RecipeForm({
               foodAllergies!
             )}
             disabled={
-              isAllergies(Recipe.Beef, foodAllergies!) ||
+              DogHelper.isAllergies(Recipe.Beef, foodAllergies!) ||
               (containsTwoRecipes && !watch('recipe')[3])
             }
             onChange={() => trigger('recipe')}
@@ -359,7 +360,7 @@ export default function RecipeForm({
             targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={1540}
             analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-            recommended={isRecommendedRecipe(
+            recommended={RecipeHelper.isRecommended(
               Recipe.Lamb,
               pickiness!,
               activityLevel!,
@@ -367,7 +368,7 @@ export default function RecipeForm({
               foodAllergies!
             )}
             disabled={
-              isAllergies(Recipe.Lamb, foodAllergies!) ||
+              DogHelper.isAllergies(Recipe.Lamb, foodAllergies!) ||
               (containsTwoRecipes && !watch('recipe')[4])
             }
             onChange={() => trigger('recipe')}

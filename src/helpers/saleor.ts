@@ -1,4 +1,4 @@
-import { getLifeStage } from './dog';
+import DogHelper from './dog';
 
 import { Recipe } from '@/enums';
 import { ChoiceValue, ProductFragment, WeightFragment, WeightUnitsEnum } from '@/gql/graphql';
@@ -28,7 +28,7 @@ export function recipeToVariant(
   dateOfBirth: Date,
   recipe: Recipe
 ) {
-  const lifeStage = getLifeStage(breeds, dateOfBirth);
+  const lifeStage = DogHelper.getLifeStage(breeds, dateOfBirth);
   const subscriptionRecipe = subscriptionProducts[recipe];
   const product = products.find((product) => product.slug === subscriptionRecipe.slug);
   if (!product) {

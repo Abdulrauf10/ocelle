@@ -17,7 +17,7 @@ import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import PictureRadio from '@/components/controls/PictureRadio';
 import { useAuth } from '@/contexts/auth';
 import { AmountOfTreats, Pickiness, Recipe } from '@/enums';
-import { isAllergies } from '@/helpers/dog';
+import DogHelper from '@/helpers/dog';
 import {
   arrayToAllergies,
   arrayToFoods,
@@ -135,7 +135,7 @@ export default function DogPreference2Fragment() {
                           allAllergies: (value, { allergies }) => {
                             const foodAllergies = arrayToAllergies(allergies);
                             return !Object.keys(subscriptionProducts).every((recipe) =>
-                              isAllergies(recipe as Recipe, foodAllergies)
+                              DogHelper.isAllergies(recipe as Recipe, foodAllergies)
                             );
                           },
                         },

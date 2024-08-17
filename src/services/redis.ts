@@ -1,27 +1,10 @@
 import { Redis } from 'ioredis';
 import invariant from 'ts-invariant';
 
+import { CalendarEvent } from '@/types';
 import { DogDto } from '@/types/dto';
 
 invariant(process.env.REDIS_PREFIX, 'Missing REDIS_PREFIX env variable');
-
-interface I1823ICalendar {
-  vcalendar: Array<{
-    prodid: string;
-    version: string;
-    calscale: string;
-    'x-wr-calname': string;
-    'x-wr-caldesc': string;
-    'x-wr-timezone': string;
-    vevent: Array<{
-      uid: string;
-      transp: string;
-      summary: string;
-      dtstart: [string, { value: string }];
-      dtend: [string, { value: string }];
-    }>;
-  }>;
-}
 
 const TEXT_TO_SPEECH_PARAMS_EX = 60 * 60 * 24 * 30; // cache alive 30 days
 const CHECKOUT_PARAMS_EX = 60 * 60 * 24 * 60; // cache alive 60 days
@@ -31,19 +14,17 @@ class RedisService {
     return new Redis();
   }
 
-  async get1823PublicHolidays() {
-    const value = await this.createRedisClient().get(
-      `${process.env.REDIS_PREFIX}:1823-public-holidays`
-    );
+  async getCalendarEvents() {
+    const value = await this.createRedisClient().get(`${process.env.REDIS_PREFIX}:calendar-events`);
     if (value === null) {
       return value;
     }
-    return JSON.parse(value) as I1823ICalendar;
+    return JSON.parse(value) as CalendarEvent[];
   }
 
-  async set1823PublicHolidays(calendar: I1823ICalendar) {
+  async setCalendarEvents(calendar: CalendarEvent[]) {
     return this.createRedisClient().set(
-      `${process.env.REDIS_PREFIX}:1823-public-holidays`,
+      `${process.env.REDIS_PREFIX}:calendar-events`,
       JSON.stringify(calendar),
       'EX',
       60 * 60 * 24 * 30 // cache alive 30 days

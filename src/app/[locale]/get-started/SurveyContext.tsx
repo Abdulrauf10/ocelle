@@ -13,7 +13,7 @@ import {
   Recipe,
   Sex,
 } from '@/enums';
-import { getDateOfBirth } from '@/helpers/dog';
+import DogHelper from '@/helpers/dog';
 import { getSurveySessionStore } from '@/helpers/session';
 import { BreedDto, DogDto } from '@/types/dto';
 
@@ -160,7 +160,7 @@ export function dogToDogDto({
     dateOfBirthMethod:
       typeof age === 'string' ? DateOfBirthMethod.Calendar : DateOfBirthMethod.Manually,
     dateOfBirth:
-      typeof age === 'string' ? age : getDateOfBirth(age.years, age.months).toISOString(),
+      typeof age === 'string' ? age : DogHelper.getDateOfBirth(age.years, age.months).toISOString(),
     bodyCondition,
     activityLevel,
     foodAllergies,

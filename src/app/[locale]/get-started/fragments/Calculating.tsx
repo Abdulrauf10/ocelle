@@ -11,7 +11,7 @@ import { getMinPerDayPrice } from '../actions';
 import { pageVariants } from '../transition';
 
 import Container from '@/components/Container';
-import { getDateOfBirth } from '@/helpers/dog';
+import DogHelper from '@/helpers/dog';
 import { getSurveySessionStore } from '@/helpers/session';
 
 export default function CalculatingFragment() {
@@ -38,7 +38,7 @@ export default function CalculatingFragment() {
         dateOfBirth:
           typeof dog.age === 'string'
             ? dog.age!
-            : getDateOfBirth(dog.age?.years, dog.age?.months).toISOString(),
+            : DogHelper.getDateOfBirth(dog.age?.years, dog.age?.months).toISOString(),
         bodyCondition: dog.bodyCondition!,
         activityLevel: dog.activityLevel!,
       }),

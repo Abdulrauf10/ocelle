@@ -26,7 +26,7 @@ import Select from '@/components/controls/Select';
 import { EMAIL_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP } from '@/consts';
 import { MealPlan, Recipe } from '@/enums';
 import { CountryCode, OrderDiscountType, OrderFragment } from '@/gql/graphql';
-import { getRecipeSlug } from '@/helpers/dog';
+import RecipeHelper from '@/helpers/recipe';
 import {
   getEditableRecurringBoxDeadline,
   isLegalDeliveryDate,
@@ -610,8 +610,8 @@ export default function SubscriptionCheckoutForm({
                       <div className="body-3 px-1">{n('recipes')}</div>
                       <div className="body-3 px-1">
                         <strong className="mr-1.5">
-                          {t(getRecipeSlug(dog.recipe1))}
-                          {dog.recipe2 != null && `, ${t(getRecipeSlug(dog.recipe2))}`}
+                          {t(RecipeHelper.getSlug(dog.recipe1))}
+                          {dog.recipe2 != null && `, ${t(RecipeHelper.getSlug(dog.recipe2))}`}
                         </strong>
                         <EditButton disabled={isSubmitInProgress} onClick={onEditRecipes} />
                       </div>

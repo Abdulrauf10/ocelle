@@ -24,8 +24,9 @@ import CircleTick from '@/components/icons/CircleTick';
 import PlasticBox from '@/components/layouts/PlasticBox';
 import PlasticBoxPreview from '@/components/layouts/PlasticBoxPreview';
 import { ActivityLevel, BodyCondition, MealPlan, Recipe } from '@/enums';
-import { getDateOfBirth, isAllergies, isRecommendedRecipe } from '@/helpers/dog';
+import DogHelper from '@/helpers/dog';
 import { arrayToRecipe, getRecipeOptions, recipeToArray } from '@/helpers/form';
+import RecipeHelper from '@/helpers/recipe';
 import { booleanToString, stringToBoolean } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
 import { BreedDto } from '@/types/dto';
@@ -52,7 +53,7 @@ function recipesBoxPriceOptions(
   isEnabledTransitionPeriod: boolean
 ) {
   const dateOfBirth =
-    typeof age === 'string' ? age : getDateOfBirth(age?.years, age?.months).toISOString();
+    typeof age === 'string' ? age : DogHelper.getDateOfBirth(age?.years, age?.months).toISOString();
   return queryOptions({
     queryKey: [
       'recommendedPlan',
@@ -207,7 +208,7 @@ export default function RecommendedPlanFragment() {
     let recipe2: Recipe | undefined = undefined;
 
     for (const recipe of getRecipeOptions()) {
-      const recommended = isRecommendedRecipe(
+      const recommended = RecipeHelper.isRecommended(
         recipe,
         pickiness!,
         activityLevel!,
@@ -288,14 +289,14 @@ export default function RecommendedPlanFragment() {
                         targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                         calorie={1540}
                         analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-                        recommended={isRecommendedRecipe(
+                        recommended={RecipeHelper.isRecommended(
                           Recipe.Chicken,
                           pickiness!,
                           activityLevel!,
                           bodyCondition!,
                           foodAllergies!
                         )}
-                        disabled={isAllergies(Recipe.Chicken, foodAllergies!)}
+                        disabled={DogHelper.isAllergies(Recipe.Chicken, foodAllergies!)}
                         readonly={containsTwoRecipes && !watch('recipe')[0]}
                         onChange={() => trigger('recipe')}
                       />
@@ -334,14 +335,14 @@ export default function RecommendedPlanFragment() {
                         targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                         calorie={1540}
                         analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-                        recommended={isRecommendedRecipe(
+                        recommended={RecipeHelper.isRecommended(
                           Recipe.Pork,
                           pickiness!,
                           activityLevel!,
                           bodyCondition!,
                           foodAllergies!
                         )}
-                        disabled={isAllergies(Recipe.Pork, foodAllergies!)}
+                        disabled={DogHelper.isAllergies(Recipe.Pork, foodAllergies!)}
                         readonly={containsTwoRecipes && !watch('recipe')[1]}
                         onChange={() => trigger('recipe')}
                       />
@@ -379,14 +380,14 @@ export default function RecommendedPlanFragment() {
                         targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                         calorie={1540}
                         analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-                        recommended={isRecommendedRecipe(
+                        recommended={RecipeHelper.isRecommended(
                           Recipe.Duck,
                           pickiness!,
                           activityLevel!,
                           bodyCondition!,
                           foodAllergies!
                         )}
-                        disabled={isAllergies(Recipe.Duck, foodAllergies!)}
+                        disabled={DogHelper.isAllergies(Recipe.Duck, foodAllergies!)}
                         readonly={containsTwoRecipes && !watch('recipe')[2]}
                         onChange={() => trigger('recipe')}
                       />
@@ -425,14 +426,14 @@ export default function RecommendedPlanFragment() {
                         targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                         calorie={1540}
                         analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-                        recommended={isRecommendedRecipe(
+                        recommended={RecipeHelper.isRecommended(
                           Recipe.Beef,
                           pickiness!,
                           activityLevel!,
                           bodyCondition!,
                           foodAllergies!
                         )}
-                        disabled={isAllergies(Recipe.Beef, foodAllergies!)}
+                        disabled={DogHelper.isAllergies(Recipe.Beef, foodAllergies!)}
                         readonly={containsTwoRecipes && !watch('recipe')[3]}
                         onChange={() => trigger('recipe')}
                       />
@@ -470,14 +471,14 @@ export default function RecommendedPlanFragment() {
                         targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                         calorie={1540}
                         analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-                        recommended={isRecommendedRecipe(
+                        recommended={RecipeHelper.isRecommended(
                           Recipe.Lamb,
                           pickiness!,
                           activityLevel!,
                           bodyCondition!,
                           foodAllergies!
                         )}
-                        disabled={isAllergies(Recipe.Lamb, foodAllergies!)}
+                        disabled={DogHelper.isAllergies(Recipe.Lamb, foodAllergies!)}
                         readonly={containsTwoRecipes && !watch('recipe')[4]}
                         onChange={() => trigger('recipe')}
                       />

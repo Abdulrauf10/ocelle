@@ -16,7 +16,7 @@ import Button from '@/components/buttons/Button';
 import PictureRadio from '@/components/controls/PictureRadio';
 import TextField from '@/components/controls/TextField';
 import { ActivityLevel, BodyCondition } from '@/enums';
-import { calculateIdealWeight } from '@/helpers/dog';
+import DogHelper from '@/helpers/dog';
 import useFormFieldDisplayState from '@/hooks/useFormFieldState';
 
 interface DogPreference1Form {
@@ -146,7 +146,7 @@ export default function DogPreference1Fragment() {
                         if (weight === undefined) {
                           return true;
                         }
-                        const idealWeight = calculateIdealWeight(weight, bodyCondition);
+                        const idealWeight = DogHelper.calculateIdealWeight(weight, bodyCondition);
                         if (idealWeight > 50 || idealWeight < 0.5) {
                           return t(
                             'unfortunately-the-amount-that-{}-needs-fall-outside-of-the-portion-sizes-ocelle-typically-offers',
