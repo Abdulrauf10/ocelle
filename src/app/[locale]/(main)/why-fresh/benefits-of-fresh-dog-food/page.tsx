@@ -75,8 +75,10 @@ export default function BenefitsOfFreshDogFood() {
           </h2>
           <div className="-mx-4 flex items-center pt-normal max-md:flex-col">
             <div className="mx-4 flex-1">
-              <div className="ml-4 mr-10 rounded-[40px] border-[3px] border-gold bg-white px-12 py-10 max-xl:ml-0 max-xl:mr-4 max-md:mr-0 max-md:max-w-xl max-md:px-6">
-                <p className="heading-4 text-center italic text-gold">{i.rich('block-3-quota')}</p>
+              <div className="max-sm ml-4 mr-10 rounded-[40px] border-[3px] border-gold bg-white px-12 py-10 max-xl:ml-0 max-xl:mr-4 max-md:mr-0 max-md:max-w-xl max-md:px-6">
+                <p className="heading-4 text-center italic text-gold md:-mx-4">
+                  {i.rich('block-3-quota')}
+                </p>
                 <div className="mt-4"></div>
                 <p className="font-baskerville"></p>
                 <p className="body-1 text-center text-gold">{i.rich('block-3-quota-person')}</p>
@@ -182,7 +184,7 @@ export default function BenefitsOfFreshDogFood() {
                 </div>
               </Link>
             </div>
-            <div className="max-md:pt-normal` w-1/3 px-6 max-lg:px-3 max-md:w-full">
+            <div className="w-1/3 px-6 max-lg:px-3 max-md:w-full max-md:pt-normal">
               <Link
                 href="/why-fresh/challenges-with-home-cooking-for-your-dog"
                 className="mx-auto flex h-full max-w-lg flex-col overflow-hidden rounded-[30px] bg-white shadow-black/30 drop-shadow-style-1 will-change-transform"
