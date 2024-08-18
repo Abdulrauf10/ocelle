@@ -142,7 +142,7 @@ export default function RecipeLargeDialog({
           <DialogBlock title={r.rich('whats-not-inside')}>
             <div className="pt-2"></div>
             <div className="-mx-3 -my-4 flex flex-wrap justify-evenly max-lg:justify-start">
-              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 max-[420px]:w-full ">
+              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 max-[420px]:w-full md:lang-zh:px-0 ">
                 <Image
                   className="mx-auto"
                   src="/whats-not-inside/colours.svg"
@@ -155,7 +155,7 @@ export default function RecipeLargeDialog({
                   {m('no-colours')}
                 </strong>
               </div>
-              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
+              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0  md:lang-zh:px-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
                   src="/whats-not-inside/filters.svg"
@@ -168,7 +168,7 @@ export default function RecipeLargeDialog({
                   {m('no-fillers')}
                 </strong>
               </div>
-              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
+              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0  md:lang-zh:px-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
                   src="/whats-not-inside/flavourings.svg"
@@ -181,7 +181,7 @@ export default function RecipeLargeDialog({
                   {m('no-flavourings')}
                 </strong>
               </div>
-              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
+              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0  md:lang-zh:px-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
                   src="/whats-not-inside/preservatives.svg"
@@ -195,7 +195,7 @@ export default function RecipeLargeDialog({
                 </strong>
               </div>
               <div className="w-full max-lg:hidden"></div>
-              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
+              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0  md:lang-zh:px-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
                   src="/whats-not-inside/additives.svg"
@@ -208,7 +208,7 @@ export default function RecipeLargeDialog({
                   {m('no-additives')}
                 </strong>
               </div>
-              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
+              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0  md:lang-zh:px-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
                   src="/whats-not-inside/artificial-ingredients.svg"
@@ -221,7 +221,7 @@ export default function RecipeLargeDialog({
                   {m('no-artificial-flavours')}
                 </strong>
               </div>
-              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0 [@media(max-width:420px)]:w-full">
+              <div className="min-w-[160px] px-3 py-4 max-lg:w-1/3 max-sm:w-1/2 max-xs:min-w-0  md:lang-zh:px-0 [@media(max-width:420px)]:w-full">
                 <Image
                   className="mx-auto"
                   src="/whats-not-inside/hormones.svg"

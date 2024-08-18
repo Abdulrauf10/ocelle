@@ -227,7 +227,7 @@ export default function RecipesPage() {
     <main className="overflow-x-hidden">
       <div
         className="bg-[#3c2215] bg-[url('/recipes/recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-no-repeat py-[55px]
-       max-xl:lang-zh:pb-[60%] max-lg:lang-en:pb-[60%] lg:lang-en:bg-[#4f3d33] lg:lang-en:bg-[url('/recipes/recipes-bg.jpg')] lg:lang-en:bg-[length:auto_100%]
+       max-xl:lang-zh:pb-[57%] max-lg:lang-en:pb-[57%] lg:lang-en:bg-[#4f3d33] lg:lang-en:bg-[url('/recipes/recipes-bg.jpg')] lg:lang-en:bg-[length:auto_100%]
         lg:lang-en:bg-[calc(50%+60px)_center] xl:lang-zh:bg-[#4f3d33] xl:lang-zh:bg-[url('/recipes/recipes-bg.jpg')] xl:lang-zh:bg-[length:auto_100%] xl:lang-zh:bg-[calc(50%+60px)_center]"
       >
         <Container>
@@ -551,7 +551,7 @@ export default function RecipesPage() {
           <div className="mt-4"></div>
           <p className="body-1">{r('duck:description')}</p>
           <div className="mt-6"></div>
-          <p className="heading-4 font-bold text-gold">
+          <p className="heading-4 font-bold text-gold lang-zh:font-normal">
             {t('{}-colon', { value: t('Recipes.ingredients') })}
           </p>
           <div className="mt-1"></div>
@@ -577,7 +577,7 @@ export default function RecipesPage() {
       </Block>
       <Block>
         <Container className="text-center">
-          <h2 className="heading-3 font-bold text-primary lang-zh:font-normal">
+          <h2 className="heading-1 font-bold text-primary lang-zh:font-normal">
             {r.rich('block-8-title')}
           </h2>
           <div className="mt-6"></div>
