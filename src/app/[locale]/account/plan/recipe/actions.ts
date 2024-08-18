@@ -6,7 +6,7 @@ import { getLoginedMe } from '@/actions';
 import { Dog, DogPlan } from '@/entities';
 import { Recipe } from '@/enums';
 import { executeQuery } from '@/helpers/queryRunner';
-import priceService from '@/services/price';
+import PriceService from '@/services/price';
 
 interface CalculateBoxPriceAction {
   id: number;
@@ -53,7 +53,7 @@ export async function calculateBoxPrice(data: CalculateBoxPriceAction) {
   }
 
   return {
-    total: await priceService.calculateTotalPriceInBox(
+    total: await PriceService.calculateTotalPriceInBox(
       dog.breeds.map((relation) => relation.breed),
       dog.dateOfBirth,
       dog.isNeutered,
@@ -65,7 +65,7 @@ export async function calculateBoxPrice(data: CalculateBoxPriceAction) {
       dog.plan.frequency,
       false
     ),
-    daily: await priceService.calculateTotalPerDayPrice(
+    daily: await PriceService.calculateTotalPerDayPrice(
       dog.breeds.map((relation) => relation.breed),
       dog.dateOfBirth,
       dog.isNeutered,

@@ -11,7 +11,7 @@ import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import FreshPlanForm from '@/components/forms/FreshPlan';
 import RecurringBoxNote from '@/components/notes/RecurringBox';
 import { MealPlan } from '@/enums';
-import priceService from '@/services/price';
+import PriceService from '@/services/price';
 
 export default async function PlanMeal() {
   const t = await getTranslations();
@@ -21,7 +21,7 @@ export default async function PlanMeal() {
     ? dogs.find((dog) => dog.id === currentSelectedDogId) || dogs[0]
     : dogs[0];
 
-  const fullPlanPerDayPrice = await priceService.calculateTotalPerDayPrice(
+  const fullPlanPerDayPrice = await PriceService.calculateTotalPerDayPrice(
     dog.breeds.map(({ breed }) => breed),
     new Date(dog.dateOfBirth),
     dog.isNeutered,
@@ -34,7 +34,7 @@ export default async function PlanMeal() {
     false
   );
 
-  const halfPlanPerDayPrice = await priceService.calculateTotalPerDayPrice(
+  const halfPlanPerDayPrice = await PriceService.calculateTotalPerDayPrice(
     dog.breeds.map(({ breed }) => breed),
     new Date(dog.dateOfBirth),
     dog.isNeutered,

@@ -2,6 +2,7 @@ import Stripe from 'stripe';
 import invariant from 'ts-invariant';
 
 import channelService from './channel';
+import PriceService from './price';
 import productService from './product';
 
 import { Frequency } from '@/enums';
@@ -102,13 +103,8 @@ class OrderService {
     const lines = [];
 
     for (const dog of dogs) {
-      const recipe1Variant = recipeToVariant(products, dog.breeds, dog.dateOfBirth, dog.recipe1);
-      if (!recipe1Variant) {
-        throw new OrderVariantNotFoundError(
-          'failed to add recipe 1 to checkout, variant not found'
-        );
-      }
-      const recipe1TotalProtions = RecipeHelper.calculateRecipeTotalProtionsInBox(
+      const recipe1Total = PriceService.calculateRecipeTotalPriceInBox(
+        products,
         dog.breeds,
         dog.dateOfBirth,
         dog.isNeutered,
@@ -121,8 +117,9 @@ class OrderService {
         starterBox ? dog.isEnabledTransitionPeriod : false
       );
       lines.push({
-        variantId: recipe1Variant.id,
-        quantity: Math.ceil(recipe1TotalProtions),
+        variantId: recipe1Total.variant.id,
+        quantity: 1,
+        price: recipe1Total.price,
       });
       if (dog.recipe2) {
         const recipe2Variant = recipeToVariant(products, dog.breeds, dog.dateOfBirth, dog.recipe2);
@@ -131,7 +128,8 @@ class OrderService {
             'failed to add recipe 2 to checkout, variant not found'
           );
         }
-        const recipe2TotalProtions = RecipeHelper.calculateRecipeTotalProtionsInBox(
+        const recipe2Total = PriceService.calculateRecipeTotalPriceInBox(
+          products,
           dog.breeds,
           dog.dateOfBirth,
           dog.isNeutered,
@@ -144,8 +142,9 @@ class OrderService {
           starterBox ? dog.isEnabledTransitionPeriod : false
         );
         lines.push({
-          variantId: recipe2Variant.id,
-          quantity: Math.ceil(recipe2TotalProtions),
+          variantId: recipe2Total.variant.id,
+          quantity: 1,
+          price: recipe2Total.price,
         });
       }
     }
