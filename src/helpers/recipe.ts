@@ -1,3 +1,6 @@
+import Decimal from 'decimal.js';
+import { roundToDown } from 'round-to';
+
 import DogHelper from './dog';
 
 import {
@@ -49,19 +52,21 @@ export default class RecipeHelper {
   }
   /**
    * Refer to `Excel: customization variables v1.01 > Customization Variables`
+   *
+   * Round Down 1DP
    */
   static calculateDailyProtionSize(requiredDailyCalorie: number, recipe: Recipe) {
     switch (recipe) {
       case Recipe.Chicken:
-        return (requiredDailyCalorie / 1540) * 1000;
+        return roundToDown((requiredDailyCalorie / 1540) * 1000, 1);
       case Recipe.Beef:
-        return (requiredDailyCalorie / 1508) * 1000;
+        return roundToDown((requiredDailyCalorie / 1508) * 1000, 1);
       case Recipe.Pork:
-        return (requiredDailyCalorie / 1293) * 1000;
+        return roundToDown((requiredDailyCalorie / 1293) * 1000, 1);
       case Recipe.Lamb:
-        return (requiredDailyCalorie / 1865) * 1000;
+        return roundToDown((requiredDailyCalorie / 1865) * 1000, 1);
       case Recipe.Duck:
-        return (requiredDailyCalorie / 1355) * 1000;
+        return roundToDown((requiredDailyCalorie / 1355) * 1000, 1);
     }
   }
   /**
@@ -113,9 +118,8 @@ export default class RecipeHelper {
     transitionPeriod: boolean
   ) {
     const { recipeToBeCalcuate } = recipes;
-    const dailyProtionSize = this.calculateDailyProtionSize(
-      requiredDailyCalorie,
-      recipeToBeCalcuate
+    const dailyProtionSize = new Decimal(
+      this.calculateDailyProtionSize(requiredDailyCalorie, recipeToBeCalcuate)
     );
     const { transitionPeriodDays, normalDays } = this.calculateTotalDaysInBox(
       recipes,
@@ -123,9 +127,12 @@ export default class RecipeHelper {
       transitionPeriod
     );
     if (transitionPeriodDays > 0) {
-      return dailyProtionSize * 0.5 * transitionPeriodDays + dailyProtionSize * normalDays;
+      return dailyProtionSize
+        .times(0.5 * transitionPeriodDays)
+        .plus(dailyProtionSize.times(normalDays))
+        .toNumber();
     }
-    return dailyProtionSize * normalDays;
+    return dailyProtionSize.times(normalDays).toNumber();
   }
   /**
    * Refer to `Excel: customization variables v1.01 > Price Matrix`

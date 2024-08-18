@@ -584,7 +584,7 @@ export default function SubscriptionCheckoutForm({
                               ? t('fresh-full-plan')
                               : t('fresh-half-plan'),
                           name: dog.name,
-                          price: `\$${roundTo(dog.perDayPrice, 1)}`,
+                          price: `\$${roundTo(dog.perDayPrice, 2)}`,
                         })}
                       </p>
                     </div>

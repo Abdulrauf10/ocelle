@@ -19,7 +19,7 @@ import { redirect } from '@/navigation';
 import breedService from '@/services/breed';
 import calendarService from '@/services/calendar';
 import orderService from '@/services/order';
-import priceService from '@/services/price';
+import PriceService from '@/services/price';
 import recurringService from '@/services/recurring';
 import redisService from '@/services/redis';
 import userService from '@/services/user';
@@ -30,7 +30,7 @@ export async function calculateDogsTotalPerDayPrice(dogs: DogDto[]) {
   for (const dog of dogs) {
     const breeds =
       dog.breeds && dog.breeds.length > 0 ? await breedService.getByIds(dog.breeds) : [];
-    const price = await priceService.calculateTotalPerDayPrice(
+    const price = await PriceService.calculatePerDayBoxPrice(
       breeds,
       new Date(dog.dateOfBirth),
       dog.isNeutered,
@@ -58,14 +58,17 @@ export async function getBoxPrices(
   mealPlan: MealPlan,
   isEnabledTransitionPeriod: boolean
 ) {
+  const discount = 0.5;
   if (!recipe1) {
     return {
       total: 0,
       daily: 0,
+      discountedTotal: 0,
+      discountedDaily: 0,
     };
   }
   return {
-    total: await priceService.calculateTotalPriceInBox(
+    total: await PriceService.calculateBoxPrice(
       breeds,
       new Date(dateOfBirth),
       isNeutered,
@@ -77,7 +80,7 @@ export async function getBoxPrices(
       Frequency.TwoWeek,
       isEnabledTransitionPeriod
     ),
-    daily: await priceService.calculateTotalPerDayPrice(
+    daily: await PriceService.calculatePerDayBoxPrice(
       breeds,
       new Date(dateOfBirth),
       isNeutered,
@@ -88,6 +91,32 @@ export async function getBoxPrices(
       mealPlan,
       Frequency.TwoWeek,
       isEnabledTransitionPeriod
+    ),
+    discountedTotal: await PriceService.calculateDiscountedBoxPrice(
+      breeds,
+      new Date(dateOfBirth),
+      isNeutered,
+      weight,
+      bodyCondition,
+      activityLevel,
+      { recipe1, recipe2 },
+      mealPlan,
+      Frequency.TwoWeek,
+      isEnabledTransitionPeriod,
+      discount
+    ),
+    discountedDaily: await PriceService.calculateDiscountedPerDayBoxPrice(
+      breeds,
+      new Date(dateOfBirth),
+      isNeutered,
+      weight,
+      bodyCondition,
+      activityLevel,
+      { recipe1, recipe2 },
+      mealPlan,
+      Frequency.TwoWeek,
+      isEnabledTransitionPeriod,
+      discount
     ),
   };
 }
@@ -100,7 +129,7 @@ export async function getMinPerDayPrice(
 ): Promise<MinPricesDto> {
   const breeds = dog.breeds && dog.breeds.length > 0 ? await breedService.getByIds(dog.breeds) : [];
   return {
-    halfPlan: await priceService.findMinPerDayPrice(
+    halfPlan: await PriceService.findMinPerDayPrice(
       breeds,
       new Date(dog.dateOfBirth),
       dog.isNeutered,
@@ -109,7 +138,7 @@ export async function getMinPerDayPrice(
       dog.activityLevel,
       MealPlan.Half
     ),
-    fullPlan: await priceService.findMinPerDayPrice(
+    fullPlan: await PriceService.findMinPerDayPrice(
       breeds,
       new Date(dog.dateOfBirth),
       dog.isNeutered,

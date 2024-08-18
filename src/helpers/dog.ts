@@ -1,7 +1,7 @@
 import { startOfDay, subMonths, subYears } from 'date-fns';
 import dayjs from 'dayjs';
 
-import { ActivityLevel, BodyCondition, FoodAllergies, Pickiness, Recipe, Size } from '@/enums';
+import { ActivityLevel, BodyCondition, FoodAllergies, Recipe, Size } from '@/enums';
 import { LifeStage } from '@/types';
 import { BreedDto } from '@/types/dto';
 

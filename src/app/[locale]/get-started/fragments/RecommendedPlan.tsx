@@ -1,5 +1,4 @@
 import { queryOptions, useQuery } from '@tanstack/react-query';
-import deepEqual from 'deep-equal';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -579,11 +578,14 @@ export default function RecommendedPlanFragment() {
                         <Price value={roundTo(boxPrice.total, 1)} discount />
                         <Price
                           className="ml-1 font-bold"
-                          value={roundTo(boxPrice.total / 2, 1)}
+                          value={roundTo(boxPrice.discountedTotal, 2)}
                         />{' '}
                         (
-                        <Price value={roundTo(boxPrice.daily, 1)} discount />
-                        <Price className="ml-1 font-bold" value={roundTo(boxPrice.daily / 2, 1)} />
+                        <Price value={roundTo(boxPrice.daily, 2)} discount />
+                        <Price
+                          className="ml-1 font-bold"
+                          value={roundTo(boxPrice.discountedDaily, 2)}
+                        />
                         <span className="font-bold text-dark-green">{t('per-day')}</span>)
                       </span>
                       &nbsp;

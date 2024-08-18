@@ -19,7 +19,7 @@ const dailyProtionSizeCase1 = RecipeHelper.calculateDailyCalorieRequirement(
   MealPlan.Full
 );
 const dailyProtionSizeCase2 = RecipeHelper.calculateDailyCalorieRequirement(
-  DogHelper.calculateIdealWeight(0.6847, BodyCondition.JustRight),
+  DogHelper.calculateIdealWeight(0.68, BodyCondition.JustRight),
   2,
   MealPlan.Half
 );
@@ -65,54 +65,34 @@ describe('calculateDailyCalorieRequirement', () => {
 
 describe('calculateDailyProtionSize', () => {
   test('chicken 1', () => {
-    expect(
-      Math.round(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase1, Recipe.Chicken))
-    ).toBe(60);
+    expect(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase1, Recipe.Chicken)).toBe(60);
   });
   test('chicken 2', () => {
-    expect(
-      Math.round(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase2, Recipe.Chicken))
-    ).toBe(34);
+    expect(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase2, Recipe.Chicken)).toBe(34);
   });
   test('beef 1', () => {
-    expect(
-      Math.round(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase1, Recipe.Beef))
-    ).toBe(61);
+    expect(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase1, Recipe.Beef)).toBe(61.3);
   });
   test('beef 2', () => {
-    expect(
-      Math.round(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase2, Recipe.Beef))
-    ).toBe(35);
+    expect(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase2, Recipe.Beef)).toBe(34.7);
   });
   test('pork 1', () => {
-    expect(
-      Math.round(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase1, Recipe.Pork))
-    ).toBe(71);
+    expect(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase1, Recipe.Pork)).toBe(71.4);
   });
   test('pork 2', () => {
-    expect(
-      Math.round(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase2, Recipe.Pork))
-    ).toBe(41);
+    expect(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase2, Recipe.Pork)).toBe(40.5);
   });
   test('lamb 1', () => {
-    expect(
-      Math.round(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase1, Recipe.Lamb))
-    ).toBe(50);
+    expect(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase1, Recipe.Lamb)).toBe(49.5);
   });
   test('lamb 2', () => {
-    expect(
-      Math.round(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase2, Recipe.Lamb))
-    ).toBe(28);
+    expect(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase2, Recipe.Lamb)).toBe(28.1);
   });
   test('duck 1', () => {
-    expect(
-      Math.round(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase1, Recipe.Duck))
-    ).toBe(68);
+    expect(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase1, Recipe.Duck)).toBe(68.2);
   });
   test('duck 2', () => {
-    expect(
-      Math.round(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase2, Recipe.Duck))
-    ).toBe(39);
+    expect(RecipeHelper.calculateDailyProtionSize(dailyProtionSizeCase2, Recipe.Duck)).toBe(38.6);
   });
 });
 
@@ -125,7 +105,7 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.OneWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox)).toBe(420);
+      expect(totalProtionsInBox).toBe(420);
     });
     test('beef', () => {
       const totalProtionsInBox = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -134,7 +114,7 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.OneWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox)).toBe(429);
+      expect(totalProtionsInBox).toBe(429.1);
     });
     test('pork', () => {
       const totalProtionsInBox = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -143,7 +123,7 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.OneWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox)).toBe(500);
+      expect(totalProtionsInBox).toBe(499.8);
     });
     test('lamb', () => {
       const totalProtionsInBox = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -152,7 +132,7 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.OneWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox)).toBe(347);
+      expect(totalProtionsInBox).toBe(346.5);
     });
     test('duck', () => {
       const totalProtionsInBox = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -161,7 +141,7 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.OneWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox)).toBe(478);
+      expect(totalProtionsInBox).toBe(477.4);
     });
     test('chicken + beef', () => {
       const totalProtionsInBox1 = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -176,8 +156,8 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.OneWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox1)).toBe(240);
-      expect(Math.round(totalProtionsInBox2)).toBe(184);
+      expect(totalProtionsInBox1).toBe(240);
+      expect(totalProtionsInBox2).toBe(183.9);
     });
     test('beef + lamb', () => {
       const totalProtionsInBox1 = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -192,8 +172,8 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.OneWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox1)).toBe(245);
-      expect(Math.round(totalProtionsInBox2)).toBe(149);
+      expect(totalProtionsInBox1).toBe(245.2);
+      expect(totalProtionsInBox2).toBe(148.5);
     });
     test('pork + duck', () => {
       const totalProtionsInBox1 = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -208,8 +188,8 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.OneWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox1)).toBe(286);
-      expect(Math.round(totalProtionsInBox2)).toBe(205);
+      expect(totalProtionsInBox1).toBe(285.6);
+      expect(totalProtionsInBox2).toBe(204.6);
     });
     test('lamb + duck', () => {
       const totalProtionsInBox1 = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -224,8 +204,8 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.OneWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox1)).toBe(198);
-      expect(Math.round(totalProtionsInBox2)).toBe(205);
+      expect(totalProtionsInBox1).toBe(198);
+      expect(totalProtionsInBox2).toBe(204.6);
     });
   });
   describe('normal box, order size = 14', () => {
@@ -236,7 +216,7 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox)).toBe(840);
+      expect(totalProtionsInBox).toBe(840);
     });
     test('beef', () => {
       const totalProtionsInBox = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -245,7 +225,7 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox)).toBe(858);
+      expect(totalProtionsInBox).toBe(858.2);
     });
     test('pork', () => {
       const totalProtionsInBox = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -254,7 +234,7 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox)).toBe(1001);
+      expect(totalProtionsInBox).toBe(999.6);
     });
     test('lamb', () => {
       const totalProtionsInBox = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -263,7 +243,7 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox)).toBe(694);
+      expect(totalProtionsInBox).toBe(693);
     });
     test('duck', () => {
       const totalProtionsInBox = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -272,7 +252,7 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox)).toBe(955);
+      expect(totalProtionsInBox).toBe(954.8);
     });
     test('chicken + beef', () => {
       const totalProtionsInBox1 = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -287,8 +267,8 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox1)).toBe(420);
-      expect(Math.round(totalProtionsInBox2)).toBe(429);
+      expect(totalProtionsInBox1).toBe(420);
+      expect(totalProtionsInBox2).toBe(429.1);
     });
     test('beef + lamb', () => {
       const totalProtionsInBox1 = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -303,8 +283,8 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox1)).toBe(429);
-      expect(Math.round(totalProtionsInBox2)).toBe(347);
+      expect(totalProtionsInBox1).toBe(429.1);
+      expect(totalProtionsInBox2).toBe(346.5);
     });
     test('pork + duck', () => {
       const totalProtionsInBox1 = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -319,8 +299,8 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox1)).toBe(500);
-      expect(Math.round(totalProtionsInBox2)).toBe(478);
+      expect(totalProtionsInBox1).toBe(499.8);
+      expect(totalProtionsInBox2).toBe(477.4);
     });
     test('lamb + duck', () => {
       const totalProtionsInBox1 = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -335,8 +315,8 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         false
       );
-      expect(Math.round(totalProtionsInBox1)).toBe(347);
-      expect(Math.round(totalProtionsInBox2)).toBe(478);
+      expect(totalProtionsInBox1).toBe(346.5);
+      expect(totalProtionsInBox2).toBe(477.4);
     });
   });
   describe('transition box, order size = 14', () => {
@@ -347,7 +327,7 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         true
       );
-      expect(Math.round(totalProtionsInBox)).toBe(660);
+      expect(totalProtionsInBox).toBe(660);
     });
     test('beef', () => {
       const totalProtionsInBox = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -356,7 +336,7 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         true
       );
-      expect(Math.round(totalProtionsInBox)).toBe(674);
+      expect(totalProtionsInBox).toBe(674.3);
     });
     test('pork', () => {
       const totalProtionsInBox = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -365,7 +345,7 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         true
       );
-      expect(Math.round(totalProtionsInBox)).toBe(786);
+      expect(totalProtionsInBox).toBe(785.4);
     });
     test('lamb', () => {
       const totalProtionsInBox = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -374,7 +354,7 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         true
       );
-      expect(Math.round(totalProtionsInBox)).toBe(545);
+      expect(totalProtionsInBox).toBe(544.5);
     });
     test('duck', () => {
       const totalProtionsInBox = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -383,7 +363,7 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         true
       );
-      expect(Math.round(totalProtionsInBox)).toBe(750);
+      expect(totalProtionsInBox).toBe(750.2);
     });
     test('chicken + beef', () => {
       const totalProtionsInBox1 = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -398,8 +378,8 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         true
       );
-      expect(Math.round(totalProtionsInBox1)).toBe(330);
-      expect(Math.round(totalProtionsInBox2)).toBe(337);
+      expect(totalProtionsInBox1).toBe(330);
+      expect(totalProtionsInBox2).toBe(337.15);
     });
     test('beef + lamb', () => {
       const totalProtionsInBox1 = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -414,8 +394,8 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         true
       );
-      expect(Math.round(totalProtionsInBox1)).toBe(337);
-      expect(Math.round(totalProtionsInBox2)).toBe(273);
+      expect(totalProtionsInBox1).toBe(337.15);
+      expect(totalProtionsInBox2).toBe(272.25);
     });
     test('pork + duck', () => {
       const totalProtionsInBox1 = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -430,8 +410,8 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         true
       );
-      expect(Math.round(totalProtionsInBox1)).toBe(393);
-      expect(Math.round(totalProtionsInBox2)).toBe(375);
+      expect(totalProtionsInBox1).toBe(392.7);
+      expect(totalProtionsInBox2).toBe(375.1);
     });
     test('lamb + duck', () => {
       const totalProtionsInBox1 = RecipeHelper.calculateTotalPortionSizeInBox(
@@ -446,8 +426,8 @@ describe('calculateTotalPortionSizeInBox', () => {
         Frequency.TwoWeek,
         true
       );
-      expect(Math.round(totalProtionsInBox1)).toBe(273);
-      expect(Math.round(totalProtionsInBox2)).toBe(375);
+      expect(totalProtionsInBox1).toBe(272.25);
+      expect(totalProtionsInBox2).toBe(375.1);
     });
   });
 });
