@@ -103,7 +103,7 @@ class OrderService {
     const lines = [];
 
     for (const dog of dogs) {
-      const recipe1Total = PriceService.calculateRecipeTotalPriceInBox(
+      const recipe1Total = PriceService.calculateRecipeBoxPrice(
         products,
         dog.breeds,
         dog.dateOfBirth,
@@ -128,7 +128,7 @@ class OrderService {
             'failed to add recipe 2 to checkout, variant not found'
           );
         }
-        const recipe2Total = PriceService.calculateRecipeTotalPriceInBox(
+        const recipe2Total = PriceService.calculateRecipeBoxPrice(
           products,
           dog.breeds,
           dog.dateOfBirth,

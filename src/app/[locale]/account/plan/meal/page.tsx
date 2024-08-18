@@ -21,7 +21,7 @@ export default async function PlanMeal() {
     ? dogs.find((dog) => dog.id === currentSelectedDogId) || dogs[0]
     : dogs[0];
 
-  const fullPlanPerDayPrice = await PriceService.calculateTotalPerDayPrice(
+  const fullPlanPerDayPrice = await PriceService.calculatePerDayBoxPrice(
     dog.breeds.map(({ breed }) => breed),
     new Date(dog.dateOfBirth),
     dog.isNeutered,
@@ -34,7 +34,7 @@ export default async function PlanMeal() {
     false
   );
 
-  const halfPlanPerDayPrice = await PriceService.calculateTotalPerDayPrice(
+  const halfPlanPerDayPrice = await PriceService.calculatePerDayBoxPrice(
     dog.breeds.map(({ breed }) => breed),
     new Date(dog.dateOfBirth),
     dog.isNeutered,

@@ -25,7 +25,7 @@ export default async function PlanOften() {
     (await dogs.reduce(async (price, dog) => {
       return (
         (await price) +
-        (await PriceService.calculateTotalPerDayPrice(
+        (await PriceService.calculatePerDayBoxPrice(
           dog.breeds.map(({ breed }) => breed),
           new Date(dog.dateOfBirth),
           dog.isNeutered,
@@ -44,7 +44,7 @@ export default async function PlanOften() {
     (await dogs.reduce(async (price, dog) => {
       return (
         (await price) +
-        (await PriceService.calculateTotalPerDayPrice(
+        (await PriceService.calculatePerDayBoxPrice(
           dog.breeds.map(({ breed }) => breed),
           new Date(dog.dateOfBirth),
           dog.isNeutered,

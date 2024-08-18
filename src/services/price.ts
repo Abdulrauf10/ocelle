@@ -11,7 +11,7 @@ import { subscriptionProducts } from '@/products';
 import { BreedDto } from '@/types/dto';
 
 export default class PriceService {
-  static calculateRecipeTotalPriceInBox(
+  static calculateRecipeBoxPrice(
     products: ProductFragment[],
     breeds: BreedDto[],
     dateOfBirth: Date,
@@ -47,7 +47,7 @@ export default class PriceService {
     };
   }
 
-  static async calculateTotalPriceInBox(
+  static async calculateBoxPrice(
     breeds: BreedDto[],
     dateOfBirth: Date,
     neutered: boolean,
@@ -66,7 +66,7 @@ export default class PriceService {
         },
       },
     });
-    const { price: recipe1Price } = this.calculateRecipeTotalPriceInBox(
+    const { price: recipe1Price } = this.calculateRecipeBoxPrice(
       products,
       breeds,
       dateOfBirth,
@@ -82,7 +82,7 @@ export default class PriceService {
     if (!recipes.recipe2) {
       return recipe1Price;
     }
-    const { price: recipe2Price } = this.calculateRecipeTotalPriceInBox(
+    const { price: recipe2Price } = this.calculateRecipeBoxPrice(
       products,
       breeds,
       dateOfBirth,
@@ -98,50 +98,7 @@ export default class PriceService {
     return recipe1Price + recipe2Price;
   }
 
-  // single recipe only
-  static async findMinPerDayPrice(
-    breeds: BreedDto[],
-    dateOfBirth: Date,
-    neutered: boolean,
-    currentWeight: number,
-    condition: BodyCondition,
-    activityLevel: ActivityLevel,
-    plan: MealPlan
-  ) {
-    const products = await productService.find({
-      where: {
-        slug: {
-          oneOf: Object.values(subscriptionProducts).map((product) => product.slug),
-        },
-      },
-    });
-    const boxPrices = Object.keys(subscriptionProducts).map((recipe) => {
-      const { price } = this.calculateRecipeTotalPriceInBox(
-        products,
-        breeds,
-        dateOfBirth,
-        neutered,
-        currentWeight,
-        condition,
-        activityLevel,
-        { recipeToBeCalcuate: recipe as Recipe },
-        plan,
-        Frequency.TwoWeek,
-        true
-      );
-      const { transitionPeriodDays, normalDays } = RecipeHelper.calculateTotalDaysInBox(
-        { recipeToBeCalcuate: recipe as Recipe },
-        Frequency.TwoWeek,
-        true
-      );
-
-      return price / (transitionPeriodDays + normalDays);
-    });
-
-    return Math.min(...boxPrices);
-  }
-
-  static async calculateTotalPerDayPrice(
+  static async calculatePerDayBoxPrice(
     breeds: BreedDto[],
     dateOfBirth: Date,
     neutered: boolean,
@@ -165,7 +122,7 @@ export default class PriceService {
       frequency,
       transitionPeriod
     );
-    const { price: recipe1TotalPriceInBox } = this.calculateRecipeTotalPriceInBox(
+    const { price: recipe1TotalPriceInBox } = this.calculateRecipeBoxPrice(
       products,
       breeds,
       dateOfBirth,
@@ -194,7 +151,7 @@ export default class PriceService {
       frequency,
       transitionPeriod
     );
-    const { price: recipe2TotalPriceInBox } = this.calculateRecipeTotalPriceInBox(
+    const { price: recipe2TotalPriceInBox } = this.calculateRecipeBoxPrice(
       products,
       breeds,
       dateOfBirth,
@@ -215,5 +172,106 @@ export default class PriceService {
     );
 
     return recipe1PerDayPrice + recipe2PerDayPrice;
+  }
+
+  static async calculateDiscountedBoxPrice(
+    breeds: BreedDto[],
+    dateOfBirth: Date,
+    neutered: boolean,
+    currentWeight: number,
+    condition: BodyCondition,
+    activityLevel: ActivityLevel,
+    recipes: { recipe1: Recipe; recipe2?: Recipe },
+    plan: MealPlan,
+    frequency: Frequency,
+    transitionPeriod: boolean,
+    discount: number
+  ) {
+    const boxPrice = await this.calculateBoxPrice(
+      breeds,
+      dateOfBirth,
+      neutered,
+      currentWeight,
+      condition,
+      activityLevel,
+      recipes,
+      plan,
+      frequency,
+      transitionPeriod
+    );
+    return roundTo(boxPrice * discount, 2);
+  }
+
+  static async calculateDiscountedPerDayBoxPrice(
+    breeds: BreedDto[],
+    dateOfBirth: Date,
+    neutered: boolean,
+    currentWeight: number,
+    condition: BodyCondition,
+    activityLevel: ActivityLevel,
+    recipes: { recipe1: Recipe; recipe2?: Recipe },
+    plan: MealPlan,
+    frequency: Frequency,
+    transitionPeriod: boolean,
+    discount: number
+  ) {
+    const boxPrice = await this.calculateDiscountedBoxPrice(
+      breeds,
+      dateOfBirth,
+      neutered,
+      currentWeight,
+      condition,
+      activityLevel,
+      recipes,
+      plan,
+      frequency,
+      transitionPeriod,
+      discount
+    );
+
+    return roundTo(boxPrice / (frequency === Frequency.OneWeek ? 7 : 14), 2);
+  }
+
+  // single recipe only
+  static async findMinPerDayPrice(
+    breeds: BreedDto[],
+    dateOfBirth: Date,
+    neutered: boolean,
+    currentWeight: number,
+    condition: BodyCondition,
+    activityLevel: ActivityLevel,
+    plan: MealPlan
+  ) {
+    const products = await productService.find({
+      where: {
+        slug: {
+          oneOf: Object.values(subscriptionProducts).map((product) => product.slug),
+        },
+      },
+    });
+    const boxPrices = Object.keys(subscriptionProducts).map((recipe) => {
+      const { price } = this.calculateRecipeBoxPrice(
+        products,
+        breeds,
+        dateOfBirth,
+        neutered,
+        currentWeight,
+        condition,
+        activityLevel,
+        { recipeToBeCalcuate: recipe as Recipe },
+        plan,
+        Frequency.TwoWeek,
+        true
+      );
+      const { transitionPeriodDays, normalDays } = RecipeHelper.calculateTotalDaysInBox(
+        { recipeToBeCalcuate: recipe as Recipe },
+        Frequency.TwoWeek,
+        true
+      );
+
+      return price / (transitionPeriodDays + normalDays);
+    });
+
+    return Math.min(...boxPrices);
   }
 }

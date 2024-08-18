@@ -53,7 +53,7 @@ export async function calculateBoxPrice(data: CalculateBoxPriceAction) {
   }
 
   return {
-    total: await PriceService.calculateTotalPriceInBox(
+    total: await PriceService.calculateBoxPrice(
       dog.breeds.map((relation) => relation.breed),
       dog.dateOfBirth,
       dog.isNeutered,
@@ -65,7 +65,7 @@ export async function calculateBoxPrice(data: CalculateBoxPriceAction) {
       dog.plan.frequency,
       false
     ),
-    daily: await PriceService.calculateTotalPerDayPrice(
+    daily: await PriceService.calculatePerDayBoxPrice(
       dog.breeds.map((relation) => relation.breed),
       dog.dateOfBirth,
       dog.isNeutered,

@@ -30,7 +30,7 @@ export async function calculateDogsTotalPerDayPrice(dogs: DogDto[]) {
   for (const dog of dogs) {
     const breeds =
       dog.breeds && dog.breeds.length > 0 ? await breedService.getByIds(dog.breeds) : [];
-    const price = await PriceService.calculateTotalPerDayPrice(
+    const price = await PriceService.calculatePerDayBoxPrice(
       breeds,
       new Date(dog.dateOfBirth),
       dog.isNeutered,
@@ -58,14 +58,17 @@ export async function getBoxPrices(
   mealPlan: MealPlan,
   isEnabledTransitionPeriod: boolean
 ) {
+  const discount = 0.5;
   if (!recipe1) {
     return {
       total: 0,
       daily: 0,
+      discountedTotal: 0,
+      discountedDaily: 0,
     };
   }
   return {
-    total: await PriceService.calculateTotalPriceInBox(
+    total: await PriceService.calculateBoxPrice(
       breeds,
       new Date(dateOfBirth),
       isNeutered,
@@ -77,7 +80,7 @@ export async function getBoxPrices(
       Frequency.TwoWeek,
       isEnabledTransitionPeriod
     ),
-    daily: await PriceService.calculateTotalPerDayPrice(
+    daily: await PriceService.calculatePerDayBoxPrice(
       breeds,
       new Date(dateOfBirth),
       isNeutered,
@@ -88,6 +91,32 @@ export async function getBoxPrices(
       mealPlan,
       Frequency.TwoWeek,
       isEnabledTransitionPeriod
+    ),
+    discountedTotal: await PriceService.calculateDiscountedBoxPrice(
+      breeds,
+      new Date(dateOfBirth),
+      isNeutered,
+      weight,
+      bodyCondition,
+      activityLevel,
+      { recipe1, recipe2 },
+      mealPlan,
+      Frequency.TwoWeek,
+      isEnabledTransitionPeriod,
+      discount
+    ),
+    discountedDaily: await PriceService.calculateDiscountedPerDayBoxPrice(
+      breeds,
+      new Date(dateOfBirth),
+      isNeutered,
+      weight,
+      bodyCondition,
+      activityLevel,
+      { recipe1, recipe2 },
+      mealPlan,
+      Frequency.TwoWeek,
+      isEnabledTransitionPeriod,
+      discount
     ),
   };
 }
