@@ -31,7 +31,7 @@ export default function ChallengesWithHomeCookingForYourDog() {
   return (
     <main>
       <Block className="bg-[#c9e7e7] bg-[url('/challenges-with-home-cooking-for-your-dog/bg.png')] bg-[length:auto_68%] bg-bottom bg-no-repeat max-md:bg-[length:auto_62%] max-md:bg-bottom max-xs:bg-[length:auto_68%]">
-        <Container className="lang-en:pb-[clamp(330px,35%,400px)] max-md:lang-zh:pb-[220px] max-sm:lang-zh:!px-1 max-xs:lang-zh:pb-[180px]">
+        <Container className="lang-en:pb-[clamp(330px,35%,400px)] lang-zh:pb-[clamp(330px,35%,400px)] max-md:lang-zh:pb-[220px] max-sm:lang-zh:!px-1 max-xs:lang-zh:pb-[180px]">
           <h1 className="heading-headline heading-weight-1 text-center text-dark-green">
             {i.rich('block-1-title')}
           </h1>
