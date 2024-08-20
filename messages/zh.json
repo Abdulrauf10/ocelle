@@ -656,7 +656,7 @@
     "block-4-benefits-7-content-2": "簡單而言，鮮食飲食可讓您和您的狗狗享受更多快樂的時光！",
     "block-4-benefits-8-title": "生活質素",
     "block-4-benefits-8-content-1": "品嚐美食是生活中樂趣之一，無論是我們還是狗狗。在鮮食的眾多好處中，最令人愉快的莫過於每次向他們的碗中添加鮮食時，看到狗狗的雀躍，更開心的是知道他們吃的每一口都是對他們有益且美味。",
-    "block-5-title": "轉變　見證不同　"
+    "block-5-title": "轉變 見證不同"
   },
   "WhyFresh-RawVsGentlyCookedDiets": {
     "block-1-title-1": "生肉飲食",
@@ -701,7 +701,7 @@
     "block-1-content-1": "不知不覺中，每天一勺已成為狗狗的日常。但這是否真的足夠?",
     "block-2-title": "您可知道……",
     "block-2-mark-1-title": "肥胖",
-    "block-2-mark-1-content": "全球近 60% 的狗狗處於超重狀態。這個比例有所上升，某些地區在 2007 年到 2017 年間更上升約 158%。<csup>2</csup>",
+    "block-2-mark-1-content": "全球近 60% 的狗狗處於超重狀態。<csup>1</csup> 這個比例有所上升，某些地區在 2007 年到 2017 年間更上升約 158%。<csup>2</csup>",
     "block-2-mark-2-title": "糖尿病",
     "block-2-mark-2-content": "患病的狗狗普遍上升，某些地區自 2006 年以來更上升約 80%。<csup>3</csup>",
     "block-2-mark-3-title": "牙齒健康問題",
@@ -711,7 +711,7 @@
     "block-2-quota": "<baskerville>“</baskerville>The chase for convenience…has resulted in continuous, repeat exposure to potentially harmful ingredients.<baskerville>”</baskerville>",
     "block-2-quota-person": "- The Cornucopia Institute",
     "block-3-content-1": "對狗狗來說，餵飼乾糧似乎是一個簡單的選擇，<mbblock>但對他們來說真的合適嗎？</mbblock>",
-    "block-4-title": "法例下容許了什麼",
+    "block-4-title": "法例下容許了什麼？",
     "block-4-mark-1-title": "以高溫處理腐爛的肉類",
     "block-4-mark-1-content-1": "<h>Yes, certain carcasses or parts may be rejected from use for humans and processed into animal feed.</h>",
     "block-4-mark-1-content-2": "Meat and meat byproducts not directly suitable for animal food that are designated as <h>4-D (dead, dying, diseased or disabled). These are considered adulterated—unless processed in a manner that rids them of disease-causing microorganisms prior to becoming animal feed. This is most often done by rendering,</h> which subjects the materials to heat and pressure to eliminate harmful bacteria.",
@@ -720,7 +720,7 @@
     "block-4-mark-2-content-2": "Unlike meat and “meat by-products,” <h>this ingredient may be from mammals other than cattle, pigs, sheep or goats without further description.</h> However, a manufacturer may designate a species if appropriate (e.g., “beef meal” if only from cattle).",
     "block-4-mark-3-title": "僅需 3% 的成分，<block>就可以聲稱「製作含有」</block>",
     "block-4-mark-3-content-1": "Including <h>the words “with”</h> or “similar” allows an ingredient to be included in the product name or anywhere else on the label at an <h>inclusion rate of at least 3% of each named ingredient.</h> “Honest Jack<apos1></apos1>s Dog Food With Chicken” should contain at least 3% chicken, while “Cynthia<apos1></apos1>s Super Cat Food with Tuna and Rice” should contain at least 3% tuna and 3% rice.",
-    "block-4-mark-4-title": "「天然」與「優質」等詞彙，通常沒有實際意義。",
+    "block-4-mark-4-title": "「天然」與「優質」等詞彙，通常沒有實際意義",
     "block-4-mark-4-content-1": "Does AAFCO have any warnings or recommendations regarding products labeled natural, all-natural or 100% natural?",
     "block-4-mark-4-content-2": "Other than concerns for potential misbranding and misunderstanding amongst consumers, no.",
     "block-4-mark-4-content-3": "<h>Natural and like terms are not expressions of safety, but simply fit a loose definition.</h>",
@@ -751,9 +751,9 @@
     "block-5-mark-4-content-2": "而標籤亦可能誤導消費者，例如「雞肉狗糧」與<h>「含雞肉的狗糧」</h>之間的差異。儘管兩者都自稱為雞肉，<h>後者</h>只需包含 3% 雞肉 (AAFCO)，或 4% (FEDIAF) 即可合法聲稱。",
     "block-5-mark-4-content-3": "此外，研究亦顯示部分寵物食品未有標示成分，甚至缺少他們聲稱使用的成分。<csup>20-24</csup> 最壞情況可能會給狗狗帶來重大的健康風險，尤其是那些有潛在健康問題的狗狗。",
     "block-6-title": "乾糧對您的狗狗<block>有什麼影響？</block>",
-    "block-6-content-1": "雖然不能貿然聲稱直接導致某些疾病，但乾糧中許多成分與不同的健康問題有著莫大關聯，越來越多的<mbblock>研究亦顯示替代飲食方案的重要性。</mbblock>",
-    "block-6-content-2": "當然，並非所有乾糧都以同一方式製造，事實上，在寵物營養中有其一席之地。也有部份值得<mbblock>稱讚的品牌正積極地提升其產品的質量。</mbblock>",
-    "block-6-content-3": "因此，我們堅信每隻狗都應該獲得不僅是滿足飢餓的營養，不應因為「一直都是這樣」就維持現狀，像家庭中的任何成員一樣，他們應該得到恰當的飲食。這是我們創立 OCELLE 的理由，的是讓餵飼鮮食變得更容易。",
+    "block-6-content-1": "雖不能說乾糧直接導致某些疾病，但它有許多成分與不同的健康問題有著莫大關聯，越來越多的研究顯示替代飲食方案的重要性。",
+    "block-6-content-2": "並非所有乾糧都以同一方式製造，事實上，它在寵物營養中有其一席之地。也有部份值得稱讚的品牌正積極地提升其產品的質量。",
+    "block-6-content-3": "因此，我們堅信每隻狗狗都應該獲得不僅是滿足飢餓的營養，不應因為「一直都是這樣」就維持現狀。像家庭中的任何成員一樣，他們應該得到恰當的飲食。這是我們創立 OCELLE 的理由，目的是讓餵飼鮮食變得更容易。",
     "block-7-title": "轉變 見證不同",
     "block-7-content-1": "給狗狗餵飼真鮮的食物是他們健康的關鍵，<block>不應因為食物包裝袋或罐頭上的插圖而作出選擇。</block>",
     "block-7-content-2": "他們的食物應該是真鮮的食物。"
