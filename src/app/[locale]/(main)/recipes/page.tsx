@@ -178,7 +178,7 @@ export default function RecipesPage() {
       picture: '/ingredients/pork-loin.png',
       spacing: 20,
       title: i('pork-loin'),
-      description: i('peas-description'),
+      description: i('pork-loin-description'),
     },
     'pork-liver': {
       picture: '/ingredients/pork-liver.png',
