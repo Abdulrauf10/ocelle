@@ -104,7 +104,7 @@ export default function RawDogFoodVsGentlyCooked() {
         }}
         left={
           <div className="py-24 max-lg:py-0">
-            <h2 className="heading-1 heading-weight-1 text-gold  max-lg:text-center">
+            <h2 className="heading-1 heading-weight-1 text-gold max-lg:text-center">
               {i.rich('block-3-title')}
             </h2>
             <p className="body-1 pt-6">{i.rich('block-3-content-1')}</p>

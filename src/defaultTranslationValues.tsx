@@ -5,6 +5,9 @@ const defaultTranslationValues: RichTranslationValues = {
   b: (chunks) => <b>{chunks}</b>,
   br: () => <br />,
   dtbr: () => <br className="max-xl:hidden" />,
+  smbrhidden: () => <br className="sm:hidden" />,
+  lgbrdisplay: () => <br className="max-lg:hidden" />,
+
   sup: (chunks) => <sup className="body-4 inline-block">{chunks}</sup>,
   //TODO Change style to tailwind
   csup: (chunks) => (
@@ -20,6 +23,7 @@ const defaultTranslationValues: RichTranslationValues = {
   sub: (chunks) => <sub className="body-4 inline-block">{chunks}</sub>,
   nowrap: (chunks) => <span className="whitespace-nowrap">{chunks}</span>,
   block: (chunks) => <span className="inline-block">{chunks}</span>,
+  tabletblockonly: (chunks) => <span className="inline max-sm:inline-block">{chunks}</span>,
   mbblock: (chunks) => <span className="inline max-sm:inline-block">{chunks}</span>,
   baskerville: (chunks) => (
     <span className="relative -top-px font-baskerville font-bold">{chunks}</span>

@@ -167,7 +167,7 @@ export default function ChallengesWithHomeCookingForYourDog() {
                 <div className="relative pt-[68.5%]">
                   <Image src="/why-fresh/raw-vs-gently-cooked-diets.jpg" alt="" fill />
                 </div>
-                <div className="flex h-full items-center justify-center px-4 py-6">
+                <div className="flex h-full items-center justify-center px-2 py-6">
                   <span className="body-1 text-center lang-zh:font-normal">
                     {w.rich('raw-vs-gently-cooked-diets')}
                   </span>

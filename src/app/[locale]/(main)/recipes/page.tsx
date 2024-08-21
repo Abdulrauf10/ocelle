@@ -581,7 +581,7 @@ export default function RecipesPage() {
             {r.rich('block-8-title')}
           </h2>
           <div className="mt-6"></div>
-          <p className="body-1">{r('block-8-content')}</p>
+          <p className="body-1">{r.rich('block-8-content')}</p>
           <Button className="mt-6" href="/get-started">
             {b('create-your-plan')}
           </Button>

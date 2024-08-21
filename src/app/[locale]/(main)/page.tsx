@@ -47,7 +47,9 @@ export default function Home() {
         }}
         right={
           <div className="py-tight">
-            <h2 className="heading-1 heading-weight-1 text-primary">{t.rich('block-3-title')}</h2>
+            <h2 className="heading-1 heading-weight-1 px-4 text-primary">
+              {t.rich('block-3-title')}
+            </h2>
             <div className="pt-tight"></div>
             <List
               picture={<Tickbox className="h-5 w-5" />}
