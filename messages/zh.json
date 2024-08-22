@@ -420,7 +420,7 @@
     "block-1-content-3": "獸醫研發配方",
     "block-1-content-4": "讓您更省心，讓狗狗更健康！",
     "block-2-title": "狗狗是我的寵物 <block>也是我的家人</block>",
-    "block-2-content": "不用猜疑！讓狗狗享受最優質的營養，並為他帶來更長壽及更有活力的生活！<block>這是科學與美味的完美結合。</block>",
+    "block-2-content": "不用猜疑！讓狗狗享受最優質的營養，並為他帶來更長壽及更有活力的生活！<mobilebronly></mobilebronly>這是科學與美味的完美結合。",
     "block-3-title": "更多的歲月 <block>更快樂的時光</block><br></br>是時候從「新」開始",
     "block-3-content-1": "延長壽命",
     "block-3-content-2": "延遲慢性病發作",
@@ -461,7 +461,7 @@
     "sustained-energy": "持績活力充沛",
     "healthier-coat-and-skin": "皮膚和毛髮更健康 ",
     "improved-immunity": "改善免疫力",
-    "block-7-title": "查閱為您狗狗推薦的鮮食計劃！",
+    "block-7-title": "查閱為您狗狗推薦的<smbrhidden></smbrhidden>鮮食計劃！",
     "block-7-content": "專屬鮮食，直送到您家！",
     "no-colours": "",
     "no-fillers": ""
@@ -481,7 +481,7 @@
     "no-fillers": "無填料或動物副製品"
   },
   "Recipes": {
-    "block-1-title": "真鮮美食<br></br>就是我們的秘訣!",
+    "block-1-title": "真鮮美食<d2t1m2></d2t1m2>就是我們的秘訣!",
     "block-1-content-1": "我們的食譜均使用人類食用級別的高質食材精心製造，確保營養全面均衡。嚴選優質蛋白質及蔬菜，並加入特別調配的維生素及礦物質，全面照顧狗狗每個生命階段所需要的營養。",
     "block-1-content-2": "絕不使用高溫加工食材、不含防腐劑、無填充物、無多餘添加物。旨在為他們提供美味而健康的食物。",
     "has-allergies-food-sensitivities": "",
@@ -604,7 +604,7 @@
   },
   "WhyFresh-BenefitsOfFreshDogFood": {
     "block-1-title": "健康的秘訣<block>在於良好的飲食</block><br></br>狗狗也不例外",
-    "block-1-content-1": "大家都明白吃新鮮食物的重要性，但我們的狗狗呢？就像我們一樣。<tabletblockonly>狗狗的健康成長亦有賴營養豐富的天然食材。</tabletblockonly>",
+    "block-1-content-1": "大家都明白吃新鮮食物的重要性，但我們的狗狗呢？就像我們一樣。<sbr></sbr>狗狗的健康成長亦有賴營養豐富的天然食材。",
     "block-2-title": "何謂鮮食飲食？",
     "block-2-content-1": "鮮食飲食注重原材料使用的<medium>完整性</medium>、<medium>品質</medium>和<medium>透明度</medium>。這與我們享用的美食相同，分別在於 OCELLE 會因應狗狗的營養需求而進行適當的調配。",
     "block-2-content-2": "不含填料、添加劑和防腐劑； OCELLE 採用優質天然食材如肉類、蔬菜和水果等，經慢煮烹調方法避免營養流失，提升狗狗的健康及食物的味道。",
@@ -698,7 +698,7 @@
   },
   "WhyFresh-ItsTimeToRethinkKibble": {
     "block-1-title": "是時候重新<block>審視乾糧</block>",
-    "block-1-content-1": "不知不覺中，每天一勺已成為狗狗的日常。但這是否真的足夠？",
+    "block-1-content-1": "不知不覺中，每天一勺已成為狗狗的日常。<br></br>但這是否真的足夠？",
     "block-2-title": "您可知道……",
     "block-2-mark-1-title": "肥胖",
     "block-2-mark-1-content": "全球近 60% 的狗狗處於超重狀態。<csup>1</csup> 這個比例有所上升，某些地區在 2007 年到 2017 年間更上升約 158%。<csup>2</csup>",
@@ -710,7 +710,7 @@
     "block-2-mark-4-content": "近半數超過 10 歲的狗狗會患上癌症。<csup>5</csup>",
     "block-2-quota": "<baskerville>“</baskerville>The chase for convenience…has resulted in continuous, repeat exposure to potentially harmful ingredients.<baskerville>”</baskerville>",
     "block-2-quota-person": "- The Cornucopia Institute",
-    "block-3-content-1": "對狗狗來說，餵飼乾糧似乎是一個簡單的選擇，<mbblock>但對他們來說真的合適嗎？</mbblock>",
+    "block-3-content-1": "對狗狗來說，餵飼乾糧似乎是一個簡單的選擇，<sbr></sbr>但對他們來說真的合適嗎？",
     "block-4-title": "法例下容許了什麼？",
     "block-4-mark-1-title": "以高溫處理腐爛的肉類",
     "block-4-mark-1-content-1": "<h>Yes, certain carcasses or parts may be rejected from use for humans and processed into animal feed.</h>",

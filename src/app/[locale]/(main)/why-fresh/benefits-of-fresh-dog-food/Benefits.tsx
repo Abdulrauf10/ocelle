@@ -124,7 +124,9 @@ export default function Benefits() {
           <ul className="-mb-2 mt-2 list-item pl-7">
             <li className="relative flex items-center py-2">
               <div className="absolute -left-5 select-none text-[60px] text-primary">
-                <span className="relative lang-en:top-1 lang-zh:left-6 lang-zh:top-1">•</span>
+                <span className="relative flex h-full justify-start lang-en:top-1 lang-zh:left-6 lang-zh:top-1">
+                  •
+                </span>
               </div>
               <p className="body-1 lang-zh:pl-6">{i.rich('block-4-benefits-1-content-4-mark-1')}</p>
             </li>
