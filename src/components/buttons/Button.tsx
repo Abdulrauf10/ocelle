@@ -59,41 +59,59 @@ export default React.forwardRef<
     'font-open-sans items-center justify-center rounded-[30px] py-2 px-6 text-center border-2 select-none',
     fullWidth ? 'flex w-full' : 'inline-flex'
   );
-  const reverseBaseClasses = clsx('mouse:hover:border-gray');
+  const reverseBaseClasses = clsx();
   const primaryClasses = clsx(
     'border-primary',
     reverse
-      ? clsx(reverseBaseClasses, 'bg-white text-primary')
+      ? clsx(
+          reverseBaseClasses,
+          'bg-white text-primary mouse:hover:bg-primary mouse:hover:text-white'
+        )
       : 'bg-primary text-white mouse:hover:bg-white mouse:hover:text-primary'
   );
   const secondaryClasses = clsx(
     'border-secondary',
     reverse
-      ? clsx(reverseBaseClasses, 'bg-white text-secondary')
+      ? clsx(
+          reverseBaseClasses,
+          'bg-white text-secondary mouse:hover:bg-secondary mouse:hover:text-white'
+        )
       : 'bg-secondary text-white mouse:hover:bg-white mouse:hover:text-secondary'
   );
   const redClasses = clsx(
     'border-how-it-works-red',
     reverse
-      ? clsx(reverseBaseClasses, 'bg-white text-how-it-works-red')
+      ? clsx(
+          reverseBaseClasses,
+          'bg-white text-how-it-works-red mouse:hover:bg-how-it-works-red mouse:hover:text-white'
+        )
       : 'bg-how-it-works-red text-white mouse:hover:bg-white mouse:hover:text-how-it-works-red'
   );
   const yellowClasses = clsx(
     'border-how-it-works-yellow',
     reverse
-      ? clsx(reverseBaseClasses, 'bg-white text-how-it-works-yellow')
+      ? clsx(
+          reverseBaseClasses,
+          'bg-white text-how-it-works-yellow mouse:hover:bg-how-it-works-yellow mouse:hover:text-white'
+        )
       : 'bg-how-it-works-yellow text-white mouse:hover:bg-white mouse:hover:text-how-it-works-yellow'
   );
   const greenClasses = clsx(
     'border-how-it-works-green',
     reverse
-      ? clsx(reverseBaseClasses, 'bg-white text-how-it-works-green')
+      ? clsx(
+          reverseBaseClasses,
+          'bg-white text-how-it-works-green mouse:hover:bg-how-it-works-green mouse:hover:text-white'
+        )
       : 'bg-how-it-works-green text-white mouse:hover:bg-white mouse:hover:text-how-it-works-green'
   );
   const darkGreenClasses = clsx(
     'border-how-it-works-dark-green',
     reverse
-      ? clsx(reverseBaseClasses, 'bg-white text-how-it-works-dark-green')
+      ? clsx(
+          reverseBaseClasses,
+          'bg-white text-how-it-works-dark-green mouse:hover:bg-how-it-works-dark-green mouse:hover:text-white'
+        )
       : 'bg-how-it-works-dark-green text-white mouse:hover:bg-white mouse:hover:text-how-it-works-dark-green'
   );
   const classes = disabled
