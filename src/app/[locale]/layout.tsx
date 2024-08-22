@@ -46,6 +46,7 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={clsx(jost.variable, openSans.variable, notoSansTC.variable)}>
       <body className="lang-en:font-jost lang-zh:font-zh">
+        <div className="!hidden max-md:block xl:block"></div>
         <IntlProvider locale={locale} messages={messages}>
           <QueryClientProvider>
             <AuthProvider me={me} logout={logout}>

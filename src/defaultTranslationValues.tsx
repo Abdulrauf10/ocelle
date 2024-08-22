@@ -11,7 +11,7 @@ const defaultTranslationValues: RichTranslationValues = {
   sup: (chunks) => <sup className="body-4 inline-block">{chunks}</sup>,
   //TODO Change style to tailwind
   sbr: () => <br className="max-md:hidden xl:hidden" />,
-  d2t1m2: () => <br className="!max-md:block !xl:block hidden" />,
+  d2t1m2: () => <br className="hidden max-md:block xl:block" />,
   csup: (chunks) => (
     <sup className="body-4 inline-block" style={{ fontWeight: 400 }}>
       {chunks}
