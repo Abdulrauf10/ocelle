@@ -40,10 +40,10 @@ export default React.forwardRef<HTMLDivElement, T>(function DatePickerForm(
       const values = { date: startOfDay(date) };
       await action(values);
       setDefaultValues(values);
-      toast('The delivery date for your next box has been successfully updated.');
+      toast(t('the-delivery-date-for-your-next-box-has-been-successfully-updated'));
     });
     if (typeof onComplete === 'function') onComplete();
-  }, [action, setDefaultValues, onComplete, date]);
+  }, [action, setDefaultValues, onComplete, date, t]);
 
   const isSameAsDefaultValue =
     startOfDay(date).getTime() === startOfDay(defaultValues.date).getTime();

@@ -89,8 +89,9 @@ export default function Product({
       }
       const cart = await updateCartLine(currentLine.id, quantity);
       setCart(cart);
+      toast(ip('block-6-content'));
     },
-    [currentLine, setCart]
+    [currentLine, ip, setCart]
   );
 
   const handleButtonClick = React.useCallback(async () => {
