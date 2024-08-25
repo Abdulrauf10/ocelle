@@ -222,6 +222,7 @@
   "card-number": "Card Number",
   "expiration-date": "Expiration Date",
   "cvc": "CVC",
+  "the-delivery-date-for-your-next-box-has-been-successfully-updated": "The delivery date for your next box has been successfully updated.",
   "delivery-date": "Delivery Date",
   "{}-{}-week-starter-box-will-be-delivered-on-the-{}": "{name}’s {week}-week starter box will be delivered on the <block>{date}.</block>",
   "after-checkout-you-can-adjust-your-delivery-date-until-the-{}": "After checkout, you can adjust your delivery date until the <block>{date} 11:59PM.</block>",
@@ -346,7 +347,6 @@
   "forgot-password": "Forgot Password?",
   "new-to-ocelle": "New To OCELLE?",
   "deliveries": "Deliveries",
-  "The-delivery-date-for-your-next-box-has-been-successfully-updated": "The delivery date for your next box has been successfully updated.",
   "Promotion": {
     "content-1": "Get 50% off your starter box! ",
     "content-2": "Order NOW",

@@ -42,7 +42,7 @@ export default function CompletePage() {
 
   if (isLoading || !configurations) {
     return (
-      <Container className="py-24 text-center">
+      <Container className="flex min-h-[100vh] flex-col items-center justify-center py-8">
         <Image
           src="/get-started/loading.gif"
           alt="loading indicator"
@@ -58,7 +58,7 @@ export default function CompletePage() {
   }
 
   return (
-    <Container className="py-24 text-center">
+    <Container className="flex min-h-[100vh] flex-col items-center justify-center py-8">
       <Link href="/" className="relative z-10 mx-auto inline-block px-2">
         <Image
           alt="Ocelle"

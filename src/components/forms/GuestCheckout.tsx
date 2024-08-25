@@ -364,6 +364,14 @@ export default function GuestCheckoutForm({
                           name: 'WhatsApp',
                         }),
                       },
+                      validate: (value, { phone: { code } }) => {
+                        if (code !== '852' || value === '') {
+                          return true;
+                        }
+                        return String(value).length === 8
+                          ? true
+                          : t('please-enter-a-valid-{}', { name: 'Whatsapp' });
+                      },
                     }}
                     disabled={isSubmitInProgress}
                     error={!!errors.whatsapp?.value}

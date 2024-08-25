@@ -51,6 +51,7 @@
   "join-now": "",
   "back-to-{}": "返回{name}頁面",
   "cancel": "取消",
+  "save": "保存",
   "save-changes": "保存變更",
   "continue": "繼續",
   "continue-to-{}": "前往{name}",
@@ -199,6 +200,7 @@
   "card-number": "信用卡號碼",
   "expiration-date": "有效日期",
   "cvc": "安全碼",
+  "the-delivery-date-for-your-next-box-has-been-successfully-updated": "下一週期的鮮食餐盒配送日期已成功更新。",
   "delivery-date": "配送日期",
   "{}-{}-week-starter-box-will-be-delivered-on-the-{}": "{name}的兩週體驗鮮食包將於{date}配送到您家。",
   "after-checkout-you-can-adjust-your-delivery-date-until-the-{}": "結賬後，您仍可於{date}11:59PM或之前修改配送日期。",
@@ -386,8 +388,7 @@
     "careers": "就業機會",
     "affiliate-program": "商戶加盟計劃",
     "our-story": "品牌故事",
-    "my-account": "我的賬戶",
-    "The-delivery-date-for-your-next-box-has-been-successfully-updated": "下一週期的鮮食餐盒配送日期已成功更新。"
+    "my-account": "我的賬戶"
   },
   "Promotion": {
     "content-1": "新客戶可以 5 折優惠訂購鮮食體驗包！",
@@ -489,7 +490,7 @@
     "has-allergies-food-sensitivities": "",
     "has-no-allergies-food-sensitivities": "",
     "fresh-{}-recipe": "鮮{value}食譜",
-    "our-{}-for-dogs-is-formulated-to-meet-the-nutritional-levels": "OCELLE 的{name}食譜是符合 AAFCO 狗糧營養成份表中規定的所有生命階段之營養水平，包括大型犬 (成年犬體重 70 磅或以上) 。",
+    "our-{}-for-dogs-is-formulated-to-meet-the-nutritional-levels": "OCELLE 的{name}食譜是符合 AAFCO 狗糧營養成分表中規定的所有生命階段之營養水平，包括大型犬 (成年犬體重 70 磅或以上) 。",
     "{}-pct-min": "不少於{value}%",
     "{}-pct-max": "不超過{value}%",
     "ingredients": "食物成分",
@@ -544,7 +545,7 @@
     "peas-description": "豌豆熱量低，是植物性蛋白質和纖維的重要來源，有助於消化和營養吸收。它還含有維生素 K、錳和葉酸等的必需維生素和礦物質。",
     "cranberry": "蔓越莓",
     "cranberries": "藍莓",
-    "cranberry-description": "蔓越莓含豐富抗氧化成份的超級食物，有助維持免疫系統健康；同時對牙齒健康也有莫大益處，也有助預防泌尿道感染。",
+    "cranberry-description": "蔓越莓含豐富抗氧化成分的超級食物，有助維持免疫系統健康；同時對牙齒健康也有莫大益處，也有助預防泌尿道感染。",
     "flaxseed": "亞麻籽",
     "flaxseed-description": "亞麻籽是必需脂肪酸和纖維的絕佳來源，促進更好的皮膚、亮麗的毛髮、健康的大腦、強壯的心臟、無痛的關節、減少炎症和改善消化。",
     "salmon-oil": "三文魚油",
