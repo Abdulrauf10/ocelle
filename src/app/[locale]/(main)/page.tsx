@@ -27,11 +27,7 @@ export default function Home() {
         <Container className="text-center text-white">
           <h1 className="heading-1 heading-weight-1">{t.rich('block-2-title')}</h1>
           <div className="mt-6"></div>
-          <p className="body-1">
-            {t.rich('block-2-content', {
-              br: () => <br className="max-lg:hidden" />,
-            })}
-          </p>
+          <p className="body-1">{t.rich('block-2-content')}</p>
         </Container>
       </Block>
       <TwoToneBlock
@@ -79,7 +75,7 @@ export default function Home() {
           <h2 className="heading-1 heading-weight-1 text-center text-primary">
             {t.rich('block-4-title')}
           </h2>
-          <div className="pt-6 max-lg:pt-5"></div>
+          <div className="pt-6 max-lg:pt-[22px]"></div>
           <div className="relative flex-col-reverse items-center max-xl:flex">
             <div className="pb-0 max-xl:flex max-xl:flex-wrap [&>*]:max-xl:m-0 [&>*]:max-xl:mt-3 [&>*]:max-xl:max-w-none [&>*]:max-xl:px-4 [&>*]:max-xl:py-3 [&>*]:max-xl:text-center [&>*]:max-sm:w-full [&_img]:max-xl:inline">
               <div className="ml-14 mt-5 md:w-1/2 xl:w-full">

@@ -422,7 +422,7 @@
     "block-1-content-3": "獸醫研發配方",
     "block-1-content-4": "讓您更省心，讓狗狗更健康！",
     "block-2-title": "狗狗是我的寵物 <block>也是我的家人</block>",
-    "block-2-content": "不用猜疑！讓狗狗享受最優質的營養，並為他帶來更長壽及更有活力的生活！<mobilebronly></mobilebronly>這是科學與美味的完美結合。",
+    "block-2-content": "不用猜疑！讓狗狗享受最優質的營養，<mobilebronly></mobilebronly>並為他帶來更長壽及更有活力的生活！<br></br>這是科學與美味的完美結合。",
     "block-3-title": "更多的歲月 <block>更快樂的時光</block><br></br>是時候從「新」開始",
     "block-3-content-1": "延長壽命",
     "block-3-content-2": "延遲慢性病發作",
@@ -483,7 +483,7 @@
     "no-fillers": "無填料或動物副製品"
   },
   "Recipes": {
-    "block-1-title": "真鮮美食<d2t1m2></d2t1m2> — 就是我們的秘訣!",
+    "block-1-title": "真鮮美食<d2t1m2></d2t1m2><runonadddash></runonadddash>就是我們的秘訣!",
     "block-1-content-1": "我們的食譜均使用人類食用級別的高質食材精心製造，確保營養全面均衡。嚴選優質蛋白質及蔬菜，並加入特別調配的維生素及礦物質，全面照顧狗狗每個生命階段所需要的營養。",
     "block-1-content-2": "絕不使用高溫加工食材、不含防腐劑、無填充物、無多餘添加物。旨在為他們提供美味而健康的食物。",
     "has-allergies-food-sensitivities": "",

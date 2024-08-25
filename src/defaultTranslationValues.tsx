@@ -6,12 +6,13 @@ const defaultTranslationValues: RichTranslationValues = {
   br: () => <br />,
   dtbr: () => <br className="max-xl:hidden" />,
   smbrhidden: () => <br className="sm:hidden" />,
-  mobilebronly: () => <br className="max-sm:hidden" />,
+  mobilebronly: () => <br className="sm:hidden" />,
   lgbrdisplay: () => <br className=" max-lg:hidden" />,
   sup: (chunks) => <sup className="body-4 inline-block">{chunks}</sup>,
   //TODO Change style to tailwind
   sbr: () => <br className="max-md:hidden xl:hidden" />,
   d2t1m2: () => <br className="hidden max-md:block xl:block" />,
+  runonadddash: () => <span className="display max-md:hidden xl:hidden"> — </span>,
   csup: (chunks) => (
     <sup className="body-4 inline-block" style={{ fontWeight: 400 }}>
       {chunks}

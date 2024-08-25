@@ -19,6 +19,7 @@ function Toggler({
   onShow,
   togglerId,
   show,
+  closeTogglerId,
 }: {
   title: React.ReactNode;
   className?: { root?: string };
@@ -26,16 +27,27 @@ function Toggler({
   onShow: any;
   show: boolean;
   togglerId: number;
+  closeTogglerId: number;
 }) {
-  const handleShow = () => onShow && onShow(togglerId);
+  const handleShow = () => {
+    // const openReferencePoint = document.getElementById('Togger-' + { togglerId });
+    // const closeReferencePoint = document.getElementById('Togger-' + { closeTogglerId });
+    // console.log(openReferencePoint);
+    // console.log(closeReferencePoint);
+    // if (openReferencePoint) {
+    //   openReferencePoint.scrollIntoView();
+    // }
+    onShow && onShow(togglerId);
+  };
 
   return (
     <div
       className={clsx(
-        'sh rounded-[20px] border border-gray bg-white px-8 py-6 shadow-black/20 drop-shadow-style-2 max-md:p-6',
+        'rounded-[20px] border border-gray bg-white px-8 py-6 shadow-black/20 drop-shadow-style-2 max-md:p-6',
         className?.root
       )}
       onClick={handleShow}
+      id={'Togger-' + { togglerId }}
     >
       <div className="relative flex max-md:items-center">
         <div className="flex-1">{title}</div>
@@ -90,7 +102,9 @@ function BenefitsTitle({
 export default function Benefits() {
   const i = useTranslations('WhyFresh-BenefitsOfFreshDogFood');
   const [showId, setShowId] = React.useState(0);
-  const handleShow = (id: number) => (id === showId ? setShowId(0) : setShowId(id));
+  const handleShow = (id: number) => {
+    id === showId ? setShowId(0) : setShowId(id);
+  };
   return (
     <Block className="bg-primary bg-opacity-10">
       <h2 className="heading-1 text-center font-bold text-primary lang-zh:font-normal">
@@ -101,6 +115,7 @@ export default function Benefits() {
         <p className="body-1 text-center text-primary">{i.rich('block-4-content-1')}</p>
         <div className="pt-10"></div>
         <Toggler
+          closeTogglerId={showId}
           show={showId === 1}
           title={
             <BenefitsTitle
@@ -146,6 +161,7 @@ export default function Benefits() {
         </Toggler>
         <div className="mt-8"></div>
         <Toggler
+          closeTogglerId={showId}
           show={showId === 2}
           title={
             <BenefitsTitle
@@ -168,6 +184,7 @@ export default function Benefits() {
         </Toggler>
         <div className="mt-8"></div>
         <Toggler
+          closeTogglerId={showId}
           show={showId === 3}
           title={
             <BenefitsTitle
@@ -186,6 +203,7 @@ export default function Benefits() {
         </Toggler>
         <div className="mt-8"></div>
         <Toggler
+          closeTogglerId={showId}
           show={showId === 4}
           title={
             <BenefitsTitle
@@ -217,6 +235,7 @@ export default function Benefits() {
         </Toggler>
         <div className="mt-8"></div>
         <Toggler
+          closeTogglerId={showId}
           show={showId === 5}
           togglerId={5}
           title={
@@ -279,6 +298,7 @@ export default function Benefits() {
         </Toggler>
         <div className="mt-8"></div>
         <Toggler
+          closeTogglerId={showId}
           show={showId === 6}
           togglerId={6}
           title={
@@ -300,6 +320,7 @@ export default function Benefits() {
         </Toggler>
         <div className="mt-8"></div>
         <Toggler
+          closeTogglerId={showId}
           show={showId === 7}
           togglerId={7}
           title={
@@ -318,6 +339,7 @@ export default function Benefits() {
         </Toggler>
         <div className="mt-8"></div>
         <Toggler
+          closeTogglerId={showId}
           show={showId === 8}
           togglerId={8}
           title={
