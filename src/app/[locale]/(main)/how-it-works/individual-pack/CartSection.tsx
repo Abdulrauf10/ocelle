@@ -60,7 +60,7 @@ export default function CartSection() {
       onCheckoutClick={() => router.push('/checkout')}
       disabled={querying}
     >
-      <div className="fixed left-0 top-40 w-full">
+      <div className="fixed left-0 top-52 w-full">
         <Container className="text-right">
           <button type="button">
             <Cart

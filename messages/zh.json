@@ -121,7 +121,7 @@
   "how-old-is-{}": "{name}的歲數？",
   "enter-age": "輸入年齡",
   "select-birthday": "選擇出生日期",
-  "if-youre-unsure-just-give-us-your-best-guess": "如不確定, 請嘗試推測!",
+  "if-youre-unsure-just-give-us-your-best-guess": "如不確定, 請嘗試推測！",
   "come-back-when-your-puppy-is-12-weeks-old": "",
   "what-is-{}-current-weight": "{name}現時的體重？",
   "if-youre-unsure-you-can-always-adjust-this-information-in-your-account-later": "如不確定，可隨時在「我的賬戶」中更改有關資料。",
@@ -302,6 +302,7 @@
   "you-can-make-changes-until-the-{}": "",
   "how-often-would-you-like-to-receive-deliveries": "",
   "save-space": "",
+  "save": "保存",
   "best-value": "",
   "welcome-back-{}": "",
   "keep-tabs-on-your-subscription-and-edit-{}-information": "",
@@ -385,7 +386,8 @@
     "careers": "就業機會",
     "affiliate-program": "商戶加盟計劃",
     "our-story": "品牌故事",
-    "my-account": "我的賬戶"
+    "my-account": "我的賬戶",
+    "The-delivery-date-for-your-next-box-has-been-successfully-updated": "下一週期的鮮食餐盒配送日期已成功更新。"
   },
   "Promotion": {
     "content-1": "新客戶可以 5 折優惠訂購鮮食體驗包！",
@@ -401,7 +403,7 @@
     "build-my-plan": "建立狗狗的專屬方案",
     "create-your-plan": "製定狗狗的專屬方案",
     "see-details": "食譜內容",
-    "nutrition": "營養成份",
+    "nutrition": "營養成分",
     "apply": "使用",
     "see-my-recipes": "瀏覽我的食譜",
     "try-it-today": "立即體驗",
@@ -481,7 +483,7 @@
     "no-fillers": "無填料或動物副製品"
   },
   "Recipes": {
-    "block-1-title": "真鮮美食<d2t1m2></d2t1m2>就是我們的秘訣!",
+    "block-1-title": "真鮮美食<d2t1m2></d2t1m2> — 就是我們的秘訣!",
     "block-1-content-1": "我們的食譜均使用人類食用級別的高質食材精心製造，確保營養全面均衡。嚴選優質蛋白質及蔬菜，並加入特別調配的維生素及礦物質，全面照顧狗狗每個生命階段所需要的營養。",
     "block-1-content-2": "絕不使用高溫加工食材、不含防腐劑、無填充物、無多餘添加物。旨在為他們提供美味而健康的食物。",
     "has-allergies-food-sensitivities": "",
@@ -582,7 +584,7 @@
   },
   "IndividualPack": {
     "block-1-title": "OCELLE 讓鮮食餵飼<br></br>變得更簡單",
-    "block-1-content": "還未決定自動訂購計劃？<br></br>OCELLE備有獨立鮮食包組合，<block>歡迎隨時訂購試食。</block>",
+    "block-1-content": "還未決定自動訂購計劃？<br></br>OCELLE 備有獨立鮮食包組合，<block>歡迎隨時訂購試食。</block>",
     "block-8-title": "讓您的狗狗有一個「新」的開始",
     "block-8-title-1": "由專業獸醫營養師<block>精心調配</block>",
     "block-8-content-1": "很多狗狗患的疾病都跟飲食有關。所以我們的團隊致力研究如何令狗狗獲得更開心及更健康的生活。",
@@ -902,7 +904,7 @@
     "block-6-title": "當 <bold>OCELLE</bold> 配送到您家",
     "block-6-content-1-title": "準備見證狗狗興奮搖尾的時刻！",
     "block-6-content-1-content": "將鮮食放入冰箱，於用餐前 24 小時放到雪櫃解凍。美味的晚餐準備好了！",
-    "block-7-title": "您的狗狗，您的計劃，<block>由您掌控</block>",
+    "block-7-title": "您的狗狗，您的計劃，<block>由您掌控？</block>",
     "block-7-content-1-title": "需要更改？",
     "block-7-content-1-content": "輕鬆更改配送時間或選擇新的食譜。",
     "block-7-content-2-title": "多於一隻狗狗？",

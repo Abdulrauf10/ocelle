@@ -38,8 +38,8 @@ export default function HowPlanWorks({
         <Image
           src="/plan-works/icon-2.png"
           alt="starter box"
-          width={110}
-          height={110}
+          width={109}
+          height={112}
           className="ml-[20px] inline-block"
         />
         <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
@@ -54,7 +54,7 @@ export default function HowPlanWorks({
         <Image
           src="/plan-works/icon-3.png"
           alt="deliver"
-          width={184}
+          width={180}
           height={111}
           className="mr-[20px] inline-block"
         />
