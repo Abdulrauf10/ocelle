@@ -97,7 +97,7 @@ export default function RawDogFoodVsGentlyCooked() {
           bg: 'inset-0',
           bgLeft: 'bg-secondary bg-opacity-[12%]',
           bgRight:
-            'bg-[#c8d4d0] bg-[url("/raw-dog-food-vs-gently-cooked/food-roulette.jpg")] bg-[length:auto_100%] bg-no-repeat max-lg:bg-[-1.5rem] max-md:bg-[url("/raw-dog-food-vs-gently-cooked/food-roulette.jpg")]',
+            'bg-[#c8d4d0] bg-[url("/raw-dog-food-vs-gently-cooked/food-roulette.jpg")] bg-[length:auto_100%] bg-no-repeat max-lg:bg-[-1rem] max-md:bg-[url("/raw-dog-food-vs-gently-cooked/food-roulette.jpg")]',
           container: 'py-10',
           mbLeft: 'px-4 py-10',
           mbRight: 'py-6 max-lg:pt-[72%]',

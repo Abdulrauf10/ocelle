@@ -134,7 +134,7 @@ export default function ItsTimeToRethinkKibble() {
           <div className="mt-4"></div>
           <p className="body-1 text-center">
             {i.rich('block-1-content-1', {
-              br: () => <br className="max-md:hidden" />,
+              br: () => <br className="md:hidden" />,
             })}
           </p>
         </Container>
@@ -159,25 +159,57 @@ export default function ItsTimeToRethinkKibble() {
                     <span className="font-bold text-gold  lang-zh:font-normal">
                       {t('{}-colon', { value: i('block-2-mark-1-title') })}
                     </span>
-                    <span>{i.rich('block-2-mark-1-content')}</span>
+                    <span>
+                      {i.rich('block-2-mark-1-content', {
+                        csup: (chunks) => (
+                          <sup className="body-4 lang-zh: top-[-0.7em] inline-block font-[400]">
+                            {chunks}
+                          </sup>
+                        ),
+                      })}
+                    </span>
                   </p>,
                   <p key="block-2-mark-2" className="body-1">
                     <span className="font-bold text-gold  lang-zh:font-normal">
                       {t('{}-colon', { value: i('block-2-mark-2-title') })}
                     </span>
-                    <span>{i.rich('block-2-mark-2-content')}</span>
+                    <span>
+                      {i.rich('block-2-mark-2-content', {
+                        csup: (chunks) => (
+                          <sup className="body-4 lang-zh: top-[-0.7em] inline-block font-[400]">
+                            {chunks}
+                          </sup>
+                        ),
+                      })}
+                    </span>
                   </p>,
                   <p key="block-2-mark-3" className="body-1">
                     <span className="font-bold text-gold  lang-zh:font-normal">
                       {t('{}-colon', { value: i('block-2-mark-3-title') })}
                     </span>
-                    <span>{i.rich('block-2-mark-3-content')}</span>
+                    <span>
+                      {i.rich('block-2-mark-3-content', {
+                        csup: (chunks) => (
+                          <sup className="body-4 lang-zh: top-[-0.7em] inline-block font-[400]">
+                            {chunks}
+                          </sup>
+                        ),
+                      })}
+                    </span>
                   </p>,
                   <p key="block-2-mark-4" className="body-1">
                     <span className="font-bold text-gold  lang-zh:font-normal">
                       {t('{}-colon', { value: i('block-2-mark-4-title') })}
                     </span>
-                    <span>{i.rich('block-2-mark-4-content')}</span>
+                    <span>
+                      {i.rich('block-2-mark-4-content', {
+                        csup: (chunks) => (
+                          <sup className="body-4 lang-zh: top-[-0.7em] inline-block font-[400]">
+                            {chunks}
+                          </sup>
+                        ),
+                      })}
+                    </span>
                   </p>,
                 ]}
               />
@@ -464,7 +496,7 @@ export default function ItsTimeToRethinkKibble() {
             {i.rich('block-7-title')}
           </h2>
           <div className="mt-6"></div>
-          <p className="body-1 text-white">{i.rich('block-7-content-1')}</p>
+          <p className="body-1 text-white max-sm:lang-zh:-mx-4">{i.rich('block-7-content-1')}</p>
           <div className="mt-1 max-md:mt-4"></div>
           <p className="body-1 text-white">{i.rich('block-7-content-2')}</p>
           <Button className="mt-8" href="/get-started">
