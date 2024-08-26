@@ -32,7 +32,9 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
           className="drop-shadow-style-3 max-lg:drop-shadow-style-4 max-w-[560px] rounded-[30px] bg-white py-12 pl-12 pr-24 text-left shadow-gold/30 max-lg:-mt-5 max-lg:ml-8 max-lg:px-12 max-lg:py-10"
         > */}
         <div className="max-w-[560px] rounded-[30px] bg-white py-12 pl-12 pr-24 text-left shadow-gold/30 drop-shadow-style-3 max-lg:-mt-5 max-lg:ml-8 max-lg:px-6 max-lg:py-10 max-lg:drop-shadow-style-4">
-          <h3 className="heading-3 heading-weight-2 text-gold">{h('{}-plan', { name: dog })}</h3>
+          <h3 className="heading-3 heading-weight-2 text-gold">
+            {h.rich('{}-plan', { name: dog })}
+          </h3>
           <div className="pt-4"></div>
           <div className="inline-block rounded-3xl border border-current px-11 py-1 uppercase text-gold">
             <span className="body-1">{plan}</span>

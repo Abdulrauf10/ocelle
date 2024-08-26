@@ -82,7 +82,6 @@ export default function HowItWorksSubscription() {
                 <div className="pt-3"></div>
                 <p className="body-1 lg:lang-zh:px-[-12px]">{t('fresh-full-plan:description')}</p>
               </div>
-              1
             </div>
             <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full max-sm:px-0">
               <div className="relative h-full w-full rounded-[40px] border border-dark-green bg-white p-10 pt-16 text-center drop-shadow-[12px_12px_5px_rgba(0,0,0,0.2)] max-xs:px-4">
