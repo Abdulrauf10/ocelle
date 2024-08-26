@@ -68,7 +68,7 @@ export default function DogPreference1Fragment() {
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <Container className="text-center">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <Section
             title={t('what-is-{}-current-weight', { name })}
             description={t(

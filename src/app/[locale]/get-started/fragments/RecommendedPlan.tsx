@@ -575,16 +575,16 @@ export default function RecommendedPlanFragment() {
                     <div className="mr-1">{t('{}-colon', { value: t('starter-box') })}</div>
                     <div>
                       <span className="inline-block">
-                        <Price value={roundTo(boxPrice.total, 1)} discount />
+                        <Price value={roundTo(boxPrice.total, 1).toFixed(2)} discount />
                         <Price
                           className="ml-1 font-bold"
-                          value={roundTo(boxPrice.discountedTotal, 2)}
+                          value={roundTo(boxPrice.discountedTotal, 2).toFixed(2)}
                         />{' '}
                         (
-                        <Price value={roundTo(boxPrice.daily, 2)} discount />
+                        <Price value={roundTo(boxPrice.daily, 2).toFixed(2)} discount />
                         <Price
                           className="ml-1 font-bold"
-                          value={roundTo(boxPrice.discountedDaily, 2)}
+                          value={roundTo(boxPrice.discountedDaily, 2).toFixed(2)}
                         />
                         <span className="font-bold text-dark-green">{t('per-day')}</span>)
                       </span>

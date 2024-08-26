@@ -35,7 +35,7 @@ export default function FreshPlan({
   return (
     <div
       className={clsx(
-        'drop-shadow-style-1 mx-auto flex h-full max-w-[400px] cursor-pointer flex-col rounded-[30px] border bg-white p-6 text-left shadow-black/20',
+        'mx-auto flex h-full max-w-[400px] cursor-pointer flex-col rounded-[30px] border bg-white p-6 text-left shadow-black/20 drop-shadow-style-1',
         error
           ? 'border-error'
           : selected
@@ -87,9 +87,9 @@ export default function FreshPlan({
           <p className="mt-2">
             Starting at:
             <br />
-            <Price value={pricePerDay} discount={!!discountedPricePerDay} />
+            <Price value={pricePerDay.toFixed(2)} discount={!!discountedPricePerDay} />
             {discountedPricePerDay && (
-              <Price className="ml-1 font-bold" value={discountedPricePerDay} />
+              <Price className="ml-1 font-bold" value={discountedPricePerDay.toFixed(2)} />
             )}
             <span className="font-bold text-dark-green">/day</span>.
           </p>

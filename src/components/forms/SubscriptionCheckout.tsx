@@ -677,7 +677,7 @@ export default function SubscriptionCheckoutForm({
               <SummaryBlock>
                 <div className="-mx-1 flex flex-wrap justify-between font-bold">
                   <div className="px-1">{t('{}-colon', { value: t('todays-total') })}</div>
-                  <div className="px-1">${draftOrder.total.gross.amount}</div>
+                  <div className="px-1">${draftOrder.total.gross.amount.toFixed(2)}</div>
                 </div>
                 <div className="mt-4">
                   <RoundedCheckbox
