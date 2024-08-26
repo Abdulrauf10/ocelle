@@ -1,4 +1,3 @@
-import Decimal from 'decimal.js';
 import { roundTo } from 'round-to';
 
 import productService from './product';
@@ -110,68 +109,20 @@ export default class PriceService {
     frequency: Frequency,
     transitionPeriod: boolean
   ) {
-    const products = await productService.find({
-      where: {
-        slug: {
-          oneOf: Object.values(subscriptionProducts).map((product) => product.slug),
-        },
-      },
-    });
-    const recipe1Days = RecipeHelper.calculateTotalDaysInBox(
-      { recipeToBeCalcuate: recipes.recipe1, recipeReference: recipes.recipe2 },
-      frequency,
-      transitionPeriod
-    );
-    const { price: recipe1TotalPriceInBox } = this.calculateRecipeBoxPrice(
-      products,
+    const boxPrice = await this.calculateBoxPrice(
       breeds,
       dateOfBirth,
       neutered,
       currentWeight,
       condition,
       activityLevel,
-      { recipeToBeCalcuate: recipes.recipe1, recipeReference: recipes.recipe2 },
+      recipes,
       plan,
       frequency,
       transitionPeriod
     );
-    const recipe1PerDayPrice = roundTo(
-      new Decimal(recipe1TotalPriceInBox)
-        .div(recipe1Days.transitionPeriodDays + recipe1Days.normalDays)
-        .toNumber(),
-      2
-    );
 
-    if (!recipes.recipe2) {
-      return recipe1PerDayPrice;
-    }
-
-    const recipe2Days = RecipeHelper.calculateTotalDaysInBox(
-      { recipeToBeCalcuate: recipes.recipe2, recipeReference: recipes.recipe1 },
-      frequency,
-      transitionPeriod
-    );
-    const { price: recipe2TotalPriceInBox } = this.calculateRecipeBoxPrice(
-      products,
-      breeds,
-      dateOfBirth,
-      neutered,
-      currentWeight,
-      condition,
-      activityLevel,
-      { recipeToBeCalcuate: recipes.recipe2, recipeReference: recipes.recipe1 },
-      plan,
-      frequency,
-      transitionPeriod
-    );
-    const recipe2PerDayPrice = roundTo(
-      new Decimal(recipe2TotalPriceInBox)
-        .div(recipe2Days.transitionPeriodDays + recipe2Days.normalDays)
-        .toNumber(),
-      2
-    );
-
-    return recipe1PerDayPrice + recipe2PerDayPrice;
+    return roundTo(boxPrice / (frequency === Frequency.OneWeek ? 7 : 14), 2);
   }
 
   static async calculateDiscountedBoxPrice(

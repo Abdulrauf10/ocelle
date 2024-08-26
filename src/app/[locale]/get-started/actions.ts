@@ -40,7 +40,7 @@ export async function calculateDogsTotalPerDayPrice(dogs: DogDto[]) {
       { recipe1: dog.recipe1, recipe2: dog.recipe2 },
       dog.mealPlan,
       Frequency.TwoWeek,
-      true
+      dog.isEnabledTransitionPeriod
     );
     values.push({ name: dog.name, price });
   }

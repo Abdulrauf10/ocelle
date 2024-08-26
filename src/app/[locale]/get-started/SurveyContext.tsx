@@ -132,6 +132,7 @@ export function dogToDogDto({
   mealPlan,
   isEnabledTransitionPeriod,
   recipe1,
+  recipe2,
 }: Dog): DogDto {
   if (
     name === undefined ||
@@ -170,5 +171,6 @@ export function dogToDogDto({
     mealPlan,
     isEnabledTransitionPeriod,
     recipe1,
+    recipe2,
   };
 }
