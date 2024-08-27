@@ -35,7 +35,7 @@ export default function WelcomeFragment() {
             {t('this-should-only-take-about-2-minutes-per-dog')}
           </p>
           <Button className="mt-8" onClick={() => navigate(Stage.Dog)}>
-            {b('lets-get-started')}
+            {b.rich('lets-get-started')}
           </Button>
         </Section>
         <Benefits />
