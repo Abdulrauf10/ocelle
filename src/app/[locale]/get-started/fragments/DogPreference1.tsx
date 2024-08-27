@@ -71,7 +71,7 @@ export default function DogPreference1Fragment() {
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <Section
             title={t('what-is-{}-current-weight', { name })}
-            description={t(
+            description={t.rich(
               'if-youre-unsure-you-can-always-adjust-this-information-in-your-account-later'
             )}
           >

@@ -66,7 +66,7 @@ export default function DogAgeFragment() {
       <Container className="text-center">
         <Section
           title={t('how-old-is-{}', { name })}
-          description={t('if-youre-unsure-just-give-us-your-best-guess')}
+          description={t.rich('if-youre-unsure-just-give-us-your-best-guess')}
         >
           <div className="mx-auto mt-8 flex max-w-[260px] justify-between">
             <UnderlineButton

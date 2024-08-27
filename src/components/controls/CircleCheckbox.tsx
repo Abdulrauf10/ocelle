@@ -4,7 +4,7 @@ import { type FieldValues, useController } from 'react-hook-form';
 import { InputControllerProps } from '@/types';
 
 interface CircleCheckboxProps<T extends FieldValues> extends InputControllerProps<T> {
-  label: string;
+  label: React.ReactNode;
   className?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }

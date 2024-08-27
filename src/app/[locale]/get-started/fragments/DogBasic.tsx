@@ -185,7 +185,7 @@ export default function DogBasicFragment() {
                   <CircleCheckbox
                     control={control}
                     name="isUnknownBreed"
-                    label={t('dont-know-the-breed')}
+                    label={t.rich('dont-know-the-breed')}
                     onChange={() => setValue('breeds', [])}
                   />
                 </div>
