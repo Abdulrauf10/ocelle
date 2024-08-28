@@ -126,7 +126,7 @@ export default function Header({
             </div>
           </div>
           {!disableLoginButton && (
-            <div className="relative z-10 px-2">
+            <div className="relative z-10 px-2 max-lg:hidden">
               {me ? (
                 <Link
                   href="/account/plan"
@@ -142,7 +142,7 @@ export default function Header({
             </div>
           )}
           {!disableLoginButton && me && (
-            <div className="px-2 max-lg:hidden">
+            <div className="relative z-10 px-2 max-lg:hidden">
               <button className="whitespace-nowrap hover:underline" onClick={() => logout()}>
                 {t('log-out')}
               </button>
