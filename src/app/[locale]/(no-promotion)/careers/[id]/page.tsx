@@ -10,7 +10,7 @@ import { CareerLine } from '@/entities';
 import { CareerLineType } from '@/enums';
 import careerService from '@/services/career';
 
-function CareerBlock({ title, lines }: { title: string; lines: CareerLine[] }) {
+function CareerBlock({ title, lines }: { title: React.ReactNode; lines: CareerLine[] }) {
   return (
     <div className="overflow-hidden rounded-[30px] border-2 border-primary">
       <h2 className="body-1 body-weight-1 bg-primary px-8 py-4 text-white">{title}</h2>
@@ -47,17 +47,17 @@ export default async function CareerView({ params }: { params: { id: string } })
       <Title career={career} />
       <Block styles="custom" className="flex grow flex-col bg-gold bg-opacity-10 py-6">
         <Container className="flex max-w-screen-lg grow flex-col">
-          <p className="body-3">{c('detail-content-1')}</p>
+          <p className="body-3">{c.rich('detail-content-1')}</p>
           <div className="mt-6"></div>
-          <p className="body-3">{c('detail-content-2')}</p>
+          <p className="body-3">{c.rich('detail-content-2')}</p>
           <div className="mt-6"></div>
           <CareerBlock
-            title={c('what-you’ll-do')}
+            title={c.rich('what-you’ll-do')}
             lines={career.lines.filter((line) => line.lineType === CareerLineType.Responsibility)}
           />
           <div className="mt-6"></div>
           <CareerBlock
-            title={c('what-you’ll-need')}
+            title={c.rich('what-you’ll-need')}
             lines={career.lines.filter((line) => line.lineType === CareerLineType.Requirement)}
           />
           <div className="mt-6"></div>
@@ -66,7 +66,7 @@ export default async function CareerView({ params }: { params: { id: string } })
             lines={career.lines.filter((line) => line.lineType === CareerLineType.Benefit)}
           />
           <div className="mt-6"></div>
-          <p className="body-3 italic">{c('detail-content-3')}</p>
+          <p className="body-3 italic">{c.rich('detail-content-3')}</p>
           <div className="mt-6"></div>
           <div className="text-center">
             <Button className="min-w-[180px]" href={`./${params.id}/apply`}>

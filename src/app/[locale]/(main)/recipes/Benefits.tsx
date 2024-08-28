@@ -16,7 +16,7 @@ export default function RecipeBenefits() {
     return [
       {
         title: r('block-7-title-1'),
-        description: r('block-7-content-1'),
+        description: r.rich('block-7-content-1'),
       },
       {
         title: r('block-7-title-2'),
@@ -24,19 +24,19 @@ export default function RecipeBenefits() {
       },
       {
         title: r('block-7-title-3'),
-        description: r('block-7-content-3'),
+        description: r.rich('block-7-content-3'),
       },
       {
         title: r('block-7-title-4'),
-        description: r('block-7-content-4'),
+        description: r.rich('block-7-content-4'),
       },
       {
         title: r('block-7-title-5'),
-        description: r('block-7-content-5'),
+        description: r.rich('block-7-content-5'),
       },
       {
         title: r('block-7-title-6'),
-        description: r('block-7-content-6'),
+        description: r.rich('block-7-content-6'),
       },
     ];
   }, [r]);

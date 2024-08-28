@@ -189,15 +189,15 @@ export default function OurStory() {
               <span className="lang-zh:font-normal lg:hidden">{a.rich('block-4-title-lg')}</span>
             </h2>
             <div className="mt-8"></div>
-            <p className="body-1">{a('block-4-content-1')}</p>
+            <p className="body-1">{a.rich('block-4-content-1')}</p>
             <div className="mt-4"></div>
-            <p className="body-1">{a('block-4-content-2')}</p>
+            <p className="body-1">{a.rich('block-4-content-2')}</p>
             <div className="mt-4"></div>
-            <p className="body-1">{a('block-4-content-3')}</p>
+            <p className="body-1">{a.rich('block-4-content-3')}</p>
             <div className="mt-4"></div>
-            <p className="body-1">{a('block-4-content-4')}</p>
+            <p className="body-1">{a.rich('block-4-content-4')}</p>
             <div className="mt-4"></div>
-            <p className="body-1">{a('block-4-content-5')}</p>
+            <p className="body-1">{a.rich('block-4-content-5')}</p>
           </div>
         }
         right={

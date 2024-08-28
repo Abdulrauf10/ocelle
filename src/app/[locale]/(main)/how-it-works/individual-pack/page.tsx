@@ -222,7 +222,7 @@ export default async function HowItWorksIndividual() {
                     {ip.rich('block-8-title-1')}
                   </h3>
                   <div className="mt-3"></div>
-                  <p className="body-1">{ip('block-8-content-1')}</p>
+                  <p className="body-1">{ip.rich('block-8-content-1')}</p>
                 </div>
                 <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
                   <div className="relative pt-[89.4%]">
@@ -238,7 +238,7 @@ export default async function HowItWorksIndividual() {
                     {ip.rich('block-8-title-2')}
                   </h3>
                   <div className="mt-3"></div>
-                  <p className="body-1">{ip('block-8-content-2')}</p>
+                  <p className="body-1">{ip.rich('block-8-content-2')}</p>
                 </div>
                 <div className="mx-auto w-1/3 max-w-screen-xs px-4 py-4 max-md:w-full">
                   <div className="relative pt-[89.4%]">
@@ -254,7 +254,7 @@ export default async function HowItWorksIndividual() {
                     {ip.rich('block-8-title-3')}
                   </h3>
                   <div className="mt-3"></div>
-                  <p className="body-1">{ip('block-8-content-3')}</p>
+                  <p className="body-1">{ip.rich('block-8-content-3')}</p>
                 </div>
               </div>
             </div>
