@@ -1,4 +1,6 @@
+import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 import pluralize from 'pluralize';
 
 import RecipeBenefits from './Benefits';
@@ -15,11 +17,15 @@ import RecipeHelper from '@/helpers/recipe';
 import useSentence from '@/hooks/useSentence';
 
 function EndAdornment({
+  className,
   recipe,
   ingredients,
   calorie,
   analysis,
 }: {
+  className?: {
+    picture?: string;
+  };
   recipe: Recipe;
   ingredients: Array<{
     spacing?: number;
@@ -45,7 +51,23 @@ function EndAdornment({
         <div className="flex-1 p-2 text-center">
           <RecipeLargeDialog
             recipe={sentence.recipe(recipe)}
-            recipePicture={`/dispersion/${RecipeHelper.getSlug(recipe)}.gif`}
+            picture={
+              <div
+                className={clsx(
+                  'relative overflow-hidden rounded-[30px] bg-gradient-to-b from-30% to-white pt-[100%]',
+                  className?.picture
+                )}
+              >
+                <Image
+                  src={`/dispersion/${RecipeHelper.getSlug(recipe)}.gif`}
+                  alt=""
+                  role="presentation"
+                  fill
+                  unoptimized
+                  className="object-contain object-bottom"
+                />
+              </div>
+            }
             ingredients={ingredients}
             calorie={calorie}
             analysis={analysis}
@@ -317,6 +339,9 @@ export default function RecipesPage() {
         alt={sentence.recipe(Recipe.Chicken)}
         endAdornment={
           <EndAdornment
+            className={{
+              picture: 'from-[#95cfd0]',
+            }}
             recipe={Recipe.Chicken}
             ingredients={[
               ingredients['chicken-breast'],
@@ -369,6 +394,9 @@ export default function RecipesPage() {
         reverse
         endAdornment={
           <EndAdornment
+            className={{
+              picture: 'from-[#f7c1b5]',
+            }}
             recipe={Recipe.Beef}
             ingredients={[
               ingredients['beef-chuck'],
@@ -423,6 +451,9 @@ export default function RecipesPage() {
         alt={sentence.recipe(Recipe.Pork)}
         endAdornment={
           <EndAdornment
+            className={{
+              picture: 'from-[#97cfea]',
+            }}
             recipe={Recipe.Pork}
             ingredients={[
               ingredients['pork-loin'],
@@ -475,6 +506,9 @@ export default function RecipesPage() {
         reverse
         endAdornment={
           <EndAdornment
+            className={{
+              picture: 'from-[#cae8b8]',
+            }}
             recipe={Recipe.Lamb}
             ingredients={[
               ingredients['lamb-leg'],
@@ -527,6 +561,9 @@ export default function RecipesPage() {
         alt={sentence.recipe(Recipe.Duck)}
         endAdornment={
           <EndAdornment
+            className={{
+              picture: 'from-[#f9cc81]',
+            }}
             recipe={Recipe.Duck}
             ingredients={[
               ingredients['duck-breast'],

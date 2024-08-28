@@ -48,14 +48,14 @@ function SwiperDialogBlock({
 
 export default function RecipeLargeDialog({
   recipe,
-  recipePicture,
+  picture,
   ingredients,
   calorie,
   analysis,
   children,
 }: React.PropsWithChildren<{
   recipe: string;
-  recipePicture: string;
+  picture: React.ReactNode;
   ingredients: Array<{
     spacing?: number;
     picture: string;
@@ -86,9 +86,7 @@ export default function RecipeLargeDialog({
               </div>
               <div className="w-full p-3">
                 <div className="w-full min-w-[420px] max-lg:min-w-[340px] max-sm:min-w-0">
-                  <div className="relative overflow-hidden rounded-[30px] pt-[100%]">
-                    <Image src={recipePicture} alt={recipe} fill unoptimized />
-                  </div>
+                  {picture}
                 </div>
               </div>
             </div>
