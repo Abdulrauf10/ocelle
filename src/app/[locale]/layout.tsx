@@ -1,3 +1,4 @@
+import { GoogleAnalytics } from '@next/third-parties/google';
 import clsx from 'clsx';
 import type { Metadata } from 'next';
 import { Jost, Noto_Sans_TC, Open_Sans } from 'next/font/google';
@@ -62,6 +63,7 @@ export default async function RootLayout({
           </QueryClientProvider>
         </IntlProvider>
       </body>
+      {process.env.GA && <GoogleAnalytics gaId={process.env.GA} />}
     </html>
   );
 }
