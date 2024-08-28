@@ -308,6 +308,7 @@ class CheckoutService {
       checkoutShippingAddressUpdate.errors.length > 0 ||
       checkoutBillingAddressUpdate.errors.length > 0
     ) {
+      console.log(deliveryAddress, billingAddress);
       throw new CheckoutUpdateAddressError([
         ...(checkoutShippingAddressUpdate?.errors || []),
         ...(checkoutBillingAddressUpdate?.errors || []),

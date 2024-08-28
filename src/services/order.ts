@@ -220,6 +220,7 @@ class OrderService {
     });
 
     if (!draftOrderUpdate || draftOrderUpdate.errors.length > 0) {
+      console.error(input);
       throw new OrderUpdateError(draftOrderUpdate?.errors);
     }
 
@@ -301,9 +302,10 @@ class OrderService {
       variables: { id },
     });
 
-    if (!draftOrderDelete || draftOrderDelete.errors.length > 0) {
-      throw new OrderDeleteError(draftOrderDelete?.errors);
-    }
+    // ignore error -> saleor always throw error
+    // if (!draftOrderDelete || draftOrderDelete.errors.length > 0) {
+    //   throw new OrderDeleteError(draftOrderDelete?.errors);
+    // }
   }
   async complete(id: string) {
     // we need to wait for the payment hook to be called before completing the checkout

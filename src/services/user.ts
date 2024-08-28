@@ -58,6 +58,7 @@ async function findOrCreateSaleorUser(
     },
   });
   if (!accountRegister || accountRegister.errors.length > 0) {
+    console.error(firstName, lastName, email, password);
     throw new UserCreateError(accountRegister?.errors);
   }
   return accountRegister.user!;
