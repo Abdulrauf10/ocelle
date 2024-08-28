@@ -37,7 +37,7 @@ export default function Product({
   analysis,
 }: {
   picture: string;
-  dialogPicture?: string;
+  dialogPicture?: React.ReactNode;
   reverse?: boolean;
   theme?: 'primary' | 'secondary' | 'red' | 'yellow' | 'green' | 'dark-green';
   className: {
@@ -152,11 +152,7 @@ export default function Product({
                   description={description.map((content, idx) => (
                     <div key={idx} dangerouslySetInnerHTML={{ __html: xss(content) }} />
                   ))}
-                  picture={
-                    <div className="relative overflow-hidden rounded-2xl pt-[100%]">
-                      <Image src={dialogPicture!} alt={name} fill />
-                    </div>
-                  }
+                  picture={dialogPicture}
                   ingredients={ingredients}
                   targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                   calorie={calorie}

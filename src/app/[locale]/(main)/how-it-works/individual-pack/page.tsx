@@ -74,7 +74,17 @@ export default async function HowItWorksIndividual() {
         <Product
           product={products[IndividualRecipePack.Chicken]}
           picture="/individual-pack/chicken.jpg"
-          dialogPicture="/dispersion/chicken.gif"
+          dialogPicture={
+            <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#95cfd0] from-30% to-white max-md:pt-[100%]">
+              <Image
+                src="/dispersion/chicken.gif"
+                alt=""
+                role="presentation"
+                className="object-contain object-bottom"
+                fill
+              />
+            </div>
+          }
           theme="dark-green"
           className={{
             root: 'bg-how-it-works-dark-green bg-opacity-[8%]',
@@ -101,7 +111,17 @@ export default async function HowItWorksIndividual() {
         <Product
           product={products[IndividualRecipePack.Beef]}
           picture="/individual-pack/beef.jpg"
-          dialogPicture="/dispersion/beef.gif"
+          dialogPicture={
+            <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#f7c1b5] from-30% to-white max-md:pt-[100%]">
+              <Image
+                src="/dispersion/beef.gif"
+                alt=""
+                role="presentation"
+                className="object-contain object-bottom"
+                fill
+              />
+            </div>
+          }
           theme="red"
           className={{
             root: 'bg-how-it-works-red bg-opacity-[8%]',
@@ -127,7 +147,17 @@ export default async function HowItWorksIndividual() {
         <Product
           product={products[IndividualRecipePack.Pork]}
           picture="/individual-pack/pork.jpg"
-          dialogPicture="/dispersion/pork.gif"
+          dialogPicture={
+            <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#97cfea] from-30% to-white max-md:pt-[100%]">
+              <Image
+                src="/dispersion/pork.gif"
+                alt=""
+                role="presentation"
+                className="object-contain object-bottom"
+                fill
+              />
+            </div>
+          }
           theme="primary"
           className={{
             root: 'bg-primary bg-opacity-[8%]',
@@ -154,7 +184,17 @@ export default async function HowItWorksIndividual() {
         <Product
           product={products[IndividualRecipePack.Lamb]}
           picture="/individual-pack/lamb.jpg"
-          dialogPicture="/dispersion/lamb.gif"
+          dialogPicture={
+            <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#cae8b8] from-30% to-white max-md:pt-[100%]">
+              <Image
+                src="/dispersion/lamb.gif"
+                alt=""
+                role="presentation"
+                className="object-contain object-bottom"
+                fill
+              />
+            </div>
+          }
           theme="green"
           className={{
             root: 'bg-how-it-works-green bg-opacity-[8%]',
@@ -179,7 +219,17 @@ export default async function HowItWorksIndividual() {
         <Product
           product={products[IndividualRecipePack.Duck]}
           picture="/individual-pack/duck.jpg"
-          dialogPicture="/dispersion/duck.gif"
+          dialogPicture={
+            <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#f9cc81] from-30% to-white max-md:pt-[100%]">
+              <Image
+                src="/dispersion/duck.gif"
+                alt=""
+                role="presentation"
+                className="object-contain object-bottom"
+                fill
+              />
+            </div>
+          }
           className={{
             root: 'bg-[#FCBB00] bg-opacity-[8%]',
             title: 'text-secondary',
