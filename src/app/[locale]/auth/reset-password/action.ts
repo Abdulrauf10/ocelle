@@ -11,7 +11,7 @@ interface ResetPasswordAction {
 }
 
 const schema = Joi.object<ResetPasswordAction>({
-  email: Joi.string().required(),
+  email: Joi.string().lowercase().required(),
   password: Joi.string().required(),
   token: Joi.string().required(),
 });

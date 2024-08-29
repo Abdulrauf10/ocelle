@@ -15,7 +15,7 @@ const baseAddress = {
 const updateCheckoutDataActionSchema = Joi.object<UpdateCheckoutDataAction>({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
-  email: Joi.string().required(),
+  email: Joi.string().lowercase().required(),
   phone: Joi.object({
     code: Joi.string().required(),
     value: Joi.string().required(),

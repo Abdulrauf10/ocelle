@@ -15,7 +15,7 @@ const baseAddress = {
 const handleMutateDraftOrderActionSchema = Joi.object<HandleMutateDraftOrderAction>({
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
-  email: Joi.string().required(),
+  email: Joi.string().lowercase().required(),
   password: Joi.string().required(),
   phone: Joi.object({
     code: Joi.string().required(),

@@ -6,7 +6,7 @@ const applyCareerActionSchema = Joi.object<ApplyCareerAction>({
   id: Joi.string().required(),
   firstName: Joi.string().required(),
   lastName: Joi.string().required(),
-  email: Joi.string().required(),
+  email: Joi.string().lowercase().required(),
   phoneCountryCode: Joi.string().required(),
   phoneValue: Joi.string().required(),
   resume: Joi.custom((value, helpers) =>

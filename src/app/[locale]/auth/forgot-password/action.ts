@@ -9,7 +9,7 @@ interface ForgotPasswordAction {
 }
 
 const schema = Joi.object<ForgotPasswordAction>({
-  email: Joi.string().required(),
+  email: Joi.string().lowercase().required(),
 });
 
 export default async function forgotPasswordAction(data: ForgotPasswordAction) {

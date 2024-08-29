@@ -13,7 +13,7 @@ interface LoginAction {
 }
 
 const schema = Joi.object<LoginAction>({
-  email: Joi.string().required(),
+  email: Joi.string().lowercase().required(),
   password: Joi.string().required(),
 });
 
