@@ -80,9 +80,7 @@ export default function HowItWorksSubscription() {
                   {t('fresh-full-plan')}
                 </h3>
                 <div className="pt-3"></div>
-                <p className="body-1 lg:lang-zh:px-[-12px]">
-                  {t.rich('fresh-full-plan:description')}
-                </p>
+                <p className="body-1 lg:lang-zh:-mx-4">{t.rich('fresh-full-plan:description')}</p>
               </div>
             </div>
             <div className="w-[45%] max-w-[520px] self-stretch p-8 max-lg:w-full max-sm:px-0">
@@ -95,7 +93,7 @@ export default function HowItWorksSubscription() {
                   {t('fresh-half-plan')}
                 </h3>
                 <div className="pt-3"></div>
-                <p className="body-1 lg:lang-zh:px-[-12px]">
+                <p className="body-1 lg:lang-zh:lg:lang-zh:-mx-4">
                   {t.rich('fresh-half-plan:description')}
                 </p>
               </div>
