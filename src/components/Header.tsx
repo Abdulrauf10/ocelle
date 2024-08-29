@@ -47,7 +47,7 @@ export default function Header({
         <div className="-mx-2 flex flex-row flex-wrap items-center justify-between">
           {startAdornment}
           {!disableMenuButton && (
-            <div className="hidden px-2 max-lg:flex">
+            <div className="hidden px-2 max-xl:flex">
               <button onClick={() => setIsOpened((v) => !v)}>
                 <HamburgerMenu className="w-[26px]" />
               </button>
@@ -64,23 +64,23 @@ export default function Header({
           </Link>
           <div
             className={clsx(
-              'w-full flex-1 px-2 max-lg:absolute max-lg:left-0 max-lg:top-[72px] max-lg:z-30 max-lg:bg-[#EEF3F7] max-lg:px-4',
-              !isOpened && 'max-lg:hidden'
+              'w-full flex-1 px-2 max-xl:absolute max-xl:left-0 max-xl:top-[72px] max-xl:z-30 max-xl:bg-[#EEF3F7] max-xl:px-4',
+              !isOpened && 'max-xl:hidden'
             )}
           >
             <div
               className={clsx(
-                '-mx-2 flex flex-1 flex-row items-center justify-between max-lg:h-screen max-lg:flex-col-reverse max-lg:pb-3 max-lg:pt-5'
+                '-mx-2 flex flex-1 flex-row items-center justify-between max-xl:h-screen max-xl:flex-col-reverse max-xl:pb-3 max-xl:pt-5'
               )}
             >
               <div className="flex-1 pl-2 pr-1">
-                {nav && <div className="max-lg:pt-4">{nav}</div>}
+                {nav && <div className="max-xl:pt-4">{nav}</div>}
               </div>
               {(!disableLanguageSwitch || !disableGetStartedButton) && (
                 <div className="relative z-10 px-2">
-                  <div className="-m-2 flex flex-nowrap items-center whitespace-nowrap max-lg:flex-col">
+                  <div className="-m-2 flex flex-nowrap items-center whitespace-nowrap max-xl:flex-col">
                     {!disableLoginButton && me && (
-                      <div className="p-2 lg:hidden">
+                      <div className="p-2 xl:hidden">
                         <button
                           className="whitespace-nowrap hover:underline"
                           onClick={() => logout()}
@@ -126,23 +126,23 @@ export default function Header({
             </div>
           </div>
           {!disableLoginButton && (
-            <div className="relative z-10 px-2 max-lg:hidden">
+            <div className="relative z-10 px-2 max-xl:hidden">
               {me ? (
                 <Link
                   href="/account/plan"
-                  className="whitespace-nowrap hover:underline max-lg:mr-0"
+                  className="whitespace-nowrap hover:underline max-xl:mr-0"
                 >
                   {me.firstName}
                 </Link>
               ) : (
-                <Link href="/auth/login" className="whitespace-nowrap hover:underline max-lg:mr-0">
+                <Link href="/auth/login" className="whitespace-nowrap hover:underline max-xl:mr-0">
                   {t('log-in')}
                 </Link>
               )}
             </div>
           )}
           {!disableLoginButton && me && (
-            <div className="relative z-10 px-2 max-lg:hidden">
+            <div className="relative z-10 px-2 max-xl:hidden">
               <button className="whitespace-nowrap hover:underline" onClick={() => logout()}>
                 {t('log-out')}
               </button>

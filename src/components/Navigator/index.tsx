@@ -8,7 +8,7 @@ export default function Navigator() {
   const t = useTranslations('Navigator');
 
   return (
-    <ul className="flex flex-row flex-wrap max-lg:mx-0 max-lg:flex-col max-lg:text-center [&_li]:list-none">
+    <ul className="flex flex-row flex-wrap max-xl:mx-0 max-xl:flex-col max-xl:text-center [&_li]:list-none">
       <li>
         <PageDropdown
           name={t('how-it-works')}
