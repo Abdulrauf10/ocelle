@@ -43,7 +43,7 @@ export default function Home() {
         }}
         right={
           <div className="py-tight">
-            <h2 className="heading-1 heading-weight-1 px-4 text-primary">
+            <h2 className="heading-1 heading-weight-1 px-4 text-primary max-sm:-mx-4">
               {t.rich('block-3-title')}
             </h2>
             <div className="pt-tight"></div>
@@ -119,7 +119,7 @@ export default function Home() {
                     <div className="pt-4"></div>
                     <p className="body-1">{t.rich('block-4-item-3-content')}</p>
                   </div>
-                  <div className="w-full max-xl:mt-0 max-xl:p-3 max-md:mt-3 max-sm:lang-zh:mt-3 md:w-1/2 xl:ml-[11%] xl:mt-[12%] xl:w-full xl:max-w-[320px]">
+                  <div className="w-full max-xl:mt-0 max-xl:p-3 max-md:mt-3 max-sm:lang-zh:mt-6 md:w-1/2 xl:ml-[11%] xl:mt-[12%] xl:w-full xl:max-w-[320px]">
                     <Image
                       className="h-20 w-20"
                       alt="good food"
