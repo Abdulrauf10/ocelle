@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -18,6 +18,7 @@ import TextField from '@/components/controls/TextField';
 import { ActivityLevel, BodyCondition } from '@/enums';
 import DogHelper from '@/helpers/dog';
 import useFormFieldDisplayState from '@/hooks/useFormFieldState';
+import useSentence, { PadSpace } from '@/hooks/useSentence';
 
 interface DogPreference1Form {
   weight: number;
@@ -28,6 +29,7 @@ interface DogPreference1Form {
 export default function DogPreference1Fragment() {
   const t = useTranslations();
   const navigate = useNavigate();
+  const { padSpace } = useSentence();
   const { getDog, setDog } = useSurvey();
   const { name, weight, bodyCondition, activityLevel } = getDog();
   const {
@@ -70,7 +72,9 @@ export default function DogPreference1Fragment() {
       <Container className="text-center">
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <Section
-            title={t('what-is-{}-current-weight', { name })}
+            title={t('what-is-{}-current-weight', {
+              name: padSpace(PadSpace.Right, name),
+            })}
             description={t.rich(
               'if-youre-unsure-you-can-always-adjust-this-information-in-your-account-later'
             )}
@@ -150,7 +154,7 @@ export default function DogPreference1Fragment() {
                         if (idealWeight > 50 || idealWeight < 0.5) {
                           return t(
                             'unfortunately-the-amount-that-{}-needs-fall-outside-of-the-portion-sizes-ocelle-typically-offers',
-                            { name }
+                            { name: padSpace(PadSpace.Both, name) }
                           );
                         }
                         return true;
@@ -256,7 +260,11 @@ export default function DogPreference1Fragment() {
           {displayState.weight && displayState.bodyCondition && (
             <>
               <SectionBreak />
-              <Section title={t('how-active-is', { name })}>
+              <Section
+                title={t('how-active-is', {
+                  name: padSpace(PadSpace.Right, name),
+                })}
+              >
                 <div className="mt-10">
                   <PictureRadio
                     className={{

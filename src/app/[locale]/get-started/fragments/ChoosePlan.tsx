@@ -14,12 +14,14 @@ import FreshPlan from '@/components/FreshPlan';
 import Button from '@/components/buttons/Button';
 import { MealPlan } from '@/enums';
 import { getSurveySessionStore } from '@/helpers/session';
+import useSentence, { PadSpace } from '@/hooks/useSentence';
 import { MinPricesDto } from '@/types/dto';
 
 export default function ChoosePlanFragment() {
   const t = useTranslations();
   const navigate = useNavigate();
   const location = useLocation();
+  const { padSpace } = useSentence();
   const { getDog, setDog } = useSurvey();
   const { name, mealPlan } = getDog();
   const firstUpdate = React.useRef(true);
@@ -59,7 +61,11 @@ export default function ChoosePlanFragment() {
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <Container className="text-center">
-        <Section title={t('choose-the-best-plan-for-you-and-{}', { name })}>
+        <Section
+          title={t('choose-the-best-plan-for-you-and-{}', {
+            name: padSpace(PadSpace.Both, name),
+          })}
+        >
           <div className="mx-auto flex max-w-[900px] flex-wrap">
             <div className="w-1/2 px-2 max-lg:w-full">
               <FreshPlan

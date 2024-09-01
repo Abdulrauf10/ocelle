@@ -19,13 +19,13 @@ export default function Login() {
           <h1 className="heading-4 font-bold">{t('greetings')}</h1>
           <div className="mt-4"></div>
           <p className="body-2">{t('please-log-in-to-continue')}</p>
-          <div className="mx-auto max-w-[210px] max-xs:max-w-full">
+          <div className="mx-auto max-w-[210px] lang-zh:max-w-[280px] max-xs:max-w-full">
             <LoginForm
               action={loginAction}
-              className={{ button: 'body-2 mx-auto max-w-[210px]' }}
+              className={{ button: 'body-2 mx-auto max-w-[210px] lang-zh:max-w-[280px]' }}
             />
           </div>
-          <div className="mx-auto max-w-[210px]">
+          <div className="mx-auto max-w-[210px] lang-zh:max-w-[280px]">
             <div className="mt-4"></div>
             <UnderlineButton
               href="/auth/forgot-password"

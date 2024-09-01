@@ -158,7 +158,7 @@ export default function Product({
                   calorie={calorie}
                   analysis={analysis}
                 >
-                  <Button theme={theme} reverse>
+                  <Button theme={theme} reverse className="lang-zh:w-[175px]">
                     {b('see-details')}
                   </Button>
                 </RecipeMediumDialog>
@@ -184,7 +184,12 @@ export default function Product({
               </div>
             ) : (
               <div className="pt-6">
-                <Button type="button" theme={theme} onClick={handleButtonClick}>
+                <Button
+                  type="button"
+                  className="lang-zh:w-[175px]"
+                  theme={theme}
+                  onClick={handleButtonClick}
+                >
                   {b('add-to-cart')}
                 </Button>
               </div>

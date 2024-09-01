@@ -33,7 +33,7 @@ import {
   isOperationDate,
 } from '@/helpers/shipment';
 import { getCountryCodes } from '@/helpers/string';
-import useSentence from '@/hooks/useSentence';
+import useSentence, { PadSpace } from '@/hooks/useSentence';
 import { CalendarEvent } from '@/types';
 
 function Section({
@@ -583,7 +583,7 @@ export default function SubscriptionCheckoutForm({
                             dog.mealPlan === MealPlan.Full
                               ? t('fresh-full-plan')
                               : t('fresh-half-plan'),
-                          name: dog.name,
+                          name: sentence.padSpace(PadSpace.Right, dog.name),
                           price: `\$${roundTo(dog.perDayPrice, 2)}`,
                         })}
                       </p>
@@ -593,7 +593,12 @@ export default function SubscriptionCheckoutForm({
               </SummaryBlock>
               {dogs.map((dog, idx) => {
                 return (
-                  <SummaryBlock key={idx} title={t('{}-fresh-food-box', { name: dog.name })}>
+                  <SummaryBlock
+                    key={idx}
+                    title={t('{}-fresh-food-box', {
+                      name: sentence.padSpace(PadSpace.Right, dog.name),
+                    })}
+                  >
                     <div className="-mx-1 flex flex-wrap justify-between">
                       <div className="body-3 px-1">{t('meal-plan')}</div>
                       <div className="body-3 px-1">

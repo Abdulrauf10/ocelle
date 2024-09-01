@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 
 import Price from './Price';
@@ -29,6 +29,7 @@ export default function FreshPlan({
   onSelect,
   children,
 }: React.PropsWithChildren<FreshPlanProps>) {
+  const locale = useLocale();
   const t = useTranslations();
   const b = useTranslations('Button');
 
@@ -85,13 +86,14 @@ export default function FreshPlan({
             {t('recommended')}
           </div>
           <p className="mt-2">
-            Starting at:
+            {t('starting-at')}
             <br />
             <Price value={pricePerDay.toFixed(2)} discount={!!discountedPricePerDay} />
             {discountedPricePerDay && (
               <Price className="ml-1 font-bold" value={discountedPricePerDay.toFixed(2)} />
             )}
-            <span className="font-bold text-dark-green">/day</span>.
+            <span className="font-bold text-dark-green">{t('per-day')}</span>
+            {locale === 'en' ? '.' : ''}
           </p>
           {firstDiscount && (
             <p className="mt-2 leading-[1.25em]">

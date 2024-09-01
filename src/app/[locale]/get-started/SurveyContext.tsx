@@ -1,4 +1,5 @@
 import cloneDeep from 'clone-deep';
+import { useLocale } from 'next-intl';
 import React from 'react';
 
 import {
@@ -59,6 +60,7 @@ const SurveyContext = React.createContext<SurveyContextProps | undefined>(undefi
 const surveySession = getSurveySessionStore();
 
 export function SurveyContextProvider({ children }: React.PropsWithChildren) {
+  const locale = useLocale();
   const [dogs, setDogs] = React.useState<Dog[]>(surveySession.get('dogs') ?? []);
   const [owner, _setOwner] = React.useState<Owner>(surveySession.get('owner') ?? {});
   const [currentDog, setCurrentDog] = React.useState(0);

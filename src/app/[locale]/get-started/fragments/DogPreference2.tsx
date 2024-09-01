@@ -27,6 +27,7 @@ import {
   getFoodOptions,
 } from '@/helpers/form';
 import useFormFieldDisplayState from '@/hooks/useFormFieldState';
+import useSentence, { PadSpace } from '@/hooks/useSentence';
 import { subscriptionProducts } from '@/products';
 
 interface DogPreference2Form {
@@ -40,6 +41,7 @@ export default function DogPreference2Fragment() {
   const t = useTranslations();
   const navigate = useNavigate();
   const auth = useAuth();
+  const { padSpace } = useSentence();
   const { getDog, setDog, currentDogIdx } = useSurvey();
   const { name, foodAllergies, currentEating, amountOfTreats, pickiness } = getDog();
   const {
@@ -96,7 +98,11 @@ export default function DogPreference2Fragment() {
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <Container className="text-center">
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Section title={t.rich('does-{}-have-any-food-allergies-or-sensitivities', { name })}>
+          <Section
+            title={t.rich('does-{}-have-any-food-allergies-or-sensitivities', {
+              name: padSpace(PadSpace.Right, name),
+            })}
+          >
             <div className="mx-auto -mt-4 flex max-w-[360px] flex-wrap justify-center">
               <div className="mt-4 px-3">
                 <InteractiveBlock
@@ -170,7 +176,7 @@ export default function DogPreference2Fragment() {
                     {t(
                       'unfortunately-all-our-recipes-contain-an-ingredient-{}-is-allergic-sensitive-to',
                       {
-                        name,
+                        name: padSpace(PadSpace.Both, name),
                       }
                     )}
                   </span>
@@ -180,7 +186,11 @@ export default function DogPreference2Fragment() {
           {displayState.allergies && (
             <>
               <SectionBreak />
-              <Section title={t.rich('what-is-{}-currently-eating', { name })}>
+              <Section
+                title={t.rich('what-is-{}-currently-eating', {
+                  name: padSpace(PadSpace.Right, name),
+                })}
+              >
                 <div className="mx-auto -mt-4 flex max-w-[480px] flex-wrap justify-center max-sm:max-w-[360px]">
                   {currentEatingOptions.map((option, idx) => {
                     return (
@@ -220,7 +230,7 @@ export default function DogPreference2Fragment() {
               <SectionBreak />
               <Section
                 title={t.rich('how-many-treats-or-table-scraps-does-{}-normally-get', {
-                  name,
+                  name: padSpace(PadSpace.Both, name),
                   br: () => <br className="max-md:hidden" />,
                 })}
               >
@@ -265,7 +275,11 @@ export default function DogPreference2Fragment() {
           {displayState.allergies && displayState.eating && displayState.amountOfTreats && (
             <>
               <SectionBreak />
-              <Section title={t.rich('how-picky-is-{}-at-mealtimes', { name })}>
+              <Section
+                title={t.rich('how-picky-is-{}-at-mealtimes', {
+                  name: padSpace(PadSpace.Right, name),
+                })}
+              >
                 <div className="mt-10">
                   <PictureRadio
                     className={{

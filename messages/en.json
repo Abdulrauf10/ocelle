@@ -197,6 +197,7 @@
   "fresh-full-plan:description": "Everything needed in one simple serving. Reap the full benefits of fresh, nutritious meals for your dog, meticulously crafted and portioned by experts.",
   "fresh-half-plan": "Fresh Half Plan",
   "fresh-half-plan:description": "Everything needed to supplement your dog<apos2></apos2>s current diet! Reinvigorate your dog<apos2></apos2>s current meals with a fresh, nutrient-packed addition.",
+  "starting-at": "Starting at:",
   "starting-at-{}-{}-per-day": "Starting at:<br></br>{price}{discountPrice}<h>/day</h>.",
   "enjoy-50-off-for-your-starter-box": "Enjoy <h>50%</h> off for <block>your starter box.</block>",
   "{}-recommended-plan": "{name}’s <span>Recommended Plan</span>",

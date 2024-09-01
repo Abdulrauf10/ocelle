@@ -13,10 +13,12 @@ import { pageVariants } from '../transition';
 import Container from '@/components/Container';
 import DogHelper from '@/helpers/dog';
 import { getSurveySessionStore } from '@/helpers/session';
+import useSentence, { PadSpace } from '@/hooks/useSentence';
 
 export default function CalculatingFragment() {
   const t = useTranslations();
   const navigate = useNavigate();
+  const { padSpace } = useSentence();
   const { getDog } = useSurvey();
   const dog = getDog();
   const options = queryOptions({
@@ -79,7 +81,9 @@ export default function CalculatingFragment() {
         <div className="mt-8"></div>
         <h1 className="heading-4 font-bold text-primary">{t('calculating')}</h1>
         <p className="mt-8 text-primary">
-          {t('were-crunching-some-numbers-to-formulate-{}-meal-plan', { name: dog.name })}
+          {t('were-crunching-some-numbers-to-formulate-{}-meal-plan', {
+            name: padSpace(PadSpace.Both, dog.name),
+          })}
         </p>
       </Container>
     </motion.div>

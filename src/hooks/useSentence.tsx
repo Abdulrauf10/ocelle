@@ -3,6 +3,13 @@ import { useLocale, useTranslations } from 'next-intl';
 import { Recipe } from '@/enums';
 import RecipeHelper from '@/helpers/recipe';
 
+export enum PadSpace {
+  None = 1 << 0,
+  Left = 1 << 1,
+  Right = 1 << 2,
+  Both = PadSpace.Left | PadSpace.Right,
+}
+
 export default function useSentence() {
   const locale = useLocale();
   const t = useTranslations();
@@ -39,6 +46,20 @@ export default function useSentence() {
       }
 
       return segments.join(' ');
+    },
+    padSpace: (space: PadSpace, str?: string) => {
+      // str length === 0
+      if (!str || str.length === 0 || locale === 'en') {
+        return str;
+      }
+      const regex = /[a-z]/i;
+      const stChar = str[0];
+      const endChar = str[Math.max(str.length - 1, 0)];
+
+      const padStart = regex.test(stChar) && (space & PadSpace.Left) === PadSpace.Left;
+      const padEnd = regex.test(endChar) && (space & PadSpace.Right) === PadSpace.Right;
+
+      return `${padStart ? ' ' : ''}${str}${padEnd ? ' ' : ''}`;
     },
   };
 }

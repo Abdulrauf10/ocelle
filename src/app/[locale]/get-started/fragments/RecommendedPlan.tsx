@@ -27,7 +27,7 @@ import DogHelper from '@/helpers/dog';
 import { arrayToRecipe, getRecipeOptions, recipeToArray } from '@/helpers/form';
 import RecipeHelper from '@/helpers/recipe';
 import { booleanToString, stringToBoolean } from '@/helpers/string';
-import useSentence from '@/hooks/useSentence';
+import useSentence, { PadSpace } from '@/hooks/useSentence';
 import { BreedDto } from '@/types/dto';
 
 interface RecommendedPlanForm {
@@ -230,13 +230,13 @@ export default function RecommendedPlanFragment() {
         <Section
           className="px-4"
           title={t.rich('{}-recommended-plan', {
-            name,
+            name: sentence.padSpace(PadSpace.Both, name),
             span: (chunks) => <span className="whitespace-nowrap">{chunks}</span>,
           })}
           description={
             <span className="not-italic">
               {t.rich('{}-recommended-plan:description', {
-                name,
+                name: sentence.padSpace(PadSpace.Both, name),
                 br: () => <br className="max-md:hidden" />,
               })}
             </span>
@@ -249,7 +249,7 @@ export default function RecommendedPlanFragment() {
                   <p className="body-3 text-primary">
                     {t.rich(
                       'feel-free-to-adjust-{}-meal-plan-by-selecting-from-up-to-suitable-recipes-below',
-                      { name, recipes: 2 }
+                      { name: sentence.padSpace(PadSpace.Both, name), recipes: 2 }
                     )}
                   </p>
                   <div className="mt-5"></div>
@@ -514,7 +514,11 @@ export default function RecommendedPlanFragment() {
                   {t('use-a-transition-period-in-starter-box')}
                 </h2>
                 <div className="mt-5"></div>
-                <p className="body-3">{t('use-a-transition-period-in-starter-box:description')}</p>
+                <p className="body-3">
+                  {t.rich('use-a-transition-period-in-starter-box:description', {
+                    br: () => <br className="max-md:hidden" />,
+                  })}
+                </p>
                 <div className="my-3 flex flex-wrap justify-center">
                   <div className="mt-4 px-2">
                     <InteractiveBlock

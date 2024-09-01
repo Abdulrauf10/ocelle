@@ -20,6 +20,7 @@ import CircleCheckbox from '@/components/controls/CircleCheckbox';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import { Sex } from '@/enums';
 import { booleanToString, stringToBoolean } from '@/helpers/string';
+import useSentence, { PadSpace } from '@/hooks/useSentence';
 import { BreedDto } from '@/types/dto';
 
 interface DogBasicForm {
@@ -40,6 +41,7 @@ function stripDiacritics(string: string) {
 export default function DogBasicFragment() {
   const t = useTranslations();
   const navigate = useNavigate();
+  const { padSpace } = useSentence();
   const { getDog, setDog } = useSurvey();
   const { name, breeds, sex, isNeutered, isUnknownBreed } = getDog();
   const {
@@ -96,8 +98,12 @@ export default function DogBasicFragment() {
         <Container className="text-center">
           <form onSubmit={handleSubmit(onSubmit)}>
             <Section
-              title={t('what-breed-is', { name })}
-              description={t('if-{}-is-a-mix-you-can-select-multiple-breeds', { name })}
+              title={t('what-breed-is', {
+                name: padSpace(PadSpace.Right, name),
+              })}
+              description={t('if-{}-is-a-mix-you-can-select-multiple-breeds', {
+                name: padSpace(PadSpace.Both, name),
+              })}
             >
               <div className="mx-auto max-w-[480px]">
                 <Controller
@@ -192,7 +198,11 @@ export default function DogBasicFragment() {
               </div>
             </Section>
             <SectionBreak />
-            <Section title={t('{}-is-', { name })}>
+            <Section
+              title={t('{}-is-', {
+                name: padSpace(PadSpace.Right, name),
+              })}
+            >
               <div className="flex justify-center">
                 <div className="px-3">
                   <InteractiveBlock
@@ -221,7 +231,11 @@ export default function DogBasicFragment() {
             {values.sex !== undefined && (
               <>
                 <SectionBreak />
-                <Section title={t('is-{}-', { name })}>
+                <Section
+                  title={t('is-{}-', {
+                    name: padSpace(PadSpace.Right, name),
+                  })}
+                >
                   <div className="flex justify-center">
                     <div className="px-3">
                       <InteractiveBlock

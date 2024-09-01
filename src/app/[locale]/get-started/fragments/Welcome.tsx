@@ -19,7 +19,7 @@ export default function WelcomeFragment() {
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <Container className="text-center">
-        <Section title={t.rich('get-started-welcome')}>
+        <Section title={t.rich('get-started-welcome', { br: () => <br className="md:hidden" /> })}>
           <p className="body-3 text-primary">
             {t('lets-determine-your-recommended-meal-plan-and-price')}
           </p>

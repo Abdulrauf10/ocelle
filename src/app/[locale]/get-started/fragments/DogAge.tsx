@@ -17,6 +17,7 @@ import UnderlineButton from '@/components/buttons/UnderlineButton';
 import DateCalendar from '@/components/controls/DateCalendar';
 import Select from '@/components/controls/Select';
 import useDogForm from '@/hooks/useDogForm';
+import useSentence, { PadSpace } from '@/hooks/useSentence';
 
 interface DogAgeForm {
   months: number;
@@ -31,6 +32,7 @@ export default function DogAgeFragment() {
   const t = useTranslations();
   const navigate = useNavigate();
   const { getDog, setDog } = useSurvey();
+  const { padSpace } = useSentence();
   const { name, age } = getDog();
   const { form: dogAgeForm, isShowButton: showDogAgeSubmitButton } = useDogForm<DogAgeForm>({
     mode: 'onChange',
@@ -65,7 +67,9 @@ export default function DogAgeFragment() {
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <Container className="text-center">
         <Section
-          title={t('how-old-is-{}', { name })}
+          title={t('how-old-is-{}', {
+            name: padSpace(PadSpace.Right, name),
+          })}
           description={t.rich('if-youre-unsure-just-give-us-your-best-guess')}
         >
           <div className="mx-auto mt-8 flex max-w-[260px] justify-between">
