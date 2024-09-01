@@ -62,7 +62,7 @@ export default function View({ children }: React.PropsWithChildren) {
         disableLanguageSwitch
         disableGetStartedButton
         startAdornment={
-          <div className="mt-1 hidden px-2 max-lg:block">
+          <div className="mt-1 hidden px-2 max-xl:block">
             <UnderlineBackButton
               show={
                 location.pathname !== Stage.Calculating && location.pathname !== Stage.Processing
@@ -73,11 +73,11 @@ export default function View({ children }: React.PropsWithChildren) {
         }
         endAdornment={
           !(location.pathname === Stage.Calculating || location.pathname === Stage.Processing) && (
-            <div className="w-full max-lg:mt-3 max-lg:px-2">
-              <div className="flex w-full justify-center max-lg:mt-2 lg:absolute lg:bottom-3 lg:left-1/2 lg:-translate-x-1/2 lg:px-[280px]">
+            <div className="w-full max-xl:mt-3 max-xl:px-2">
+              <div className="flex w-full justify-center max-xl:mt-2 xl:absolute xl:bottom-3 xl:left-1/2 xl:-translate-x-1/2 xl:px-[280px]">
                 <div className="relative w-full max-w-[460px]">
                   <UnderlineBackButton
-                    className="absolute -left-[80px] -top-2 select-none max-lg:hidden"
+                    className="absolute -left-[80px] -top-2 select-none max-xl:hidden"
                     onClick={handleBackClick}
                     show
                   />
