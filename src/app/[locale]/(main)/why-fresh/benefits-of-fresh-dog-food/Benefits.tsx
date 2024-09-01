@@ -4,7 +4,8 @@ import Collapse from '@mui/material/Collapse';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import React from 'react';
+import Link from 'next/link';
+import React, { useRef } from 'react';
 
 import Container from '@/components/Container';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
@@ -30,16 +31,38 @@ function Toggler({
   closeTogglerId: number;
 }) {
   const handleShow = () => {
-    // const openReferencePoint = document.getElementById('Togger-' + { togglerId });
-    // const closeReferencePoint = document.getElementById('Togger-' + { closeTogglerId });
-    // console.log(openReferencePoint);
-    // console.log(closeReferencePoint);
-    // if (openReferencePoint) {
-    //   openReferencePoint.scrollIntoView();
-    // }
     onShow && onShow(togglerId);
-  };
+    let offset = 0;
+    // Close the previously open toggler first
+    let closedBlockHeight = 0;
 
+    if (closeTogglerId) {
+      const closeElement = document.querySelector('#Togger-' + closeTogglerId) as HTMLElement;
+      if (closeElement) {
+        const elementRect = closeElement.getBoundingClientRect();
+        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        const absoluteElementTop = elementRect.top + scrollPosition;
+        const targetScrollTop = absoluteElementTop - 150;
+        window.scrollTo({
+          top: targetScrollTop,
+          behavior: 'smooth',
+        });
+      }
+    } // Wait for the DOM to update and animations to start
+    setTimeout(() => {
+      const element = document.querySelector('#Togger-' + togglerId);
+      if (element) {
+        const elementRect = element.getBoundingClientRect();
+        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        const absoluteElementTop = elementRect.top + scrollPosition;
+        const targetScrollTop = absoluteElementTop - 150;
+        window.scrollTo({
+          top: targetScrollTop,
+          behavior: 'smooth',
+        });
+      }
+    }, 300); // Increased delay to allow for DOM updates and animation starts
+  };
   return (
     <div
       className={clsx(
@@ -47,7 +70,7 @@ function Toggler({
         className?.root
       )}
       onClick={handleShow}
-      id={'Togger-' + { togglerId }}
+      id={'Togger-' + togglerId}
     >
       <div className="relative flex max-md:items-center">
         <div className="flex-1">{title}</div>

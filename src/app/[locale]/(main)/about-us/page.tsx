@@ -143,8 +143,8 @@ export default function OurStory() {
         </div>
         <div className="relative -left-6 -top-[25px] w-1/2 text-white max-md:left-0 max-md:w-full max-md:px-4">
           <div className="mt-6"></div>
-          <h2 className="heading-1 max-w-[650px] text-center font-bold lang-zh:font-normal max-md:text-center xl:pr-8">
-            <div className="absolute flex w-full max-w-[650px] -translate-y-full flex-row max-md:static max-md:mt-12 max-md:translate-y-0 md:top-[0] lg:pl-[20%] xl:pr-8">
+          <h2 className="heading-1 max-w-[650px] text-start font-bold lang-zh:font-normal max-md:text-center xl:pr-8">
+            <div className="absolute flex w-full max-w-[650px] -translate-y-full flex-row max-md:static max-md:mb-6 max-md:mt-12 max-md:translate-y-0 md:top-[0] lg:pl-[0.85em] xl:pr-8">
               <Image
                 src="/about-us/inspire.svg"
                 alt="Inspire"

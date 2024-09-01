@@ -37,7 +37,7 @@ function SwiperDialogBlock({
 }: React.PropsWithChildren<{ title: React.ReactNode }>) {
   return (
     <div>
-      <strong className="block text-center text-5xl text-primary lang-zh:font-normal max-sm:pb-6 max-sm:lang-zh:text-[40px]">
+      <strong className="block text-center text-5xl text-primary lang-zh:font-normal max-sm:pb-8 max-sm:lang-zh:text-[40px]">
         {title}
       </strong>
       <div className="pt-4 max-sm:pt-0"></div>
