@@ -8,7 +8,7 @@ export default function Toast({ promotion }: { promotion?: boolean }) {
     <ToastContainer
       role="alert"
       position="top-center"
-      autoClose={3000}
+      autoClose={2000}
       hideProgressBar
       transition={Flip}
       toastClassName="!py-0 !min-h-0 text-center max-w-[520px] mx-auto !bg-dark-green !text-white"
