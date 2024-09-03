@@ -54,9 +54,9 @@ export default function HowPlanWorks({
         <Image
           src="/plan-works/icon-3.svg"
           alt="deliver"
-          width={210}
-          height={112}
-          className="mr-[20px] inline-block"
+          width={181}
+          height={95}
+          className="mr-[20px] mt-[15px] inline-block"
         />
         <div className="mx-auto mt-5 h-9 w-9 rounded-full bg-gray text-center font-open-sans text-2xl font-bold leading-9 text-white">
           3

@@ -80,13 +80,17 @@ export default function RecipeMediumDialog({
               <>
                 <div className="mt-3"></div>
                 <p className="leading-tight">
-                  <strong>{t('{}-colon', { value: r('ingredients') })}</strong>
+                  <strong className="lang-zh:!font-normal">
+                    {t('{}-colon', { value: r('ingredients') })}
+                  </strong>
                   <br />
                   {sentence.array(ingredients)}
                 </p>
                 <div className="mt-3"></div>
-                <p className="leading-tight">
-                  <strong>{t('{}-colon', { value: i('ocelle-targeted-nutrient-blend') })}</strong>
+                <p className="leading-tight lang-zh:font-normal">
+                  <strong className="lang-zh:!font-normal">
+                    {t('{}-colon', { value: i('ocelle-targeted-nutrient-blend') })}
+                  </strong>
                   <br />
                   {sentence.array(targetedNutrientBlendIngredients)}
                 </p>
@@ -95,13 +99,13 @@ export default function RecipeMediumDialog({
             {tab === 'Nutrition' && (
               <>
                 <div className="mt-2 flex flex-wrap justify-between">
-                  <strong className="uppercase">
+                  <strong className="uppercase lang-zh:!font-normal">
                     {t('{}-colon', { value: r('calorie-content') })}
                   </strong>
                   <span>{t('{}-kcal-per-kg', { value: calorie })}</span>
                 </div>
                 <div className="mt-1">
-                  <strong className="uppercase">
+                  <strong className="uppercase lang-zh:!font-normal">
                     {t('{}-colon', { value: r('guaranteed-analysis') })}
                   </strong>
                   <div className="mt-2 flex flex-wrap justify-between">

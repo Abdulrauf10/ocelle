@@ -124,7 +124,7 @@ export default function RecipeLargeDialog({
                         className={clsx('absolute', ingredient.className)}
                       />
                     </div>
-                    <div className="mt-6"></div>
+                    <div className="mt-8"></div>
                     <strong className="heading-4 block text-center text-primary lang-zh:font-normal">
                       {ingredient.title}
                     </strong>

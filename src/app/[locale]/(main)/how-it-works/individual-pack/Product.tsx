@@ -158,7 +158,7 @@ export default function Product({
                   calorie={calorie}
                   analysis={analysis}
                 >
-                  <Button theme={theme} reverse className="lang-zh:w-[175px]">
+                  <Button theme={theme} reverse className="lang-en:w-[200px] lang-zh:w-[175px]">
                     {b('see-details')}
                   </Button>
                 </RecipeMediumDialog>
