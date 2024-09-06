@@ -236,7 +236,7 @@ export default function RecipeLargeDialog({
           </DialogBlock>
           <Hr />
           <DialogBlock title={r('nutrition-profile')}>
-            <div className="pt-2"></div>
+            <div className="pt-2 max-sm:pt-0"></div>
             <div className="-mx-6 -my-3 flex flex-wrap">
               <div className="w-1/2 px-6 py-3 max-md:w-full">
                 <div className="mt-2"></div>
