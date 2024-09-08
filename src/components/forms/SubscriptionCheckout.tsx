@@ -401,7 +401,7 @@ export default function SubscriptionCheckoutForm({
                       }),
                       pattern: {
                         value: PHONE_REGEXP,
-                        message: t('this-{}-doesn-t-look-correct-please-update-it', {
+                        message: t('please-enter-a-valid-{}', {
                           name: t('phone-number').toLowerCase(),
                         }),
                       },
@@ -449,9 +449,15 @@ export default function SubscriptionCheckoutForm({
                     rules={{
                       pattern: {
                         value: PHONE_REGEXP,
-                        message: t('this-{}-doesn-t-look-correct-please-update-it', {
-                          name: 'WhatsApp',
-                        }),
+                        message: t('please-enter-a-valid-{}', { name: t('Whatsapp-number') }),
+                      },
+                      validate: (value, { phone: { code } }) => {
+                        if (code !== '852' || value === '') {
+                          return true;
+                        }
+                        return String(value).length === 8
+                          ? true
+                          : t('please-enter-a-valid-{}', { name: t('Whatsapp-number') });
                       },
                     }}
                     disabled={isSubmitInProgress}
