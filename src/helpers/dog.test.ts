@@ -5,7 +5,7 @@ import { describe, expect, test } from 'vitest';
 import DogHelper from './dog';
 
 import { ActivityLevel, BodyCondition, FoodAllergies, Recipe, Size } from '@/enums';
-import { LifeStage } from '@/types';
+import { LifeStage } from '@/enums';
 import { BreedDto } from '@/types/dto';
 
 const breeds: BreedDto[] = [
@@ -42,84 +42,78 @@ const exact9Years = subYears(new Date(), 9);
 
 describe('getLifeStage', () => {
   test('isPuppy 1', () => {
-    expect(DogHelper.getLifeStage([breeds[0]], lessThan12Months)).toBe<LifeStage>('Puppy');
+    expect(DogHelper.getLifeStage([breeds[0]], lessThan12Months)).toBe(LifeStage.Puppy);
   });
   test('isPuppy 2', () => {
-    expect(DogHelper.getLifeStage([breeds[1]], lessThan12Months)).toBe<LifeStage>('Puppy');
+    expect(DogHelper.getLifeStage([breeds[1]], lessThan12Months)).toBe(LifeStage.Puppy);
   });
   test('isPuppy 3', () => {
-    expect(DogHelper.getLifeStage([breeds[2]], lessThan16Months)).toBe<LifeStage>('Puppy');
+    expect(DogHelper.getLifeStage([breeds[2]], lessThan16Months)).toBe(LifeStage.Puppy);
   });
   test('isPuppy 4', () => {
-    expect(DogHelper.getLifeStage([breeds[0], breeds[1]], lessThan12Months)).toBe<LifeStage>(
-      'Puppy'
-    );
+    expect(DogHelper.getLifeStage([breeds[0], breeds[1]], lessThan12Months)).toBe(LifeStage.Puppy);
   });
   test('isPuppy 5', () => {
-    expect(DogHelper.getLifeStage([breeds[0], breeds[2]], lessThan12Months)).toBe<LifeStage>(
-      'Puppy'
-    );
+    expect(DogHelper.getLifeStage([breeds[0], breeds[2]], lessThan12Months)).toBe(LifeStage.Puppy);
   });
   test('isPuppy 6', () => {
-    expect(DogHelper.getLifeStage([breeds[1], breeds[2]], lessThan16Months)).toBe<LifeStage>(
-      'Puppy'
-    );
+    expect(DogHelper.getLifeStage([breeds[1], breeds[2]], lessThan16Months)).toBe(LifeStage.Puppy);
   });
 
   test('isAdult 1', () => {
-    expect(DogHelper.getLifeStage([breeds[0]], exact12Months)).toBe<LifeStage>('Adult');
+    expect(DogHelper.getLifeStage([breeds[0]], exact12Months)).toBe(LifeStage.Adult);
   });
   test('isAdult 2', () => {
-    expect(DogHelper.getLifeStage([breeds[0]], lessThan9Years)).toBe<LifeStage>('Adult');
+    expect(DogHelper.getLifeStage([breeds[0]], lessThan9Years)).toBe(LifeStage.Adult);
   });
   test('isAdult 3', () => {
-    expect(DogHelper.getLifeStage([breeds[1]], exact12Months)).toBe<LifeStage>('Adult');
+    expect(DogHelper.getLifeStage([breeds[1]], exact12Months)).toBe(LifeStage.Adult);
   });
   test('isAdult 4', () => {
-    expect(DogHelper.getLifeStage([breeds[1]], lessThan7Years)).toBe<LifeStage>('Adult');
+    expect(DogHelper.getLifeStage([breeds[1]], lessThan7Years)).toBe(LifeStage.Adult);
   });
   test('isAdult 5', () => {
-    expect(DogHelper.getLifeStage([breeds[2]], exact16Months)).toBe<LifeStage>('Adult');
+    expect(DogHelper.getLifeStage([breeds[2]], exact16Months)).toBe(LifeStage.Adult);
   });
   test('isAdult 6', () => {
-    expect(DogHelper.getLifeStage([breeds[2]], lessThan5Years)).toBe<LifeStage>('Adult');
+    expect(DogHelper.getLifeStage([breeds[2]], lessThan5Years)).toBe(LifeStage.Adult);
   });
   test('isAdult 7', () => {
-    expect(DogHelper.getLifeStage([breeds[0], breeds[1]], exact12Months)).toBe<LifeStage>('Adult');
+    expect(DogHelper.getLifeStage([breeds[0], breeds[1]], exact12Months)).toBe(LifeStage.Adult);
   });
   test('isAdult 8', () => {
-    expect(DogHelper.getLifeStage([breeds[0], breeds[1]], lessThan7Years)).toBe<LifeStage>('Adult');
+    expect(DogHelper.getLifeStage([breeds[0], breeds[1]], lessThan7Years)).toBe(LifeStage.Adult);
   });
   test('isAdult 9', () => {
-    expect(DogHelper.getLifeStage([breeds[0], breeds[2]], exact12Months)).toBe<LifeStage>('Adult');
+    expect(DogHelper.getLifeStage([breeds[0], breeds[2]], exact12Months)).toBe(LifeStage.Adult);
   });
   test('isAdult 10', () => {
-    expect(DogHelper.getLifeStage([breeds[0], breeds[2]], lessThan7Years)).toBe<LifeStage>('Adult');
+    expect(DogHelper.getLifeStage([breeds[0], breeds[2]], lessThan7Years)).toBe(LifeStage.Adult);
   });
   test('isAdult 11', () => {
-    expect(DogHelper.getLifeStage([breeds[1], breeds[2]], exact16Months)).toBe<LifeStage>('Adult');
+    expect(DogHelper.getLifeStage([breeds[1], breeds[2]], exact16Months)).toBe(LifeStage.Adult);
   });
   test('isAdult 12', () => {
-    expect(DogHelper.getLifeStage([breeds[1], breeds[2]], lessThan5Years)).toBe<LifeStage>('Adult');
+    expect(DogHelper.getLifeStage([breeds[1], breeds[2]], lessThan5Years)).toBe(LifeStage.Adult);
   });
 
   test('isSenior 1', () => {
-    expect(DogHelper.getLifeStage([breeds[0]], exact9Years)).toBe<LifeStage>('Senior');
+    expect(DogHelper.getLifeStage([breeds[0]], exact9Years)).toBe(LifeStage.Senior);
   });
   test('isSenior 2', () => {
-    expect(DogHelper.getLifeStage([breeds[1]], exact7Years)).toBe<LifeStage>('Senior');
+    expect(DogHelper.getLifeStage([breeds[1]], exact7Years)).toBe(LifeStage.Senior);
   });
   test('isSenior 3', () => {
-    expect(DogHelper.getLifeStage([breeds[2]], exact5Years)).toBe<LifeStage>('Senior');
+    expect(DogHelper.getLifeStage([breeds[2]], exact5Years)).toBe(LifeStage.Senior);
   });
   test('isSenior 4', () => {
-    expect(DogHelper.getLifeStage([breeds[0], breeds[1]], exact7Years)).toBe<LifeStage>('Senior');
+    expect(DogHelper.getLifeStage([breeds[0], breeds[1]], exact7Years)).toBe(LifeStage.Senior);
   });
   test('isSenior 5', () => {
-    expect(DogHelper.getLifeStage([breeds[0], breeds[2]], exact7Years)).toBe<LifeStage>('Senior');
+    expect(DogHelper.getLifeStage([breeds[0], breeds[2]], exact7Years)).toBe(LifeStage.Senior);
   });
   test('isSenior 6', () => {
-    expect(DogHelper.getLifeStage([breeds[1], breeds[2]], exact5Years)).toBe<LifeStage>('Senior');
+    expect(DogHelper.getLifeStage([breeds[1], breeds[2]], exact5Years)).toBe(LifeStage.Senior);
   });
 });
 

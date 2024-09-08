@@ -37,7 +37,6 @@ import {
   getFoodAllergiesOptions,
 } from '@/helpers/form';
 import useDefaultValues from '@/hooks/defaultValues';
-import { subscriptionProducts } from '@/products';
 import { BreedDto } from '@/types/dto';
 
 interface EditDogBlockProps {
@@ -636,7 +635,7 @@ export default function DogForm({
                       conflict: (value, formValues) => !value || !formValues.allergies[0],
                       allAllergies: (value, { allergies }) => {
                         const foodAllergies = arrayToAllergies(allergies);
-                        return !Object.keys(subscriptionProducts).every((recipe) =>
+                        return !Object.keys(Recipe).every((recipe) =>
                           DogHelper.isAllergies(recipe as Recipe, foodAllergies)
                         );
                       },

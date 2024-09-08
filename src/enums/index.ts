@@ -8,6 +8,7 @@ import DogFood from './DogFood';
 import FoodAllergies from './FoodAllergies';
 import Frequency from './Frequency';
 import IndividualRecipePack from './IndividualRecipePack';
+import LifeStage from './LifeStage';
 import MealPlan from './MealPlan';
 import Pickiness from './Pickiness';
 import Recipe from './Recipe';
@@ -27,6 +28,7 @@ export {
   FoodAllergies,
   Frequency,
   IndividualRecipePack,
+  LifeStage,
   MealPlan,
   Pickiness,
   Recipe,

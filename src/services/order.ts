@@ -36,8 +36,8 @@ import { awaitable } from '@/helpers/async';
 import { getStripeAppId } from '@/helpers/env';
 import { executeGraphQL } from '@/helpers/graphql';
 import RecipeHelper from '@/helpers/recipe';
-import { recipeToVariant } from '@/helpers/saleor';
-import { subscriptionProducts } from '@/products';
+import { multipleRecipesToVariant, recipeToVariant } from '@/helpers/saleor';
+import { getSubRecipeSlug, subscriptionProducts } from '@/products';
 import { DogOrderDto } from '@/types/dto';
 
 class OrderService {
@@ -71,32 +71,29 @@ class OrderService {
 
     const channel = await channelService.getDefault();
 
-    const productSlugsToBeAddToLine = [];
+    const productSlugsToBeAddToLine = new Set<string>();
 
     for (const dog of dogs) {
-      const slug1 = subscriptionProducts[dog.recipe1].slug;
-      const slug2 = dog.recipe2 ? subscriptionProducts[dog.recipe2].slug : undefined;
-
-      if (productSlugsToBeAddToLine.indexOf(slug1) === -1) {
-        productSlugsToBeAddToLine.push(slug1);
-      }
-
-      if (slug2 && productSlugsToBeAddToLine.indexOf(slug2) === -1) {
-        productSlugsToBeAddToLine.push(slug2);
+      productSlugsToBeAddToLine.add(getSubRecipeSlug(dog.recipe1));
+      if (dog.recipe2) {
+        productSlugsToBeAddToLine.add(getSubRecipeSlug(dog.recipe2));
+        productSlugsToBeAddToLine.add(getSubRecipeSlug(dog.recipe1, dog.recipe2));
       }
     }
+
+    const slugs = [...productSlugsToBeAddToLine];
 
     // make sure the settings of saleor is ready for create checkout
     const products = await productService.find({
       channel: process.env.SALEOR_CHANNEL_SLUG,
       where: {
         slug: {
-          oneOf: productSlugsToBeAddToLine,
+          oneOf: slugs,
         },
       },
     });
 
-    if (products.length !== productSlugsToBeAddToLine.length) {
+    if (products.length !== slugs.length) {
       throw new OrderCreateError();
     }
 
@@ -116,37 +113,50 @@ class OrderService {
         starterBox ? Frequency.TwoWeek : dog.frequency,
         starterBox ? dog.isEnabledTransitionPeriod : false
       );
-      lines.push({
-        variantId: recipe1Total.variant.id,
-        quantity: 1,
-        price: recipe1Total.price,
-      });
-      if (dog.recipe2) {
-        const recipe2Variant = recipeToVariant(products, dog.breeds, dog.dateOfBirth, dog.recipe2);
-        if (!recipe2Variant) {
-          throw new OrderVariantNotFoundError(
-            'failed to add recipe 2 to checkout, variant not found'
-          );
-        }
-        const recipe2Total = PriceService.calculateRecipeBoxPrice(
-          products,
-          dog.breeds,
-          dog.dateOfBirth,
-          dog.isNeutered,
-          dog.weight,
-          dog.bodyCondition,
-          dog.activityLevel,
-          { recipeToBeCalcuate: dog.recipe2, recipeReference: dog.recipe1 },
-          dog.mealPlan,
-          starterBox ? Frequency.TwoWeek : dog.frequency,
-          starterBox ? dog.isEnabledTransitionPeriod : false
-        );
+      if (!dog.recipe2) {
         lines.push({
-          variantId: recipe2Total.variant.id,
+          variantId: recipe1Total.variant.id,
           quantity: 1,
-          price: recipe2Total.price,
+          price: Math.round(recipe1Total.price),
         });
+        continue;
       }
+      const recipe2Variant = recipeToVariant(products, dog.breeds, dog.dateOfBirth, dog.recipe2);
+      if (!recipe2Variant) {
+        throw new OrderVariantNotFoundError(
+          'failed to add recipe 2 to checkout, variant not found'
+        );
+      }
+      const crossJoinVariant = multipleRecipesToVariant(
+        products,
+        dog.breeds,
+        dog.dateOfBirth,
+        dog.recipe1,
+        dog.recipe2
+      );
+      if (!crossJoinVariant) {
+        throw new OrderVariantNotFoundError(
+          'failed to add cross join recipe to checkout, variant not found'
+        );
+      }
+      const recipe2Total = PriceService.calculateRecipeBoxPrice(
+        products,
+        dog.breeds,
+        dog.dateOfBirth,
+        dog.isNeutered,
+        dog.weight,
+        dog.bodyCondition,
+        dog.activityLevel,
+        { recipeToBeCalcuate: dog.recipe2, recipeReference: dog.recipe1 },
+        dog.mealPlan,
+        starterBox ? Frequency.TwoWeek : dog.frequency,
+        starterBox ? dog.isEnabledTransitionPeriod : false
+      );
+      lines.push({
+        variantId: crossJoinVariant.id,
+        quantity: 1,
+        price: Math.round(recipe1Total.price + recipe2Total.price),
+      });
     }
 
     // create draft order

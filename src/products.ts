@@ -1,104 +1,114 @@
 import { IndividualRecipePack, Recipe } from './enums';
+import { LifeStage } from './enums';
 import { LanguageCodeEnum } from './gql/graphql';
+
+export function getSubRecipeSlug(recipe1: Recipe, recipe2?: Recipe) {
+  if (!recipe2) {
+    return `fresh-${recipe1.toLowerCase()}-subs`;
+  }
+  const recipes = [recipe1, recipe2].sort();
+  return `fresh-${recipes[0].toLowerCase()}-${recipes[1].toLowerCase()}-subs`;
+}
+
+export function getSubRecipeSKU(lifeStage: LifeStage, recipe1: Recipe, recipe2?: Recipe) {
+  if (!recipe2) {
+    return `subs-${recipe1.toLowerCase()}-${lifeStage.toLowerCase()}`;
+  }
+  const recipes = [recipe1, recipe2].sort();
+  return `subs-${recipes[0].toLowerCase()}-${recipes[1].toLowerCase()}-${lifeStage.toLowerCase()}`;
+}
 
 /**
  * Refer to `Excel: customization variables v1.01 > Price Matrix`
  * price = saleor variant price
  */
-export const subscriptionProducts = {
+export const subscriptionProducts: {
+  [key in Recipe]: {
+    name: string;
+    slug: string;
+    variants: { [key in LifeStage]: { unitPrice: number } };
+  };
+} = {
   [Recipe.Chicken]: {
     name: 'Fresh Chicken Recipe',
-    slug: 'fresh-chicken-subscription',
+    slug: getSubRecipeSlug(Recipe.Chicken),
     variants: {
-      Puppy: {
-        sku: 'subs-chicken-puppy',
-        pricePerUnit: 1797.6,
+      [LifeStage.Puppy]: {
+        unitPrice: 1797.6,
       },
-      Adult: {
-        sku: 'subs-chicken-adult',
-        pricePerUnit: 1697.6,
+      [LifeStage.Adult]: {
+        unitPrice: 1697.6,
       },
-      Senior: {
-        sku: 'subs-chicken-senior',
-        pricePerUnit: 1647.6,
+      [LifeStage.Senior]: {
+        unitPrice: 1647.6,
       },
     },
   },
   [Recipe.Beef]: {
     name: 'Fresh Beef Recipe',
-    slug: 'fresh-beef-subscription',
+    slug: getSubRecipeSlug(Recipe.Beef),
     variants: {
-      Puppy: {
-        sku: 'subs-beef-puppy',
-        pricePerUnit: 1892.19,
+      [LifeStage.Puppy]: {
+        unitPrice: 1892.19,
       },
-      Adult: {
-        sku: 'subs-beef-adult',
-        pricePerUnit: 1792.19,
+      [LifeStage.Adult]: {
+        unitPrice: 1792.19,
       },
-      Senior: {
-        sku: 'subs-beef-senior',
-        pricePerUnit: 1742.19,
+      [LifeStage.Senior]: {
+        unitPrice: 1742.19,
       },
     },
   },
   [Recipe.Duck]: {
     name: 'Fresh Duck Recipe',
-    slug: 'fresh-duck-subscription',
+    slug: getSubRecipeSlug(Recipe.Duck),
     variants: {
-      Puppy: {
-        sku: 'subs-duck-puppy',
-        pricePerUnit: 3679.06,
+      [LifeStage.Puppy]: {
+        unitPrice: 3679.06,
       },
-      Adult: {
-        sku: 'subs-duck-adult',
-        pricePerUnit: 3579.06,
+      [LifeStage.Adult]: {
+        unitPrice: 3579.06,
       },
-      Senior: {
-        sku: 'subs-duck-senior',
-        pricePerUnit: 3529.06,
+      [LifeStage.Senior]: {
+        unitPrice: 3529.06,
       },
     },
   },
   [Recipe.Lamb]: {
     name: 'Fresh Lamb Recipe',
-    slug: 'fresh-lamb-subscription',
+    slug: getSubRecipeSlug(Recipe.Lamb),
     variants: {
-      Puppy: {
-        sku: 'subs-lamb-puppy',
-        pricePerUnit: 2934.25,
+      [LifeStage.Puppy]: {
+        unitPrice: 2934.25,
       },
-      Adult: {
-        sku: 'subs-lamb-adult',
-        pricePerUnit: 2834.25,
+      [LifeStage.Adult]: {
+        unitPrice: 2834.25,
       },
-      Senior: {
-        sku: 'subs-lamb-senior',
-        pricePerUnit: 2784.25,
+      [LifeStage.Senior]: {
+        unitPrice: 2784.25,
       },
     },
   },
   [Recipe.Pork]: {
     name: 'Fresh Pork Recipe',
-    slug: 'fresh-pork-subscription',
+    slug: getSubRecipeSlug(Recipe.Pork),
     variants: {
-      Puppy: {
-        sku: 'subs-pork-puppy',
-        pricePerUnit: 1509.3,
+      [LifeStage.Puppy]: {
+        unitPrice: 1509.3,
       },
-      Adult: {
-        sku: 'subs-pork-adult',
-        pricePerUnit: 1409.3,
+      [LifeStage.Adult]: {
+        unitPrice: 1409.3,
       },
-      Senior: {
-        sku: 'subs-pork-senior',
-        pricePerUnit: 1359.3,
+      [LifeStage.Senior]: {
+        unitPrice: 1359.3,
       },
     },
   },
 };
 
-export const subscriptionProductsValues = Object.values(subscriptionProducts);
+export const subscriptionProductsValues = Object.entries(subscriptionProducts).map(
+  ([recipe, values]) => ({ ...values, recipe: recipe as Recipe })
+);
 
 export const individualPackProducts = {
   [IndividualRecipePack.Bundle]: {

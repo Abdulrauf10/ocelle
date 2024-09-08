@@ -2,7 +2,7 @@ import { startOfDay, subMonths, subYears } from 'date-fns';
 import dayjs from 'dayjs';
 
 import { ActivityLevel, BodyCondition, FoodAllergies, Recipe, Size } from '@/enums';
-import { LifeStage } from '@/types';
+import { LifeStage } from '@/enums';
 import { BreedDto } from '@/types/dto';
 
 function isExactSize(breeds: BreedDto[], sizes: Array<Size>) {
@@ -26,33 +26,33 @@ export default class DogHelper {
 
     // Puppy
     if (isExactSize(breeds, [Size.Small])) {
-      if (ageM < 12) return 'Puppy';
-      else if (ageM >= 12 && ageY < 9) return 'Adult';
-      else return 'Senior';
+      if (ageM < 12) return LifeStage.Puppy;
+      else if (ageM >= 12 && ageY < 9) return LifeStage.Adult;
+      else return LifeStage.Senior;
     }
 
     if (isExactSize(breeds, [Size.Medium]) || breeds.length === 0) {
-      if (ageM < 12) return 'Puppy';
-      else if (ageM >= 12 && ageY < 7) return 'Adult';
-      else return 'Senior';
+      if (ageM < 12) return LifeStage.Puppy;
+      else if (ageM >= 12 && ageY < 7) return LifeStage.Adult;
+      else return LifeStage.Senior;
     }
 
     if (isExactSize(breeds, [Size.Large])) {
-      if (ageM < 16) return 'Puppy';
-      else if (ageM >= 16 && ageY < 5) return 'Adult';
-      else return 'Senior';
+      if (ageM < 16) return LifeStage.Puppy;
+      else if (ageM >= 16 && ageY < 5) return LifeStage.Adult;
+      else return LifeStage.Senior;
     }
 
     if (isContainsSize(breeds, [Size.Small]) && isContainsSize(breeds, [Size.Medium, Size.Large])) {
-      if (ageM < 12) return 'Puppy';
-      else if (ageM >= 12 && ageY < 7) return 'Adult';
-      else return 'Senior';
+      if (ageM < 12) return LifeStage.Puppy;
+      else if (ageM >= 12 && ageY < 7) return LifeStage.Adult;
+      else return LifeStage.Senior;
     }
 
     if (isContainsSize(breeds, [Size.Medium]) && isContainsSize(breeds, [Size.Large])) {
-      if (ageM < 16) return 'Puppy';
-      else if (ageM >= 16 && ageY < 5) return 'Adult';
-      else return 'Senior';
+      if (ageM < 16) return LifeStage.Puppy;
+      else if (ageM >= 16 && ageY < 5) return LifeStage.Adult;
+      else return LifeStage.Senior;
     }
 
     throw new Error('Cannot calculate the life stage');

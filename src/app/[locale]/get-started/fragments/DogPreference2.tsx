@@ -28,7 +28,6 @@ import {
 } from '@/helpers/form';
 import useFormFieldDisplayState from '@/hooks/useFormFieldState';
 import useSentence, { PadSpace } from '@/hooks/useSentence';
-import { subscriptionProducts } from '@/products';
 
 interface DogPreference2Form {
   allergies: Array<boolean | undefined>;
@@ -140,7 +139,7 @@ export default function DogPreference2Fragment() {
                           conflict: (value, { allergies }) => !value || !allergies[0],
                           allAllergies: (value, { allergies }) => {
                             const foodAllergies = arrayToAllergies(allergies);
-                            return !Object.keys(subscriptionProducts).every((recipe) =>
+                            return !Object.values(Recipe).every((recipe) =>
                               DogHelper.isAllergies(recipe as Recipe, foodAllergies)
                             );
                           },

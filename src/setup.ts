@@ -7,6 +7,7 @@ import {
   SHIPPING_METHOD_SF_EXPRESS_FIXED,
   SHIPPING_METHOD_SF_EXPRESS_FREE,
 } from './consts';
+import { LifeStage, Recipe } from './enums';
 import {
   CategoryFragment,
   ChannelFragment,
@@ -46,7 +47,12 @@ import {
 } from './gql/graphql';
 import { executeGraphQL } from './helpers/graphql';
 import { executeQuery } from './helpers/queryRunner';
-import { individualPackProductsValues, subscriptionProductsValues } from './products';
+import {
+  getSubRecipeSKU,
+  getSubRecipeSlug,
+  individualPackProductsValues,
+  subscriptionProductsValues,
+} from './products';
 import productService from './services/product';
 
 import AppDataSource from '@/AppDataSource';
@@ -572,10 +578,10 @@ async function setupSubscriptionProducts(
       Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
     },
     variables: {
-      products: productsToBeCreate.map((recipe) => {
+      products: productsToBeCreate.map((product) => {
         return {
-          name: recipe.name,
-          slug: recipe.slug,
+          name: product.name,
+          slug: product.slug,
           description: JSON.stringify({
             time: Date.now(),
             blocks: [
@@ -599,10 +605,10 @@ async function setupSubscriptionProducts(
               publishedAt: new Date().toISOString(),
             },
           ],
-          variants: Object.entries(recipe.variants).map(([name, variant]) => {
+          variants: Object.entries(product.variants).map(([name, variant]) => {
             return {
               name,
-              sku: variant.sku,
+              sku: getSubRecipeSKU(name as LifeStage, product.recipe),
               attributes: [],
               trackInventory: false,
               stocks: [
@@ -614,7 +620,117 @@ async function setupSubscriptionProducts(
               channelListings: [
                 {
                   channelId: channel.id,
-                  price: roundToUp(variant.pricePerUnit, 2),
+                  price: roundToUp(variant.unitPrice, 2),
+                },
+              ],
+            };
+          }),
+        };
+      }),
+    },
+  });
+
+  if (!productBulkCreate || productBulkCreate.errors.length > 0) {
+    productBulkCreate && console.error(productBulkCreate.errors);
+    throw new Error('failed to create subscription product');
+  }
+
+  return [...products, ...productBulkCreate.results.map((result) => result.product!)];
+}
+
+async function setupSubscriptionCrossJoinProducts(
+  channel: ChannelFragment,
+  productType: ProductTypeFragment,
+  category: CategoryFragment,
+  warehouse: WarehouseFragment
+): Promise<ProductFragment[]> {
+  console.log('setup subscription cross join products...');
+
+  const crossJoinProducts = [];
+  const recipes = Object.values(Recipe).sort();
+
+  for (const recipe1 of recipes) {
+    for (const recipe2 of recipes) {
+      if (recipe1 === recipe2) {
+        continue;
+      }
+      crossJoinProducts.push({
+        recipe1,
+        recipe2,
+        slug: getSubRecipeSlug(recipe1, recipe2),
+      });
+    }
+  }
+
+  // create placeholder product if not exists
+  const products = await productService.find({
+    where: {
+      slug: {
+        oneOf: crossJoinProducts.map((product) => product.slug),
+      },
+    },
+  });
+
+  if (products.length === crossJoinProducts.length) {
+    return products;
+  }
+
+  const existingProductSlugs = products.map((product) => product.slug);
+
+  const productsToBeCreate = crossJoinProducts.filter(
+    (product) => existingProductSlugs.indexOf(product.slug) === -1
+  );
+
+  // create a product if not exists
+  const { productBulkCreate } = await executeGraphQL(CreateProductsDocument, {
+    withAuth: false,
+    headers: {
+      Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+    },
+    variables: {
+      products: productsToBeCreate.map((product) => {
+        return {
+          name: `${product.recipe1} x ${product.recipe2}`,
+          slug: product.slug,
+          description: JSON.stringify({
+            time: Date.now(),
+            blocks: [
+              {
+                id: 'CMRIgvbpUG',
+                data: {
+                  text: 'This is a placeholder product. Do not <b>EDIT</b> or <b>DELETE</b> the product.',
+                },
+                type: 'paragraph',
+              },
+            ],
+            version: '2.22.2',
+          }),
+          productType: productType.id,
+          category: category.id,
+          channelListings: [
+            {
+              channelId: channel.id,
+              isAvailableForPurchase: true,
+              isPublished: true,
+              publishedAt: new Date().toISOString(),
+            },
+          ],
+          variants: Object.values(LifeStage).map((lifeStage) => {
+            return {
+              name: lifeStage,
+              sku: getSubRecipeSKU(lifeStage, product.recipe1, product.recipe2),
+              attributes: [],
+              trackInventory: false,
+              stocks: [
+                {
+                  warehouse: warehouse.id,
+                  quantity: Math.pow(2, 31) - 1,
+                },
+              ],
+              channelListings: [
+                {
+                  channelId: channel.id,
+                  price: 1,
                 },
               ],
             };
@@ -854,11 +970,18 @@ async function setup() {
     category,
     warehouse
   );
+  const subscriptionCrossJoinProducts = await setupSubscriptionCrossJoinProducts(
+    channel,
+    subscriptionProductType,
+    category,
+    warehouse
+  );
 
   await setupIndividualProductTranslations(individualProducts);
 
   await setupExcludeShippingMethodProducts(freeShippingMethod.id, individualProducts);
   await setupExcludeShippingMethodProducts(fixedShippingMethod.id, subscriptionProducts);
+  await setupExcludeShippingMethodProducts(fixedShippingMethod.id, subscriptionCrossJoinProducts);
 
   await prugeDefaultChannel();
   await prugeDefaultProductType();

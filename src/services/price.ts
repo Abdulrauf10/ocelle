@@ -42,7 +42,7 @@ export default class PriceService {
     );
     return {
       variant,
-      price: Math.round((totalProtionsInBox / 10000) * price.amount),
+      price: (totalProtionsInBox / 10000) * price.amount,
     };
   }
 
@@ -94,7 +94,7 @@ export default class PriceService {
       frequency,
       transitionPeriod
     );
-    return recipe1Price + recipe2Price;
+    return Math.round(recipe1Price + recipe2Price);
   }
 
   static async calculatePerDayBoxPrice(
@@ -220,7 +220,7 @@ export default class PriceService {
         true
       );
 
-      return price / (transitionPeriodDays + normalDays);
+      return Math.round(price) / (transitionPeriodDays + normalDays);
     });
 
     return Math.min(...boxPrices);
