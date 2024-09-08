@@ -646,19 +646,23 @@ async function setupSubscriptionCrossJoinProducts(
 ): Promise<ProductFragment[]> {
   console.log('setup subscription cross join products...');
 
-  const crossJoinProducts = [];
+  const crossJoinProducts: Array<{
+    recipe1: Recipe;
+    recipe2: Recipe;
+    slug: string;
+  }> = [];
   const recipes = Object.values(Recipe).sort();
 
   for (const recipe1 of recipes) {
     for (const recipe2 of recipes) {
-      if (recipe1 === recipe2) {
+      const slug = getSubRecipeSlug(recipe1, recipe2);
+      if (
+        recipe1 === recipe2 ||
+        crossJoinProducts.findIndex((product) => product.slug === slug) > -1
+      ) {
         continue;
       }
-      crossJoinProducts.push({
-        recipe1,
-        recipe2,
-        slug: getSubRecipeSlug(recipe1, recipe2),
-      });
+      crossJoinProducts.push({ recipe1, recipe2, slug });
     }
   }
 
