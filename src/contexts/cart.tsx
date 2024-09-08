@@ -15,6 +15,7 @@ interface CartContextProps {
   setShippingPrice(shippingPrice: MoneyFragment): void;
   setTotalPrice(totalPrice: MoneyFragment): void;
   setCart(cart: CartReturn): void;
+  clear(): void;
 }
 
 const CartContext = React.createContext<CartContextProps | undefined>(undefined);
@@ -44,6 +45,13 @@ export function CartContextProvider(
     setTotalPrice(totalPrice);
   }, []);
 
+  const clear = React.useCallback(() => {
+    setLines([]);
+    setSubtotalPrice(undefined);
+    setShippingPrice(undefined);
+    setTotalPrice(undefined);
+  }, []);
+
   const values = React.useMemo(() => {
     return {
       lines,
@@ -55,6 +63,7 @@ export function CartContextProvider(
       totalPrice,
       setTotalPrice,
       setCart,
+      clear,
     };
   }, [
     lines,
@@ -66,6 +75,7 @@ export function CartContextProvider(
     setShippingPrice,
     setTotalPrice,
     setCart,
+    clear,
   ]);
 
   return <CartContext.Provider value={values}>{props.children}</CartContext.Provider>;

@@ -8,6 +8,7 @@ import React from 'react';
 import { dropCheckoutSession, getOrderConfigurations } from '../actions';
 
 import Container from '@/components/Container';
+import { useCart } from '@/contexts/cart';
 import useSentence from '@/hooks/useSentence';
 import { Link, useRouter } from '@/navigation';
 
@@ -15,6 +16,7 @@ export default function CompletePage() {
   const id = React.useId();
   const t = useTranslations();
   const sentence = useSentence();
+  const cart = useCart();
   const router = useRouter();
   const {
     data: configurations,
@@ -32,8 +34,9 @@ export default function CompletePage() {
   React.useEffect(() => {
     if (configurations) {
       dropCheckoutSession();
+      cart.clear();
     }
-  }, [configurations]);
+  }, [configurations, cart]);
 
   if (isError) {
     router.replace('/');
