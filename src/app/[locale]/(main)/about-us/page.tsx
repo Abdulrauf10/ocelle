@@ -144,15 +144,18 @@ export default function OurStory() {
         <div className="relative -left-6 -top-[25px] w-1/2 text-white max-md:left-0 max-md:w-full max-md:px-4">
           <div className="mt-6"></div>
           <h2 className="heading-1 max-w-[650px] text-start font-bold lang-zh:font-normal max-md:text-center xl:pr-8">
-            <div className="absolute flex w-full max-w-[650px] -translate-y-full flex-row max-md:static max-md:mb-6 max-md:mt-12 max-md:translate-y-0 md:top-[0] lg:pl-[0.9em] xl:pr-8">
-              <Image
-                src="/about-us/inspire.svg"
-                alt="Inspire"
-                width={130}
-                height={140}
-                className="max-md:mx-auto"
-                loading="eager"
-              />
+            <div className="absolute flex w-full max-w-[650px] -translate-y-full flex-row max-md:static max-md:mb-6 max-md:mt-12 max-md:translate-y-0 md:top-0 lg:lang-en:pl-[0.9em] xl:lang-en:pr-8">
+              <div className="relative inline-block max-md:mx-auto">
+                <Image
+                  src="/about-us/inspire.svg"
+                  alt="Inspire"
+                  width={130}
+                  height={140}
+                  className="lang-zh:bottom-0 lang-zh:left-1/2 max-md:mx-auto md:lang-zh:absolute md:lang-zh:-translate-x-1/2"
+                  loading="eager"
+                />
+                <div className="invisible hidden md:lang-zh:block">{a('block-3-title-1')}</div>
+              </div>
             </div>
             {a('block-3-title-1')}
           </h2>
