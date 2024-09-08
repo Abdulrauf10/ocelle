@@ -122,6 +122,9 @@ describe('getDerMultiplier', () => {
     expect(
       DogHelper.getDerMultiplier([breeds[0]], lessThan12Months, false, ActivityLevel.Mellow)
     ).toBe(2);
+    expect(
+      DogHelper.getDerMultiplier([breeds[0]], lessThan12Months, true, ActivityLevel.VeryActive)
+    ).toBe(2);
   });
   test('equal 1.1', () => {
     expect(DogHelper.getDerMultiplier([breeds[0]], exact12Months, true, ActivityLevel.Mellow)).toBe(

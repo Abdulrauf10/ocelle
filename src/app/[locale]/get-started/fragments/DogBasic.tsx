@@ -240,7 +240,7 @@ export default function DogBasicFragment() {
                     <div className="px-3">
                       <InteractiveBlock
                         type="radio"
-                        value="N"
+                        value="Y"
                         error={!!errors.isNeutered}
                         control={control}
                         name="isNeutered"
@@ -251,7 +251,7 @@ export default function DogBasicFragment() {
                     <div className="px-3">
                       <InteractiveBlock
                         type="radio"
-                        value="Y"
+                        value="N"
                         error={!!errors.isNeutered}
                         control={control}
                         name="isNeutered"

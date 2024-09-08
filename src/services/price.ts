@@ -79,7 +79,7 @@ export default class PriceService {
       transitionPeriod
     );
     if (!recipes.recipe2) {
-      return recipe1Price;
+      return Math.round(recipe1Price);
     }
     const { price: recipe2Price } = this.calculateRecipeBoxPrice(
       products,
