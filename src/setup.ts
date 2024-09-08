@@ -6,6 +6,7 @@ import {
   DEFUALT_SHIPPING_ZONE,
   SHIPPING_METHOD_SF_EXPRESS_FIXED,
   SHIPPING_METHOD_SF_EXPRESS_FREE,
+  SHIPPING_METHOD_SF_EXPRESS_MIN_FREE,
 } from './consts';
 import { LifeStage, Recipe } from './enums';
 import {
@@ -412,7 +413,6 @@ async function findOrCreateShippingMethod(
     },
     variables: {
       id: shippingZone.id,
-      channel: channel.id,
     },
   });
 
@@ -957,6 +957,12 @@ async function setup() {
     SHIPPING_METHOD_SF_EXPRESS_FIXED,
     60
   );
+  const minFreeShippingMethod = await findOrCreateShippingMethod(
+    shippingZone,
+    channel,
+    SHIPPING_METHOD_SF_EXPRESS_MIN_FREE,
+    0
+  );
 
   const individualProducts = await setupIndividualProducts(
     channel,
@@ -982,6 +988,8 @@ async function setup() {
   await setupExcludeShippingMethodProducts(freeShippingMethod.id, individualProducts);
   await setupExcludeShippingMethodProducts(fixedShippingMethod.id, subscriptionProducts);
   await setupExcludeShippingMethodProducts(fixedShippingMethod.id, subscriptionCrossJoinProducts);
+  await setupExcludeShippingMethodProducts(minFreeShippingMethod.id, subscriptionProducts);
+  await setupExcludeShippingMethodProducts(minFreeShippingMethod.id, subscriptionCrossJoinProducts);
 
   await prugeDefaultChannel();
   await prugeDefaultProductType();

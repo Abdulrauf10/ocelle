@@ -3,6 +3,7 @@
 import invariant from 'ts-invariant';
 
 import { getCartCookie, setCartCookie } from '@/actions';
+import { SHIPPING_METHOD_SF_EXPRESS_FIXED, SHIPPING_METHOD_SF_EXPRESS_MIN_FREE } from '@/consts';
 import { IndividualRecipePack } from '@/enums';
 import { CheckoutNotFoundError } from '@/errors/checkout';
 import { individualPackProducts, individualPackProductsValues } from '@/products';
@@ -72,9 +73,18 @@ export async function getOrCreateCheckout() {
 export async function addToCart(pack: IndividualRecipePack, quantity: number): Promise<CartReturn> {
   const cart = await getOrCreateCheckout();
 
-  await checkoutService.appendLine(cart.id, individualPackProducts[pack].slug, quantity);
+  const { totalPrice } = await checkoutService.appendLine(
+    cart.id,
+    individualPackProducts[pack].slug,
+    quantity
+  );
 
-  const checkout = await checkoutService.assignShippingMethod(cart.id, 'SF Express (Fixed)');
+  const checkout = await checkoutService.assignShippingMethod(
+    cart.id,
+    totalPrice.gross.amount >= 500
+      ? SHIPPING_METHOD_SF_EXPRESS_MIN_FREE
+      : SHIPPING_METHOD_SF_EXPRESS_FIXED
+  );
 
   return {
     lines: checkout.lines,

@@ -50,7 +50,7 @@ query FindShippingZones($filter: ShippingZoneFilterInput) {
   }
 }
 
-query GetShippingZone($id: ID!, $channel: String!) {
+query GetShippingZone($id: ID!, $channel: String) {
   shippingZone(id: $id, channel: $channel) {
     ...ShippingZone
   }
