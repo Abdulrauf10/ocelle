@@ -15,10 +15,12 @@ export default function SurveyFragment() {
     return [
       t('i-do-not-like-subscription-services'),
       t('ive-experienced-delivery-issues'),
-      t('i-had-issues-with-customer-service-limited-plan-or-recipe-options'),
+      t('i-had-issues-with-customer-service'),
+      t('limited-plan-or-recipe-options'),
       t('Feeding-fresh-is-too-inconvenient-difficult'),
       t('im-not-happy-with-the-quality-of-food'),
-      t('my-dog-doesnt-like-the-food-Health-related-allergies'),
+      t('my-dog-doesnt-like-the-food'),
+      t('health-related-allergies'),
       t('vet-recommendation'),
       t('price'),
       t('my-dog-is-no-longer-with-me'),
@@ -31,9 +33,9 @@ export default function SurveyFragment() {
       t('{}-food', { value: t('wet') }),
       t('{}-food', { value: t('raw') }),
       t('{}-food', { value: t('dehydrated') }),
-      t('{}-food', { value: t('other-fresh') }),
-      t('{}-food', { value: t('homemade') }),
-      t('prescription-diet'),
+      t('other-fresh'),
+      t('homemade'),
+      t('{}-food', { value: t('prescription-diet') }),
     ];
   }, [t]);
 

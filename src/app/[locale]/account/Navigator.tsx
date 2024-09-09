@@ -14,12 +14,12 @@ export default function Navigator() {
     <ul className="flex flex-row justify-center max-xl:mx-0 max-xl:flex-col max-xl:text-center [&_a:hover]:text-primary [&_a:hover]:underline [&_li]:list-none">
       <li>
         <Link href="/account/plan" className="block px-4 py-2">
-          {n('my-plan')}
+          {n('my-plan-account')}
         </Link>
       </li>
       <li>
         <Link href="/account" className="block px-4 py-2">
-          {n('my-info')}
+          {n('my-info-account')}
         </Link>
       </li>
       <li>

@@ -88,7 +88,7 @@ export default async function Account() {
             {defaultShippingAddress && (
               <div className="mt-4 flex max-xs:flex-wrap">
                 <strong className="min-w-[82px] text-gold">
-                  {t('{}-colon', { value: t('delivery') })}
+                  {t('{}-colon', { value: t('delivery(address)') })}
                 </strong>
                 <span className="w-full">{sentence.address(defaultShippingAddress)}</span>
               </div>
@@ -96,7 +96,7 @@ export default async function Account() {
             {defaultBillingAddress && (
               <div className="mt-3 flex max-xs:flex-wrap">
                 <strong className="min-w-[82px] text-gold">
-                  {t('{}-colon', { value: t('billing') })}
+                  {t('{}-colon', { value: t('billing(address)') })}
                 </strong>
                 <span className="w-full">{sentence.address(defaultBillingAddress)}</span>
               </div>
@@ -147,7 +147,9 @@ export default async function Account() {
                       ></div>
                       <div className="ml-3 min-w-[80px]">{dog.name}</div>
                       <div className="pl-1">
-                        {t('plan-{}', { status: dog.plan.isEnabled ? t('active') : t('inactive') })}
+                        {t('plan-{}', {
+                          status: dog.plan.isEnabled ? t('active-plan') : t('inactive-plan'),
+                        })}
                       </div>
                     </div>
                   );
