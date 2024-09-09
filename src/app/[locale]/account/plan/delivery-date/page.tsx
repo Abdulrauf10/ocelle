@@ -35,7 +35,7 @@ export default async function PlanDeliveryDate() {
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
         <h1 className="heading-4 text-center font-bold text-primary">
-          {t('change-{}', { value: t('delivery-date') })}
+          {t('edit-{}', { value: t('delivery-date') })}
         </h1>
         <div className="mx-auto mt-4 max-w-[620px] text-center">
           <ShippableNote />
