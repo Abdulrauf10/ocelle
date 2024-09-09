@@ -1,5 +1,6 @@
 'use server';
 
+import { GraphQLError } from '@saleor/auth-sdk';
 import { startOfDay, subDays } from 'date-fns';
 import invariant from 'ts-invariant';
 
@@ -190,7 +191,8 @@ export async function createDraftOrder(dogs: DogDto[]) {
     try {
       await orderService.delete(prevOrderId);
     } catch (e) {
-      console.error(e);
+      // skip `Cannot delete some instances of model 'Order' because they are referenced through protected foreign keys: 'TransactionItem.order'.` error message
+      if (!(e instanceof GraphQLError)) console.error(e);
     }
   }
 
