@@ -48,11 +48,11 @@ class AuthService {
   }
   async forgotPassword(email: string) {
     const headersList = headers();
-    const host = headersList.get('host');
+    const origin = headersList.get('origin');
     const { requestPasswordReset } = await executeGraphQL(RequestPasswordResetDocument, {
       variables: {
         email,
-        redirectUrl: `${host}/auth/reset-password`,
+        redirectUrl: `${origin}/auth/reset-password`,
       },
       withAuth: false,
     });
