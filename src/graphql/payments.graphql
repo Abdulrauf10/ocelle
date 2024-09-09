@@ -8,6 +8,29 @@ fragment PaymentGateway on PaymentGateway {
   }
 }
 
+fragment TransactionEvent on TransactionEvent {
+  id
+  type
+  pspReference
+  createdAt
+  message
+  externalUrl
+  amount {
+    ...Money
+  }
+}
+
+fragment TransactionItem on TransactionItem {
+  id
+  actions
+  name
+  message
+  pspReference
+  events {
+    ...TransactionEvent
+  }
+}
+
 mutation InitializePaymentGateways(
   $checkoutId: ID!
   $paymentGateways: [PaymentGatewayToInitialize!]
@@ -43,13 +66,10 @@ mutation InitializeTransaction(
     amount: $amount
   ) {
     transaction {
-      id
-      actions
-      pspReference
+      ...TransactionItem
     }
     transactionEvent {
-      message
-      type
+      ...TransactionEvent
     }
     data
     errors {
@@ -63,14 +83,25 @@ mutation InitializeTransaction(
 mutation ProcessTransaction($id: ID!, $data: JSON) {
   transactionProcess(id: $id, data: $data) {
     transaction {
-      id
-      actions
+      ...TransactionItem
     }
     transactionEvent {
-      message
-      type
+      ...TransactionEvent
     }
     data
+    errors {
+      field
+      code
+      message
+    }
+  }
+}
+
+mutation RequestTransactionAction($id: ID!, $actionType: TransactionActionEnum!) {
+  transactionRequestAction(id: $id, actionType: $actionType) {
+    transaction {
+      ...TransactionItem
+    }
     errors {
       field
       code

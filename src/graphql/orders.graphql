@@ -64,6 +64,9 @@ fragment Order on Order {
   lines {
     ...OrderLine
   }
+  transactions {
+    ...TransactionItem
+  }
 }
 
 mutation CreateDraftOrder($input: DraftOrderCreateInput!) {
@@ -81,6 +84,19 @@ mutation CreateDraftOrder($input: DraftOrderCreateInput!) {
 
 mutation UpdateDraftOrder($id: ID!, $input: DraftOrderInput!) {
   draftOrderUpdate(id: $id, input: $input) {
+    errors {
+      field
+      message
+      code
+    }
+    order {
+      ...Order
+    }
+  }
+}
+
+mutation CancelDraftOrder($id: ID!) {
+  orderCancel(id: $id) {
     errors {
       field
       message

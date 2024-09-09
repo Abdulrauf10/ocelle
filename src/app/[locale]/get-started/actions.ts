@@ -187,12 +187,11 @@ export async function createDraftOrder(dogs: DogDto[]) {
   const prevOrderId = await getOrderCookie();
 
   if (prevOrderId) {
-    // try to delete prev draft order, slient mode
+    // try to cancel all transactions of the prev draft order, slient mode
     try {
-      await orderService.delete(prevOrderId);
+      await orderService.cancelOrderTransactions(prevOrderId);
     } catch (e) {
-      // skip `Cannot delete some instances of model 'Order' because they are referenced through protected foreign keys: 'TransactionItem.order'.` error message
-      if (!(e instanceof GraphQLError)) console.error(e);
+      console.error(e);
     }
   }
 

@@ -8,6 +8,8 @@ import productService from './product';
 import { Frequency } from '@/enums';
 import {
   OrderAddDiscountError,
+  OrderCancelError,
+  OrderCancelTransactionError,
   OrderCompleteError,
   OrderCreateError,
   OrderDeleteError,
@@ -18,6 +20,7 @@ import {
 } from '@/errors/order';
 import {
   AddOrderDiscountDocument,
+  CancelDraftOrderDocument,
   CompleteDraftOrderDocument,
   CountryCode,
   CreateDraftOrderDocument,
@@ -29,6 +32,8 @@ import {
   InitializeTransactionDocument,
   OrderAuthorizeStatusEnum,
   OrderChargeStatusEnum,
+  RequestTransactionActionDocument,
+  TransactionActionEnum,
   UpdateDraftOrderDocument,
   UpdateDraftOrderMutationVariables,
 } from '@/gql/graphql';
@@ -303,19 +308,23 @@ class OrderService {
 
     return orderDiscountAdd.order!;
   }
-  async delete(id: string) {
-    const { draftOrderDelete } = await executeGraphQL(DeleteDraftOrderDocument, {
-      withAuth: false,
-      headers: {
-        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
-      },
-      variables: { id },
-    });
-
-    // ignore error -> saleor always throw error
-    // if (!draftOrderDelete || draftOrderDelete.errors.length > 0) {
-    //   throw new OrderDeleteError(draftOrderDelete?.errors);
-    // }
+  async cancelOrderTransactions(id: string) {
+    const order = await this.getById(id);
+    for (const transaction of order.transactions) {
+      const { transactionRequestAction } = await executeGraphQL(RequestTransactionActionDocument, {
+        withAuth: false,
+        headers: {
+          Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+        },
+        variables: {
+          id: transaction.id,
+          actionType: TransactionActionEnum.Cancel,
+        },
+      });
+      if (!transactionRequestAction || transactionRequestAction.errors.length > 0) {
+        throw new OrderCancelTransactionError(transactionRequestAction?.errors);
+      }
+    }
   }
   async complete(id: string) {
     // we need to wait for the payment hook to be called before completing the checkout
