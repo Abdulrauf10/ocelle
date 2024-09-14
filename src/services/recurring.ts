@@ -10,7 +10,7 @@ import { Dog, DogBreed, DogPlan, Order, RecurringBox, Shipment, User } from '@/e
 import { Frequency } from '@/enums';
 import StripeNotReadyError from '@/errors/StripeNotReadyError';
 import { OrderFragment } from '@/gql/graphql';
-import { calculateRecurringBoxDuration } from '@/helpers/box';
+import { getNextRecurringBoxPreiod } from '@/helpers/box';
 import { executeQuery } from '@/helpers/queryRunner';
 import {
   getEditableRecurringBoxDeadline,
@@ -180,7 +180,7 @@ class RecurringService {
             console.error('failed to find the recurring box of dog ' + dog.id);
             continue;
           }
-          const { startDate, endDate } = calculateRecurringBoxDuration(
+          const { startDate, endDate } = getNextRecurringBoxPreiod(
             prevBox.endDate,
             dog.plan.frequency
           );
@@ -240,7 +240,7 @@ class RecurringService {
       }
 
       for (const { meta, box } of lines) {
-        const { startDate } = calculateRecurringBoxDuration(box.endDate, meta.frequency);
+        const { startDate } = getNextRecurringBoxPreiod(box.endDate, meta.frequency);
         const defaultDeliveryDate = getRecurringBoxDefaultDeliveryDate(events, startDate);
         const shipment = queryRunner.manager.create(Shipment, {
           deliveryDate: defaultDeliveryDate,
@@ -282,7 +282,7 @@ class RecurringService {
           console.error('failed to find the recurring box of dog ' + dog.id);
           continue;
         }
-        const { startDate } = calculateRecurringBoxDuration(prevBox.endDate, dog.plan.frequency);
+        const { startDate } = getNextRecurringBoxPreiod(prevBox.endDate, dog.plan.frequency);
         const defaultDeliveryDate =
           preferDeliveryDate ?? getRecurringBoxDefaultDeliveryDate(events, startDate);
         await queryRunner.manager.insert(Shipment, {

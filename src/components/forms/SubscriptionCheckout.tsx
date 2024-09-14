@@ -3,7 +3,7 @@
 import { MenuItem } from '@mui/material';
 import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import clsx from 'clsx';
-import { addWeeks, subDays } from 'date-fns';
+import { addDays, addWeeks, subDays } from 'date-fns';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { useForm } from 'react-hook-form';
@@ -24,11 +24,13 @@ import PasswordField from '@/components/controls/PasswordField';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import Select from '@/components/controls/Select';
 import { EMAIL_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP } from '@/consts';
-import { MealPlan, Recipe } from '@/enums';
+import { Frequency, MealPlan, Recipe } from '@/enums';
 import { CountryCode, OrderDiscountType, OrderFragment } from '@/gql/graphql';
+import { getNextRecurringBoxPreiod } from '@/helpers/box';
 import RecipeHelper from '@/helpers/recipe';
 import {
   getEditableRecurringBoxDeadline,
+  getRecurringBoxDefaultDeliveryDate,
   isLegalDeliveryDate,
   isOperationDate,
 } from '@/helpers/shipment';
@@ -552,7 +554,7 @@ export default function SubscriptionCheckoutForm({
               <div className="mt-3"></div>
               <p className="body-3">
                 {t.rich('after-checkout-you-can-adjust-your-delivery-date-until-the-{}', {
-                  date: sentence.date(
+                  date: sentence.datetime(
                     getEditableRecurringBoxDeadline(calendarEvents, watch('deliveryDate'), true)
                   ),
                 })}
@@ -717,7 +719,16 @@ export default function SubscriptionCheckoutForm({
               <div className="mt-4 text-gold">
                 <p className="body-3">
                   {t('{}-colon', { value: t('next-order') })}
-                  {sentence.date(addWeeks(new Date(), 2), true)}
+                  {sentence.date(
+                    getRecurringBoxDefaultDeliveryDate(
+                      calendarEvents,
+                      getNextRecurringBoxPreiod(
+                        addDays(watch('deliveryDate'), 1 + 14),
+                        Frequency.TwoWeek
+                      ).startDate
+                    ),
+                    true
+                  )}
                 </p>
                 <div className="mt-3"></div>
                 <p className="body-3">

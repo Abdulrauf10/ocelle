@@ -42,7 +42,8 @@ export default function DogPreference2Fragment() {
   const auth = useAuth();
   const { padSpace } = useSentence();
   const { getDog, setDog, currentDogIdx } = useSurvey();
-  const { name, foodAllergies, currentEating, amountOfTreats, pickiness } = getDog();
+  const { name, foodAllergies, currentEating, amountOfTreats, pickiness, recipe1, recipe2 } =
+    getDog();
   const {
     handleSubmit,
     control,
@@ -79,16 +80,32 @@ export default function DogPreference2Fragment() {
 
   const onSubmit = React.useCallback(
     ({ allergies, eating, amountOfTreats, pickiness }: DogPreference2Form) => {
+      const foodAllergies = arrayToAllergies(allergies);
+      let _recipe1 = recipe1;
+      let _recipe2 = recipe2;
+
+      // reset selected recipes when food allergies is changed
+      if (_recipe1 && DogHelper.isAllergies(_recipe1, foodAllergies)) {
+        _recipe1 = undefined;
+        _recipe2 = undefined;
+      }
+      if (_recipe2 && DogHelper.isAllergies(_recipe2, foodAllergies)) {
+        _recipe1 = undefined;
+        _recipe2 = undefined;
+      }
+
       setDog({
-        foodAllergies: arrayToAllergies(allergies),
+        foodAllergies,
         currentEating: arrayToFoods(eating),
         amountOfTreats,
         pickiness,
+        recipe1: _recipe1,
+        recipe2: _recipe2,
       });
       if (currentDogIdx === 0 && !auth.me) navigate(Stage.Owner);
       else navigate(Stage.Calculating);
     },
-    [currentDogIdx, navigate, setDog, auth.me]
+    [currentDogIdx, navigate, setDog, auth.me, recipe1, recipe2]
   );
 
   const eating = getValues('eating');

@@ -71,8 +71,8 @@ export default function ChoosePlanFragment() {
               <FreshPlan
                 title={t('fresh-full-plan')}
                 picture="/meal-plan/full-plan.jpg"
-                pricePerDay={roundTo(minPrices.fullPlan, 2)}
-                discountedPricePerDay={roundTo(minPrices.fullPlan / 2, 2)}
+                pricePerDay={minPrices.fullPlan.price}
+                discountedPricePerDay={minPrices.fullPlan.discountedPrice}
                 firstDiscount
                 error={!!error}
                 recommended
@@ -86,8 +86,8 @@ export default function ChoosePlanFragment() {
               <FreshPlan
                 title={t('fresh-half-plan')}
                 picture="/meal-plan/half-plan.jpg"
-                pricePerDay={roundTo(minPrices.halfPlan, 2)}
-                discountedPricePerDay={roundTo(minPrices.halfPlan / 2, 2)}
+                pricePerDay={minPrices.halfPlan.price}
+                discountedPricePerDay={minPrices.halfPlan.discountedPrice}
                 firstDiscount
                 error={!!error}
                 selected={currentMealPlan === MealPlan.Half}

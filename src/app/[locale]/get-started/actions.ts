@@ -1,6 +1,5 @@
 'use server';
 
-import { GraphQLError } from '@saleor/auth-sdk';
 import { startOfDay, subDays } from 'date-fns';
 import invariant from 'ts-invariant';
 
@@ -137,7 +136,9 @@ export async function getMinPerDayPrice(
       dog.weight,
       dog.bodyCondition,
       dog.activityLevel,
-      MealPlan.Half
+      MealPlan.Half,
+      Frequency.TwoWeek,
+      0.5
     ),
     fullPlan: await PriceService.findMinPerDayPrice(
       breeds,
@@ -146,7 +147,9 @@ export async function getMinPerDayPrice(
       dog.weight,
       dog.bodyCondition,
       dog.activityLevel,
-      MealPlan.Full
+      MealPlan.Full,
+      Frequency.TwoWeek,
+      0.5
     ),
   };
 }

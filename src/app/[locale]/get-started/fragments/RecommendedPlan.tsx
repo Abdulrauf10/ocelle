@@ -221,6 +221,14 @@ export default function RecommendedPlanFragment() {
       }
     }
 
+    if (!recipe1) {
+      for (const recipe of getRecipeOptions()) {
+        if (!recipe1 && !DogHelper.isAllergies(recipe, foodAllergies!)) {
+          recipe1 = recipe;
+        }
+      }
+    }
+
     return { recipe1, recipe2 };
   }, [pickiness, activityLevel, bodyCondition, foodAllergies]);
 

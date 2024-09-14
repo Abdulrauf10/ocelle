@@ -55,8 +55,14 @@ interface DogPlanDto {
 }
 
 interface MinPricesDto {
-  halfPlan: number;
-  fullPlan: number;
+  halfPlan: {
+    price: number;
+    discountedPrice: number;
+  };
+  fullPlan: {
+    price: number;
+    discountedPrice: number;
+  };
 }
 
 interface CartReturn {

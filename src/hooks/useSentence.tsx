@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import { useLocale, useTranslations } from 'next-intl';
 
 import { Recipe } from '@/enums';
@@ -46,6 +47,9 @@ export default function useSentence() {
       }
 
       return segments.join(' ');
+    },
+    datetime(date: Date, displayYear?: boolean) {
+      return this.date(date, displayYear) + (locale === 'en' ? ' ' : '') + format(date, 'hh:mmaa');
     },
     padSpace: (space: PadSpace, str?: string) => {
       // str length === 0

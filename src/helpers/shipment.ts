@@ -1,4 +1,4 @@
-import { addDays, getDay, startOfDay, subDays } from 'date-fns';
+import { addDays, getDay, startOfDay, subDays, subMinutes } from 'date-fns';
 
 import { CalendarEvent } from '@/types';
 
@@ -97,9 +97,12 @@ export function getEditableRecurringBoxDeadline(
 
   console.debug('get editable recurring box deadline', dates);
 
-  return subDays(
-    startOfDay(deliveryDate),
-    dates.reduce((sum, a) => sum + a, 0) + (disableBufferZone ? 0 : 2)
+  return subMinutes(
+    subDays(
+      startOfDay(deliveryDate),
+      dates.reduce((sum, a) => sum + a, 0) + (disableBufferZone ? 0 : 2)
+    ),
+    1
   );
 }
 

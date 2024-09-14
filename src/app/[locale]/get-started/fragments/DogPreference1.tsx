@@ -31,7 +31,7 @@ export default function DogPreference1Fragment() {
   const navigate = useNavigate();
   const { padSpace } = useSentence();
   const { getDog, setDog } = useSurvey();
-  const { name, weight, bodyCondition, activityLevel } = getDog();
+  const { name, weight, bodyCondition, activityLevel, sex } = getDog();
   const {
     handleSubmit,
     control,
@@ -152,9 +152,15 @@ export default function DogPreference1Fragment() {
                         }
                         const idealWeight = DogHelper.calculateIdealWeight(weight, bodyCondition);
                         if (idealWeight > 50 || idealWeight < 0.5) {
-                          return t(
-                            'unfortunately-the-amount-that-{}-needs-fall-outside-of-the-portion-sizes-ocelle-typically-offers',
-                            { name: padSpace(PadSpace.Both, name) }
+                          return String(
+                            t.rich(
+                              'based-on-{}-current-weight-and-body-condition-we-ve-determined-that-they-need-to-{}-weight',
+                              {
+                                name: padSpace(PadSpace.Both, name),
+                                gender: sex,
+                                weight: idealWeight > 50 ? 'lose' : 'gain',
+                              }
+                            )
                           );
                         }
                         return true;

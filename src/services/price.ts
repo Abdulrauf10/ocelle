@@ -46,7 +46,8 @@ export default class PriceService {
     };
   }
 
-  static async calculateBoxPrice(
+  private static _calculateBoxPrice(
+    products: ProductFragment[],
     breeds: BreedDto[],
     dateOfBirth: Date,
     neutered: boolean,
@@ -58,13 +59,6 @@ export default class PriceService {
     frequency: Frequency,
     transitionPeriod: boolean
   ) {
-    const products = await productService.find({
-      where: {
-        slug: {
-          oneOf: Object.values(subscriptionProducts).map((product) => product.slug),
-        },
-      },
-    });
     const { price: recipe1Price } = this.calculateRecipeBoxPrice(
       products,
       breeds,
@@ -95,6 +89,40 @@ export default class PriceService {
       transitionPeriod
     );
     return Math.round(recipe1Price + recipe2Price);
+  }
+
+  static async calculateBoxPrice(
+    breeds: BreedDto[],
+    dateOfBirth: Date,
+    neutered: boolean,
+    currentWeight: number,
+    condition: BodyCondition,
+    activityLevel: ActivityLevel,
+    recipes: { recipe1: Recipe; recipe2?: Recipe },
+    plan: MealPlan,
+    frequency: Frequency,
+    transitionPeriod: boolean
+  ) {
+    const products = await productService.find({
+      where: {
+        slug: {
+          oneOf: Object.values(subscriptionProducts).map((product) => product.slug),
+        },
+      },
+    });
+    return this._calculateBoxPrice(
+      products,
+      breeds,
+      dateOfBirth,
+      neutered,
+      currentWeight,
+      condition,
+      activityLevel,
+      recipes,
+      plan,
+      frequency,
+      transitionPeriod
+    );
   }
 
   static async calculatePerDayBoxPrice(
@@ -191,7 +219,9 @@ export default class PriceService {
     currentWeight: number,
     condition: BodyCondition,
     activityLevel: ActivityLevel,
-    plan: MealPlan
+    plan: MealPlan,
+    frequency = Frequency.TwoWeek,
+    discount: number
   ) {
     const products = await productService.find({
       where: {
@@ -201,7 +231,7 @@ export default class PriceService {
       },
     });
     const boxPrices = Object.keys(subscriptionProducts).map((recipe) => {
-      const { price } = this.calculateRecipeBoxPrice(
+      const price = this._calculateBoxPrice(
         products,
         breeds,
         dateOfBirth,
@@ -209,20 +239,20 @@ export default class PriceService {
         currentWeight,
         condition,
         activityLevel,
-        { recipeToBeCalcuate: recipe as Recipe },
+        { recipe1: recipe as Recipe },
         plan,
-        Frequency.TwoWeek,
+        frequency,
         true
       );
-      const { transitionPeriodDays, normalDays } = RecipeHelper.calculateTotalDaysInBox(
-        { recipeToBeCalcuate: recipe as Recipe },
-        Frequency.TwoWeek,
-        true
-      );
+      const discountPrice = roundTo(price * discount, 2);
+      const dailyPrice = roundTo(price / (frequency === Frequency.OneWeek ? 7 : 14), 2);
 
-      return Math.round(price) / (transitionPeriodDays + normalDays);
+      return {
+        price: dailyPrice,
+        discountedPrice: roundTo(discountPrice / (frequency === Frequency.OneWeek ? 7 : 14), 2),
+      };
     });
 
-    return Math.min(...boxPrices);
+    return boxPrices.reduce((prev, curr) => (prev.price < curr.price ? prev : curr));
   }
 }
