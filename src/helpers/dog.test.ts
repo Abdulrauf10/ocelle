@@ -176,19 +176,37 @@ describe('calculateIdealWeight', () => {
 describe('isAllergies', () => {
   test('chicken', () => {
     expect(DogHelper.isAllergies(Recipe.Chicken, FoodAllergies.Chicken)).toBe(true);
+    expect(DogHelper.isAllergies(Recipe.Chicken, FoodAllergies.Beef)).toBe(false);
+    expect(DogHelper.isAllergies(Recipe.Chicken, FoodAllergies.Pork)).toBe(false);
+    expect(DogHelper.isAllergies(Recipe.Chicken, FoodAllergies.Lamb)).toBe(false);
+    expect(DogHelper.isAllergies(Recipe.Chicken, FoodAllergies.Duck)).toBe(false);
   });
   test('beef', () => {
+    expect(DogHelper.isAllergies(Recipe.Beef, FoodAllergies.Chicken)).toBe(false);
     expect(DogHelper.isAllergies(Recipe.Beef, FoodAllergies.Beef)).toBe(true);
+    expect(DogHelper.isAllergies(Recipe.Beef, FoodAllergies.Pork)).toBe(false);
+    expect(DogHelper.isAllergies(Recipe.Beef, FoodAllergies.Lamb)).toBe(false);
+    expect(DogHelper.isAllergies(Recipe.Beef, FoodAllergies.Duck)).toBe(false);
   });
   test('pork', () => {
+    expect(DogHelper.isAllergies(Recipe.Pork, FoodAllergies.Chicken)).toBe(false);
+    expect(DogHelper.isAllergies(Recipe.Pork, FoodAllergies.Beef)).toBe(false);
     expect(DogHelper.isAllergies(Recipe.Pork, FoodAllergies.Pork)).toBe(true);
+    expect(DogHelper.isAllergies(Recipe.Pork, FoodAllergies.Lamb)).toBe(false);
+    expect(DogHelper.isAllergies(Recipe.Pork, FoodAllergies.Duck)).toBe(false);
   });
   test('lamb', () => {
+    expect(DogHelper.isAllergies(Recipe.Lamb, FoodAllergies.Chicken)).toBe(false);
     expect(DogHelper.isAllergies(Recipe.Lamb, FoodAllergies.Beef)).toBe(true);
+    expect(DogHelper.isAllergies(Recipe.Lamb, FoodAllergies.Pork)).toBe(false);
     expect(DogHelper.isAllergies(Recipe.Lamb, FoodAllergies.Lamb)).toBe(true);
+    expect(DogHelper.isAllergies(Recipe.Lamb, FoodAllergies.Duck)).toBe(false);
   });
   test('duck', () => {
     expect(DogHelper.isAllergies(Recipe.Duck, FoodAllergies.Chicken)).toBe(true);
+    expect(DogHelper.isAllergies(Recipe.Duck, FoodAllergies.Beef)).toBe(false);
+    expect(DogHelper.isAllergies(Recipe.Duck, FoodAllergies.Pork)).toBe(false);
+    expect(DogHelper.isAllergies(Recipe.Duck, FoodAllergies.Lamb)).toBe(false);
     expect(DogHelper.isAllergies(Recipe.Duck, FoodAllergies.Duck)).toBe(true);
   });
 });
