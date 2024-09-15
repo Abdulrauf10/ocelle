@@ -143,7 +143,7 @@ export default async function Plan() {
                     </div>
                     <p className="mt-3">
                       {t.rich('you-can-make-changes-until-the-{}', {
-                        date: sentence.date(
+                        date: sentence.datetime(
                           getEditableRecurringBoxDeadline(
                             calendarEvents,
                             upcomingBox.shipment.deliveryDate,
@@ -275,7 +275,7 @@ export default async function Plan() {
               <div className="px-4 max-md:text-center">
                 <h2 className="heading-4 font-bold">
                   {t.rich('know-more-dog-people-refer-a-friend-earn-{}', {
-                    value: '[$50]',
+                    value: '$50',
                     b: (chunks) => <b className="text-[1.1em]">{chunks}</b>,
                   })}
                 </h2>
@@ -284,7 +284,7 @@ export default async function Plan() {
                     {t.rich(
                       'refer-your-friends-to-try-ocelle-with-a-special-discount-code-and-get-{}-off-your-next-box',
                       {
-                        value: '[$50]',
+                        value: '$50',
                         b: (chunks) => <b className="text-[1.4em]">{chunks}</b>,
                       }
                     )}

@@ -19,6 +19,7 @@ import DogHelper from '@/helpers/dog';
 import { arrayToRecipe, recipeToArray } from '@/helpers/form';
 import RecipeHelper from '@/helpers/recipe';
 import useDefaultValues from '@/hooks/defaultValues';
+import useSentence from '@/hooks/useSentence';
 
 interface RecipeForm {
   recipe: boolean[];
@@ -49,7 +50,9 @@ export default function RecipeForm({
   action(data: { recipe1: Recipe; recipe2?: Recipe }): Promise<void>;
 }) {
   const t = useTranslations();
+  const r = useTranslations('Recipes');
   const i = useTranslations('Ingredients');
+  const sentence = useSentence();
   const { defaultValues, setDefaultValues } = useDefaultValues({
     recipe: recipeToArray(initialRecipe1, initialRecipe2),
   });
@@ -96,11 +99,11 @@ export default function RecipeForm({
         setDefaultValues({ recipe: recipeToArray(recipe1, recipe2) });
         //TODO
         toast.success(
-          `Your recipe selection for ${name}’s upcoming box has been successfully updated.`
+          t('your-recipe-selection-for-{}-upcoming-box-has-been-successfully-updated', { name })
         );
       });
     },
-    [name, action, setDefaultValues]
+    [name, t, action, setDefaultValues]
   );
 
   const isSameAsDefaultValue = equal(watch('recipe'), defaultValues.recipe);
@@ -134,8 +137,8 @@ export default function RecipeForm({
       <div className="mx-auto flex max-w-[820px] flex-wrap justify-center">
         <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
           <RecipeCheckbox
-            title="Fresh Chicken Recipe"
-            description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
+            title={sentence.recipe(Recipe.Chicken)}
+            description={r('chicken:description')}
             name="recipe.0"
             control={control}
             rules={{
@@ -144,8 +147,7 @@ export default function RecipeForm({
             error={!!errors?.recipe}
             picture="/meal-plan/chicken.jpg"
             dialogPicture={
-              <div className="relative overflow-hidden rounded-2xl pt-[100%]">
-                <Image src="/plastic/background/chicken.jpg" alt="" fill />
+              <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#97cfea] from-30% to-white max-md:pt-[100%]">
                 <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                   <PlasticBox name={name!} recipe={Recipe.Chicken} />
                 </div>
@@ -183,8 +185,8 @@ export default function RecipeForm({
         </div>
         <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
           <RecipeCheckbox
-            title="Fresh Pork Recipe"
-            description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
+            title={sentence.recipe(Recipe.Pork)}
+            description={r('pork:description')}
             name="recipe.1"
             control={control}
             rules={{
@@ -193,8 +195,7 @@ export default function RecipeForm({
             error={!!errors?.recipe}
             picture="/meal-plan/pork.jpg"
             dialogPicture={
-              <div className="relative overflow-hidden rounded-2xl pt-[100%]">
-                <Image src="/plastic/background/pork.jpg" alt="" fill />
+              <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#97cfea] from-30% to-white max-md:pt-[100%]">
                 <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                   <PlasticBox name={name!} recipe={Recipe.Pork} />
                 </div>
@@ -232,8 +233,8 @@ export default function RecipeForm({
         </div>
         <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
           <RecipeCheckbox
-            title="Fresh Duck Recipe"
-            description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
+            title={sentence.recipe(Recipe.Duck)}
+            description={r('duck:description')}
             name="recipe.2"
             control={control}
             rules={{
@@ -242,8 +243,7 @@ export default function RecipeForm({
             error={!!errors?.recipe}
             picture="/meal-plan/duck.jpg"
             dialogPicture={
-              <div className="relative overflow-hidden rounded-2xl pt-[100%]">
-                <Image src="/plastic/background/duck.jpg" alt="" fill />
+              <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#f9cc81] from-30% to-white max-md:pt-[100%]">
                 <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                   <PlasticBox name={name!} recipe={Recipe.Duck} />
                 </div>
@@ -280,8 +280,8 @@ export default function RecipeForm({
         </div>
         <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
           <RecipeCheckbox
-            title="Fresh Beef Recipe"
-            description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
+            title={sentence.recipe(Recipe.Beef)}
+            description={r('beef:description')}
             name="recipe.3"
             control={control}
             rules={{
@@ -290,8 +290,7 @@ export default function RecipeForm({
             error={!!errors?.recipe}
             picture="/meal-plan/beef.jpg"
             dialogPicture={
-              <div className="relative overflow-hidden rounded-2xl pt-[100%]">
-                <Image src="/plastic/background/beef.jpg" alt="" fill />
+              <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#f7c1b5] from-30% to-white max-md:pt-[100%]">
                 <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                   <PlasticBox name={name!} recipe={Recipe.Beef} />
                 </div>
@@ -329,8 +328,8 @@ export default function RecipeForm({
         </div>
         <div className="mt-5 px-5 max-xl:w-1/3 max-md:w-1/2 max-sm:w-full">
           <RecipeCheckbox
-            title="Fresh Lamb Recipe"
-            description="A gentle yet satisfying combination for dogs with sensitive stomachs. The perfect blend of lean protein, whole grains, and antioxidant-rich superfoods for health, energy, and a shiny coat."
+            title={sentence.recipe(Recipe.Lamb)}
+            description={r('lamb:description')}
             name="recipe.4"
             control={control}
             rules={{
@@ -339,8 +338,7 @@ export default function RecipeForm({
             error={!!errors?.recipe}
             picture="/meal-plan/lamb.jpg"
             dialogPicture={
-              <div className="relative overflow-hidden rounded-2xl pt-[100%]">
-                <Image src="/plastic/background/lamb.jpg" alt="" fill />
+              <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#cae8b8] from-30% to-white max-md:pt-[100%]">
                 <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                   <PlasticBox name={name!} recipe={Recipe.Lamb} />
                 </div>
@@ -378,7 +376,8 @@ export default function RecipeForm({
       </div>
       {boxPrice && (
         <div className="mt-10 text-center font-bold text-dark-green">
-          Total Price: ${roundTo(boxPrice.total, 1)} (${roundTo(boxPrice.daily, 1)}/Day)
+          {t('{}-colon', { value: t('total-price') })} ${roundTo(boxPrice.total, 1)} ($
+          {t('{}-per-day', { value: roundTo(boxPrice.daily, 1) })})
         </div>
       )}
       <div className="mx-auto mt-10 max-w-[480px]">

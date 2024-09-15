@@ -1,5 +1,5 @@
-import { differenceInMonths, differenceInYears, subYears } from 'date-fns';
-import { getTranslations } from 'next-intl/server';
+import { differenceInMonths, differenceInYears, format, subYears } from 'date-fns';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import { Dog } from '@/entities';
 import { ActivityLevel, FoodAllergies } from '@/enums';
@@ -7,6 +7,7 @@ import { UserAddressFragment } from '@/gql/graphql';
 
 export default async function getSentence() {
   const t = await getTranslations();
+  const locale = await getLocale();
 
   return {
     dog(dog: Dog) {
@@ -21,7 +22,7 @@ export default async function getSentence() {
       }
 
       // render kg
-      strings.push(t('{}-kg', { value: dog.weight }));
+      strings.push(t('weight-{}-kg', { value: dog.weight }));
 
       // render activity level
       switch (dog.activityLevel) {
@@ -47,13 +48,13 @@ export default async function getSentence() {
         );
       }
 
-      if ((dog.foodAllergies & FoodAllergies.None) === FoodAllergies.None) {
-        strings.push(t('Recipes.has-no-allergies-food-sensitivities'));
-      } else {
-        strings.push(t('Recipes.has-allergies-food-sensitivities'));
-      }
+      strings.push(
+        t('has-{}-allergies-food-sensitivities', {
+          allergy: (dog.foodAllergies & FoodAllergies.None) === FoodAllergies.None ? 'no' : 'yes',
+        })
+      );
 
-      return new Intl.ListFormat('en-US').format(strings) + t('dot');
+      return strings.join(t('comma')) + t('dot');
     },
     array(array: string[]) {
       return array.join(t('comma')) + t('dot');
@@ -72,13 +73,17 @@ export default async function getSentence() {
       );
     },
     date(date: Date, displayYear?: boolean) {
-      const dateTimeFormat = new Intl.DateTimeFormat('en-US', {
+      const dateTimeFormat = new Intl.DateTimeFormat(locale === 'zh' ? 'zh-HK' : 'en-US', {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
       });
 
       const parts = dateTimeFormat.formatToParts(date);
+
+      if (locale === 'zh') {
+        return parts.map((part) => part.value).join('');
+      }
 
       const segments = [
         t('{}-of-{}', {
@@ -92,6 +97,9 @@ export default async function getSentence() {
       }
 
       return segments.join(' ');
+    },
+    datetime(date: Date, displayYear?: boolean) {
+      return this.date(date, displayYear) + (locale === 'en' ? ' ' : '') + format(date, 'hh:mmaa');
     },
   };
 }

@@ -13,6 +13,7 @@ import CloseCircle from '@/components/icons/CloseCircle';
 const ReferralDialogContext = React.createContext({ openDialog: () => {} });
 
 export default function ReferralDialog({ children }: React.PropsWithChildren) {
+  const b = useTranslations('Button');
   const r = useTranslations('Referral');
   const [open, setOpen] = React.useState(false);
   const [referral, setReferral] = React.useState(false);
@@ -58,7 +59,7 @@ export default function ReferralDialog({ children }: React.PropsWithChildren) {
                     <div className="text-[14px] leading-[30px]">xxxx38</div>
                     <CopyToClipboard text="xxxx38" onCopy={() => setCopied(true)}>
                       <button className="w-full bg-primary text-[16px] leading-[30px] text-white outline-none">
-                        {copied ? 'Copied the code' : 'Copy Code'}
+                        {copied ? b('copied-the-code') : b('copy-code')}
                       </button>
                     </CopyToClipboard>
                   </div>
