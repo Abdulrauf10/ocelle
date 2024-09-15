@@ -273,8 +273,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         picture="/meal-plan/chicken.jpg"
                         dialogPicture={
-                          <div className="relative overflow-hidden rounded-2xl pt-[100%]">
-                            <Image src="/plastic/background/chicken.jpg" alt="" fill />
+                          <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#97cfea] from-30% to-white max-md:pt-[100%]">
                             <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                               <PlasticBox name={name!} recipe={Recipe.Chicken} />
                             </div>
@@ -319,8 +318,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         picture="/meal-plan/pork.jpg"
                         dialogPicture={
-                          <div className="relative overflow-hidden rounded-2xl pt-[100%]">
-                            <Image src="/plastic/background/pork.jpg" alt="" fill />
+                          <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#97cfea] from-30% to-white max-md:pt-[100%]">
                             <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                               <PlasticBox name={name!} recipe={Recipe.Pork} />
                             </div>
@@ -365,8 +363,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         picture="/meal-plan/duck.jpg"
                         dialogPicture={
-                          <div className="relative overflow-hidden rounded-2xl pt-[100%]">
-                            <Image src="/plastic/background/duck.jpg" alt="" fill />
+                          <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#f9cc81] from-30% to-white max-md:pt-[100%]">
                             <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                               <PlasticBox name={name!} recipe={Recipe.Duck} />
                             </div>
@@ -410,8 +407,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         picture="/meal-plan/beef.jpg"
                         dialogPicture={
-                          <div className="relative overflow-hidden rounded-2xl pt-[100%]">
-                            <Image src="/plastic/background/beef.jpg" alt="" fill />
+                          <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#f7c1b5] from-30% to-white max-md:pt-[100%]">
                             <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                               <PlasticBox name={name!} recipe={Recipe.Beef} />
                             </div>
@@ -456,8 +452,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         picture="/meal-plan/lamb.jpg"
                         dialogPicture={
-                          <div className="relative overflow-hidden rounded-2xl pt-[100%]">
-                            <Image src="/plastic/background/lamb.jpg" alt="" fill />
+                          <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#cae8b8] from-30% to-white max-md:pt-[100%]">
                             <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                               <PlasticBox name={name!} recipe={Recipe.Lamb} />
                             </div>
