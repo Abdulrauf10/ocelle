@@ -7,6 +7,11 @@ import { UpdateCheckoutDataAction } from './types';
 import { updateCheckoutDataActionSchema } from './validators';
 
 import { deleteCartCookie, getCartCookie } from '@/actions';
+import {
+  FREE_SHIPPING_MIN_TOTAL_AMOUNT,
+  SHIPPING_METHOD_SF_EXPRESS_FIXED,
+  SHIPPING_METHOD_SF_EXPRESS_MIN_FREE,
+} from '@/consts';
 import { getRecurringBoxMinDeliveryDate, isLegalDeliveryDate } from '@/helpers/shipment';
 import { redirect } from '@/navigation';
 import calendarService from '@/services/calendar';
@@ -47,7 +52,15 @@ export async function updateCartLine(lineId: string, quantity: number): Promise<
 
   invariant(checkoutId, 'checkout not found in the cookie');
 
-  const checkout = await checkoutService.updateLine(checkoutId, lineId, quantity);
+  const { totalPrice } = await checkoutService.updateLine(checkoutId, lineId, quantity);
+
+  const checkout = await checkoutService.assignShippingMethod(
+    checkoutId,
+    totalPrice.gross.amount >= FREE_SHIPPING_MIN_TOTAL_AMOUNT
+      ? SHIPPING_METHOD_SF_EXPRESS_MIN_FREE
+      : SHIPPING_METHOD_SF_EXPRESS_FIXED
+  );
+
   return {
     lines: checkout.lines,
     subtotalPrice: checkout.subtotalPrice.gross,
@@ -61,7 +74,15 @@ export async function deleteCartLine(lineId: string): Promise<CartReturn> {
 
   invariant(checkoutId, 'checkout not found in the cookie');
 
-  const checkout = await checkoutService.deleteLine(checkoutId, lineId);
+  const { totalPrice } = await checkoutService.deleteLine(checkoutId, lineId);
+
+  const checkout = await checkoutService.assignShippingMethod(
+    checkoutId,
+    totalPrice.gross.amount >= FREE_SHIPPING_MIN_TOTAL_AMOUNT
+      ? SHIPPING_METHOD_SF_EXPRESS_MIN_FREE
+      : SHIPPING_METHOD_SF_EXPRESS_FIXED
+  );
+
   return {
     lines: checkout.lines,
     subtotalPrice: checkout.subtotalPrice.gross,

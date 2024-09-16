@@ -3,7 +3,11 @@
 import invariant from 'ts-invariant';
 
 import { getCartCookie, setCartCookie } from '@/actions';
-import { SHIPPING_METHOD_SF_EXPRESS_FIXED, SHIPPING_METHOD_SF_EXPRESS_MIN_FREE } from '@/consts';
+import {
+  FREE_SHIPPING_MIN_TOTAL_AMOUNT,
+  SHIPPING_METHOD_SF_EXPRESS_FIXED,
+  SHIPPING_METHOD_SF_EXPRESS_MIN_FREE,
+} from '@/consts';
 import { IndividualRecipePack } from '@/enums';
 import { CheckoutNotFoundError } from '@/errors/checkout';
 import { individualPackProducts, individualPackProductsValues } from '@/products';
@@ -81,7 +85,7 @@ export async function addToCart(pack: IndividualRecipePack, quantity: number): P
 
   const checkout = await checkoutService.assignShippingMethod(
     cart.id,
-    totalPrice.gross.amount >= 500
+    totalPrice.gross.amount >= FREE_SHIPPING_MIN_TOTAL_AMOUNT
       ? SHIPPING_METHOD_SF_EXPRESS_MIN_FREE
       : SHIPPING_METHOD_SF_EXPRESS_FIXED
   );
@@ -99,7 +103,14 @@ export async function updateCartLine(lineId: string, quantity: number): Promise<
 
   invariant(cartId, 'cart not found in the cookie');
 
-  const checkout = await checkoutService.updateLine(cartId, lineId, quantity);
+  const { totalPrice } = await checkoutService.updateLine(cartId, lineId, quantity);
+
+  const checkout = await checkoutService.assignShippingMethod(
+    cartId,
+    totalPrice.gross.amount >= FREE_SHIPPING_MIN_TOTAL_AMOUNT
+      ? SHIPPING_METHOD_SF_EXPRESS_MIN_FREE
+      : SHIPPING_METHOD_SF_EXPRESS_FIXED
+  );
 
   return {
     lines: checkout.lines,
@@ -114,7 +125,14 @@ export async function deleteCartLine(lineId: string): Promise<CartReturn> {
 
   invariant(cartId, 'cart not found in the cookie');
 
-  const checkout = await checkoutService.deleteLine(cartId, lineId);
+  const { totalPrice } = await checkoutService.deleteLine(cartId, lineId);
+
+  const checkout = await checkoutService.assignShippingMethod(
+    cartId,
+    totalPrice.gross.amount >= FREE_SHIPPING_MIN_TOTAL_AMOUNT
+      ? SHIPPING_METHOD_SF_EXPRESS_MIN_FREE
+      : SHIPPING_METHOD_SF_EXPRESS_FIXED
+  );
 
   return {
     lines: checkout.lines,
