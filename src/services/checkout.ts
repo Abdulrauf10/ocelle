@@ -193,6 +193,10 @@ class CheckoutService {
       checkout.shippingMethods.find((method) => method.name === name) ??
       checkout.shippingMethods[0];
 
+    if (!shippingMethod) {
+      return checkout;
+    }
+
     const { checkoutDeliveryMethodUpdate } = await executeGraphQL(
       UpdateCheckoutShippingMethodDocument,
       {
