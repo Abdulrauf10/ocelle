@@ -662,7 +662,7 @@ export default function SubscriptionCheckoutForm({
                   <div className="body-3 px-1">
                     <Price
                       className="font-bold"
-                      value={draftOrder.undiscountedTotal.gross.amount}
+                      value={draftOrder.undiscountedTotal.gross.amount.toFixed(2)}
                       discount
                     />
                   </div>
@@ -671,7 +671,10 @@ export default function SubscriptionCheckoutForm({
                 <div className="-mx-1 flex flex-wrap justify-between">
                   <div className="body-3 px-1">{t('with-starter-box-discount')}</div>
                   <div className="body-3 px-1">
-                    <Price className="font-bold" value={starterBoxDiscount.amount.amount} />
+                    <Price
+                      className="font-bold"
+                      value={starterBoxDiscount.amount.amount.toFixed(2)}
+                    />
                   </div>
                 </div>
                 <div className="mt-3"></div>

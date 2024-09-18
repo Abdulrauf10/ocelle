@@ -297,6 +297,14 @@ export default function ApplyCareerForm({
                             name: t('phone-number').toLowerCase(),
                           }),
                         },
+                        validate: (value, { phoneCountryCode }) => {
+                          if (phoneCountryCode !== '852') {
+                            return true;
+                          }
+                          return String(value).length === 8
+                            ? true
+                            : t('please-enter-a-valid-{}', { name: t('phone-number') });
+                        },
                       }}
                       fullWidth
                       InputProps={{
