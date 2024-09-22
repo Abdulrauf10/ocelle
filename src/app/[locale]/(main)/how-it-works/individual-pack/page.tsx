@@ -225,7 +225,7 @@ export default async function HowItWorksIndividual() {
                 src="/dispersion/duck.gif"
                 alt=""
                 role="presentation"
-                className="object-contain object-center"
+                className="object-contain object-bottom"
                 fill
               />
             </div>

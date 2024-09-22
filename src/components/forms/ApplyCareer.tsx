@@ -18,7 +18,7 @@ import { getCountryCodes } from '@/helpers/string';
 import { InputControllerProps } from '@/types';
 
 interface FileInputProps<T extends FieldValues> extends InputControllerProps<T> {
-  label: string;
+  label: React.ReactNode;
   helperText?: string;
 }
 
@@ -140,7 +140,7 @@ export default function ApplyCareerForm({
     control,
     formState: { isValid, errors },
   } = useForm<IApplyCareerForm>({
-    mode: 'onChange',
+    mode: 'onBlur',
     defaultValues: {
       phoneCountryCode: '852',
     },
@@ -343,7 +343,10 @@ export default function ApplyCareerForm({
                     <FileInput
                       control={control}
                       name="resume"
-                      label={c('attach-{}', { value: c('resume-cv') })}
+                      label={c.rich('attach-{}', {
+                        value: c('resume-cv'),
+                        br: () => <br className="hidden md:block min-[860px]:hidden" />,
+                      })}
                       rules={{
                         required: true,
                         validate: (file) => {
@@ -374,7 +377,10 @@ export default function ApplyCareerForm({
                     <FileInput
                       control={control}
                       name="coverLetter"
-                      label={c('attach-{}', { value: t('cover-letter') })}
+                      label={c.rich('attach-{}', {
+                        value: t('cover-letter'),
+                        br: () => <br className="hidden md:block min-[860px]:hidden" />,
+                      })}
                       rules={{
                         validate: (file) => {
                           if (!file) {

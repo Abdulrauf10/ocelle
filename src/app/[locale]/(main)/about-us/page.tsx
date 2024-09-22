@@ -143,7 +143,7 @@ export default function OurStory() {
         </div>
         <div className="relative -left-6 -top-[25px] w-1/2 text-white max-md:left-0 max-md:w-full max-md:px-4">
           <div className="mt-6"></div>
-          <h2 className="heading-1 max-w-[650px] text-start font-bold lang-zh:font-normal max-md:text-center xl:pr-8">
+          <h2 className="heading-1 max-w-[650px] text-start font-bold lang-zh:font-normal max-lg:mx-auto max-md:text-center xl:pr-8">
             <div className="absolute flex w-full max-w-[650px] -translate-y-full flex-row max-md:static max-md:mb-6 max-md:mt-12 max-md:translate-y-0 md:top-0 lg:lang-en:pl-[0.9em] xl:lang-en:pr-8">
               <div className="relative inline-block max-md:mx-auto">
                 <Image
@@ -160,7 +160,7 @@ export default function OurStory() {
             {a('block-3-title-1')}
           </h2>
           <div className="mt-4"></div>
-          <div className="max-w-[650px] pr-0 md:min-h-[140px] xl:min-h-[112px] xl:pr-8">
+          <div className="max-w-[650px] pr-0 max-lg:mx-auto md:min-h-[140px] xl:min-h-[112px] xl:pr-8">
             <p className="body-1">{a('block-3-content-1')}</p>
           </div>
         </div>

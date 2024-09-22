@@ -116,7 +116,7 @@ export default function RecipesPage() {
       picture: '/ingredients/whole-grain-rice.png',
       spacing: -20,
       title: i('whole-grain-rice'),
-      description: i('whole-grain-rice-description'),
+      description: i.rich('whole-grain-rice-description'),
     },
     'shiitake-mushroom': {
       picture: '/ingredients/mushroom.png',
@@ -165,7 +165,7 @@ export default function RecipesPage() {
       picture: '/ingredients/beef-chuck.png',
       spacing: 15,
       title: i('beef-chuck'),
-      description: i('beef-chuck-description'),
+      description: i.rich('beef-chuck-description'),
     },
     'beef-liver': {
       picture: '/ingredients/beef-liver.png',
@@ -176,7 +176,7 @@ export default function RecipesPage() {
       picture: '/ingredients/carrot.png',
       spacing: 20,
       title: pluralize.plural(i('carrot')),
-      description: i('carrot-description'),
+      description: i.rich('carrot-description'),
     },
     kale: {
       picture: '/ingredients/kale.png',
@@ -200,7 +200,7 @@ export default function RecipesPage() {
       picture: '/ingredients/pork-loin.png',
       spacing: 20,
       title: i('pork-loin'),
-      description: i('pork-loin-description'),
+      description: i.rich('pork-loin-description'),
     },
     'pork-liver': {
       picture: '/ingredients/pork-liver.png',
@@ -218,7 +218,7 @@ export default function RecipesPage() {
       picture: '/ingredients/lamb-leg.png',
       spacing: 16,
       title: i('lamb-leg'),
-      description: i('lamb-leg-description'),
+      description: i.rich('lamb-leg-description'),
     },
     'duck-breast': {
       picture: '/ingredients/duck-breast.png',
@@ -229,7 +229,7 @@ export default function RecipesPage() {
       picture: '/ingredients/winter-melon.png',
       spacing: 14,
       title: i('winter-melon'),
-      description: i('winter-melon-description'),
+      description: i.rich('winter-melon-description'),
     },
     'goji-berry': {
       picture: '/ingredients/goji-berry.png',

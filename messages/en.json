@@ -888,7 +888,7 @@
     "file-size-cannot-exceed-{}-mb": "File size cannot exceed {value} MB",
     "resume-cv": "Resume/CV",
 
-    "attach-{}": "Attach {value}"
+    "attach-{}": "Attach <br></br>{value}"
   },
   "hong-kong-island": "Hong Kong Island",
   "kowloon": "Kowloon",

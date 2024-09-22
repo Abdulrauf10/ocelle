@@ -9,6 +9,7 @@ import {
   SxProps,
   Theme,
 } from '@mui/material';
+import React from 'react';
 import { Controller, type FieldValues } from 'react-hook-form';
 import MaskedInput, { type Mask } from 'react-text-mask';
 
@@ -70,6 +71,8 @@ export default function TextField<T extends FieldValues>({
   onChange: parentOnChange,
   onBlur: parentOnBlur,
 }: TextFieldProps<T>) {
+  const [shouldError, setShouldError] = React.useState(false);
+
   if (mask?.pattern == null || (Array.isArray(mask.pattern) && mask.pattern.length === 0)) {
     return (
       <Controller
@@ -77,44 +80,47 @@ export default function TextField<T extends FieldValues>({
         control={control}
         rules={rules}
         disabled={disabled}
-        render={({ field: { value, onChange, onBlur, ...field }, fieldState: { error } }) => (
-          <MuiTextField
-            {...field}
-            id={id}
-            placeholder={placeholder}
-            type={type}
-            value={value ?? ''}
-            label={label}
-            fullWidth={fullWidth}
-            error={!!error && ((value && (value as string).length !== 0) || errorOnEmpty)}
-            sx={sx}
-            FormHelperTextProps={FormHelperTextProps}
-            InputLabelProps={InputLabelProps}
-            inputProps={inputProps}
-            InputProps={InputProps}
-            className={className}
-            helperText={
-              (!disableErrorMessage && error?.message && (
-                <span className="body-3">{error.message}</span>
-              )) ||
-              helperText
-            }
-            onKeyDown={onKeyDown}
-            onBlur={(e) => {
-              onBlur();
-              if (parentOnBlur && typeof parentOnBlur === 'function') {
-                parentOnBlur(e);
+        render={({ field: { value, onChange, onBlur, ...field }, fieldState: { error } }) => {
+          return (
+            <MuiTextField
+              {...field}
+              id={id}
+              placeholder={placeholder}
+              type={type}
+              value={value ?? ''}
+              label={label}
+              fullWidth={fullWidth}
+              error={!!error && shouldError}
+              sx={sx}
+              FormHelperTextProps={FormHelperTextProps}
+              InputLabelProps={InputLabelProps}
+              inputProps={inputProps}
+              InputProps={InputProps}
+              className={className}
+              helperText={
+                (!disableErrorMessage && shouldError && error?.message && (
+                  <span className="body-3">{error.message}</span>
+                )) ||
+                helperText
               }
-            }}
-            onChange={(e) => {
-              const _e = typeof beforeOnChange === 'function' ? beforeOnChange(e) : e;
-              onChange(_e);
-              if (parentOnChange && typeof parentOnChange === 'function') {
-                parentOnChange(_e);
-              }
-            }}
-          />
-        )}
+              onKeyDown={onKeyDown}
+              onBlur={(e) => {
+                setShouldError((value && (value as string).length !== 0) || errorOnEmpty === true);
+                onBlur();
+                if (parentOnBlur && typeof parentOnBlur === 'function') {
+                  parentOnBlur(e);
+                }
+              }}
+              onChange={(e) => {
+                const _e = typeof beforeOnChange === 'function' ? beforeOnChange(e) : e;
+                onChange(_e);
+                if (parentOnChange && typeof parentOnChange === 'function') {
+                  parentOnChange(_e);
+                }
+              }}
+            />
+          );
+        }}
       />
     );
   }
