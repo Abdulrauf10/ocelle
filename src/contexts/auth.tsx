@@ -14,14 +14,19 @@ interface AuthContextProps {
 const AuthContext = React.createContext<AuthContextProps | undefined>(undefined);
 
 export function AuthProvider({
-  me,
+  getLoginedMe,
   logout,
   children,
 }: React.PropsWithChildren<{
-  me?: LoginedMeReturn;
+  getLoginedMe: typeof getClientLoginedMe;
   logout(): Promise<void>;
 }>) {
+  const [me, setMe] = React.useState<LoginedMeReturn>();
   const values = React.useMemo(() => ({ me, logout }), [me, logout]);
+
+  React.useEffect(() => {
+    getLoginedMe().then(setMe);
+  }, [getLoginedMe]);
 
   return <AuthContext.Provider value={values}>{children}</AuthContext.Provider>;
 }
