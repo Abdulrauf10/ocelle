@@ -361,7 +361,7 @@ export default function RecipesPage() {
         }
       >
         <div className="max-md:px-2">
-          <h2 className="heading-3 font-bold text-primary lang-zh:font-normal">
+          <h2 className="heading-3 font-bold text-primary lang-zh:font-normal md:lang-en:-mr-7">
             {sentence.recipe(Recipe.Chicken)}
           </h2>
           <div className="mt-4"></div>
