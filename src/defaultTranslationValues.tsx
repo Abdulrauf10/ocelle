@@ -29,7 +29,7 @@ const defaultTranslationValues: RichTranslationValues = {
   tabletblockonly: (chunks) => <span className="inline max-sm:inline-block">{chunks}</span>,
   mbblock: (chunks) => <span className="inline max-sm:inline-block">{chunks}</span>,
   baskerville: (chunks) => (
-    <span className="relative -top-px font-baskerville font-bold">{chunks}</span>
+    <span className="relative -top-[4px] font-baskerville font-bold">{chunks}</span>
   ),
   apos1: () => <span style={{ marginRight: '-.14em' }}>’</span>,
   apos2: () => <span style={{ marginRight: '-.14em' }}>&apos;</span>,
