@@ -29,7 +29,11 @@ export function isLegalDeliveryDate(date: Date, events: CalendarEvent[]) {
 /**
  * calculate the delivery date based on any time
  */
-export function getClosestDeliveryDateByDate(events: CalendarEvent[], refDate = new Date()) {
+export function getClosestDeliveryDateByDate(
+  events: CalendarEvent[],
+  refDate = new Date(),
+  bufferZone?: boolean
+) {
   const dates = [
     0, // D = ref date
     1, // D + production
@@ -58,10 +62,7 @@ export function getClosestDeliveryDateByDate(events: CalendarEvent[], refDate = 
 
   console.debug('processing dates debug day usage', dates);
 
-  return addDays(
-    startOfDay(refDate),
-    dates.reduce((sum, a) => sum + a, 0)
-  );
+  return addDays(startOfDay(refDate), dates.reduce((sum, a) => sum + a, 0) + (bufferZone ? 2 : 0));
 }
 
 export function getRecurringBoxMinDeliveryDate(events: CalendarEvent[]) {

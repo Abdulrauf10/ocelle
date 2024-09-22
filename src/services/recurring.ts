@@ -1,5 +1,5 @@
 import { addDays, startOfDay } from 'date-fns';
-import { In, LessThan, MoreThan, MoreThanOrEqual, QueryRunner } from 'typeorm';
+import { In, IsNull, LessThan, MoreThan, MoreThanOrEqual, Not, QueryRunner } from 'typeorm';
 
 import calendarService from './calendar';
 import orderService from './order';
@@ -10,9 +10,10 @@ import { Dog, DogBreed, DogPlan, Order, RecurringBox, Shipment, User } from '@/e
 import { Frequency } from '@/enums';
 import StripeNotReadyError from '@/errors/StripeNotReadyError';
 import { OrderFragment } from '@/gql/graphql';
-import { getNextRecurringBoxPreiod } from '@/helpers/box';
+import { getInterruptibleNextRecurringBoxPreiod, getNextRecurringBoxPreiod } from '@/helpers/box';
 import { executeQuery } from '@/helpers/queryRunner';
 import {
+  getClosestDeliveryDateByDate,
   getEditableRecurringBoxDeadline,
   getRecurringBoxDefaultDeliveryDate,
 } from '@/helpers/shipment';
@@ -55,7 +56,7 @@ class RecurringService {
         // should not be order before the shipment deadline not met
         editableDeadline: LessThan(today),
         // delivered box should not be order again
-        deliveryDate: MoreThan(today),
+        box: Not(IsNull()),
       },
       relations: {
         box: {
@@ -180,9 +181,11 @@ class RecurringService {
             console.error('failed to find the recurring box of dog ' + dog.id);
             continue;
           }
-          const { startDate, endDate } = getNextRecurringBoxPreiod(
+          // reactive plan have interrupted start date
+          const { startDate, endDate } = getInterruptibleNextRecurringBoxPreiod(
             prevBox.endDate,
-            dog.plan.frequency
+            dog.plan.frequency,
+            events
           );
           const box = queryRunner.manager.create(RecurringBox, {
             mealPlan: dog.plan.mealPlan,

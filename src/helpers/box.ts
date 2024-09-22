@@ -1,11 +1,27 @@
 import { addDays } from 'date-fns';
 
+import { getClosestDeliveryDateByDate, getEditableRecurringBoxDeadline } from './shipment';
+
 import { Frequency } from '@/enums';
+import { CalendarEvent } from '@/types';
 
 export function getNextRecurringBoxPreiod(prevBoxEndDate: Date, frequency: Frequency) {
-  // TODO: reactive plan have interrupted start date
   const startDate = addDays(prevBoxEndDate, 1);
   const endDate = addDays(startDate, frequency === Frequency.OneWeek ? 7 : 14);
 
+  return { startDate, endDate };
+}
+
+export function getInterruptibleNextRecurringBoxPreiod(
+  prevBoxEndDate: Date,
+  frequency: Frequency,
+  events: CalendarEvent[]
+) {
+  const { startDate, endDate } = getNextRecurringBoxPreiod(prevBoxEndDate, frequency);
+  const editableDeadline = getEditableRecurringBoxDeadline(events, startDate);
+  if (editableDeadline <= new Date()) {
+    const closestDeliveryDate = getClosestDeliveryDateByDate(events, new Date(), true);
+    return getNextRecurringBoxPreiod(addDays(closestDeliveryDate, 1), frequency);
+  }
   return { startDate, endDate };
 }
