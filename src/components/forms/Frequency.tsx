@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { toast } from 'react-toastify';
-import { roundTo } from 'round-to';
+import roundTo from 'round-to';
 
 import Button from '@/components/buttons/Button';
 import { Frequency } from '@/enums';

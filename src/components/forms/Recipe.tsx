@@ -8,7 +8,7 @@ import pluralize from 'pluralize';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
-import { roundTo } from 'round-to';
+import roundTo from 'round-to';
 
 import Button from '../buttons/Button';
 import RecipeCheckbox from '../controls/RecipeCheckbox';

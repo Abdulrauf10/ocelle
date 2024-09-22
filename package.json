@@ -74,7 +74,7 @@
     "react-text-mask": "^5.5.0",
     "react-toastify": "^10.0.5",
     "reflect-metadata": "^0.2.2",
-    "round-to": "^6.0.0",
+    "round-to": "^5.0.0",
     "sharp": "^0.33.3",
     "short-uuid": "^5.2.0",
     "store2": "^2.14.3",

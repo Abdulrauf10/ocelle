@@ -6,7 +6,7 @@ import pluralize from 'pluralize';
 import React from 'react';
 import { UseFormWatch, useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { roundTo } from 'round-to';
+import roundTo from 'round-to';
 
 import Section from '../Section';
 import Stage from '../Stage';
