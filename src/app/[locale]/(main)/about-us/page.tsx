@@ -204,7 +204,7 @@ export default function OurStory() {
           </div>
         }
         right={
-          <div className="relative w-full max-w-[600px] max-lg:mx-auto max-lg:max-w-[450px] max-lg:pt-4 lg:ml-[6%]">
+          <div className="relative w-full max-w-[600px] lang-zh:max-w-[500px] max-lg:mx-auto max-lg:max-w-[450px] max-lg:pt-4 lg:ml-[6%] lang-zh:lg:py-12">
             <div className="pt-[117.2%]">
               <Image
                 src="/about-us/about-us-food.gif"
