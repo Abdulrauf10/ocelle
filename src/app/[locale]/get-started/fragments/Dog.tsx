@@ -61,6 +61,7 @@ export default function DogFragment() {
           <div className="mt-6"></div>
           <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-[320px]">
             <TextField
+              inputProps={{ style: { textAlign: 'center' } }}
               name="name"
               placeholder={t('your-dogs-name')}
               control={control}
