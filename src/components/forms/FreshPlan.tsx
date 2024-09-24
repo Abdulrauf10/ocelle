@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import React from 'react';
-import { roundTo } from 'round-to';
+import roundTo from 'round-to';
 
 import FreshPlan from '../FreshPlan';
 import Button from '../buttons/Button';

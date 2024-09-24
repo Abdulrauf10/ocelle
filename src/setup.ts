@@ -1,3 +1,4 @@
+import roundTo from 'round-to';
 import invariant from 'ts-invariant';
 
 import {
@@ -58,8 +59,6 @@ import productService from './services/product';
 
 import AppDataSource from '@/AppDataSource';
 import seeders from '@/seeders';
-
-const dynamicImport = new Function('specifier', 'return import(specifier)');
 
 async function prugeDefaultChannel() {
   console.log('execute pruge the default channel...');
@@ -550,7 +549,6 @@ async function setupSubscriptionProducts(
   warehouse: WarehouseFragment
 ): Promise<ProductFragment[]> {
   console.log('setup subscription products...');
-  const { roundToUp } = await dynamicImport('round-to');
 
   // create placeholder product if not exists
   const products = await productService.find({
@@ -620,7 +618,7 @@ async function setupSubscriptionProducts(
               channelListings: [
                 {
                   channelId: channel.id,
-                  price: roundToUp(variant.unitPrice, 2),
+                  price: roundTo.up(variant.unitPrice, 2),
                 },
               ],
             };

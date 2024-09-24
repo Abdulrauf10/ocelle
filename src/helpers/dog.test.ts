@@ -1,5 +1,5 @@
 import { addDays, subMonths, subYears } from 'date-fns';
-import { roundTo } from 'round-to';
+import roundTo from 'round-to';
 import { describe, expect, test } from 'vitest';
 
 import DogHelper from './dog';

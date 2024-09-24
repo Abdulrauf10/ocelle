@@ -2,7 +2,6 @@ import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { roundTo } from 'round-to';
 
 import Section from '../Section';
 import Stage from '../Stage';

@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js';
-import { roundToDown } from 'round-to';
+import roundTo from 'round-to';
 
 import DogHelper from './dog';
 
@@ -58,15 +58,15 @@ export default class RecipeHelper {
   static calculateDailyProtionSize(requiredDailyCalorie: number, recipe: Recipe) {
     switch (recipe) {
       case Recipe.Chicken:
-        return roundToDown((requiredDailyCalorie / 1540) * 1000, 1);
+        return roundTo.down((requiredDailyCalorie / 1540) * 1000, 1);
       case Recipe.Beef:
-        return roundToDown((requiredDailyCalorie / 1508) * 1000, 1);
+        return roundTo.down((requiredDailyCalorie / 1508) * 1000, 1);
       case Recipe.Pork:
-        return roundToDown((requiredDailyCalorie / 1293) * 1000, 1);
+        return roundTo.down((requiredDailyCalorie / 1293) * 1000, 1);
       case Recipe.Lamb:
-        return roundToDown((requiredDailyCalorie / 1865) * 1000, 1);
+        return roundTo.down((requiredDailyCalorie / 1865) * 1000, 1);
       case Recipe.Duck:
-        return roundToDown((requiredDailyCalorie / 1355) * 1000, 1);
+        return roundTo.down((requiredDailyCalorie / 1355) * 1000, 1);
     }
   }
   /**

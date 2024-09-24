@@ -33,7 +33,6 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  const me = await getClientLoginedMe();
   const cart = await getCart();
 
   let messages;
@@ -50,7 +49,7 @@ export default async function RootLayout({
         <div className="!hidden max-md:block xl:block"></div>
         <IntlProvider locale={locale} messages={messages}>
           <QueryClientProvider>
-            <AuthProvider me={me} logout={logout}>
+            <AuthProvider getLoginedMe={getClientLoginedMe} logout={logout}>
               <CartContextProvider
                 lines={cart ? cart.lines : []}
                 subtotalPrice={cart?.subtotalPrice.gross}
