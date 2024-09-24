@@ -39,7 +39,7 @@ export default function FaQ() {
   return (
     <main>
       <div
-        className="bg-[#4b88b4] bg-[url('/faq/faq_banner_img.jpg')] bg-[length:auto_100%] bg-[calc(50%+110px)] bg-no-repeat py-[10em] max-2xl:py-[11%] max-xl:bg-[calc(50%+90px)] max-lg:bg-[calc(50%+25px)] 
+        className="bg-[#4b88b4] bg-[url('/faq/ocelle-faq-preview.jpg')] bg-[length:auto_100%] bg-[calc(50%+110px)] bg-no-repeat py-[10em] max-2xl:py-[8%] max-xl:bg-[calc(50%+90px)] max-lg:bg-[calc(50%+25px)] max-lg:py-[] 
                   max-md:bg-[url('/faq/ocelle-faq-mb-bg.jpg')] max-md:bg-[length:768px_960px] max-md:bg-[bottom_center]  max-md:bg-no-repeat max-md:py-8"
       >
         <Container>

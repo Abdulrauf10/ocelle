@@ -59,7 +59,7 @@
     "joi": "^17.12.1",
     "js-cookie": "^3.0.5",
     "mysql2": "^3.9.7",
-    "next": "^14.2.3",
+    "next": "^14.2.12",
     "next-intl": "^3.13.0",
     "nodemailer": "^6.9.13",
     "object-to-formdata": "^4.5.1",

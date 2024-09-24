@@ -23,7 +23,7 @@ export default function OurStory() {
             {a('we-do-it-for-them')}
           </h1>
           <div className="pt-tight"></div>
-          <div className="rounded-[30px] border border-primary bg-white p-12 max-xl:p-10 max-md:p-8 max-xs:p-6">
+          <div className="max-xl:lang-zh: max-xl:lang-zh: rounded-[30px] border border-primary bg-white p-12 max-xl:lang-en:p-10 max-md:p-8 max-xs:p-6">
             <strong className="heading-2 text-left text-primary">
               <div className="inline-block">Ocelle&nbsp;</div>
               <div className="inline-block min-w-[240px]">

@@ -157,10 +157,10 @@ export default async function Careers() {
             </div>
           ) : (
             <div className="mx-auto max-w-[640px] text-center">
-              <p className="body-3">{c('block-2-content-1')}</p>
+              <p className="body-3">{c.rich('block-2-content-1')}</p>
               <div className="mt-4"></div>
               <p className="body-3">
-                {c('block-2-content-2')}
+                {c.rich('block-2-content-2')}
                 <UnderlineButton
                   label="careers@ocelle.dog"
                   theme="primary"
