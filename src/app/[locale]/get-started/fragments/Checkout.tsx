@@ -17,6 +17,10 @@ export default function CheckoutFragment() {
   const navigate = useNavigate();
   const { state } = useLocation();
 
+  dogs.forEach((dog) => console.log(dog));
+
+  console.log(state.calendarEvents);
+
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
       <AppThemeProvider

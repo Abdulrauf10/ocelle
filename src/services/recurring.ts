@@ -1,5 +1,5 @@
 import { addDays, startOfDay } from 'date-fns';
-import { In, IsNull, LessThan, MoreThan, MoreThanOrEqual, Not, QueryRunner } from 'typeorm';
+import { In, IsNull, LessThan, MoreThanOrEqual, QueryRunner } from 'typeorm';
 
 import calendarService from './calendar';
 import orderService from './order';
@@ -13,7 +13,6 @@ import { OrderFragment } from '@/gql/graphql';
 import { getInterruptibleNextRecurringBoxPreiod, getNextRecurringBoxPreiod } from '@/helpers/box';
 import { executeQuery } from '@/helpers/queryRunner';
 import {
-  getClosestDeliveryDateByDate,
   getEditableRecurringBoxDeadline,
   getRecurringBoxDefaultDeliveryDate,
 } from '@/helpers/shipment';
@@ -56,14 +55,15 @@ class RecurringService {
         // should not be order before the shipment deadline not met
         editableDeadline: LessThan(today),
         // delivered box should not be order again
-        box: Not(IsNull()),
+        // TODO: now only serve `second recurring box +` but not `get started -> first recurring box`
+        box: {
+          id: IsNull(),
+        },
       },
       relations: {
-        box: {
-          dog: {
-            breeds: { breed: true },
-            plan: true,
-          },
+        dog: {
+          breeds: { breed: true },
+          plan: true,
         },
       },
     });
