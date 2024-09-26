@@ -43,6 +43,7 @@ export default function CalculatingFragment() {
             : DogHelper.getDateOfBirth(dog.age?.years, dog.age?.months).toISOString(),
         bodyCondition: dog.bodyCondition!,
         activityLevel: dog.activityLevel!,
+        foodAllergies: dog.foodAllergies!,
       }),
   });
   const { isLoading, data } = useQuery(options);

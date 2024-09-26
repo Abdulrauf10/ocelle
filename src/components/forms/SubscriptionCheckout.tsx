@@ -727,7 +727,7 @@ export default function SubscriptionCheckoutForm({
                     getRecurringBoxDefaultDeliveryDate(
                       calendarEvents,
                       getNextRecurringBoxPreiod(
-                        addDays(watch('deliveryDate'), 1 + 14),
+                        addDays(watch('deliveryDate'), 14),
                         Frequency.TwoWeek
                       ).startDate
                     ),

@@ -18,16 +18,18 @@ export function getSubRecipeSKU(lifeStage: LifeStage, recipe1: Recipe, recipe2?:
   return `subs-${recipes[0].toLowerCase()}-${recipes[1].toLowerCase()}-${lifeStage.toLowerCase()}`;
 }
 
+export type SubscriptionProduct = {
+  name: string;
+  slug: string;
+  variants: { [key in LifeStage]: { unitPrice: number } };
+};
+
 /**
  * Refer to `Excel: customization variables v1.01 > Price Matrix`
  * price = saleor variant price
  */
 export const subscriptionProducts: {
-  [key in Recipe]: {
-    name: string;
-    slug: string;
-    variants: { [key in LifeStage]: { unitPrice: number } };
-  };
+  [key in Recipe]: SubscriptionProduct;
 } = {
   [Recipe.Chicken]: {
     name: 'Fresh Chicken Recipe',
