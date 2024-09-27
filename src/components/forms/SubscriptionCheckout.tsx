@@ -708,6 +708,7 @@ export default function SubscriptionCheckoutForm({
                       ),
                     })}
                     disabled={isSubmitInProgress}
+                    onChange={() => trigger()}
                   />
                 </div>
                 <div className="mt-4 text-center">
@@ -726,7 +727,7 @@ export default function SubscriptionCheckoutForm({
                     getRecurringBoxDefaultDeliveryDate(
                       calendarEvents,
                       getNextRecurringBoxPreiod(
-                        addDays(watch('deliveryDate'), 1 + 14),
+                        addDays(watch('deliveryDate'), 14),
                         Frequency.TwoWeek
                       ).startDate
                     ),

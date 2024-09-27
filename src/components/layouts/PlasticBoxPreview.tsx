@@ -33,7 +33,7 @@ export default function PlasticBoxPreview({
           <PlasticBox name={name} recipe={recipe1} />
         </div>
         {recipe2 && (
-          <div className="absolute right-[2.5%] top-1/2 w-[55%] -translate-y-1/2">
+          <div className="absolute right-[2.5%] top-1/2 z-10 w-[55%] -translate-y-1/2">
             <PlasticBox name={name} recipe={recipe2} />
           </div>
         )}

@@ -7,7 +7,9 @@ export function isOperationDate(date: Date, events: CalendarEvent[]) {
     return false;
   }
   for (const event of events) {
-    if (event.start <= date && event.end > date) {
+    const start = new Date(event.start);
+    const end = new Date(event.end);
+    if (start <= date && end > date) {
       return false;
     }
   }

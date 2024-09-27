@@ -257,7 +257,15 @@ export default function DogPreference1Fragment() {
                 </div>
                 {errors?.bodyCondition?.message && (
                   <p className="mt-3 w-full text-error">
-                    <span className="body-3">{String(errors?.bodyCondition?.message)}</span>
+                    <span className="body-3">
+                      {String(errors?.bodyCondition?.message)
+                        .split('[br]')
+                        .map((v, idx, arr) => [
+                          v.trim(),
+                          arr.length - 1 === idx ? undefined : <br key={v} />,
+                        ])
+                        .flat()}
+                    </span>
                   </p>
                 )}
               </Section>

@@ -526,28 +526,6 @@ export default function RecommendedPlanFragment() {
                   <div className="mt-4 px-2">
                     <InteractiveBlock
                       type="radio"
-                      value="N"
-                      control={control}
-                      name="transition"
-                      label={(checked) => {
-                        if (!checked) {
-                          return t('dont-use-transition');
-                        }
-                        return (
-                          <>
-                            <CircleTick className="-mt-0.5 mr-2 inline-block h-4 w-4" />
-                            {t('dont-use-transition')}
-                          </>
-                        );
-                      }}
-                      rules={{ required: true }}
-                      error={!!errors?.transition}
-                      className="w-[180px]"
-                    />
-                  </div>
-                  <div className="mt-4 px-2">
-                    <InteractiveBlock
-                      type="radio"
                       value="Y"
                       control={control}
                       name="transition"
@@ -559,6 +537,28 @@ export default function RecommendedPlanFragment() {
                           <>
                             <CircleTick className="-mt-0.5 mr-2 inline-block h-4 w-4" />
                             {t('use-transition')}
+                          </>
+                        );
+                      }}
+                      rules={{ required: true }}
+                      error={!!errors?.transition}
+                      className="w-[180px]"
+                    />
+                  </div>
+                  <div className="mt-4 px-2">
+                    <InteractiveBlock
+                      type="radio"
+                      value="N"
+                      control={control}
+                      name="transition"
+                      label={(checked) => {
+                        if (!checked) {
+                          return t('dont-use-transition');
+                        }
+                        return (
+                          <>
+                            <CircleTick className="-mt-0.5 mr-2 inline-block h-4 w-4" />
+                            {t('dont-use-transition')}
                           </>
                         );
                       }}

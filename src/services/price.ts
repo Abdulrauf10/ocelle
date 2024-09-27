@@ -2,11 +2,20 @@ import roundTo from 'round-to';
 
 import productService from './product';
 
-import { ActivityLevel, BodyCondition, Frequency, MealPlan, Recipe } from '@/enums';
+import {
+  ActivityLevel,
+  BodyCondition,
+  FoodAllergies,
+  Frequency,
+  LifeStage,
+  MealPlan,
+  Recipe,
+} from '@/enums';
 import { ProductFragment } from '@/gql/graphql';
+import DogHelper from '@/helpers/dog';
 import RecipeHelper from '@/helpers/recipe';
 import { recipeToVariant } from '@/helpers/saleor';
-import { subscriptionProducts } from '@/products';
+import { SubscriptionProduct, subscriptionProducts } from '@/products';
 import { BreedDto } from '@/types/dto';
 
 export default class PriceService {
@@ -219,18 +228,36 @@ export default class PriceService {
     currentWeight: number,
     condition: BodyCondition,
     activityLevel: ActivityLevel,
+    allergies: FoodAllergies,
     plan: MealPlan,
     frequency = Frequency.TwoWeek,
     discount: number
   ) {
+    const nonAllergyProducts =
+      (allergies & FoodAllergies.None) === FoodAllergies.None
+        ? subscriptionProducts
+        : Object.keys(subscriptionProducts).reduce(
+            (prods, recipe) => {
+              if (DogHelper.isAllergies(recipe as Recipe, allergies)) {
+                return prods;
+              } else {
+                prods[recipe as Recipe] = subscriptionProducts[recipe as Recipe];
+              }
+              return prods;
+            },
+            {} as {
+              [key in Recipe]?: SubscriptionProduct;
+            }
+          );
+
     const products = await productService.find({
       where: {
         slug: {
-          oneOf: Object.values(subscriptionProducts).map((product) => product.slug),
+          oneOf: Object.values(nonAllergyProducts).map((product) => product.slug),
         },
       },
     });
-    const boxPrices = Object.keys(subscriptionProducts).map((recipe) => {
+    const boxPrices = Object.keys(nonAllergyProducts).map((recipe) => {
       const price = this._calculateBoxPrice(
         products,
         breeds,

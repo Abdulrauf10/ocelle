@@ -124,7 +124,13 @@ export async function getBoxPrices(
 export async function getMinPerDayPrice(
   dog: Pick<
     DogDto,
-    'breeds' | 'dateOfBirth' | 'isNeutered' | 'weight' | 'bodyCondition' | 'activityLevel'
+    | 'breeds'
+    | 'dateOfBirth'
+    | 'isNeutered'
+    | 'weight'
+    | 'bodyCondition'
+    | 'activityLevel'
+    | 'foodAllergies'
   >
 ): Promise<MinPricesDto> {
   const breeds = dog.breeds && dog.breeds.length > 0 ? await breedService.getByIds(dog.breeds) : [];
@@ -136,6 +142,7 @@ export async function getMinPerDayPrice(
       dog.weight,
       dog.bodyCondition,
       dog.activityLevel,
+      dog.foodAllergies,
       MealPlan.Half,
       Frequency.TwoWeek,
       0.5
@@ -147,6 +154,7 @@ export async function getMinPerDayPrice(
       dog.weight,
       dog.bodyCondition,
       dog.activityLevel,
+      dog.foodAllergies,
       MealPlan.Full,
       Frequency.TwoWeek,
       0.5

@@ -127,6 +127,7 @@ export default function GuestCheckoutForm({
     control,
     setValue,
     handleSubmit,
+    trigger,
     resetField,
     formState: { errors, isValid },
     watch,
@@ -548,6 +549,7 @@ export default function GuestCheckoutForm({
                       ),
                     })}
                     disabled={isSubmitInProgress}
+                    onChange={() => trigger()}
                   />
                 </div>
                 <div className="mt-5 text-center">
