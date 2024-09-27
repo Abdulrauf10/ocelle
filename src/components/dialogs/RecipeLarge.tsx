@@ -25,7 +25,7 @@ function DialogBlock({ title, children }: React.PropsWithChildren<{ title: React
       <strong className="block text-center text-5xl text-primary lang-zh:font-normal max-sm:lang-zh:-mx-[16px] max-sm:lang-zh:text-[40px]">
         {title}
       </strong>
-      <div className="pt-4"></div>
+      {/* <div className="pt-4"></div> */}
       <div className="mt-6">{children}</div>
     </div>
   );
