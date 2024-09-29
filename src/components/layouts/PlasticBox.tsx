@@ -13,7 +13,7 @@ export default function PlasticBox({ name, recipe }: { name: string; recipe: Rec
         className="object-contain"
       />
       <span className="absolute left-1/2 top-[46%] -translate-x-1/2 select-none text-[5cqw] font-bold leading-none">
-        {`${name}’s`}
+        {/[a-z]/i.test(name.slice(-1)) ? `${name}’s` : name}
       </span>
     </div>
   );

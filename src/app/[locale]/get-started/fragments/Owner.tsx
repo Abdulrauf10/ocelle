@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import validator from 'validator';
 
 import Section from '../Section';
 import SectionBreak from '../SectionBreak';
@@ -72,7 +73,10 @@ export default function OwnerFragment() {
                 name="firstName"
                 placeholder={t('first-name')}
                 control={control}
-                rules={{ required: true }}
+                rules={{
+                  required: t('please-enter-your-{}', { name: t('first-name').toLowerCase() }),
+                }}
+                errorOnEmpty
                 fullWidth
               />
               <div className="mt-5"></div>
@@ -80,7 +84,10 @@ export default function OwnerFragment() {
                 name="lastName"
                 placeholder={t('last-name')}
                 control={control}
-                rules={{ required: true }}
+                rules={{
+                  required: t('please-enter-your-{}', { name: t('last-name').toLowerCase() }),
+                }}
+                errorOnEmpty
                 fullWidth
               />
             </div>
@@ -104,7 +111,19 @@ export default function OwnerFragment() {
                         }),
                       },
                       validate: async (value) => {
-                        if (await isAvailableEmailAddress(value)) {
+                        const email = validator.normalizeEmail(value, {
+                          gmail_remove_dots: false,
+                          gmail_remove_subaddress: false,
+                          outlookdotcom_remove_subaddress: false,
+                          yahoo_remove_subaddress: false,
+                          icloud_remove_subaddress: false,
+                        });
+                        if (!email || !validator.isEmail(email)) {
+                          return t('this-{}-doesn-t-look-correct-please-update-it', {
+                            name: t('email').toLowerCase(),
+                          });
+                        }
+                        if (await isAvailableEmailAddress(email)) {
                           return true;
                         }
                         return t(

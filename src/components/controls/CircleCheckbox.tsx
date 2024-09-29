@@ -27,14 +27,14 @@ export default function CircleCheckbox<T extends FieldValues>({
   return (
     <label
       className={clsx(
-        'flex cursor-pointer select-none items-center',
+        'flex cursor-pointer select-none items-start',
         error ? 'text-error' : 'text-brown',
         className
       )}
     >
       <div
         className={clsx(
-          'relative mr-2 h-[13px] w-[13px] rounded-full border-[1.5px]',
+          'relative mr-2 mt-[5px] h-[13px] min-h-[13px] w-[13px] min-w-[13px] rounded-full border-[1.5px]',
           error ? 'border-error' : 'border-brown',
           isSelected && 'bg-brown'
         )}

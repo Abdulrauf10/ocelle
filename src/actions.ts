@@ -2,6 +2,7 @@
 
 import { getNextServerCookiesStorage } from '@saleor/auth-sdk/next/server';
 import { cookies } from 'next/headers';
+import validator from 'validator';
 
 import { CART_COOKIE, DOG_SELECT_COOKIE, LOGIN_PATH, ORDER_COOKIE } from './consts';
 import { CheckoutNotFoundError } from './errors/checkout';
@@ -89,6 +90,9 @@ export async function logout() {
   redirect(LOGIN_PATH);
 }
 
+/**
+ * @param email should be a well-formatted email address
+ */
 export async function isAvailableEmailAddress(email: string) {
   try {
     const { id } = await userService.find(email);

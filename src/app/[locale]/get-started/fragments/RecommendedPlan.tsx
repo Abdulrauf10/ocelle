@@ -273,7 +273,7 @@ export default function RecommendedPlanFragment() {
                         }}
                         picture="/meal-plan/chicken.jpg"
                         dialogPicture={
-                          <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#97cfea] from-30% to-white max-md:pt-[100%]">
+                          <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#95cfd0] from-30% to-white max-md:pt-[100%]">
                             <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
                               <PlasticBox name={name!} recipe={Recipe.Chicken} />
                             </div>

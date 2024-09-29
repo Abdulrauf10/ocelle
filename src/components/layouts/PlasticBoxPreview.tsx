@@ -24,16 +24,16 @@ export default function PlasticBoxPreview({
         </div>
         <div
           className={clsx(
-            'absolute z-10 w-[60%]',
+            'absolute z-10',
             recipe2
-              ? 'left-[2.5%] top-1/2 -translate-y-1/2'
-              : 'left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'
+              ? 'left-[2.5%] top-1/2 w-[55%] -translate-y-1/2'
+              : 'left-1/2 top-1/2 w-[60%] -translate-x-1/2 -translate-y-1/2'
           )}
         >
           <PlasticBox name={name} recipe={recipe1} />
         </div>
         {recipe2 && (
-          <div className="absolute right-[2.5%] top-1/2 z-10 w-[55%] -translate-y-1/2">
+          <div className="absolute right-[2.5%] top-1/2 z-10 w-[60%] -translate-y-1/2">
             <PlasticBox name={name} recipe={recipe2} />
           </div>
         )}

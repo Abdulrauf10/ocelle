@@ -189,7 +189,7 @@ export default function DogPreference2Fragment() {
               errors.allergies.some((x) => x.type === 'allAllergies') && (
                 <p className="mx-auto mt-3 max-w-[360px] text-error">
                   <span className="body-3">
-                    {t(
+                    {t.rich(
                       'unfortunately-all-our-recipes-contain-an-ingredient-{}-is-allergic-sensitive-to',
                       {
                         name: padSpace(PadSpace.Both, name),

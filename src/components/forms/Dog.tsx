@@ -461,7 +461,7 @@ export default function DogForm({
                   </p>
                 ),
                 selectedDescription: (
-                  <i className="body-3 w-full text-primary">{t('adjust-their-calories')}</i>
+                  <i className="body-3 w-full text-primary">{t.rich('adjust-their-calories')}</i>
                 ),
                 value: BodyCondition.TooSkinny,
                 children: (
@@ -500,7 +500,7 @@ export default function DogForm({
                   </p>
                 ),
                 selectedDescription: (
-                  <i className="body-3 w-full text-primary">{t('adjust-their-calories')}</i>
+                  <i className="body-3 w-full text-primary">{t.rich('adjust-their-calories')}</i>
                 ),
                 value: BodyCondition.Rounded,
                 children: (
@@ -522,7 +522,7 @@ export default function DogForm({
                   </p>
                 ),
                 selectedDescription: (
-                  <i className="body-3 w-full text-primary">{t('adjust-their-calories')}</i>
+                  <i className="body-3 w-full text-primary">{t.rich('adjust-their-calories')}</i>
                 ),
                 value: BodyCondition.Chunky,
                 children: (
@@ -667,7 +667,7 @@ export default function DogForm({
           errors.allergies.some((x) => x.type === 'allAllergies') && (
             <p className="mt-3 text-error">
               <span className="body-3">
-                {t(
+                {t.rich(
                   'unfortunately-all-our-recipes-contain-an-ingredient-{}-is-allergic-sensitive-to',
                   {
                     name,

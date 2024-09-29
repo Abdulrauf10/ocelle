@@ -177,7 +177,7 @@ export default function DogPreference1Fragment() {
                           </p>
                         ),
                         selectedDescription: (
-                          <i className="body-3 text-primary">{t('adjust-their-calories')}</i>
+                          <i className="body-3 text-primary">{t.rich('adjust-their-calories')}</i>
                         ),
                         value: BodyCondition.TooSkinny,
                         children: (
@@ -218,7 +218,7 @@ export default function DogPreference1Fragment() {
                           </p>
                         ),
                         selectedDescription: (
-                          <i className="body-3 text-primary">{t('adjust-their-calories')}</i>
+                          <i className="body-3 text-primary">{t.rich('adjust-their-calories')}</i>
                         ),
                         value: BodyCondition.Rounded,
                         children: (
@@ -240,7 +240,7 @@ export default function DogPreference1Fragment() {
                           </p>
                         ),
                         selectedDescription: (
-                          <i className="body-3 text-primary">{t('adjust-their-calories')}</i>
+                          <i className="body-3 text-primary">{t.rich('adjust-their-calories')}</i>
                         ),
                         value: BodyCondition.Chunky,
                         children: (

@@ -77,7 +77,17 @@ export default function DogBasicFragment() {
     [navigate, setDog]
   );
 
+  const [showSex, setShowSex] = React.useState(false);
+
   const values = watch();
+
+  console.log(values.breeds);
+
+  React.useEffect(() => {
+    if (values.breeds.length !== 0 || values.isUnknownBreed) {
+      setShowSex(true);
+    }
+  }, [values.breeds, values.isUnknownBreed]);
 
   return (
     <AppThemeProvider
@@ -123,7 +133,10 @@ export default function DogBasicFragment() {
                       loading={isLoading}
                       getOptionLabel={(option) => option.name}
                       freeSolo={false}
-                      getOptionDisabled={() => watch('breeds').length > 1}
+                      getOptionDisabled={() =>
+                        watch('breeds').length > 1 ||
+                        values.breeds.some((breed) => breed.uid.indexOf('9998') > -1)
+                      }
                       isOptionEqualToValue={(option, value) => option.id === value.id}
                       renderInput={(params) => (
                         <TextField
@@ -198,36 +211,38 @@ export default function DogBasicFragment() {
               </div>
             </Section>
             <SectionBreak />
-            <Section
-              title={t('{}-is-', {
-                name: padSpace(PadSpace.Right, name),
-              })}
-            >
-              <div className="flex justify-center">
-                <div className="px-3">
-                  <InteractiveBlock
-                    type="radio"
-                    value={Sex.M}
-                    error={!!errors.sex}
-                    control={control}
-                    name="sex"
-                    label={t('boy')}
-                    rules={{ required: true }}
-                  />
+            {showSex && (
+              <Section
+                title={t('{}-is-', {
+                  name: padSpace(PadSpace.Right, name),
+                })}
+              >
+                <div className="flex justify-center">
+                  <div className="px-3">
+                    <InteractiveBlock
+                      type="radio"
+                      value={Sex.M}
+                      error={!!errors.sex}
+                      control={control}
+                      name="sex"
+                      label={t('boy')}
+                      rules={{ required: true }}
+                    />
+                  </div>
+                  <div className="px-3">
+                    <InteractiveBlock
+                      type="radio"
+                      value={Sex.F}
+                      error={!!errors.sex}
+                      control={control}
+                      name="sex"
+                      label={t('girl')}
+                      rules={{ required: true }}
+                    />
+                  </div>
                 </div>
-                <div className="px-3">
-                  <InteractiveBlock
-                    type="radio"
-                    value={Sex.F}
-                    error={!!errors.sex}
-                    control={control}
-                    name="sex"
-                    label={t('girl')}
-                    rules={{ required: true }}
-                  />
-                </div>
-              </div>
-            </Section>
+              </Section>
+            )}
             {values.sex !== undefined && (
               <>
                 <SectionBreak />
