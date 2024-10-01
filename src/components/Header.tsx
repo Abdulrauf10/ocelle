@@ -126,7 +126,7 @@ export default function Header({
             </div>
           </div>
           {!disableLoginButton && (
-            <div className="relative z-10 px-2 max-xl:hidden">
+            <div className="relative z-10 px-2">
               {me ? (
                 <Link
                   href="/account/plan"
@@ -142,22 +142,12 @@ export default function Header({
             </div>
           )}
           {!disableLoginButton && me && (
-            <div className="relative z-10 px-2 max-xl:hidden">
+            <div className="relative z-10 px-2">
               <button className="whitespace-nowrap hover:underline" onClick={() => logout()}>
                 {t('log-out')}
               </button>
             </div>
           )}
-          <div className="invisible">
-            {startAdornment}
-            {!disableMenuButton && (
-              <div className="hidden px-2 max-xl:flex">
-                <button onClick={() => setIsOpened((v) => !v)}>
-                  <HamburgerMenu className="w-[26px]" />
-                </button>
-              </div>
-            )}
-          </div>
           {endAdornment}
         </div>
       </Container>
