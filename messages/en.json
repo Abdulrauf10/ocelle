@@ -836,7 +836,7 @@
   "thank-you-for-applying": "Thank You For Applying!",
   "thank-you-for-applying:description": "Your application for the {title} role has been successfully submitted. We<apos1></apos1>re excited to learn more about you and will be in touch if you move forward in the process.",
   "please-enter-your-{}": "Please enter your {name}.",
-  "passwords-must-be-at-least-8-characters-long-and-include-at-least-one-uppercase-letter-and-one-number": "Passwords must be at least 8 characters long and include at least one uppercase letter and one number.",
+  "passwords-must-be-at-least-8-characters-long-and-include-at-least-one-uppercase-letter-and-one-number": "Password must be 8+ characters, include a number, and contain both uppercase and lowercase letters.",
   "this-{}-doesn-t-look-correct-please-update-it": "This {name} doesn’t look correct, please update it.",
   "looks-like-you-already-have-an-account-with-us-to-continue-please-log-in-using-the-link-below": "Looks like you already have an account with us! To continue, please log in using the link below.",
   "your-passwords-do-not-match": "Your passwords do not match.",

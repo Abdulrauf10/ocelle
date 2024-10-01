@@ -354,7 +354,7 @@ export default function SubscriptionCheckoutForm({
                     name="password"
                     control={control}
                     rules={{
-                      required: t('please-enter-a-valid-{}', { name: t('password') }),
+                      required: t('please-enter-a-valid-{}', { name: t('password').toLowerCase() }),
                       pattern: {
                         value: PASSWORD_REGEXP,
                         message: t(
@@ -413,7 +413,7 @@ export default function SubscriptionCheckoutForm({
                         }
                         return String(value).length === 8
                           ? true
-                          : t('please-enter-a-valid-{}', { name: t('phone-number') });
+                          : t('please-enter-a-valid-{}', { name: t('phone-number').toLowerCase() });
                       },
                     }}
                     disabled={isSubmitInProgress}
@@ -451,15 +451,19 @@ export default function SubscriptionCheckoutForm({
                     rules={{
                       pattern: {
                         value: PHONE_REGEXP,
-                        message: t('please-enter-a-valid-{}', { name: t('Whatsapp-number') }),
+                        message: t('please-enter-a-valid-{}', {
+                          name: t('Whatsapp-number').toLowerCase(),
+                        }),
                       },
-                      validate: (value, { phone: { code } }) => {
+                      validate: (value, { whatsapp: { code } }) => {
                         if (code !== '852' || value === '') {
                           return true;
                         }
                         return String(value).length === 8
                           ? true
-                          : t('please-enter-a-valid-{}', { name: t('Whatsapp-number') });
+                          : t('please-enter-a-valid-{}', {
+                              name: t('Whatsapp-number').toLowerCase(),
+                            });
                       },
                     }}
                     disabled={isSubmitInProgress}
