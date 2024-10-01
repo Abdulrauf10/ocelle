@@ -13,6 +13,7 @@ import { pageVariants } from '../transition';
 
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
+import UnderlineButton from '@/components/buttons/UnderlineButton';
 import PictureRadio from '@/components/controls/PictureRadio';
 import TextField from '@/components/controls/TextField';
 import { ActivityLevel, BodyCondition } from '@/enums';
@@ -72,202 +73,201 @@ export default function DogPreference1Fragment() {
       <Container className="text-center">
         <form noValidate onSubmit={handleSubmit(onSubmit)}>
           <Section
-            title={t('what-is-{}-current-weight', {
-              name: padSpace(PadSpace.Right, name),
-            })}
             description={t.rich(
               'if-youre-unsure-you-can-always-adjust-this-information-in-your-account-later'
             )}
-          >
-            <div className="flex flex-wrap items-center justify-center">
-              <TextField
-                name="weight"
-                type="number"
-                control={control}
-                disableErrorMessage
+          />
+          <Section title={t('what-best-represents-their-current-body-condition')}>
+            <div className="mt-10">
+              <PictureRadio
+                className={{
+                  radioGroup: 'mx-auto max-w-[630px]',
+                }}
+                name="bodyCondition"
+                watch={watch}
                 rules={{
                   required: true,
-                  min: {
-                    value: 0.5,
-                    message: t('ocelle-is-currently-available-to-dogs-between-05-to-50-kg'),
+                }}
+                control={control}
+                error={!!errors.bodyCondition}
+                radios={[
+                  {
+                    label: t('too-skinny'),
+                    descripton: (
+                      <p className="body-3 text-primary">
+                        {t('visible-rib-cage-spine-noticeable-loss-of-muscle-mass')}
+                      </p>
+                    ),
+                    selectedDescription: (
+                      <i className="body-3 text-primary">{t.rich('adjust-their-calories')}</i>
+                    ),
+                    value: BodyCondition.TooSkinny,
+                    children: (
+                      <Image
+                        src="/get-started/body-skinny.svg"
+                        alt="dog skinny"
+                        width={91}
+                        height={75}
+                      />
+                    ),
                   },
-                  max: {
-                    value: 50,
-                    message: t('ocelle-is-currently-available-to-dogs-between-05-to-50-kg'),
+                  {
+                    label: t('just-right'),
+                    descripton: (
+                      <p className="body-3 text-primary">
+                        {t(
+                          'clear-waistline-and-tucked-in-belly-you-can-easily-feel-their-ribs-and-or-spine-but-they-are-not-clearly-visible'
+                        )}
+                      </p>
+                    ),
+                    value: BodyCondition.JustRight,
+                    children: (
+                      <Image
+                        src="/get-started/body-just-right.svg"
+                        alt="dog just right"
+                        width={91}
+                        height={75}
+                      />
+                    ),
                   },
-                }}
-                className="mr-2 w-20"
-                inputProps={{ className: 'text-center', min: 0, step: 0.5 }}
-                InputProps={{
-                  sx: {
-                    input: {
-                      MozAppearance: 'textfield',
-                      '&::-webkit-outer-spin-button': { appearance: 'none', margin: 0 },
-                      '&::-webkit-inner-spin-button': { appearance: 'none', margin: 0 },
-                    },
+                  {
+                    label: t('rounded'),
+                    descripton: (
+                      <p className="body-3 text-primary">
+                        {t('waistline-is-disappearing-difficult-to-feel-ribs-and-spine-broad-back')}
+                      </p>
+                    ),
+                    selectedDescription: (
+                      <i className="body-3 text-primary">{t.rich('adjust-their-calories')}</i>
+                    ),
+                    value: BodyCondition.Rounded,
+                    children: (
+                      <Image
+                        src="/get-started/body-rounded.svg"
+                        alt="dog rounded"
+                        width={91}
+                        height={75}
+                      />
+                    ),
                   },
-                }}
-                onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
-                beforeOnChange={(e) => {
-                  if (e.target.value.indexOf('.') === -1) {
-                    return e;
-                  }
-                  const [integer, decimal] = e.target.value.split('.');
-                  if (!decimal) {
-                    return e;
-                  }
-                  e.target.value = `${integer}.${decimal.substring(0, 2)}`;
-                  return e;
-                }}
-                onChange={() => {
-                  if (getValues('bodyCondition') !== undefined) {
-                    trigger('bodyCondition');
-                  }
-                }}
+                  {
+                    label: t('chunky'),
+                    descripton: (
+                      <p className="body-3 text-primary">
+                        {t(
+                          'waistline-is-lost-you-cannot-feel-their-ribs-and-spine-weight-is-a-serious-concern'
+                        )}
+                      </p>
+                    ),
+                    selectedDescription: (
+                      <i className="body-3 text-primary">{t.rich('adjust-their-calories')}</i>
+                    ),
+                    value: BodyCondition.Chunky,
+                    children: (
+                      <Image
+                        src="/get-started/body-chunky.svg"
+                        alt="dog chunky"
+                        width={91}
+                        height={75}
+                      />
+                    ),
+                  },
+                ]}
               />
-              <span className="body-3 ml-2">KG</span>
-              {errors?.weight?.message && (
-                <p className="mt-3 w-full text-error">
-                  <span className="body-3">{String(errors?.weight?.message)}</span>
-                </p>
-              )}
             </div>
+            {errors?.bodyCondition?.message && (
+              <p className="mt-3 w-full text-error">
+                <span className="body-3">
+                  {String(errors?.bodyCondition?.message)
+                    .split('[br]')
+                    .map((v, idx, arr) => [
+                      v.trim(),
+                      arr.length - 1 === idx ? undefined : <br key={v} />,
+                    ])
+                    .flat()}
+                </span>
+              </p>
+            )}
           </Section>
-          {displayState.weight && (
+          {displayState.bodyCondition && (
             <>
               <SectionBreak />
-              <Section title={t('what-best-represents-their-current-body-condition')}>
-                <div className="mt-10">
-                  <PictureRadio
-                    className={{
-                      radioGroup: 'mx-auto max-w-[630px]',
-                    }}
-                    name="bodyCondition"
-                    watch={watch}
+              <Section
+                title={t('what-is-{}-current-weight', {
+                  name: padSpace(PadSpace.Right, name),
+                })}
+              >
+                <div className="flex flex-wrap items-center justify-center">
+                  <TextField
+                    name="weight"
+                    type="number"
+                    control={control}
+                    disableErrorMessage
                     rules={{
                       required: true,
                       validate: (value, { weight, bodyCondition }) => {
-                        if (weight === undefined) {
-                          return true;
-                        }
                         const idealWeight = DogHelper.calculateIdealWeight(weight, bodyCondition);
                         if (idealWeight > 50 || idealWeight < 0.5) {
-                          return String(
-                            t.rich(
-                              'based-on-{}-current-weight-and-body-condition-we-ve-determined-that-they-need-to-{}-weight',
-                              {
-                                name: padSpace(PadSpace.Both, name),
-                                gender: sex,
-                                weight: idealWeight > 50 ? 'lose' : 'gain',
-                              }
-                            )
-                          );
+                          return 'ideal-weight';
                         }
                         return true;
                       },
                     }}
-                    control={control}
-                    error={!!errors.bodyCondition}
-                    radios={[
-                      {
-                        label: t('too-skinny'),
-                        descripton: (
-                          <p className="body-3 text-primary">
-                            {t('visible-rib-cage-spine-noticeable-loss-of-muscle-mass')}
-                          </p>
-                        ),
-                        selectedDescription: (
-                          <i className="body-3 text-primary">{t.rich('adjust-their-calories')}</i>
-                        ),
-                        value: BodyCondition.TooSkinny,
-                        children: (
-                          <Image
-                            src="/get-started/body-skinny.svg"
-                            alt="dog skinny"
-                            width={91}
-                            height={75}
-                          />
-                        ),
+                    className="mr-2 w-20"
+                    inputProps={{ className: 'text-center', min: 0, step: 0.5 }}
+                    InputProps={{
+                      sx: {
+                        input: {
+                          MozAppearance: 'textfield',
+                          '&::-webkit-outer-spin-button': { appearance: 'none', margin: 0 },
+                          '&::-webkit-inner-spin-button': { appearance: 'none', margin: 0 },
+                        },
                       },
-                      {
-                        label: t('just-right'),
-                        descripton: (
-                          <p className="body-3 text-primary">
-                            {t(
-                              'clear-waistline-and-tucked-in-belly-you-can-easily-feel-their-ribs-and-or-spine-but-they-are-not-clearly-visible'
-                            )}
-                          </p>
-                        ),
-                        value: BodyCondition.JustRight,
-                        children: (
-                          <Image
-                            src="/get-started/body-just-right.svg"
-                            alt="dog just right"
-                            width={91}
-                            height={75}
-                          />
-                        ),
-                      },
-                      {
-                        label: t('rounded'),
-                        descripton: (
-                          <p className="body-3 text-primary">
-                            {t(
-                              'waistline-is-disappearing-difficult-to-feel-ribs-and-spine-broad-back'
-                            )}
-                          </p>
-                        ),
-                        selectedDescription: (
-                          <i className="body-3 text-primary">{t.rich('adjust-their-calories')}</i>
-                        ),
-                        value: BodyCondition.Rounded,
-                        children: (
-                          <Image
-                            src="/get-started/body-rounded.svg"
-                            alt="dog rounded"
-                            width={91}
-                            height={75}
-                          />
-                        ),
-                      },
-                      {
-                        label: t('chunky'),
-                        descripton: (
-                          <p className="body-3 text-primary">
-                            {t(
-                              'waistline-is-lost-you-cannot-feel-their-ribs-and-spine-weight-is-a-serious-concern'
-                            )}
-                          </p>
-                        ),
-                        selectedDescription: (
-                          <i className="body-3 text-primary">{t.rich('adjust-their-calories')}</i>
-                        ),
-                        value: BodyCondition.Chunky,
-                        children: (
-                          <Image
-                            src="/get-started/body-chunky.svg"
-                            alt="dog chunky"
-                            width={91}
-                            height={75}
-                          />
-                        ),
-                      },
-                    ]}
+                    }}
+                    onKeyDown={(evt) =>
+                      ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()
+                    }
+                    beforeOnChange={(e) => {
+                      if (e.target.value.indexOf('.') === -1) {
+                        return e;
+                      }
+                      const [integer, decimal] = e.target.value.split('.');
+                      if (!decimal) {
+                        return e;
+                      }
+                      e.target.value = `${integer}.${decimal.substring(0, 2)}`;
+                      return e;
+                    }}
+                    onChange={() => {
+                      if (getValues('bodyCondition') !== undefined) {
+                        trigger('bodyCondition');
+                      }
+                    }}
                   />
+                  <span className="body-3 ml-2">KG</span>
+                  {errors?.weight?.message && (
+                    <p className="mt-3 w-full text-error">
+                      <span className="body-3">
+                        {errors?.weight?.message === 'ideal-weight'
+                          ? t.rich(
+                              'unfortunately-{}-needs-are-a-bit-outside-our-regular-portion-offerings-however-we-may-be-able-to-help-please-contact-our-customer-service-team',
+                              {
+                                name: padSpace(PadSpace.Both, name),
+                                link: (chunks) => (
+                                  <UnderlineButton
+                                    label={chunks}
+                                    href="mailto:info@ocelle.dog"
+                                    underline
+                                    className="text-inherit"
+                                  />
+                                ),
+                              }
+                            )
+                          : String(errors?.weight?.message)}
+                      </span>
+                    </p>
+                  )}
                 </div>
-                {errors?.bodyCondition?.message && (
-                  <p className="mt-3 w-full text-error">
-                    <span className="body-3">
-                      {String(errors?.bodyCondition?.message)
-                        .split('[br]')
-                        .map((v, idx, arr) => [
-                          v.trim(),
-                          arr.length - 1 === idx ? undefined : <br key={v} />,
-                        ])
-                        .flat()}
-                    </span>
-                  </p>
-                )}
               </Section>
             </>
           )}

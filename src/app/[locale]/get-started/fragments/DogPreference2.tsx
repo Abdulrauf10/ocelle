@@ -250,7 +250,7 @@ export default function DogPreference2Fragment() {
                   br: () => <br className="max-md:hidden" />,
                 })}
               >
-                <div className="mx-auto -mt-4 flex max-w-[520px] flex-wrap justify-center">
+                <div className="mx-auto -mt-4 flex max-w-[520px] flex-wrap items-center justify-center max-[576px]:flex-col">
                   <div className="mt-4 px-3">
                     <InteractiveBlock
                       type="radio"
