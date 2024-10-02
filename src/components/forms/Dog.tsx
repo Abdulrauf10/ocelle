@@ -416,14 +416,6 @@ export default function DogForm({
             control={control}
             rules={{
               required: true,
-              min: {
-                value: 0.5,
-                message: t('ocelle-is-currently-available-to-dogs-between-05-to-50-kg'),
-              },
-              max: {
-                value: 50,
-                message: t('ocelle-is-currently-available-to-dogs-between-05-to-50-kg'),
-              },
             }}
             render={({ field, fieldState: { error } }) => (
               <TextField

@@ -324,7 +324,7 @@ export default function GuestCheckoutForm({
                         }
                         return String(value).length === 8
                           ? true
-                          : t('please-enter-a-valid-{}', { name: t('phone-number') });
+                          : t('please-enter-a-valid-{}', { name: t('phone-number').toLowerCase() });
                       },
                     }}
                     disabled={isSubmitInProgress}
@@ -361,15 +361,19 @@ export default function GuestCheckoutForm({
                     rules={{
                       pattern: {
                         value: PHONE_REGEXP,
-                        message: t('please-enter-a-valid-{}', { name: t('Whatsapp-number') }),
+                        message: t('please-enter-a-valid-{}', {
+                          name: t('Whatsapp-number').toLowerCase(),
+                        }),
                       },
-                      validate: (value, { phone: { code } }) => {
+                      validate: (value, { whatsapp: { code } }) => {
                         if (code !== '852' || value === '') {
                           return true;
                         }
                         return String(value).length === 8
                           ? true
-                          : t('please-enter-a-valid-{}', { name: t('Whatsapp-number') });
+                          : t('please-enter-a-valid-{}', {
+                              name: t('Whatsapp-number').toLowerCase(),
+                            });
                       },
                     }}
                     disabled={isSubmitInProgress}
