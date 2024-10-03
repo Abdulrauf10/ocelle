@@ -130,8 +130,8 @@ export default function RecommendedPlanFragment() {
   });
   const { recipes, selectedRecipes, containsTwoRecipes } = useRecipeStatus(watch);
   const enabledTransitionPeriod = stringToBoolean(watch('transition'));
-  const { data: boxPrice, isLoading } = useQuery(
-    recipesBoxPriceOptions(
+  const { data: boxPrice, isLoading } = useQuery({
+    ...recipesBoxPriceOptions(
       breeds!,
       age!,
       isNeutered!,
@@ -141,8 +141,9 @@ export default function RecommendedPlanFragment() {
       recipes,
       mealPlan!,
       enabledTransitionPeriod!
-    )
-  );
+    ),
+    enabled: !!name,
+  });
 
   const validateRecipeCheckbox = React.useCallback(() => {
     const values = getValues('recipe');
@@ -275,7 +276,7 @@ export default function RecommendedPlanFragment() {
                         dialogPicture={
                           <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#95cfd0] from-30% to-white max-md:pt-[100%]">
                             <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
-                              <PlasticBox name={name!} recipe={Recipe.Chicken} />
+                              <PlasticBox name={name ?? ''} recipe={Recipe.Chicken} />
                             </div>
                           </div>
                         }
@@ -320,7 +321,7 @@ export default function RecommendedPlanFragment() {
                         dialogPicture={
                           <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#97cfea] from-30% to-white max-md:pt-[100%]">
                             <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
-                              <PlasticBox name={name!} recipe={Recipe.Pork} />
+                              <PlasticBox name={name ?? ''} recipe={Recipe.Pork} />
                             </div>
                           </div>
                         }
@@ -365,7 +366,7 @@ export default function RecommendedPlanFragment() {
                         dialogPicture={
                           <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#f9cc81] from-30% to-white max-md:pt-[100%]">
                             <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
-                              <PlasticBox name={name!} recipe={Recipe.Duck} />
+                              <PlasticBox name={name ?? ''} recipe={Recipe.Duck} />
                             </div>
                           </div>
                         }
@@ -409,7 +410,7 @@ export default function RecommendedPlanFragment() {
                         dialogPicture={
                           <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#f7c1b5] from-30% to-white max-md:pt-[100%]">
                             <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
-                              <PlasticBox name={name!} recipe={Recipe.Beef} />
+                              <PlasticBox name={name ?? ''} recipe={Recipe.Beef} />
                             </div>
                           </div>
                         }
@@ -454,7 +455,7 @@ export default function RecommendedPlanFragment() {
                         dialogPicture={
                           <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#cae8b8] from-30% to-white max-md:pt-[100%]">
                             <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
-                              <PlasticBox name={name!} recipe={Recipe.Lamb} />
+                              <PlasticBox name={name ?? ''} recipe={Recipe.Lamb} />
                             </div>
                           </div>
                         }
@@ -488,7 +489,7 @@ export default function RecommendedPlanFragment() {
                     <div className="mt-5 flex items-center px-5 max-xl:w-full">
                       <div className="relative mx-auto w-full max-w-[520px]">
                         <PlasticBoxPreview
-                          name={name!}
+                          name={name ?? ''}
                           recipe1={
                             recipes.recipe1 ?? defaultRecommendedRecipes.recipe1 ?? Recipe.Pork
                           }
@@ -503,7 +504,7 @@ export default function RecommendedPlanFragment() {
                 <div className="flex-auto px-2 max-xl:hidden">
                   <div className="flex h-full items-center pt-[40px]">
                     <PlasticBoxPreview
-                      name={name!}
+                      name={name ?? ''}
                       recipe1={recipes.recipe1 ?? defaultRecommendedRecipes.recipe1 ?? Recipe.Pork}
                       recipe2={
                         recipes.recipe1 ? recipes.recipe2 : defaultRecommendedRecipes.recipe2

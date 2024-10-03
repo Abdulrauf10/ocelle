@@ -108,7 +108,7 @@ export default function PartialShippingAddressForm<T extends FieldValues>({
           rules={{
             required: disabled
               ? false
-              : t('please-enter-your-{}', { name: t('address-line-1').toLowerCase() }),
+              : t('please-enter-your-{}', { name: t('address').toLowerCase() }),
           }}
           disabled={disabled}
           errorOnEmpty

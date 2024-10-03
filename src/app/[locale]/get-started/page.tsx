@@ -1,5 +1,6 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import React from 'react';
 import { MemoryRouter, Route } from 'react-router-dom';
 
@@ -16,11 +17,14 @@ import DogPreference1Fragment from './fragments/DogPreference1';
 import DogPreference2Fragment from './fragments/DogPreference2';
 import OwnerFragment from './fragments/Owner';
 import ProcessingFragment from './fragments/Processing';
-import RecommendedPlanFragment from './fragments/RecommendedPlan';
 import WelcomeFragment from './fragments/Welcome';
 
 import AnimateRoutes from '@/components/AnimateRoutes';
 import AppThemeProvider from '@/components/AppThemeProvider';
+
+const RecommendedPlanFragment = dynamic(() => import('./fragments/RecommendedPlan'), {
+  ssr: false,
+});
 
 export default function GetStarted() {
   return (

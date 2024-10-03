@@ -1,5 +1,4 @@
 import clsx from 'clsx';
-import { useTranslations } from 'next-intl';
 
 import PlasticBox from './PlasticBox';
 
@@ -14,8 +13,6 @@ export default function PlasticBoxPreview({
   recipe2?: Recipe;
   name: string;
 }) {
-  const t = useTranslations();
-
   return (
     <div className="w-full">
       <div className="relative">
