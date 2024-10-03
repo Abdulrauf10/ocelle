@@ -161,7 +161,7 @@ export default function ApplyCareerForm({
           /> */}
             <p className="heading-4 font-bold">{t('thank-you-for-applying')}</p>
             <div className="pt-4"></div>
-            <p className="body-3">{t('thank-you-for-applying:description', { title })}</p>
+            <p className="body-3">{t.rich('thank-you-for-applying:description', { title })}</p>
           </Container>
         </Block>
       </div>
