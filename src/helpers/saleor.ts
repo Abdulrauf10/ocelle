@@ -79,11 +79,6 @@ export function choiceToOptions(choices: ChoiceValue[], locale: string) {
             verbose: choice.verbose,
           });
         }
-      } else {
-        options.push({
-          raw: choice.raw,
-          verbose: choice.verbose,
-        });
       }
     }
   }

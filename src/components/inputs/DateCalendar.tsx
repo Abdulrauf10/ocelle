@@ -182,7 +182,7 @@ export default React.forwardRef<HTMLDivElement, DateCalendarProps>(function Date
                     type="button"
                     onClick={action.onClick}
                   >
-                    <span className="whitespace-nowrap text-center text-sm font-bold">
+                    <span className="whitespace-nowrap text-center font-open-sans text-sm font-bold">
                       {action.label}
                     </span>
                     <DogFoot className="ml-2 w-4 fill-current" />

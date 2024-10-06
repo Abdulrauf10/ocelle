@@ -585,7 +585,8 @@ export default function SubscriptionCheckoutForm({
           <div className="w-1/3 px-6 max-lg:w-2/5 max-lg:px-3 max-md:mt-8 max-md:w-full">
             <div className="rounded-3xl bg-gold bg-opacity-10 px-6 py-10">
               <h2 className="heading-4 font-bold text-gold">{t('order-summary')}</h2>
-              <SummaryBlock title={t('your-plan')}>
+              {/* Ocelle_Change Log_Get Started (P002)_v0.38.xlsx -> pending to remove */}
+              {/* <SummaryBlock title={t('your-plan')}>
                 {dogs.map((dog, idx) => {
                   return (
                     <div key={idx} className="mt-2">
@@ -602,7 +603,7 @@ export default function SubscriptionCheckoutForm({
                     </div>
                   );
                 })}
-              </SummaryBlock>
+              </SummaryBlock> */}
               {dogs.map((dog, idx) => {
                 return (
                   <SummaryBlock

@@ -64,7 +64,7 @@ export const StripeTextField = <T extends StripeElement>(props: StripeTextFieldP
         },
         inputComponent: StripeInput,
       }}
-      helperText={error ? labelErrorMessage : helperText}
+      helperText={<p className="body-3">{error ? labelErrorMessage : helperText}</p>}
       {...(other as any)}
     />
   );

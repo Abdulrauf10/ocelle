@@ -17,6 +17,7 @@ import {
 } from 'react-hook-form';
 
 import { getDistricts } from '@/actions';
+import alphabeticalFilterOption from '@/alphabeticalFilterOption';
 import TextField from '@/components/controls/TextField';
 import { CountryCode } from '@/gql/graphql';
 import countriesZH from '@/i18n-iso-countries/zh.json';
@@ -147,7 +148,7 @@ export default function PartialBillingAddressForm<T extends FieldValues>({
       <div className="w-full p-2">
         <TextField
           name={getPath('streetAddress2')}
-          label={t('address-line-2')}
+          label={t('address-line-2-optional')}
           control={control}
           disabled={disabled}
           fullWidth
@@ -189,6 +190,7 @@ export default function PartialBillingAddressForm<T extends FieldValues>({
                   resetField(getPath('district'));
                   resetField(getPath('postalCode'));
                 }}
+                filterOptions={alphabeticalFilterOption}
               />
             );
           }}

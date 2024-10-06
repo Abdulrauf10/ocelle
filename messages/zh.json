@@ -62,6 +62,7 @@
   "email": "電郵地址",
   "address-line-1": "地址1",
   "address-line-2": "地址2",
+  "address-line-2-optional": "地址2 (選填)",
   "city": "城市",
   "state": "州 / 省 / 縣 (選填)",
   "district": "地區",
