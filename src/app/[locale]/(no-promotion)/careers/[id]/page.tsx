@@ -12,7 +12,7 @@ import careerService from '@/services/career';
 
 function CareerBlock({ title, lines }: { title: React.ReactNode; lines: CareerLine[] }) {
   return (
-    <div className="overflow-hidden rounded-[27px] border-2 border-primary">
+    <div className="overflow-hidden rounded-[28px] border-2 border-primary">
       <h2 className="body-1 body-weight-1 bg-primary px-8 py-4 text-white">{title}</h2>
       <div className="bg-white px-8 py-6">
         <ul className="-my-2 list-none">
