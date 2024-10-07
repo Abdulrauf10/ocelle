@@ -30,7 +30,7 @@ export default function GetStarted() {
   return (
     <AppThemeProvider>
       <SurveyContextProvider>
-        <MemoryRouter initialEntries={[Stage.RecommendedPlan]}>
+        <MemoryRouter>
           <View>
             <AnimateRoutes>
               <Route path={Stage.Welcome} element={<WelcomeFragment />} />
