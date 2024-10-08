@@ -1,6 +1,7 @@
 'use server';
 
 import { startOfDay } from 'date-fns';
+import { RedirectType } from 'next/navigation';
 import invariant from 'ts-invariant';
 
 import { UpdateCheckoutDataAction } from './types';
@@ -133,7 +134,7 @@ export async function finalizeCheckout() {
 
   await checkoutService.completeCheckout(checkoutId);
 
-  redirect('/checkout/complete');
+  redirect('/checkout/complete', RedirectType.replace);
 }
 
 export async function getOrderConfigurations() {

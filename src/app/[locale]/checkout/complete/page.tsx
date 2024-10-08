@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
+import { useTimeout } from 'usehooks-ts';
 
 import { dropCheckoutSession, getOrderConfigurations } from '../actions';
 
@@ -30,6 +31,10 @@ export default function CompletePage() {
     refetchOnWindowFocus: false,
     refetchOnReconnect: false,
   });
+  useTimeout(() => {
+    // redirect after 30 seconds
+    router.replace('/');
+  }, 30 * 1000);
 
   React.useEffect(() => {
     if (configurations) {
@@ -72,7 +77,9 @@ export default function CompletePage() {
         />
       </Link>
       <div className="mt-6"></div>
-      <h1 className="heading-4 font-bold text-primary">{t('thank-you-for-your-order')}</h1>
+      <h1 className="heading-4 text-center font-bold text-primary">
+        {t('thank-you-for-your-order')}
+      </h1>
       <p className="mt-4 text-primary">
         {t.rich('your-{}-will-be-delivered-on-the-{}', {
           value: t('order').toLowerCase(),

@@ -1,6 +1,7 @@
 'use server';
 
 import { startOfDay, subDays } from 'date-fns';
+import { RedirectType } from 'next/navigation';
 import invariant from 'ts-invariant';
 
 import { HandleMutateDraftOrderAction } from './types';
@@ -340,7 +341,7 @@ export async function finalizeDraftOrder(paymentMethodId: string) {
     throw e;
   }
 
-  redirect('/get-started/complete');
+  redirect('/get-started/complete', RedirectType.replace);
 }
 
 export async function getOrderConfigurations() {

@@ -114,7 +114,7 @@ export const subscriptionProductsValues = Object.entries(subscriptionProducts).m
 
 export const individualPackProducts = {
   [IndividualRecipePack.Bundle]: {
-    name: 'Tester Bundle',
+    name: 'Taster Bundle',
     slug: 'bundle-pack',
     description: [
       'A complete assortment of nutrient-packed, freshly made food for your dog to sample.',

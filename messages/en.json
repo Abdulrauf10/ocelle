@@ -557,7 +557,7 @@
   },
   "IndividualPack": {
     "block-1-title": "Feeding Fresh Is <br></br>Easy With OCELLE",
-    "block-1-content": "If you<apos1></apos1>re not ready for a subscription, our individual packs come in <block>set weights</block> and can be ordered anytime.",
+    "block-1-content": "If you<apos1></apos1>re not ready for a subscription, our individual packs come in <block>set weights</block> <tabletblockonly>and can be ordered anytime.</tabletblockonly>",
     "block-8-title": "Your Dog Deserves A Fresh Start",
     "block-8-title-1": "Developed By Vet Nutritionists",
     "block-8-content-1": "Many of the health issues dogs face are related to diet. That<apos1></apos1>s why our team is devoted to determining exactly what dogs need to live happier, healthier lives.",
@@ -567,7 +567,7 @@
     "block-8-content-3": "Our ingredients are gently cooked to maximize digestibility and preserve vital nutrients, texture, and taste.",
     "block-9-title": "Easier For You. Better For Them.",
     "block-9-content": "Get fresh food conveniently delivered with our customised meal plans.",
-    "block-6-content": "Product was added to the cart"
+    "block-6-content": "Cart successfully updated."
   },
   "WhyFresh": {
     "its-time-to-rethink-kibble": "It<apos1></apos1>s Time To Rethink Kibble",
@@ -809,7 +809,7 @@
   "see-my-recipes": "See My Recipes",
   "your-order-will-be-delivered-on-the-{}": "Your order will be delivered on the <b>{date}</b>.",
   "your-cart": "Your Cart",
-  "tester-bundle": "Tester Bundle",
+  "taster-bundle": "Taster Bundle",
   "selenium-yeast": "Selenium Yeast",
   "vitamin-a-supplement": "Vitamin A Supplement",
   "thiamine-hydrochloride-vitamin-b1": "Thiamine Hydrochloride (Vitamin B1)",

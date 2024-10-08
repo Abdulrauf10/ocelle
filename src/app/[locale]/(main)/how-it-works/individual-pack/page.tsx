@@ -80,7 +80,7 @@ export default async function HowItWorksIndividual() {
                 src="/dispersion/chicken.gif"
                 alt=""
                 role="presentation"
-                className="object-contain object-center"
+                className="scale-105 object-contain object-center max-lg:scale-125"
                 fill
               />
             </div>
@@ -117,7 +117,7 @@ export default async function HowItWorksIndividual() {
                 src="/dispersion/beef.gif"
                 alt=""
                 role="presentation"
-                className="object-contain object-center"
+                className="scale-105 object-contain object-center max-lg:scale-125"
                 fill
               />
             </div>
@@ -153,7 +153,7 @@ export default async function HowItWorksIndividual() {
                 src="/dispersion/pork.gif"
                 alt=""
                 role="presentation"
-                className="object-contain object-center"
+                className="scale-105 object-contain object-center max-lg:scale-125"
                 fill
               />
             </div>
@@ -190,7 +190,7 @@ export default async function HowItWorksIndividual() {
                 src="/dispersion/lamb.gif"
                 alt=""
                 role="presentation"
-                className="object-contain object-center"
+                className="scale-105 object-contain object-center max-lg:scale-125"
                 fill
               />
             </div>
@@ -225,7 +225,7 @@ export default async function HowItWorksIndividual() {
                 src="/dispersion/duck.gif"
                 alt=""
                 role="presentation"
-                className="object-contain object-center"
+                className="scale-105 object-contain object-center max-lg:scale-125"
                 fill
               />
             </div>
