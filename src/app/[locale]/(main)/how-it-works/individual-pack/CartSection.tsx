@@ -47,29 +47,29 @@ export default function CartSection() {
   }
 
   return (
-    <CartDialog
-      lines={
-        <CartRows
-          lines={lines}
-          onUpdateClick={handleCartItemUpdate}
-          onDeleteClick={handleCartItemDelete}
+    <div className="fixed left-0 top-52 w-full">
+      <Container className="text-right">
+        <CartDialog
+          lines={
+            <CartRows
+              lines={lines}
+              onUpdateClick={handleCartItemUpdate}
+              onDeleteClick={handleCartItemDelete}
+              disabled={querying}
+            />
+          }
+          subtotal={subtotalPrice?.amount ?? 0}
+          onCheckoutClick={() => router.push('/checkout')}
           disabled={querying}
-        />
-      }
-      subtotal={subtotalPrice?.amount ?? 0}
-      onCheckoutClick={() => router.push('/checkout')}
-      disabled={querying}
-    >
-      <div className="fixed left-0 top-52 w-full">
-        <Container className="text-right">
+        >
           <button type="button">
             <Cart
               className="w-16"
               count={lines.reduce((count, line) => line.quantity + count, 0)}
             />
           </button>
-        </Container>
-      </div>
-    </CartDialog>
+        </CartDialog>
+      </Container>
+    </div>
   );
 }
