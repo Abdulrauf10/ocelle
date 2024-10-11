@@ -74,8 +74,6 @@ export default function DogBasicFragment() {
 
   const values = watch();
 
-  console.log(values.breeds);
-
   React.useEffect(() => {
     if (values.breeds.length !== 0 || values.isUnknownBreed) {
       setShowSex(true);
@@ -118,7 +116,7 @@ export default function DogBasicFragment() {
                         formValues.isUnknownBreed ? true : value.length > 0,
                     },
                   }}
-                  render={({ field: { onChange, ...field } }) => (
+                  render={({ field: { onChange, value, ...field } }) => (
                     <Autocomplete
                       multiple
                       fullWidth
@@ -126,9 +124,10 @@ export default function DogBasicFragment() {
                       loading={isLoading}
                       getOptionLabel={(option) => option.name}
                       freeSolo={false}
-                      getOptionDisabled={() =>
-                        watch('breeds').length > 1 ||
-                        values.breeds.some((breed) => breed.uid.indexOf('9998') > -1)
+                      getOptionDisabled={(option) =>
+                        value.length > 1 ||
+                        value.some((breed) => breed.uid.indexOf('9998') > -1) ||
+                        (value.length > 0 && option.uid.indexOf('9998') > -1)
                       }
                       isOptionEqualToValue={(option, value) => option.id === value.id}
                       renderInput={(params) => (
@@ -152,6 +151,11 @@ export default function DogBasicFragment() {
                       }
                       onChange={(e, data) => onChange(data)}
                       filterOptions={alphabeticalFilterOption}
+                      value={
+                        values.isUnknownBreed
+                          ? options?.filter((option) => option.uid === '9998 - C') ?? []
+                          : value
+                      }
                       {...field}
                     />
                   )}

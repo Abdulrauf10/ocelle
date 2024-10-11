@@ -173,6 +173,11 @@ export default function DogPreference1Fragment() {
                     ),
                   },
                 ]}
+                onChange={() => {
+                  if (getValues('weight') !== undefined) {
+                    trigger('weight');
+                  }
+                }}
               />
             </div>
             {errors?.bodyCondition?.message && (
@@ -237,11 +242,6 @@ export default function DogPreference1Fragment() {
                       }
                       e.target.value = `${integer}.${decimal.substring(0, 2)}`;
                       return e;
-                    }}
-                    onChange={() => {
-                      if (getValues('bodyCondition') !== undefined) {
-                        trigger('bodyCondition');
-                      }
                     }}
                   />
                   <span className="body-3 ml-2">KG</span>

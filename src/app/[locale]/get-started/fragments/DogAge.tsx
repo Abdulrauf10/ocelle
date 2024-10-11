@@ -1,9 +1,10 @@
-import { MenuItem } from '@mui/material';
+import { Autocomplete, MenuItem, TextField } from '@mui/material';
 import clsx from 'clsx';
 import { differenceInWeeks, subDays, subMonths, subYears } from 'date-fns';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import React from 'react';
+import { Controller } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Section from '../Section';
@@ -15,7 +16,6 @@ import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import DateCalendar from '@/components/controls/DateCalendar';
-import Select from '@/components/controls/Select';
 import useDogForm from '@/hooks/useDogForm';
 import useSentence, { PadSpace } from '@/hooks/useSentence';
 
@@ -97,21 +97,13 @@ export default function DogAgeFragment() {
             >
               <div className="flex justify-center">
                 <div className="flex items-center px-4">
-                  <Select
+                  <Controller
                     name="years"
                     control={dogAgeForm.control}
                     rules={{
                       required: {
                         value: true,
                         message: 'Years or months must be specified',
-                      },
-                      min: {
-                        value: 0,
-                        message: 'years and months cannot be zero',
-                      },
-                      max: {
-                        value: 35,
-                        message: 'years and months cannot be zero',
                       },
                       validate: {
                         isAtLeastOneNonZero: (years, { months }) => {
@@ -132,32 +124,51 @@ export default function DogAgeFragment() {
                         },
                       },
                     }}
-                    onChange={() => {
-                      dogAgeForm.trigger('months');
-                      dogBirthdayForm.reset({ birthday: undefined });
-                    }}
-                    IconComponent={() => null}
-                    className="mr-2 w-20 text-center"
-                    inputProps={{
-                      className: '!px-6',
-                    }}
-                  >
-                    {Array.from({ length: 36 }, (v, i) => (
-                      <MenuItem key={i} value={i}>
-                        {i}
-                      </MenuItem>
-                    ))}
-                  </Select>
+                    render={({ field: { onChange, ...field }, fieldState: { error } }) => (
+                      <Autocomplete
+                        {...field}
+                        className="mr-2 w-20 text-center"
+                        options={Array.from({ length: 36 }, (_, i) => i)}
+                        onChange={(_, data) => {
+                          onChange(data);
+                          dogAgeForm.trigger('months');
+                          dogBirthdayForm.reset({ birthday: undefined });
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            error={!!error}
+                            InputProps={{
+                              ...params.InputProps,
+                              sx: {
+                                '&&&': { pr: '9px' },
+                              },
+                            }}
+                            inputProps={{
+                              ...params.inputProps,
+                              sx: {
+                                textAlign: 'center',
+                              },
+                            }}
+                          />
+                        )}
+                        disableClearable
+                        popupIcon={null}
+                        getOptionLabel={String}
+                      />
+                    )}
+                  />
                   <span className="body-3 ml-2">{t('years')}</span>
                 </div>
                 <div className="flex items-center px-4">
-                  <Select
+                  <Controller
                     name="months"
                     control={dogAgeForm.control}
                     rules={{
-                      required: tab === 'Age',
-                      min: 0,
-                      max: 11,
+                      required: {
+                        value: true,
+                        message: 'Years or months must be specified',
+                      },
                       validate: {
                         isAtLeastOneNonZero: (months, { years }) => {
                           if (years === undefined || months === undefined) {
@@ -177,22 +188,41 @@ export default function DogAgeFragment() {
                         },
                       },
                     }}
-                    onChange={() => {
-                      dogAgeForm.trigger('years');
-                      dogBirthdayForm.reset();
-                    }}
-                    IconComponent={() => null}
-                    className="mr-2 w-20 text-center"
-                    inputProps={{
-                      className: '!px-6',
-                    }}
-                  >
-                    {Array.from({ length: 12 }, (v, i) => (
-                      <MenuItem key={i} value={i}>
-                        {i}
-                      </MenuItem>
-                    ))}
-                  </Select>
+                    render={({ field: { onChange, ...field }, fieldState: { error } }) => (
+                      <Autocomplete
+                        {...field}
+                        className="mr-2 w-20"
+                        options={Array.from({ length: 12 }, (_, i) => i)}
+                        onChange={(_, data) => {
+                          onChange(data);
+                          dogAgeForm.trigger('years');
+                          dogBirthdayForm.reset();
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            className="text-center"
+                            error={!!error}
+                            InputProps={{
+                              ...params.InputProps,
+                              sx: {
+                                '&&&': { pr: '9px' },
+                              },
+                            }}
+                            inputProps={{
+                              ...params.inputProps,
+                              sx: {
+                                textAlign: 'center',
+                              },
+                            }}
+                          />
+                        )}
+                        disableClearable
+                        popupIcon={null}
+                        getOptionLabel={String}
+                      />
+                    )}
+                  />
                   <span className="body-3 ml-2">{t('months')}</span>
                 </div>
               </div>

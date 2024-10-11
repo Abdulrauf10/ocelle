@@ -14,6 +14,7 @@ interface RadioProps<T extends FieldValues> extends InputControllerProps<T> {
   label: React.ReactNode;
   value: string | number;
   onHover(): void;
+  onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 function Radio<T extends FieldValues>({
@@ -25,8 +26,11 @@ function Radio<T extends FieldValues>({
   rules,
   error,
   onHover,
+  onChange: parentOnChange,
 }: React.PropsWithChildren<RadioProps<T>>) {
-  const { field } = useController({ name, control, rules });
+  const {
+    field: { onChange, ...field },
+  } = useController({ name, control, rules });
   const isSelected = field.value == value;
 
   return (
@@ -46,6 +50,10 @@ function Radio<T extends FieldValues>({
             type="radio"
             className="absolute bottom-0 left-0 right-0 top-0 opacity-0"
             value={value}
+            onChange={(e) => {
+              onChange(e);
+              parentOnChange?.call(undefined, e);
+            }}
           />
         </div>
       </div>
@@ -75,6 +83,7 @@ interface PictureRadioProps<
   };
   watch: UseFormWatch<TFieldValues>;
   radios: PictureRadioOption<TFieldValues, TFieldName>[];
+  onChange?(e: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 export default function PictureRadio<
@@ -88,6 +97,7 @@ export default function PictureRadio<
   rules,
   radios,
   error,
+  onChange,
 }: PictureRadioProps<TFieldValues, TFieldName>) {
   const currentValue = watch(name);
   const selectedRadio = React.useMemo(() => {
@@ -128,6 +138,7 @@ export default function PictureRadio<
               label={radio.label}
               error={error}
               onHover={handleOnHover(radio.value)}
+              onChange={onChange}
             >
               {radio.children}
             </Radio>
