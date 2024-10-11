@@ -11,7 +11,12 @@ const nextConfig = {
       bodySizeLimit: '10mb'
     }
   },
-  webpack(config) {
+  webpack(config, { dev }) {
+    if (config.cache && !dev) {
+      config.cache = Object.freeze({
+        type: 'memory',
+      })
+    }
     config.ignoreWarnings = [
       ...(config.ignoreWarnings || []),
       { module: /typeorm/ },
