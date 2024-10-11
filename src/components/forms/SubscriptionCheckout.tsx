@@ -713,7 +713,10 @@ export default function SubscriptionCheckoutForm({
                       ),
                     })}
                     disabled={isSubmitInProgress}
-                    onChange={() => trigger()}
+                    onChange={() => {
+                      trigger();
+                      form.trigger();
+                    }}
                   />
                 </div>
                 <div className="mt-4 text-center">

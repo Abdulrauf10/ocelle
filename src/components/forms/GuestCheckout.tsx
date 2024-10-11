@@ -553,7 +553,10 @@ export default function GuestCheckoutForm({
                       ),
                     })}
                     disabled={isSubmitInProgress}
-                    onChange={() => trigger()}
+                    onChange={() => {
+                      trigger();
+                      form.trigger();
+                    }}
                   />
                 </div>
                 <div className="mt-5 text-center">

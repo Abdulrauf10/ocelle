@@ -49,6 +49,7 @@ interface UseCardStripeFormReturn {
   };
   empty: boolean;
   complete: boolean;
+  trigger(): void;
   handleChange(event: ChangeEvent): void;
   handleBlur(event: { elementType: ElementType }): void;
   reset(): void;
@@ -105,6 +106,12 @@ export function useCardStripeForm(): UseCardStripeFormReturn {
     [numberState, expireState, cvcState]
   );
 
+  const trigger = React.useCallback(() => {
+    handleBlur({ elementType: 'cardNumber' });
+    handleBlur({ elementType: 'cardExpiry' });
+    handleBlur({ elementType: 'cardCvc' });
+  }, [handleBlur]);
+
   const reset = React.useCallback(() => {
     if (!elements) {
       return;
@@ -126,6 +133,7 @@ export function useCardStripeForm(): UseCardStripeFormReturn {
     },
     empty: (numberState?.empty || expireState?.empty || cvcState?.empty) ?? true,
     complete: (numberState?.complete && expireState?.complete && cvcState?.complete) ?? false,
+    trigger,
     handleChange,
     handleBlur,
     reset,
