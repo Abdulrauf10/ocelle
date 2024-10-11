@@ -71,7 +71,8 @@ export default function TextField<T extends FieldValues>({
   onChange: parentOnChange,
   onBlur: parentOnBlur,
 }: TextFieldProps<T>) {
-  const [shouldError, setShouldError] = React.useState(false);
+  // default to false which help global trigger error will shown
+  const [shouldNotError, setShouldNotError] = React.useState(false);
 
   if (mask?.pattern == null || (Array.isArray(mask.pattern) && mask.pattern.length === 0)) {
     return (
@@ -90,7 +91,7 @@ export default function TextField<T extends FieldValues>({
               value={value ?? ''}
               label={label}
               fullWidth={fullWidth}
-              error={!!error && shouldError}
+              error={!!error && !shouldNotError}
               sx={sx}
               FormHelperTextProps={FormHelperTextProps}
               InputLabelProps={InputLabelProps}
@@ -98,14 +99,14 @@ export default function TextField<T extends FieldValues>({
               InputProps={InputProps}
               className={className}
               helperText={
-                (!disableErrorMessage && shouldError && error?.message && (
+                (!disableErrorMessage && !shouldNotError && error?.message && (
                   <span className="body-3">{error.message}</span>
                 )) ||
                 helperText
               }
               onKeyDown={onKeyDown}
               onBlur={(e) => {
-                setShouldError((value && (value as string).length !== 0) || errorOnEmpty === true);
+                setShouldNotError(!(value && (value as string).length !== 0) && !errorOnEmpty);
                 onBlur();
                 if (parentOnBlur && typeof parentOnBlur === 'function') {
                   parentOnBlur(e);
