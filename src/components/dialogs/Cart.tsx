@@ -34,7 +34,13 @@ export default function CartDialog({
             <div className="bg-gold bg-opacity-10 px-8 py-6">
               <div className="body-2 flex justify-between font-bold">
                 <div>{t('{}-colon', { value: t('subtotal') })}</div>
-                <div>HK${subtotal}</div>
+                <div>
+                  {subtotal.toLocaleString('yue-Hant-HK', {
+                    currencyDisplay: 'symbol',
+                    style: 'currency',
+                    currency: 'HKD',
+                  })}
+                </div>
               </div>
               <div className="mt-4"></div>
               <Button

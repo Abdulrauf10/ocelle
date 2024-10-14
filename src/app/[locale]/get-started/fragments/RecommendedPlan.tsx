@@ -23,6 +23,7 @@ import CircleTick from '@/components/icons/CircleTick';
 import PlasticBox from '@/components/layouts/PlasticBox';
 import PlasticBoxPreview from '@/components/layouts/PlasticBoxPreview';
 import { ActivityLevel, BodyCondition, MealPlan, Recipe } from '@/enums';
+import { formatCurrency } from '@/helpers/currency';
 import DogHelper from '@/helpers/dog';
 import { arrayToRecipe, getRecipeOptions, recipeToArray } from '@/helpers/form';
 import RecipeHelper from '@/helpers/recipe';
@@ -583,16 +584,16 @@ export default function RecommendedPlanFragment() {
                     <div className="mr-1">{t('{}-colon', { value: t('starter-box') })}</div>
                     <div>
                       <span className="inline-block">
-                        <Price value={roundTo(boxPrice.total, 1).toFixed(2)} discount />
+                        <Price value={formatCurrency(roundTo(boxPrice.total, 1))} discount />
                         <Price
                           className="ml-1 font-bold"
-                          value={roundTo(boxPrice.discountedTotal, 2).toFixed(2)}
+                          value={formatCurrency(roundTo(boxPrice.discountedTotal, 2))}
                         />{' '}
                         (
-                        <Price value={roundTo(boxPrice.daily, 2).toFixed(2)} discount />
+                        <Price value={formatCurrency(roundTo(boxPrice.daily, 2))} discount />
                         <Price
                           className="ml-1 font-bold"
-                          value={roundTo(boxPrice.discountedDaily, 2).toFixed(2)}
+                          value={formatCurrency(roundTo(boxPrice.discountedDaily, 2))}
                         />
                         <span className="font-bold text-dark-green">{t('per-day')}</span>)
                       </span>

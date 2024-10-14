@@ -9,6 +9,7 @@ import NumberInput from './inputs/Number';
 
 import { IndividualRecipePack } from '@/enums';
 import { CheckoutLineFragment, ProductFragment } from '@/gql/graphql';
+import { formatCurrency } from '@/helpers/currency';
 import { weightToGrams } from '@/helpers/saleor';
 import { individualPackProducts } from '@/products';
 
@@ -101,7 +102,7 @@ export default function CartRows({
                   disabled={disabled}
                 />
               </div>
-              <div className="px-2">${line.totalPrice.gross.amount.toFixed(2)}</div>
+              <div className="px-2">{formatCurrency(line.totalPrice.gross.amount)}</div>
             </div>
           </div>
         </div>

@@ -5,6 +5,8 @@ import Image from 'next/image';
 import Price from './Price';
 import CircleTick from './icons/CircleTick';
 
+import { formatCurrency } from '@/helpers/currency';
+
 interface FreshPlanProps {
   title: string;
   picture: string;
@@ -88,9 +90,9 @@ export default function FreshPlan({
           <p className="mt-2">
             {t('starting-at')}
             <br />
-            <Price value={pricePerDay.toFixed(2)} discount={!!discountedPricePerDay} />
+            <Price value={formatCurrency(pricePerDay)} discount={!!discountedPricePerDay} />
             {discountedPricePerDay && (
-              <Price className="ml-1 font-bold" value={discountedPricePerDay.toFixed(2)} />
+              <Price className="ml-1 font-bold" value={formatCurrency(discountedPricePerDay)} />
             )}
             <span className="font-bold text-dark-green">{t('per-day')}</span>
             {locale === 'en' ? '.' : ''}

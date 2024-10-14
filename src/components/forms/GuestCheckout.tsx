@@ -26,6 +26,7 @@ import Select from '@/components/controls/Select';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 import { useCart } from '@/contexts/cart';
 import { CheckoutLineFragment, CountryCode } from '@/gql/graphql';
+import { formatCurrency } from '@/helpers/currency';
 import { isLegalDeliveryDate, isOperationDate } from '@/helpers/shipment';
 import { getCountryCodes } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
@@ -530,7 +531,7 @@ export default function GuestCheckoutForm({
                 <div className="-mx-1 flex flex-wrap justify-between">
                   <div className="body-3 px-1">{t('promo-code')}</div>
                   <div className="body-3 px-1">
-                    {discountPrice ? `\$${discountPrice.amount}` : '－'}
+                    {discountPrice?.amount ? formatCurrency(discountPrice.amount) : '－'}
                   </div>
                 </div>
                 <div className="mt-3"></div>
@@ -538,16 +539,16 @@ export default function GuestCheckoutForm({
                   <div className="body-3 px-1">{t('delivery')}</div>
                   <div className="body-3 px-1">
                     {!shippingPrice || shippingPrice.amount === 0 ? (
-                      <Price className="font-bold uppercase" value={t('free')} dollorSign={false} />
+                      <Price className="font-bold uppercase" value={t('free')} />
                     ) : (
-                      `$${shippingPrice.amount}`
+                      formatCurrency(shippingPrice.amount)
                     )}
                   </div>
                 </div>
                 <div className="mt-3"></div>
                 <div className="-mx-1 flex flex-wrap justify-between font-bold">
                   <div className="body-2 px-1">{t('{}-colon', { value: t('total') })}</div>
-                  <div className="body-2 px-1">${totalPrice?.amount}</div>
+                  <div className="body-2 px-1">{formatCurrency(totalPrice?.amount || 0)}</div>
                 </div>
                 <div className="mt-4">
                   <RoundedCheckbox

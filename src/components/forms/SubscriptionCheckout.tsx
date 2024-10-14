@@ -28,6 +28,7 @@ import { useOrder } from '@/contexts/order';
 import { Frequency, MealPlan, Recipe } from '@/enums';
 import { CountryCode, OrderDiscountType, OrderFragment } from '@/gql/graphql';
 import { getNextRecurringBoxPreiod } from '@/helpers/box';
+import { formatCurrency } from '@/helpers/currency';
 import RecipeHelper from '@/helpers/recipe';
 import {
   getEditableRecurringBoxDeadline,
@@ -673,7 +674,7 @@ export default function SubscriptionCheckoutForm({
                   <div className="body-3 px-1">
                     <Price
                       className="font-bold"
-                      value={order.undiscountedTotal.gross.amount.toFixed(2)}
+                      value={formatCurrency(order.undiscountedTotal.gross.amount)}
                       discount
                     />
                   </div>
@@ -684,7 +685,7 @@ export default function SubscriptionCheckoutForm({
                   <div className="body-3 px-1">
                     <Price
                       className="font-bold"
-                      value={starterBoxDiscount.amount.amount.toFixed(2)}
+                      value={formatCurrency(starterBoxDiscount.amount.amount)}
                     />
                   </div>
                 </div>
@@ -697,14 +698,14 @@ export default function SubscriptionCheckoutForm({
                 <div className="-mx-1 flex flex-wrap justify-between">
                   <div className="body-3 px-1">{t('delivery')}</div>
                   <div className="body-3 px-1">
-                    <Price className="font-bold uppercase" value={t('free')} dollorSign={false} />
+                    <Price className="font-bold uppercase" value={t('free')} />
                   </div>
                 </div>
               </SummaryBlock>
               <SummaryBlock>
                 <div className="-mx-1 flex flex-wrap justify-between font-bold">
                   <div className="px-1">{t('{}-colon', { value: t('todays-total') })}</div>
-                  <div className="px-1">${order.total.gross.amount.toFixed(2)}</div>
+                  <div className="px-1">{formatCurrency(order.total.gross.amount)}</div>
                 </div>
                 <div className="mt-4">
                   <RoundedCheckbox
