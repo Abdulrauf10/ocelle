@@ -67,6 +67,7 @@ interface MinPricesDto {
 
 interface CartReturn {
   lines: CheckoutLineFragment[];
+  discountPrice?: MoneyFragment;
   shippingPrice: MoneyFragment;
   subtotalPrice: MoneyFragment;
   totalPrice: MoneyFragment;

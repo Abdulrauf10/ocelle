@@ -92,6 +92,7 @@ export async function addToCart(pack: IndividualRecipePack, quantity: number): P
 
   return {
     lines: checkout.lines,
+    discountPrice: checkout.discount ?? undefined,
     subtotalPrice: checkout.subtotalPrice.gross,
     shippingPrice: checkout.shippingPrice.gross,
     totalPrice: checkout.totalPrice.gross,
@@ -114,6 +115,7 @@ export async function updateCartLine(lineId: string, quantity: number): Promise<
 
   return {
     lines: checkout.lines,
+    discountPrice: checkout.discount ?? undefined,
     subtotalPrice: checkout.subtotalPrice.gross,
     shippingPrice: checkout.shippingPrice.gross,
     totalPrice: checkout.totalPrice.gross,
@@ -136,6 +138,7 @@ export async function deleteCartLine(lineId: string): Promise<CartReturn> {
 
   return {
     lines: checkout.lines,
+    discountPrice: checkout.discount ?? undefined,
     subtotalPrice: checkout.subtotalPrice.gross,
     shippingPrice: checkout.shippingPrice.gross,
     totalPrice: checkout.totalPrice.gross,

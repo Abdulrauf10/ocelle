@@ -33,6 +33,20 @@ fragment ProductVariant on ProductVariant {
       ...Money
     }
   }
+  product {
+    id
+    name
+    slug
+    description
+    seoTitle
+    seoDescription
+    translation(languageCode: ZH_HANT) {
+      name
+      description
+      seoTitle
+      seoDescription
+    }
+  }
 }
 
 fragment Product on Product {

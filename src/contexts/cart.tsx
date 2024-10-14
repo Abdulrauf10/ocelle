@@ -7,10 +7,12 @@ import { CartReturn } from '@/types/dto';
 
 interface CartContextProps {
   lines: CheckoutLineFragment[];
+  discountPrice?: MoneyFragment;
   subtotalPrice?: MoneyFragment;
   shippingPrice?: MoneyFragment;
   totalPrice?: MoneyFragment;
   setLines(lines: CheckoutLineFragment[]): void;
+  setDiscountPrice(discountPrice: MoneyFragment): void;
   setSubtotalPrice(subtotalPrice: MoneyFragment): void;
   setShippingPrice(shippingPrice: MoneyFragment): void;
   setTotalPrice(totalPrice: MoneyFragment): void;
@@ -23,12 +25,16 @@ const CartContext = React.createContext<CartContextProps | undefined>(undefined)
 export function CartContextProvider(
   props: React.PropsWithChildren<{
     lines: CheckoutLineFragment[];
+    discountPrice?: MoneyFragment;
     subtotalPrice?: MoneyFragment;
     shippingPrice?: MoneyFragment;
     totalPrice?: MoneyFragment;
   }>
 ) {
   const [lines, setLines] = React.useState<CheckoutLineFragment[]>(props.lines);
+  const [discountPrice, setDiscountPrice] = React.useState<MoneyFragment | undefined>(
+    props.discountPrice
+  );
   const [subtotalPrice, setSubtotalPrice] = React.useState<MoneyFragment | undefined>(
     props.subtotalPrice
   );
@@ -38,8 +44,9 @@ export function CartContextProvider(
   const [totalPrice, setTotalPrice] = React.useState<MoneyFragment | undefined>(props.totalPrice);
 
   const setCart = React.useCallback((cart: CartReturn) => {
-    const { lines, subtotalPrice, shippingPrice, totalPrice } = cart;
+    const { lines, discountPrice, subtotalPrice, shippingPrice, totalPrice } = cart;
     setLines(lines);
+    setDiscountPrice(discountPrice);
     setSubtotalPrice(subtotalPrice);
     setShippingPrice(shippingPrice);
     setTotalPrice(totalPrice);
@@ -47,6 +54,7 @@ export function CartContextProvider(
 
   const clear = React.useCallback(() => {
     setLines([]);
+    setDiscountPrice(undefined);
     setSubtotalPrice(undefined);
     setShippingPrice(undefined);
     setTotalPrice(undefined);
@@ -56,6 +64,8 @@ export function CartContextProvider(
     return {
       lines,
       setLines,
+      discountPrice,
+      setDiscountPrice,
       subtotalPrice,
       setSubtotalPrice,
       shippingPrice,
@@ -67,10 +77,12 @@ export function CartContextProvider(
     };
   }, [
     lines,
+    discountPrice,
     subtotalPrice,
     shippingPrice,
     totalPrice,
     setLines,
+    setDiscountPrice,
     setSubtotalPrice,
     setShippingPrice,
     setTotalPrice,

@@ -40,12 +40,20 @@ export async function initializeStripeTranscation() {
   });
 }
 
-export async function applyCoupon({ coupon }: { coupon: string }) {
+export async function applyCoupon({ coupon }: { coupon: string }): Promise<CartReturn> {
   const checkoutId = await getCartCookie();
 
   invariant(checkoutId, 'checkout not found in the cookie');
 
-  await checkoutService.setCoupon(checkoutId, coupon);
+  const checkout = await checkoutService.setCoupon(checkoutId, coupon);
+
+  return {
+    lines: checkout.lines,
+    discountPrice: checkout.discount ?? undefined,
+    shippingPrice: checkout.shippingPrice.gross,
+    subtotalPrice: checkout.subtotalPrice.gross,
+    totalPrice: checkout.totalPrice.gross,
+  };
 }
 
 export async function updateCartLine(lineId: string, quantity: number): Promise<CartReturn> {
@@ -64,6 +72,7 @@ export async function updateCartLine(lineId: string, quantity: number): Promise<
 
   return {
     lines: checkout.lines,
+    discountPrice: checkout.discount ?? undefined,
     subtotalPrice: checkout.subtotalPrice.gross,
     shippingPrice: checkout.shippingPrice.gross,
     totalPrice: checkout.totalPrice.gross,
@@ -86,6 +95,7 @@ export async function deleteCartLine(lineId: string): Promise<CartReturn> {
 
   return {
     lines: checkout.lines,
+    discountPrice: checkout.discount ?? undefined,
     subtotalPrice: checkout.subtotalPrice.gross,
     shippingPrice: checkout.shippingPrice.gross,
     totalPrice: checkout.totalPrice.gross,

@@ -219,6 +219,10 @@ class CheckoutService {
   }
   async setCoupon(id: string, code: string) {
     const { checkoutAddPromoCode } = await executeGraphQL(AddPromoCodeDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
       variables: {
         promoCode: code,
         checkoutId: id,
@@ -229,7 +233,7 @@ class CheckoutService {
       throw new CheckoutSetCouponError(checkoutAddPromoCode?.errors);
     }
 
-    return checkoutAddPromoCode;
+    return checkoutAddPromoCode.checkout!;
   }
   async updateEmail(id: string, email: string) {
     const { checkoutEmailUpdate } = await executeGraphQL(UpdateCheckoutEmailDocument, {

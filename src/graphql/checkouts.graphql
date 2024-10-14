@@ -38,19 +38,15 @@ fragment Checkout on Checkout {
   lines {
     ...CheckoutLine
   }
+  discount {
+    ...Money
+  }
 }
 
 fragment CheckoutLine on CheckoutLine {
   id
   variant {
-    id
-    sku
-    product {
-      ...Product
-    }
-    weight {
-      ...Weight
-    }
+    ...ProductVariant
   }
   quantity
   unitPrice {
@@ -90,6 +86,9 @@ mutation AddPromoCode($checkoutId: ID!, $promoCode: String!) {
       message
       code
     }
+    checkout {
+      ...Checkout
+    }
   }
 }
 
@@ -98,6 +97,9 @@ mutation RemovePromoCode($checkoutId: ID!, $promoCode: String!) {
     errors {
       message
       code
+    }
+    checkout {
+      ...Checkout
     }
   }
 }

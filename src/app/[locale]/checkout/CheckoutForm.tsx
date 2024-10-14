@@ -8,7 +8,6 @@ import {
   updateCheckoutData,
 } from './actions';
 
-import CouponForm from '@/components/forms/Coupon';
 import GuestCheckoutForm from '@/components/forms/GuestCheckout';
 import { CalendarEvent } from '@/types';
 
@@ -26,7 +25,7 @@ export default function CheckoutForm({
       clientSecret={clientSecret}
       minDeliveryDate={minDeliveryDate}
       calendarEvents={calendarEvents}
-      renderCouponForm={({ disabled }) => <CouponForm disabled={disabled} action={applyCoupon} />}
+      onApplyCoupon={applyCoupon}
       onCartUpdate={updateCartLine}
       onCartDelete={deleteCartLine}
       onBeforeTransaction={updateCheckoutData}

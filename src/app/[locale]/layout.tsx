@@ -52,6 +52,7 @@ export default async function RootLayout({
             <AuthProvider getLoginedMe={getClientLoginedMe} logout={logout}>
               <CartContextProvider
                 lines={cart ? cart.lines : []}
+                discountPrice={cart?.discount ?? undefined}
                 subtotalPrice={cart?.subtotalPrice.gross}
                 shippingPrice={cart?.shippingPrice.gross}
                 totalPrice={cart?.totalPrice.gross}

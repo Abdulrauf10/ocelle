@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form';
 import CartRows from '../CartRows';
 import UnderlineButton from '../buttons/UnderlineButton';
 import TextField from '../controls/TextField';
+import CouponForm from './Coupon';
 import DatePickerForm from './DatePicker';
 import PartialBillingAddressForm, { IPartialBillingAddressForm } from './partial/BillingAddress';
 import PartialCardStripeForm, { useCardStripeForm } from './partial/CardStripe';
@@ -24,7 +25,7 @@ import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import Select from '@/components/controls/Select';
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 import { useCart } from '@/contexts/cart';
-import { CountryCode } from '@/gql/graphql';
+import { CheckoutLineFragment, CountryCode } from '@/gql/graphql';
 import { isLegalDeliveryDate, isOperationDate } from '@/helpers/shipment';
 import { getCountryCodes } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
@@ -101,7 +102,7 @@ export default function GuestCheckoutForm({
   clientSecret,
   minDeliveryDate,
   calendarEvents,
-  renderCouponForm,
+  onApplyCoupon,
   onCartUpdate,
   onCartDelete,
   onBeforeTransaction,
@@ -110,7 +111,7 @@ export default function GuestCheckoutForm({
   clientSecret: string;
   minDeliveryDate: Date;
   calendarEvents: CalendarEvent[];
-  renderCouponForm(state: { disabled: boolean }): React.ReactNode;
+  onApplyCoupon(data: { coupon: string }): Promise<CartReturn>;
   onCartUpdate(lineId: string, quantity: number): Promise<CartReturn>;
   onCartDelete(lineId: string): Promise<CartReturn>;
   onBeforeTransaction(data: IGuestCheckoutFormAction): Promise<void>;
@@ -121,7 +122,7 @@ export default function GuestCheckoutForm({
   const elements = useElements();
   const form = useCardStripeForm();
   const sentence = useSentence();
-  const { lines, shippingPrice, totalPrice, setCart } = useCart();
+  const { lines, discountPrice, shippingPrice, totalPrice, setCart } = useCart();
   const t = useTranslations();
   const {
     control,
@@ -252,7 +253,7 @@ export default function GuestCheckoutForm({
   }, [handleWindowClick]);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="overflow-hidden">
       <Container>
         <div className="-mx-6 flex flex-wrap max-lg:-mx-3">
           <div className="flex-1 px-6 max-lg:px-3">
@@ -517,12 +518,20 @@ export default function GuestCheckoutForm({
                 />
               </SummaryBlock>
               <SummaryBlock title={t('promo-code')}>
-                {renderCouponForm({ disabled: isSubmitInProgress })}
+                <CouponForm
+                  disabled={isSubmitInProgress}
+                  action={async (data) => {
+                    const cart = await onApplyCoupon(data);
+                    setCart(cart);
+                  }}
+                />
               </SummaryBlock>
               <SummaryBlock>
                 <div className="-mx-1 flex flex-wrap justify-between">
                   <div className="body-3 px-1">{t('promo-code')}</div>
-                  <div className="body-3 px-1">－</div>
+                  <div className="body-3 px-1">
+                    {discountPrice ? `\$${discountPrice.amount}` : '－'}
+                  </div>
                 </div>
                 <div className="mt-3"></div>
                 <div className="-mx-1 flex flex-wrap justify-between">

@@ -1,12 +1,14 @@
 fragment OrderLine on OrderLine {
+  id
   variant {
-    id
-    sku
-    product {
-      ...Product
-    }
+    ...ProductVariant
   }
   quantity
+  unitPrice {
+    gross {
+      ...Money
+    }
+  }
   totalPrice {
     gross {
       ...Money
@@ -55,6 +57,11 @@ fragment Order on Order {
   }
   undiscountedTotal {
     ...TaxedMoney
+  }
+  subtotal {
+    gross {
+      ...Money
+    }
   }
   total {
     gross {
