@@ -9,17 +9,13 @@ import { pageVariants } from '../transition';
 
 import AppThemeProvider from '@/components/AppThemeProvider';
 import StripeLoader from '@/components/StripeLoader';
-import CouponForm from '@/components/forms/Coupon';
 import SubscriptionCheckoutForm from '@/components/forms/SubscriptionCheckout';
+import { OrderProvider } from '@/contexts/order';
 
 export default function CheckoutFragment() {
   const { dogs, owner } = useSurvey();
   const navigate = useNavigate();
   const { state } = useLocation();
-
-  dogs.forEach((dog) => console.log(dog));
-
-  console.log(state.calendarEvents);
 
   return (
     <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
@@ -54,38 +50,37 @@ export default function CheckoutFragment() {
           },
         }}
       >
-        <StripeLoader
-          clientSecret={state.stripe.paymentIntent.client_secret}
-          publishableKey={state.stripe.publishableKey}
-        >
-          <SubscriptionCheckoutForm
-            defaultValues={owner}
-            draftOrder={state.order}
-            dogs={dogs.map((dog, idx) => {
-              return {
-                name: dog.name!,
-                mealPlan: dog.mealPlan!,
-                recipe1: dog.recipe1!,
-                recipe2: dog.recipe2,
-                isEnabledTransitionPeriod: dog.isEnabledTransitionPeriod!,
-                perDayPrice: state.dogsPerDayPrice[idx].price,
-              };
-            })}
+        <OrderProvider initOrder={state.order}>
+          <StripeLoader
             clientSecret={state.stripe.paymentIntent.client_secret}
-            closestDeliveryDate={state.closestDeliveryDate}
-            calendarEvents={state.calendarEvents}
-            renderCouponForm={({ disabled }) => (
-              <CouponForm disabled={disabled} action={applyCoupon} />
-            )}
-            onEditMealPlan={() => navigate(Stage.ChoosePlan, { state: { isEdit: true } })}
-            onEditRecipes={() => navigate(Stage.RecommendedPlan, { state: { isEdit: true } })}
-            onEditTransitionPeriod={() =>
-              navigate(Stage.RecommendedPlan, { state: { isEdit: true } })
-            }
-            onBeforeTransaction={handleMutateDraftOrder}
-            onCompleteTransaction={finalizeDraftOrder}
-          />
-        </StripeLoader>
+            publishableKey={state.stripe.publishableKey}
+          >
+            <SubscriptionCheckoutForm
+              defaultValues={owner}
+              dogs={dogs.map((dog, idx) => {
+                return {
+                  name: dog.name!,
+                  mealPlan: dog.mealPlan!,
+                  recipe1: dog.recipe1!,
+                  recipe2: dog.recipe2,
+                  isEnabledTransitionPeriod: dog.isEnabledTransitionPeriod!,
+                  perDayPrice: state.dogsPerDayPrice[idx].price,
+                };
+              })}
+              clientSecret={state.stripe.paymentIntent.client_secret}
+              closestDeliveryDate={state.closestDeliveryDate}
+              calendarEvents={state.calendarEvents}
+              onApplyCoupon={applyCoupon}
+              onEditMealPlan={() => navigate(Stage.ChoosePlan, { state: { isEdit: true } })}
+              onEditRecipes={() => navigate(Stage.RecommendedPlan, { state: { isEdit: true } })}
+              onEditTransitionPeriod={() =>
+                navigate(Stage.RecommendedPlan, { state: { isEdit: true } })
+              }
+              onBeforeTransaction={handleMutateDraftOrder}
+              onCompleteTransaction={finalizeDraftOrder}
+            />
+          </StripeLoader>
+        </OrderProvider>
       </AppThemeProvider>
     </motion.div>
   );

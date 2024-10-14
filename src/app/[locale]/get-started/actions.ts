@@ -10,7 +10,7 @@ import { handleMutateDraftOrderActionSchema } from './validators';
 import { deleteOrderCookie, getOrderCookie, setOrderCookie } from '@/actions';
 import stripeClient from '@/clients/stripe';
 import { ActivityLevel, BodyCondition, Frequency, MealPlan, Recipe } from '@/enums';
-import { OrderFragment } from '@/gql/graphql';
+import { OrderDiscountType, OrderFragment, OrderLineFragment } from '@/gql/graphql';
 import {
   getRecurringBoxMinDeliveryDate,
   isLegalDeliveryDate,
@@ -24,7 +24,7 @@ import PriceService from '@/services/price';
 import recurringService from '@/services/recurring';
 import redisService from '@/services/redis';
 import userService from '@/services/user';
-import { BreedDto, DogDto, MinPricesDto } from '@/types/dto';
+import { BreedDto, CartReturn, DogDto, MinPricesDto } from '@/types/dto';
 
 export async function calculateDogsTotalPerDayPrice(dogs: DogDto[]) {
   const values = [];
@@ -230,9 +230,9 @@ export async function initializeStripeTranscation() {
 }
 
 export async function applyCoupon({ coupon }: { coupon: string }) {
-  const order = await getOrder();
+  const { id } = await getOrder();
 
-  await orderService.update(order.id, { voucherCode: coupon });
+  return await orderService.update(id, { voucherCode: coupon });
 }
 
 export async function handleMutateDraftOrder(data: HandleMutateDraftOrderAction) {

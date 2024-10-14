@@ -3,13 +3,13 @@
 import { MenuItem } from '@mui/material';
 import { CardNumberElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import clsx from 'clsx';
-import { addDays, addWeeks, subDays } from 'date-fns';
+import { addDays, subDays } from 'date-fns';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import roundTo from 'round-to';
 
 import TextField from '../controls/TextField';
+import CouponForm from './Coupon';
 import DatePickerForm from './DatePicker';
 import PartialBillingAddressForm, { IPartialBillingAddressForm } from './partial/BillingAddress';
 import PartialCardStripeForm, { useCardStripeForm } from './partial/CardStripe';
@@ -24,6 +24,7 @@ import PasswordField from '@/components/controls/PasswordField';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import Select from '@/components/controls/Select';
 import { EMAIL_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP } from '@/consts';
+import { useOrder } from '@/contexts/order';
 import { Frequency, MealPlan, Recipe } from '@/enums';
 import { CountryCode, OrderDiscountType, OrderFragment } from '@/gql/graphql';
 import { getNextRecurringBoxPreiod } from '@/helpers/box';
@@ -116,12 +117,11 @@ type DogData = {
 
 export default function SubscriptionCheckoutForm({
   defaultValues,
-  draftOrder,
   dogs,
   clientSecret,
   closestDeliveryDate,
   calendarEvents,
-  renderCouponForm,
+  onApplyCoupon,
   onEditMealPlan,
   onEditRecipes,
   onEditTransitionPeriod,
@@ -133,18 +133,18 @@ export default function SubscriptionCheckoutForm({
     lastName?: string;
     email?: string;
   };
-  draftOrder: OrderFragment;
   dogs: DogData[];
   clientSecret: string;
   closestDeliveryDate: Date;
   calendarEvents: CalendarEvent[];
-  renderCouponForm(state: { disabled: boolean }): React.ReactNode;
+  onApplyCoupon({ coupon }: { coupon: string }): Promise<OrderFragment>;
   onEditMealPlan(): void;
   onEditRecipes(): void;
   onEditTransitionPeriod(): void;
   onBeforeTransaction(data: ISubscriptionCheckoutFormAction): Promise<void>;
   onCompleteTransaction(paymentMethodId: string): Promise<void>;
 }) {
+  const { order, setOrder } = useOrder();
   const stripe = useStripe();
   const elements = useElements();
   const form = useCardStripeForm();
@@ -286,7 +286,7 @@ export default function SubscriptionCheckoutForm({
     };
   }, [handleWindowClick]);
 
-  const starterBoxDiscount = draftOrder.discounts.find(
+  const starterBoxDiscount = order.discounts.find(
     (discount) => discount.type === OrderDiscountType.Manual
   );
 
@@ -659,7 +659,13 @@ export default function SubscriptionCheckoutForm({
                 );
               })}
               <SummaryBlock title={t('promo-code')}>
-                {renderCouponForm({ disabled: isSubmitInProgress })}
+                <CouponForm
+                  disabled={isSubmitInProgress}
+                  action={async (data) => {
+                    const order = await onApplyCoupon(data);
+                    setOrder(order);
+                  }}
+                />
               </SummaryBlock>
               <SummaryBlock>
                 <div className="-mx-1 flex flex-wrap justify-between">
@@ -667,7 +673,7 @@ export default function SubscriptionCheckoutForm({
                   <div className="body-3 px-1">
                     <Price
                       className="font-bold"
-                      value={draftOrder.undiscountedTotal.gross.amount.toFixed(2)}
+                      value={order.undiscountedTotal.gross.amount.toFixed(2)}
                       discount
                     />
                   </div>
@@ -698,7 +704,7 @@ export default function SubscriptionCheckoutForm({
               <SummaryBlock>
                 <div className="-mx-1 flex flex-wrap justify-between font-bold">
                   <div className="px-1">{t('{}-colon', { value: t('todays-total') })}</div>
-                  <div className="px-1">${draftOrder.total.gross.amount.toFixed(2)}</div>
+                  <div className="px-1">${order.total.gross.amount.toFixed(2)}</div>
                 </div>
                 <div className="mt-4">
                   <RoundedCheckbox
