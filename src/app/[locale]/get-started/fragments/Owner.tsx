@@ -122,6 +122,7 @@ export default function OwnerFragment() {
                       });
                     }
                     if (await isAvailableEmailAddress(email)) {
+                      checkFieldDisplayState();
                       return true;
                     }
                     return t(
