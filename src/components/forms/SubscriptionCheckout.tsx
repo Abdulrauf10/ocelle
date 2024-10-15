@@ -295,6 +295,8 @@ export default function SubscriptionCheckoutForm({
     throw new Error('there have some error, please try again later.');
   }
 
+  const voucher = order.discounts.find((discount) => discount.type === OrderDiscountType.Voucher);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <Container>
@@ -692,7 +694,13 @@ export default function SubscriptionCheckoutForm({
                 <div className="mt-3"></div>
                 <div className="-mx-1 flex flex-wrap justify-between">
                   <div className="body-3 px-1">{t('promo-code')}</div>
-                  <div className="body-3 px-1">－</div>
+                  <div className="body-3 px-1">
+                    {voucher ? (
+                      <Price className="font-bold" value={formatCurrency(voucher.amount.amount)} />
+                    ) : (
+                      '－'
+                    )}
+                  </div>
                 </div>
                 <div className="mt-3"></div>
                 <div className="-mx-1 flex flex-wrap justify-between">
