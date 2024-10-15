@@ -7,6 +7,7 @@ import { subDays } from 'date-fns';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 
 import CartRows from '../CartRows';
 import UnderlineButton from '../buttons/UnderlineButton';
@@ -230,9 +231,13 @@ export default function GuestCheckoutForm({
           // be redirected to an intermediate site first to authorize the payment, then
           // redirected to the `return_url`.
           if (error.type === 'card_error' || error.type === 'validation_error') {
-            console.error(error.message ?? 'Something went wrong');
+            const message = error.message ?? 'Something went wrong';
+            console.error(message);
+            toast.info(message);
           } else {
-            console.error('An unexpected error occurred');
+            const message = 'An unexpected error occurred';
+            console.error(message);
+            toast.info(message);
           }
           return;
         }
