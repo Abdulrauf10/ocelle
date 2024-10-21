@@ -4,8 +4,7 @@ import Collapse from '@mui/material/Collapse';
 import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
-import Link from 'next/link';
-import React, { useRef } from 'react';
+import React from 'react';
 
 import Container from '@/components/Container';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
@@ -17,60 +16,39 @@ function Toggler({
   title,
   className,
   children,
-  onShow,
-  togglerId,
-  show,
-  closeTogglerId,
 }: {
   title: React.ReactNode;
   className?: { root?: string };
   children: React.ReactNode;
-  onShow: any;
-  show: boolean;
-  togglerId: number;
-  closeTogglerId: number;
 }) {
-  const handleShow = () => {
-    onShow && onShow(togglerId);
-    let offset = 0;
-    // Close the previously open toggler first
-    let closedBlockHeight = 0;
+  const ref = React.useRef<HTMLDivElement>(null);
+  const [show, setShow] = React.useState(false);
 
-    if (closeTogglerId) {
-      const closeElement = document.querySelector('#Togger-' + closeTogglerId) as HTMLElement;
-      if (closeElement) {
-        const elementRect = closeElement.getBoundingClientRect();
-        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-        const absoluteElementTop = elementRect.top + scrollPosition;
-        const targetScrollTop = absoluteElementTop - 150;
-        window.scrollTo({
-          top: targetScrollTop,
-          behavior: 'smooth',
-        });
-      }
-    } // Wait for the DOM to update and animations to start
-    setTimeout(() => {
-      const element = document.querySelector('#Togger-' + togglerId);
-      if (element) {
-        const elementRect = element.getBoundingClientRect();
-        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-        const absoluteElementTop = elementRect.top + scrollPosition;
-        const targetScrollTop = absoluteElementTop - 150;
-        window.scrollTo({
-          top: targetScrollTop,
-          behavior: 'smooth',
-        });
-      }
-    }, 300); // Increased delay to allow for DOM updates and animation starts
+  const handleShow = () => {
+    if (!show) {
+      setTimeout(() => {
+        if (ref.current) {
+          const elementRect = ref.current.getBoundingClientRect();
+          const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+          const absoluteElementTop = elementRect.top + scrollPosition;
+          const targetScrollTop = absoluteElementTop - 150;
+          window.scrollTo({
+            top: targetScrollTop,
+            behavior: 'smooth',
+          });
+        }
+      }, 300);
+    }
+    setShow(!show);
   };
   return (
     <div
+      ref={ref}
       className={clsx(
-        'rounded-[20px] border border-gray bg-white px-8 py-6 shadow-black/20 drop-shadow-style-2 max-md:p-6',
+        'cursor-pointer rounded-[20px] border border-gray bg-white px-8 py-6 shadow-black/20 drop-shadow-style-2 max-md:p-6',
         className?.root
       )}
       onClick={handleShow}
-      id={'Togger-' + togglerId}
     >
       <div className="relative flex max-md:items-center">
         <div className="flex-1">{title}</div>
@@ -78,7 +56,7 @@ function Toggler({
           {show ? <Sub className="w-4" /> : <Plus className="w-4" />}
         </button>
       </div>
-      <Collapse in={show}>
+      <Collapse in={show} timeout={300}>
         <hr className="my-4 border-gray" />
         <div className="mb-2 mt-6">{children}</div>
       </Collapse>
@@ -124,10 +102,6 @@ function BenefitsTitle({
 }
 export default function Benefits() {
   const i = useTranslations('WhyFresh-BenefitsOfFreshDogFood');
-  const [showId, setShowId] = React.useState(0);
-  const handleShow = (id: number) => {
-    id === showId ? setShowId(0) : setShowId(id);
-  };
   return (
     <Block className="bg-primary bg-opacity-10">
       <h2 className="heading-1 text-center font-bold text-primary lang-zh:font-normal">
@@ -138,8 +112,6 @@ export default function Benefits() {
         <p className="body-1 text-center text-primary">{i.rich('block-4-content-1')}</p>
         <div className="pt-10"></div>
         <Toggler
-          closeTogglerId={showId}
-          show={showId === 1}
           title={
             <BenefitsTitle
               className={{ icon: '!top-[18%]' }}
@@ -149,8 +121,6 @@ export default function Benefits() {
               title={i.rich('block-4-benefits-1-title')}
             />
           }
-          onShow={handleShow}
-          togglerId={1}
         >
           <p className="body-1">{i.rich('block-4-benefits-1-content-1')}</p>
           <div className="mt-6"></div>
@@ -173,8 +143,6 @@ export default function Benefits() {
         </Toggler>
         <div className="mt-8"></div>
         <Toggler
-          closeTogglerId={showId}
-          show={showId === 2}
           title={
             <BenefitsTitle
               width={42}
@@ -183,8 +151,6 @@ export default function Benefits() {
               title={i.rich('block-4-benefits-2-title')}
             />
           }
-          togglerId={2}
-          onShow={handleShow}
         >
           <p className="body-1">{i.rich('block-4-benefits-2-content-1')}</p>
           <div className="mt-6"></div>
@@ -196,8 +162,6 @@ export default function Benefits() {
         </Toggler>
         <div className="mt-8"></div>
         <Toggler
-          closeTogglerId={showId}
-          show={showId === 3}
           title={
             <BenefitsTitle
               width={47}
@@ -206,8 +170,6 @@ export default function Benefits() {
               title={i.rich('block-4-benefits-3-title')}
             />
           }
-          togglerId={3}
-          onShow={handleShow}
         >
           <p className="body-1">{i.rich('block-4-benefits-3-content-1')}</p>
           <div className="mt-6"></div>
@@ -215,8 +177,6 @@ export default function Benefits() {
         </Toggler>
         <div className="mt-8"></div>
         <Toggler
-          closeTogglerId={showId}
-          show={showId === 4}
           title={
             <BenefitsTitle
               width={47}
@@ -225,8 +185,6 @@ export default function Benefits() {
               title={i.rich('block-4-benefits-4-title')}
             />
           }
-          togglerId={4}
-          onShow={handleShow}
         >
           <p className="body-1">{i.rich('block-4-benefits-4-content-1')}</p>
           <div className="mt-6"></div>
@@ -247,9 +205,6 @@ export default function Benefits() {
         </Toggler>
         <div className="mt-8"></div>
         <Toggler
-          closeTogglerId={showId}
-          show={showId === 5}
-          togglerId={5}
           title={
             <BenefitsTitle
               width={50}
@@ -258,7 +213,6 @@ export default function Benefits() {
               title={i.rich('block-4-benefits-5-title')}
             />
           }
-          onShow={handleShow}
         >
           <p className="body-1">{i.rich('block-4-benefits-5-content-1')}</p>
           <div className="mt-6"></div>
@@ -310,9 +264,6 @@ export default function Benefits() {
         </Toggler>
         <div className="mt-8"></div>
         <Toggler
-          closeTogglerId={showId}
-          show={showId === 6}
-          togglerId={6}
           title={
             <BenefitsTitle
               className={{ icon: '!top-[20%]' }}
@@ -322,7 +273,6 @@ export default function Benefits() {
               title={i.rich('block-4-benefits-6-title')}
             />
           }
-          onShow={handleShow}
         >
           <p className="body-1">{i.rich('block-4-benefits-6-content-1')}</p>
           <div className="mt-6"></div>
@@ -332,9 +282,6 @@ export default function Benefits() {
         </Toggler>
         <div className="mt-8"></div>
         <Toggler
-          closeTogglerId={showId}
-          show={showId === 7}
-          togglerId={7}
           title={
             <BenefitsTitle
               width={53}
@@ -343,7 +290,6 @@ export default function Benefits() {
               title={i.rich('block-4-benefits-7-title')}
             />
           }
-          onShow={handleShow}
         >
           <p className="body-1">{i.rich('block-4-benefits-7-content-1')}</p>
           <div className="mt-6"></div>
@@ -351,9 +297,6 @@ export default function Benefits() {
         </Toggler>
         <div className="mt-8"></div>
         <Toggler
-          closeTogglerId={showId}
-          show={showId === 8}
-          togglerId={8}
           title={
             <BenefitsTitle
               width={59}
@@ -362,7 +305,6 @@ export default function Benefits() {
               title={i.rich('block-4-benefits-8-title')}
             />
           }
-          onShow={handleShow}
         >
           <p className="body-1">{i.rich('block-4-benefits-8-content-1')}</p>
         </Toggler>
