@@ -113,7 +113,7 @@ export default async function Careers() {
           {count > 0 ? (
             <div className="-my-10">
               {operations.length > 0 && (
-                <div className="py-10">
+                <div className="my-10">
                   <h2 className="heading-4 font-bold uppercase text-primary">Operations</h2>
                   {operations.map((career) => (
                     <CareerBlock key={career.id} career={career} />
@@ -121,7 +121,7 @@ export default async function Careers() {
                 </div>
               )}
               {marketing.length > 0 && (
-                <div className="py-10">
+                <div className="my-10">
                   <h2 className="heading-4 font-bold uppercase text-primary">Marketing</h2>
                   {marketing.map((career) => (
                     <CareerBlock key={career.id} career={career} />
@@ -129,7 +129,7 @@ export default async function Careers() {
                 </div>
               )}
               {financeAndAccounting.length > 0 && (
-                <div className="py-10">
+                <div className="my-10">
                   <h2 className="heading-4 font-bold uppercase text-primary">
                     Finance & Accounting
                   </h2>
@@ -139,7 +139,7 @@ export default async function Careers() {
                 </div>
               )}
               {technology.length > 0 && (
-                <div className="py-10">
+                <div className="my-10">
                   <h2 className="heading-4 font-bold uppercase text-primary">Technology</h2>
                   {technology.map((career) => (
                     <CareerBlock key={career.id} career={career} />
@@ -147,7 +147,7 @@ export default async function Careers() {
                 </div>
               )}
               {sales.length > 0 && (
-                <div className="py-10">
+                <div className="my-10">
                   <h2 className="heading-4 font-bold uppercase text-primary">Sales</h2>
                   {sales.map((career) => (
                     <CareerBlock key={career.id} career={career} />

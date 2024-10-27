@@ -20,7 +20,7 @@ export default function OurStory() {
       <Block className="flex flex-col justify-center bg-gold bg-opacity-10">
         <Container>
           <h1 className="heading-headline heading-weight-1 text-center text-primary">
-            {a('we-do-it-for-them')}
+            {a.rich('we-do-it-for-them')}
           </h1>
           <div className="pt-tight"></div>
           <div className="max-xl:lang-zh: max-xl:lang-zh: rounded-[30px] border border-primary bg-white p-12 max-xl:lang-en:p-10 max-md:p-8 max-xs:p-6">
@@ -107,6 +107,8 @@ export default function OurStory() {
               <p className="body-1">{a('block-2-content-2')}</p>
               <div className="mt-4"></div>
               <p className="body-1">{a('block-2-content-3')}</p>
+              <div className="mt-4"></div>
+              <p className="body-1">{a('block-2-content-4')}</p>
             </div>
           }
         />
