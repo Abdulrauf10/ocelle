@@ -5,6 +5,8 @@ import {
   InputBaseComponentProps,
   InputLabel,
   Select as MuiSelect,
+  SxProps,
+  Theme,
 } from '@mui/material';
 import React from 'react';
 import { Controller, type FieldValues } from 'react-hook-form';
@@ -22,6 +24,7 @@ interface SelectProps<T extends FieldValues> extends InputControllerProps<T> {
   IconComponent?: React.ElementType;
   className?: string;
   onChange?: () => void;
+  sx: SxProps<Theme>;
 }
 
 export default function Select<T extends FieldValues>({
@@ -38,6 +41,7 @@ export default function Select<T extends FieldValues>({
   IconComponent,
   className,
   onChange: parentOnChange,
+  sx,
 }: SelectProps<T>) {
   const id = React.useId();
 
@@ -65,6 +69,7 @@ export default function Select<T extends FieldValues>({
             inputProps={inputProps}
             IconComponent={IconComponent}
             className={className}
+            sx={sx}
             onChange={(e) => {
               onChange(e);
               if (parentOnChange && typeof parentOnChange === 'function') {

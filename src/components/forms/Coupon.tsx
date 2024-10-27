@@ -61,7 +61,7 @@ export default function CouponForm({ disabled, action }: CouponFormProps) {
             className="rounded-lg bg-secondary px-6 py-[9.5px] transition-all duration-300 ease-in-out disabled:bg-gray disabled:bg-opacity-50 disabled:hover:opacity-100 mouse:hover:opacity-85"
             onClick={() => handleSubmit(onSubmit)()}
           >
-            <span className="font-open-sans font-bold text-white">{b('apply')}</span>
+            <span className="font-open-sans font-bold text-white">{b('apply-coupon')}</span>
           </button>
         </div>
       </div>

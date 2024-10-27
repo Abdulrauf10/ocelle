@@ -96,12 +96,14 @@ function FileInput<T extends FieldValues>({
           }}
           onTouchEnd={() => focusRef.current?.focus()}
         >
-          {label}
+          <div className="w-full max-[829px]:w-[160px] max-[809px]:w-full max-[415px]:w-[160px] max-[405px]:w-full">
+            {label}
+          </div>
         </Button>
       )}
 
       {helperText && !(filename && !error) && (
-        <div className="pl-2 pt-1">
+        <div className="pl-[14px] pt-1">
           <p className="body-4">{helperText}</p>
         </div>
       )}
@@ -197,7 +199,7 @@ export default function ApplyCareerForm({
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-start">
                     <label htmlFor="firstName" className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]">
-                      {t('first-name')}
+                      {t('first-name-career')}
                       <span className="relative top-[-2px] text-error">*</span>
                     </label>
                     <TextField
@@ -218,7 +220,7 @@ export default function ApplyCareerForm({
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-start">
                     <label htmlFor="lastName" className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]">
-                      {t('last-name')}
+                      {t('last-name-career')}
                       <span className="relative top-[-2px] text-error">*</span>
                     </label>
                     <TextField
@@ -239,7 +241,7 @@ export default function ApplyCareerForm({
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-start">
                     <label htmlFor="email" className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]">
-                      {t('email')}
+                      {t('email-career')}
                       <span className="relative top-[-2px] text-error">*</span>
                     </label>
                     <TextField
@@ -278,7 +280,7 @@ export default function ApplyCareerForm({
                 <div className="w-1/2 px-4 py-4 max-md:w-full">
                   <div className="flex items-start">
                     <label htmlFor="phone" className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]">
-                      {t('phone')}
+                      {t('phone-career')}
                       <span className="relative top-[-2px] text-error">*</span>
                     </label>
                     <TextField
@@ -303,7 +305,9 @@ export default function ApplyCareerForm({
                           }
                           return String(value).length === 8
                             ? true
-                            : t('please-enter-a-valid-{}', { name: t('phone-number') });
+                            : t('please-enter-a-valid-{}', {
+                                name: t('phone-number').toLowerCase(),
+                              });
                         },
                       }}
                       fullWidth
@@ -319,9 +323,10 @@ export default function ApplyCareerForm({
                               control={control}
                               rules={{ required: true }}
                               disableUnderline
+                              sx={{ fontSize: '14px' }}
                             >
                               {getCountryCodes().map((code, idx) => (
-                                <MenuItem key={idx} value={code}>
+                                <MenuItem sx={{ fontSize: '14px' }} key={idx} value={code}>
                                   +{code}
                                 </MenuItem>
                               ))}
