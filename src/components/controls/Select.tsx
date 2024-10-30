@@ -4,6 +4,7 @@ import {
   FormControl,
   InputBaseComponentProps,
   InputLabel,
+  MenuProps,
   Select as MuiSelect,
   SxProps,
   Theme,
@@ -24,7 +25,8 @@ interface SelectProps<T extends FieldValues> extends InputControllerProps<T> {
   IconComponent?: React.ElementType;
   className?: string;
   onChange?: () => void;
-  sx: SxProps<Theme>;
+  sx?: SxProps<Theme>;
+  CustomMenuProps?: boolean;
 }
 
 export default function Select<T extends FieldValues>({
@@ -42,8 +44,18 @@ export default function Select<T extends FieldValues>({
   className,
   onChange: parentOnChange,
   sx,
+  CustomMenuProps,
 }: SelectProps<T>) {
   const id = React.useId();
+  const ITEM_HEIGHT = 48;
+  const ITEM_PADDING_TOP = 8;
+  const MenuProps = {
+    PaperProps: {
+      style: {
+        maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      },
+    },
+  };
 
   return (
     <Controller
@@ -76,6 +88,7 @@ export default function Select<T extends FieldValues>({
                 parentOnChange();
               }
             }}
+            MenuProps={CustomMenuProps ? MenuProps : undefined}
           >
             {children}
           </MuiSelect>
