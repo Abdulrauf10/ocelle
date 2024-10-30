@@ -51,7 +51,7 @@ export default function Home() {
               picture={<Tickbox className="h-5 w-5" />}
               className={{
                 list: '-my-[11px]',
-                row: 'px-4 py-[11px]',
+                row: 'px-4 py-[11px] max-sm:px-2',
                 icon: 'mr-4',
                 item: 'body-1',
               }}

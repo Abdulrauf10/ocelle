@@ -39,7 +39,7 @@ export default function FaQ() {
   return (
     <main>
       <div
-        className="bg-[#5b99c0] bg-[url('/faq/ocelle-faq-preview_revised.jpeg')] bg-[length:auto_100%] bg-[calc(50%+110px)] bg-no-repeat py-[10em] max-2xl:py-[8%] max-xl:bg-[calc(50%+90px)] max-lg:bg-[calc(50%+25px)] 
+        className="bg-[#5b99c0] bg-[url('/faq/ocelle-faq-preview_revised.jpg')] bg-[length:auto_100%] bg-[calc(50%+110px)] bg-no-repeat py-[10em] max-2xl:py-[8%] max-xl:bg-[calc(50%+90px)] max-lg:bg-[calc(50%+25px)] 
                   max-md:bg-[url('/faq/ocelle-faq-mb-bg.jpg')] max-md:bg-[length:768px_960px] max-md:bg-[bottom_center]  max-md:bg-no-repeat max-md:py-8"
       >
         <Container>
@@ -114,7 +114,7 @@ export default function FaQ() {
                 href="#deliveries"
                 className="block w-[220px] whitespace-nowrap rounded-3xl bg-primary px-10 py-1 text-center hover:opacity-90"
               >
-                <span className="heading-4 font-bold text-white lang-zh:font-normal lang-zh:font-normal">
+                <span className="heading-4 font-bold text-white lang-zh:font-normal">
                   {f('block-5-title')}
                 </span>
               </Link>
