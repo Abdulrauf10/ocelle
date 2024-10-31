@@ -124,6 +124,7 @@ export default function DogBasicFragment() {
                       loading={isLoading}
                       getOptionLabel={(option) => option.name}
                       freeSolo={false}
+                      autoHighlight={false}
                       getOptionDisabled={(option) =>
                         value.length > 1 ||
                         value.some((breed) => breed.uid.indexOf('9998') > -1) ||

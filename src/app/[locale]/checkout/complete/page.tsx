@@ -80,7 +80,7 @@ export default function CompletePage() {
       <h1 className="heading-4 text-center font-bold text-primary">
         {t('thank-you-for-your-order')}
       </h1>
-      <p className="mt-4 text-primary">
+      <p className="mx-auto mt-4 text-center text-primary">
         {t.rich('your-{}-will-be-delivered-on-the-{}', {
           value: t('order').toLowerCase(),
           date: sentence.date(configurations.deliveryDate, true),

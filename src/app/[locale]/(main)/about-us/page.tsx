@@ -88,7 +88,8 @@ export default function OurStory() {
           className={{
             bgLeft: 'bg-brown',
             bgRight: clsx(
-              "min-h-[520px] bg-[#e1bd98] bg-[url('/about-us/charlie.jpg')] bg-[length:auto_100%] bg-[-50px] bg-no-repeat max-2xl:bg-[-4vw] max-xl:bg-[calc(calc(650px-47vw)_*_-1)]",
+              "min-h-[480px] bg-[#e1bd98] bg-[url('/about-us/charlie.jpg')] bg-[length:auto_100%] bg-[-50px] max-xl:lang-zh:bg-[calc(calc(650px-52vw)_*_-1)]",
+              'bg-no-repeat max-2xl:bg-[-4vw] max-xl:bg-[calc(calc(650px-47vw)_*_-1)] max-lg:lang-zh:bg-center',
               "max-lg:h-[50vw] max-lg:max-h-[520px] max-lg:min-h-[380px] max-lg:bg-[url('/about-us/charlie-center.jpg')] max-lg:bg-center"
             ),
             mbLeft: 'px-4',
