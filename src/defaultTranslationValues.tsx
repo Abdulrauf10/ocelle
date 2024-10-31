@@ -31,8 +31,9 @@ const defaultTranslationValues: RichTranslationValues = {
   baskerville: (chunks) => (
     <span className="relative -top-[4px] font-baskerville font-bold">{chunks}</span>
   ),
-  apos1: () => <span style={{ marginRight: '-.14em' }}>’</span>,
-  apos2: () => <span style={{ marginRight: '-.04em' }}>&apos;</span>,
+  apos14: () => <span style={{ marginRight: '-.14em' }}>’</span>,
+  apos10: () => <span style={{ marginRight: '-.10em' }}>’</span>,
+  apos04: () => <span style={{ marginRight: '-.04em' }}>&apos;</span>,
   bold: (chunks) => <span className="font-normal">{chunks}</span>,
   medium: (chunks) => <span className="font-medium">{chunks}</span>,
 };
