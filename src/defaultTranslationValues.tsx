@@ -26,12 +26,14 @@ const defaultTranslationValues: RichTranslationValues = {
   sub: (chunks) => <sub className="body-4 inline-block">{chunks}</sub>,
   nowrap: (chunks) => <span className="whitespace-nowrap">{chunks}</span>,
   block: (chunks) => <span className="inline-block">{chunks}</span>,
-  tbr: () => <br className="max-md:hidden" />,
+  tbr: () => <br className="lg:hidden" />,
   xlhiddenbr: () => <br className="xl:hidden" />,
+  smhidderbr: () => <br className="sm:hidden" />,
   mbblock: (chunks) => <span className="inline max-sm:inline-block">{chunks}</span>,
   baskerville: (chunks) => (
     <span className="relative -top-[4px] font-baskerville font-bold">{chunks}</span>
   ),
+  apos16: () => <span style={{ marginRight: '-.16em' }}>’</span>,
   apos14: () => <span style={{ marginRight: '-.14em' }}>’</span>,
   apos10: () => <span style={{ marginRight: '-.10em' }}>’</span>,
   apos04: () => <span style={{ marginRight: '-.04em' }}>&apos;</span>,

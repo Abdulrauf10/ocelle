@@ -428,7 +428,7 @@
     "block-5-content": "<b>Not ready for a subscription? </b><block><b>No problem!</b></block> <block><b>Try our </b><link>individual packs first</link>.</block>",
     "block-6-title": "Proof Is In The Eating",
     "block-6-content": "Choose OCELLE and watch your dog thrive – from better gut health (cleaner poops!) and luxurious fur, to optimised energy for life. But you don<apos04></apos04>t have to take our word for it:",
-    "{}-plan": "{name}<apos10></apos10>s plan",
+    "{}-plan": "{name}<apos16></apos16>s plan",
     "fresh-duck": "FRESH DUCK",
     "fresh-beef": "FRESH BEEF",
     "fresh-pork": "FRESH PORK",
@@ -562,7 +562,7 @@
   },
   "IndividualPack": {
     "block-1-title": "Feeding Fresh Is <br></br>Easy With OCELLE",
-    "block-1-content": "If you<apos14></apos14>re not ready for a subscription, our individual packs come in <block>set weights and can be ordered anytime.</block>",
+    "block-1-content": "If you<apos14></apos14>re not ready for a subscription, our individual packs come in <tbr><tbr>set weights and can be ordered anytime.",
     "block-8-title": "Your Dog Deserves A Fresh Start",
     "block-8-title-1": "Developed By Vet Nutritionists",
     "block-8-content-1": "Many of the health issues dogs face are related to diet. That<apos14></apos14>s why our team is devoted to determining exactly what dogs need to live happier, healthier lives.",
@@ -570,7 +570,7 @@
     "block-8-content-2": "No heat-blasted ingredients. No preservatives. No fillers. No nonsense. Just real ingredients you can see, nutrition dogs need, and the flavours they crave.",
     "block-8-title-3": "Freshly Made To Lock In Nutrients",
     "block-8-content-3": "Our ingredients are gently cooked to maximize digestibility and preserve vital nutrients, texture, and taste.",
-    "block-9-title": "Easier For You. Better For Them.",
+    "block-9-title": "Easier For You. <smhidderbr></smhidderbr>Better For Them.",
     "block-9-content": "Get fresh food conveniently delivered with our customised meal plans.",
     "block-6-content": "Cart successfully updated."
   },
