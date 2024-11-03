@@ -1,3 +1,4 @@
+import { addDays } from 'date-fns';
 import { getTranslations } from 'next-intl/server';
 import React from 'react';
 
@@ -11,11 +12,13 @@ import BillingAddressForm from '@/components/forms/BillingAddress';
 import DeliveryAddressForm from '@/components/forms/DeliveryAddress';
 import { EditAddressProvider } from '@/contexts/editAddress';
 import { CountryCode } from '@/gql/graphql';
+import getSentence from '@/servers/getSentence';
 
 export default async function Addresses() {
   const t = await getTranslations();
   const { defaultShippingAddress, defaultBillingAddress, isDeliveryUsAsBillingAddress } =
     await getLoginedMeFullSize();
+  const sentence = await getSentence();
 
   return (
     <AppThemeProvider>
@@ -31,7 +34,7 @@ export default async function Addresses() {
                   'delivery-address-changes-will-be-in-effect-starting-with-your-{}-order-scheduled-for-the-{}',
                   {
                     stage: 'next',
-                    date: '29th of December 2023',
+                    date: sentence.date(addDays(new Date(), 14), true),
                   }
                 )}
               </p>

@@ -11,9 +11,10 @@ import { getMinPerDayPrice } from '../actions';
 import { pageVariants } from '../transition';
 
 import Container from '@/components/Container';
+import { PadSpace } from '@/enums';
 import DogHelper from '@/helpers/dog';
 import { getSurveySessionStore } from '@/helpers/session';
-import useSentence, { PadSpace } from '@/hooks/useSentence';
+import useSentence from '@/hooks/useSentence';
 
 export default function CalculatingFragment() {
   const t = useTranslations();

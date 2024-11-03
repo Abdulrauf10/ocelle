@@ -1,6 +1,7 @@
 'use server';
 
 import Joi from 'joi';
+import { getTranslations } from 'next-intl/server';
 
 import { AuthInvalidCredentialsError, AuthNotYetCompleteSurveyError } from '@/errors/auth';
 import { UserMeError } from '@/errors/user';
@@ -18,6 +19,8 @@ const schema = Joi.object<LoginAction>({
 });
 
 export default async function loginAction(data: LoginAction) {
+  const t = await getTranslations();
+
   const { value, error } = schema.validate(data);
 
   if (error) {
@@ -28,7 +31,7 @@ export default async function loginAction(data: LoginAction) {
     await authService.login(value.email, value.password);
   } catch (e) {
     if (e instanceof AuthInvalidCredentialsError) {
-      return 'email or password is in-vaild';
+      return t('email-or-password-is-in-vaild');
     }
     if (e instanceof UserMeError) {
       return 'the user account is not initialled, please contact info@ocelle.dog for more.';

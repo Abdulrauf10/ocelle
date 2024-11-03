@@ -16,8 +16,9 @@ import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import DateCalendar from '@/components/controls/DateCalendar';
+import { PadSpace } from '@/enums';
 import useDogForm from '@/hooks/useDogForm';
-import useSentence, { PadSpace } from '@/hooks/useSentence';
+import useSentence from '@/hooks/useSentence';
 
 interface DogAgeForm {
   months: number;

@@ -15,13 +15,23 @@ type T = {
   minDate?: Date;
   disabled?: boolean;
   view?: readonly DateView[];
+  showCompletedMessage?: boolean;
   shouldDisableDate?(date: Date): boolean;
-  onComplete?(): void;
+  onComplete?(data: { date: Date }): void;
   action(data: { date: Date }): Promise<void>;
 };
 
 export default React.forwardRef<HTMLDivElement, T>(function DatePickerForm(
-  { initialDate, minDate, view, disabled, shouldDisableDate, onComplete, action }: T,
+  {
+    initialDate,
+    minDate,
+    view,
+    disabled,
+    showCompletedMessage,
+    shouldDisableDate,
+    onComplete,
+    action,
+  }: T,
   ref
 ) {
   const t = useTranslations();
@@ -36,13 +46,15 @@ export default React.forwardRef<HTMLDivElement, T>(function DatePickerForm(
   }, [initialDate, setDefaultValues]);
 
   const onSubmit = React.useCallback(() => {
+    const values = { date: startOfDay(date) };
     startTransition(async () => {
-      const values = { date: startOfDay(date) };
       await action(values);
       setDefaultValues(values);
-      toast(t('the-delivery-date-has-been-successfully-updated'));
+      if (showCompletedMessage) {
+        toast(t('the-delivery-date-has-been-successfully-updated'));
+      }
     });
-    if (typeof onComplete === 'function') onComplete();
+    if (typeof onComplete === 'function') onComplete(values);
   }, [action, setDefaultValues, onComplete, date, t]);
 
   const isSameAsDefaultValue =

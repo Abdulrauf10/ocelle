@@ -17,6 +17,7 @@ import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import PictureRadio from '@/components/controls/PictureRadio';
 import { useAuth } from '@/contexts/auth';
 import { AmountOfTreats, Pickiness, Recipe } from '@/enums';
+import { PadSpace } from '@/enums';
 import DogHelper from '@/helpers/dog';
 import {
   arrayToAllergies,
@@ -27,7 +28,7 @@ import {
   getFoodOptions,
 } from '@/helpers/form';
 import useFormFieldDisplayState from '@/hooks/useFormFieldState';
-import useSentence, { PadSpace } from '@/hooks/useSentence';
+import useSentence from '@/hooks/useSentence';
 
 interface DogPreference2Form {
   allergies: Array<boolean | undefined>;

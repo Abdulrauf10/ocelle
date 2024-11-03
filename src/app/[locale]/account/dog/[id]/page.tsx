@@ -7,6 +7,7 @@ import updateDogAction from './action';
 import { getLoginedMe } from '@/actions';
 import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
+import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import DogForm from '@/components/forms/Dog';
 
 export default async function EditDog({ params }: { params: { id: string } }) {
@@ -64,6 +65,9 @@ export default async function EditDog({ params }: { params: { id: string } }) {
               return await updateDogAction({ ...data, id: dog.id });
             }}
           />
+          <div className="mt-8 text-center">
+            <UnderlineBackButton label={t('go-back')} />
+          </div>
         </Container>
       </main>
     </AppThemeProvider>

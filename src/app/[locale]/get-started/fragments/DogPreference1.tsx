@@ -17,9 +17,10 @@ import UnderlineButton from '@/components/buttons/UnderlineButton';
 import PictureRadio from '@/components/controls/PictureRadio';
 import TextField from '@/components/controls/TextField';
 import { ActivityLevel, BodyCondition } from '@/enums';
+import { PadSpace } from '@/enums';
 import DogHelper from '@/helpers/dog';
 import useFormFieldDisplayState from '@/hooks/useFormFieldState';
-import useSentence, { PadSpace } from '@/hooks/useSentence';
+import useSentence from '@/hooks/useSentence';
 
 interface DogPreference1Form {
   weight: number;

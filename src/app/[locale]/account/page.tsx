@@ -10,6 +10,7 @@ import stripeClient from '@/clients/stripe';
 import Container from '@/components/Container';
 import Bell from '@/components/icons/Bell';
 import Billing from '@/components/icons/Billing';
+import Gift from '@/components/icons/Gift';
 import HomeAddress from '@/components/icons/HomeAddress';
 import Unbox from '@/components/icons/Unbox';
 import User from '@/components/icons/User';
@@ -157,6 +158,13 @@ export default async function Account() {
               </div>
             }
             href="/account/subscription"
+          />
+          <ClickableBlock
+            className="mt-8"
+            icon={<Gift className="mx-2 w-12" />}
+            title={t('coupons')}
+            description={t('available-coupons-{}', { value: 0 })}
+            href="/account/coupon"
           />
         </div>
       </Container>

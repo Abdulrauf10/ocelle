@@ -5,6 +5,7 @@ import React from 'react';
 import { IsNull, Not } from 'typeorm';
 
 import DogSwitch from '../DogSwitch';
+import ReferAFriendButton from './ReferAFriendButton';
 
 import { getCurrentSelectedDogIdCookie, getLoginedMe } from '@/actions';
 import AppThemeProvider from '@/components/AppThemeProvider';
@@ -12,7 +13,7 @@ import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import { RecurringBox } from '@/entities';
-import { Frequency, MealPlan } from '@/enums';
+import { Frequency, MealPlan, PadSpace } from '@/enums';
 import { executeQuery } from '@/helpers/queryRunner';
 import RecipeHelper from '@/helpers/recipe';
 import { getEditableRecurringBoxDeadline } from '@/helpers/shipment';
@@ -64,7 +65,7 @@ export default async function Plan() {
               <div className="mt-5"></div>
               <p>
                 {t('keep-tabs-on-your-subscription-and-edit-{}-information', {
-                  name: dog.name,
+                  name: sentence.padSpace(PadSpace.Both, dog.name),
                 })}
               </p>
             </div>
@@ -95,7 +96,11 @@ export default async function Plan() {
                 )}
                 <div className="mt-3">{sentence.dog(dog)}</div>
                 <div className="mt-3">
-                  <UnderlineButton label={t('view-{}-feeding-guidelines', { name: dog.name })} />
+                  <UnderlineButton
+                    label={t('view-{}-feeding-guidelines', {
+                      name: sentence.padSpace(PadSpace.Both, dog.name),
+                    })}
+                  />
                 </div>
               </div>
               <div className="px-3 py-3 max-md:w-full">
@@ -119,7 +124,7 @@ export default async function Plan() {
                   )}
                 >
                   <Image
-                    src="/account/ocelle-box.jpg"
+                    src="/account/upcoming_box_visual.png"
                     alt="Ocelle Box"
                     width={280}
                     height={274}
@@ -189,7 +194,10 @@ export default async function Plan() {
                   <hr className="my-3 border-gray max-sm:my-6" />
                   <div className="-mx-1 -my-2 flex flex-wrap justify-between max-sm:mb-2">
                     <div className="flex-1 px-1 py-2 text-lg font-bold text-brown">
-                      {dog.plan.recipe2 == null ? 1 : 2} {t('fresh-{}', { value: b('recipes') })}
+                      {t('{}-fresh-{}', {
+                        value: b('recipes'),
+                        num: dog.plan.recipe2 == null ? 1 : 2,
+                      })}
                     </div>
                     <div className="whitespace-nowrap px-1 py-2 max-sm:w-full">
                       <UnderlineButton
@@ -252,7 +260,7 @@ export default async function Plan() {
                     <div className="whitespace-nowrap px-1 py-2 max-sm:w-full">
                       <UnderlineButton
                         theme="primary"
-                        label={t('manage-{}', { value: t('meal-plan') })}
+                        label={t('manage-{}', { value: t('order-plan') })}
                         href="/account/plan/meal"
                       />
                     </div>
@@ -290,7 +298,7 @@ export default async function Plan() {
                     )}
                   </span>
                 </p>
-                <Button className="mt-6">{b('refer-a-friend')}</Button>
+                <ReferAFriendButton />
               </div>
             </div>
           </div>

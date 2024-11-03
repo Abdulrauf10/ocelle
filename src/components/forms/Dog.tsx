@@ -3,7 +3,14 @@
 import { Autocomplete, Chip, TextField } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
-import { intervalToDuration, startOfDay, subMonths, subYears } from 'date-fns';
+import {
+  differenceInWeeks,
+  intervalToDuration,
+  startOfDay,
+  subDays,
+  subMonths,
+  subYears,
+} from 'date-fns';
 import equal from 'deep-equal';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -28,6 +35,7 @@ import {
   Recipe,
   Sex,
 } from '@/enums';
+import { PadSpace } from '@/enums';
 import DogHelper from '@/helpers/dog';
 import {
   arrayToAllergies,
@@ -37,6 +45,7 @@ import {
   getFoodAllergiesOptions,
 } from '@/helpers/form';
 import useDefaultValues from '@/hooks/defaultValues';
+import useSentence from '@/hooks/useSentence';
 import { BreedDto } from '@/types/dto';
 
 interface EditDogBlockProps {
@@ -173,8 +182,10 @@ export default function DogForm({
     watch,
     getValues,
     reset,
+    resetField,
     formState: { errors },
   } = useForm<IDogForm>({ defaultValues });
+  const { padSpace } = useSentence();
   const [pending, startTransition] = React.useTransition();
   const { data: breedOptions, isLoading: isBreedLoading } = useQuery({
     queryKey: ['breeds'],
@@ -312,7 +323,7 @@ export default function DogForm({
           </div>
         </div>
       </EditDogBlock>
-      <EditDogBlock title="Neutered / Spayed">
+      <EditDogBlock title={t('neutered') + ' / ' + t('spayed')}>
         <div className="-mx-3 flex">
           <div className="px-3">
             <InteractiveBlock
@@ -348,7 +359,7 @@ export default function DogForm({
             underline={tab === 'Age'}
             className={clsx('text-lg', tab === 'Age' ? 'font-bold' : '')}
             onClick={() => setTab('Age')}
-            label={t('enter-manually')}
+            label={t('enter-age')}
           />
           <UnderlineButton
             type="button"
@@ -365,14 +376,66 @@ export default function DogForm({
                 <Controller
                   name="years"
                   control={control}
-                  rules={{ required: tab === 'Age' }}
-                  render={({ field, fieldState: { error } }) => (
-                    <TextField
-                      type="number"
-                      className="mr-2 w-20"
-                      inputProps={{ min: 0 }}
+                  rules={
+                    tab === 'Age'
+                      ? {
+                          required: {
+                            value: true,
+                            message: 'Years or months must be specified',
+                          },
+                          validate: {
+                            isAtLeastOneNonZero: (years, { months }) => {
+                              if (years === undefined || months === undefined) {
+                                return false;
+                              }
+                              return years > 0 || months > 0;
+                            },
+                            under12Weeks: (years, { months }) => {
+                              if (years === undefined || months === undefined) {
+                                return true;
+                              }
+                              const dateOfBirth = subYears(subMonths(new Date(), months), years);
+                              if (Math.abs(differenceInWeeks(dateOfBirth, new Date())) < 12) {
+                                return t('come-back-when-your-puppy-is-12-weeks-old');
+                              }
+                              return true;
+                            },
+                          },
+                        }
+                      : {}
+                  }
+                  render={({ field: { onChange, ...field }, fieldState: { error } }) => (
+                    <Autocomplete
                       {...field}
-                      error={!!error}
+                      className="mr-2 w-20 text-center"
+                      options={Array.from({ length: 36 }, (_, i) => i)}
+                      onChange={(_, data) => {
+                        onChange(data);
+                        trigger('years');
+                        trigger('months');
+                        resetField('dateOfBirth', { defaultValue: undefined });
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          error={!!error}
+                          InputProps={{
+                            ...params.InputProps,
+                            sx: {
+                              '&&&': { pr: '9px' },
+                            },
+                          }}
+                          inputProps={{
+                            ...params.inputProps,
+                            sx: {
+                              textAlign: 'center',
+                            },
+                          }}
+                        />
+                      )}
+                      disableClearable
+                      popupIcon={null}
+                      getOptionLabel={String}
                     />
                   )}
                 />
@@ -382,14 +445,67 @@ export default function DogForm({
                 <Controller
                   name="months"
                   control={control}
-                  rules={{ required: tab === 'Age' }}
-                  render={({ field, fieldState: { error } }) => (
-                    <TextField
-                      type="number"
-                      className="mr-2 w-20"
-                      inputProps={{ min: 0 }}
+                  rules={
+                    tab === 'Age'
+                      ? {
+                          required: {
+                            value: true,
+                            message: 'Years or months must be specified',
+                          },
+                          validate: {
+                            isAtLeastOneNonZero: (months, { years }) => {
+                              if (years === undefined || months === undefined) {
+                                return false;
+                              }
+                              return years > 0 || months > 0;
+                            },
+                            under12Weeks: (months, { years }) => {
+                              if (years === undefined || months === undefined) {
+                                return true;
+                              }
+                              const dateOfBirth = subYears(subMonths(new Date(), months), years);
+                              if (Math.abs(differenceInWeeks(dateOfBirth, new Date())) < 12) {
+                                return t('come-back-when-your-puppy-is-12-weeks-old');
+                              }
+                              return true;
+                            },
+                          },
+                        }
+                      : {}
+                  }
+                  render={({ field: { onChange, ...field }, fieldState: { error } }) => (
+                    <Autocomplete
                       {...field}
-                      error={!!error}
+                      className="mr-2 w-20"
+                      options={Array.from({ length: 12 }, (_, i) => i)}
+                      onChange={(_, data) => {
+                        onChange(data);
+                        trigger('years');
+                        trigger('months');
+                        resetField('dateOfBirth', { defaultValue: undefined });
+                      }}
+                      renderInput={(params) => (
+                        <TextField
+                          {...params}
+                          className="text-center"
+                          error={!!error}
+                          InputProps={{
+                            ...params.InputProps,
+                            sx: {
+                              '&&&': { pr: '9px' },
+                            },
+                          }}
+                          inputProps={{
+                            ...params.inputProps,
+                            sx: {
+                              textAlign: 'center',
+                            },
+                          }}
+                        />
+                      )}
+                      disableClearable
+                      popupIcon={null}
+                      getOptionLabel={String}
                     />
                   )}
                 />
@@ -402,14 +518,44 @@ export default function DogForm({
               <DateCalendar
                 control={control}
                 name="dateOfBirth"
-                rules={{ required: tab === 'Birthday' }}
+                rules={
+                  tab === 'Birthday'
+                    ? {
+                        required: true,
+                        validate: {
+                          under12Weeks: (value) => {
+                            if (value === undefined) {
+                              return true;
+                            }
+                            if (Math.abs(differenceInWeeks(value as Date, new Date())) < 12) {
+                              return t('come-back-when-your-puppy-is-12-weeks-old');
+                            }
+                            return true;
+                          },
+                        },
+                      }
+                    : {}
+                }
                 error={!!errors.dateOfBirth}
+                minDate={subYears(new Date(), 35)}
+                maxDate={subDays(new Date(), 1)}
+                onChange={() => {
+                  resetField('years', { defaultValue: 0 });
+                  resetField('months', { defaultValue: 0 });
+                }}
               />
+            </div>
+          )}
+          {(errors.years || errors.dateOfBirth) && (
+            <div className="mt-4">
+              <p className="body-3 text-error">
+                {errors.years?.message || errors.dateOfBirth?.message}
+              </p>
             </div>
           )}
         </div>
       </EditDogBlock>
-      <EditDogBlock title={t('current-{}', { value: t('weight') })}>
+      <EditDogBlock title={t('currently-{}', { value: t('weight') })}>
         <div className="flex items-center">
           <Controller
             name="weight"
@@ -433,7 +579,7 @@ export default function DogForm({
           <p className="mt-3 w-full text-error">{String(errors?.weight?.message)}</p>
         )}
       </EditDogBlock>
-      <EditDogBlock title={t('current-{}', { value: t('body-condition') })}>
+      <EditDogBlock title={t('body-condition')}>
         <div className="mt-4">
           <PictureRadio
             className={{
@@ -588,7 +734,7 @@ export default function DogForm({
         </div>
       </EditDogBlock>
       <EditDogBlock title={t('food-allergies-sensitivities')}>
-        <div className="-mx-3 -mt-4 flex max-w-[640px] flex-wrap">
+        <div className="-mx-3 -mt-4 flex max-w-[520px] flex-wrap">
           <div className="mt-4 px-3">
             <InteractiveBlock
               type="checkbox"
@@ -598,11 +744,9 @@ export default function DogForm({
               error={Array.isArray(errors.allergies) && !!errors.allergies[0]}
               rules={{
                 validate: {
-                  required: (value, formValues) =>
-                    formValues.allergies.some((value: unknown) => !!value),
+                  required: (value, formValues) => formValues.allergies.some((value) => !!value),
                   conflict: (value, formValues) =>
-                    !value ||
-                    !formValues.allergies.some((value: unknown, idx: number) => idx > 0 && value),
+                    !value || !formValues.allergies.some((value, idx) => idx > 0 && value),
                 },
               }}
               onChange={() => trigger('allergies')}
@@ -622,12 +766,11 @@ export default function DogForm({
                   error={Array.isArray(errors.allergies) && !!errors.allergies[idx]}
                   rules={{
                     validate: {
-                      required: (value, formValues) =>
-                        formValues.allergies.some((value: unknown) => !!value),
-                      conflict: (value, formValues) => !value || !formValues.allergies[0],
+                      required: (value, { allergies }) => allergies.some((value) => !!value),
+                      conflict: (value, { allergies }) => !value || !allergies[0],
                       allAllergies: (value, { allergies }) => {
                         const foodAllergies = arrayToAllergies(allergies);
-                        return !Object.keys(Recipe).every((recipe) =>
+                        return !Object.values(Recipe).every((recipe) =>
                           DogHelper.isAllergies(recipe as Recipe, foodAllergies)
                         );
                       },
@@ -662,7 +805,7 @@ export default function DogForm({
                 {t.rich(
                   'unfortunately-all-our-recipes-contain-an-ingredient-{}-is-allergic-sensitive-to',
                   {
-                    name,
+                    name: padSpace(PadSpace.Both, name),
                   }
                 )}
               </span>

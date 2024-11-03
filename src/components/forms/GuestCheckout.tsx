@@ -481,6 +481,7 @@ export default function GuestCheckoutForm({
                       !isLegalDeliveryDate(day, calendarEvents)
                     }
                     view={['day']}
+                    showCompletedMessage
                     action={async ({ date }) => {
                       setValue('deliveryDate', date);
                       setOpenDeliveryDate(false);

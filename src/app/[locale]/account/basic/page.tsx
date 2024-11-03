@@ -26,6 +26,7 @@ export default async function BasicInfo() {
               lastName={lastName}
               email={email}
               phone={phone}
+              whatsapp={whatsapp}
               middleAdornment={
                 <div className="mt-10">
                   <UnderlineButton

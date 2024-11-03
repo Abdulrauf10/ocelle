@@ -23,12 +23,13 @@ import CircleTick from '@/components/icons/CircleTick';
 import PlasticBox from '@/components/layouts/PlasticBox';
 import PlasticBoxPreview from '@/components/layouts/PlasticBoxPreview';
 import { ActivityLevel, BodyCondition, MealPlan, Recipe } from '@/enums';
+import { PadSpace } from '@/enums';
 import { formatCurrency } from '@/helpers/currency';
 import DogHelper from '@/helpers/dog';
 import { arrayToRecipe, getRecipeOptions, recipeToArray } from '@/helpers/form';
 import RecipeHelper from '@/helpers/recipe';
 import { booleanToString, stringToBoolean } from '@/helpers/string';
-import useSentence, { PadSpace } from '@/hooks/useSentence';
+import useSentence from '@/hooks/useSentence';
 import { BreedDto } from '@/types/dto';
 
 interface RecommendedPlanForm {

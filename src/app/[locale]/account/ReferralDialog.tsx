@@ -106,9 +106,9 @@ export default function ReferralDialog({ children }: React.PropsWithChildren) {
                     })}
                   </div>
                   <div className="pt-5"></div>
-                  <p className="body-3 max-w-[280px]">{r.rich('block-1-content-1')}</p>
+                  <p className="body-3 max-w-[300px]">{r.rich('block-1-content-1')}</p>
                   <div className="pt-3"></div>
-                  <p className="body-3 max-w-[280px]">
+                  <p className="body-3 max-w-[300px]">
                     {r.rich('block-1-content-2', {
                       value: 50,
                       highlight: (chunks) => (

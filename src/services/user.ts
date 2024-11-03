@@ -482,6 +482,9 @@ class UserService {
       await queryRunner.manager.update(User, id, { stripePaymentMethod: paymentMethodId });
     });
   }
+  async coupons() {
+    //
+  }
 }
 
 const userService = new UserService();

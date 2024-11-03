@@ -5,6 +5,7 @@ import equal from 'deep-equal';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import validator from 'validator';
 
 import Button from '../buttons/Button';
 import Select from '../controls/Select';
@@ -37,7 +38,9 @@ export default function UserBasicInfoForm({
   phone: { code: string; value: string };
   whatsapp?: { code: string; value: string };
   middleAdornment?: React.ReactNode;
-  action(data: IUserBasicInfoForm): Promise<void>;
+  action(
+    data: Omit<IUserBasicInfoForm, 'whatsapp'> & { whatsapp?: { code: string; value: string } }
+  ): Promise<void>;
 }) {
   const t = useTranslations();
   const { defaultValues, setDefaultValues } = useDefaultValues<{
@@ -68,7 +71,11 @@ export default function UserBasicInfoForm({
   const onSubmit = React.useCallback(
     (values: IUserBasicInfoForm) => {
       startTransition(async () => {
-        await action(values);
+        const data = {
+          ...values,
+          whatsapp: values.whatsapp.value.length === 0 ? undefined : values.whatsapp,
+        };
+        await action(data);
         setDefaultValues(values);
       });
     },
@@ -123,6 +130,20 @@ export default function UserBasicInfoForm({
                 message: t('this-{}-doesn-t-look-correct-please-update-it', {
                   name: t('email').toLowerCase(),
                 }),
+              },
+              validate: async (value) => {
+                const email = validator.normalizeEmail(value as string, {
+                  gmail_remove_dots: false,
+                  gmail_remove_subaddress: false,
+                  outlookdotcom_remove_subaddress: false,
+                  yahoo_remove_subaddress: false,
+                  icloud_remove_subaddress: false,
+                });
+                if (!email || !validator.isEmail(email)) {
+                  return t('this-{}-doesn-t-look-correct-please-update-it', {
+                    name: t('email').toLowerCase(),
+                  });
+                }
               },
             }}
             fullWidth

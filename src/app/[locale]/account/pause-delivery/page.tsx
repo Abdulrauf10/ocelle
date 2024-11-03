@@ -11,28 +11,32 @@ import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
 import DatePickerForm from '@/components/forms/DatePicker';
 import CircleTick from '@/components/icons/CircleTick';
+import useSentence from '@/hooks/useSentence';
 
 export default function PauseDelivery() {
   const t = useTranslations();
+  const sentence = useSentence();
+  const [selectedDate, setSelectedDate] = React.useState<Date | undefined>();
   const [completed, setCompleted] = React.useState(false);
 
-  const handleOnComplete = React.useCallback(() => {
+  const handleOnComplete = React.useCallback((values: { date: Date }) => {
+    setSelectedDate(values.date);
     setCompleted(true);
   }, []);
 
   return (
     <AppThemeProvider>
       <main className="bg-gold bg-opacity-10 py-10">
-        {completed ? (
+        {selectedDate && completed ? (
           <Container>
             <div className="mx-auto h-12 w-12 rounded-full bg-secondary p-1.5">
               <CircleTick className="relative top-px" />
             </div>
             <div className="mt-2"></div>
             <h1 className="heading-4 text-center font-bold text-primary">{t('done')}</h1>
-            <p className="mx-auto mt-4 max-w-[360px] text-center">
+            <p className="mx-auto mt-4 max-w-[600px] text-center">
               {t.rich('your-orders-are-now-paused-delivery-will-resume-on-the-{}', {
-                date: '[23rd of February 2024]',
+                date: sentence.date(selectedDate, true),
               })}
             </p>
             <div className="mt-8 text-center">
@@ -49,7 +53,7 @@ export default function PauseDelivery() {
               {t('pause-all-deliveries')}
             </h1>
             <p className="mx-auto mt-4 max-w-[680px] text-center">
-              {t('pause-all-deliveries:description')}
+              {t.rich('pause-all-deliveries:description')}
             </p>
             <div className="py-4"></div>
             <div className="text-center text-xl font-bold text-gold">

@@ -44,7 +44,7 @@ export default async function Orders() {
                     </td>
                     <td className="px-2 py-3">${order.total.gross.amount}</td>
                     <td className="px-2 py-3">
-                      <UnderlineButton label={b('see-details')} />
+                      <UnderlineButton label={b('see-details-order')} />
                     </td>
                   </tr>
                 );

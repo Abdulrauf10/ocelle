@@ -27,6 +27,7 @@ import Select from '@/components/controls/Select';
 import { EMAIL_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP } from '@/consts';
 import { useOrder } from '@/contexts/order';
 import { Frequency, MealPlan, Recipe } from '@/enums';
+import { PadSpace } from '@/enums';
 import { CountryCode, OrderDiscountType, OrderFragment } from '@/gql/graphql';
 import { getNextRecurringBoxPreiod } from '@/helpers/box';
 import { formatCurrency } from '@/helpers/currency';
@@ -38,7 +39,7 @@ import {
   isOperationDate,
 } from '@/helpers/shipment';
 import { getCountryCodes } from '@/helpers/string';
-import useSentence, { PadSpace } from '@/hooks/useSentence';
+import useSentence from '@/hooks/useSentence';
 import { CalendarEvent } from '@/types';
 
 function Section({
@@ -581,6 +582,7 @@ export default function SubscriptionCheckoutForm({
                       !isLegalDeliveryDate(day, calendarEvents)
                     }
                     view={['day']}
+                    showCompletedMessage
                     action={async ({ date }) => {
                       setValue('deliveryDate', date);
                       setOpenDeliveryDate(false);

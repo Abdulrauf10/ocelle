@@ -10,6 +10,7 @@ import Frequency from './Frequency';
 import IndividualRecipePack from './IndividualRecipePack';
 import LifeStage from './LifeStage';
 import MealPlan from './MealPlan';
+import PadSpace from './PadSpace';
 import Pickiness from './Pickiness';
 import Recipe from './Recipe';
 import Sex from './Sex';
@@ -36,4 +37,5 @@ export {
   Size,
   WorkPattern,
   WorkType,
+  PadSpace,
 };

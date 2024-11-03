@@ -20,8 +20,9 @@ import Button from '@/components/buttons/Button';
 import CircleCheckbox from '@/components/controls/CircleCheckbox';
 import InteractiveBlock from '@/components/controls/InteractiveBlock';
 import { Sex } from '@/enums';
+import { PadSpace } from '@/enums';
 import { booleanToString, stringToBoolean } from '@/helpers/string';
-import useSentence, { PadSpace } from '@/hooks/useSentence';
+import useSentence from '@/hooks/useSentence';
 import { BreedDto } from '@/types/dto';
 
 interface DogBasicForm {

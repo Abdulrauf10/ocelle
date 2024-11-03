@@ -11,9 +11,9 @@ import { pageVariants } from '../transition';
 import Container from '@/components/Container';
 import FreshPlan from '@/components/FreshPlan';
 import Button from '@/components/buttons/Button';
-import { MealPlan } from '@/enums';
+import { MealPlan, PadSpace } from '@/enums';
 import { getSurveySessionStore } from '@/helpers/session';
-import useSentence, { PadSpace } from '@/hooks/useSentence';
+import useSentence from '@/hooks/useSentence';
 import { MinPricesDto } from '@/types/dto';
 
 export default function ChoosePlanFragment() {

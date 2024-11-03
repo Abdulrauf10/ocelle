@@ -31,6 +31,7 @@ export default function DeliveryDatePickerForm({
       shouldDisableDate={(day) => !isLegalDeliveryDate(day, calendarEvents)}
       onComplete={onComplete}
       action={action}
+      showCompletedMessage
     />
   );
 }

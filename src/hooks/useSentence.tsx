@@ -1,15 +1,8 @@
 import { format } from 'date-fns';
 import { useLocale, useTranslations } from 'next-intl';
 
-import { Recipe } from '@/enums';
+import { PadSpace, Recipe } from '@/enums';
 import RecipeHelper from '@/helpers/recipe';
-
-export enum PadSpace {
-  None = 1 << 0,
-  Left = 1 << 1,
-  Right = 1 << 2,
-  Both = PadSpace.Left | PadSpace.Right,
-}
 
 export default function useSentence() {
   const locale = useLocale();

@@ -2,8 +2,9 @@ import { differenceInMonths, differenceInYears, format, subYears } from 'date-fn
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { Dog } from '@/entities';
-import { ActivityLevel, FoodAllergies } from '@/enums';
+import { ActivityLevel, FoodAllergies, PadSpace, Recipe } from '@/enums';
 import { UserAddressFragment } from '@/gql/graphql';
+import DogHelper from '@/helpers/dog';
 
 export default async function getSentence() {
   const t = await getTranslations();
@@ -48,11 +49,31 @@ export default async function getSentence() {
         );
       }
 
-      strings.push(
-        t('has-{}-allergies-food-sensitivities', {
-          allergy: (dog.foodAllergies & FoodAllergies.None) === FoodAllergies.None ? 'no' : 'yes',
-        })
-      );
+      if ((dog.foodAllergies & FoodAllergies.None) === FoodAllergies.None) {
+        strings.push(t('has-no-allergies-food-sensitivities'));
+      } else {
+        const allergies = [];
+        if ((dog.foodAllergies & FoodAllergies.Chicken) === FoodAllergies.Chicken) {
+          allergies.push(t('chicken'));
+        }
+        if ((dog.foodAllergies & FoodAllergies.Beef) === FoodAllergies.Beef) {
+          allergies.push(t('beef'));
+        }
+        if ((dog.foodAllergies & FoodAllergies.Pork) === FoodAllergies.Pork) {
+          allergies.push(t('pork'));
+        }
+        if ((dog.foodAllergies & FoodAllergies.Lamb) === FoodAllergies.Lamb) {
+          allergies.push(t('lamb'));
+        }
+        if ((dog.foodAllergies & FoodAllergies.Duck) === FoodAllergies.Duck) {
+          allergies.push(t('duck'));
+        }
+        strings.push(
+          t('has-allergies-food-sensitivities-to-{}', {
+            value: new Intl.ListFormat(locale === 'zh' ? 'zh-HK' : 'en-US').format(allergies),
+          })
+        );
+      }
 
       return strings.join(t('comma')) + t('dot');
     },
@@ -60,17 +81,19 @@ export default async function getSentence() {
       return array.join(t('comma')) + t('dot');
     },
     address(address: UserAddressFragment) {
-      return new Intl.ListFormat('en-US').format(
-        address.streetAddress2.length === 0
-          ? [address.streetAddress1, address.city, address.countryArea, address.country.country]
-          : [
-              address.streetAddress1,
-              address.streetAddress2,
-              address.city,
-              address.countryArea,
-              address.country.country,
-            ]
-      );
+      return address.streetAddress2.length === 0
+        ? [address.streetAddress1, address.city, address.countryArea, address.country.country]
+            .filter((v) => v !== '')
+            .join(', ')
+        : [
+            address.streetAddress1,
+            address.streetAddress2,
+            address.city,
+            address.countryArea,
+            address.country.country,
+          ]
+            .filter((v) => v !== '')
+            .join(', ');
     },
     date(date: Date, displayYear?: boolean) {
       const dateTimeFormat = new Intl.DateTimeFormat(locale === 'zh' ? 'zh-HK' : 'en-US', {
@@ -100,6 +123,20 @@ export default async function getSentence() {
     },
     datetime(date: Date, displayYear?: boolean) {
       return this.date(date, displayYear) + (locale === 'en' ? ' ' : '') + format(date, 'hh:mmaa');
+    },
+    padSpace: (space: PadSpace, str?: string) => {
+      // str length === 0
+      if (!str || str.length === 0 || locale === 'en') {
+        return str;
+      }
+      const regex = /[a-z]/i;
+      const stChar = str[0];
+      const endChar = str[Math.max(str.length - 1, 0)];
+
+      const padStart = regex.test(stChar) && (space & PadSpace.Left) === PadSpace.Left;
+      const padEnd = regex.test(endChar) && (space & PadSpace.Right) === PadSpace.Right;
+
+      return `${padStart ? ' ' : ''}${str}${padEnd ? ' ' : ''}`;
     },
   };
 }
