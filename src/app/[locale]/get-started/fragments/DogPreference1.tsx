@@ -259,7 +259,7 @@ export default function DogPreference1Fragment() {
                                     label={chunks}
                                     href="mailto:info@ocelle.dog"
                                     underline
-                                    className="text-inherit"
+                                    className="!text-error"
                                   />
                                 ),
                               }

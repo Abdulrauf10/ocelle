@@ -30,7 +30,6 @@ const defaultTranslationValues: RichTranslationValues = {
   maxtbr: () => <br className="max-lg:hidden" />,
   xlhiddenbr: () => <br className="xl:hidden" />,
   smhidderbr: () => <br className="sm:hidden" />,
-  linkWithRedColor: (chunks) => <link className="text-error">{chunks}</link>,
   mbblock: (chunks) => <span className="inline max-sm:inline-block">{chunks}</span>,
   baskerville: (chunks) => (
     <span className="relative -top-[4px] font-baskerville font-bold">{chunks}</span>
