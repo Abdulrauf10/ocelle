@@ -27,6 +27,7 @@ const defaultTranslationValues: RichTranslationValues = {
   nowrap: (chunks) => <span className="whitespace-nowrap">{chunks}</span>,
   block: (chunks) => <span className="inline-block">{chunks}</span>,
   tbr: () => <br className="lg:hidden" />,
+  maxtbr: () => <br className="max-lg:hidden" />,
   xlhiddenbr: () => <br className="xl:hidden" />,
   smhidderbr: () => <br className="sm:hidden" />,
   linkWithRedColor: (chunks) => <link className="text-error">{chunks}</link>,
