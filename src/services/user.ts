@@ -1,4 +1,5 @@
 import { headers } from 'next/headers';
+import randomstring from 'randomstring';
 import { FindOneOptions } from 'typeorm';
 
 import orderService from './order';
@@ -218,11 +219,25 @@ class UserService {
     const saleorUser = await findOrCreateSaleorUser(firstName, lastName, email, password);
 
     const user = await executeQuery(async (queryRunner) => {
+      let referralCode = randomstring.generate({
+        length: 6,
+        charset: 'alphanumeric',
+      });
+      while (true) {
+        if (!(await queryRunner.manager.find(User, { where: { referralCode } }))) {
+          break;
+        }
+        referralCode = randomstring.generate({
+          length: 6,
+          charset: 'alphanumeric',
+        });
+      }
       const user = queryRunner.manager.create(User, {
         id: saleorUser.id,
         phone,
         whatsapp,
         isDeliveryUsAsBillingAddress,
+        referralCode,
       });
       await queryRunner.manager.save(user);
       return user;

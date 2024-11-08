@@ -43,6 +43,11 @@ export const StripeTextField = <T extends StripeElement>(props: StripeTextFieldP
   const [empty, setEmpty] = React.useState(true);
   const [notched, setNotched] = React.useState(false);
 
+  const baseInputProps = {
+    ...inputProps,
+    ...InputProps.inputProps,
+  };
+
   return (
     <TextField
       fullWidth
@@ -55,12 +60,15 @@ export const StripeTextField = <T extends StripeElement>(props: StripeTextFieldP
         ...InputProps,
         notched: !empty || notched,
         inputProps: {
-          ...inputProps,
-          ...InputProps.inputProps,
+          ...baseInputProps,
           component: stripeElement,
           onChange: ({ empty }: StripeElementChangeEvent) => setEmpty(empty),
           onFocus: () => setNotched(true),
           onBlur: () => setNotched(false),
+          options: {
+            ...baseInputProps.options,
+            disabled: other.disabled,
+          },
         },
         inputComponent: StripeInput,
       }}

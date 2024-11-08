@@ -1,4 +1,5 @@
 import { addDays, startOfDay } from 'date-fns';
+import randomstring from 'randomstring';
 import { QueryRunner } from 'typeorm';
 
 import Seeder from './Seeder';
@@ -59,6 +60,10 @@ export default class DogSeeder extends Seeder {
         value: '88888888',
       },
       isDeliveryUsAsBillingAddress: true,
+      referralCode: randomstring.generate({
+        length: 6,
+        charset: 'alphanumeric',
+      }),
     });
 
     await userRepository.save(user);

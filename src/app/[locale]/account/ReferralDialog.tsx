@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import React from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { toast } from 'react-toastify';
 
 import { Dialog, DialogContent } from '@/components/Dialog';
 import Button from '@/components/buttons/Button';
@@ -12,7 +11,11 @@ import CloseCircle from '@/components/icons/CloseCircle';
 
 const ReferralDialogContext = React.createContext({ openDialog: () => {} });
 
-export default function ReferralDialog({ children }: React.PropsWithChildren) {
+export default function ReferralDialog({
+  email,
+  referralCode,
+  children,
+}: React.PropsWithChildren<{ email: string; referralCode: string }>) {
   const b = useTranslations('Button');
   const r = useTranslations('Referral');
   const [open, setOpen] = React.useState(false);
@@ -56,8 +59,8 @@ export default function ReferralDialog({ children }: React.PropsWithChildren) {
                   </p>
                   <div className="pt-4"></div>
                   <div className="w-[200px] overflow-hidden rounded-[10px] border-[1.5px] border-primary text-[0px]">
-                    <div className="text-[14px] leading-[30px]">xxxx38</div>
-                    <CopyToClipboard text="xxxx38" onCopy={() => setCopied(true)}>
+                    <div className="text-[14px] leading-[30px]">xxxx{referralCode.slice(-2)}</div>
+                    <CopyToClipboard text={referralCode} onCopy={() => setCopied(true)}>
                       <button className="w-full bg-primary text-[16px] leading-[30px] text-white outline-none">
                         {copied ? b('copied-the-code') : b('copy-code')}
                       </button>
@@ -92,7 +95,7 @@ export default function ReferralDialog({ children }: React.PropsWithChildren) {
                   </div>
                   <div className="pt-3"></div>
                   <div className="body-3 max-w-[280px]">
-                    {r('block-2-content-3', { value: 'ksaunders@ocelle.dog' })}
+                    {r('block-2-content-3', { value: email })}
                   </div>
                 </>
               ) : (
