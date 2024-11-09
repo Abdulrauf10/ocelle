@@ -224,7 +224,7 @@ class UserService {
         charset: 'alphanumeric',
       });
       while (true) {
-        if (!(await queryRunner.manager.find(User, { where: { referralCode } }))) {
+        if (!(await queryRunner.manager.findOne(User, { where: { referralCode } }))) {
           break;
         }
         referralCode = randomstring.generate({
