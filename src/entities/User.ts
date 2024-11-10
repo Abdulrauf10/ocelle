@@ -15,6 +15,9 @@ export default class User {
   @Column()
   isDeliveryUsAsBillingAddress!: boolean;
 
+  @Column({ unique: true })
+  referralCode!: string;
+
   @Column({ nullable: true })
   stripe?: string; // linked stripe customer id
 

@@ -17,6 +17,7 @@ import {
 } from '@/entities';
 import { Initial1716538994073 } from '@/migrations/1716538994073-initial';
 import { UpdateUserPhone1716725173601 } from '@/migrations/1716725173601-update-user-phone';
+import { AddReferralCode1730720257700 } from '@/migrations/1730720257700-add-referral-code';
 
 dotenv.config();
 
@@ -43,7 +44,7 @@ const MySQL = new DataSource({
     Shipment,
     User,
   ],
-  migrations: [Initial1716538994073, UpdateUserPhone1716725173601],
+  migrations: [Initial1716538994073, UpdateUserPhone1716725173601, AddReferralCode1730720257700],
 });
 
 export default MySQL;
