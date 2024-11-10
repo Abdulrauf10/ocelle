@@ -76,6 +76,14 @@ span.swiper-pagination-bullet-active {
   @apply text-[20px] leading-[28px] -my-[4px] lang-en:font-normal lang-zh:text-[18px] lang-zh:font-light lang-zh:leading-[32px] lang-zh:-my-[6px];
 }
 
+.body-1-careers {
+  @apply text-[20px] leading-[28px] -my-[4px] font-normal ;
+}
+
+.heading-weight-1-careers {
+  @apply font-bold;
+}
+
 .body-2 {
   @apply text-[16px] leading-[24px] -my-[4px];
 }
