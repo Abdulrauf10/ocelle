@@ -18,10 +18,11 @@ export default function ForgetPasswordForm({
   className?: {
     button?: string;
   };
-  action(data: IForgetPasswordForm): Promise<void>;
+  action(data: IForgetPasswordForm): Promise<string | void>;
 }) {
   const t = useTranslations();
   const [pending, startTransition] = React.useTransition();
+  const [errorMessage, setErrorMessage] = React.useState<string>();
   const {
     control,
     handleSubmit,
@@ -30,8 +31,12 @@ export default function ForgetPasswordForm({
 
   const onSubmit = React.useCallback(
     (values: IForgetPasswordForm) => {
-      startTransition(() => {
-        action(values);
+      startTransition(async () => {
+        setErrorMessage(undefined);
+        const errorMessage = await action(values);
+        if (errorMessage) {
+          setErrorMessage(errorMessage);
+        }
       });
     },
     [action]
@@ -46,7 +51,9 @@ export default function ForgetPasswordForm({
         rules={{ required: true }}
         fullWidth
       />
-      <div className="py-6"></div>
+      <div className="py-3"></div>
+      {errorMessage && <span className="body-3 text-error">{errorMessage}</span>}
+      <div className="py-3"></div>
       <Button className={className?.button} fullWidth disabled={!isValid || pending}>
         {t('submit')}
       </Button>
