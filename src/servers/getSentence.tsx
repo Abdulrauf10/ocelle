@@ -2,7 +2,7 @@ import { differenceInMonths, differenceInYears, format, subYears } from 'date-fn
 import { getLocale, getTranslations } from 'next-intl/server';
 
 import { Dog } from '@/entities';
-import { ActivityLevel, FoodAllergies, PadSpace, Recipe } from '@/enums';
+import { ActivityLevel, BodyCondition, FoodAllergies, PadSpace, Recipe } from '@/enums';
 import { UserAddressFragment } from '@/gql/graphql';
 import DogHelper from '@/helpers/dog';
 
@@ -24,6 +24,21 @@ export default async function getSentence() {
 
       // render kg
       strings.push(t('weight-{}-kg', { value: dog.weight }));
+
+      switch (dog.bodyCondition) {
+        case BodyCondition.TooSkinny:
+          strings.push(t('body-shape') + t('too-skinny'));
+          break;
+        case BodyCondition.JustRight:
+          strings.push(t('body-shape') + t('just-right'));
+          break;
+        case BodyCondition.Rounded:
+          strings.push(t('body-shape') + t('rounded'));
+          break;
+        case BodyCondition.Chunky:
+          strings.push(t('body-shape') + t('chunky'));
+          break;
+      }
 
       // render activity level
       switch (dog.activityLevel) {

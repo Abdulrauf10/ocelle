@@ -9,6 +9,8 @@ import Button from '../buttons/Button';
 import PasswordField from '../controls/PasswordField';
 import TextField from '../controls/TextField';
 
+import { EMAIL_REGEXP } from '@/consts';
+
 interface ILoginForm {
   email: string;
   password: string;
@@ -25,6 +27,7 @@ export default function LoginForm({
 }) {
   const t = useTranslations();
   const [pending, startTransition] = React.useTransition();
+  const [errorMessage, setErrorMessage] = React.useState<string>();
   const {
     control,
     handleSubmit,
@@ -34,9 +37,10 @@ export default function LoginForm({
   const onSubmit = React.useCallback(
     (values: ILoginForm) => {
       startTransition(async () => {
+        setErrorMessage(undefined);
         const errorMessage = await action(values);
         if (errorMessage) {
-          toast.error(errorMessage);
+          setErrorMessage(errorMessage);
         }
       });
     },
@@ -49,7 +53,10 @@ export default function LoginForm({
         name="email"
         label={t('email')}
         control={control}
-        rules={{ required: true }}
+        rules={{
+          required: true,
+          pattern: { value: EMAIL_REGEXP, message: '' },
+        }}
         fullWidth
       />
       <div className="py-4"></div>
@@ -60,7 +67,9 @@ export default function LoginForm({
         label={t('password')}
         fullWidth
       />
-      <div className="py-6"></div>
+      <div className="py-3"></div>
+      {errorMessage && <span className="body-3 text-error">{errorMessage}</span>}
+      <div className="py-3"></div>
       <Button className={className?.button} fullWidth disabled={!isValid || pending}>
         {t('log-in')}
       </Button>
