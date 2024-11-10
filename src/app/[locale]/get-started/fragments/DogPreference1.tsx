@@ -84,13 +84,14 @@ export default function DogPreference1Fragment() {
                 className={{
                   radioGroup: 'mx-auto max-w-[630px]',
                 }}
+                
                 name="bodyCondition"
                 watch={watch}
                 rules={{
                   required: true,
                 }}
                 control={control}
-                error={!!errors.bodyCondition}
+                error={!!errors.bodyCondition || !!errors.weight}
                 radios={[
                   {
                     label: t('too-skinny'),

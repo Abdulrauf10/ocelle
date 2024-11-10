@@ -126,13 +126,20 @@ export default function DogBasicFragment() {
                       getOptionLabel={(option) => option.name}
                       freeSolo={false}
                       autoHighlight={false}
+                      sx={{
+                        "& .MuiOutlinedInput-root": {
+                          paddingRight: "0px!important",
+                        },
+                      }}
                       getOptionDisabled={(option) =>
                         value.length > 1 ||
                         value.some((breed) => breed.uid.indexOf('9998') > -1) ||
                         (value.length > 0 && option.uid.indexOf('9998') > -1)
-                      }
+                      
+                      } 
                       isOptionEqualToValue={(option, value) => option.id === value.id}
                       renderInput={(params) => (
+                        <>
                         <TextField
                           {...params}
                           placeholder={
@@ -140,6 +147,7 @@ export default function DogBasicFragment() {
                           }
                           error={!!errors.breeds}
                         />
+                        </>
                       )}
                       disabled={watch('isUnknownBreed', isUnknownBreed ?? false)}
                       renderTags={(tagValue, getTagProps, state) =>

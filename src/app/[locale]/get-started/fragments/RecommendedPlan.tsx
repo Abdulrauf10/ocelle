@@ -515,7 +515,7 @@ export default function RecommendedPlanFragment() {
                   </div>
                 </div>
               </div>
-              <div className="mx-auto mt-10 max-w-[840px] rounded-[20px] border border-primary bg-white p-7 text-primary shadow-black/20 drop-shadow-style-1">
+              <div className="mx-auto mt-10 max-w-[840px] rounded-[20px] border border-primary bg-white lang-zh:p-6 p-7 text-primary shadow-black/20 drop-shadow-style-1">
                 <h2 className="heading-4 font-bold">
                   {t('use-a-transition-period-in-starter-box')}
                 </h2>
