@@ -215,7 +215,7 @@
   "{}-recommended-plan:description": "Based on your responses, we recommend these fresh recipes for {name}. they<apos14></apos14>re all made <br></br>with human grade meat and fresh vegetables that are ideal for {name}’s needs.",
   "feel-free-to-adjust-{}-meal-plan-by-selecting-from-up-to-suitable-recipes-below": "Feel free to adjust {name}’s meal plan by selecting from up to <block>{recipes} suitable recipes below.</block>",
   "use-a-transition-period-in-starter-box": "Include Transition Period?",
-  "use-a-transition-period-in-starter-box:description": "Vets recommend for dogs to undergo a transition period when changing to a new diet, especially if your dog is anxious about change or prone to an upset tummy when trying new foods. <br></br><br></br>Gradually introduce fresh food alongside their current food. Start with 1/4 fresh to 3/4 of their current food. Work your way up to 100% fresh over the first 7 days of your Starter Box.",
+  "use-a-transition-period-in-starter-box:description": "Vets recommend for dogs to undergo a transition period when changing to a new diet, especially if your dog is anxious about change or prone to an upset tummy when trying new foods. Gradually introduce fresh food alongside their current food. Start with 1/4 fresh to 3/4 of their current food. Work your way up to 100% fresh over the first 7 days of your Starter Box.",
   "dont-use-transition": "Don’t Use Transition",
   "use-transition": "Use Transition",
   "starter-box": "Starter Box",

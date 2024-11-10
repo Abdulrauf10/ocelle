@@ -251,8 +251,8 @@ export default function DogPreference2Fragment() {
                   br: () => <br className="max-md:hidden" />,
                 })}
               >
-                <div className="mx-auto -mt-4 flex max-w-[520px] flex-wrap items-center justify-center max-[576px]:flex-col">
-                  <div className="mt-4 px-3">
+                <div className="mx-auto -mt-4 flex max-w-[520px] flex-wrap items-center   justify-around gap-1 max-xs:-mx-4">
+                  <div className="mt-4 ">
                     <InteractiveBlock
                       type="radio"
                       value={AmountOfTreats.None}
@@ -263,7 +263,7 @@ export default function DogPreference2Fragment() {
                       rules={{ required: true }}
                     />
                   </div>
-                  <div className="mt-4 px-3">
+                  <div className="mt-4 ">
                     <InteractiveBlock
                       type="radio"
                       value={AmountOfTreats.Some}
@@ -274,7 +274,7 @@ export default function DogPreference2Fragment() {
                       rules={{ required: true }}
                     />
                   </div>
-                  <div className="mt-4 px-3">
+                  <div className="mt-4 ">
                     <InteractiveBlock
                       type="radio"
                       value={AmountOfTreats.Lots}
