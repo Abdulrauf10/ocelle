@@ -13,7 +13,7 @@ import careerService from '@/services/career';
 function CareerBlock({ title, lines }: { title: React.ReactNode; lines: CareerLine[] }) {
   return (
     <div className="rounded-[28px] border-2 border-primary">
-      <h2 className="body-1 body-weight-1 rounded-t-[28px] bg-primary px-8 py-4 text-white">
+      <h2 className="body-1-careers heading-weight-1-careers rounded-t-[28px] bg-primary px-8 py-4 text-white">
         {title}
       </h2>
       <div className="rounded-b-[28px] bg-white px-8 py-6">

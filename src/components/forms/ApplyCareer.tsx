@@ -96,7 +96,7 @@ function FileInput<T extends FieldValues>({
           }}
           onTouchEnd={() => focusRef.current?.focus()}
         >
-          <div className="w-full max-[829px]:w-[160px] max-[809px]:w-full max-[415px]:w-[160px] max-[405px]:w-full">
+          <div className="w-full !text-lg max-[829px]:w-[160px] max-[809px]:w-full max-[415px]:w-[160px] max-[405px]:w-full">
             {label}
           </div>
         </Button>
@@ -175,7 +175,7 @@ export default function ApplyCareerForm({
       {startAdornment}
       <Block styles="tight" className="grow bg-gold bg-opacity-10">
         <Container className="max-w-screen-lg">
-          <div className="body-1 body-weight-1 uppercase text-primary">
+          <div className="body-1-careers body-weight-1-careers uppercase text-primary">
             {t('submit-your-application')}
           </div>
           <div className="body-3 relative w-fit pl-[5px]">

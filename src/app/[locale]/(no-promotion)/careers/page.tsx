@@ -49,7 +49,9 @@ function CareerBlock({ career }: { career: Career }) {
     <div className="mt-4 rounded-2xl bg-white px-10 py-6 shadow-[5px_5px_12px_rgba(0,0,0,.1)] max-sm:px-4 max-sm:py-6">
       <div className="-mx-3 -my-2 flex items-start ">
         <div className="w-full px-3 py-2">
-          <h3 className="body-1 body-weight-1 pb-[2px] !leading-6 text-brown">{career.name}</h3>
+          <h3 className="body-1-careers body-weight-1-careers pb-[2px] !leading-6 text-brown">
+            {career.name}
+          </h3>
           <div className="mt-1"></div>
           <div className="body-3">
             {t(
@@ -76,7 +78,7 @@ function CareerBlock({ career }: { career: Career }) {
             className="whitespace-nowrap !text-base"
             disableIcon
           >
-            {b('see-details')}
+            {b('see-details-job')}
           </Button>
         </div>
         <div className="mx-auto hidden px-3 py-2 md:block">
@@ -85,7 +87,7 @@ function CareerBlock({ career }: { career: Career }) {
             href={`./careers/${career.id}`}
             className="whitespace-nowrap !text-base"
           >
-            {b('see-details')}
+            {b('see-details-job')}
           </Button>
         </div>
       </div>
