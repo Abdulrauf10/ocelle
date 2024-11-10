@@ -292,6 +292,7 @@
   "age": "Age",
   "sex": "Sex",
   "weight": "Weight",
+  "body-shape": "",
   "body-condition": "Body Condition",
   "activity-level": "Activity Level",
   "food-allergies-sensitivities": "Food Allergies / Sensitivities",
