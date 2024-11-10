@@ -27,7 +27,7 @@ const defaultTranslationValues: RichTranslationValues = {
   nowrap: (chunks) => <span className="whitespace-nowrap">{chunks}</span>,
   block: (chunks) => <span className="inline-block">{chunks}</span>,
   tbr: () => <br className="lg:hidden" />,
-  maxtbr: () => <br className="max-lg:hidden" />,
+  custombr: () => <br className="max-md:hidden md:block lg:hidden xl:block" />,
   xlhiddenbr: () => <br className="xl:hidden" />,
   smhidderbr: () => <br className="sm:hidden" />,
   mbblock: (chunks) => <span className="inline max-sm:inline-block">{chunks}</span>,

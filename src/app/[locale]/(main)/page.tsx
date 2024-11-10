@@ -253,7 +253,9 @@ export default function Home() {
           <h2 className="heading-1 heading-weight-1 text-center text-gold">{t('block-6-title')}</h2>
           <div className="pt-6"></div>
           <div className="mx-auto max-w-screen-md">
-            <p className="body-1 text-center text-gold">{t.rich('block-6-content')}</p>
+            <p className="body-1 text-center text-gold md:lang-en:-mx-3 lg:lang-en:mx-0">
+              {t.rich('block-6-content')}
+            </p>
           </div>
           <div className="pt-10"></div>
           <CaseSwiper />

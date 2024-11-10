@@ -47,7 +47,7 @@ export default function Header({
         <div className="-mx-2 flex flex-row flex-wrap items-center justify-between">
           {startAdornment}
           {!disableMenuButton && (
-            <div className="hidden px-2 max-xl:flex">
+            <div className="hidden px-2 max-xl:lang-zh:flex max-lg:lang-en:flex">
               <button onClick={() => setIsOpened((v) => !v)}>
                 <HamburgerMenu className="w-[26px]" />
               </button>
@@ -64,23 +64,33 @@ export default function Header({
           </Link>
           <div
             className={clsx(
-              'w-full flex-1 px-2 max-xl:absolute max-xl:left-0 max-xl:top-[72px] max-xl:z-30 max-xl:bg-[#EEF3F7] max-xl:px-4',
-              !isOpened && 'max-xl:hidden'
+              'w-full flex-1 px-2',
+              'max-lg:lang-en:absolute max-lg:lang-en:left-0 max-lg:lang-en:top-[72px] max-lg:lang-en:z-30 max-lg:lang-en:bg-[#EEF3F7] max-lg:lang-en:px-4',
+              'max-xl:lang-zh:absolute max-xl:lang-zh:left-0 max-xl:lang-zh:top-[72px] max-xl:lang-zh:z-30 max-xl:lang-zh:bg-[#EEF3F7] max-xl:lang-zh:px-4',
+              !isOpened && 'max-xl:lang-zh:hidden max-lg:lang-en:hidden'
             )}
           >
             <div
               className={clsx(
-                '-mx-2 flex flex-1 flex-row items-center justify-between max-xl:h-screen max-xl:flex-col-reverse max-xl:pb-3 max-xl:pt-5'
+                '-mx-2 flex flex-1 flex-row items-center justify-between ',
+                'max-lg:lang-en:h-screen max-lg:lang-en:flex-col-reverse max-lg:lang-en:pb-3 max-lg:lang-en:pt-5',
+                'max-xl:lang-zh:h-screen max-xl:lang-zh:flex-col-reverse max-xl:lang-zh:pb-3 max-xl:lang-zh:pt-5'
               )}
             >
               <div className="flex-1 pl-2 pr-1">
-                {nav && <div className="max-xl:pt-4">{nav}</div>}
+                {nav && <div className="max-xl:lang-zh:pt-4 max-lg:lang-en:pt-4">{nav}</div>}
               </div>
               {(!disableLanguageSwitch || !disableGetStartedButton) && (
                 <div className="relative z-10 px-2">
-                  <div className="-m-2 flex flex-nowrap items-center whitespace-nowrap max-xl:flex-col">
+                  <div
+                    className={clsx(
+                      '-m-2 flex flex-nowrap items-center whitespace-nowrap',
+                      'max-lg:lang-en:flex-col',
+                      'max-xl:lang-zh:flex-col'
+                    )}
+                  >
                     {!disableLoginButton && me && (
-                      <div className="p-2 xl:hidden">
+                      <div className="p-2 lg:lang-zh:hidden xl:lang-en:hidden">
                         <button
                           className="whitespace-nowrap hover:underline"
                           onClick={() => logout()}
@@ -130,12 +140,15 @@ export default function Header({
               {me ? (
                 <Link
                   href="/account/plan"
-                  className="whitespace-nowrap hover:underline max-xl:mr-0"
+                  className="whitespace-nowrap hover:underline max-xl:lang-zh:mr-0 max-lg:lang-en:mr-0"
                 >
                   {me.firstName}
                 </Link>
               ) : (
-                <Link href="/auth/login" className="whitespace-nowrap hover:underline max-xl:mr-0">
+                <Link
+                  href="/auth/login"
+                  className="whitespace-nowrap hover:underline max-xl:lang-zh:mr-0 max-lg:lang-en:mr-0"
+                >
                   {t('log-in')}
                 </Link>
               )}

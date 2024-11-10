@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import React from 'react';
 
@@ -8,7 +9,13 @@ export default function Navigator() {
   const t = useTranslations('Navigator');
 
   return (
-    <ul className="flex flex-row flex-wrap max-xl:mx-0 max-xl:flex-col max-xl:text-center [&_li]:list-none">
+    <ul
+      className={clsx(
+        'flex flex-row flex-wrap [&_li]:list-none',
+        'max-xl:lang-zh:mx-0 max-xl:lang-zh:flex-col max-xl:lang-zh:text-center',
+        'max-lg:lang-en:mx-0 max-lg:lang-en:flex-col max-lg:lang-en:text-center'
+      )}
+    >
       <li>
         <PageDropdown
           name={t('how-it-works')}
