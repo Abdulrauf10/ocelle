@@ -84,7 +84,6 @@ export default function DogPreference1Fragment() {
                 className={{
                   radioGroup: 'mx-auto max-w-[630px]',
                 }}
-                
                 name="bodyCondition"
                 watch={watch}
                 rules={{

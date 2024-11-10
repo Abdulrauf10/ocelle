@@ -186,7 +186,7 @@ export default async function Plan() {
                     <div className="whitespace-nowrap px-1 py-2 max-sm:w-full">
                       <UnderlineButton
                         theme="primary"
-                        label={t('manage-{}', { value: t('order-size') })}
+                        label={t('manage-{}', { value: t('order-frequency') })}
                         href="/account/plan/often"
                       />
                     </div>

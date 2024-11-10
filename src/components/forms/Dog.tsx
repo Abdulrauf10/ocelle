@@ -1,16 +1,9 @@
 'use client';
 
-import { Autocomplete, Chip, TextField } from '@mui/material';
+import { Autocomplete, Chip, TextField as MuiTextField } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import clsx from 'clsx';
-import {
-  differenceInWeeks,
-  intervalToDuration,
-  startOfDay,
-  subDays,
-  subMonths,
-  subYears,
-} from 'date-fns';
+import { differenceInWeeks, intervalToDuration, subDays, subMonths, subYears } from 'date-fns';
 import equal from 'deep-equal';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
@@ -22,8 +15,10 @@ import UnderlineButton from '../buttons/UnderlineButton';
 import DateCalendar from '../controls/DateCalendar';
 import InteractiveBlock from '../controls/InteractiveBlock';
 import PictureRadio from '../controls/PictureRadio';
+import TextField from '../controls/TextField';
 
 import { getBreeds } from '@/actions';
+import alphabeticalFilterOption from '@/alphabeticalFilterOption';
 import {
   ActivityLevel,
   AmountOfTreats,
@@ -50,7 +45,7 @@ import { BreedDto } from '@/types/dto';
 
 interface EditDogBlockProps {
   title: string;
-  description?: string;
+  description?: React.ReactNode;
 }
 
 function EditDogBlock({
@@ -184,7 +179,10 @@ export default function DogForm({
     reset,
     resetField,
     formState: { errors },
-  } = useForm<IDogForm>({ defaultValues });
+  } = useForm<IDogForm>({
+    defaultValues,
+    mode: 'onChange',
+  });
   const { padSpace } = useSentence();
   const [pending, startTransition] = React.useTransition();
   const { data: breedOptions, isLoading: isBreedLoading } = useQuery({
@@ -245,27 +243,24 @@ export default function DogForm({
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <EditDogBlock title={t('name')}>
-        <Controller
+        <TextField
           name="name"
           control={control}
           rules={{ required: true }}
-          render={({ field, fieldState: { error } }) => (
-            <TextField error={!!error} placeholder={t('your-dogs-name')} fullWidth {...field} />
-          )}
+          placeholder={t('your-dogs-name')}
+          fullWidth
         />
       </EditDogBlock>
       <EditDogBlock
         title={t('breeds')}
-        description={t('({})', {
-          value: t('if-theyre-a-mix-you-can-select-multiple-breeds'),
-        })}
+        description={<>({t.rich('if-theyre-a-mix-you-can-select-multiple-breeds')})</>}
       >
         <Controller
           name="breeds"
           control={control}
           rules={{ required: true }}
           defaultValue={[]}
-          render={({ field: { onChange, ...field } }) => (
+          render={({ field: { onChange, value, ...field } }) => (
             <Autocomplete
               multiple
               fullWidth
@@ -273,10 +268,14 @@ export default function DogForm({
               loading={isBreedLoading}
               getOptionLabel={(option) => option.name}
               freeSolo={false}
-              getOptionDisabled={(option) => watch('breeds').length > 1}
+              getOptionDisabled={(option) =>
+                value.length > 1 ||
+                value.some((breed) => breed.uid.indexOf('9998') > -1) ||
+                (value.length > 0 && option.uid.indexOf('9998') > -1)
+              }
               isOptionEqualToValue={(option, value) => option.id === value.id}
               renderInput={(params) => (
-                <TextField
+                <MuiTextField
                   {...params}
                   placeholder={t('start-typing-the-breed')}
                   error={!!errors.breeds}
@@ -292,6 +291,8 @@ export default function DogForm({
                 ))
               }
               onChange={(e, data) => onChange(data)}
+              filterOptions={alphabeticalFilterOption}
+              value={value}
               {...field}
             />
           )}
@@ -351,7 +352,7 @@ export default function DogForm({
       </EditDogBlock>
       <EditDogBlock
         title={t('age')}
-        description={t('({})', { value: t('if-youre-unsure-just-give-us-your-best-guess') })}
+        description={<>({t.rich('if-youre-unsure-just-give-us-your-best-guess')})</>}
       >
         <div className="flex w-full max-w-[260px] justify-between">
           <UnderlineButton
@@ -416,7 +417,7 @@ export default function DogForm({
                         resetField('dateOfBirth', { defaultValue: undefined });
                       }}
                       renderInput={(params) => (
-                        <TextField
+                        <MuiTextField
                           {...params}
                           error={!!error}
                           InputProps={{
@@ -485,7 +486,7 @@ export default function DogForm({
                         resetField('dateOfBirth', { defaultValue: undefined });
                       }}
                       renderInput={(params) => (
-                        <TextField
+                        <MuiTextField
                           {...params}
                           className="text-center"
                           error={!!error}
@@ -554,30 +555,6 @@ export default function DogForm({
             </div>
           )}
         </div>
-      </EditDogBlock>
-      <EditDogBlock title={t('currently-{}', { value: t('weight') })}>
-        <div className="flex items-center">
-          <Controller
-            name="weight"
-            control={control}
-            rules={{
-              required: true,
-            }}
-            render={({ field, fieldState: { error } }) => (
-              <TextField
-                type="number"
-                className="mr-2 w-20"
-                inputProps={{ min: 0, step: 0.1 }}
-                {...field}
-                error={!!error}
-              />
-            )}
-          />
-          <span className="ml-2">kg</span>
-        </div>
-        {errors?.weight?.message && (
-          <p className="mt-3 w-full text-error">{String(errors?.weight?.message)}</p>
-        )}
       </EditDogBlock>
       <EditDogBlock title={t('body-condition')}>
         <div className="mt-4">
@@ -675,6 +652,70 @@ export default function DogForm({
             ]}
           />
         </div>
+      </EditDogBlock>
+      <EditDogBlock title={t('currently-{}', { value: t('weight') })}>
+        <div className="flex items-center">
+          <TextField
+            name="weight"
+            type="number"
+            control={control}
+            disableErrorMessage
+            rules={{
+              required: true,
+              validate: (value, { weight, bodyCondition }) => {
+                const idealWeight = DogHelper.calculateIdealWeight(weight, bodyCondition);
+                if (idealWeight > 50 || idealWeight < 0.5) {
+                  return 'ideal-weight';
+                }
+                return true;
+              },
+            }}
+            className="mr-2 w-20"
+            inputProps={{ className: 'text-center', min: 0, step: 0.5 }}
+            InputProps={{
+              sx: {
+                input: {
+                  MozAppearance: 'textfield',
+                  '&::-webkit-outer-spin-button': { appearance: 'none', margin: 0 },
+                  '&::-webkit-inner-spin-button': { appearance: 'none', margin: 0 },
+                },
+              },
+            }}
+            onKeyDown={(evt) => ['e', 'E', '+', '-'].includes(evt.key) && evt.preventDefault()}
+            beforeOnChange={(e) => {
+              if (e.target.value.indexOf('.') === -1) {
+                return e;
+              }
+              const [integer, decimal] = e.target.value.split('.');
+              if (!decimal) {
+                return e;
+              }
+              e.target.value = `${integer}.${decimal.substring(0, 2)}`;
+              return e;
+            }}
+          />
+          <span className="ml-2">{t('kg')}</span>
+        </div>
+        {errors?.weight?.message && (
+          <p className="mt-3 w-full text-error">
+            {errors?.weight?.message === 'ideal-weight'
+              ? t.rich(
+                  'unfortunately-{}-needs-are-a-bit-outside-our-regular-portion-offerings-however-we-may-be-able-to-help-please-contact-our-customer-service-team',
+                  {
+                    name: padSpace(PadSpace.Both, name),
+                    link: (chunks) => (
+                      <UnderlineButton
+                        label={chunks}
+                        href="mailto:info@ocelle.dog"
+                        underline
+                        className="!text-error"
+                      />
+                    ),
+                  }
+                )
+              : String(errors?.weight?.message)}
+          </p>
+        )}
       </EditDogBlock>
       <EditDogBlock title={t('activity-level')}>
         <div className="mt-4">

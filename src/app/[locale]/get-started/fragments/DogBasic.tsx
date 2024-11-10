@@ -127,26 +127,25 @@ export default function DogBasicFragment() {
                       freeSolo={false}
                       autoHighlight={false}
                       sx={{
-                        "& .MuiOutlinedInput-root": {
-                          paddingRight: "0px!important",
+                        '& .MuiOutlinedInput-root': {
+                          paddingRight: '0px!important',
                         },
                       }}
                       getOptionDisabled={(option) =>
                         value.length > 1 ||
                         value.some((breed) => breed.uid.indexOf('9998') > -1) ||
                         (value.length > 0 && option.uid.indexOf('9998') > -1)
-                      
-                      } 
+                      }
                       isOptionEqualToValue={(option, value) => option.id === value.id}
                       renderInput={(params) => (
                         <>
-                        <TextField
-                          {...params}
-                          placeholder={
-                            watch('breeds').length == 0 ? t('start-typing-the-breed') : ''
-                          }
-                          error={!!errors.breeds}
-                        />
+                          <TextField
+                            {...params}
+                            placeholder={
+                              watch('breeds').length == 0 ? t('start-typing-the-breed') : ''
+                            }
+                            error={!!errors.breeds}
+                          />
                         </>
                       )}
                       disabled={watch('isUnknownBreed', isUnknownBreed ?? false)}
