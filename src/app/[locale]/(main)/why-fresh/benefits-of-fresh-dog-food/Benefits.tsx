@@ -58,6 +58,7 @@ function Toggler({
       </div>
       <Collapse in={show} timeout={300}>
         <hr className="my-4 border-gray" />
+        {/* <div className="mb-2 mt-6 max-lg:lang-en:-mx-2 max-sm:lang-en:-mx-2 md:lang-en:-mx-2"> */}
         <div className="mb-2 mt-6">{children}</div>
       </Collapse>
     </div>

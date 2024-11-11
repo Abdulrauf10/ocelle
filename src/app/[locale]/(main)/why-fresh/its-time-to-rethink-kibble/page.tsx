@@ -372,31 +372,31 @@ export default function ItsTimeToRethinkKibble() {
                   </>
                 }
               >
-                <p className="body-1 body-weight-1">
+                <p className="body-1 body-weight-1 lang-zh:!text-xl lang-zh:!font-bold">
                   {i.rich('block-4-mark-4-content-1', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
                 </p>
                 <div className="mt-4"></div>
-                <p className="body-1">
+                <p className="body-1 lang-zh:!text-xl lang-zh:!font-normal">
                   {i.rich('block-4-mark-4-content-2', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
                 </p>
                 <div className="mt-4"></div>
-                <p className="body-1">
+                <p className="body-1 lang-zh:!text-xl lang-zh:!font-normal">
                   {i.rich('block-4-mark-4-content-3', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
                 </p>
                 <div className="mt-4"></div>
-                <p className="body-1 body-weight-1">
+                <p className="body-1 body-weight-1 lang-zh:!text-xl lang-zh:!font-bold">
                   {i.rich('block-4-mark-4-content-4', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
                 </p>
                 <div className="mt-4"></div>
-                <p className="body-1">
+                <p className="body-1 lang-zh:!text-xl lang-zh:!font-normal">
                   {i.rich('block-4-mark-4-content-5', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}

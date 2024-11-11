@@ -85,7 +85,9 @@ export default function RawDogFoodVsGentlyCooked() {
                   {i.rich('block-2-quota')}
                 </p>
                 <div className="mt-4"></div>
-                <p className="body-1 text-center text-primary">{i.rich('block-2-quota-person')}</p>
+                <p className="body-1 text-center text-primary lang-zh:!text-xl lang-zh:font-normal max-sm:-mx-3 md:-mx-3 lg:mx-0">
+                  {i.rich('block-2-quota-person')}
+                </p>
               </div>
             </div>
           </div>
