@@ -1,4 +1,5 @@
 import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn, type Relation } from 'typeorm';
+
 import { RecurringBox, User } from '.';
 
 @Entity({ name: 'order' })

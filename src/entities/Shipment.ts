@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
   type Relation,
 } from 'typeorm';
+
 import { Dog, RecurringBox, User } from '.';
 
 @Entity({ name: 'shipment' })

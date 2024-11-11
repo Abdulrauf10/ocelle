@@ -7,8 +7,19 @@ import {
   PrimaryGeneratedColumn,
   type Relation,
 } from 'typeorm';
+
 import { DogBreed, DogPlan, RecurringBox, Shipment, User } from '.';
-import { ActivityLevel, AmountOfTreats, BodyCondition, DateOfBirthMethod, DogFood, FoodAllergies, Sex, Pickiness } from '@/enums';
+
+import {
+  ActivityLevel,
+  AmountOfTreats,
+  BodyCondition,
+  DateOfBirthMethod,
+  DogFood,
+  FoodAllergies,
+  Pickiness,
+  Sex,
+} from '@/enums';
 
 @Entity({ name: 'dog' })
 export default class Dog {

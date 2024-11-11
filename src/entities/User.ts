@@ -1,4 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryColumn, type Relation } from 'typeorm';
+
 import { Dog, Order, Shipment } from '.';
 
 @Entity({ name: 'user' })
@@ -7,10 +8,10 @@ export default class User {
   id!: string; // saleor user id
 
   @Column({ type: 'simple-json' })
-  phone!: { code: string, value: string }; // saleor don't have phone field, fix in database model
+  phone!: { code: string; value: string }; // saleor don't have phone field, fix in database model
 
   @Column({ type: 'simple-json', nullable: true })
-  whatsapp?: { code: string, value: string };
+  whatsapp?: { code: string; value: string };
 
   @Column()
   isDeliveryUsAsBillingAddress!: boolean;

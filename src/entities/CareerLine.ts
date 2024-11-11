@@ -1,6 +1,8 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, type Relation } from 'typeorm';
-import { CareerLineType } from '@/enums';
+
 import { Career } from '.';
+
+import { CareerLineType } from '@/enums';
 
 @Entity({ name: 'career_line' })
 export default class CareerLine {

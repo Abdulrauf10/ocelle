@@ -6,7 +6,9 @@ import {
   PrimaryGeneratedColumn,
   type Relation,
 } from 'typeorm';
+
 import { Dog } from '.';
+
 import { Frequency, MealPlan, Recipe } from '@/enums';
 
 @Entity({ name: 'dog_plan' })

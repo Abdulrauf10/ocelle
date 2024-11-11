@@ -1,6 +1,16 @@
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn, type Relation } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  type Relation,
+} from 'typeorm';
+
 import { Dog, Order, Shipment } from '.';
-import { MealPlan, Frequency, Recipe } from '@/enums';
+
+import { Frequency, MealPlan, Recipe } from '@/enums';
 
 @Entity({ name: 'recurring_box' })
 export default class RecurringBox {

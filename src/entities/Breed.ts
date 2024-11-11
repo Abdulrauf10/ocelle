@@ -1,5 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn, type Relation } from 'typeorm';
+
 import { DogBreed } from '.';
+
 import { Size } from '@/enums';
 
 @Entity({ name: 'breed' })
