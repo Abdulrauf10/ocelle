@@ -573,7 +573,7 @@
     "lamb-leg-boneless-description": "Lamb is a highly palatable meat and an excellent source of quality protein and essential fats, which help with energy levels, proper growth, and overall health. It<apos10></apos10>s also a good source of iron and zinc, which are crucial for immune function and skin health."
   },
   "IndividualPack": {
-    "block-1-title": "Feeding Fresh Is <br></br>Easy With OCELLE",
+    "block-1-title": "Feeding Fresh Is <individualheaderbr></individualheaderbr><block>Easy With OCELLE</block>",
     "block-1-content": "If you<apos14></apos14>re not ready for a subscription, our individual packs come in <tbr></tbr>set weights and can be ordered anytime.",
     "block-8-title": "Your Dog Deserves A Fresh Start",
     "block-8-title-1": "Developed By Vet Nutritionists",
@@ -582,7 +582,7 @@
     "block-8-content-2": "No heat-blasted ingredients. No preservatives. No fillers. No nonsense. Just real ingredients you can see, nutrition dogs need, and the flavours they crave.",
     "block-8-title-3": "Freshly Made To Lock In Nutrients",
     "block-8-content-3": "Our ingredients are gently cooked to maximize digestibility and preserve vital nutrients, texture, and taste.",
-    "block-9-title": "Easier For You. <smhidderbr></smhidderbr>Better For Them.",
+    "block-9-title": "Easier For You. <individualblock9br></individualblock9br>Better For Them.",
     "block-9-content": "Get fresh food conveniently delivered with our customised meal plans.",
     "block-6-content": "Cart successfully updated."
   },
