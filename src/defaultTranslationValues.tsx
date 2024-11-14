@@ -7,6 +7,7 @@ const defaultTranslationValues: RichTranslationValues = {
   dtbr: () => <br className="max-xl:hidden" />,
   smbrhidden: () => <br className="sm:hidden" />,
   mobilebronly: () => <br className="sm:hidden" />,
+  freshbr: () => <br className="inline-block max-lg:hidden" />,
   lgbrdisplay: () => <br className=" max-lg:hidden" />,
   sup: (chunks) => <sup className="body-4 inline-block">{chunks}</sup>,
   //TODO Change style to tailwind
