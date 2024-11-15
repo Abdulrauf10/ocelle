@@ -55,7 +55,7 @@ export default React.forwardRef<HTMLDivElement, T>(function DatePickerForm(
       }
     });
     if (typeof onComplete === 'function') onComplete(values);
-  }, [action, setDefaultValues, onComplete, date, t]);
+  }, [action, setDefaultValues, onComplete, date, t, showCompletedMessage]);
 
   const isSameAsDefaultValue =
     startOfDay(date).getTime() === startOfDay(defaultValues.date).getTime();
