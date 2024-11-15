@@ -2,7 +2,6 @@ import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import pluralize from 'pluralize';
-
 import RecipeBenefits from './Benefits';
 
 import Container from '@/components/Container';
@@ -139,7 +138,7 @@ export default function RecipesPage() {
     cranberry: {
       picture: '/ingredients/cranberry.png',
       spacing: -30,
-      title: pluralize.plural(i('cranberry')),
+      title: i('cranberry'),
       description: i('cranberry-description'),
     },
     flaxseed: {
@@ -248,17 +247,17 @@ export default function RecipesPage() {
   return (
     <main className="overflow-x-hidden">
       <div
-        className="bg-[#3c2215] bg-[url('/recipes/recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-no-repeat py-[55px]
-       max-xl:lang-zh:pb-[57%] max-lg:lang-en:pb-[57%] lg:lang-en:bg-[#4f3d33] lg:lang-en:bg-[url('/recipes/recipes-bg.jpg')] lg:lang-en:bg-[length:auto_100%]
-        lg:lang-en:bg-[calc(50%+60px)_center] xl:lang-zh:bg-[#4f3d33] xl:lang-zh:bg-[url('/recipes/recipes-bg.jpg')] xl:lang-zh:bg-[length:auto_100%] xl:lang-zh:bg-[calc(50%+60px)_center]"
+        className={clsx("bg-[#3c2215] bg-[url('/recipes/recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-no-repeat py-[55px]",
+       "max-xl:pb-[57%] ",
+        "xl:bg-[#4f3d33] xl:bg-[url('/recipes/recipes-bg.jpg')] xl:bg-[length:auto_100%] xl:bg-[calc(50%+60px)_center]")}
       >
         <Container>
           {/* <div className="py-[4vw] text-xl text-white max-lg:w-full lg:pr-0"> */}
-          <div className="text-xl text-white max-xl:lang-zh:w-full max-lg:lang-en:w-full lg:lang-en:pr-0 xl:lang-zh:pr-0">
+          <div className="text-xl text-white max-xl:w-full xl::pr-0">
             <h1 className="heading-headline heading-weight-1 grid">
               <span>{r.rich('block-1-title')}</span>
             </h1>
-            <div className="w-full lg:lang-en:w-1/3 xl:lang-zh:w-2/5">
+            <div className="w-full xl:w-2/5">
               <div className="mt-5"></div>
               <p className="body-1">{r('block-1-content-1')}</p>
               <div className="mt-4"></div>
@@ -379,7 +378,7 @@ export default function RecipesPage() {
               pluralize.plural(i('shiitake-mushroom')),
               i('spinach'),
               i('peas'),
-              pluralize.plural(i('cranberry')),
+              i('cranberry'),
               i('flaxseed'),
               i('salmon-oil'),
               i('ocelle-targeted-nutrient-blend'),
@@ -612,13 +611,13 @@ export default function RecipesPage() {
           <RecipeBenefits />
         </Container>
       </Block>
-      <Block>
-        <Container className="text-center">
-          <h2 className="heading-1 font-bold text-primary lang-zh:font-normal">
+      <Block className="bg-dark-green">
+        <Container className="text-center ">
+          <h2 className="heading-1 font-bold text-white lang-zh:font-normal ">
             {r.rich('block-8-title')}
           </h2>
           <div className="mt-6"></div>
-          <p className="body-1">{r.rich('block-8-content')}</p>
+          <p className="body-1 text-white">{r.rich('block-8-content')}</p>
           <Button className="mt-6" href="/get-started">
             {b('create-your-plan')}
           </Button>

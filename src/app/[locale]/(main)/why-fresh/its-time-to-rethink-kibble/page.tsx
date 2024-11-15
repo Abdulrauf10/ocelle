@@ -280,18 +280,18 @@ export default function ItsTimeToRethinkKibble() {
                   />
                 }
                 source={
-                  <>
+                  <span className="lang-zh:!text-xl lang-zh:!font-normal">
                     AAFCO<sup>6</sup>
-                  </>
+                  </span>
                 }
               >
-                <p className="body-1">
+                <p className="body-1 lang-zh:!text-xl lang-zh:!font-normal">
                   {i.rich('block-4-mark-1-content-1', {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
                 </p>
                 <div className="mt-4"></div>
-                <p className="body-1">
+                <p className="body-1 lang-zh:!text-xl lang-zh:!font-normal">
                   {i.rich('block-4-mark-1-content-2', {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
@@ -311,18 +311,18 @@ export default function ItsTimeToRethinkKibble() {
                   />
                 }
                 source={
-                  <>
+                  <span className="lang-zh:!text-xl lang-zh:!font-normal">
                     AAFCO<sup>7</sup>
-                  </>
+                  </span>
                 }
               >
-                <p className="body-1">
+                <p className="body-1 lang-zh:!text-xl lang-zh:!font-normal">
                   {i.rich('block-4-mark-2-content-1', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
                 </p>
                 <div className="mt-4"></div>
-                <p className="body-1">
+                <p className="body-1 lang-zh:!text-xl lang-zh:!font-normal">
                   {i.rich('block-4-mark-2-content-2', {
                     h: (chunks) => <Hightlight theme="light">{chunks}</Hightlight>,
                   })}
@@ -342,12 +342,12 @@ export default function ItsTimeToRethinkKibble() {
                   />
                 }
                 source={
-                  <>
+                  <span className="lang-zh:!text-xl lang-zh:!font-normal">
                     AAFCO<sup>8</sup>
-                  </>
+                  </span>
                 }
               >
-                <p className="body-1">
+                <p className="body-1 lang-zh:!text-xl lang-zh:!font-normal">
                   {i.rich('block-4-mark-3-content-1', {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
@@ -367,9 +367,9 @@ export default function ItsTimeToRethinkKibble() {
                   />
                 }
                 source={
-                  <>
+                  <span className="lang-zh:!text-xl lang-zh:!font-normal">
                     AAFCO<sup>6</sup>
-                  </>
+                  </span>
                 }
               >
                 <p className="body-1 body-weight-1 lang-zh:!text-xl lang-zh:!font-bold">
@@ -416,30 +416,30 @@ export default function ItsTimeToRethinkKibble() {
                   />
                 }
                 source={
-                  <>
+                  <span className="lang-zh:!text-xl lang-zh:!font-normal">
                     CDC<sup>9</sup>
-                  </>
+                  </span>
                 }
               >
-                <p className="body-1">
+                <p className="body-1 lang-zh:!text-xl lang-zh:!font-normal">
                   {i.rich('block-4-mark-5-content-1', {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
                 </p>
                 <div className="mt-4"></div>
-                <p className="body-1">
+                <p className="body-1 lang-zh:!text-xl lang-zh:!font-normal">
                   {i.rich('block-4-mark-5-content-2', {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
                 </p>
                 <div className="mt-4"></div>
-                <p className="body-1">
+                <p className="body-1 lang-zh:!text-xl lang-zh:!font-normal">
                   {i.rich('block-4-mark-5-content-3', {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}
                 </p>
                 <div className="mt-4"></div>
-                <p className="body-1">
+                <p className="body-1 lang-zh:!text-xl lang-zh:!font-normal">
                   {i.rich('block-4-mark-5-content-4', {
                     h: (chunks) => <Hightlight theme="dark">{chunks}</Hightlight>,
                   })}

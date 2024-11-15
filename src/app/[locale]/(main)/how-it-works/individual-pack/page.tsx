@@ -220,7 +220,7 @@ export default async function HowItWorksIndividual() {
           product={products[IndividualRecipePack.Duck]}
           picture="/individual-pack/duck.jpg"
           dialogPicture={
-            <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#f9cc81] from-30% to-white max-md:pt-[100%]">
+            <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#f9cc81] from-30% to-white max-md:pt-[120%]">
               <Image
                 src="/dispersion/duck.gif"
                 alt=""
