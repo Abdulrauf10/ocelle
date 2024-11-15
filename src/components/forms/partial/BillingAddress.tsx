@@ -298,6 +298,13 @@ export default function PartialBillingAddressForm<T extends FieldValues>({
                     label={t('district')}
                     error={!!error}
                     helperText={error?.message && <span className="body-3">{error.message}</span>}
+                    sx={theme => ({
+                      "& .MuiInputBase-root.Mui-disabled": {
+                        "& > fieldset": {
+                          borderColor: theme.palette.error.main,
+                        }
+                      }
+                    })}
                   />
                 )}
                 onChange={(event, selectedValue) =>
@@ -318,9 +325,7 @@ export default function PartialBillingAddressForm<T extends FieldValues>({
               required:
                 disabled || country === CountryCode.Hk
                   ? false
-                  : t('please-enter-your-{}', {
-                      name: t('postal-code').toLowerCase(),
-                    }),
+                  : t('please-enter-your-{}', { name: t('postal-code') }),
             }}
             render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
               return (

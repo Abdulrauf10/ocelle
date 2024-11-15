@@ -389,7 +389,10 @@ export default function SubscriptionCheckoutForm({
                     name="confirmPassword"
                     control={control}
                     rules={{
-                      required: true,
+                      required: {
+                        value: true,
+                        message: t('please-confirm-your-password'),
+                      },
                       validate: (value, { password }) => {
                         return value === password || t('your-passwords-do-not-match');
                       },
@@ -471,7 +474,7 @@ export default function SubscriptionCheckoutForm({
                         return String(value).length === 8
                           ? true
                           : t('please-enter-a-valid-{}', {
-                              name: t('Whatsapp-number').toLowerCase(),
+                              name: t('Whatsapp-number').split(' ')[0] + (t('Whatsapp-number').split(' ')[1]?.toLowerCase() || ''),
                             });
                       },
                     }}
@@ -488,6 +491,7 @@ export default function SubscriptionCheckoutForm({
                             control={control}
                             rules={{ required: true }}
                             disableUnderline
+                            onChange={() => trigger('phone.value')}
                             disabled={isSubmitInProgress}
                           >
                             {getCountryCodes().map((code, idx) => (

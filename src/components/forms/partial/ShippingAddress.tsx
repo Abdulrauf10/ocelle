@@ -227,6 +227,13 @@ export default function PartialShippingAddressForm<T extends FieldValues>({
                     label={t('district')}
                     error={!!error}
                     helperText={error?.message && <span className="body-3">{error.message}</span>}
+                    sx={theme => ({
+                      "& .MuiInputBase-root.Mui-disabled": {
+                        "& > fieldset": {
+                          borderColor: theme.palette.error.main,
+                        }
+                      }
+                    })}
                   />
                 )}
                 onChange={(event, selectedValue) =>
