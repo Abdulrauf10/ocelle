@@ -271,6 +271,7 @@ class OrderService {
         city: deliveryAddress.district,
         countryArea: deliveryAddress.region,
         country: CountryCode.Hk,
+        skipValidation: true,
       },
       billingAddress: {
         firstName: billingAddress.firstName,
@@ -287,6 +288,7 @@ class OrderService {
             : billingAddress.district,
         postalCode: billingAddress.postalCode,
         country: billingAddress.country,
+        skipValidation: true,
       },
     });
   }
