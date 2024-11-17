@@ -1,3 +1,4 @@
+import { subDays } from 'date-fns';
 import { fromZonedTime } from 'date-fns-tz';
 
 import redisService from './redis';
@@ -11,7 +12,7 @@ class CalendarService {
   async getCalendarEvents(): Promise<CalendarEvent[]> {
     const events = await redisService.getCalendarEvents();
     if (events) {
-      return events;
+      return this.patchToOcelle(events);
     }
 
     const res = await fetch('https://www.1823.gov.hk/common/ical/en.json');
@@ -39,7 +40,19 @@ class CalendarService {
 
     await redisService.setCalendarEvents(_events);
 
-    return _events;
+    return this.patchToOcelle(_events);
+  }
+  patchToOcelle(events: CalendarEvent[]) {
+    for (const event of events) {
+      if (
+        /(The first weekday after Christmas Day|the first day of January|Christmas|Easter)/i.test(
+          event.summary
+        )
+      ) {
+        event.start = subDays(event.start, 1);
+      }
+    }
+    return events;
   }
 }
 

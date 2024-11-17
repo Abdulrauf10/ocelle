@@ -41,6 +41,7 @@ import {
 import { getCountryCodes } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
 import { CalendarEvent } from '@/types';
+import { useSurvey } from '@/app/[locale]/get-started/SurveyContext';
 
 function Section({
   title,
@@ -148,6 +149,7 @@ export default function SubscriptionCheckoutForm({
   onCompleteTransaction(paymentMethodId: string): Promise<void>;
 }) {
   const { order, setOrder } = useOrder();
+  const {  dogs: surveyDogs} = useSurvey();
   const stripe = useStripe();
   const elements = useElements();
   const form = useCardStripeForm();
@@ -292,6 +294,12 @@ export default function SubscriptionCheckoutForm({
       window.removeEventListener('click', handleWindowClick);
     };
   }, [handleWindowClick]);
+
+  React.useEffect(() => {
+    surveyDogs.forEach((dog) => {
+      console.log(dog);
+    })
+  }, [surveyDogs]);
 
   const starterBoxDiscount = order.discounts.find(
     (discount) => discount.type === OrderDiscountType.Manual
@@ -556,7 +564,7 @@ export default function SubscriptionCheckoutForm({
             <Section dense title={t('delivery-date')}>
               <p className="body-3">
                 {t.rich('{}-{}-week-starter-box-will-be-delivered-on-the-{}', {
-                  name: dogs[0].name,
+                  name: dogs.map(dog => dog.name).join(t('comma')),
                   week: 2,
                   date: sentence.date(watch('deliveryDate'), true),
                 })}{' '}

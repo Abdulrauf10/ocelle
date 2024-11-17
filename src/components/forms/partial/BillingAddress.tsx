@@ -299,7 +299,7 @@ export default function PartialBillingAddressForm<T extends FieldValues>({
                     error={!!error}
                     helperText={error?.message && <span className="body-3">{error.message}</span>}
                     sx={theme => ({
-                      "& .MuiInputBase-root.Mui-disabled": {
+                      "& .MuiInputBase-root.Mui-disabled.Mui-error": {
                         "& > fieldset": {
                           borderColor: theme.palette.error.main,
                         }
