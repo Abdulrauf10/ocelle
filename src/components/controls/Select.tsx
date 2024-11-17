@@ -4,7 +4,6 @@ import {
   FormControl,
   InputBaseComponentProps,
   InputLabel,
-  MenuProps,
   Select as MuiSelect,
   SxProps,
   Theme,
@@ -26,7 +25,7 @@ interface SelectProps<T extends FieldValues> extends InputControllerProps<T> {
   className?: string;
   onChange?: () => void;
   sx?: SxProps<Theme>;
-  CustomMenuProps?: boolean;
+  disableOverlap?: boolean;
 }
 
 export default function Select<T extends FieldValues>({
@@ -44,7 +43,7 @@ export default function Select<T extends FieldValues>({
   className,
   onChange: parentOnChange,
   sx,
-  CustomMenuProps,
+  disableOverlap,
 }: SelectProps<T>) {
   const id = React.useId();
   const ITEM_HEIGHT = 48;
@@ -88,7 +87,7 @@ export default function Select<T extends FieldValues>({
                 parentOnChange();
               }
             }}
-            MenuProps={CustomMenuProps ? MenuProps : undefined}
+            MenuProps={disableOverlap ? MenuProps : undefined}
           >
             {children}
           </MuiSelect>

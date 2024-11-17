@@ -160,6 +160,7 @@ export default function DogBasicFragment() {
                       }
                       onChange={(e, data) => onChange(data)}
                       filterOptions={alphabeticalFilterOption}
+                      filterSelectedOptions
                       value={
                         values.isUnknownBreed
                           ? options?.filter((option) => option.uid === '9998 - C') ?? []

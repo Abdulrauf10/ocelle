@@ -809,12 +809,7 @@ export default function DogForm({
                     validate: {
                       required: (value, { allergies }) => allergies.some((value) => !!value),
                       conflict: (value, { allergies }) => !value || !allergies[0],
-                      allAllergies: (value, { allergies }) => {
-                        const foodAllergies = arrayToAllergies(allergies);
-                        return !Object.values(Recipe).every((recipe) =>
-                          DogHelper.isAllergies(recipe as Recipe, foodAllergies)
-                        );
-                      },
+                      allAllergies: (value, { allergies }) => allergies.slice(-5).some((x) => !x),
                     },
                   }}
                   onChange={() => trigger('allergies')}

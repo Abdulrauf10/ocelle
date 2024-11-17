@@ -324,7 +324,7 @@ export default function ApplyCareerForm({
                               rules={{ required: true }}
                               disableUnderline
                               sx={{ fontSize: '14px' }}
-                              CustomMenuProps
+                              disableOverlap
                             >
                               {getCountryCodes().map((code, idx) => (
                                 <MenuItem sx={{ fontSize: '14px' }} key={idx} value={code}>

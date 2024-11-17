@@ -451,6 +451,7 @@ export default function SubscriptionCheckoutForm({
                             disableUnderline
                             onChange={() => trigger('phone.value')}
                             disabled={isSubmitInProgress}
+                            disableOverlap
                           >
                             {getCountryCodes().map((code, idx) => (
                               <MenuItem key={idx} value={code}>
@@ -501,6 +502,7 @@ export default function SubscriptionCheckoutForm({
                             disableUnderline
                             onChange={() => trigger('phone.value')}
                             disabled={isSubmitInProgress}
+                            disableOverlap
                           >
                             {getCountryCodes().map((code, idx) => (
                               <MenuItem key={idx} value={code}>
