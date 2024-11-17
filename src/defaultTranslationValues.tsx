@@ -1,5 +1,4 @@
 import { RichTranslationValues } from 'next-intl';
-import { individualPackProducts } from './products';
 
 const defaultTranslationValues: RichTranslationValues = {
   i: (chunks) => <i>{chunks}</i>,
@@ -8,7 +7,7 @@ const defaultTranslationValues: RichTranslationValues = {
   dtbr: () => <br className="max-xl:hidden" />,
   smbrhidden: () => <br className="sm:hidden" />,
   mobilebronly: () => <br className="sm:hidden" />,
-  freshbr: () => <br className="inline-block max-lg:hidden" />,
+  freshbr: () => <br className="inline-block max-xl:hidden" />,
   individualheaderbr :()=><br className="inline-block max-lg:hidden" />,
   individualblock9br :()=><br className="inline-block md:hidden" />,
   lgbrdisplay: () => <br className=" max-lg:hidden" />,
