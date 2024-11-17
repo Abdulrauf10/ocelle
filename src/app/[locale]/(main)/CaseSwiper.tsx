@@ -44,7 +44,7 @@ function Slide({ dog, plan, listItems, picture, children }: React.PropsWithChild
           <div className="pt-6"></div>
           <List
             picture={
-              <div className="-mt-px">
+              <div className="-mt-px w-[22px] h-[22px]">
                 <Image
                   src="/home/brown-tick.png"
                   className={'h-[22px] w-[22px]'}

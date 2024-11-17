@@ -693,7 +693,7 @@
     "block-1-content-1": "Somewhere along the way, a daily scoop of kibble became the norm for your dog. <block>But is it enough?</block>",
     "block-2-title": "Did You Know...",
     "block-2-mark-1-title": "Obesity",
-    "block-2-mark-1-content": "Nearly 60% of dogs are overweight globally.<sup>1</sup> Prevalence has increased, with certain areas up ~158% between 2007 and <block>2017.<sup>2</sup></block>",
+    "block-2-mark-1-content": "Nearly 60% of dogs are overweight globally.<sup>1</sup> Prevalence has increased, with certain areas up ~158% between 2007 <block>and 2017.<sup>2</sup></block>",
     "block-2-mark-2-title": "Diabetes",
     "block-2-mark-2-content": "Prevalence has increased, with certain areas up ~80% since <block>2006.<sup>3</sup></block>",
     "block-2-mark-3-title": "Dental Disease",

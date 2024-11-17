@@ -25,7 +25,8 @@
     "migration:show": "npm run typeorm:mysql -- migration:show",
     "migration:revert": "npm run typeorm:mysql -- migration:revert",
     "i18n:generate": "node scripts/import18.mjs",
-    "i18n:export": "node scripts/export18.mjs"
+    "i18n:export": "node scripts/export18.mjs",
+    "docker:up": "cd C:\\Users\\user\\Documents\\saleor-platform && docker-compose up"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.6.4",
