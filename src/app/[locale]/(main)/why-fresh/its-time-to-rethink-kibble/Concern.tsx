@@ -16,23 +16,36 @@ function Toggler({
   title,
   className,
   children,
-  onShow,
-  togglerId,
-  show,
 }: {
   title: React.ReactNode;
   className?: { root?: string };
   children: React.ReactNode;
-  onShow: any;
-  show: boolean;
-  togglerId: number;
 }) {
-  const handleShow = () => onShow && onShow(togglerId);
+  const ref = React.useRef<HTMLDivElement>(null);
+  const [show, setShow] = React.useState(false);
 
+  const handleShow = () => {
+    if (!show) {
+      setTimeout(() => {
+        if (ref.current) {
+          const elementRect = ref.current.getBoundingClientRect();
+          const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+          const absoluteElementTop = elementRect.top + scrollPosition;
+          const targetScrollTop = absoluteElementTop - 150;
+          window.scrollTo({
+            top: targetScrollTop,
+            behavior: 'smooth',
+          });
+        }
+      }, 300);
+    }
+    setShow(!show);
+  };
   return (
     <div
+      ref={ref}
       className={clsx(
-        'sh rounded-[20px] border border-gray bg-white px-8 py-6 shadow-black/20 drop-shadow-style-2 max-md:p-6',
+        'cursor-pointer rounded-[20px] border border-gray bg-white px-8 py-6 shadow-black/20 drop-shadow-style-2 max-md:p-6',
         className?.root
       )}
       onClick={handleShow}
@@ -43,8 +56,9 @@ function Toggler({
           {show ? <Sub className="w-4" /> : <Plus className="w-4" />}
         </button>
       </div>
-      <Collapse in={show}>
+      <Collapse in={show} timeout={300}>
         <hr className="my-4 border-gray" />
+        {/* <div className="mb-2 mt-6 max-lg:lang-en:-mx-2 max-sm:lang-en:-mx-2 md:lang-en:-mx-2"> */}
         <div className="mb-2 mt-6">{children}</div>
       </Collapse>
     </div>
@@ -93,9 +107,7 @@ export default function Concern() {
           {i.rich('block-5-title')}
         </h2>
         <Toggler
-          show={showId === 1}
-          togglerId={1}
-          onShow={handleShow}
+
           className={{ root: 'mt-6' }}
           title={
             <ConcernTitle
@@ -113,9 +125,6 @@ export default function Concern() {
           <p className="body-1">{i.rich('block-5-mark-1-content-3')}</p>
         </Toggler>
         <Toggler
-          show={showId === 2}
-          togglerId={2}
-          onShow={handleShow}
           className={{ root: 'mt-6' }}
           title={
             <ConcernTitle
@@ -135,9 +144,6 @@ export default function Concern() {
           <p className="body-1">{i.rich('block-5-mark-2-content-4')}</p>
         </Toggler>
         <Toggler
-          show={showId === 3}
-          togglerId={3}
-          onShow={handleShow}
           className={{ root: 'mt-6' }}
           title={
             <ConcernTitle
@@ -157,9 +163,6 @@ export default function Concern() {
           <p className="body-1">{i.rich('block-5-mark-3-content-4')}</p>
         </Toggler>
         <Toggler
-          show={showId === 4}
-          togglerId={4}
-          onShow={handleShow}
           className={{ root: 'mt-6' }}
           title={
             <ConcernTitle
