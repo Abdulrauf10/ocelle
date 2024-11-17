@@ -998,6 +998,8 @@ async function setup() {
   await prugeDefaultCategory();
   await prugeDefaultWarehouse();
   await prugeDefaultShippingZone();
+
+  process.exit(0);
 }
 
 setup();
