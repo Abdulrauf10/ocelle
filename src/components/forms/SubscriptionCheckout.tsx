@@ -16,6 +16,7 @@ import PartialBillingAddressForm, { IPartialBillingAddressForm } from './partial
 import PartialCardStripeForm, { useCardStripeForm } from './partial/CardStripe';
 import PartialShippingAddressForm, { IPartialShippingAddressForm } from './partial/ShippingAddress';
 
+import { useSurvey } from '@/app/[locale]/get-started/SurveyContext';
 import Container from '@/components/Container';
 import Price from '@/components/Price';
 import Button from '@/components/buttons/Button';
@@ -41,7 +42,6 @@ import {
 import { getCountryCodes } from '@/helpers/string';
 import useSentence from '@/hooks/useSentence';
 import { CalendarEvent } from '@/types';
-import { useSurvey } from '@/app/[locale]/get-started/SurveyContext';
 
 function Section({
   title,
@@ -149,7 +149,7 @@ export default function SubscriptionCheckoutForm({
   onCompleteTransaction(paymentMethodId: string): Promise<void>;
 }) {
   const { order, setOrder } = useOrder();
-  const {  dogs: surveyDogs} = useSurvey();
+  const { dogs: surveyDogs } = useSurvey();
   const stripe = useStripe();
   const elements = useElements();
   const form = useCardStripeForm();
@@ -298,7 +298,7 @@ export default function SubscriptionCheckoutForm({
   React.useEffect(() => {
     surveyDogs.forEach((dog) => {
       console.log(dog);
-    })
+    });
   }, [surveyDogs]);
 
   const starterBoxDiscount = order.discounts.find(
@@ -483,7 +483,9 @@ export default function SubscriptionCheckoutForm({
                         return String(value).length === 8
                           ? true
                           : t('please-enter-a-valid-{}', {
-                              name: t('Whatsapp-number').split(' ')[0] + (t('Whatsapp-number').split(' ')[1]?.toLowerCase() || ''),
+                              name:
+                                t('Whatsapp-number').split(' ')[0] +
+                                (t('Whatsapp-number').split(' ')[1]?.toLowerCase() || ''),
                             });
                       },
                     }}
@@ -566,7 +568,7 @@ export default function SubscriptionCheckoutForm({
             <Section dense title={t('delivery-date')}>
               <p className="body-3">
                 {t.rich('{}-{}-week-starter-box-will-be-delivered-on-the-{}', {
-                  name: dogs.map(dog => dog.name).join(t('comma')),
+                  name: dogs.map((dog) => dog.name).join(t('comma')),
                   week: 2,
                   date: sentence.date(watch('deliveryDate'), true),
                 })}{' '}
