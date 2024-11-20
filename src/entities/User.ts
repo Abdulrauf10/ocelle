@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryColumn, type Relation } from 'typeorm';
 
-import { Dog, Order, Shipment } from '.';
+import { Coupon, Dog, Order, Shipment } from '.';
 
 @Entity({ name: 'user' })
 export default class User {
@@ -33,4 +33,7 @@ export default class User {
 
   @OneToMany(() => Order, (order) => order.user)
   orders!: Relation<Order>[];
+
+  @OneToMany(() => Coupon, (order) => order.user)
+  coupons!: Relation<Coupon>[];
 }

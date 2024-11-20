@@ -1,0 +1,92 @@
+fragment Voucher on Voucher {
+  id
+  codes {
+    edges {
+      node {
+        id
+        code
+        used
+        isActive
+        createdAt
+      }
+    }
+  }
+  usageLimit
+  startDate
+  endDate
+  applyOncePerOrder
+  applyOncePerCustomer
+  singleUse
+  discountValueType
+  discountValue
+  currency
+  minSpent {
+    ...Money
+  }
+  type
+  channelListings {
+    channel {
+      ...Channel
+    }
+    discountValue
+    currency
+    minSpent {
+      ...Money
+    }
+  }
+}
+
+query GetVoucher($id: ID!) {
+  voucher(id: $id) {
+    ...Voucher
+  }
+}
+
+query FindVouchers($filter: VoucherFilterInput!) {
+  vouchers(filter: $filter) {
+    edges {
+      node {
+        ...Voucher
+      }
+    }
+  }
+}
+
+mutation CreateVoucher($input: VoucherInput!) {
+  voucherCreate(input: $input) {
+    voucher {
+      ...Voucher
+    }
+    errors {
+      field
+      code
+      message
+    }
+  }
+}
+
+mutation DeleteVoucher($id: ID!) {
+  voucherDelete(id: $id) {
+    voucher {
+      ...Voucher
+    }
+    errors {
+      field
+      code
+      message
+    }
+  }
+}
+
+mutation UpdateVoucherChannelListing($id: ID!, $input: VoucherChannelListingInput!) {
+  voucherChannelListingUpdate(id: $id, input: $input) {
+    voucher {
+      ...Voucher
+    }
+    errors {
+      field
+      code
+      message
+    }
+  }
+}
