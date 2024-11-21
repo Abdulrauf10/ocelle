@@ -32,6 +32,7 @@ import { PadSpace } from '@/enums';
 import { CountryCode, OrderDiscountType, OrderFragment } from '@/gql/graphql';
 import { getNextRecurringBoxPreiod } from '@/helpers/box';
 import { formatCurrency } from '@/helpers/currency';
+import DogHelper from '@/helpers/dog';
 import RecipeHelper from '@/helpers/recipe';
 import {
   getEditableRecurringBoxDeadline,
@@ -297,7 +298,59 @@ export default function SubscriptionCheckoutForm({
 
   React.useEffect(() => {
     surveyDogs.forEach((dog) => {
-      console.log(dog);
+      const idealWeight = DogHelper.calculateIdealWeight(dog.weight!, dog.bodyCondition!);
+      const breeds = dog.breeds || [];
+      const dateOfBirth =
+        typeof dog.age === 'string'
+          ? new Date(dog.age!)
+          : DogHelper.getDateOfBirth(dog.age!.years, dog.age!.months);
+      const lifeStage = DogHelper.getLifeStage(breeds, dateOfBirth);
+      const derMultiplier = DogHelper.getDerMultiplier(
+        breeds,
+        dateOfBirth,
+        dog.isNeutered!,
+        dog.activityLevel!
+      );
+      const dailyCalorie = RecipeHelper.calculateDailyCalorieRequirement(
+        idealWeight,
+        derMultiplier,
+        dog.mealPlan!
+      );
+      const dailyPortionSize = {
+        recipe1: RecipeHelper.calculateDailyProtionSize(dailyCalorie, dog.recipe1!),
+        recipe2: dog.recipe2
+          ? RecipeHelper.calculateDailyProtionSize(dailyCalorie, dog.recipe2)
+          : undefined,
+      };
+      const totalPortionSize = {
+        recipe1: RecipeHelper.calculateRecipeTotalProtionsInBox(
+          breeds,
+          dateOfBirth,
+          dog.isNeutered!,
+          dog.weight!,
+          dog.bodyCondition!,
+          dog.activityLevel!,
+          { recipeToBeCalcuate: dog.recipe1!, recipeReference: dog.recipe2 },
+          dog.mealPlan!,
+          Frequency.TwoWeek,
+          dog.isEnabledTransitionPeriod!
+        ),
+        recipe2: dog.recipe2
+          ? RecipeHelper.calculateRecipeTotalProtionsInBox(
+              breeds,
+              dateOfBirth,
+              dog.isNeutered!,
+              dog.weight!,
+              dog.bodyCondition!,
+              dog.activityLevel!,
+              { recipeToBeCalcuate: dog.recipe2, recipeReference: dog.recipe1! },
+              dog.mealPlan!,
+              Frequency.TwoWeek,
+              dog.isEnabledTransitionPeriod!
+            )
+          : undefined,
+      };
+      console.log({ idealWeight, breeds, lifeStage, dailyPortionSize, totalPortionSize });
     });
   }, [surveyDogs]);
 

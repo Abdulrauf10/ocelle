@@ -49,7 +49,7 @@ class CalendarService {
           event.summary
         )
       ) {
-        event.start = subDays(event.start, 1);
+        event.start = subDays(event.start, 2);
       }
     }
     return events;
