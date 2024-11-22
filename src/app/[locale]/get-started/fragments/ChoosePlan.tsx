@@ -22,13 +22,16 @@ export default function ChoosePlanFragment() {
   const location = useLocation();
   const { padSpace } = useSentence();
   const { getDog, setDog } = useSurvey();
-  const { name, mealPlan } = getDog();
+  const { name, mealPlan } = getDog(location.state?.dogIndex);
   const firstUpdate = React.useRef(true);
   const minPrices = React.useMemo(() => {
     return getSurveySessionStore().get('min-prices') as MinPricesDto | undefined;
   }, []);
   const [currentMealPlan, setCurrentMealPlan] = React.useState<MealPlan>(mealPlan ?? MealPlan.Full);
   const [error, setError] = React.useState<string>();
+
+  console.log('location.state?.dogIndex', location.state?.dogIndex);
+  console.log(getDog(location.state?.dogIndex));
 
   React.useEffect(() => {
     if (firstUpdate.current && currentMealPlan == null) {
@@ -43,7 +46,7 @@ export default function ChoosePlanFragment() {
     if (currentMealPlan == null) {
       setError(t('you-must-select-either-one-of-the-plan'));
     } else {
-      setDog({ mealPlan: currentMealPlan });
+      setDog({ mealPlan: currentMealPlan }, location.state?.dogIndex);
       if (location.state?.isEdit) {
         navigate(Stage.Processing, { replace: true });
       } else {

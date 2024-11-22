@@ -143,9 +143,9 @@ export default function SubscriptionCheckoutForm({
   closestDeliveryDate: Date;
   calendarEvents: CalendarEvent[];
   onApplyCoupon({ coupon }: { coupon: string }): Promise<OrderFragment>;
-  onEditMealPlan(): void;
-  onEditRecipes(): void;
-  onEditTransitionPeriod(): void;
+  onEditMealPlan(dogIndex: number): void;
+  onEditRecipes(dogIndex: number): void;
+  onEditTransitionPeriod(dogIndex: number): void;
   onBeforeTransaction(data: ISubscriptionCheckoutFormAction): Promise<void>;
   onCompleteTransaction(paymentMethodId: string): Promise<void>;
 }) {
@@ -350,7 +350,14 @@ export default function SubscriptionCheckoutForm({
             )
           : undefined,
       };
-      console.log({ idealWeight, breeds, lifeStage, dailyPortionSize, totalPortionSize });
+      console.log({
+        name: dog.name!,
+        idealWeight,
+        breeds,
+        lifeStage,
+        dailyPortionSize,
+        totalPortionSize,
+      });
     });
   }, [surveyDogs]);
 
@@ -621,7 +628,7 @@ export default function SubscriptionCheckoutForm({
             <Section dense title={t('delivery-date')}>
               <p className="body-3">
                 {t.rich('{}-{}-week-starter-box-will-be-delivered-on-the-{}', {
-                  name: dogs.map((dog) => dog.name).join(t('comma')),
+                  name: dogs.map((dog) => t('{}-apostrophe', { value: dog.name })).join(t('comma')),
                   week: 2,
                   date: sentence.date(watch('deliveryDate'), true),
                 })}{' '}
@@ -699,7 +706,10 @@ export default function SubscriptionCheckoutForm({
                             ? t('fresh-full-plan')
                             : t('fresh-half-plan')}
                         </strong>
-                        <EditButton disabled={isSubmitInProgress} onClick={onEditMealPlan} />
+                        <EditButton
+                          disabled={isSubmitInProgress}
+                          onClick={() => onEditMealPlan(idx)}
+                        />
                       </div>
                     </div>
                     <div className="mt-3"></div>
@@ -710,7 +720,10 @@ export default function SubscriptionCheckoutForm({
                           {t(RecipeHelper.getSlug(dog.recipe1))}
                           {dog.recipe2 != null && `, ${t(RecipeHelper.getSlug(dog.recipe2))}`}
                         </strong>
-                        <EditButton disabled={isSubmitInProgress} onClick={onEditRecipes} />
+                        <EditButton
+                          disabled={isSubmitInProgress}
+                          onClick={() => onEditRecipes(idx)}
+                        />
                       </div>
                     </div>
                     <div className="mt-3"></div>
@@ -730,7 +743,7 @@ export default function SubscriptionCheckoutForm({
                         </strong>
                         <EditButton
                           disabled={isSubmitInProgress}
-                          onClick={onEditTransitionPeriod}
+                          onClick={() => onEditTransitionPeriod(idx)}
                         />
                       </div>
                     </div>

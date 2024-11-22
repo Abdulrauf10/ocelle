@@ -116,7 +116,7 @@ export default function RecommendedPlanFragment() {
     recipe1,
     recipe2,
     isEnabledTransitionPeriod,
-  } = getDog();
+  } = getDog(location.state?.dogIndex);
   const {
     control,
     watch,
@@ -172,7 +172,10 @@ export default function RecommendedPlanFragment() {
   const onSubmit = React.useCallback(
     ({ transition, recipe }: RecommendedPlanForm) => {
       const { recipe1, recipe2 } = arrayToRecipe(recipe);
-      setDog({ recipe1, recipe2, isEnabledTransitionPeriod: stringToBoolean(transition) });
+      setDog(
+        { recipe1, recipe2, isEnabledTransitionPeriod: stringToBoolean(transition) },
+        location.state?.dogIndex
+      );
       if (location.state?.isEdit) {
         navigate(Stage.Processing, { replace: true });
       } else {
@@ -515,7 +518,7 @@ export default function RecommendedPlanFragment() {
                   </div>
                 </div>
               </div>
-              <div className="mx-auto mt-10 max-w-[840px] rounded-[20px] border border-primary bg-white lang-zh:p-6 p-7 text-primary shadow-black/20 drop-shadow-style-1">
+              <div className="mx-auto mt-10 max-w-[840px] rounded-[20px] border border-primary bg-white p-7 text-primary shadow-black/20 drop-shadow-style-1 lang-zh:p-6">
                 <h2 className="heading-4 font-bold">
                   {t('use-a-transition-period-in-starter-box')}
                 </h2>

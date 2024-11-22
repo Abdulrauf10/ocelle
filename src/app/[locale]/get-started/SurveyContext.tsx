@@ -48,8 +48,8 @@ interface SurveyContextProps {
   currentDogIdx: number;
   dogs: Dog[];
   owner: Owner;
-  getDog(): Dog;
-  setDog(values: Partial<Dog>): void;
+  getDog(index?: number): Dog;
+  setDog(values: Partial<Dog>, index?: number): void;
   prevDog(): void;
   nextDog(): void;
   setOwner(owner: Owner): void;
@@ -60,20 +60,23 @@ const SurveyContext = React.createContext<SurveyContextProps | undefined>(undefi
 const surveySession = getSurveySessionStore();
 
 export function SurveyContextProvider({ children }: React.PropsWithChildren) {
-  const locale = useLocale();
   const [dogs, setDogs] = React.useState<Dog[]>(surveySession.get('dogs') ?? []);
   const [owner, _setOwner] = React.useState<Owner>(surveySession.get('owner') ?? {});
   const [currentDog, setCurrentDog] = React.useState(0);
 
-  const getDog = React.useCallback(() => {
-    return dogs[currentDog] || {};
-  }, [dogs, currentDog]);
+  const getDog = React.useCallback(
+    (index?: number) => {
+      return dogs[index ?? currentDog] || {};
+    },
+    [dogs, currentDog]
+  );
 
   const setDog = React.useCallback(
-    (values: Partial<Dog>) => {
+    (values: Partial<Dog>, index?: number) => {
+      console.log(values, index);
       const nextDogs = cloneDeep(dogs);
-      nextDogs[currentDog] = {
-        ...nextDogs[currentDog],
+      nextDogs[index ?? currentDog] = {
+        ...nextDogs[index ?? currentDog],
         ...values,
       };
       setDogs(nextDogs);

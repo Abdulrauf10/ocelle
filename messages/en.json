@@ -239,7 +239,7 @@
   "cvc": "CVC",
   "the-delivery-date-has-been-successfully-updated": "Your delivery date has been successfully updated.",
   "delivery-date": "Delivery Date",
-  "{}-{}-week-starter-box-will-be-delivered-on-the-{}": "{name}’s {week}-week starter box will be delivered on the <block>{date}.</block>",
+  "{}-{}-week-starter-box-will-be-delivered-on-the-{}": "{name} {week}-week starter box will be delivered on the <block>{date}.</block>",
   "after-checkout-you-can-adjust-your-delivery-date-until-the-{}": "After checkout, you can adjust your delivery date until the <block>{date}.</block>",
   "order-summary": "Order Summary",
   "{}-for-{}-diet-at-a-total-of-{}-per-day": "{plan} for {name}’s diet, at a total of {price} per day.",

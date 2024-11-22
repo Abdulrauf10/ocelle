@@ -71,10 +71,14 @@ export default function CheckoutFragment() {
               closestDeliveryDate={state.closestDeliveryDate}
               calendarEvents={state.calendarEvents}
               onApplyCoupon={applyCoupon}
-              onEditMealPlan={() => navigate(Stage.ChoosePlan, { state: { isEdit: true } })}
-              onEditRecipes={() => navigate(Stage.RecommendedPlan, { state: { isEdit: true } })}
-              onEditTransitionPeriod={() =>
-                navigate(Stage.RecommendedPlan, { state: { isEdit: true } })
+              onEditMealPlan={(dogIndex) =>
+                navigate(Stage.ChoosePlan, { state: { isEdit: true, dogIndex } })
+              }
+              onEditRecipes={(dogIndex) =>
+                navigate(Stage.RecommendedPlan, { state: { isEdit: true, dogIndex } })
+              }
+              onEditTransitionPeriod={(dogIndex) =>
+                navigate(Stage.RecommendedPlan, { state: { isEdit: true, dogIndex } })
               }
               onBeforeTransaction={handleMutateDraftOrder}
               onCompleteTransaction={finalizeDraftOrder}
