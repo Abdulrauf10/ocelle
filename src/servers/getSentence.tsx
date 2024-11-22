@@ -144,7 +144,7 @@ export default async function getSentence() {
       if (!str || str.length === 0 || locale === 'en') {
         return str;
       }
-      const regex = /[a-z]/i;
+      const regex = /[a-z0-9]/i;
       const stChar = str[0];
       const endChar = str[Math.max(str.length - 1, 0)];
 
