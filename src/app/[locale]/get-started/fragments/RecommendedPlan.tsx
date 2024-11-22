@@ -208,7 +208,7 @@ export default function RecommendedPlanFragment() {
     t('choline-bitartrate'),
   ];
 
-  const defaultRecommendedRecipes = React.useMemo(() => {
+  const defaultPreviewRecipes = React.useMemo(() => {
     let recipe1: Recipe | undefined = undefined;
     let recipe2: Recipe | undefined = undefined;
 
@@ -236,6 +236,34 @@ export default function RecommendedPlanFragment() {
     }
 
     return { recipe1, recipe2 };
+  }, [pickiness, activityLevel, bodyCondition, foodAllergies]);
+
+  const fallbackRecommandedRecipe = React.useMemo(() => {
+    let recipe1: Recipe | undefined = undefined;
+
+    for (const recipe of getRecipeOptions()) {
+      const recommended = RecipeHelper.isRecommended(
+        recipe,
+        pickiness!,
+        activityLevel!,
+        bodyCondition!,
+        foodAllergies!
+      );
+      if (recommended) {
+        if (!recipe1) recipe1 = recipe;
+        else break;
+      }
+    }
+
+    if (!recipe1) {
+      for (const recipe of getRecipeOptions()) {
+        if (!recipe1 && !DogHelper.isAllergies(recipe, foodAllergies!)) {
+          recipe1 = recipe;
+        }
+      }
+    }
+
+    return recipe1;
   }, [pickiness, activityLevel, bodyCondition, foodAllergies]);
 
   return (
@@ -280,7 +308,7 @@ export default function RecommendedPlanFragment() {
                         picture="/meal-plan/chicken.jpg"
                         dialogPicture={
                           <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#95cfd0] from-30% to-white max-md:pt-[100%]">
-                            <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
+                            <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%] md:max-lg:bottom-1/2 md:max-lg:translate-y-1/2">
                               <PlasticBox name={name ?? ''} recipe={Recipe.Chicken} />
                             </div>
                           </div>
@@ -301,13 +329,15 @@ export default function RecommendedPlanFragment() {
                         targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                         calorie={1540}
                         analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-                        recommended={RecipeHelper.isRecommended(
-                          Recipe.Chicken,
-                          pickiness!,
-                          activityLevel!,
-                          bodyCondition!,
-                          foodAllergies!
-                        )}
+                        recommended={
+                          RecipeHelper.isRecommended(
+                            Recipe.Chicken,
+                            pickiness!,
+                            activityLevel!,
+                            bodyCondition!,
+                            foodAllergies!
+                          ) || fallbackRecommandedRecipe === Recipe.Chicken
+                        }
                         disabled={DogHelper.isAllergies(Recipe.Chicken, foodAllergies!)}
                         readonly={containsTwoRecipes && !watch('recipe')[0]}
                         onChange={() => trigger('recipe')}
@@ -325,7 +355,7 @@ export default function RecommendedPlanFragment() {
                         picture="/meal-plan/pork.jpg"
                         dialogPicture={
                           <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#97cfea] from-30% to-white max-md:pt-[100%]">
-                            <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
+                            <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%] md:max-lg:bottom-1/2 md:max-lg:translate-y-1/2">
                               <PlasticBox name={name ?? ''} recipe={Recipe.Pork} />
                             </div>
                           </div>
@@ -346,13 +376,15 @@ export default function RecommendedPlanFragment() {
                         targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                         calorie={1540}
                         analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-                        recommended={RecipeHelper.isRecommended(
-                          Recipe.Pork,
-                          pickiness!,
-                          activityLevel!,
-                          bodyCondition!,
-                          foodAllergies!
-                        )}
+                        recommended={
+                          RecipeHelper.isRecommended(
+                            Recipe.Pork,
+                            pickiness!,
+                            activityLevel!,
+                            bodyCondition!,
+                            foodAllergies!
+                          ) || fallbackRecommandedRecipe === Recipe.Pork
+                        }
                         disabled={DogHelper.isAllergies(Recipe.Pork, foodAllergies!)}
                         readonly={containsTwoRecipes && !watch('recipe')[1]}
                         onChange={() => trigger('recipe')}
@@ -370,7 +402,7 @@ export default function RecommendedPlanFragment() {
                         picture="/meal-plan/duck.jpg"
                         dialogPicture={
                           <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#f9cc81] from-30% to-white max-md:pt-[100%]">
-                            <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
+                            <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%] md:max-lg:bottom-1/2 md:max-lg:translate-y-1/2">
                               <PlasticBox name={name ?? ''} recipe={Recipe.Duck} />
                             </div>
                           </div>
@@ -390,13 +422,15 @@ export default function RecommendedPlanFragment() {
                         targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                         calorie={1540}
                         analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-                        recommended={RecipeHelper.isRecommended(
-                          Recipe.Duck,
-                          pickiness!,
-                          activityLevel!,
-                          bodyCondition!,
-                          foodAllergies!
-                        )}
+                        recommended={
+                          RecipeHelper.isRecommended(
+                            Recipe.Duck,
+                            pickiness!,
+                            activityLevel!,
+                            bodyCondition!,
+                            foodAllergies!
+                          ) || fallbackRecommandedRecipe === Recipe.Duck
+                        }
                         disabled={DogHelper.isAllergies(Recipe.Duck, foodAllergies!)}
                         readonly={containsTwoRecipes && !watch('recipe')[2]}
                         onChange={() => trigger('recipe')}
@@ -414,7 +448,7 @@ export default function RecommendedPlanFragment() {
                         picture="/meal-plan/beef.jpg"
                         dialogPicture={
                           <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#f7c1b5] from-30% to-white max-md:pt-[100%]">
-                            <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
+                            <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%] md:max-lg:bottom-1/2 md:max-lg:translate-y-1/2">
                               <PlasticBox name={name ?? ''} recipe={Recipe.Beef} />
                             </div>
                           </div>
@@ -435,13 +469,15 @@ export default function RecommendedPlanFragment() {
                         targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                         calorie={1540}
                         analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-                        recommended={RecipeHelper.isRecommended(
-                          Recipe.Beef,
-                          pickiness!,
-                          activityLevel!,
-                          bodyCondition!,
-                          foodAllergies!
-                        )}
+                        recommended={
+                          RecipeHelper.isRecommended(
+                            Recipe.Beef,
+                            pickiness!,
+                            activityLevel!,
+                            bodyCondition!,
+                            foodAllergies!
+                          ) || fallbackRecommandedRecipe === Recipe.Beef
+                        }
                         disabled={DogHelper.isAllergies(Recipe.Beef, foodAllergies!)}
                         readonly={containsTwoRecipes && !watch('recipe')[3]}
                         onChange={() => trigger('recipe')}
@@ -459,7 +495,7 @@ export default function RecommendedPlanFragment() {
                         picture="/meal-plan/lamb.jpg"
                         dialogPicture={
                           <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#cae8b8] from-30% to-white max-md:pt-[100%]">
-                            <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
+                            <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%] md:max-lg:bottom-1/2 md:max-lg:translate-y-1/2">
                               <PlasticBox name={name ?? ''} recipe={Recipe.Lamb} />
                             </div>
                           </div>
@@ -479,13 +515,15 @@ export default function RecommendedPlanFragment() {
                         targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
                         calorie={1540}
                         analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-                        recommended={RecipeHelper.isRecommended(
-                          Recipe.Lamb,
-                          pickiness!,
-                          activityLevel!,
-                          bodyCondition!,
-                          foodAllergies!
-                        )}
+                        recommended={
+                          RecipeHelper.isRecommended(
+                            Recipe.Lamb,
+                            pickiness!,
+                            activityLevel!,
+                            bodyCondition!,
+                            foodAllergies!
+                          ) || fallbackRecommandedRecipe === Recipe.Lamb
+                        }
                         disabled={DogHelper.isAllergies(Recipe.Lamb, foodAllergies!)}
                         readonly={containsTwoRecipes && !watch('recipe')[4]}
                         onChange={() => trigger('recipe')}
@@ -495,11 +533,9 @@ export default function RecommendedPlanFragment() {
                       <div className="relative mx-auto w-full max-w-[520px]">
                         <PlasticBoxPreview
                           name={name ?? ''}
-                          recipe1={
-                            recipes.recipe1 ?? defaultRecommendedRecipes.recipe1 ?? Recipe.Pork
-                          }
+                          recipe1={recipes.recipe1 ?? defaultPreviewRecipes.recipe1 ?? Recipe.Pork}
                           recipe2={
-                            recipes.recipe1 ? recipes.recipe2 : defaultRecommendedRecipes.recipe2
+                            recipes.recipe1 ? recipes.recipe2 : defaultPreviewRecipes.recipe2
                           }
                         />
                       </div>
@@ -510,10 +546,8 @@ export default function RecommendedPlanFragment() {
                   <div className="flex h-full items-center pt-[40px]">
                     <PlasticBoxPreview
                       name={name ?? ''}
-                      recipe1={recipes.recipe1 ?? defaultRecommendedRecipes.recipe1 ?? Recipe.Pork}
-                      recipe2={
-                        recipes.recipe1 ? recipes.recipe2 : defaultRecommendedRecipes.recipe2
-                      }
+                      recipe1={recipes.recipe1 ?? defaultPreviewRecipes.recipe1 ?? Recipe.Pork}
+                      recipe2={recipes.recipe1 ? recipes.recipe2 : defaultPreviewRecipes.recipe2}
                     />
                   </div>
                 </div>

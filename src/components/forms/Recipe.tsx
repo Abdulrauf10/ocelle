@@ -16,7 +16,7 @@ import PlasticBox from '../layouts/PlasticBox';
 
 import { ActivityLevel, BodyCondition, FoodAllergies, Pickiness, Recipe } from '@/enums';
 import DogHelper from '@/helpers/dog';
-import { arrayToRecipe, recipeToArray } from '@/helpers/form';
+import { arrayToRecipe, getRecipeOptions, recipeToArray } from '@/helpers/form';
 import RecipeHelper from '@/helpers/recipe';
 import useDefaultValues from '@/hooks/defaultValues';
 import useSentence from '@/hooks/useSentence';
@@ -132,6 +132,34 @@ export default function RecipeForm({
     t('choline-bitartrate'),
   ];
 
+  const fallbackRecommandedRecipe = React.useMemo(() => {
+    let recipe1: Recipe | undefined = undefined;
+
+    for (const recipe of getRecipeOptions()) {
+      const recommended = RecipeHelper.isRecommended(
+        recipe,
+        pickiness!,
+        activityLevel!,
+        bodyCondition!,
+        foodAllergies!
+      );
+      if (recommended) {
+        if (!recipe1) recipe1 = recipe;
+        else break;
+      }
+    }
+
+    if (!recipe1) {
+      for (const recipe of getRecipeOptions()) {
+        if (!recipe1 && !DogHelper.isAllergies(recipe, foodAllergies!)) {
+          recipe1 = recipe;
+        }
+      }
+    }
+
+    return recipe1;
+  }, [pickiness, activityLevel, bodyCondition, foodAllergies]);
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mx-auto flex max-w-[820px] flex-wrap justify-center">
@@ -148,7 +176,7 @@ export default function RecipeForm({
             picture="/meal-plan/chicken.jpg"
             dialogPicture={
               <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#97cfea] from-30% to-white max-md:pt-[100%]">
-                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
+                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%] md:max-lg:bottom-1/2 md:max-lg:translate-y-1/2">
                   <PlasticBox name={name!} recipe={Recipe.Chicken} />
                 </div>
               </div>
@@ -169,13 +197,15 @@ export default function RecipeForm({
             targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={1540}
             analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-            recommended={RecipeHelper.isRecommended(
-              Recipe.Chicken,
-              pickiness!,
-              activityLevel!,
-              bodyCondition!,
-              foodAllergies!
-            )}
+            recommended={
+              RecipeHelper.isRecommended(
+                Recipe.Chicken,
+                pickiness!,
+                activityLevel!,
+                bodyCondition!,
+                foodAllergies!
+              ) || fallbackRecommandedRecipe === Recipe.Chicken
+            }
             disabled={
               DogHelper.isAllergies(Recipe.Chicken, foodAllergies!) ||
               (containsTwoRecipes && !watch('recipe')[0])
@@ -196,7 +226,7 @@ export default function RecipeForm({
             picture="/meal-plan/pork.jpg"
             dialogPicture={
               <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#97cfea] from-30% to-white max-md:pt-[100%]">
-                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
+                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%] md:max-lg:bottom-1/2 md:max-lg:translate-y-1/2">
                   <PlasticBox name={name!} recipe={Recipe.Pork} />
                 </div>
               </div>
@@ -217,13 +247,15 @@ export default function RecipeForm({
             targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={1540}
             analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-            recommended={RecipeHelper.isRecommended(
-              Recipe.Pork,
-              pickiness!,
-              activityLevel!,
-              bodyCondition!,
-              foodAllergies!
-            )}
+            recommended={
+              RecipeHelper.isRecommended(
+                Recipe.Pork,
+                pickiness!,
+                activityLevel!,
+                bodyCondition!,
+                foodAllergies!
+              ) || fallbackRecommandedRecipe === Recipe.Pork
+            }
             disabled={
               DogHelper.isAllergies(Recipe.Pork, foodAllergies!) ||
               (containsTwoRecipes && !watch('recipe')[1])
@@ -244,7 +276,7 @@ export default function RecipeForm({
             picture="/meal-plan/duck.jpg"
             dialogPicture={
               <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#f9cc81] from-30% to-white max-md:pt-[100%]">
-                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
+                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%] md:max-lg:bottom-1/2 md:max-lg:translate-y-1/2">
                   <PlasticBox name={name!} recipe={Recipe.Duck} />
                 </div>
               </div>
@@ -264,13 +296,15 @@ export default function RecipeForm({
             targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={1540}
             analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-            recommended={RecipeHelper.isRecommended(
-              Recipe.Duck,
-              pickiness!,
-              activityLevel!,
-              bodyCondition!,
-              foodAllergies!
-            )}
+            recommended={
+              RecipeHelper.isRecommended(
+                Recipe.Duck,
+                pickiness!,
+                activityLevel!,
+                bodyCondition!,
+                foodAllergies!
+              ) || fallbackRecommandedRecipe === Recipe.Duck
+            }
             disabled={
               DogHelper.isAllergies(Recipe.Duck, foodAllergies!) ||
               (containsTwoRecipes && !watch('recipe')[2])
@@ -291,7 +325,7 @@ export default function RecipeForm({
             picture="/meal-plan/beef.jpg"
             dialogPicture={
               <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#f7c1b5] from-30% to-white max-md:pt-[100%]">
-                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
+                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%] md:max-lg:bottom-1/2 md:max-lg:translate-y-1/2">
                   <PlasticBox name={name!} recipe={Recipe.Beef} />
                 </div>
               </div>
@@ -312,13 +346,15 @@ export default function RecipeForm({
             targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={1540}
             analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-            recommended={RecipeHelper.isRecommended(
-              Recipe.Beef,
-              pickiness!,
-              activityLevel!,
-              bodyCondition!,
-              foodAllergies!
-            )}
+            recommended={
+              RecipeHelper.isRecommended(
+                Recipe.Beef,
+                pickiness!,
+                activityLevel!,
+                bodyCondition!,
+                foodAllergies!
+              ) || fallbackRecommandedRecipe === Recipe.Beef
+            }
             disabled={
               DogHelper.isAllergies(Recipe.Beef, foodAllergies!) ||
               (containsTwoRecipes && !watch('recipe')[3])
@@ -339,7 +375,7 @@ export default function RecipeForm({
             picture="/meal-plan/lamb.jpg"
             dialogPicture={
               <div className="relative h-full overflow-hidden rounded-2xl bg-gradient-to-b from-[#cae8b8] from-30% to-white max-md:pt-[100%]">
-                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%]">
+                <div className="absolute bottom-2 left-0 right-0 mx-auto w-[70%] md:max-lg:bottom-1/2 md:max-lg:translate-y-1/2">
                   <PlasticBox name={name!} recipe={Recipe.Lamb} />
                 </div>
               </div>
@@ -359,13 +395,15 @@ export default function RecipeForm({
             targetedNutrientBlendIngredients={targetedNutrientBlendIngredients}
             calorie={1540}
             analysis={{ protein: 19, fat: 5, fibre: 2, moisture: 60 }}
-            recommended={RecipeHelper.isRecommended(
-              Recipe.Lamb,
-              pickiness!,
-              activityLevel!,
-              bodyCondition!,
-              foodAllergies!
-            )}
+            recommended={
+              RecipeHelper.isRecommended(
+                Recipe.Lamb,
+                pickiness!,
+                activityLevel!,
+                bodyCondition!,
+                foodAllergies!
+              ) || fallbackRecommandedRecipe === Recipe.Lamb
+            }
             disabled={
               DogHelper.isAllergies(Recipe.Lamb, foodAllergies!) ||
               (containsTwoRecipes && !watch('recipe')[4])
