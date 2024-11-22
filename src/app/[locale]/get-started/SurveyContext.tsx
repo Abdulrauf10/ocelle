@@ -73,7 +73,6 @@ export function SurveyContextProvider({ children }: React.PropsWithChildren) {
 
   const setDog = React.useCallback(
     (values: Partial<Dog>, index?: number) => {
-      console.log(values, index);
       const nextDogs = cloneDeep(dogs);
       nextDogs[index ?? currentDog] = {
         ...nextDogs[index ?? currentDog],

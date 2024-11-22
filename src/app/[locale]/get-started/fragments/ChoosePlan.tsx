@@ -30,9 +30,6 @@ export default function ChoosePlanFragment() {
   const [currentMealPlan, setCurrentMealPlan] = React.useState<MealPlan>(mealPlan ?? MealPlan.Full);
   const [error, setError] = React.useState<string>();
 
-  console.log('location.state?.dogIndex', location.state?.dogIndex);
-  console.log(getDog(location.state?.dogIndex));
-
   React.useEffect(() => {
     if (firstUpdate.current && currentMealPlan == null) {
       setError(t('you-must-select-either-one-of-the-plan'));

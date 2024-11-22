@@ -379,7 +379,10 @@ export default function GuestCheckoutForm({
                         return String(value).length === 8
                           ? true
                           : t('please-enter-a-valid-{}', {
-                              name: t('Whatsapp-number').toLowerCase(),
+                              name:
+                                t('Whatsapp-number').split(' ')[0] +
+                                ' ' +
+                                (t('Whatsapp-number').split(' ')[1]?.toLowerCase() || ''),
                             });
                       },
                     }}
