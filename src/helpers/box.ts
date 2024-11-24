@@ -19,9 +19,10 @@ export function getInterruptibleNextRecurringBoxPreiod(
 ) {
   const { startDate, endDate } = getNextRecurringBoxPreiod(prevBoxEndDate, frequency);
   const editableDeadline = getEditableRecurringBoxDeadline(events, startDate);
-  if (editableDeadline <= new Date()) {
-    const closestDeliveryDate = getClosestDeliveryDateByDate(events, new Date(), true);
-    return getNextRecurringBoxPreiod(addDays(closestDeliveryDate, 1), frequency);
+  if (editableDeadline > new Date()) {
+    // they still run it as a normal recurring flow
+    return { startDate, endDate };
   }
-  return { startDate, endDate };
+  const closestDeliveryDate = getClosestDeliveryDateByDate(events, new Date(), true);
+  return getNextRecurringBoxPreiod(closestDeliveryDate, frequency);
 }

@@ -36,7 +36,7 @@ import DogHelper from '@/helpers/dog';
 import RecipeHelper from '@/helpers/recipe';
 import {
   getEditableRecurringBoxDeadline,
-  getRecurringBoxDefaultDeliveryDate,
+  getNormalRecurringBoxDefaultDeliveryDate,
   isLegalDeliveryDate,
   isOperationDate,
 } from '@/helpers/shipment';
@@ -837,7 +837,7 @@ export default function SubscriptionCheckoutForm({
                 <p className="body-3">
                   {t('{}-colon', { value: t('next-order') })}
                   {sentence.date(
-                    getRecurringBoxDefaultDeliveryDate(
+                    getNormalRecurringBoxDefaultDeliveryDate(
                       calendarEvents,
                       getNextRecurringBoxPreiod(
                         addDays(watch('deliveryDate'), 14),

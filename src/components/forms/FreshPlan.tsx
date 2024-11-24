@@ -52,7 +52,7 @@ export default function FreshPlanForm({
             selected={plan === MealPlan.Full}
             onSelect={() => setPlan(MealPlan.Full)}
           >
-            {t('fresh-full-plan:description')}
+            {t.rich('fresh-full-plan:description')}
           </FreshPlan>
         </div>
         <div className="w-1/2 px-2 max-lg:mt-8 max-lg:w-full">
@@ -63,7 +63,7 @@ export default function FreshPlanForm({
             selected={plan === MealPlan.Half}
             onSelect={() => setPlan(MealPlan.Half)}
           >
-            {t('fresh-half-plan:description')}
+            {t.rich('fresh-half-plan:description')}
           </FreshPlan>
         </div>
       </div>

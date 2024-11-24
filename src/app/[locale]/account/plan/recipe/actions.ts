@@ -118,7 +118,7 @@ export async function setRecipeAction(data: SetRecipeAction) {
 
     await queryRunner.manager.update(DogPlan, data.plan.id, {
       recipe1: value.recipe1,
-      recipe2: value.recipe2,
+      recipe2: (value.recipe2 ?? null) as Recipe,
     });
   });
 }

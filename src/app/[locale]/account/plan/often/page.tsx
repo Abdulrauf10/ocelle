@@ -9,6 +9,7 @@ import AppThemeProvider from '@/components/AppThemeProvider';
 import Container from '@/components/Container';
 import UnderlineBackButton from '@/components/buttons/UnderlineBackButton';
 import OrderSizeForm from '@/components/forms/Frequency';
+import RecurringBoxNote from '@/components/notes/RecurringBox';
 import ShippableNote from '@/components/notes/Shippable';
 import { Frequency } from '@/enums';
 import PriceService from '@/services/price';
@@ -72,15 +73,13 @@ export default async function PlanOften() {
           <h1 className="heading-4 text-center font-bold text-primary max-lg:mt-6">
             {t('how-often-would-you-like-to-receive-deliveries')}
           </h1>
+          <div className="mx-auto mt-4 max-w-[620px] text-center">
+            <RecurringBoxNote id={dog.id} />
+          </div>
           <OrderSizeForm
             initialFrequency={dog.plan.frequency}
             oneWeekPrice={oneWeekPrice}
             twoWeekPrice={twoWeekPrice}
-            endAdornment={
-              <div className="mx-auto max-w-[620px] text-center">
-                <ShippableNote />
-              </div>
-            }
             action={async (data) => {
               'use server';
               return await setFrequencyAction({ ...data, id: dog.id });

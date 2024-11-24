@@ -200,6 +200,10 @@ class OrderService {
     const checkout = await this.getById(id);
 
     const { transactionInitialize } = await executeGraphQL(InitializeTransactionDocument, {
+      withAuth: false,
+      headers: {
+        Authorization: `Bearer ${process.env.SALEOR_APP_TOKEN}`,
+      },
       variables: {
         checkoutOrOrderId: checkout.id,
         paymentGateway: {

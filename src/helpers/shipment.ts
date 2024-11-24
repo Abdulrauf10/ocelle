@@ -109,7 +109,32 @@ export function getEditableRecurringBoxDeadline(
   );
 }
 
-export function getRecurringBoxDefaultDeliveryDate(events: CalendarEvent[], boxStartDate: Date) {
+export function getInterruptedRecurringBoxDefaultDeliveryDate(
+  events: CalendarEvent[],
+  boxStartDate: Date
+) {
+  const dates = [
+    0, // D = box start date
+    1, // D + delivery
+  ];
+
+  // pick up + delivery stick together
+  while (!isLegalDeliveryDate(subDays(boxStartDate, dates[0] + dates[1]), events)) {
+    dates[1] += 1;
+  }
+
+  console.debug('get interrupted recurring box default delivery date', dates);
+
+  return subDays(
+    startOfDay(boxStartDate),
+    dates.reduce((sum, a) => sum + a, 0)
+  );
+}
+
+export function getNormalRecurringBoxDefaultDeliveryDate(
+  events: CalendarEvent[],
+  boxStartDate: Date
+) {
   const dates = [
     0, // D = box start date
     1, // The box should be delivered before one day of the holiday / the next box start date
@@ -121,7 +146,7 @@ export function getRecurringBoxDefaultDeliveryDate(events: CalendarEvent[], boxS
     dates[2] += 1;
   }
 
-  console.debug('get recurring box default delivery date', dates);
+  console.debug('get normal recurring box default delivery date', dates);
 
   return subDays(
     startOfDay(boxStartDate),

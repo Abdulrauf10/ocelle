@@ -13,6 +13,9 @@ export default async function recurringBoxScheduler() {
           },
         },
       },
+      relations: {
+        dogs: true,
+      },
     });
   });
   console.log('[Recurring Box] Total user to handle: %s', users.length);

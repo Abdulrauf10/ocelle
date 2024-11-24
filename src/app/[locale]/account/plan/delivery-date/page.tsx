@@ -14,6 +14,8 @@ import { executeQuery } from '@/helpers/queryRunner';
 import { getRecurringBoxMinDeliveryDate } from '@/helpers/shipment';
 import calendarService from '@/services/calendar';
 
+const today = startOfDay(new Date());
+
 export default async function PlanDeliveryDate() {
   const { id } = await getLoginedMe();
   const t = await getTranslations();
@@ -31,22 +33,27 @@ export default async function PlanDeliveryDate() {
     });
   });
 
+  const editable = shipments.find((shipment) => shipment.editableDeadline >= today);
+
   return (
     <main className="bg-gold bg-opacity-10 py-10">
       <Container>
         <h1 className="heading-4 text-center font-bold text-primary">
-          {t('edit-{}', { value: t('delivery-date') })}
+          {t('change-{}', { value: t('delivery-date') })}
         </h1>
         <div className="mx-auto mt-4 max-w-[620px] text-center">
           <ShippableNote />
         </div>
-        {shipments[0].editableDeadline > startOfDay(new Date()) && (
+        {editable && (
           <div className="mt-8 text-center">
             <DeliveryDatePickerDialog
-              initialDate={shipments[0].deliveryDate}
+              initialDate={editable.deliveryDate}
               minDate={minDeliveryDate}
               calendarEvents={calendarEvents}
-              action={setDeliveryDateAction}
+              action={async (data) => {
+                'use server';
+                await setDeliveryDateAction({ ...data, id: editable.id });
+              }}
             >
               <Button>{t('reschedule-next-box')}</Button>
             </DeliveryDatePickerDialog>

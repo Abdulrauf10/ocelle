@@ -120,6 +120,12 @@ mutation RequestPasswordReset($email: String!, $redirectUrl: String!) {
 query FindUser($id: ID, $email: String) {
   user(id: $id, email: $email) {
     ...UserDetails
+    defaultBillingAddress {
+      ...UserAddress
+    }
+    defaultShippingAddress {
+      ...UserAddress
+    }
   }
 }
 

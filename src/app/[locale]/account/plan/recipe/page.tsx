@@ -35,7 +35,7 @@ export default async function PlanRecipe() {
             <RecurringBoxNote id={dog.id} />
           </div>
           <p className="mx-auto mt-4 max-w-[620px] text-center text-primary">
-            {t('select-up-to-{}-suitable-recipes-below', { value: 2 })}
+            {t('select-up-to-2-suitable-recipes-below')}
           </p>
           <div className="mt-5">
             <RecipeForm

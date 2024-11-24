@@ -11,10 +11,12 @@ import { getEditableRecurringBoxDeadline } from '@/helpers/shipment';
 import calendarService from '@/services/calendar';
 
 interface SetDeliveryDateAction {
+  id: number;
   date: Date;
 }
 
 const schema = Joi.object<SetDeliveryDateAction>({
+  id: Joi.number().required(),
   date: Joi.date().required(),
 });
 
@@ -38,6 +40,7 @@ export default async function setDeliveryDateAction(data: SetDeliveryDateAction)
   await executeQuery(async (queryRunner) => {
     const shipment = await queryRunner.manager.findOne(Shipment, {
       where: {
+        id: value.id,
         user: {
           id: me.id,
         },
