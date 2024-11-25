@@ -17,7 +17,7 @@ export default function CompletePage() {
   const id = React.useId();
   const t = useTranslations();
   const sentence = useSentence();
-  const cart = useCart();
+  const { clear: clearCart } = useCart();
   const router = useRouter();
   const {
     data: configurations,
@@ -39,9 +39,9 @@ export default function CompletePage() {
   React.useEffect(() => {
     if (configurations) {
       dropCheckoutSession();
-      cart.clear();
+      clearCart();
     }
-  }, [configurations, cart]);
+  }, [configurations, clearCart]);
 
   if (isError) {
     router.replace('/');

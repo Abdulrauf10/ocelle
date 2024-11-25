@@ -147,7 +147,7 @@ mutation UpdateCheckoutAddress(
   checkoutShippingAddressUpdate(
     id: $checkoutId
     shippingAddress: $shippingAddress
-    validationRules: { checkRequiredFields: true }
+    validationRules: { checkRequiredFields: true, checkFieldsFormat: false }
   ) {
     errors {
       field
@@ -161,7 +161,7 @@ mutation UpdateCheckoutAddress(
   checkoutBillingAddressUpdate(
     id: $checkoutId
     billingAddress: $billingAddress
-    validationRules: { checkRequiredFields: true }
+    validationRules: { checkRequiredFields: true, checkFieldsFormat: false }
   ) {
     errors {
       field
