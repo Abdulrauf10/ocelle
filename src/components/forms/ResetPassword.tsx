@@ -5,7 +5,7 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Button from '../buttons/Button';
-import PasswordField from '../controls/PasswordField';
+import OcellePasswordField from '../controls/OcellePasswordField';
 
 interface IResetPasswordForm {
   password: string;
@@ -41,14 +41,14 @@ export default function ResetPasswordForm({
   return (
     <FormProvider {...form}>
       <form className="mx-auto mt-6" onSubmit={handleSubmit(onSubmit)}>
-        <PasswordField
+        <OcellePasswordField
           name="password"
           rules={{ required: true }}
           label={t('new-password')}
           fullWidth
         />
         <div className="py-4"></div>
-        <PasswordField
+        <OcellePasswordField
           name="confirmPassword"
           rules={{ required: true }}
           label={t('confirm-{}', { value: t('new-password') })}

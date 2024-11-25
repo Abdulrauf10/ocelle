@@ -17,7 +17,7 @@ import { InputControllerProps } from '@/types';
 
 type TextFieldHTMLElement = HTMLInputElement | HTMLTextAreaElement;
 
-interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> {
+interface OcelleTextFieldProps<T extends FieldValues> extends InputControllerProps<T> {
   id?: string;
   type?: React.InputHTMLAttributes<unknown>['type'];
   label?: string;
@@ -46,7 +46,7 @@ interface TextFieldProps<T extends FieldValues> extends InputControllerProps<T> 
   onBlur?: React.FocusEventHandler<TextFieldHTMLElement>;
 }
 
-export default function TextField<T extends FieldValues>({
+export default function OcelleTextField<T extends FieldValues>({
   id,
   name,
   placeholder,
@@ -69,7 +69,7 @@ export default function TextField<T extends FieldValues>({
   beforeOnChange,
   onChange: parentOnChange,
   onBlur: parentOnBlur,
-}: TextFieldProps<T>) {
+}: OcelleTextFieldProps<T>) {
   const { control, setValue } = useFormContext<T>();
   // default to false which help global trigger error will shown
   const [shouldNotError, setShouldNotError] = React.useState(false);

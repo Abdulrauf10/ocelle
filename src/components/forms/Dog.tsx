@@ -14,8 +14,8 @@ import Button from '../buttons/Button';
 import UnderlineButton from '../buttons/UnderlineButton';
 import DateCalendar from '../controls/DateCalendar';
 import InteractiveBlock from '../controls/InteractiveBlock';
+import OcelleTextField from '../controls/OcelleTextField';
 import PictureRadio from '../controls/PictureRadio';
-import TextField from '../controls/TextField';
 
 import { getBreeds } from '@/actions';
 import alphabeticalFilterOption from '@/alphabeticalFilterOption';
@@ -245,7 +245,7 @@ export default function DogForm({
     <FormProvider {...form}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <EditDogBlock title={t('name')}>
-          <TextField
+          <OcelleTextField
             name="name"
             rules={{ required: true }}
             placeholder={t('your-dogs-name')}
@@ -650,7 +650,7 @@ export default function DogForm({
         </EditDogBlock>
         <EditDogBlock title={t('currently-{}', { value: t('weight') })}>
           <div className="flex items-center">
-            <TextField
+            <OcelleTextField
               name="weight"
               type="number"
               disableErrorMessage

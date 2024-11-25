@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 
 import CartRows from '../CartRows';
 import UnderlineButton from '../buttons/UnderlineButton';
-import TextField from '../controls/TextField';
+import OcelleTextField from '../controls/OcelleTextField';
 import CouponForm from './Coupon';
 import DatePickerForm from './DatePicker';
 import PartialBillingAddressForm, { IPartialBillingAddressForm } from './partial/BillingAddress';
@@ -266,7 +266,7 @@ export default function GuestCheckoutForm({
               <Section dense title={t('customer-info')}>
                 <div className="-m-2 flex flex-wrap">
                   <div className="w-1/2 p-2 max-sm:w-full">
-                    <TextField
+                    <OcelleTextField
                       name="firstName"
                       label={t('first-name')}
                       rules={{
@@ -280,7 +280,7 @@ export default function GuestCheckoutForm({
                     />
                   </div>
                   <div className="w-1/2 p-2 max-sm:w-full">
-                    <TextField
+                    <OcelleTextField
                       name="lastName"
                       label={t('last-name')}
                       rules={{
@@ -292,7 +292,7 @@ export default function GuestCheckoutForm({
                     />
                   </div>
                   <div className="w-full p-2">
-                    <TextField
+                    <OcelleTextField
                       name="email"
                       label={t('email')}
                       rules={{
@@ -310,7 +310,7 @@ export default function GuestCheckoutForm({
                     />
                   </div>
                   <div className="w-1/2 p-2 max-lg:w-full">
-                    <TextField
+                    <OcelleTextField
                       name="phone.value"
                       label={t('phone-number')}
                       rules={{
@@ -360,7 +360,7 @@ export default function GuestCheckoutForm({
                     />
                   </div>
                   <div className="w-1/2 p-2 max-lg:w-full">
-                    <TextField
+                    <OcelleTextField
                       name="whatsapp.value"
                       label={t('whatsapp-optional')}
                       rules={{

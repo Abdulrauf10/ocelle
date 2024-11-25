@@ -5,7 +5,7 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Button from '../buttons/Button';
-import PasswordField from '../controls/PasswordField';
+import OcellePasswordField from '../controls/OcellePasswordField';
 
 interface IChangePasswordForm {
   currentPassword: string;
@@ -39,7 +39,7 @@ export default function ChangePasswordForm({
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="-m-2 flex flex-wrap">
           <div className="w-full p-2">
-            <PasswordField
+            <OcellePasswordField
               name="currentPassword"
               rules={{ required: true }}
               label={t('current-{}', { value: t('password') })}
@@ -47,7 +47,7 @@ export default function ChangePasswordForm({
             />
           </div>
           <div className="w-1/2 p-2">
-            <PasswordField
+            <OcellePasswordField
               name="newPassword"
               rules={{ required: true }}
               label={t('new-password')}
@@ -55,7 +55,7 @@ export default function ChangePasswordForm({
             />
           </div>
           <div className="w-1/2 p-2">
-            <PasswordField
+            <OcellePasswordField
               name="confirmNewPassword"
               rules={{
                 required: true,

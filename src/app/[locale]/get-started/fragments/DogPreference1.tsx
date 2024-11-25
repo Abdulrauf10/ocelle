@@ -14,8 +14,8 @@ import { pageVariants } from '../transition';
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
+import OcelleTextField from '@/components/controls/OcelleTextField';
 import PictureRadio from '@/components/controls/PictureRadio';
-import TextField from '@/components/controls/TextField';
 import { ActivityLevel, BodyCondition } from '@/enums';
 import { PadSpace } from '@/enums';
 import DogHelper from '@/helpers/dog';
@@ -206,7 +206,7 @@ export default function DogPreference1Fragment() {
                   })}
                 >
                   <div className="flex flex-wrap items-center justify-center">
-                    <TextField
+                    <OcelleTextField
                       name="weight"
                       type="number"
                       disableErrorMessage

@@ -5,7 +5,7 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
 import Button from '../buttons/Button';
-import TextField from '../controls/TextField';
+import OcelleTextField from '../controls/OcelleTextField';
 
 interface IForgetPasswordForm {
   email: string;
@@ -46,7 +46,7 @@ export default function ForgetPasswordForm({
   return (
     <FormProvider {...form}>
       <form className="mx-auto mt-6" onSubmit={handleSubmit(onSubmit)}>
-        <TextField name="email" label={t('email')} rules={{ required: true }} fullWidth />
+        <OcelleTextField name="email" label={t('email')} rules={{ required: true }} fullWidth />
         <div className="py-3"></div>
         {errorMessage && <span className="body-3 text-error">{errorMessage}</span>}
         <div className="py-3"></div>

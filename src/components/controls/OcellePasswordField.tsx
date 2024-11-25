@@ -6,13 +6,13 @@ import { type FieldValues } from 'react-hook-form';
 
 import Visibility from '../icons/Visibility';
 import VisibilityOff from '../icons/VisibilityOff';
-import TextField from './TextField';
+import OcelleTextField from './OcelleTextField';
 
 import { InputControllerProps } from '@/types';
 
 type TextFieldHTMLElement = HTMLInputElement | HTMLTextAreaElement;
 
-interface PasswordFieldProps<T extends FieldValues> extends InputControllerProps<T> {
+interface OcellePasswordFieldProps<T extends FieldValues> extends InputControllerProps<T> {
   label: string;
   fullWidth?: boolean;
   disabled?: boolean;
@@ -22,7 +22,7 @@ interface PasswordFieldProps<T extends FieldValues> extends InputControllerProps
   onBlur?: React.FocusEventHandler<TextFieldHTMLElement>;
 }
 
-export default function PasswordField<T extends FieldValues>({
+export default function OcellePasswordField<T extends FieldValues>({
   name,
   rules,
   label,
@@ -32,7 +32,7 @@ export default function PasswordField<T extends FieldValues>({
   errorOnEmpty,
   onChange,
   onBlur,
-}: PasswordFieldProps<T>) {
+}: OcellePasswordFieldProps<T>) {
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -42,7 +42,7 @@ export default function PasswordField<T extends FieldValues>({
   };
 
   return (
-    <TextField
+    <OcelleTextField
       name={name}
       rules={rules}
       label={label}

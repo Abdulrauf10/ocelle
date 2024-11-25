@@ -6,8 +6,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import Button from '../buttons/Button';
-import PasswordField from '../controls/PasswordField';
-import TextField from '../controls/TextField';
+import OcellePasswordField from '../controls/OcellePasswordField';
+import OcelleTextField from '../controls/OcelleTextField';
 
 import { EMAIL_REGEXP } from '@/consts';
 
@@ -50,7 +50,7 @@ export default function LoginForm({
   return (
     <FormProvider {...form}>
       <form className="mx-auto mt-6" onSubmit={handleSubmit(onSubmit)}>
-        <TextField
+        <OcelleTextField
           name="email"
           label={t('email')}
           rules={{
@@ -60,7 +60,12 @@ export default function LoginForm({
           fullWidth
         />
         <div className="py-4"></div>
-        <PasswordField name="password" rules={{ required: true }} label={t('password')} fullWidth />
+        <OcellePasswordField
+          name="password"
+          rules={{ required: true }}
+          label={t('password')}
+          fullWidth
+        />
         <div className="py-3"></div>
         {errorMessage && <span className="body-3 text-error">{errorMessage}</span>}
         <div className="py-3"></div>

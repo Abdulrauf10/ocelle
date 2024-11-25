@@ -9,7 +9,7 @@ import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
-import TextField from '../controls/TextField';
+import OcelleTextField from '../controls/OcelleTextField';
 import CouponForm from './Coupon';
 import DatePickerForm from './DatePicker';
 import PartialBillingAddressForm, { IPartialBillingAddressForm } from './partial/BillingAddress';
@@ -22,7 +22,7 @@ import Price from '@/components/Price';
 import Button from '@/components/buttons/Button';
 import EditButton from '@/components/buttons/EditButton';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
-import PasswordField from '@/components/controls/PasswordField';
+import OcellePasswordField from '@/components/controls/OcellePasswordField';
 import RoundedCheckbox from '@/components/controls/RoundedCheckbox';
 import Select from '@/components/controls/Select';
 import { EMAIL_REGEXP, PASSWORD_REGEXP, PHONE_REGEXP } from '@/consts';
@@ -379,7 +379,7 @@ export default function SubscriptionCheckoutForm({
               <Section dense title={t('user-account-information')}>
                 <div className="-m-2 flex flex-wrap">
                   <div className="w-1/2 p-2 max-sm:w-full">
-                    <TextField
+                    <OcelleTextField
                       name="firstName"
                       label={t('first-name')}
                       rules={{
@@ -394,7 +394,7 @@ export default function SubscriptionCheckoutForm({
                     />
                   </div>
                   <div className="w-1/2 p-2 max-sm:w-full">
-                    <TextField
+                    <OcelleTextField
                       name="lastName"
                       label={t('last-name')}
                       rules={{
@@ -407,7 +407,7 @@ export default function SubscriptionCheckoutForm({
                     />
                   </div>
                   <div className="w-full p-2">
-                    <TextField
+                    <OcelleTextField
                       name="email"
                       label={t('email')}
                       rules={{
@@ -426,7 +426,7 @@ export default function SubscriptionCheckoutForm({
                     />
                   </div>
                   <div className="w-1/2 p-2 max-sm:w-full">
-                    <PasswordField
+                    <OcellePasswordField
                       name="password"
                       rules={{
                         required: t('please-enter-a-valid-{}', {
@@ -453,7 +453,7 @@ export default function SubscriptionCheckoutForm({
                     />
                   </div>
                   <div className="w-1/2 p-2 max-sm:w-full">
-                    <PasswordField
+                    <OcellePasswordField
                       name="confirmPassword"
                       rules={{
                         required: {
@@ -472,7 +472,7 @@ export default function SubscriptionCheckoutForm({
                     />
                   </div>
                   <div className="w-1/2 p-2 max-lg:w-full">
-                    <TextField
+                    <OcelleTextField
                       name="phone.value"
                       label={t('phone-number')}
                       rules={{
@@ -524,7 +524,7 @@ export default function SubscriptionCheckoutForm({
                     />
                   </div>
                   <div className="w-1/2 p-2 max-lg:w-full">
-                    <TextField
+                    <OcelleTextField
                       name="whatsapp.value"
                       label={t('whatsapp-optional')}
                       rules={{

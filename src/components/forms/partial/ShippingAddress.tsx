@@ -8,7 +8,7 @@ import { type FieldPath, type FieldValues, type PathValue, useFormContext } from
 import { getDistricts } from '@/actions';
 import alphabeticalFilterOption from '@/alphabeticalFilterOption';
 import OcelleAutocomplete from '@/components/controls/OcelleAutocomplete';
-import TextField from '@/components/controls/TextField';
+import OcelleTextField from '@/components/controls/OcelleTextField';
 import { CountryCode } from '@/gql/graphql';
 
 export type IPartialShippingAddressForm = {
@@ -62,7 +62,7 @@ export default function PartialShippingAddressForm<T extends FieldValues>({
   return (
     <div className="-m-2 flex flex-wrap">
       <div className="w-1/2 p-2 max-sm:w-full">
-        <TextField
+        <OcelleTextField
           name={getPath('firstName')}
           label={t('first-name')}
           rules={{
@@ -76,7 +76,7 @@ export default function PartialShippingAddressForm<T extends FieldValues>({
         />
       </div>
       <div className="w-1/2 p-2 max-sm:w-full">
-        <TextField
+        <OcelleTextField
           name={getPath('lastName')}
           label={t('last-name')}
           rules={{
@@ -90,7 +90,7 @@ export default function PartialShippingAddressForm<T extends FieldValues>({
         />
       </div>
       <div className="w-full p-2">
-        <TextField
+        <OcelleTextField
           name={getPath('streetAddress1')}
           label={t('address-line-1')}
           rules={{
@@ -104,7 +104,7 @@ export default function PartialShippingAddressForm<T extends FieldValues>({
         />
       </div>
       <div className="w-full p-2">
-        <TextField
+        <OcelleTextField
           name={getPath('streetAddress2')}
           label={t('address-line-2-optional')}
           disabled={disabled}

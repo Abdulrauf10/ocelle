@@ -12,8 +12,8 @@ import {
 } from 'react-hook-form';
 import { mergeRefs } from 'react-merge-refs';
 
+import OcelleTextField from '../controls/OcelleTextField';
 import Select from '../controls/Select';
-import TextField from '../controls/TextField';
 import Close from '../icons/Close';
 
 import Container from '@/components/Container';
@@ -207,7 +207,7 @@ export default function ApplyCareerForm({
                         {t('first-name-career')}
                         <span className="relative top-[-2px] text-error">*</span>
                       </label>
-                      <TextField
+                      <OcelleTextField
                         sx={{ input: { fontSize: '14px' } }}
                         id="firstName"
                         name="firstName"
@@ -227,7 +227,7 @@ export default function ApplyCareerForm({
                         {t('last-name-career')}
                         <span className="relative top-[-2px] text-error">*</span>
                       </label>
-                      <TextField
+                      <OcelleTextField
                         sx={{ input: { fontSize: '14px' } }}
                         id="lastName"
                         name="lastName"
@@ -247,7 +247,7 @@ export default function ApplyCareerForm({
                         {t('email-career')}
                         <span className="relative top-[-2px] text-error">*</span>
                       </label>
-                      <TextField
+                      <OcelleTextField
                         sx={{
                           input: { fontSize: '14px' },
                         }}
@@ -285,7 +285,7 @@ export default function ApplyCareerForm({
                         {t('phone-career')}
                         <span className="relative top-[-2px] text-error">*</span>
                       </label>
-                      <TextField
+                      <OcelleTextField
                         sx={{
                           input: { fontSize: '14px', backgroundColor: 'white' },
                           backgroundColor: '#f9f3eb',

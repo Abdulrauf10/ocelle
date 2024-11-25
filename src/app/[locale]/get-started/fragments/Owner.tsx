@@ -16,7 +16,7 @@ import { isAvailableEmailAddress } from '@/actions';
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
-import TextField from '@/components/controls/TextField';
+import OcelleTextField from '@/components/controls/OcelleTextField';
 import { EMAIL_REGEXP } from '@/consts';
 import useFormFieldDisplayState from '@/hooks/useFormFieldState';
 
@@ -70,7 +70,7 @@ export default function OwnerFragment() {
           <form onSubmit={handleSubmit(onSubmit)} className="mt-12" onBlur={checkFieldDisplayState}>
             <Section title={t('whats-your-name')}>
               <div className="mx-auto max-w-[320px]">
-                <TextField
+                <OcelleTextField
                   name="firstName"
                   placeholder={t('first-name')}
                   rules={{
@@ -80,7 +80,7 @@ export default function OwnerFragment() {
                   fullWidth
                 />
                 <div className="mt-5"></div>
-                <TextField
+                <OcelleTextField
                   name="lastName"
                   placeholder={t('last-name')}
                   rules={{
@@ -94,7 +94,7 @@ export default function OwnerFragment() {
             <SectionBreak />
             <Section title={t('whats-your-email-address')}>
               <div className="mx-auto max-w-[320px]">
-                <TextField
+                <OcelleTextField
                   name="email"
                   placeholder={t('email')}
                   disableErrorMessage

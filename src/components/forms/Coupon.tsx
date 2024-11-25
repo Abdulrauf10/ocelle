@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl';
 import React from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import TextField from '../controls/TextField';
+import OcelleTextField from '../controls/OcelleTextField';
 import CircleTick from '../icons/CircleTick';
 
 interface ICouponForm {
@@ -45,7 +45,7 @@ export default function CouponForm({ disabled, action }: CouponFormProps) {
     <FormProvider {...form}>
       <div className="-mx-1 mt-3 flex flex-wrap justify-between">
         <div className="flex-1 px-1">
-          <TextField
+          <OcelleTextField
             name="coupon"
             rules={{ required: true }}
             inputProps={{ className: '!bg-white' }}

@@ -12,7 +12,7 @@ import { pageVariants } from '../transition';
 import Container from '@/components/Container';
 import Button from '@/components/buttons/Button';
 import UnderlineButton from '@/components/buttons/UnderlineButton';
-import TextField from '@/components/controls/TextField';
+import OcelleTextField from '@/components/controls/OcelleTextField';
 import useFormFieldDisplayState from '@/hooks/useFormFieldState';
 
 interface DogForm {
@@ -61,7 +61,7 @@ export default function DogFragment() {
           <Section title={t('whats-your-dogs-name')}>
             <div className="mt-6"></div>
             <form onSubmit={handleSubmit(onSubmit)} className="mx-auto max-w-[320px]">
-              <TextField
+              <OcelleTextField
                 name="name"
                 placeholder={t('your-dogs-name')}
                 rules={{ required: true }}

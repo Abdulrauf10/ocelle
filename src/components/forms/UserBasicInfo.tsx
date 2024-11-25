@@ -8,8 +8,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import validator from 'validator';
 
 import Button from '../buttons/Button';
+import OcelleTextField from '../controls/OcelleTextField';
 import Select from '../controls/Select';
-import TextField from '../controls/TextField';
 
 import { EMAIL_REGEXP, PHONE_REGEXP } from '@/consts';
 import { getCountryCodes } from '@/helpers/string';
@@ -94,7 +94,7 @@ export default function UserBasicInfoForm({
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="-m-2 flex flex-wrap">
           <div className="w-1/2 p-2">
-            <TextField
+            <OcelleTextField
               name="firstName"
               label={t('first-name')}
               rules={{
@@ -106,7 +106,7 @@ export default function UserBasicInfoForm({
             />
           </div>
           <div className="w-1/2 p-2">
-            <TextField
+            <OcelleTextField
               name="lastName"
               label={t('last-name')}
               rules={{
@@ -118,7 +118,7 @@ export default function UserBasicInfoForm({
             />
           </div>
           <div className="w-1/2 p-2">
-            <TextField
+            <OcelleTextField
               name="email"
               label={t('email')}
               rules={{
@@ -150,7 +150,7 @@ export default function UserBasicInfoForm({
             />
           </div>
           <div className="w-1/2 p-2">
-            <TextField
+            <OcelleTextField
               name="phone.value"
               label={t('phone-number')}
               rules={{
