@@ -1,21 +1,15 @@
 'use client';
 
-import { Autocomplete, TextField as MuiTextField } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import countries from 'i18n-iso-countries';
 import countriesEN from 'i18n-iso-countries/langs/en.json';
 import { useLocale, useTranslations } from 'next-intl';
 import React from 'react';
-import {
-  Controller,
-  type FieldPath,
-  type FieldValues,
-  type PathValue,
-  useFormContext,
-} from 'react-hook-form';
+import { type FieldPath, type FieldValues, type PathValue, useFormContext } from 'react-hook-form';
 
 import { getDistricts } from '@/actions';
 import alphabeticalFilterOption from '@/alphabeticalFilterOption';
+import OcelleAutocomplete from '@/components/controls/OcelleAutocomplete';
 import TextField from '@/components/controls/TextField';
 import { CountryCode } from '@/gql/graphql';
 import countriesZH from '@/i18n-iso-countries/zh.json';
@@ -48,8 +42,8 @@ export default function PartialBillingAddressForm<T extends FieldValues>({
 }: PartialBillingAddressFormProps) {
   const locale = useLocale();
   const t = useTranslations();
-  const { control, watch, resetField } = useFormContext<T>();
-  const countryOptions: Array<{ name: string; value: string }> = React.useMemo(() => {
+  const { watch, resetField } = useFormContext<T>();
+  const countryOptions: PathValue<IPartialBillingAddressForm, 'country'>[] = React.useMemo(() => {
     return Object.values(CountryCode)
       .map((code) => {
         return {
@@ -90,6 +84,8 @@ export default function PartialBillingAddressForm<T extends FieldValues>({
   });
 
   const isLoading = districtsQuery.isLoading;
+
+  const districts = districtsQuery.data || [];
 
   return (
     <div className="-m-2 flex flex-wrap">
@@ -144,192 +140,107 @@ export default function PartialBillingAddressForm<T extends FieldValues>({
         />
       </div>
       <div className="w-1/3 p-2 max-lg:w-full">
-        <Controller
+        <OcelleAutocomplete
+          label={t('country')}
           defaultValue={defaultCountry}
           name={getPath('country')}
-          control={control}
           rules={{
             required: disabled
               ? false
               : t('please-enter-your-{}', { name: t('country').toLowerCase() }),
           }}
-          render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
-            return (
-              <Autocomplete
-                fullWidth
-                disableClearable
-                disabled={disabled}
-                options={countryOptions}
-                value={value}
-                isOptionEqualToValue={(option, selected) => option.value === selected.value}
-                getOptionLabel={(option) => option.name}
-                renderInput={(params) => (
-                  <MuiTextField
-                    {...params}
-                    {...field}
-                    label={t('country')}
-                    error={!!error}
-                    helperText={error?.message && <span className="body-3">{error.message}</span>}
-                  />
-                )}
-                onChange={(event, selectedValue) => {
-                  selectedValue &&
-                    onChange(Array.isArray(selectedValue) ? selectedValue[0] : selectedValue);
-                  resetField(getPath('region'));
-                  resetField(getPath('district'));
-                  resetField(getPath('postalCode'));
-                }}
-                filterOptions={alphabeticalFilterOption}
-              />
-            );
+          fullWidth
+          disableClearable
+          disabled={disabled}
+          options={countryOptions as PathValue<T, FieldPath<T>>}
+          isOptionEqualToValue={(option, selected) => option.value === selected.value}
+          getOptionLabel={(option: any) => option.name}
+          onChange={() => {
+            resetField(getPath('region'), { defaultValue: '' as PathValue<T, FieldPath<T>> });
+            resetField(getPath('district'), { defaultValue: '' as PathValue<T, FieldPath<T>> });
+            resetField(getPath('postalCode'), { defaultValue: '' as PathValue<T, FieldPath<T>> });
           }}
+          filterOptions={alphabeticalFilterOption}
         />
       </div>
       <div className="w-1/3 p-2 max-lg:w-full">
-        <Controller
-          name={getPath('region')}
-          control={control}
-          rules={{
-            required: disabled
-              ? false
-              : t('please-enter-your-{}', {
-                  name:
-                    country === CountryCode.Hk
-                      ? t('region').toLowerCase()
-                      : t('city').toLowerCase(),
-                }),
-          }}
-          render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
-            if (country !== CountryCode.Hk) {
-              return (
-                <MuiTextField
-                  {...field}
-                  label={t('city')}
-                  error={!!error}
-                  helperText={error?.message && <span className="body-3">{error.message}</span>}
-                  onChange={onChange}
-                  value={value || ''}
-                  disabled={disabled || isLoading}
-                  fullWidth
-                />
-              );
-            }
-            return (
-              <Autocomplete
-                fullWidth
-                disableClearable
-                disabled={disabled || isLoading}
-                options={['Hong Kong Island', 'Kowloon', 'New Territories']}
-                value={value}
-                getOptionLabel={(option) => t(option.toLowerCase().replace(/\s/g, '-') as any)}
-                renderInput={(params) => (
-                  <MuiTextField
-                    {...params}
-                    {...field}
-                    label={t('region')}
-                    error={!!error}
-                    helperText={error?.message && <span className="body-3">{error.message}</span>}
-                  />
-                )}
-                onChange={(event, selectedValue) =>
-                  selectedValue &&
-                  onChange(Array.isArray(selectedValue) ? selectedValue[0] : selectedValue)
-                }
-              />
-            );
-          }}
-        />
-      </div>
-      <div className="w-1/3 p-2 max-lg:w-full">
-        <Controller
-          name={getPath('district')}
-          control={control}
-          rules={{
-            required:
-              disabled || country !== CountryCode.Hk
+        {country === CountryCode.Hk ? (
+          <OcelleAutocomplete
+            label={t('region')}
+            name={getPath('region')}
+            rules={{
+              required: disabled
                 ? false
-                : t('please-enter-your-{}', {
-                    name: t('district').toLowerCase(),
-                  }),
-          }}
-          render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
-            if (country !== CountryCode.Hk) {
-              return (
-                <MuiTextField
-                  {...field}
-                  label={t('state')}
-                  error={!!error}
-                  helperText={error?.message && <span className="body-3">{error.message}</span>}
-                  onChange={onChange}
-                  value={value || ''}
-                  disabled={disabled || isLoading}
-                  fullWidth
-                />
-              );
+                : t('please-enter-your-{}', { name: t('region').toLowerCase() }),
+            }}
+            fullWidth
+            disableClearable
+            disabled={disabled || isLoading}
+            options={
+              ['Hong Kong Island', 'Kowloon', 'New Territories'] as PathValue<T, FieldPath<T>>
             }
-            const _districts = districtsQuery.data || [];
-            return (
-              <Autocomplete
-                fullWidth
-                disableClearable
-                disabled={
-                  disabled || isLoading || districtsQuery.isError || _districts.length === 0
-                }
-                options={_districts.map((district) => district.raw)}
-                value={value}
-                getOptionLabel={(option) =>
-                  _districts.find((district) => district.raw === option)?.verbose || ''
-                }
-                renderInput={(params) => (
-                  <MuiTextField
-                    {...params}
-                    {...field}
-                    label={t('district')}
-                    error={!!error}
-                    helperText={error?.message && <span className="body-3">{error.message}</span>}
-                    sx={(theme) => ({
-                      '& .MuiInputBase-root.Mui-disabled.Mui-error': {
-                        '& > fieldset': {
-                          borderColor: theme.palette.error.main,
-                        },
-                      },
-                    })}
-                  />
-                )}
-                onChange={(event, selectedValue) =>
-                  selectedValue &&
-                  onChange(Array.isArray(selectedValue) ? selectedValue[0] : selectedValue)
-                }
-              />
-            );
-          }}
-        />
+            getOptionLabel={(option: string) => t(option.toLowerCase().replace(/\s/g, '-') as any)}
+          />
+        ) : (
+          <TextField
+            name={getPath('region')}
+            label={t('city')}
+            rules={{
+              required: disabled
+                ? false
+                : t('please-enter-your-{}', { name: t('city').toLowerCase() }),
+            }}
+            disabled={disabled || isLoading}
+            fullWidth
+            errorOnEmpty
+          />
+        )}
+      </div>
+      <div className="w-1/3 p-2 max-lg:w-full">
+        {country === CountryCode.Hk ? (
+          <OcelleAutocomplete
+            label={t('district')}
+            name={getPath('district')}
+            rules={{
+              required: disabled
+                ? false
+                : t('please-enter-your-{}', { name: t('district').toLowerCase() }),
+            }}
+            fullWidth
+            disableClearable
+            disabled={disabled || isLoading || districtsQuery.isError || districts.length === 0}
+            options={districts.map((district) => district.raw) as PathValue<T, FieldPath<T>>}
+            getOptionLabel={(option) =>
+              districts.find((district) => district.raw === option)?.verbose || ''
+            }
+          />
+        ) : (
+          <TextField
+            name={getPath('district')}
+            label={t('state')}
+            rules={{
+              required: false,
+            }}
+            disabled={disabled || isLoading}
+            fullWidth
+            errorOnEmpty
+          />
+        )}
       </div>
       {country !== CountryCode.Hk && (
         <div className="w-full p-2">
-          <Controller
+          <TextField
             name={getPath('postalCode')}
-            control={control}
+            label={t('postal-code')}
             rules={{
               required:
                 disabled || country === CountryCode.Hk
                   ? false
                   : t('please-enter-your-{}', { name: t('postal-code') }),
             }}
-            render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
-              return (
-                <MuiTextField
-                  {...field}
-                  label={t('postal-code')}
-                  error={!!error}
-                  helperText={error?.message && <span className="body-3">{error.message}</span>}
-                  onChange={onChange}
-                  value={value || ''}
-                  disabled={disabled || isLoading}
-                  fullWidth
-                />
-              );
-            }}
+            disabled={disabled || isLoading}
+            fullWidth
+            errorOnEmpty
           />
         </div>
       )}

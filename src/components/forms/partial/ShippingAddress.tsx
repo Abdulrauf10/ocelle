@@ -1,19 +1,13 @@
 'use client';
 
-import { Autocomplete, TextField as MuiTextField } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useLocale, useTranslations } from 'next-intl';
 import React from 'react';
-import {
-  Controller,
-  type FieldPath,
-  type FieldValues,
-  type PathValue,
-  useFormContext,
-} from 'react-hook-form';
+import { type FieldPath, type FieldValues, type PathValue, useFormContext } from 'react-hook-form';
 
 import { getDistricts } from '@/actions';
 import alphabeticalFilterOption from '@/alphabeticalFilterOption';
+import OcelleAutocomplete from '@/components/controls/OcelleAutocomplete';
 import TextField from '@/components/controls/TextField';
 import { CountryCode } from '@/gql/graphql';
 
@@ -118,123 +112,55 @@ export default function PartialShippingAddressForm<T extends FieldValues>({
         />
       </div>
       <div className="w-1/3 p-2 max-lg:w-full">
-        <Controller
+        <OcelleAutocomplete
+          label={t('country')}
           defaultValue={CountryCode.Hk as PathValue<T, FieldPath<T>>}
           name={getPath('country')}
-          control={control}
           rules={{
             required: disabled
               ? false
               : t('please-enter-your-{}', { name: t('country').toLowerCase() }),
           }}
-          render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
-            return (
-              <Autocomplete
-                fullWidth
-                disableClearable
-                disabled={disabled || isLoading}
-                options={['HK']}
-                value={value}
-                getOptionLabel={(option) => countryMaps[option] ?? ''}
-                renderInput={(params) => (
-                  <MuiTextField
-                    {...params}
-                    {...field}
-                    label={t('country')}
-                    error={!!error}
-                    helperText={error?.message && <span className="body-3">{error.message}</span>}
-                  />
-                )}
-                onChange={(event, selectedValue) =>
-                  selectedValue &&
-                  onChange(Array.isArray(selectedValue) ? selectedValue[0] : selectedValue)
-                }
-                filterOptions={alphabeticalFilterOption}
-              />
-            );
-          }}
+          fullWidth
+          disableClearable
+          disabled={disabled || isLoading}
+          options={['HK'] as PathValue<T, FieldPath<T>>}
+          getOptionLabel={(option) => countryMaps[option] ?? ''}
+          filterOptions={alphabeticalFilterOption}
         />
       </div>
       <div className="w-1/3 p-2 max-lg:w-full">
-        <Controller
+        <OcelleAutocomplete
+          label={t('region')}
           name={getPath('region')}
-          control={control}
           rules={{
             required: disabled
               ? false
               : t('please-enter-your-{}', { name: t('region').toLowerCase() }),
           }}
-          render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
-            return (
-              <Autocomplete
-                fullWidth
-                disableClearable
-                disabled={disabled || isLoading}
-                options={['Hong Kong Island', 'Kowloon', 'New Territories']}
-                value={value}
-                getOptionLabel={(option) => t(option.toLowerCase().replace(/\s/g, '-') as any)}
-                renderInput={(params) => (
-                  <MuiTextField
-                    {...params}
-                    {...field}
-                    label={t('region')}
-                    error={!!error}
-                    helperText={error?.message && <span className="body-3">{error.message}</span>}
-                  />
-                )}
-                onChange={(event, selectedValue) =>
-                  selectedValue &&
-                  onChange(Array.isArray(selectedValue) ? selectedValue[0] : selectedValue)
-                }
-              />
-            );
-          }}
+          fullWidth
+          disableClearable
+          disabled={disabled || isLoading}
+          options={['Hong Kong Island', 'Kowloon', 'New Territories'] as PathValue<T, FieldPath<T>>}
+          getOptionLabel={(option: string) => t(option.toLowerCase().replace(/\s/g, '-') as any)}
         />
       </div>
       <div className="w-1/3 p-2 max-lg:w-full">
-        <Controller
+        <OcelleAutocomplete
+          label={t('district')}
           name={getPath('district')}
-          control={control}
           rules={{
             required: disabled
               ? false
               : t('please-enter-your-{}', { name: t('district').toLowerCase() }),
           }}
-          render={({ field: { value, onChange, ...field }, fieldState: { error } }) => {
-            const _districts = districts || [];
-            return (
-              <Autocomplete
-                fullWidth
-                disableClearable
-                disabled={disabled || isLoading || isError || !districts || districts.length === 0}
-                options={_districts.map((district) => district.raw)}
-                value={value}
-                getOptionLabel={(option) =>
-                  _districts.find((district) => district.raw === option)?.verbose || ''
-                }
-                renderInput={(params) => (
-                  <MuiTextField
-                    {...params}
-                    {...field}
-                    label={t('district')}
-                    error={!!error}
-                    helperText={error?.message && <span className="body-3">{error.message}</span>}
-                    sx={(theme) => ({
-                      '& .MuiInputBase-root.Mui-disabled.Mui-error': {
-                        '& > fieldset': {
-                          borderColor: theme.palette.error.main,
-                        },
-                      },
-                    })}
-                  />
-                )}
-                onChange={(event, selectedValue) =>
-                  selectedValue &&
-                  onChange(Array.isArray(selectedValue) ? selectedValue[0] : selectedValue)
-                }
-              />
-            );
-          }}
+          fullWidth
+          disableClearable
+          disabled={disabled || isLoading || isError || !districts || districts.length === 0}
+          options={(districts || []).map((district) => district.raw) as PathValue<T, FieldPath<T>>}
+          getOptionLabel={(option) =>
+            (districts || []).find((district) => district.raw === option)?.verbose || ''
+          }
         />
       </div>
     </div>
