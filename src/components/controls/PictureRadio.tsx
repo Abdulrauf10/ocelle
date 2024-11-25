@@ -6,6 +6,7 @@ import {
   type FieldValues,
   UseFormWatch,
   useController,
+  useFormContext,
 } from 'react-hook-form';
 
 import { InputControllerProps } from '@/types';
@@ -21,13 +22,13 @@ function Radio<T extends FieldValues>({
   name,
   label,
   value,
-  control,
   children,
   rules,
   error,
   onHover,
   onChange: parentOnChange,
 }: React.PropsWithChildren<RadioProps<T>>) {
+  const { control } = useFormContext<T>();
   const {
     field: { onChange, ...field },
   } = useController({ name, control, rules });
@@ -92,7 +93,6 @@ export default function PictureRadio<
 >({
   className,
   name,
-  control,
   watch,
   rules,
   radios,
@@ -132,7 +132,6 @@ export default function PictureRadio<
             <Radio
               key={idx}
               name={name}
-              control={control}
               rules={rules}
               value={radio.value}
               label={radio.label}

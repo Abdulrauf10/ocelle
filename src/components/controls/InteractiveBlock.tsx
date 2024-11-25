@@ -4,6 +4,7 @@ import {
   type FieldPathValue,
   type FieldValues,
   useController,
+  useFormContext,
 } from 'react-hook-form';
 
 import { InputControllerProps } from '@/types';
@@ -39,7 +40,6 @@ export default function InteractiveBlock<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
-  control,
   label,
   name,
   rules,
@@ -50,6 +50,7 @@ export default function InteractiveBlock<
   onChange: parentOnChange,
   ...props
 }: InteractiveBlockProps<TFieldValues, TFieldName>) {
+  const { control } = useFormContext<TFieldValues>();
   const {
     field: { onChange, ...field },
   } = useController<TFieldValues>({ name, control, rules, disabled });

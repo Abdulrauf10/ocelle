@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import Button from '../buttons/Button';
@@ -28,11 +28,11 @@ export default function LoginForm({
   const t = useTranslations();
   const [pending, startTransition] = React.useTransition();
   const [errorMessage, setErrorMessage] = React.useState<string>();
+  const form = useForm<ILoginForm>();
   const {
-    control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<ILoginForm>();
+  } = form;
 
   const onSubmit = React.useCallback(
     (values: ILoginForm) => {
@@ -48,31 +48,26 @@ export default function LoginForm({
   );
 
   return (
-    <form className="mx-auto mt-6" onSubmit={handleSubmit(onSubmit)}>
-      <TextField
-        name="email"
-        label={t('email')}
-        control={control}
-        rules={{
-          required: true,
-          pattern: { value: EMAIL_REGEXP, message: '' },
-        }}
-        fullWidth
-      />
-      <div className="py-4"></div>
-      <PasswordField
-        name="password"
-        control={control}
-        rules={{ required: true }}
-        label={t('password')}
-        fullWidth
-      />
-      <div className="py-3"></div>
-      {errorMessage && <span className="body-3 text-error">{errorMessage}</span>}
-      <div className="py-3"></div>
-      <Button className={className?.button} fullWidth disabled={!isValid || pending}>
-        {t('log-in')}
-      </Button>
-    </form>
+    <FormProvider {...form}>
+      <form className="mx-auto mt-6" onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+          name="email"
+          label={t('email')}
+          rules={{
+            required: true,
+            pattern: { value: EMAIL_REGEXP, message: '' },
+          }}
+          fullWidth
+        />
+        <div className="py-4"></div>
+        <PasswordField name="password" rules={{ required: true }} label={t('password')} fullWidth />
+        <div className="py-3"></div>
+        {errorMessage && <span className="body-3 text-error">{errorMessage}</span>}
+        <div className="py-3"></div>
+        <Button className={className?.button} fullWidth disabled={!isValid || pending}>
+          {t('log-in')}
+        </Button>
+      </form>
+    </FormProvider>
   );
 }

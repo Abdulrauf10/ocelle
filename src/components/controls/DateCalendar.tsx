@@ -1,5 +1,11 @@
 import { DateView } from '@mui/x-date-pickers';
-import { type FieldValues, type Path, type PathValue, useController } from 'react-hook-form';
+import {
+  type FieldValues,
+  type Path,
+  type PathValue,
+  useController,
+  useFormContext,
+} from 'react-hook-form';
 
 import DateCalendarInput, {
   DateCalendarProps as DateCalendarInputProps,
@@ -20,7 +26,6 @@ interface DateCalendarProps<T extends FieldValues> extends InputControllerProps<
 
 export default function DateCalendar<T extends FieldValues>({
   error,
-  control,
   name,
   rules,
   defaultValue,
@@ -32,6 +37,7 @@ export default function DateCalendar<T extends FieldValues>({
   maxDate,
   actions,
 }: DateCalendarProps<T>) {
+  const { control } = useFormContext<T>();
   const {
     field: { onChange: _onChange, value, ...field },
   } = useController({ name, control, rules, defaultValue });

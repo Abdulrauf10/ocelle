@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { type FieldValues, useController } from 'react-hook-form';
+import { type FieldValues, useController, useFormContext } from 'react-hook-form';
 
 import { InputControllerProps } from '@/types';
 
@@ -10,7 +10,6 @@ interface CircleCheckboxProps<T extends FieldValues> extends InputControllerProp
 }
 
 export default function CircleCheckbox<T extends FieldValues>({
-  control,
   label,
   name,
   rules,
@@ -18,6 +17,7 @@ export default function CircleCheckbox<T extends FieldValues>({
   className,
   onChange,
 }: CircleCheckboxProps<T>) {
+  const { control } = useFormContext<T>();
   const {
     field: { onChange: _onChange, ...field },
   } = useController({ name, control, rules });

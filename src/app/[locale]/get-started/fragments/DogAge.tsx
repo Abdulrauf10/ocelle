@@ -1,10 +1,10 @@
-import { Autocomplete, MenuItem, TextField } from '@mui/material';
+import { Autocomplete, TextField } from '@mui/material';
 import clsx from 'clsx';
 import { differenceInWeeks, subDays, subMonths, subYears } from 'date-fns';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import React from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, FormProvider } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Section from '../Section';
@@ -243,45 +243,46 @@ export default function DogAgeFragment() {
             </form>
           )}
           {tab === 'Birthday' && (
-            <form
-              onSubmit={dogBirthdayForm.handleSubmit(onDogBirthdaySubmit)}
-              className="mx-auto mt-6 max-w-[480px]"
-            >
-              <DateCalendar
-                control={dogBirthdayForm.control}
-                name="birthday"
-                rules={{
-                  required: true,
-                  validate: {
-                    under12Weeks: (value) => {
-                      if (value === undefined) {
+            <FormProvider {...dogBirthdayForm}>
+              <form
+                onSubmit={dogBirthdayForm.handleSubmit(onDogBirthdaySubmit)}
+                className="mx-auto mt-6 max-w-[480px]"
+              >
+                <DateCalendar
+                  name="birthday"
+                  rules={{
+                    required: true,
+                    validate: {
+                      under12Weeks: (value) => {
+                        if (value === undefined) {
+                          return true;
+                        }
+                        if (Math.abs(differenceInWeeks(value, new Date())) < 12) {
+                          return t('come-back-when-your-puppy-is-12-weeks-old');
+                        }
                         return true;
-                      }
-                      if (Math.abs(differenceInWeeks(value, new Date())) < 12) {
-                        return t('come-back-when-your-puppy-is-12-weeks-old');
-                      }
-                      return true;
+                      },
                     },
-                  },
-                }}
-                error={!!dogBirthdayForm.formState.errors.birthday}
-                minDate={subYears(new Date(), 35)}
-                maxDate={subDays(new Date(), 1)}
-                onChange={() => dogAgeForm.reset({ years: 0, months: 0 })}
-              />
-              {dogBirthdayForm.formState.errors && (
-                <div className="mt-4">
-                  <p className="body-3 text-error">
-                    {dogBirthdayForm.formState.errors.birthday?.message}
-                  </p>
-                </div>
-              )}
-              {showDogBirthdaySubmitButton && (
-                <Button className="mt-8" disabled={!dogBirthdayForm.formState.isValid}>
-                  {t('continue')}
-                </Button>
-              )}
-            </form>
+                  }}
+                  error={!!dogBirthdayForm.formState.errors.birthday}
+                  minDate={subYears(new Date(), 35)}
+                  maxDate={subDays(new Date(), 1)}
+                  onChange={() => dogAgeForm.reset({ years: 0, months: 0 })}
+                />
+                {dogBirthdayForm.formState.errors && (
+                  <div className="mt-4">
+                    <p className="body-3 text-error">
+                      {dogBirthdayForm.formState.errors.birthday?.message}
+                    </p>
+                  </div>
+                )}
+                {showDogBirthdaySubmitButton && (
+                  <Button className="mt-8" disabled={!dogBirthdayForm.formState.isValid}>
+                    {t('continue')}
+                  </Button>
+                )}
+              </form>
+            </FormProvider>
           )}
         </Section>
       </Container>

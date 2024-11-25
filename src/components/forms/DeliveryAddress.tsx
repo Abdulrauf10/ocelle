@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import React, { useTransition } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import Button from '../buttons/Button';
 import RoundedCheckbox from '../controls/RoundedCheckbox';
@@ -49,7 +49,8 @@ export default function DeliveryAddressForm({
     country,
     isSameAsBillingAddress,
   });
-  const { control, handleSubmit, reset, watch } = useForm<IDeliveryAddressForm>({ defaultValues });
+  const form = useForm<IDeliveryAddressForm>({ defaultValues });
+  const { handleSubmit, reset, watch } = form;
   const [pending, startTransition] = useTransition();
   const currentIsSameAsBillingAddress = watch('isSameAsBillingAddress');
 
@@ -78,32 +79,33 @@ export default function DeliveryAddressForm({
     watch('isSameAsBillingAddress') === defaultValues.isSameAsBillingAddress;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <PartialShippingAddressForm control={control} watch={watch} />
-      <div className="mt-4">
-        <RoundedCheckbox
-          name="isSameAsBillingAddress"
-          control={control}
-          label={t('use-as-{}', { name: t('billing-address') })}
-        />
-      </div>
-      <div className="-mx-2 mt-10 flex">
-        <div className="w-1/2 px-2">
-          <Button
-            fullWidth
-            onClick={() => reset(defaultValues)}
-            reverse
-            disabled={isSameAsDefaultValue}
-          >
-            {t('cancel')}
-          </Button>
+    <FormProvider {...form}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <PartialShippingAddressForm />
+        <div className="mt-4">
+          <RoundedCheckbox
+            name="isSameAsBillingAddress"
+            label={t('use-as-{}', { name: t('billing-address') })}
+          />
         </div>
-        <div className="w-1/2 px-2">
-          <Button fullWidth disabled={pending || isSameAsDefaultValue}>
-            {t('save-changes')}
-          </Button>
+        <div className="-mx-2 mt-10 flex">
+          <div className="w-1/2 px-2">
+            <Button
+              fullWidth
+              onClick={() => reset(defaultValues)}
+              reverse
+              disabled={isSameAsDefaultValue}
+            >
+              {t('cancel')}
+            </Button>
+          </div>
+          <div className="w-1/2 px-2">
+            <Button fullWidth disabled={pending || isSameAsDefaultValue}>
+              {t('save-changes')}
+            </Button>
+          </div>
         </div>
-      </div>
-    </form>
+      </form>
+    </FormProvider>
   );
 }

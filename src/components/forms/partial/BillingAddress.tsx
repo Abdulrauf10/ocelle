@@ -7,13 +7,11 @@ import countriesEN from 'i18n-iso-countries/langs/en.json';
 import { useLocale, useTranslations } from 'next-intl';
 import React from 'react';
 import {
-  type Control,
   Controller,
   type FieldPath,
   type FieldValues,
   type PathValue,
-  type UseFormResetField,
-  type UseFormWatch,
+  useFormContext,
 } from 'react-hook-form';
 
 import { getDistricts } from '@/actions';
@@ -39,23 +37,18 @@ export type IPartialBillingAddressForm = {
   postalCode: string | undefined;
 };
 
-interface PartialBillingAddressFormProps<T extends FieldValues> {
-  control: Control<T, any>;
+interface PartialBillingAddressFormProps {
   prefix?: string;
   disabled?: boolean;
-  watch: UseFormWatch<T>;
-  resetField: UseFormResetField<T>;
 }
 
 export default function PartialBillingAddressForm<T extends FieldValues>({
-  control,
   prefix,
   disabled,
-  watch,
-  resetField,
-}: PartialBillingAddressFormProps<T>) {
+}: PartialBillingAddressFormProps) {
   const locale = useLocale();
   const t = useTranslations();
+  const { control, watch, resetField } = useFormContext<T>();
   const countryOptions: Array<{ name: string; value: string }> = React.useMemo(() => {
     return Object.values(CountryCode)
       .map((code) => {
@@ -104,7 +97,6 @@ export default function PartialBillingAddressForm<T extends FieldValues>({
         <TextField
           name={getPath('firstName')}
           label={t('first-name')}
-          control={control}
           rules={{
             required: disabled
               ? false
@@ -119,7 +111,6 @@ export default function PartialBillingAddressForm<T extends FieldValues>({
         <TextField
           name={getPath('lastName')}
           label={t('last-name')}
-          control={control}
           rules={{
             required: disabled
               ? false
@@ -134,7 +125,6 @@ export default function PartialBillingAddressForm<T extends FieldValues>({
         <TextField
           name={getPath('streetAddress1')}
           label={t('address-line-1')}
-          control={control}
           rules={{
             required: disabled
               ? false
@@ -149,7 +139,6 @@ export default function PartialBillingAddressForm<T extends FieldValues>({
         <TextField
           name={getPath('streetAddress2')}
           label={t('address-line-2-optional')}
-          control={control}
           disabled={disabled}
           fullWidth
         />

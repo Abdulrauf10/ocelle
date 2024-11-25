@@ -9,7 +9,7 @@ import {
   Theme,
 } from '@mui/material';
 import React from 'react';
-import { Controller, type FieldValues } from 'react-hook-form';
+import { Controller, type FieldValues, useFormContext } from 'react-hook-form';
 
 import { InputControllerProps } from '@/types';
 
@@ -32,7 +32,6 @@ export default function Select<T extends FieldValues>({
   name,
   label,
   rules,
-  control,
   disabled,
   fullWidth,
   variant,
@@ -45,6 +44,7 @@ export default function Select<T extends FieldValues>({
   sx,
   disableOverlap,
 }: SelectProps<T>) {
+  const { control } = useFormContext<T>();
   const id = React.useId();
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;

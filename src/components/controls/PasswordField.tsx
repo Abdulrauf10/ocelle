@@ -25,7 +25,6 @@ interface PasswordFieldProps<T extends FieldValues> extends InputControllerProps
 export default function PasswordField<T extends FieldValues>({
   name,
   rules,
-  control,
   label,
   fullWidth,
   disabled,
@@ -46,7 +45,6 @@ export default function PasswordField<T extends FieldValues>({
     <TextField
       name={name}
       rules={rules}
-      control={control}
       label={label}
       fullWidth={fullWidth}
       type={showPassword ? 'text' : 'password'}

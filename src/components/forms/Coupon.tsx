@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import TextField from '../controls/TextField';
 import CircleTick from '../icons/CircleTick';
@@ -20,11 +20,11 @@ export default function CouponForm({ disabled, action }: CouponFormProps) {
   const t = useTranslations();
   const b = useTranslations('Button');
   const [pending, startTransition] = React.useTransition();
+  const form = useForm<ICouponForm>({ defaultValues: { coupon: '' } });
   const {
-    control,
     formState: { isValid },
     handleSubmit,
-  } = useForm<ICouponForm>({ defaultValues: { coupon: '' } });
+  } = form;
   const [applied, setApplied] = React.useState(false);
 
   const onSubmit = React.useCallback(
@@ -42,12 +42,11 @@ export default function CouponForm({ disabled, action }: CouponFormProps) {
   );
 
   return (
-    <>
+    <FormProvider {...form}>
       <div className="-mx-1 mt-3 flex flex-wrap justify-between">
         <div className="flex-1 px-1">
           <TextField
             name="coupon"
-            control={control}
             rules={{ required: true }}
             inputProps={{ className: '!bg-white' }}
             fullWidth
@@ -73,6 +72,6 @@ export default function CouponForm({ disabled, action }: CouponFormProps) {
           <p className="ml-2 text-sm">{t('your-promo-code-was-successfully-applied')}</p>
         </div>
       )}
-    </>
+    </FormProvider>
   );
 }

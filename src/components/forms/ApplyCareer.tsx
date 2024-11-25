@@ -3,7 +3,13 @@
 import { MenuItem } from '@mui/material';
 import { useTranslations } from 'next-intl';
 import React from 'react';
-import { type FieldValues, useController, useForm } from 'react-hook-form';
+import {
+  type FieldValues,
+  FormProvider,
+  useController,
+  useForm,
+  useFormContext,
+} from 'react-hook-form';
 import { mergeRefs } from 'react-merge-refs';
 
 import Select from '../controls/Select';
@@ -22,13 +28,8 @@ interface FileInputProps<T extends FieldValues> extends InputControllerProps<T> 
   helperText?: string;
 }
 
-function FileInput<T extends FieldValues>({
-  helperText,
-  control,
-  label,
-  name,
-  rules,
-}: FileInputProps<T>) {
+function FileInput<T extends FieldValues>({ helperText, label, name, rules }: FileInputProps<T>) {
+  const { control } = useFormContext<T>();
   const {
     field: { ref, onChange, value, ...field },
     fieldState: { error },
@@ -138,15 +139,15 @@ export default function ApplyCareerForm({
   const t = useTranslations();
   const c = useTranslations('Careers');
   const b = useTranslations('Button');
-  const {
-    control,
-    formState: { isValid, errors },
-  } = useForm<IApplyCareerForm>({
+  const form = useForm<IApplyCareerForm>({
     mode: 'onBlur',
     defaultValues: {
       phoneCountryCode: '852',
     },
   });
+  const {
+    formState: { isValid },
+  } = form;
   const [completed, setCompleted] = React.useState(false);
 
   if (completed) {
@@ -171,252 +172,250 @@ export default function ApplyCareerForm({
   }
 
   return (
-    <div className="flex grow flex-col">
-      {startAdornment}
-      <Block styles="tight" className="grow bg-gold bg-opacity-10">
-        <Container className="max-w-screen-lg">
-          <div className="body-1-careers body-weight-1-careers uppercase text-primary">
-            {t('submit-your-application')}
-          </div>
-          <div className="body-3 relative w-fit pl-[5px]">
-            <span className="absolute -top-[3px] left-[-2px] text-error">*</span>
-            {t('required')}
-          </div>
-          <div className="mt-6">
-            <form
-              action={async (data) => {
-                try {
-                  const res = await action(data);
-                  if (res?.ok) {
-                    setCompleted(true);
+    <FormProvider {...form}>
+      <div className="flex grow flex-col">
+        {startAdornment}
+        <Block styles="tight" className="grow bg-gold bg-opacity-10">
+          <Container className="max-w-screen-lg">
+            <div className="body-1-careers body-weight-1-careers uppercase text-primary">
+              {t('submit-your-application')}
+            </div>
+            <div className="body-3 relative w-fit pl-[5px]">
+              <span className="absolute -top-[3px] left-[-2px] text-error">*</span>
+              {t('required')}
+            </div>
+            <div className="mt-6">
+              <form
+                action={async (data) => {
+                  try {
+                    const res = await action(data);
+                    if (res?.ok) {
+                      setCompleted(true);
+                    }
+                  } catch (e) {
+                    console.log(e);
                   }
-                } catch (e) {
-                  console.log(e);
-                }
-              }}
-            >
-              <div className="-mx-4 -my-4 flex flex-wrap">
-                <div className="w-1/2 px-4 py-4 max-md:w-full">
-                  <div className="flex items-start">
-                    <label htmlFor="firstName" className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]">
-                      {t('first-name-career')}
-                      <span className="relative top-[-2px] text-error">*</span>
-                    </label>
-                    <TextField
-                      sx={{ input: { fontSize: '14px' } }}
-                      id="firstName"
-                      name="firstName"
-                      control={control}
-                      rules={{ required: true }}
-                      fullWidth
-                      InputProps={{
-                        classes: {
-                          root: 'bg-white',
-                        },
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="w-1/2 px-4 py-4 max-md:w-full">
-                  <div className="flex items-start">
-                    <label htmlFor="lastName" className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]">
-                      {t('last-name-career')}
-                      <span className="relative top-[-2px] text-error">*</span>
-                    </label>
-                    <TextField
-                      sx={{ input: { fontSize: '14px' } }}
-                      id="lastName"
-                      name="lastName"
-                      control={control}
-                      rules={{ required: true }}
-                      fullWidth
-                      InputProps={{
-                        classes: {
-                          root: 'bg-white',
-                        },
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="w-1/2 px-4 py-4 max-md:w-full">
-                  <div className="flex items-start">
-                    <label htmlFor="email" className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]">
-                      {t('email-career')}
-                      <span className="relative top-[-2px] text-error">*</span>
-                    </label>
-                    <TextField
-                      sx={{
-                        input: { fontSize: '14px' },
-                      }}
-                      FormHelperTextProps={{
-                        id: 'email-helper-text',
-                        sx: {
-                          backgroundColor: '#f9f3eb !important',
-                          margin: '0px',
-                          padding: '3px 14px 0px 14px',
-                        }, // Specific inline styling for this helper text
-                      }}
-                      id="email"
-                      name="email"
-                      control={control}
-                      rules={{
-                        required: true,
-                        pattern: {
-                          value: EMAIL_REGEXP,
-                          message: t('please-enter-a-valid-{}', {
-                            name: t('email').toLowerCase(),
-                          }),
-                        },
-                      }}
-                      fullWidth
-                      InputProps={{
-                        classes: {
-                          root: 'bg-white',
-                        },
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="w-1/2 px-4 py-4 max-md:w-full">
-                  <div className="flex items-start">
-                    <label htmlFor="phone" className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]">
-                      {t('phone-career')}
-                      <span className="relative top-[-2px] text-error">*</span>
-                    </label>
-                    <TextField
-                      sx={{
-                        input: { fontSize: '14px', backgroundColor: 'white' },
-                        backgroundColor: '#f9f3eb',
-                      }}
-                      id="phone"
-                      name="phoneValue"
-                      control={control}
-                      rules={{
-                        required: true,
-                        pattern: {
-                          value: PHONE_REGEXP,
-                          message: t('please-enter-a-valid-{}', {
-                            name: t('phone-number').toLowerCase(),
-                          }),
-                        },
-                        validate: (value, { phoneCountryCode }) => {
-                          if (phoneCountryCode !== '852') {
-                            return true;
-                          }
-                          return String(value).length === 8
-                            ? true
-                            : t('please-enter-a-valid-{}', {
-                                name: t('phone-number').toLowerCase(),
-                              });
-                        },
-                      }}
-                      fullWidth
-                      InputProps={{
-                        classes: {
-                          root: 'bg-white',
-                        },
-                        startAdornment: (
-                          <div className="w-auto">
-                            <Select
-                              variant="standard"
-                              name="phoneCountryCode"
-                              control={control}
-                              rules={{ required: true }}
-                              disableUnderline
-                              sx={{ fontSize: '14px' }}
-                              disableOverlap
-                            >
-                              {getCountryCodes().map((code, idx) => (
-                                <MenuItem sx={{ fontSize: '14px' }} key={idx} value={code}>
-                                  +{code}
-                                </MenuItem>
-                              ))}
-                            </Select>
-                          </div>
-                        ),
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className="w-1/2 px-4 py-4 max-md:w-full">
-                  <div className="flex items-start">
-                    <div className="mb-5 mr-2 flex h-[40px] w-[95px] min-w-[95px] items-center">
-                      <label htmlFor="resume" className="body-3">
-                        {c('resume-cv')}
+                }}
+              >
+                <div className="-mx-4 -my-4 flex flex-wrap">
+                  <div className="w-1/2 px-4 py-4 max-md:w-full">
+                    <div className="flex items-start">
+                      <label
+                        htmlFor="firstName"
+                        className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]"
+                      >
+                        {t('first-name-career')}
                         <span className="relative top-[-2px] text-error">*</span>
                       </label>
+                      <TextField
+                        sx={{ input: { fontSize: '14px' } }}
+                        id="firstName"
+                        name="firstName"
+                        rules={{ required: true }}
+                        fullWidth
+                        InputProps={{
+                          classes: {
+                            root: 'bg-white',
+                          },
+                        }}
+                      />
                     </div>
-                    <FileInput
-                      control={control}
-                      name="resume"
-                      label={c.rich('attach-{}', {
-                        value: c('resume-cv'),
-                        br: () => <br className="hidden md:block min-[860px]:hidden" />,
-                      })}
-                      rules={{
-                        required: true,
-                        validate: (file) => {
-                          if (!file || !(file instanceof File)) {
-                            return t('please-enter-a-valid-{}', {
-                              name: c('resume-cv').toLowerCase(),
-                            });
-                          }
-                          return (
-                            file.size < 1048576 * MAX_FILE_SIZE_MB ||
-                            c('file-size-cannot-exceed-{}-mb', { value: MAX_FILE_SIZE_MB })
-                          );
-                        },
-                      }}
-                      helperText={c('file-types-{}', {
-                        value: 'pdf, doc, docx, txt, rtf (5MB)',
-                      })}
-                    />
                   </div>
-                </div>
-                <div className="w-1/2 px-4 py-4 max-md:w-full">
-                  <div className="flex items-start">
-                    <div className="mb-5 mr-2 flex h-[40px] w-[95px] min-w-[95px] items-center">
-                      <label htmlFor="coverLetter" className="body-3">
-                        {t('cover-letter')}
+                  <div className="w-1/2 px-4 py-4 max-md:w-full">
+                    <div className="flex items-start">
+                      <label htmlFor="lastName" className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]">
+                        {t('last-name-career')}
+                        <span className="relative top-[-2px] text-error">*</span>
                       </label>
+                      <TextField
+                        sx={{ input: { fontSize: '14px' } }}
+                        id="lastName"
+                        name="lastName"
+                        rules={{ required: true }}
+                        fullWidth
+                        InputProps={{
+                          classes: {
+                            root: 'bg-white',
+                          },
+                        }}
+                      />
                     </div>
-                    <FileInput
-                      control={control}
-                      name="coverLetter"
-                      label={c.rich('attach-{}', {
-                        value: t('cover-letter'),
-                        br: () => <br className="hidden md:block min-[860px]:hidden" />,
-                      })}
-                      rules={{
-                        validate: (file) => {
-                          if (!file) {
-                            return true;
-                          }
-                          if (!(file instanceof File)) {
-                            return t('please-enter-a-valid-{}', {
-                              name: c('resume-cv').toLowerCase(),
-                            });
-                          }
-                          return (
-                            file.size < 1048576 * MAX_FILE_SIZE_MB ||
-                            c('file-size-cannot-exceed-{}-mb', { value: MAX_FILE_SIZE_MB })
-                          );
-                        },
-                      }}
-                      helperText={c('file-types-{}', {
-                        value: 'pdf, doc, docx, txt, rtf (5MB)',
-                      })}
-                    />
+                  </div>
+                  <div className="w-1/2 px-4 py-4 max-md:w-full">
+                    <div className="flex items-start">
+                      <label htmlFor="email" className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]">
+                        {t('email-career')}
+                        <span className="relative top-[-2px] text-error">*</span>
+                      </label>
+                      <TextField
+                        sx={{
+                          input: { fontSize: '14px' },
+                        }}
+                        FormHelperTextProps={{
+                          id: 'email-helper-text',
+                          sx: {
+                            backgroundColor: '#f9f3eb !important',
+                            margin: '0px',
+                            padding: '3px 14px 0px 14px',
+                          }, // Specific inline styling for this helper text
+                        }}
+                        id="email"
+                        name="email"
+                        rules={{
+                          required: true,
+                          pattern: {
+                            value: EMAIL_REGEXP,
+                            message: t('please-enter-a-valid-{}', {
+                              name: t('email').toLowerCase(),
+                            }),
+                          },
+                        }}
+                        fullWidth
+                        InputProps={{
+                          classes: {
+                            root: 'bg-white',
+                          },
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="w-1/2 px-4 py-4 max-md:w-full">
+                    <div className="flex items-start">
+                      <label htmlFor="phone" className="body-3 !mt-1 mr-2 w-[95px] min-w-[95px]">
+                        {t('phone-career')}
+                        <span className="relative top-[-2px] text-error">*</span>
+                      </label>
+                      <TextField
+                        sx={{
+                          input: { fontSize: '14px', backgroundColor: 'white' },
+                          backgroundColor: '#f9f3eb',
+                        }}
+                        id="phone"
+                        name="phoneValue"
+                        rules={{
+                          required: true,
+                          pattern: {
+                            value: PHONE_REGEXP,
+                            message: t('please-enter-a-valid-{}', {
+                              name: t('phone-number').toLowerCase(),
+                            }),
+                          },
+                          validate: (value, { phoneCountryCode }: IApplyCareerForm) => {
+                            if (phoneCountryCode !== '852') {
+                              return true;
+                            }
+                            return String(value).length === 8
+                              ? true
+                              : t('please-enter-a-valid-{}', {
+                                  name: t('phone-number').toLowerCase(),
+                                });
+                          },
+                        }}
+                        fullWidth
+                        InputProps={{
+                          classes: {
+                            root: 'bg-white',
+                          },
+                          startAdornment: (
+                            <div className="w-auto">
+                              <Select
+                                variant="standard"
+                                name="phoneCountryCode"
+                                rules={{ required: true }}
+                                disableUnderline
+                                sx={{ fontSize: '14px' }}
+                                disableOverlap
+                              >
+                                {getCountryCodes().map((code, idx) => (
+                                  <MenuItem sx={{ fontSize: '14px' }} key={idx} value={code}>
+                                    +{code}
+                                  </MenuItem>
+                                ))}
+                              </Select>
+                            </div>
+                          ),
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="w-1/2 px-4 py-4 max-md:w-full">
+                    <div className="flex items-start">
+                      <div className="mb-5 mr-2 flex h-[40px] w-[95px] min-w-[95px] items-center">
+                        <label htmlFor="resume" className="body-3">
+                          {c('resume-cv')}
+                          <span className="relative top-[-2px] text-error">*</span>
+                        </label>
+                      </div>
+                      <FileInput
+                        name="resume"
+                        label={c.rich('attach-{}', {
+                          value: c('resume-cv'),
+                          br: () => <br className="hidden md:block min-[860px]:hidden" />,
+                        })}
+                        rules={{
+                          required: true,
+                          validate: (file) => {
+                            if (!file || !(file instanceof File)) {
+                              return t('please-enter-a-valid-{}', {
+                                name: c('resume-cv').toLowerCase(),
+                              });
+                            }
+                            return (
+                              file.size < 1048576 * MAX_FILE_SIZE_MB ||
+                              c('file-size-cannot-exceed-{}-mb', { value: MAX_FILE_SIZE_MB })
+                            );
+                          },
+                        }}
+                        helperText={c('file-types-{}', {
+                          value: 'pdf, doc, docx, txt, rtf (5MB)',
+                        })}
+                      />
+                    </div>
+                  </div>
+                  <div className="w-1/2 px-4 py-4 max-md:w-full">
+                    <div className="flex items-start">
+                      <div className="mb-5 mr-2 flex h-[40px] w-[95px] min-w-[95px] items-center">
+                        <label htmlFor="coverLetter" className="body-3">
+                          {t('cover-letter')}
+                        </label>
+                      </div>
+                      <FileInput
+                        name="coverLetter"
+                        label={c.rich('attach-{}', {
+                          value: t('cover-letter'),
+                          br: () => <br className="hidden md:block min-[860px]:hidden" />,
+                        })}
+                        rules={{
+                          validate: (file) => {
+                            if (!file) {
+                              return true;
+                            }
+                            if (!(file instanceof File)) {
+                              return t('please-enter-a-valid-{}', {
+                                name: c('resume-cv').toLowerCase(),
+                              });
+                            }
+                            return (
+                              file.size < 1048576 * MAX_FILE_SIZE_MB ||
+                              c('file-size-cannot-exceed-{}-mb', { value: MAX_FILE_SIZE_MB })
+                            );
+                          },
+                        }}
+                        helperText={c('file-types-{}', {
+                          value: 'pdf, doc, docx, txt, rtf (5MB)',
+                        })}
+                      />
+                    </div>
+                  </div>
+                  <div className="w-full px-4 py-4 text-center">
+                    <Button disabled={!isValid}>{b('submit-application')}</Button>
                   </div>
                 </div>
-                <div className="w-full px-4 py-4 text-center">
-                  <Button disabled={!isValid}>{b('submit-application')}</Button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </Container>
-      </Block>
-    </div>
+              </form>
+            </div>
+          </Container>
+        </Block>
+      </div>
+    </FormProvider>
   );
 }

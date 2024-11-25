@@ -4,7 +4,7 @@ import countries from 'i18n-iso-countries';
 import countriesEN from 'i18n-iso-countries/langs/en.json';
 import { useLocale, useTranslations } from 'next-intl';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import Button from '../buttons/Button';
 import PartialBillingAddressForm, { IPartialBillingAddressForm } from './partial/BillingAddress';
@@ -60,9 +60,10 @@ export default function BillingAddressForm({
       : undefined,
     postalCode,
   });
-  const { control, handleSubmit, reset, resetField, watch } = useForm<IBillingAddressForm>({
+  const form = useForm<IBillingAddressForm>({
     defaultValues,
   });
+  const { handleSubmit, reset, watch } = form;
   const [pending, startTransition] = React.useTransition();
 
   const onSubmit = React.useCallback(
@@ -89,30 +90,27 @@ export default function BillingAddressForm({
     watch('postalCode') === defaultValues.postalCode;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <PartialBillingAddressForm
-        control={control}
-        watch={watch}
-        resetField={resetField}
-        disabled={disabled}
-      />
-      <div className="-mx-2 mt-10 flex">
-        <div className="w-1/2 px-2">
-          <Button
-            fullWidth
-            onClick={() => reset(defaultValues)}
-            reverse
-            disabled={isSameAsDefaultValue || disabled}
-          >
-            {t('cancel')}
-          </Button>
+    <FormProvider {...form}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <PartialBillingAddressForm disabled={disabled} />
+        <div className="-mx-2 mt-10 flex">
+          <div className="w-1/2 px-2">
+            <Button
+              fullWidth
+              onClick={() => reset(defaultValues)}
+              reverse
+              disabled={isSameAsDefaultValue || disabled}
+            >
+              {t('cancel')}
+            </Button>
+          </div>
+          <div className="w-1/2 px-2">
+            <Button fullWidth disabled={pending || isSameAsDefaultValue || disabled}>
+              {t('save-changes')}
+            </Button>
+          </div>
         </div>
-        <div className="w-1/2 px-2">
-          <Button fullWidth disabled={pending || isSameAsDefaultValue || disabled}>
-            {t('save-changes')}
-          </Button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </FormProvider>
   );
 }

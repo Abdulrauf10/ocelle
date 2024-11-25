@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { motion } from 'framer-motion';
 import { useTranslations } from 'next-intl';
 import React from 'react';
-import { Controller, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
 import Section from '../Section';
@@ -38,13 +38,7 @@ export default function DogBasicFragment() {
   const { padSpace } = useSentence();
   const { getDog, setDog } = useSurvey();
   const { name, breeds, sex, isNeutered, isUnknownBreed } = getDog();
-  const {
-    handleSubmit,
-    control,
-    watch,
-    setValue,
-    formState: { errors, isValid },
-  } = useForm<DogBasicForm>({
+  const form = useForm<DogBasicForm>({
     mode: 'onChange',
     defaultValues: {
       breeds: breeds || [],
@@ -53,6 +47,13 @@ export default function DogBasicFragment() {
       isUnknownBreed,
     },
   });
+  const {
+    handleSubmit,
+    control,
+    watch,
+    setValue,
+    formState: { errors, isValid },
+  } = form;
   const { data: options, isLoading } = useQuery({
     queryKey: ['breeds'],
     queryFn: () => getBreeds(),
@@ -97,127 +98,93 @@ export default function DogBasicFragment() {
       }}
     >
       <motion.div variants={pageVariants} initial="outside" animate="enter" exit="exit">
-        <Container className="text-center">
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Section
-              title={t('what-breed-is', {
-                name: padSpace(PadSpace.Right, name),
-              })}
-              description={t('if-{}-is-a-mix-you-can-select-multiple-breeds', {
-                name: padSpace(PadSpace.Both, name),
-              })}
-            >
-              <div className="mx-auto max-w-[480px]">
-                <Controller
-                  name="breeds"
-                  control={control}
-                  rules={{
-                    validate: {
-                      required: (value, formValues) =>
-                        formValues.isUnknownBreed ? true : value.length > 0,
-                    },
-                  }}
-                  render={({ field: { onChange, value, ...field } }) => (
-                    <Autocomplete
-                      multiple
-                      fullWidth
-                      options={options || []}
-                      loading={isLoading}
-                      getOptionLabel={(option) => option.name}
-                      freeSolo={false}
-                      autoHighlight={false}
-                      sx={{
-                        '& .MuiOutlinedInput-root': {
-                          paddingRight: '0px!important',
-                        },
-                      }}
-                      getOptionDisabled={(option) =>
-                        value.length > 1 ||
-                        value.some((breed) => breed.uid.indexOf('9998') > -1) ||
-                        (value.length > 0 && option.uid.indexOf('9998') > -1)
-                      }
-                      isOptionEqualToValue={(option, value) => option.id === value.id}
-                      renderInput={(params) => (
-                        <>
-                          <TextField
-                            {...params}
-                            placeholder={
-                              watch('breeds').length == 0 ? t('start-typing-the-breed') : ''
-                            }
-                            error={!!errors.breeds}
-                          />
-                        </>
-                      )}
-                      disabled={watch('isUnknownBreed', isUnknownBreed ?? false)}
-                      renderTags={(tagValue, getTagProps, state) =>
-                        tagValue.map((option, index) => (
-                          <Chip
-                            {...getTagProps({ index })}
-                            key={option.id}
-                            label={state.getOptionLabel(option)}
-                          />
-                        ))
-                      }
-                      onChange={(e, data) => onChange(data)}
-                      filterOptions={alphabeticalFilterOption}
-                      filterSelectedOptions
-                      value={
-                        values.isUnknownBreed
-                          ? options?.filter((option) => option.uid === '9998 - C') ?? []
-                          : value
-                      }
-                      {...field}
-                    />
-                  )}
-                />
-                <div className="mt-3 px-3">
-                  <CircleCheckbox
-                    control={control}
-                    name="isUnknownBreed"
-                    label={t.rich('dont-know-the-breed')}
-                    onChange={() => setValue('breeds', [])}
-                  />
-                </div>
-              </div>
-            </Section>
-            <SectionBreak />
-            {showSex && (
+        <FormProvider {...form}>
+          <Container className="text-center">
+            <form onSubmit={handleSubmit(onSubmit)}>
               <Section
-                title={t('{}-is-', {
+                title={t('what-breed-is', {
                   name: padSpace(PadSpace.Right, name),
                 })}
+                description={t('if-{}-is-a-mix-you-can-select-multiple-breeds', {
+                  name: padSpace(PadSpace.Both, name),
+                })}
               >
-                <div className="flex justify-center">
-                  <div className="px-3">
-                    <InteractiveBlock
-                      type="radio"
-                      value={Sex.M}
-                      error={!!errors.sex}
-                      control={control}
-                      name="sex"
-                      label={t('boy')}
-                      rules={{ required: true }}
-                    />
-                  </div>
-                  <div className="px-3">
-                    <InteractiveBlock
-                      type="radio"
-                      value={Sex.F}
-                      error={!!errors.sex}
-                      control={control}
-                      name="sex"
-                      label={t('girl')}
-                      rules={{ required: true }}
+                <div className="mx-auto max-w-[480px]">
+                  <Controller
+                    name="breeds"
+                    control={control}
+                    rules={{
+                      validate: {
+                        required: (value, formValues) =>
+                          formValues.isUnknownBreed ? true : value.length > 0,
+                      },
+                    }}
+                    render={({ field: { onChange, value, ...field } }) => (
+                      <Autocomplete
+                        multiple
+                        fullWidth
+                        options={options || []}
+                        loading={isLoading}
+                        getOptionLabel={(option) => option.name}
+                        freeSolo={false}
+                        autoHighlight={false}
+                        sx={{
+                          '& .MuiOutlinedInput-root': {
+                            paddingRight: '0px!important',
+                          },
+                        }}
+                        getOptionDisabled={(option) =>
+                          value.length > 1 ||
+                          value.some((breed) => breed.uid.indexOf('9998') > -1) ||
+                          (value.length > 0 && option.uid.indexOf('9998') > -1)
+                        }
+                        isOptionEqualToValue={(option, value) => option.id === value.id}
+                        renderInput={(params) => (
+                          <>
+                            <TextField
+                              {...params}
+                              placeholder={
+                                watch('breeds').length == 0 ? t('start-typing-the-breed') : ''
+                              }
+                              error={!!errors.breeds}
+                            />
+                          </>
+                        )}
+                        disabled={watch('isUnknownBreed', isUnknownBreed ?? false)}
+                        renderTags={(tagValue, getTagProps, state) =>
+                          tagValue.map((option, index) => (
+                            <Chip
+                              {...getTagProps({ index })}
+                              key={option.id}
+                              label={state.getOptionLabel(option)}
+                            />
+                          ))
+                        }
+                        onChange={(e, data) => onChange(data)}
+                        filterOptions={alphabeticalFilterOption}
+                        filterSelectedOptions
+                        value={
+                          values.isUnknownBreed
+                            ? options?.filter((option) => option.uid === '9998 - C') ?? []
+                            : value
+                        }
+                        {...field}
+                      />
+                    )}
+                  />
+                  <div className="mt-3 px-3">
+                    <CircleCheckbox
+                      name="isUnknownBreed"
+                      label={t.rich('dont-know-the-breed')}
+                      onChange={() => setValue('breeds', [])}
                     />
                   </div>
                 </div>
               </Section>
-            )}
-            {values.sex !== undefined && (
-              <>
-                <SectionBreak />
+              <SectionBreak />
+              {showSex && (
                 <Section
-                  title={t('is-{}-', {
+                  title={t('{}-is-', {
                     name: padSpace(PadSpace.Right, name),
                   })}
                 >
@@ -225,44 +192,77 @@ export default function DogBasicFragment() {
                     <div className="px-3">
                       <InteractiveBlock
                         type="radio"
-                        value="Y"
-                        error={!!errors.isNeutered}
-                        control={control}
-                        name="isNeutered"
-                        label={watch('sex', sex ?? Sex.M) == Sex.M ? t('neutered') : t('spayed')}
+                        value={Sex.M}
+                        error={!!errors.sex}
+                        name="sex"
+                        label={t('boy')}
                         rules={{ required: true }}
                       />
                     </div>
                     <div className="px-3">
                       <InteractiveBlock
                         type="radio"
-                        value="N"
-                        error={!!errors.isNeutered}
-                        control={control}
-                        name="isNeutered"
-                        label={
-                          watch('sex', sex ?? Sex.M) == Sex.M ? t('not-neutered') : t('not-spayed')
-                        }
+                        value={Sex.F}
+                        error={!!errors.sex}
+                        name="sex"
+                        label={t('girl')}
                         rules={{ required: true }}
                       />
                     </div>
                   </div>
-                  <div className="mt-6"></div>
-                  <p className="body-3 italic text-primary">
-                    {t('spayed-and-neutered-dogs-require-fewer-calories')}
-                  </p>
                 </Section>
-              </>
-            )}
-            {values.sex !== undefined &&
-              values.isNeutered !== undefined &&
-              (values.breeds.length > 0 || values.isUnknownBreed !== undefined) && (
-                <Button className="mt-10" disabled={!isValid}>
-                  {t('continue')}
-                </Button>
               )}
-          </form>
-        </Container>
+              {values.sex !== undefined && (
+                <>
+                  <SectionBreak />
+                  <Section
+                    title={t('is-{}-', {
+                      name: padSpace(PadSpace.Right, name),
+                    })}
+                  >
+                    <div className="flex justify-center">
+                      <div className="px-3">
+                        <InteractiveBlock
+                          type="radio"
+                          value="Y"
+                          error={!!errors.isNeutered}
+                          name="isNeutered"
+                          label={watch('sex', sex ?? Sex.M) == Sex.M ? t('neutered') : t('spayed')}
+                          rules={{ required: true }}
+                        />
+                      </div>
+                      <div className="px-3">
+                        <InteractiveBlock
+                          type="radio"
+                          value="N"
+                          error={!!errors.isNeutered}
+                          name="isNeutered"
+                          label={
+                            watch('sex', sex ?? Sex.M) == Sex.M
+                              ? t('not-neutered')
+                              : t('not-spayed')
+                          }
+                          rules={{ required: true }}
+                        />
+                      </div>
+                    </div>
+                    <div className="mt-6"></div>
+                    <p className="body-3 italic text-primary">
+                      {t('spayed-and-neutered-dogs-require-fewer-calories')}
+                    </p>
+                  </Section>
+                </>
+              )}
+              {values.sex !== undefined &&
+                values.isNeutered !== undefined &&
+                (values.breeds.length > 0 || values.isUnknownBreed !== undefined) && (
+                  <Button className="mt-10" disabled={!isValid}>
+                    {t('continue')}
+                  </Button>
+                )}
+            </form>
+          </Container>
+        </FormProvider>
       </motion.div>
     </AppThemeProvider>
   );

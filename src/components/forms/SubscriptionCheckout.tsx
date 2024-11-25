@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { addDays, subDays } from 'date-fns';
 import { useTranslations } from 'next-intl';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 
 import TextField from '../controls/TextField';
@@ -153,20 +153,11 @@ export default function SubscriptionCheckoutForm({
   const { dogs: surveyDogs } = useSurvey();
   const stripe = useStripe();
   const elements = useElements();
-  const form = useCardStripeForm();
+  const cardForm = useCardStripeForm();
   const t = useTranslations();
   const n = useTranslations('Navigator');
   const sentence = useSentence();
-  const {
-    control,
-    setValue,
-    handleSubmit,
-    watch,
-    trigger,
-    getValues,
-    resetField,
-    formState: { errors, isValid },
-  } = useForm<ISubscriptionCheckoutForm>({
+  const form = useForm<ISubscriptionCheckoutForm>({
     mode: 'onBlur',
     defaultValues: {
       ...defaultValues,
@@ -190,6 +181,14 @@ export default function SubscriptionCheckoutForm({
       },
     },
   });
+  const {
+    setValue,
+    handleSubmit,
+    watch,
+    trigger,
+    getValues,
+    formState: { errors, isValid },
+  } = form;
   const datePickerRef = React.useRef<HTMLDivElement | null>(null);
   const [openDeliveryDate, setOpenDeliveryDate] = React.useState(false);
   const [isSubmitInProgress, setIsSubmitInProgress] = React.useState(false);
@@ -372,493 +371,491 @@ export default function SubscriptionCheckoutForm({
   const voucher = order.discounts.find((discount) => discount.type === OrderDiscountType.Voucher);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <Container>
-        <div className="-mx-6 flex flex-wrap max-lg:-mx-3">
-          <div className="flex-1 px-6 max-lg:px-3">
-            <Section dense title={t('user-account-information')}>
-              <div className="-m-2 flex flex-wrap">
-                <div className="w-1/2 p-2 max-sm:w-full">
-                  <TextField
-                    name="firstName"
-                    label={t('first-name')}
-                    control={control}
-                    rules={{
-                      required: t('please-enter-your-{}', { name: t('first-name').toLowerCase() }),
-                    }}
-                    disabled={isSubmitInProgress}
-                    error={!!errors.firstName}
-                    errorOnEmpty
-                    fullWidth
-                  />
-                </div>
-                <div className="w-1/2 p-2 max-sm:w-full">
-                  <TextField
-                    name="lastName"
-                    label={t('last-name')}
-                    control={control}
-                    rules={{
-                      required: t('please-enter-your-{}', { name: t('last-name').toLowerCase() }),
-                    }}
-                    disabled={isSubmitInProgress}
-                    error={!!errors.lastName}
-                    errorOnEmpty
-                    fullWidth
-                  />
-                </div>
-                <div className="w-full p-2">
-                  <TextField
-                    name="email"
-                    label={t('email')}
-                    control={control}
-                    rules={{
-                      required: t('please-enter-your-{}', { name: t('email').toLowerCase() }),
-                      pattern: {
-                        value: EMAIL_REGEXP,
-                        message: t('this-{}-doesn-t-look-correct-please-update-it', {
-                          name: t('email').toLowerCase(),
+    <FormProvider {...form}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Container>
+          <div className="-mx-6 flex flex-wrap max-lg:-mx-3">
+            <div className="flex-1 px-6 max-lg:px-3">
+              <Section dense title={t('user-account-information')}>
+                <div className="-m-2 flex flex-wrap">
+                  <div className="w-1/2 p-2 max-sm:w-full">
+                    <TextField
+                      name="firstName"
+                      label={t('first-name')}
+                      rules={{
+                        required: t('please-enter-your-{}', {
+                          name: t('first-name').toLowerCase(),
                         }),
-                      },
-                    }}
-                    disabled={isSubmitInProgress}
-                    error={!!errors.email}
-                    errorOnEmpty
-                    fullWidth
-                  />
-                </div>
-                <div className="w-1/2 p-2 max-sm:w-full">
-                  <PasswordField
-                    name="password"
-                    control={control}
-                    rules={{
-                      required: t('please-enter-a-valid-{}', { name: t('password').toLowerCase() }),
-                      pattern: {
-                        value: PASSWORD_REGEXP,
-                        message: t(
-                          'passwords-must-be-at-least-8-characters-long-and-include-at-least-one-uppercase-letter-and-one-number'
-                        ),
-                      },
-                    }}
-                    label={t('password')}
-                    fullWidth
-                    disabled={isSubmitInProgress}
-                    error={!!errors.password}
-                    errorOnEmpty
-                    onBlur={() => {
-                      const value = getValues('confirmPassword');
-                      if (value !== undefined && value.length > 0) {
-                        trigger('confirmPassword');
-                      }
-                    }}
-                  />
-                </div>
-                <div className="w-1/2 p-2 max-sm:w-full">
-                  <PasswordField
-                    name="confirmPassword"
-                    control={control}
-                    rules={{
-                      required: {
-                        value: true,
-                        message: t('please-confirm-your-password'),
-                      },
-                      validate: (value, { password }) => {
-                        return value === password || t('your-passwords-do-not-match');
-                      },
-                    }}
-                    label={t('confirm-{}', { value: t('password') })}
-                    fullWidth
-                    disabled={isSubmitInProgress}
-                    error={!!errors.confirmPassword}
-                    errorOnEmpty
-                  />
-                </div>
-                <div className="w-1/2 p-2 max-lg:w-full">
-                  <TextField
-                    name="phone.value"
-                    label={t('phone-number')}
-                    control={control}
-                    rules={{
-                      required: t('please-enter-your-{}', {
-                        name: t('phone-number').toLowerCase(),
-                      }),
-                      pattern: {
-                        value: PHONE_REGEXP,
-                        message: t('please-enter-a-valid-{}', {
+                      }}
+                      disabled={isSubmitInProgress}
+                      error={!!errors.firstName}
+                      errorOnEmpty
+                      fullWidth
+                    />
+                  </div>
+                  <div className="w-1/2 p-2 max-sm:w-full">
+                    <TextField
+                      name="lastName"
+                      label={t('last-name')}
+                      rules={{
+                        required: t('please-enter-your-{}', { name: t('last-name').toLowerCase() }),
+                      }}
+                      disabled={isSubmitInProgress}
+                      error={!!errors.lastName}
+                      errorOnEmpty
+                      fullWidth
+                    />
+                  </div>
+                  <div className="w-full p-2">
+                    <TextField
+                      name="email"
+                      label={t('email')}
+                      rules={{
+                        required: t('please-enter-your-{}', { name: t('email').toLowerCase() }),
+                        pattern: {
+                          value: EMAIL_REGEXP,
+                          message: t('this-{}-doesn-t-look-correct-please-update-it', {
+                            name: t('email').toLowerCase(),
+                          }),
+                        },
+                      }}
+                      disabled={isSubmitInProgress}
+                      error={!!errors.email}
+                      errorOnEmpty
+                      fullWidth
+                    />
+                  </div>
+                  <div className="w-1/2 p-2 max-sm:w-full">
+                    <PasswordField
+                      name="password"
+                      rules={{
+                        required: t('please-enter-a-valid-{}', {
+                          name: t('password').toLowerCase(),
+                        }),
+                        pattern: {
+                          value: PASSWORD_REGEXP,
+                          message: t(
+                            'passwords-must-be-at-least-8-characters-long-and-include-at-least-one-uppercase-letter-and-one-number'
+                          ),
+                        },
+                      }}
+                      label={t('password')}
+                      fullWidth
+                      disabled={isSubmitInProgress}
+                      error={!!errors.password}
+                      errorOnEmpty
+                      onBlur={() => {
+                        const value = getValues('confirmPassword');
+                        if (value !== undefined && value.length > 0) {
+                          trigger('confirmPassword');
+                        }
+                      }}
+                    />
+                  </div>
+                  <div className="w-1/2 p-2 max-sm:w-full">
+                    <PasswordField
+                      name="confirmPassword"
+                      rules={{
+                        required: {
+                          value: true,
+                          message: t('please-confirm-your-password'),
+                        },
+                        validate: (value, { password }: ISubscriptionCheckoutForm) => {
+                          return value === password || t('your-passwords-do-not-match');
+                        },
+                      }}
+                      label={t('confirm-{}', { value: t('password') })}
+                      fullWidth
+                      disabled={isSubmitInProgress}
+                      error={!!errors.confirmPassword}
+                      errorOnEmpty
+                    />
+                  </div>
+                  <div className="w-1/2 p-2 max-lg:w-full">
+                    <TextField
+                      name="phone.value"
+                      label={t('phone-number')}
+                      rules={{
+                        required: t('please-enter-your-{}', {
                           name: t('phone-number').toLowerCase(),
                         }),
-                      },
-                      validate: (value, { phone: { code } }) => {
-                        if (code !== '852') {
-                          return true;
-                        }
-                        return String(value).length === 8
-                          ? true
-                          : t('please-enter-a-valid-{}', { name: t('phone-number').toLowerCase() });
-                      },
-                    }}
-                    disabled={isSubmitInProgress}
-                    error={!!errors.phone?.value}
-                    errorOnEmpty
-                    fullWidth
-                    InputProps={{
-                      startAdornment: (
-                        <div className="w-auto">
-                          <Select
-                            variant="standard"
-                            name="phone.code"
-                            control={control}
-                            rules={{ required: true }}
-                            disableUnderline
-                            onChange={() => trigger('phone.value')}
-                            disabled={isSubmitInProgress}
-                            disableOverlap
-                          >
-                            {getCountryCodes().map((code, idx) => (
-                              <MenuItem key={idx} value={code}>
-                                +{code}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </div>
-                      ),
-                    }}
-                  />
+                        pattern: {
+                          value: PHONE_REGEXP,
+                          message: t('please-enter-a-valid-{}', {
+                            name: t('phone-number').toLowerCase(),
+                          }),
+                        },
+                        validate: (value, { phone: { code } }) => {
+                          if (code !== '852') {
+                            return true;
+                          }
+                          return String(value).length === 8
+                            ? true
+                            : t('please-enter-a-valid-{}', {
+                                name: t('phone-number').toLowerCase(),
+                              });
+                        },
+                      }}
+                      disabled={isSubmitInProgress}
+                      error={!!errors.phone?.value}
+                      errorOnEmpty
+                      fullWidth
+                      InputProps={{
+                        startAdornment: (
+                          <div className="w-auto">
+                            <Select
+                              variant="standard"
+                              name="phone.code"
+                              rules={{ required: true }}
+                              disableUnderline
+                              onChange={() => trigger('phone.value')}
+                              disabled={isSubmitInProgress}
+                              disableOverlap
+                            >
+                              {getCountryCodes().map((code, idx) => (
+                                <MenuItem key={idx} value={code}>
+                                  +{code}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </div>
+                        ),
+                      }}
+                    />
+                  </div>
+                  <div className="w-1/2 p-2 max-lg:w-full">
+                    <TextField
+                      name="whatsapp.value"
+                      label={t('whatsapp-optional')}
+                      rules={{
+                        pattern: {
+                          value: PHONE_REGEXP,
+                          message: t('please-enter-a-valid-{}', {
+                            name: t('Whatsapp-number').toLowerCase(),
+                          }),
+                        },
+                        validate: (value, { whatsapp: { code } }) => {
+                          if (code !== '852' || value === '') {
+                            return true;
+                          }
+                          return String(value).length === 8
+                            ? true
+                            : t('please-enter-a-valid-{}', {
+                                name:
+                                  t('Whatsapp-number').split(' ')[0] +
+                                  ' ' +
+                                  (t('Whatsapp-number').split(' ')[1]?.toLowerCase() || ''),
+                              });
+                        },
+                      }}
+                      disabled={isSubmitInProgress}
+                      error={!!errors.whatsapp?.value}
+                      errorOnEmpty
+                      fullWidth
+                      InputProps={{
+                        startAdornment: (
+                          <div className="w-auto">
+                            <Select
+                              variant="standard"
+                              name="whatsapp.code"
+                              rules={{ required: true }}
+                              disableUnderline
+                              onChange={() => trigger('phone.value')}
+                              disabled={isSubmitInProgress}
+                              disableOverlap
+                            >
+                              {getCountryCodes().map((code, idx) => (
+                                <MenuItem key={idx} value={code}>
+                                  +{code}
+                                </MenuItem>
+                              ))}
+                            </Select>
+                          </div>
+                        ),
+                      }}
+                    />
+                  </div>
                 </div>
-                <div className="w-1/2 p-2 max-lg:w-full">
-                  <TextField
-                    name="whatsapp.value"
-                    label={t('whatsapp-optional')}
-                    control={control}
-                    rules={{
-                      pattern: {
-                        value: PHONE_REGEXP,
-                        message: t('please-enter-a-valid-{}', {
-                          name: t('Whatsapp-number').toLowerCase(),
-                        }),
-                      },
-                      validate: (value, { whatsapp: { code } }) => {
-                        if (code !== '852' || value === '') {
-                          return true;
-                        }
-                        return String(value).length === 8
-                          ? true
-                          : t('please-enter-a-valid-{}', {
-                              name:
-                                t('Whatsapp-number').split(' ')[0] +
-                                ' ' +
-                                (t('Whatsapp-number').split(' ')[1]?.toLowerCase() || ''),
-                            });
-                      },
-                    }}
-                    disabled={isSubmitInProgress}
-                    error={!!errors.whatsapp?.value}
-                    errorOnEmpty
-                    fullWidth
-                    InputProps={{
-                      startAdornment: (
-                        <div className="w-auto">
-                          <Select
-                            variant="standard"
-                            name="whatsapp.code"
-                            control={control}
-                            rules={{ required: true }}
-                            disableUnderline
-                            onChange={() => trigger('phone.value')}
-                            disabled={isSubmitInProgress}
-                            disableOverlap
-                          >
-                            {getCountryCodes().map((code, idx) => (
-                              <MenuItem key={idx} value={code}>
-                                +{code}
-                              </MenuItem>
-                            ))}
-                          </Select>
-                        </div>
-                      ),
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="mt-3">
-                <RoundedCheckbox
-                  name="receiveNews"
-                  control={control}
-                  label={t(
-                    'keep-me-up-to-date-with-news-and-exclusive-offers-via-email-or-whatsApp'
-                  )}
-                  disabled={isSubmitInProgress}
-                />
-              </div>
-            </Section>
-            <div className="mt-10"></div>
-            <Section dense title={t('delivery-address')}>
-              <PartialShippingAddressForm
-                control={control}
-                watch={watch}
-                prefix="deliveryAddress"
-                disabled={isSubmitInProgress}
-              />
-              <div className="mt-3">
-                <RoundedCheckbox
-                  name="isSameBillingAddress"
-                  control={control}
-                  label={t('use-as-{}', { name: t('billing-address') })}
-                  disabled={isSubmitInProgress}
-                />
-              </div>
-            </Section>
-            <div className="mt-10"></div>
-            {!watch('isSameBillingAddress') && (
-              <>
-                <Section dense title={t('billing-address')}>
-                  <PartialBillingAddressForm
-                    control={control}
-                    watch={watch}
-                    resetField={resetField}
-                    prefix="billingAddress"
+                <div className="mt-3">
+                  <RoundedCheckbox
+                    name="receiveNews"
+                    label={t(
+                      'keep-me-up-to-date-with-news-and-exclusive-offers-via-email-or-whatsApp'
+                    )}
                     disabled={isSubmitInProgress}
                   />
-                </Section>
-                <div className="mt-10"></div>
-              </>
-            )}
-            <Section dense title={t('payment-information')}>
-              <PartialCardStripeForm form={form} disabled={isSubmitInProgress} />
-            </Section>
-            <div className="mt-10"></div>
-            <Section dense title={t('delivery-date')}>
-              <p className="body-3">
-                {t.rich('{}-{}-week-starter-box-will-be-delivered-on-the-{}', {
-                  name: dogs.map((dog) => t('{}-apostrophe', { value: dog.name })).join(t('comma')),
-                  week: 2,
-                  date: sentence.date(watch('deliveryDate'), true),
-                })}{' '}
-                <EditButton
+                </div>
+              </Section>
+              <div className="mt-10"></div>
+              <Section dense title={t('delivery-address')}>
+                <PartialShippingAddressForm
+                  prefix="deliveryAddress"
                   disabled={isSubmitInProgress}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setOpenDeliveryDate(true);
-                  }}
                 />
-              </p>
-              <div className="mt-3"></div>
-              <p className="body-3">
-                {t.rich('after-checkout-you-can-adjust-your-delivery-date-until-the-{}', {
-                  date: sentence.datetime(
-                    getEditableRecurringBoxDeadline(calendarEvents, watch('deliveryDate'), true)
-                  ),
-                })}
-              </p>
-              {openDeliveryDate && (
-                <div ref={datePickerRef} className="mt-4 w-fit">
-                  <DatePickerForm
-                    initialDate={watch('deliveryDate')}
-                    minDate={closestDeliveryDate}
-                    shouldDisableDate={(day) =>
-                      !isOperationDate(subDays(day, 1), calendarEvents) ||
-                      !isLegalDeliveryDate(day, calendarEvents)
-                    }
-                    view={['day']}
-                    showCompletedMessage
-                    action={async ({ date }) => {
-                      setValue('deliveryDate', date);
-                      setOpenDeliveryDate(false);
-                    }}
+                <div className="mt-3">
+                  <RoundedCheckbox
+                    name="isSameBillingAddress"
+                    label={t('use-as-{}', { name: t('billing-address') })}
+                    disabled={isSubmitInProgress}
                   />
                 </div>
+              </Section>
+              <div className="mt-10"></div>
+              {!watch('isSameBillingAddress') && (
+                <>
+                  <Section dense title={t('billing-address')}>
+                    <PartialBillingAddressForm
+                      prefix="billingAddress"
+                      disabled={isSubmitInProgress}
+                    />
+                  </Section>
+                  <div className="mt-10"></div>
+                </>
               )}
-            </Section>
-          </div>
-          <div className="w-1/3 px-6 max-lg:w-2/5 max-lg:px-3 max-md:mt-8 max-md:w-full">
-            <div className="rounded-3xl bg-gold bg-opacity-10 px-6 py-10">
-              <h2 className="heading-4 font-bold text-gold">{t('order-summary')}</h2>
-              {/* Ocelle_Change Log_Get Started (P002)_v0.38.xlsx -> pending to remove */}
-              {/* <SummaryBlock title={t('your-plan')}>
-                {dogs.map((dog, idx) => {
-                  return (
-                    <div key={idx} className="mt-2">
-                      <p className="body-3">
-                        {t('{}-for-{}-diet-at-a-total-of-{}-per-day', {
-                          plan:
-                            dog.mealPlan === MealPlan.Full
-                              ? t('fresh-full-plan')
-                              : t('fresh-half-plan'),
-                          name: sentence.padSpace(PadSpace.Right, dog.name),
-                          price: `\$${roundTo(dog.perDayPrice, 2)}`,
-                        })}
-                      </p>
-                    </div>
-                  );
-                })}
-              </SummaryBlock> */}
+              <Section dense title={t('payment-information')}>
+                <PartialCardStripeForm form={cardForm} disabled={isSubmitInProgress} />
+              </Section>
+              <div className="mt-10"></div>
+              <Section dense title={t('delivery-date')}>
+                <p className="body-3">
+                  {t.rich('{}-{}-week-starter-box-will-be-delivered-on-the-{}', {
+                    name: dogs
+                      .map((dog) => t('{}-apostrophe', { value: dog.name }))
+                      .join(t('comma')),
+                    week: 2,
+                    date: sentence.date(watch('deliveryDate'), true),
+                  })}{' '}
+                  <EditButton
+                    disabled={isSubmitInProgress}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setOpenDeliveryDate(true);
+                    }}
+                  />
+                </p>
+                <div className="mt-3"></div>
+                <p className="body-3">
+                  {t.rich('after-checkout-you-can-adjust-your-delivery-date-until-the-{}', {
+                    date: sentence.datetime(
+                      getEditableRecurringBoxDeadline(calendarEvents, watch('deliveryDate'), true)
+                    ),
+                  })}
+                </p>
+                {openDeliveryDate && (
+                  <div ref={datePickerRef} className="mt-4 w-fit">
+                    <DatePickerForm
+                      initialDate={watch('deliveryDate')}
+                      minDate={closestDeliveryDate}
+                      shouldDisableDate={(day) =>
+                        !isOperationDate(subDays(day, 1), calendarEvents) ||
+                        !isLegalDeliveryDate(day, calendarEvents)
+                      }
+                      view={['day']}
+                      showCompletedMessage
+                      action={async ({ date }) => {
+                        setValue('deliveryDate', date);
+                        setOpenDeliveryDate(false);
+                      }}
+                    />
+                  </div>
+                )}
+              </Section>
+            </div>
+            <div className="w-1/3 px-6 max-lg:w-2/5 max-lg:px-3 max-md:mt-8 max-md:w-full">
+              <div className="rounded-3xl bg-gold bg-opacity-10 px-6 py-10">
+                <h2 className="heading-4 font-bold text-gold">{t('order-summary')}</h2>
+                {/* Ocelle_Change Log_Get Started (P002)_v0.38.xlsx -> pending to remove */}
+                {/* <SummaryBlock title={t('your-plan')}>
               {dogs.map((dog, idx) => {
                 return (
-                  <SummaryBlock
-                    key={idx}
-                    title={t('{}-fresh-food-box', {
-                      name: sentence.padSpace(PadSpace.Right, dog.name),
-                    })}
-                  >
-                    <div className="-mx-1 flex flex-wrap justify-between">
-                      <div className="body-3 px-1">{t('meal-plan')}</div>
-                      <div className="body-3 px-1">
-                        <strong className="mr-1.5">
-                          {dog.mealPlan === MealPlan.Full
+                  <div key={idx} className="mt-2">
+                    <p className="body-3">
+                      {t('{}-for-{}-diet-at-a-total-of-{}-per-day', {
+                        plan:
+                          dog.mealPlan === MealPlan.Full
                             ? t('fresh-full-plan')
-                            : t('fresh-half-plan')}
-                        </strong>
-                        <EditButton
-                          disabled={isSubmitInProgress}
-                          onClick={() => onEditMealPlan(idx)}
-                        />
-                      </div>
-                    </div>
-                    <div className="mt-3"></div>
-                    <div className="-mx-1 flex flex-wrap justify-between">
-                      <div className="body-3 px-1">{n('recipes')}</div>
-                      <div className="body-3 px-1">
-                        <strong className="mr-1.5">
-                          {t(RecipeHelper.getSlug(dog.recipe1))}
-                          {dog.recipe2 != null && `, ${t(RecipeHelper.getSlug(dog.recipe2))}`}
-                        </strong>
-                        <EditButton
-                          disabled={isSubmitInProgress}
-                          onClick={() => onEditRecipes(idx)}
-                        />
-                      </div>
-                    </div>
-                    <div className="mt-3"></div>
-                    <div className="-mx-1 flex flex-wrap justify-between">
-                      <div className="body-3 px-1">{t('days-of-food')}</div>
-                      <div className="body-3 px-1">
-                        <strong className="mr-1.5">{t('{}-days', { value: 14 })}</strong>
-                        <div className="inline-block w-4">&nbsp;</div>
-                      </div>
-                    </div>
-                    <div className="mt-3"></div>
-                    <div className="-mx-1 flex flex-wrap justify-between">
-                      <div className="body-3 px-1">{t('transition-period')}</div>
-                      <div className="body-3 px-1">
-                        <strong className="mr-1.5">
-                          {dog.isEnabledTransitionPeriod ? t('yes') : t('no')}
-                        </strong>
-                        <EditButton
-                          disabled={isSubmitInProgress}
-                          onClick={() => onEditTransitionPeriod(idx)}
-                        />
-                      </div>
-                    </div>
-                  </SummaryBlock>
+                            : t('fresh-half-plan'),
+                        name: sentence.padSpace(PadSpace.Right, dog.name),
+                        price: `\$${roundTo(dog.perDayPrice, 2)}`,
+                      })}
+                    </p>
+                  </div>
                 );
               })}
-              <SummaryBlock title={t('promo-code')}>
-                <CouponForm
-                  disabled={isSubmitInProgress}
-                  action={async (data) => {
-                    const order = await onApplyCoupon(data);
-                    setOrder(order);
-                  }}
-                />
-              </SummaryBlock>
-              <SummaryBlock>
-                <div className="-mx-1 flex flex-wrap justify-between">
-                  <div className="body-3 px-1">{t('fresh-food-box-subtotal')}</div>
-                  <div className="body-3 px-1">
-                    <Price
-                      className="font-bold"
-                      value={formatCurrency(order.undiscountedTotal.gross.amount)}
-                      discount
-                    />
-                  </div>
-                </div>
-                <div className="mt-3"></div>
-                <div className="-mx-1 flex flex-wrap justify-between">
-                  <div className="body-3 px-1">{t('with-starter-box-discount')}</div>
-                  <div className="body-3 px-1">
-                    <Price
-                      className="font-bold"
-                      value={formatCurrency(starterBoxDiscount.amount.amount)}
-                    />
-                  </div>
-                </div>
-                <div className="mt-3"></div>
-                <div className="-mx-1 flex flex-wrap justify-between">
-                  <div className="body-3 px-1">{t('promo-code')}</div>
-                  <div className="body-3 px-1">
-                    {voucher ? (
-                      <Price className="font-bold" value={formatCurrency(voucher.amount.amount)} />
-                    ) : (
-                      '－'
-                    )}
-                  </div>
-                </div>
-                <div className="mt-3"></div>
-                <div className="-mx-1 flex flex-wrap justify-between">
-                  <div className="body-3 px-1">{t('delivery')}</div>
-                  <div className="body-3 px-1">
-                    <Price className="font-bold uppercase" value={t('free')} />
-                  </div>
-                </div>
-              </SummaryBlock>
-              <SummaryBlock>
-                <div className="-mx-1 flex flex-wrap justify-between font-bold">
-                  <div className="px-1">{t('{}-colon', { value: t('todays-total') })}</div>
-                  <div className="px-1">{formatCurrency(order.total.gross.amount)}</div>
-                </div>
-                <div className="mt-4">
-                  <RoundedCheckbox
-                    name="tnc"
-                    control={control}
-                    rules={{
-                      required: true,
-                    }}
-                    label={t.rich('i-have-read-and-understood-the-terms-conditions', {
-                      button: (chunks) => (
-                        <UnderlineButton type="button" theme="primary" label={chunks} />
-                      ),
-                    })}
+            </SummaryBlock> */}
+                {dogs.map((dog, idx) => {
+                  return (
+                    <SummaryBlock
+                      key={idx}
+                      title={t('{}-fresh-food-box', {
+                        name: sentence.padSpace(PadSpace.Right, dog.name),
+                      })}
+                    >
+                      <div className="-mx-1 flex flex-wrap justify-between">
+                        <div className="body-3 px-1">{t('meal-plan')}</div>
+                        <div className="body-3 px-1">
+                          <strong className="mr-1.5">
+                            {dog.mealPlan === MealPlan.Full
+                              ? t('fresh-full-plan')
+                              : t('fresh-half-plan')}
+                          </strong>
+                          <EditButton
+                            disabled={isSubmitInProgress}
+                            onClick={() => onEditMealPlan(idx)}
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-3"></div>
+                      <div className="-mx-1 flex flex-wrap justify-between">
+                        <div className="body-3 px-1">{n('recipes')}</div>
+                        <div className="body-3 px-1">
+                          <strong className="mr-1.5">
+                            {t(RecipeHelper.getSlug(dog.recipe1))}
+                            {dog.recipe2 != null && `, ${t(RecipeHelper.getSlug(dog.recipe2))}`}
+                          </strong>
+                          <EditButton
+                            disabled={isSubmitInProgress}
+                            onClick={() => onEditRecipes(idx)}
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-3"></div>
+                      <div className="-mx-1 flex flex-wrap justify-between">
+                        <div className="body-3 px-1">{t('days-of-food')}</div>
+                        <div className="body-3 px-1">
+                          <strong className="mr-1.5">{t('{}-days', { value: 14 })}</strong>
+                          <div className="inline-block w-4">&nbsp;</div>
+                        </div>
+                      </div>
+                      <div className="mt-3"></div>
+                      <div className="-mx-1 flex flex-wrap justify-between">
+                        <div className="body-3 px-1">{t('transition-period')}</div>
+                        <div className="body-3 px-1">
+                          <strong className="mr-1.5">
+                            {dog.isEnabledTransitionPeriod ? t('yes') : t('no')}
+                          </strong>
+                          <EditButton
+                            disabled={isSubmitInProgress}
+                            onClick={() => onEditTransitionPeriod(idx)}
+                          />
+                        </div>
+                      </div>
+                    </SummaryBlock>
+                  );
+                })}
+                <SummaryBlock title={t('promo-code')}>
+                  <CouponForm
                     disabled={isSubmitInProgress}
-                    onChange={() => {
-                      trigger();
-                      form.trigger();
+                    action={async (data) => {
+                      const order = await onApplyCoupon(data);
+                      setOrder(order);
                     }}
                   />
-                </div>
-                <div className="mt-4 text-center">
-                  <Button disabled={!stripe || isSubmitInProgress || !isValid || !form.complete}>
-                    {t('checkout')}
-                  </Button>
-                </div>
-              </SummaryBlock>
-            </div>
-            <div className="mt-10 rounded-3xl bg-gold bg-opacity-10 px-6 py-10">
-              <h2 className="heading-4 font-bold text-gold">{n('subscription')}</h2>
-              <div className="mt-4 text-gold">
-                <p className="body-3">
-                  {t('{}-colon', { value: t('next-order') })}
-                  {sentence.date(
-                    getNormalRecurringBoxDefaultDeliveryDate(
-                      calendarEvents,
-                      getNextRecurringBoxPreiod(
-                        addDays(watch('deliveryDate'), 14),
-                        Frequency.TwoWeek
-                      ).startDate
-                    ),
-                    true
-                  )}
-                </p>
-                <div className="mt-3"></div>
-                <p className="body-3">
-                  {t('{}-colon', { value: t('delivery-cycle') })}
-                  {t('every-{}', { value: t('{}-weeks', { value: 2 }) })}
-                </p>
+                </SummaryBlock>
+                <SummaryBlock>
+                  <div className="-mx-1 flex flex-wrap justify-between">
+                    <div className="body-3 px-1">{t('fresh-food-box-subtotal')}</div>
+                    <div className="body-3 px-1">
+                      <Price
+                        className="font-bold"
+                        value={formatCurrency(order.undiscountedTotal.gross.amount)}
+                        discount
+                      />
+                    </div>
+                  </div>
+                  <div className="mt-3"></div>
+                  <div className="-mx-1 flex flex-wrap justify-between">
+                    <div className="body-3 px-1">{t('with-starter-box-discount')}</div>
+                    <div className="body-3 px-1">
+                      <Price
+                        className="font-bold"
+                        value={formatCurrency(starterBoxDiscount.amount.amount)}
+                      />
+                    </div>
+                  </div>
+                  <div className="mt-3"></div>
+                  <div className="-mx-1 flex flex-wrap justify-between">
+                    <div className="body-3 px-1">{t('promo-code')}</div>
+                    <div className="body-3 px-1">
+                      {voucher ? (
+                        <Price
+                          className="font-bold"
+                          value={formatCurrency(voucher.amount.amount)}
+                        />
+                      ) : (
+                        '－'
+                      )}
+                    </div>
+                  </div>
+                  <div className="mt-3"></div>
+                  <div className="-mx-1 flex flex-wrap justify-between">
+                    <div className="body-3 px-1">{t('delivery')}</div>
+                    <div className="body-3 px-1">
+                      <Price className="font-bold uppercase" value={t('free')} />
+                    </div>
+                  </div>
+                </SummaryBlock>
+                <SummaryBlock>
+                  <div className="-mx-1 flex flex-wrap justify-between font-bold">
+                    <div className="px-1">{t('{}-colon', { value: t('todays-total') })}</div>
+                    <div className="px-1">{formatCurrency(order.total.gross.amount)}</div>
+                  </div>
+                  <div className="mt-4">
+                    <RoundedCheckbox
+                      name="tnc"
+                      rules={{
+                        required: true,
+                      }}
+                      label={t.rich('i-have-read-and-understood-the-terms-conditions', {
+                        button: (chunks) => (
+                          <UnderlineButton type="button" theme="primary" label={chunks} />
+                        ),
+                      })}
+                      disabled={isSubmitInProgress}
+                      onChange={() => {
+                        trigger();
+                        cardForm.trigger();
+                      }}
+                    />
+                  </div>
+                  <div className="mt-4 text-center">
+                    <Button
+                      disabled={!stripe || isSubmitInProgress || !isValid || !cardForm.complete}
+                    >
+                      {t('checkout')}
+                    </Button>
+                  </div>
+                </SummaryBlock>
               </div>
-              <div className="mt-4"></div>
-              <p className="body-3">{t.rich('subscription:description')}</p>
+              <div className="mt-10 rounded-3xl bg-gold bg-opacity-10 px-6 py-10">
+                <h2 className="heading-4 font-bold text-gold">{n('subscription')}</h2>
+                <div className="mt-4 text-gold">
+                  <p className="body-3">
+                    {t('{}-colon', { value: t('next-order') })}
+                    {sentence.date(
+                      getNormalRecurringBoxDefaultDeliveryDate(
+                        calendarEvents,
+                        getNextRecurringBoxPreiod(
+                          addDays(watch('deliveryDate'), 14),
+                          Frequency.TwoWeek
+                        ).startDate
+                      ),
+                      true
+                    )}
+                  </p>
+                  <div className="mt-3"></div>
+                  <p className="body-3">
+                    {t('{}-colon', { value: t('delivery-cycle') })}
+                    {t('every-{}', { value: t('{}-weeks', { value: 2 }) })}
+                  </p>
+                </div>
+                <div className="mt-4"></div>
+                <p className="body-3">{t.rich('subscription:description')}</p>
+              </div>
             </div>
           </div>
-        </div>
-      </Container>
-    </form>
+        </Container>
+      </form>
+    </FormProvider>
   );
 }

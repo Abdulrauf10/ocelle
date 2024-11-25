@@ -4,6 +4,7 @@ import {
   type FieldPathValue,
   type FieldValues,
   useController,
+  useFormContext,
 } from 'react-hook-form';
 
 import Tick from '../icons/Tick';
@@ -26,7 +27,6 @@ export default function RoundedCheckbox<
   TFieldValues extends FieldValues,
   TFieldName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
 >({
-  control,
   label,
   name,
   rules,
@@ -37,6 +37,7 @@ export default function RoundedCheckbox<
   readonly,
   onChange: parentOnChange,
 }: RoundedCheckboxProps<TFieldValues, TFieldName>) {
+  const { control } = useFormContext<TFieldValues>();
   const {
     field: { onChange, ...field },
   } = useController({ name, control, rules });

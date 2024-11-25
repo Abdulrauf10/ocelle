@@ -10,7 +10,7 @@ import {
   Theme,
 } from '@mui/material';
 import React from 'react';
-import { Controller, type FieldValues } from 'react-hook-form';
+import { Controller, type FieldValues, Path, PathValue, useFormContext } from 'react-hook-form';
 import MaskedInput, { type Mask } from 'react-text-mask';
 
 import { InputControllerProps } from '@/types';
@@ -54,7 +54,6 @@ export default function TextField<T extends FieldValues>({
   helperText,
   className,
   rules,
-  control,
   label,
   type,
   disabled,
@@ -71,6 +70,7 @@ export default function TextField<T extends FieldValues>({
   onChange: parentOnChange,
   onBlur: parentOnBlur,
 }: TextFieldProps<T>) {
+  const { control, setValue } = useFormContext<T>();
   // default to false which help global trigger error will shown
   const [shouldNotError, setShouldNotError] = React.useState(false);
 
@@ -115,6 +115,10 @@ export default function TextField<T extends FieldValues>({
               onChange={(e) => {
                 const _e = typeof beforeOnChange === 'function' ? beforeOnChange(e) : e;
                 onChange(_e);
+                setValue(name, _e.target.value as PathValue<T, Path<T>>, {
+                  shouldDirty: true,
+                  shouldValidate: true,
+                });
                 if (parentOnChange && typeof parentOnChange === 'function') {
                   parentOnChange(_e);
                 }

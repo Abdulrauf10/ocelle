@@ -2,7 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 
 import Button from '../buttons/Button';
 import PasswordField from '../controls/PasswordField';
@@ -23,11 +23,11 @@ export default function ResetPasswordForm({
 }) {
   const t = useTranslations();
   const [pending, startTransition] = React.useTransition();
+  const form = useForm<IResetPasswordForm>();
   const {
-    control,
     handleSubmit,
     formState: { isValid },
-  } = useForm<IResetPasswordForm>();
+  } = form;
 
   const onSubmit = React.useCallback(
     (values: IResetPasswordForm) => {
@@ -39,26 +39,26 @@ export default function ResetPasswordForm({
   );
 
   return (
-    <form className="mx-auto mt-6" onSubmit={handleSubmit(onSubmit)}>
-      <PasswordField
-        name="password"
-        control={control}
-        rules={{ required: true }}
-        label={t('new-password')}
-        fullWidth
-      />
-      <div className="py-4"></div>
-      <PasswordField
-        name="confirmPassword"
-        control={control}
-        rules={{ required: true }}
-        label={t('confirm-{}', { value: t('new-password') })}
-        fullWidth
-      />
-      <div className="py-6"></div>
-      <Button className={className?.button} fullWidth disabled={!isValid || pending}>
-        {t('set-{}', { value: t('new-password') })}
-      </Button>
-    </form>
+    <FormProvider {...form}>
+      <form className="mx-auto mt-6" onSubmit={handleSubmit(onSubmit)}>
+        <PasswordField
+          name="password"
+          rules={{ required: true }}
+          label={t('new-password')}
+          fullWidth
+        />
+        <div className="py-4"></div>
+        <PasswordField
+          name="confirmPassword"
+          rules={{ required: true }}
+          label={t('confirm-{}', { value: t('new-password') })}
+          fullWidth
+        />
+        <div className="py-6"></div>
+        <Button className={className?.button} fullWidth disabled={!isValid || pending}>
+          {t('set-{}', { value: t('new-password') })}
+        </Button>
+      </form>
+    </FormProvider>
   );
 }

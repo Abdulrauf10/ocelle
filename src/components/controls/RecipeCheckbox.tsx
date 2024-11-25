@@ -35,7 +35,6 @@ export default function RecipeCheckbox<T extends FieldValues>({
   dialogPicture,
   title,
   name,
-  control,
   rules,
   error,
   recommended,
@@ -55,7 +54,7 @@ export default function RecipeCheckbox<T extends FieldValues>({
     <div className="relative mx-auto mt-[70px] w-[220px] max-w-[230px] max-lg:w-[210px] max-md:w-full">
       <div
         className={clsx(
-          'drop-shadow-style-1 rounded-[20px] border p-[10px] shadow-black/20',
+          'rounded-[20px] border p-[10px] shadow-black/20 drop-shadow-style-1',
           disabled
             ? 'pointer-events-none select-none border-[#7B8D97] bg-[#F2F4F5]'
             : 'border-gold bg-white'
@@ -65,7 +64,6 @@ export default function RecipeCheckbox<T extends FieldValues>({
         <div className={clsx('mt-2 text-center', disabled ? 'text-[#BDC6CB]' : 'text-gold')}>
           <RoundedCheckbox
             name={name}
-            control={control}
             rules={rules}
             error={error}
             label={title}
@@ -109,7 +107,7 @@ export default function RecipeCheckbox<T extends FieldValues>({
           alt={title}
           width={140}
           height={140}
-          className="drop-shadow-style-5 min-w-[140px] rounded-2xl shadow-black/20"
+          className="min-w-[140px] rounded-2xl shadow-black/20 drop-shadow-style-5"
         />
       </div>
     </div>

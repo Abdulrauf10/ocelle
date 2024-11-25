@@ -5,12 +5,11 @@ import { useQuery } from '@tanstack/react-query';
 import { useLocale, useTranslations } from 'next-intl';
 import React from 'react';
 import {
-  type Control,
   Controller,
   type FieldPath,
   type FieldValues,
   type PathValue,
-  type UseFormWatch,
+  useFormContext,
 } from 'react-hook-form';
 
 import { getDistricts } from '@/actions';
@@ -28,22 +27,19 @@ export type IPartialShippingAddressForm = {
   country: CountryCode;
 };
 
-interface PartialShippingAddressFormProps<T extends FieldValues> {
-  control: Control<T, any>;
+interface PartialShippingAddressFormProps {
   prefix?: string;
   disabled?: boolean;
-  watch: UseFormWatch<T>;
 }
 
 export default function PartialShippingAddressForm<T extends FieldValues>({
-  control,
   prefix,
   disabled,
-  watch,
-}: PartialShippingAddressFormProps<T>) {
+}: PartialShippingAddressFormProps) {
   const locale = useLocale();
   const t = useTranslations();
   const id = React.useId();
+  const { control, watch } = useFormContext<T>();
   const countryMaps: { [key: string]: string } = React.useMemo(() => {
     return {
       HK: t('hong-kong'),
@@ -75,7 +71,6 @@ export default function PartialShippingAddressForm<T extends FieldValues>({
         <TextField
           name={getPath('firstName')}
           label={t('first-name')}
-          control={control}
           rules={{
             required: disabled
               ? false
@@ -90,7 +85,6 @@ export default function PartialShippingAddressForm<T extends FieldValues>({
         <TextField
           name={getPath('lastName')}
           label={t('last-name')}
-          control={control}
           rules={{
             required: disabled
               ? false
@@ -105,7 +99,6 @@ export default function PartialShippingAddressForm<T extends FieldValues>({
         <TextField
           name={getPath('streetAddress1')}
           label={t('address-line-1')}
-          control={control}
           rules={{
             required: disabled
               ? false
@@ -120,7 +113,6 @@ export default function PartialShippingAddressForm<T extends FieldValues>({
         <TextField
           name={getPath('streetAddress2')}
           label={t('address-line-2-optional')}
-          control={control}
           disabled={disabled}
           fullWidth
         />

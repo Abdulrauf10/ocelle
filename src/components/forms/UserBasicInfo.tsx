@@ -4,7 +4,7 @@ import { MenuItem } from '@mui/material';
 import equal from 'deep-equal';
 import { useTranslations } from 'next-intl';
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import validator from 'validator';
 
 import Button from '../buttons/Button';
@@ -56,16 +56,16 @@ export default function UserBasicInfoForm({
     phone,
     whatsapp: whatsapp ?? { code: '852', value: '' },
   });
+  const form = useForm<IUserBasicInfoForm>({
+    defaultValues,
+    mode: 'onBlur',
+  });
   const {
-    control,
     formState: { errors, isValid },
     reset,
     watch,
     handleSubmit,
-  } = useForm<IUserBasicInfoForm>({
-    defaultValues,
-    mode: 'onBlur',
-  });
+  } = form;
   const [pending, startTransition] = React.useTransition();
 
   const onSubmit = React.useCallback(
@@ -90,134 +90,131 @@ export default function UserBasicInfoForm({
     equal(watch('whatsapp'), defaultValues.whatsapp);
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="-m-2 flex flex-wrap">
-        <div className="w-1/2 p-2">
-          <TextField
-            name="firstName"
-            label={t('first-name')}
-            control={control}
-            rules={{
-              required: t('please-enter-your-{}', { name: t('first-name').toLowerCase() }),
-            }}
-            fullWidth
-            error={!!errors.firstName}
-            errorOnEmpty
-          />
-        </div>
-        <div className="w-1/2 p-2">
-          <TextField
-            name="lastName"
-            label={t('last-name')}
-            control={control}
-            rules={{
-              required: t('please-enter-your-{}', { name: t('last-name').toLowerCase() }),
-            }}
-            fullWidth
-            error={!!errors.lastName}
-            errorOnEmpty
-          />
-        </div>
-        <div className="w-1/2 p-2">
-          <TextField
-            name="email"
-            label={t('email')}
-            control={control}
-            rules={{
-              required: t('please-enter-your-{}', { name: t('email').toLowerCase() }),
-              pattern: {
-                value: EMAIL_REGEXP,
-                message: t('this-{}-doesn-t-look-correct-please-update-it', {
-                  name: t('email').toLowerCase(),
-                }),
-              },
-              validate: async (value) => {
-                const email = validator.normalizeEmail(value as string, {
-                  gmail_remove_dots: false,
-                  gmail_remove_subaddress: false,
-                  outlookdotcom_remove_subaddress: false,
-                  yahoo_remove_subaddress: false,
-                  icloud_remove_subaddress: false,
-                });
-                if (!email || !validator.isEmail(email)) {
-                  return t('this-{}-doesn-t-look-correct-please-update-it', {
+    <FormProvider {...form}>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="-m-2 flex flex-wrap">
+          <div className="w-1/2 p-2">
+            <TextField
+              name="firstName"
+              label={t('first-name')}
+              rules={{
+                required: t('please-enter-your-{}', { name: t('first-name').toLowerCase() }),
+              }}
+              fullWidth
+              error={!!errors.firstName}
+              errorOnEmpty
+            />
+          </div>
+          <div className="w-1/2 p-2">
+            <TextField
+              name="lastName"
+              label={t('last-name')}
+              rules={{
+                required: t('please-enter-your-{}', { name: t('last-name').toLowerCase() }),
+              }}
+              fullWidth
+              error={!!errors.lastName}
+              errorOnEmpty
+            />
+          </div>
+          <div className="w-1/2 p-2">
+            <TextField
+              name="email"
+              label={t('email')}
+              rules={{
+                required: t('please-enter-your-{}', { name: t('email').toLowerCase() }),
+                pattern: {
+                  value: EMAIL_REGEXP,
+                  message: t('this-{}-doesn-t-look-correct-please-update-it', {
                     name: t('email').toLowerCase(),
+                  }),
+                },
+                validate: async (value) => {
+                  const email = validator.normalizeEmail(value as string, {
+                    gmail_remove_dots: false,
+                    gmail_remove_subaddress: false,
+                    outlookdotcom_remove_subaddress: false,
+                    yahoo_remove_subaddress: false,
+                    icloud_remove_subaddress: false,
                   });
-                }
-              },
-            }}
-            fullWidth
-            error={!!errors.email}
-            errorOnEmpty
-          />
-        </div>
-        <div className="w-1/2 p-2">
-          <TextField
-            name="phone.value"
-            label={t('phone-number')}
-            control={control}
-            rules={{
-              required: t('please-enter-your-{}', {
-                name: t('phone-number').toLowerCase(),
-              }),
-              pattern: {
-                value: PHONE_REGEXP,
-                message: t('this-{}-doesn-t-look-correct-please-update-it', {
+                  if (!email || !validator.isEmail(email)) {
+                    return t('this-{}-doesn-t-look-correct-please-update-it', {
+                      name: t('email').toLowerCase(),
+                    });
+                  }
+                },
+              }}
+              fullWidth
+              error={!!errors.email}
+              errorOnEmpty
+            />
+          </div>
+          <div className="w-1/2 p-2">
+            <TextField
+              name="phone.value"
+              label={t('phone-number')}
+              rules={{
+                required: t('please-enter-your-{}', {
                   name: t('phone-number').toLowerCase(),
                 }),
-              },
-              validate: (value, { phone: { code } }) => {
-                if (code !== '852') {
-                  return true;
-                }
-                return String(value).length === 8
-                  ? true
-                  : t('please-enter-a-valid-{}', { name: t('phone-number') });
-              },
-            }}
-            fullWidth
-            InputProps={{
-              startAdornment: (
-                <div className="w-auto">
-                  <Select
-                    variant="standard"
-                    name="phone.code"
-                    control={control}
-                    rules={{ required: true }}
-                    disableUnderline
-                  >
-                    {getCountryCodes().map((code, idx) => (
-                      <MenuItem key={idx} value={code}>
-                        +{code}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </div>
-              ),
-            }}
-            error={!!errors.phone?.value}
-            errorOnEmpty
-          />
+                pattern: {
+                  value: PHONE_REGEXP,
+                  message: t('this-{}-doesn-t-look-correct-please-update-it', {
+                    name: t('phone-number').toLowerCase(),
+                  }),
+                },
+                validate: (value, { phone: { code } }) => {
+                  if (code !== '852') {
+                    return true;
+                  }
+                  return String(value).length === 8
+                    ? true
+                    : t('please-enter-a-valid-{}', { name: t('phone-number') });
+                },
+              }}
+              fullWidth
+              InputProps={{
+                startAdornment: (
+                  <div className="w-auto">
+                    <Select
+                      variant="standard"
+                      name="phone.code"
+                      rules={{ required: true }}
+                      disableUnderline
+                    >
+                      {getCountryCodes().map((code, idx) => (
+                        <MenuItem key={idx} value={code}>
+                          +{code}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </div>
+                ),
+              }}
+              error={!!errors.phone?.value}
+              errorOnEmpty
+            />
+          </div>
         </div>
-      </div>
-      {middleAdornment}
-      <div className="-mx-2 mt-8 flex">
-        <div className="w-1/2 px-2">
-          <Button
-            fullWidth
-            onClick={() => reset(defaultValues)}
-            reverse
-            disabled={isSameAsDefaultValue}
-          >
-            {t('cancel')}
-          </Button>
+        {middleAdornment}
+        <div className="-mx-2 mt-8 flex">
+          <div className="w-1/2 px-2">
+            <Button
+              fullWidth
+              onClick={() => reset(defaultValues)}
+              reverse
+              disabled={isSameAsDefaultValue}
+            >
+              {t('cancel')}
+            </Button>
+          </div>
+          <div className="w-1/2 px-2">
+            <Button fullWidth disabled={pending || isSameAsDefaultValue || !isValid}>
+              {t('save-changes')}
+            </Button>
+          </div>
         </div>
-        <div className="w-1/2 px-2">
-          <Button fullWidth disabled={pending || isSameAsDefaultValue || !isValid}>
-            {t('save-changes')}
-          </Button>
-        </div>
-      </div>
-    </form>
+      </form>
+    </FormProvider>
   );
 }
