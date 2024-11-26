@@ -69,6 +69,18 @@ class RecurringService {
       },
     });
   }
+  async isContainsEditableShipment(queryRunner: QueryRunner, dogId: number) {
+    const today = startOfDay(new Date());
+
+    return !!(await queryRunner.manager.findOne(Shipment, {
+      where: {
+        dog: {
+          id: dogId,
+        },
+        editableDeadline: MoreThanOrEqual(today),
+      },
+    }));
+  }
   /**
    * @param id referer to the database user id, user must be setup before setup the recurring box
    */
@@ -245,6 +257,10 @@ class RecurringService {
               box: nextBox,
             });
           } else if (dog.plan.isEnabled) {
+            const hasEditableShipment = await this.isContainsEditableShipment(queryRunner, dog.id);
+            if (hasEditableShipment) {
+              continue;
+            }
             // started box already have a ordered box, only add a new shipment
             const defaultDeliveryDate = getInterruptedRecurringBoxDefaultDeliveryDate(
               events,
