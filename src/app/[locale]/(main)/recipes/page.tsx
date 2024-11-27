@@ -2,6 +2,7 @@ import clsx from 'clsx';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import pluralize from 'pluralize';
+
 import RecipeBenefits from './Benefits';
 
 import Container from '@/components/Container';
@@ -247,9 +248,11 @@ export default function RecipesPage() {
   return (
     <main className="overflow-x-hidden">
       <div
-        className={clsx("bg-[#3c2215] bg-[url('/recipes/recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-no-repeat py-[55px]",
-       "max-xl:pb-[57%] ",
-        "xl:bg-[#4f3d33] xl:bg-[url('/recipes/recipes-bg.jpg')] xl:bg-[length:auto_100%] xl:bg-[calc(50%+60px)_center]")}
+        className={clsx(
+          "bg-[#3c2215] bg-[url('/recipes/recipes-bg-mb.jpg')] bg-[length:100%_auto] bg-bottom bg-no-repeat py-[55px]",
+          'max-xl:pb-[57%] ',
+          "xl:bg-[#4f3d33] xl:bg-[url('/recipes/recipes-bg.jpg')] xl:bg-[length:auto_100%] xl:bg-[calc(50%+60px)_center]"
+        )}
       >
         <Container>
           {/* <div className="py-[4vw] text-xl text-white max-lg:w-full lg:pr-0"> */}
@@ -612,7 +615,7 @@ export default function RecipesPage() {
         </Container>
       </Block>
       <Block className="bg-dark-green">
-        <Container className="text-center ">
+        <Container className="text-center max-[1024px]:!max-w-3xl">
           <h2 className="heading-1 font-bold text-white lang-zh:font-normal ">
             {r.rich('block-8-title')}
           </h2>

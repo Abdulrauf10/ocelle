@@ -8,8 +8,8 @@ const defaultTranslationValues: RichTranslationValues = {
   smbrhidden: () => <br className="sm:hidden" />,
   mobilebronly: () => <br className="sm:hidden" />,
   freshbr: () => <br className="inline-block max-xl:hidden" />,
-  individualheaderbr :()=><br className="inline-block max-lg:hidden" />,
-  individualblock9br :()=><br className="inline-block md:hidden" />,
+  individualheaderbr: () => <br className="inline-block max-lg:hidden" />,
+  individualblock9br: () => <br className="inline-block md:hidden" />,
   lgbrdisplay: () => <br className=" max-lg:hidden" />,
   sup: (chunks) => <sup className="body-4 inline-block">{chunks}</sup>,
   //TODO Change style to tailwind
